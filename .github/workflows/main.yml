@@ -101,7 +101,6 @@ jobs:
             NODE_ENV=production
             VOCDONI_ENVIRONMENT=prod
             ETH_NETWORK_ID=xdai
-            ETH_CHAIN_ID=100
             BOOTNODES_URL=https://bootnodes.vocdoni.net/gateways.json
           push: true
           tags: |

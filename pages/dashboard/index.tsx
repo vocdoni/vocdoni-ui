@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { VotingApi } from "dvote-js";
 import Spinner from "react-svg-spinner";
 import styled from "styled-components";
-import { usePool } from "@vocdoni/react-hooks";
+import { usePool, useProcesses } from "@vocdoni/react-hooks";
 
 // import TokenCard from "../../components/token-card";
 // import { useTokens } from "../../hooks/tokens";

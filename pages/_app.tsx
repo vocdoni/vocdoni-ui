@@ -20,7 +20,6 @@ type NextAppProps = AppInitialProps & {
 };
 
 const BridgeApp: FC<NextAppProps> = ({ Component, pageProps }) => {
-    const chainId = parseInt(process.env.ETH_CHAIN_ID);
     const bootnodeUri = process.env.BOOTNODES_URL;
     const networkId = process.env.ETH_NETWORK_ID as EthNetworkID;
     const environment = process.env.VOCDONI_ENVIRONMENT as VocdoniEnvironment;
