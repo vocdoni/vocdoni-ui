@@ -3,7 +3,6 @@ import styled, { useTheme } from "styled-components";
 import Link from "next/link";
 
 import { LINKS } from "./header";
-import { ConnectButton } from "./connect-button";
 import { useIsMobile } from "../hooks/use-window-size";
 
 const Container = styled.div`
@@ -47,7 +46,8 @@ export const Footer = () => {
 
     return isMobile ? (
         <MobileFooter>
-            <ConnectButton />
+            {/* <ConnectButton /> */}
+            (button goes here)
         </MobileFooter>
     ) : (
         <Container>

@@ -1,24 +1,23 @@
-import React from "react";
-import Link from "next/link";
-import { withRouter } from "next/router";
-import styled, { CSSProperties } from "styled-components";
+import React, { useEffect, useState } from "react"
+import Link from "next/link"
+import { withRouter } from "next/router"
+import styled, { CSSProperties } from "styled-components"
+import i18n from '../i18n'
 
-// import TokenCard from "../components/token-card";
-import Button from "../components/button";
-import { useIsMobile } from "../hooks/use-window-size";
-import { TokenList } from "./dashboard";
-// import { ConnectButton } from "../components/connect-button";
+// import TokenCard from "../components/token-card"
+import Button from "../components/button"
+import { useIsMobile } from "../hooks/use-window-size"
 
 const Head = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-`;
+`
 
 const Title = styled.h1`
     margin-bottom: 5px;
     text-align: center;
-`;
+`
 
 const Subtitle = styled.h4`
     margin-top: 5px;
@@ -26,7 +25,7 @@ const Subtitle = styled.h4`
     text-align: center;
     max-width: 300px;
     color: ${({ theme }) => theme.accent1};
-`;
+`
 
 const Row = styled.div`
     display: flex;
@@ -38,7 +37,7 @@ const Row = styled.div`
         align-items: center;
         text-align: center;
     }
-`;
+`
 
 const LeftSection = styled.div`
     max-width: ${({ maxWidth }: CSSProperties) => maxWidth};
@@ -47,7 +46,7 @@ const LeftSection = styled.div`
     @media ${({ theme }) => theme.screens.tablet} {
         max-width: 100%;
     }
-`;
+`
 
 const RightSection = styled.div`
     width: ${({ width }: CSSProperties) => width};
@@ -57,49 +56,50 @@ const RightSection = styled.div`
     @media ${({ theme }) => theme.screens.tablet} {
         max-width: 100%;
     }
-`;
+`
 
 const Description = styled.h4`
     font-size: 20px;
     margin-bottom: 10px;
-`;
+`
 
 const ColorText = styled.span`
     color: ${({ theme }) => theme.accent1};
-`;
+`
 
 const GreyCircle = styled.div`
     background-color: #ccc;
     border-radius: 50%;
     height: 140px;
     width: 140px;
-`;
+`
 
 const TopTokensContainer = styled.div`
     @media ${({ theme }) => theme.screens.tablet} {
         text-align: center;
     }
-`;
+`
 
 const ShowMoreButton = styled(Button)`
     min-width: 200px;
-`;
+`
 
 const ClickableLink = styled.a`
     color: ${({ theme }) => theme.accent1};
     text-decoration: none;
-`;
+`
+
 
 // MAIN COMPONENT
 const IndexPage = () => {
-    // const tokenInfos = useTokens(featuredTokens);
-    const isMobile = useIsMobile();
+    // const tokenInfos = useTokens(featuredTokens)
+    const isMobile = useIsMobile()
 
     return (
         <div>
             <Head>
-                <Title>Bridge</Title>
-                <Subtitle>Trustless governance for Token holders</Subtitle>
+                <Title>{i18n.t("home.heroTitle")}</Title>
+                <Subtitle>{i18n.t("home.heroSubtitle")}</Subtitle>
             </Head>
 
             <Row alignItems="center">
@@ -124,7 +124,7 @@ const IndexPage = () => {
                 </LeftSection>
                 {isMobile ? null : (
                     <RightSection width="100%" textAlign="center">
-                        <ConnectButton />
+                        Button goes here
                     </RightSection>
                 )}
             </Row>
@@ -169,20 +169,6 @@ const IndexPage = () => {
                 </p>
             </TopTokensContainer>
 
-            <TokenList>
-                {featuredTokens.map((tokenAddr) => (
-                    <TokenCard
-                        key={tokenAddr}
-                        name={tokenInfos.get(tokenAddr)?.symbol}
-                        icon={FALLBACK_TOKEN_ICON}
-                        rightText=""
-                        href={tokenAddr ? "/tokens/info#/" + tokenAddr : ""}
-                    >
-                        <p>{tokenInfos.get(tokenAddr)?.name || "(loading)"}</p>
-                    </TokenCard>
-                ))}
-            </TokenList>
-
             <br />
             <br />
 
@@ -190,7 +176,7 @@ const IndexPage = () => {
                 <ShowMoreButton href="/tokens">Show more</ShowMoreButton>
             </Row>
         </div>
-    );
-};
+    )
+}
 
-export default withRouter(IndexPage);
+export default withRouter(IndexPage)

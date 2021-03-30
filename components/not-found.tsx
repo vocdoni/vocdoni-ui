@@ -1,10 +1,10 @@
-import { main } from "../i18n";
+import i18n from '../i18n'
 
 const NotFound = () => (
     <div>
-        <h1>Vocdoni Bridge</h1>
-        <p>{main.notFound}</p>
+        <h1>Vocdoni</h1>
+        <p>{i18n.t("errors.pageNotFound")}</p>
     </div>
-);
+)
 
-export default NotFound;
+export default NotFound

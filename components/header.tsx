@@ -206,7 +206,7 @@ export const Header = () => {
             <HeaderContainer>
                 <ListContainer>
                     <Link href="/" passHref>
-                        <VocdoniLink target="_self">Vocdoni Bridge</VocdoniLink>
+                        <VocdoniLink target="_self">Vocdoni</VocdoniLink>
                     </Link>
                     <MenuItemsContainer>
                         {!isMobile &&
