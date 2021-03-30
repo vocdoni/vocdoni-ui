@@ -1,15 +1,15 @@
-import { useEffect, useMemo, useState } from 'react';
-import { VotingApi } from 'dvote-js';
-import Spinner from 'react-svg-spinner';
-import styled from 'styled-components';
-import { usePool, useProcesses } from '@vocdoni/react-hooks';
+import { useEffect, useMemo, useState } from 'react'
+import { VotingApi } from 'dvote-js'
+import Spinner from 'react-svg-spinner'
+import styled from 'styled-components'
+import { usePool, useProcesses } from '@vocdoni/react-hooks'
 
-// import TokenCard from '../../components/token-card';
-// import { useTokens } from '../../hooks/tokens';
-import { ProcessInfo } from '../../lib/types';
-import { limitedText } from '../../lib/util';
-import { TopSection } from '../../components/top-section';
-import { useRouter } from 'next/router';
+// import TokenCard from '../../components/token-card'
+// import { useTokens } from '../../hooks/tokens'
+import { ProcessInfo } from '../../lib/types'
+import { limitedText } from '../../lib/util'
+import { TopSection } from '../../components/top-section'
+import { useRouter } from 'next/router'
 
 export const TokenList = styled.div`
   display: flex;
@@ -33,27 +33,26 @@ export const TokenList = styled.div`
     justify-content: center;
     text-align: start;
   }
-`;
+`
 
 export const LightText = styled.p`
   color: ${({ theme }) => theme.lightText};
-`;
+`
 
 export const VoteSectionContainer = styled.div`
   @media ${({ theme }) => theme.screens.tablet} {
     text-align: center;
   }
-`;
+`
 
 // MAIN COMPONENT
 const DashboardPage = () => {
-  // const { account } = useWallet();
-  const router = useRouter();
-  const { poolPromise } = usePool();
-  const [blockNumber, setBlockNumber] = useState(0);
-  const [loadingProcesses, setLoadingProcesses] = useState(false);
-  const [processes, setProcesses] = useState<ProcessInfo[]>([]);
-  // const tokenInfos = useTokens(tokenAddrs);
+  const router = useRouter()
+  const { poolPromise } = usePool()
+  const [blockNumber, setBlockNumber] = useState(0)
+  const [loadingProcesses, setLoadingProcesses] = useState(false)
+  const [processes, setProcesses] = useState<ProcessInfo[]>([])
+  // const tokenInfos = useTokens(tokenAddrs)
 
   // Block update
   useEffect(() => {
@@ -61,67 +60,67 @@ const DashboardPage = () => {
       poolPromise
         .then((pool) => VotingApi.getBlockHeight(pool))
         .then((num) => setBlockNumber(num))
-        .catch((err) => console.error(err));
-    };
+        .catch((err) => console.error(err))
+    }
 
-    const interval = setInterval(() => updateBlockHeight, 1000 * 15);
-    updateBlockHeight();
+    const interval = setInterval(() => updateBlockHeight, 1000 * 15)
+    updateBlockHeight()
 
     // Done
-    return () => clearInterval(interval);
-  }, []);
+    return () => clearInterval(interval)
+  }, [])
 
   // Process list fetch
   useEffect(() => {
-    let skip = false;
+    let skip = false
 
-    setLoadingProcesses(true);
+    setLoadingProcesses(true)
 
     poolPromise
       .then((pool) => {
         return Promise.all(
           tokenAddrs.map((addr) => getTokenProcesses(addr, pool))
-        );
+        )
       })
       .then((processArrays) => {
-        if (skip) return;
+        if (skip) return
 
         const procs = processArrays.reduce(
           (prev, cur) => prev.concat(cur),
           []
-        );
-        setProcesses(procs);
-        setLoadingProcesses(false);
+        )
+        setProcesses(procs)
+        setLoadingProcesses(false)
       })
       .catch((err) => {
-        setLoadingProcesses(false);
-      });
+        setLoadingProcesses(false)
+      })
 
     return () => {
-      skip = true;
-    };
-  }, [tokenAddrs]);
+      skip = true
+    }
+  }, [tokenAddrs])
 
   useEffect(() => {
     if (!account) {
-      router.replace('/');
+      router.replace('/')
     }
-  }, [account]);
+  }, [account])
 
   const upcomingProcesses = processes.filter(
     (proc) => blockNumber < proc.parameters.startBlock
-  );
+  )
   const activeProcesses = processes.filter(
     (proc) =>
       blockNumber >= proc.parameters.startBlock &&
       blockNumber <
         proc.parameters.startBlock + proc.parameters.blockCount
-  );
+  )
   const endedProcesses = processes.filter(
     (proc) =>
       blockNumber >=
       proc.parameters.startBlock + proc.parameters.blockCount
-  );
+  )
 
   const VOTING_SECTIONS = [
     {
@@ -144,7 +143,7 @@ const DashboardPage = () => {
       processesMessage: 'Below are the votes scheduled to start soon.',
       noProcessesMessage: 'There are no votes scheduled to start soon.',
     },
-  ];
+  ]
 
   return (
     <div>
@@ -161,8 +160,8 @@ const DashboardPage = () => {
         />
       ))}
     </div>
-  );
-};
+  )
+}
 
 export const VoteSection = ({
   processes,
@@ -176,11 +175,11 @@ export const VoteSection = ({
     useMemo(() => {
       return processes.map((proc) => {
         if (tokenInfos.size) {
-          const token = tokenInfos.get(proc.tokenAddress);
-          return <ProcessCard process={proc} token={token} />;
+          const token = tokenInfos.get(proc.tokenAddress)
+          return <ProcessCard process={proc} token={token} />
         }
-      });
-    }, [tokenInfos, processes]);
+      })
+    }, [tokenInfos, processes])
 
   return (
     <VoteSectionContainer>
@@ -192,15 +191,15 @@ export const VoteSection = ({
         {loadingProcesses ? <Spinner /> : <Processes />}
       </TokenList>
     </VoteSectionContainer>
-  );
-};
+  )
+}
 
-const ProcessCard = (props: { process: ProcessInfo; token?: TokenInfo }) => {
-  const proc = props.process;
+const ProcessCard = (props: { process: ProcessInfo token?: TokenInfo }) => {
+  const proc = props.process
   const icon =
     process.env.ETH_NETWORK_ID == 'goerli'
       ? FALLBACK_TOKEN_ICON
-      : props?.token.icon;
+      : props?.token.icon
 
   return (
     <TokenCard
@@ -220,7 +219,7 @@ const ProcessCard = (props: { process: ProcessInfo; token?: TokenInfo }) => {
           'No description'}
       </p>
     </TokenCard>
-  );
-};
+  )
+}
 
-export default DashboardPage;
+export default DashboardPage
