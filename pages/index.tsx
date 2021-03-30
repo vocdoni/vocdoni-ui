@@ -7,7 +7,6 @@ import styled, { CSSProperties } from 'styled-components'
 import Button from '../components/button'
 import { useIsMobile } from '../hooks/use-window-size'
 import i18n from '../i18n'
-import { TokenList } from './dashboard'
 
 const Head = styled.div`
   display: flex;

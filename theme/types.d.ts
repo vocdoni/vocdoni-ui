@@ -6,6 +6,8 @@ export interface Colors {
   text3: Color;
   accent1: Color;
   accent2: Color;
+  negative1: Color;
+  negative2: Color;
   white: Color;
   darkFg: Color;
   darkMidFg: Color;

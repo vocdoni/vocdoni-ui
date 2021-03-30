@@ -1,30 +1,149 @@
-import Link from 'next/link'
-import React from 'react'
-import { Button as AragonButton } from '@aragon/ui'
+import Link from "next/link"
+import React from "react"
+import styled from "styled-components"
+import { hexToRgbA } from "../lib/util"
+import { theme } from "../theme"
 
-type AragonButtonProps = {
-  mode?: 'normal' | 'strong' | 'positive' | 'negative'
-  size?: 'medium' | 'small' | 'mini'
-  wide?: boolean
-  label?: string
-  icon?: React.ReactNode
+type ButtonProps = {
+    positive?: boolean,
+    negative?: boolean,
+    disabled?: boolean,
+    large?: boolean,
+    small?: boolean,
+    wide?: boolean,
+    width?: number,
+    /** Text color to use (either a HEX color or "accent1" "accent2") */
+    color?: "accent1" | "accent2" | string,
+    icon?: React.ReactNode,
+    children?: React.ReactNode
+    href?: string
+    onClick?: (ev: React.MouseEvent<HTMLDivElement, MouseEvent>) => void
 }
 
-interface ButtonProps {
-  children?: React.ReactNode
-  href?: string
-  onClick?: () => void
+function Button({ disabled, positive, negative, color, href, onClick, width, icon, wide, large, small, children }: ButtonProps) {
+    let component: JSX.Element
+
+    if (disabled) {
+        return <BaseButton wide={wide} large={large} small={small} width={width} onClick={ev => onClick ? onClick(ev) : null}>
+            {icon ?
+                <ButtonContent color={theme.darkLightFg}>{icon}&nbsp;{children}</ButtonContent> :
+                <ButtonContent color={theme.darkLightFg}>{children}</ButtonContent>
+            }
+        </BaseButton>
+    }
+
+    if (positive) {
+        component = <PositiveButton wide={wide} large={large} small={small} width={width} onClick={ev => onClick ? onClick(ev) : null}>
+            {icon ?
+                <ButtonContent color={theme.white}>{icon}&nbsp;{children}</ButtonContent> :
+                <ButtonContent color={theme.white}>{children}</ButtonContent>
+            }
+        </PositiveButton>
+    }
+    else if (negative) {
+        component = <NegativeButton wide={wide} large={large} small={small} width={width} onClick={ev => onClick ? onClick(ev) : null}>
+            {icon ?
+                <ButtonContent color={theme.white}>{icon}&nbsp;{children}</ButtonContent> :
+                <ButtonContent color={theme.white}>{children}</ButtonContent>
+            }
+        </NegativeButton>
+    }
+    else {
+        component = <DefaultButton wide={wide} large={large} small={small} width={width} onClick={ev => onClick ? onClick(ev) : null}>
+            {icon ?
+                <ButtonContent color={color}>{icon}&nbsp;{children}</ButtonContent> :
+                <ButtonContent color={color}>{children}</ButtonContent>
+            }
+        </DefaultButton>
+    }
+
+    if (href) {
+        return <Link href={href}>
+            <MyAnchor>{component}</MyAnchor>
+        </Link>
+    }
+    return component
 }
 
-function Button({ href, ...props }: ButtonProps & AragonButtonProps) {
-  if (href) {
-    return (
-      <Link href={href}>
-        <AragonButton {...props} />
-      </Link>
-    )
-  }
-  return <AragonButton {...props} />
+const BaseButton = styled.div<{ wide?: boolean, large?: boolean, small?: boolean, width?: number }>`
+${props => props.wide ? "" : "display: inline-block;"}
+${props => props.width != undefined ? "width: " + props.width + "px;" : ""}
+${props => props.large ? "padding: 13px 25px;" :
+        props.small ? "padding: 8px 15px;" :
+            "padding: 11px 20px;"}
+
+${props => props.large ? "font-size: 130%;" :
+        props.small ? "font-size: 85%;" : ""}
+
+cursor: no-drop;
+
+background: ${props => props.theme.lightBg};
+box-shadow: 0px 6px 6px rgba(180, 193, 228, 0.35);
+border-radius: 8px;
+user-select: none;
+margin-bottom: 10px;
+box-sizing: border-box;
+`
+
+const DefaultButton = styled(BaseButton)`
+cursor: pointer;
+border: 2px solid ${props => props.theme.lightBorder};
+background: ${props => props.theme.white};
+
+// Compensate 2px border
+${props => props.large ? "padding: 11px 23px;" :
+        props.small ? "padding: 6px 13px;" :
+            "padding: 9px 18px;"}
+
+&:hover {
+    background-color: ${props => props.theme.lightBg};
 }
+&:active {
+    background-color: ${props => props.theme.lightBg2};
+}
+`
+
+const PositiveButton = styled(BaseButton)`
+cursor: pointer;
+
+// box-shadow: 0px 3px 3px rgba(180, 193, 228, 0.25);
+background: linear-gradient(106.26deg, ${props => hexToRgbA(props.theme.accent1)} 5.73%, ${props => hexToRgbA(props.theme.accent2)} 93.83%);
+
+&:hover {
+    background: linear-gradient(106.26deg, ${props => hexToRgbA(props.theme.accent1, 0.9)} 5.73%, ${props => hexToRgbA(props.theme.accent2, 0.9)} 93.83%);
+}
+&:active {
+    background: linear-gradient(106.26deg, ${props => hexToRgbA(props.theme.accent1, 0.8)} 5.73%, ${props => hexToRgbA(props.theme.accent2, 0.8)} 93.83%);
+}
+`
+
+const NegativeButton = styled(BaseButton)`
+cursor: pointer;
+
+// box-shadow: 0px 3px 3px rgba(180, 193, 228, 0.25);
+background: linear-gradient(106.26deg, ${props => hexToRgbA(props.theme.negative1)} 5.73%, ${props => hexToRgbA(props.theme.negative2)} 93.83%);
+
+&:hover {
+    background: linear-gradient(106.26deg, ${props => hexToRgbA(props.theme.negative1, 0.9)} 5.73%, ${props => hexToRgbA(props.theme.negative2, 0.9)} 93.83%);
+}
+&:active {
+    background: linear-gradient(106.26deg, ${props => hexToRgbA(props.theme.negative1, 0.8)} 5.73%, ${props => hexToRgbA(props.theme.negative2, 0.8)} 93.83%);
+}
+`
+
+const ButtonContent = styled.div<{ color?: ButtonProps["color"] }>`
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+${props => props.color == "accent1" ? "color: " + props.theme.accent1 + ";" :
+        props.color == "accent2" ? "color: " + props.theme.accent2 + ";" :
+            !!props.color ? "color: " + props.color + ";" :
+                ""}
+`
+
+const MyAnchor = styled.a`
+color: unset;
+`
 
 export default Button

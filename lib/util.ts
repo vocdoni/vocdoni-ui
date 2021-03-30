@@ -19,6 +19,26 @@ export function throwIfNotBrowser() {
     );
 }
 
+
+/** Transforms a CSS hex value like #F7F7F7 into an rgba() component */
+export function hexToRgbA(hex: string, opacity: number = 1): string {
+    if (opacity > 1) opacity = 1
+    else if (opacity < 0) opacity = 0
+
+    if (!hex.match(/^#?([A-Fa-f0-9]{3}){1,2}$/)) throw new Error("Invalid hex value")
+
+    hex = hex.replace("#", "")
+    if (hex.length == 3) {
+        hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2]
+    }
+
+    const r = parseInt(hex.substr(0, 2), 16)
+    const g = parseInt(hex.substr(2, 2), 16)
+    const b = parseInt(hex.substr(4, 2), 16)
+
+    return `rgba(${r}, ${g}, ${b}, ${opacity})`
+}
+
 /**
  * @param address - address to modify
  * @param slashIndex - number of letters to show at beginning of address

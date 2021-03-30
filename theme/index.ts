@@ -2,28 +2,30 @@ import { createGlobalStyle, DefaultTheme } from 'styled-components'
 import { Colors, Margins, Screens } from './types'
 
 export const colors: Colors = {
-  text1: '#F9694F',
-  text2: '#ED57E9',
-  text3: '#212B36',
-  accent1: '#F9694F',
-  accent2: '#ED57E9',
-  white: 'white',
-  darkFg: '#333',
-  darkMidFg: '#555',
-  darkLightFg: '#888',
-  lightBg: '#F4F4F4',
-  lightBg2: '#E8E8E8',
-  lightBorder: '#DDE4E9',
+  text1: "#434548",
+  text2: "#A3EC93",
+  text3: "#46C4C2",
+  accent1: "#A3EC93",
+  accent2: "#46C4C2",
+  negative1: "#FF9E6D",
+  negative2: "#FF5442",
+  white: "white",
+  darkFg: "#333",
+  darkMidFg: "#555",
+  darkLightFg: "#888",
+  lightBg: "#F8F9FB",
+  lightBg2: "#EFF1F7",
+  lightBorder: "#EFF1F7",
 
   // styles/constants
-  lightText: '#777777',
-  mainText: '#393939',
-  lighterText: '#999',
+  lightText: "#777777",
+  mainText: "#393939",
+  lighterText: "#999",
 
-  inputBackground: '#EAEAEA',
-  negative: '#FF6969',
-  positive: '#08BEE5',
-}
+  inputBackground: "#EAEAEA",
+  negative: "#FF6969",
+  positive: "#08BEE5",
+};
 
 export const size = {
   mobileS: 320,
