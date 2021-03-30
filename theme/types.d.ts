@@ -19,11 +19,6 @@ export interface Colors {
   lightText: Color;
   mainText: Color;
   lighterText: Color;
-
-  inputBackground: Color;
-  negative: Color;
-
-  positive: Color;
 }
 
 export interface Screens {

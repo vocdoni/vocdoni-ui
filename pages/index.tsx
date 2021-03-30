@@ -121,8 +121,8 @@ const IndexPage = () => {
           </p>
         </LeftSection>
         {isMobile ? null : (
-          <RightSection width='100%' textAlign='center'>
-            Button goes here
+          <RightSection width='100%' textAlign='right'>
+            <Button positive>{i18n.t("home.create_my_entity")}</Button>
           </RightSection>
         )}
       </Row>

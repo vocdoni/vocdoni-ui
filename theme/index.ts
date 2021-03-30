@@ -12,7 +12,7 @@ export const colors: Colors = {
   white: "white",
   darkFg: "#333",
   darkMidFg: "#555",
-  darkLightFg: "#888",
+  darkLightFg: "#7E89AC",
   lightBg: "#F8F9FB",
   lightBg2: "#EFF1F7",
   lightBorder: "#EFF1F7",
@@ -20,11 +20,7 @@ export const colors: Colors = {
   // styles/constants
   lightText: "#777777",
   mainText: "#393939",
-  lighterText: "#999",
-
-  inputBackground: "#EAEAEA",
-  negative: "#FF6969",
-  positive: "#08BEE5",
+  lighterText: "#999"
 };
 
 export const size = {
@@ -135,6 +131,8 @@ p {
 }
 
 a {
+  color: ${props => props.theme.text3};
+  text-decoration: none;
   @media ${({ theme }) => theme.screens.tablet} {
     font-size: 12px;
   }
