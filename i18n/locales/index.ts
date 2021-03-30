@@ -4,8 +4,8 @@ import eo from './eo.json'
 import es from './es.json'
 
 export {
-    ca,
-    en,
-    eo,
-    es,
+  ca,
+  en,
+  eo,
+  es,
 }

@@ -1,39 +1,39 @@
-import Document from "next/document"
-import { ServerStyleSheet } from "styled-components"
+import Document from 'next/document'
+import { ServerStyleSheet } from 'styled-components'
 
 // Used mainly to inject the Server Side CSS styles
-class MyComponent extends Document {
-    static async getInitialProps(ctx) {
-        const sheet = new ServerStyleSheet()
-        const originalRenderPage = ctx.renderPage
+class MyDocument extends Document {
+  static async getInitialProps(ctx) {
+    const sheet = new ServerStyleSheet()
+    const originalRenderPage = ctx.renderPage
 
-        try {
-            ctx.renderPage = () =>
-                originalRenderPage({
-                    enhanceApp: (App) => (props) =>
-                        sheet.collectStyles(<App {...props} />),
-                })
+    try {
+      ctx.renderPage = () =>
+        originalRenderPage({
+          enhanceApp: (App) => (props) =>
+            sheet.collectStyles(<App {...props} />),
+        })
 
-            const initialProps = await Document.getInitialProps(ctx)
-            return {
-                ...initialProps,
-                styles: (
-                    <>
-                        <link
-                            rel="icon"
-                            type="image/png"
-                            href="/media/favicon.png"
-                        />
+      const initialProps = await Document.getInitialProps(ctx)
+      return {
+        ...initialProps,
+        styles: (
+          <>
+            <link
+              rel='icon'
+              type='image/png'
+              href='/media/favicon.png'
+            />
 
-                        {initialProps.styles}
-                        {sheet.getStyleElement()}
-                    </>
-                ),
-            }
-        } finally {
-            sheet.seal()
-        }
+            {initialProps.styles}
+            {sheet.getStyleElement()}
+          </>
+        ),
+      }
+    } finally {
+      sheet.seal()
     }
+  }
 }
 
-export default MyComponent
+export default MyDocument
