@@ -5,7 +5,7 @@ import { Account } from "../lib/types"
 
 export const useDbAccounts = () => {
   const [accounts, setAccounts] = useState<Account[]>([])
-  const [error, setError] = useState<String>()
+  const [error, setError] = useState<string>()
 
   // Initial load
   useEffect(() => {

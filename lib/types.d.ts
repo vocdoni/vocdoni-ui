@@ -15,5 +15,5 @@ export type ProcessInfo = {
 }
 
 export type StepProps = {
-  setStep(step: string) => void,
+  setStep: (step: string) => void,
 }
