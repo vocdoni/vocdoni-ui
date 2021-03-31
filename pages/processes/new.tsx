@@ -1,4 +1,4 @@
-import React, { CSSProperties, useState } from 'react';
+import React, { CSSProperties, useState } from 'react'
 import {
   CensusErc20Api,
   IProcessCreateParams,
@@ -9,22 +9,22 @@ import {
   ProcessMetadata,
   ProcessMode,
   VotingApi,
-} from 'dvote-js';
-import styled, { css } from 'styled-components';
-import { usePool } from '@vocdoni/react-hooks';
-import { useUrlHash } from 'use-url-hash';
-import { ProcessMetadataTemplate } from 'dvote-js';
-import Datetime from 'react-datetime';
-import moment, { Moment } from 'moment';
-import Router from 'next/router';
-import Spinner from 'react-svg-spinner';
-import { providers } from 'ethers';
+} from 'dvote-js'
+import styled, { css } from 'styled-components'
+import { usePool } from '@vocdoni/react-hooks'
+import { useUrlHash } from 'use-url-hash'
+import { ProcessMetadataTemplate } from 'dvote-js'
+import Datetime from 'react-datetime'
+import moment, { Moment } from 'moment'
+import Router from 'next/router'
+import Spinner from 'react-svg-spinner'
+import { providers } from 'ethers'
 
-import Button from '../../components/button';
-import { useMessageAlert } from '../../hooks/message-alert';
-import { TopSection } from '../../components/top-section';
-import RadioChoice from '../../components/radio';
-import { useIsMobile } from '../../hooks/use-window-size';
+import Button from '../../components/button'
+import { useMessageAlert } from '../../hooks/message-alert'
+import { TopSection } from '../../components/top-section'
+import RadioChoice from '../../components/radio'
+import { useIsMobile } from '../../hooks/use-window-size'
 
 const NewProcessContainer = styled.div`
   input[type='text'],
@@ -40,7 +40,7 @@ const NewProcessContainer = styled.div`
   textarea {
     min-height: 72px;
   }
-`;
+`
 
 const FieldRow = styled.div`
   margin-top: 2em;
@@ -50,11 +50,11 @@ const FieldRow = styled.div`
   @media ${({ theme }) => theme.screens.tablet} {
     flex-direction: column;
   }
-`;
+`
 
 const FieldRowLeftSection = styled.div`
   flex: 55%;
-`;
+`
 
 const FieldRowRightSection = styled.div<{ marginTop: number }>`
   flex: 35%;
@@ -64,20 +64,20 @@ const FieldRowRightSection = styled.div<{ marginTop: number }>`
     margin-top: 25px;
     margin-left: 0;
   }
-`;
+`
 
 const RowQuestions = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-`;
+`
 
 const RowQuestionLeftSection = styled.div`
   flex: 6;
   @media ${({ theme }) => theme.screens.tablet} {
     flex: 12;
   }
-`;
+`
 
 const RowQuestionRightSection = styled.div`
   flex: 4;
@@ -86,7 +86,7 @@ const RowQuestionRightSection = styled.div`
     flex: 0;
     padding-left: 0;
   }
-`;
+`
 
 const ChoiceRightSection = styled.div`
   flex: 4;
@@ -98,20 +98,20 @@ const ChoiceRightSection = styled.div`
   @media ${({ theme }) => theme.screens.tablet} {
     flex: 0;
   }
-`;
+`
 
 const InfoTitle = styled.h2`
   margin-bottom: 5px;
-`;
+`
 
 const InfoPlaceholder = styled.div`
   color: ${({ theme }) => theme.lightText};
-`;
+`
 
 const ChoicesTitle = styled.h3`
   margin-top: 1em;
   margin-bottom: 0;
-`;
+`
 
 const PlusBoxContainer = styled.div<{ remove?: boolean; add?: boolean }>`
   display: flex;
@@ -161,17 +161,17 @@ const PlusBoxContainer = styled.div<{ remove?: boolean; add?: boolean }>`
         background: ${({ theme }) => theme.negative + '27'};
       }
     `}
-`;
+`
 
 const QuestionNumber = styled.h6`
   color: ${({ theme }) => theme.accent1};
   margin-bottom: 0;
-`;
+`
 
 const QuestionText = styled.h3`
   margin-top: 1em;
   margin-bottom: 0;
-`;
+`
 
 const RowContinue = styled.div`
   margin-top: 5em;
@@ -182,17 +182,17 @@ const RowContinue = styled.div`
   & > * {
     min-width: 250px;
   }
-`;
+`
 
 const Remove = styled.h6`
   color: ${({ theme }) => theme.accent1};
   margin-top: 10px;
   cursor: pointer;
-`;
+`
 
 const AddQuestionButton = styled(Button)`
   margin-top: 10px;
-`;
+`
 
 interface PlusBoxProps {
   currentChoice: number;
@@ -363,6 +363,8 @@ const NewProcessPage = () => {
     if (!startDate) return setAlertMessage('Please, enter a start date');
     else if (!endDate)
       return setAlertMessage('Please, enter an ending date');
+
+    const fiveMin = add(new Date(), )
 
     if (moment(startDate).isBefore(moment().add(5, 'minutes'))) {
       return setAlertMessage(

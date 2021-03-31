@@ -25,7 +25,9 @@
     "@aragon/ui": "^1.7.0",
     "@vocdoni/react-hooks": "^0.4.0",
     "bluebird": "^3.7.2",
-    "dexie": "^3.0.3",
+    "date-fns": "^2.19.0",
+    "dexie": "^3.1.0-alpha.9",
+    "dexie-react-hooks": "^1.0.6",
     "dvote-js": "^1.1.0",
     "ethers": "^5.0.25",
     "hamburger-react": "^2.4.0",
@@ -35,6 +37,7 @@
     "react": "^17.0.1",
     "react-datetime": "^3.0.4",
     "react-dom": "^17.0.1",
+    "react-if": "^4.0.1",
     "react-select": "^3.1.0",
     "react-svg-spinner": "^1.0.4",
     "styled-components": "^5.2.1",
@@ -43,6 +46,7 @@
     "use-url-hash": "^0.1.0"
   },
   "devDependencies": {
+    "@types/date-fns": "^2.6.0",
     "@types/node": "^14.14.22",
     "@types/react": "^17.0.0",
     "@types/styled-components": "^5.1.7",

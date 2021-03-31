@@ -6,3 +6,7 @@ export type ProcessInfo = {
   parameters: ProcessContractParameters,
   tokenAddress: string
 }
+
+export type StepProps = {
+  setStep(step: string) => void,
+}

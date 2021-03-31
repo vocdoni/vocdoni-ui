@@ -10,6 +10,8 @@ import { ThemeProvider } from 'styled-components'
 import { Layout } from '../components/layout'
 import { UseMessageAlertProvider } from '../hooks/message-alert'
 import { UseLoadingAlertProvider } from '../hooks/loading-alert'
+import { UseBackendProvider } from '../hooks/backend'
+
 
 import { FixedGlobalStyle, theme } from '../theme'
 import 'react-datetime/css/react-datetime.css'
@@ -28,28 +30,29 @@ const VocdoniApp: FC<NextAppProps> = ({ Component, pageProps }) => {
   return (
   <ThemeProvider theme={theme}>
     <UseMessageAlertProvider>
-    <UseLoadingAlertProvider>
-      <UsePoolProvider
-      bootnodeUri={bootnodeUri}
-      networkId={networkId}
-      environment={environment}
-      >
-      <UseProcessProvider>
-        <FixedGlobalStyle />
-
-        <Head>
-        <meta
-          name='viewport'
-          content='width=device-width, initial-scale=1.0, max-scale=1.0'
-        />
-        <title>{appTitle}</title>
-        </Head>
-        <Layout>
-        <Component {...pageProps} />
-        </Layout>
-      </UseProcessProvider>
-      </UsePoolProvider>
-    </UseLoadingAlertProvider>
+      <UseLoadingAlertProvider>
+        <UsePoolProvider
+          bootnodeUri={bootnodeUri}
+          networkId={networkId}
+          environment={environment}
+        >
+          <UseBackendProvider>
+            <UseProcessProvider>
+              <FixedGlobalStyle />
+              <Head>
+                <meta
+                  name='viewport'
+                  content='width=device-width, initial-scale=1.0, max-scale=1.0'
+                />
+                <title>{appTitle}</title>
+              </Head>
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
+            </UseProcessProvider>
+          </UseBackendProvider>
+        </UsePoolProvider>
+      </UseLoadingAlertProvider>
     </UseMessageAlertProvider>
   </ThemeProvider>
   )

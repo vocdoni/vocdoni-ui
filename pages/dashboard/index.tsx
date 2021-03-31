@@ -194,7 +194,7 @@ export const VoteSection = ({
   )
 }
 
-const ProcessCard = (props: { process: ProcessInfo token?: TokenInfo }) => {
+const ProcessCard = (props: { process: ProcessInfo, token?: TokenInfo }) => {
   const proc = props.process
   const icon =
     process.env.ETH_NETWORK_ID == 'goerli'
