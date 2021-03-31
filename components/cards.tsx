@@ -9,13 +9,13 @@ type StatusCardProps = ColumnProps & {
   href?: string
 }
 
-export const Card = (props: CardProps) => <Column {...props}>
+export const Card = ({ span, sm, md, lg, xl, ...props }: CardProps) => <Column {...{ span, sm, md, lg, xl }}>
   <CardDiv>
     {props.children}
   </CardDiv>
 </Column>
 
-export const StatusCard = (props: StatusCardProps) => <Column span={props.span}>
+export const StatusCard = ({ span, sm, md, lg, xl, ...props }: StatusCardProps) => <Column {...{ span, sm, md, lg, xl }}>
   <CardDiv>
     <TopDiv>
       <StatusCardTitle>{props.title}</StatusCardTitle>
