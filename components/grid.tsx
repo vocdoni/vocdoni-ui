@@ -1,9 +1,5 @@
 import styled from "styled-components"
 import { sizes } from "../theme/sizes"
-// import { useResponsive } from "../hooks/use-window-size"
-
-// TODO: MIN WIDTH span (mobile)
-
 
 export type ColumnProps = {
   /** [XL] Number of grid columns to use (1 to 12) */

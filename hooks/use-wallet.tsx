@@ -5,7 +5,11 @@ import { useState, createContext, useContext, useEffect } from 'react'
 import i18n from '../i18n'
 
 export const useWallet = () => {
-  const { wallet, setWallet } = useContext(UseWalletContext)
+  const walletCtx = useContext(UseWalletContext)
+  if (walletCtx === null) {
+    throw new Error('useWallet() can only be used on the descendants of <UseWalletContextProvider />,')
+  }
+  const { wallet, setWallet } = walletCtx
 
   /** Decrypts the private key and sets the current wallet from it */
   const setWalletFromEntity = (encryptedPrivKey: string, passphrase: string) => {

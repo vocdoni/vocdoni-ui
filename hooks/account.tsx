@@ -1,6 +1,6 @@
 import { Component, createContext, useContext } from 'react'
 
-export interface AccountContext extends IAppContext {
+export interface AccountContext {
   description: string,
   email: string,
   headerFile: File,
@@ -10,17 +10,17 @@ export interface AccountContext extends IAppContext {
   name: string,
   password: string,
   setDescription?(description: string): void,
-  setHeaderFile?(headerFile: File) : void,
-  setHeaderUrl?(headerUrl: string) : void,
-  setLogoFile?(logoFile: File) : void,
-  setLogoUrl?(logoUrl: string) : void,
+  setHeaderFile?(headerFile: File): void,
+  setHeaderUrl?(headerUrl: string): void,
+  setLogoFile?(logoFile: File): void,
+  setLogoUrl?(logoUrl: string): void,
   setName?(name: string): void,
   setPassword?(password: string): void,
   setTerms?(checked: boolean): void,
   terms: boolean,
 }
 
-export const UseAccountContext = createContext<AccountContext>({})
+export const UseAccountContext = createContext<AccountContext>({} as any)
 
 export const useAccount = () => {
   const accountCtxt = useContext(UseAccountContext)
@@ -45,39 +45,39 @@ export class UseAccountProvider extends Component {
   }
 
   setEmail(email: string) {
-    this.setState({email})
+    this.setState({ email })
   }
 
   setName(name: string) {
-    this.setState({name})
+    this.setState({ name })
   }
 
   setPassword(password: string) {
-    this.setState({password})
+    this.setState({ password })
   }
 
   setDescription(description: string) {
-    this.setState({description})
+    this.setState({ description })
   }
 
   setLogoUrl(logoUrl: string) {
-    this.setState({logoUrl})
+    this.setState({ logoUrl })
   }
 
   setHeaderUrl(headerUrl: string) {
-    this.setState({headerUrl})
+    this.setState({ headerUrl })
   }
 
   setLogoFile(logoFile: File) {
-    this.setState({logoFile})
+    this.setState({ logoFile })
   }
 
   setHeaderFile(headerFile: File) {
-    this.setState({headerFile})
+    this.setState({ headerFile })
   }
 
   setTerms(terms: boolean) {
-    this.setState({terms})
+    this.setState({ terms })
   }
 
   get methods() {
@@ -96,7 +96,7 @@ export class UseAccountProvider extends Component {
 
   render() {
     return (
-      <UseAccountContext.Provider value={{...this.state, ...this.methods}}>
+      <UseAccountContext.Provider value={{ ...this.state, ...this.methods }}>
         {this.props.children}
       </UseAccountContext.Provider>
     )
