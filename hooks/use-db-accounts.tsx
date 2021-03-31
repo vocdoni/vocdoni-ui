@@ -1,7 +1,7 @@
-import i18next from 'i18next'
 import { useState, useEffect } from 'react'
 import { AccountDb } from '../lib/storage'
 import { Account } from "../lib/types"
+import i18n from '../i18n'
 
 export const useDbAccounts = () => {
   const [accounts, setAccounts] = useState<Account[]>([])
@@ -19,7 +19,7 @@ export const useDbAccounts = () => {
       setAccounts(accounts)
       setError(null)
     }).catch(err => {
-      setError(i18next.t("errors.please_ensure_no_incognito_mode"))
+      setError(i18n.t("errors.please_ensure_no_incognito_mode"))
     })
   }
 

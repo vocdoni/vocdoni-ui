@@ -2,7 +2,6 @@ import Dexie from 'dexie'
 import { throwIfNotBrowser } from './util'
 import { Account } from "./types"
 
-
 // INDEX DB Wrappers
 
 /** Provides access to a local cache DB, containing the last known list of registered token addresses */

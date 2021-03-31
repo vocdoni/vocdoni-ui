@@ -9,6 +9,8 @@ import { Card, StatusCard } from '../components/cards'
 import { useWallet } from '../hooks/use-wallet'
 import { Wallet } from 'ethers'
 import { useDbAccounts } from '../hooks/use-db-accounts'
+import { Symmetric } from 'dvote-js'
+import { Buffer } from "buffer/"
 
 // MAIN COMPONENT
 const IndexPage = () => {
@@ -161,6 +163,10 @@ const IndexPage = () => {
         <p>Current wallet: {wallet?.address || "-"}</p>
         {wallet ? <p>This wallet can be accessed globally</p> : null}
         <Button positive small onClick={() => setWallet(Wallet.createRandom())}>Sign in using a new wallet</Button>
+        &nbsp;&nbsp;
+        <Button positive small onClick={() => setWalletFromEntity(dummyEncrypt("hello"), "hello")}>Simulate login</Button>
+        &nbsp;&nbsp;
+        <Button negative small disabled={!wallet} onClick={() => setWallet(null)}>Sign out</Button>
       </div>
 
       <h2>Use DB Accounts</h2>
@@ -183,5 +189,11 @@ const DivWithMarginChildren = styled.div`
   margin-bottom: 20px;
 }
 `
+
+const dummyEncrypt = (passphrase: string): string => {
+  const w = Wallet.createRandom()
+  const privKeyBytes = Buffer.from(w.privateKey.slice(2), "hex")
+  return Symmetric.encryptBytes(privKeyBytes, passphrase)
+}
 
 export default withRouter(IndexPage)

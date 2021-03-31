@@ -122,7 +122,7 @@ const IndexPage = () => {
         </LeftSection>
         {isMobile ? null : (
           <RightSection width='100%' textAlign='right'>
-            <Button positive>{i18n.t("home.create_my_entity")}</Button>
+            <Button positive href="/entities/new">{i18n.t("home.create_my_entity")}</Button>
           </RightSection>
         )}
       </Row>
