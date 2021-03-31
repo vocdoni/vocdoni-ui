@@ -22,7 +22,7 @@ export const TokenList = styled.div`
     margin-left: 0px;
   }
 
-  @media ${({ theme }) => theme.screens.tabletL} {
+  @media ${({ theme }) => theme.screenMax.tabletL} {
     & > div:first-child {
       margin-left: 10px;
     }
@@ -40,7 +40,7 @@ export const LightText = styled.p`
 `
 
 export const VoteSectionContainer = styled.div`
-  @media ${({ theme }) => theme.screens.tablet} {
+  @media ${({ theme }) => theme.screenMax.tablet} {
     text-align: center;
   }
 `

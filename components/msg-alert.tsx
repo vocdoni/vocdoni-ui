@@ -39,7 +39,7 @@ const AlertContainer = styled.div<{ visible: boolean }>`
 
   transition: transform 0.1s ease-out, opacity 0.1s ease-out;
 
-  @media ${({ theme }) => theme.screens.tablet} {
+  @media ${({ theme }) => theme.screenMax.tablet} {
     text-align: center;
     left: 0;
     right: 0;

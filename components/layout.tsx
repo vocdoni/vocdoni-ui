@@ -6,16 +6,16 @@ import { MessageAlert } from './msg-alert'
 import { LoadingAlert } from './loading-alert'
 
 const LayoutContainer = styled.div`
-  padding: 0 ${({ theme }) => theme.margins.desktop.horizontal};
-  margin-top: 77px;
+  padding: 0 ${({ theme }) => theme.margins.mobile.horizontal};
+  margin-bottom: 110px;
+  margin-top: 50px;
   max-width: 992px;
   margin-left: auto;
   margin-right: auto;
 
-  @media ${({ theme }) => theme.screens.tablet} {
-    margin-bottom: 110px;
-    margin-top: 50px;
-    padding: 0 ${({ theme }) => theme.margins.mobile.horizontal};
+  @media ${({ theme }) => theme.screenMin.tablet} {
+    margin-top: 77px;
+    padding: 0 ${({ theme }) => theme.margins.desktop.horizontal};
   }
 `
 

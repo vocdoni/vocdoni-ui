@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import Link from 'next/link'
-import Hamburger from 'hamburger-react'
+// import Hamburger from 'hamburger-react'
 import { useIsMobile } from '../hooks/use-window-size'
 
 const HeaderContainer = styled.div`
@@ -17,33 +17,30 @@ const HeaderContainer = styled.div`
     ${({ theme }) => theme.accent2} 100%
   );
 
-  font-size: 16px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
+
+  font-size: 16px;
+  
+  & a {
+    font-size: 16px;
+  }
 `
 
 const ListContainer = styled.div`
-  padding: ${({ theme }) => '0 ' + theme.margins.desktop.horizontal};
+  padding: 0 20px;
   display: flex;
   width: 100%;
   justify-content: space-between;
   align-items: center;
-
-  @media ${({ theme }) => theme.screens.tablet} {
-    padding: 0 20px;
-  }
 `
 
 const MenuItemsContainer = styled.div`
   display: flex;
   justify-content: center;
-
-  @media ${({ theme }) => theme.screens.tablet} {
-    margin-top: 10px;
-  }
 `
 
 const ListItem = styled.div`
@@ -51,30 +48,6 @@ const ListItem = styled.div`
 
   &:last-child {
     margin-right: 0;
-  }
-
-  @media ${({ theme }) => theme.screens.tablet} {
-    cursor: pointer;
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    min-height: 50px;
-
-    &:first-child {
-      margin-top: 10px;
-    }
-
-    & > a {
-      color: ${({ theme }) => theme.mainText};
-      font-size: 20px;
-      font-weight: 500;
-
-      &:hover {
-        color: ${({ theme }) => theme.accent1};
-      }
-    }
   }
 `
 
@@ -107,7 +80,7 @@ const MobileMenuContainer = styled.div<{ showMenu: boolean }>`
   -o-transition: top 0.5s ease-in-out;
   transition: top 0.5s ease-in-out;
 
-  @media ${({ theme }) => theme.screens.tablet} {
+  @media ${({ theme }) => theme.screenMin.tablet} {
     top: ${({ showMenu }) => (showMenu ? '0' : '-100%')};
   }
 `
@@ -119,7 +92,7 @@ const Section = styled.div`
   color: ${({ color }) => color};
 `
 
-interface LinkProps {
+interface HeaderLink {
   name: string;
   url: string;
   external?: boolean;
@@ -127,7 +100,7 @@ interface LinkProps {
   footer?: boolean;
 }
 
-export const LINKS: LinkProps[] = [
+export const LINKS: HeaderLink[] = [
   {
     url: '/tokens',
     name: 'Find Tokens',
@@ -171,7 +144,7 @@ const LinkItem = ({
   url,
   external,
   onClick,
-}: LinkProps & React.HTMLProps<HTMLAnchorElement>) => (
+}: HeaderLink & React.HTMLProps<HTMLAnchorElement>) => (
   <ListItem>
     <Link href={url} passHref>
       <ClickableLink
@@ -214,14 +187,6 @@ export const Header = () => {
                 <LinkItem {...link} key={link.name} />
               ))}
           </MenuItemsContainer>
-          {isMobile && (
-            <Hamburger
-              toggled={showMenu}
-              toggle={setShowMenu}
-              color='#fff'
-              size={25}
-            />
-          )}
         </ListContainer>
       </HeaderContainer>
     </>

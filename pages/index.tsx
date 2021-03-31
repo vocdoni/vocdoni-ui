@@ -32,7 +32,7 @@ const Row = styled.div`
   align-items: ${({ alignItems }: CSSProperties) => alignItems};
   justify-content: ${({ justifyContent }) => justifyContent};
 
-  @media ${({ theme }) => theme.screens.tablet} {
+  @media ${({ theme }) => theme.screenMax.tablet} {
     flex-direction: column;
     align-items: center;
     text-align: center;
@@ -43,7 +43,7 @@ const LeftSection = styled.div`
   max-width: ${({ maxWidth }: CSSProperties) => maxWidth};
   width: ${({ width }) => width};
 
-  @media ${({ theme }) => theme.screens.tablet} {
+  @media ${({ theme }) => theme.screenMax.tablet} {
     max-width: 100%;
   }
 `
@@ -53,7 +53,7 @@ const RightSection = styled.div`
   text-align: ${({ textAlign }) => textAlign};
   max-width: ${({ maxWidth }) => maxWidth};
 
-  @media ${({ theme }) => theme.screens.tablet} {
+  @media ${({ theme }) => theme.screenMax.tablet} {
     max-width: 100%;
   }
 `
@@ -75,7 +75,7 @@ const GreyCircle = styled.div`
 `
 
 const TopTokensContainer = styled.div`
-  @media ${({ theme }) => theme.screens.tablet} {
+  @media ${({ theme }) => theme.screenMax.tablet} {
     text-align: center;
   }
 `

@@ -46,7 +46,8 @@ export interface Margins {
 declare module "styled-components" {
   export interface DefaultTheme extends Colors {
     // Screens for media queries
-    screens: Screens;
+    screenMin: Screens;
+    screenMax: Screens;
     margins: Margins;
   }
 }

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { size } from '../theme'
+import { sizes } from '../theme/sizes'
 
 export const useWindowSize = () => {
   const [windowSize, setWindowSize] = useState({
@@ -27,5 +27,14 @@ export const useWindowSize = () => {
 
 export const useIsMobile = () => {
   const { width } = useWindowSize()
-  return width < size.tablet
+  return width < sizes.tablet
+}
+
+export const useResponsive = () => {
+  const { width } = useWindowSize()
+  return {
+    mobile: width < sizes.tablet,
+    tablet: width < sizes.laptop,
+    laptop: width >= sizes.laptop
+  }
 }

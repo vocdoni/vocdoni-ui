@@ -47,7 +47,7 @@ const FieldRow = styled.div`
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  @media ${({ theme }) => theme.screens.tablet} {
+  @media ${({ theme }) => theme.screenMax.tablet} {
     flex-direction: column;
   }
 `
@@ -60,7 +60,7 @@ const FieldRowRightSection = styled.div<{ marginTop: number }>`
   flex: 35%;
   margin-left: 2em;
   margin-top: ${({ marginTop }) => marginTop}px;
-  @media ${({ theme }) => theme.screens.tablet} {
+  @media ${({ theme }) => theme.screenMax.tablet} {
     margin-top: 25px;
     margin-left: 0;
   }
@@ -74,7 +74,7 @@ const RowQuestions = styled.div`
 
 const RowQuestionLeftSection = styled.div`
   flex: 6;
-  @media ${({ theme }) => theme.screens.tablet} {
+  @media ${({ theme }) => theme.screenMax.tablet} {
     flex: 12;
   }
 `
@@ -82,7 +82,7 @@ const RowQuestionLeftSection = styled.div`
 const RowQuestionRightSection = styled.div`
   flex: 4;
   padding-left: 2em;
-  @media ${({ theme }) => theme.screens.tablet} {
+  @media ${({ theme }) => theme.screenMax.tablet} {
     flex: 0;
     padding-left: 0;
   }
@@ -95,7 +95,7 @@ const ChoiceRightSection = styled.div`
   flex-direction: column;
   justify-content: center;
 
-  @media ${({ theme }) => theme.screens.tablet} {
+  @media ${({ theme }) => theme.screenMax.tablet} {
     flex: 0;
   }
 `

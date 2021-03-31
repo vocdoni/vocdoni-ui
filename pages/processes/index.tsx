@@ -30,7 +30,7 @@ const RowDescription = styled.div`
   display: flex;
   flex-direction: row;
 
-  @media ${({ theme }) => theme.screens.tablet} {
+  @media ${({ theme }) => theme.screenMax.tablet} {
     flex-direction: column;
     text-align: center;
     width: 100%;
@@ -45,7 +45,7 @@ const RowDescriptionRightSection = styled.div`
   flex: 4;
   text-align: right;
 
-  @media ${({ theme }) => theme.screens.tablet} {
+  @media ${({ theme }) => theme.screenMax.tablet} {
     text-align: center;
   }
 `;
@@ -60,7 +60,7 @@ const LightText = styled.p`
 
 const Question = styled.div`
   display: flex;
-  @media ${({ theme }) => theme.screens.tablet} {
+  @media ${({ theme }) => theme.screenMax.tablet} {
     flex-direction: column;
     text-align: center;
   }
@@ -71,7 +71,7 @@ const QuestionLeftSection = styled.div`
   h3 {
     margin-top: 10px;
   }
-  @media ${({ theme }) => theme.screens.tablet} {
+  @media ${({ theme }) => theme.screenMax.tablet} {
     flex: 12;
   }
 `;
@@ -83,7 +83,7 @@ const QuestionNumber = styled.h6`
 
 const QuestionDescription = styled.p`
   color: ${({ theme }) => theme.lightText};
-  @media ${({ theme }) => theme.screens.tablet} {
+  @media ${({ theme }) => theme.screenMax.tablet} {
     width: 100%;
   }
 `;
@@ -98,7 +98,7 @@ const QuestionRightSection = styled.div`
   justify-content: space-around;
   padding-top: 50px;
 
-  @media ${({ theme }) => theme.screens.tablet} {
+  @media ${({ theme }) => theme.screenMax.tablet} {
     padding-top: 20px;
     width: 100%;
     flex: 0;

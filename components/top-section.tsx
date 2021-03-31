@@ -5,14 +5,14 @@ import { useIsMobile } from '../hooks/use-window-size'
 const Head = styled.div`
   display: flex;
   flex-wrap: wrap;
-  @media ${({ theme }) => theme.screens.tablet} {
+  @media ${({ theme }) => theme.screenMax.tablet} {
     text-align: center;
   }
 `
 
 const LeftSection = styled.div`
   width: 70%;
-  @media ${({ theme }) => theme.screens.tablet} {
+  @media ${({ theme }) => theme.screenMax.tablet} {
     width: 100%;
   }
 `
@@ -21,7 +21,7 @@ const RightSection = styled.div`
   width: 30%;
   margin-top: 3em;
 
-  @media ${({ theme }) => theme.screens.tablet} {
+  @media ${({ theme }) => theme.screenMax.tablet} {
     margin-top: 0;
     width: 100%;
     margin-left: 0;
@@ -45,7 +45,7 @@ interface TopSectionProps {
 }
 
 export const TopSection = ({ title, description, Action }: TopSectionProps) => {
-  const isMobile = useIsMobile()
+  // const isMobile = useIsMobile()
   return (
     <Head>
       <LeftSection>
@@ -53,7 +53,7 @@ export const TopSection = ({ title, description, Action }: TopSectionProps) => {
         <Subtitle>{description}</Subtitle>
       </LeftSection>
       <RightSection>
-        {isMobile ? null : <ConnectButton />}
+        {/* {isMobile ? null : <ConnectButton />} */}
         {Action ? <Action /> : null}
       </RightSection>
     </Head>

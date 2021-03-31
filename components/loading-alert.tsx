@@ -40,12 +40,12 @@ const LoadingAlertContainer = styled.div<{ visible: boolean }>`
 
   transition: transform 0.1s ease-out, opacity 0.1s ease-out;
 
-  @media ${({ theme }) => theme.screens.tablet} {
+  @media ${({ theme }) => theme.screenMax.tablet} {
     left: 15vw;
     right: 15vw;
   }
 
-  @media ${({ theme }) => theme.screens.tablet} {
+  @media ${({ theme }) => theme.screenMax.tablet} {
     justify-content: flex-end;
     text-align: right;
     top: 1, 0px;
