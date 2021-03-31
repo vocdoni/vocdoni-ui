@@ -1,15 +1,9 @@
 import Dexie from 'dexie'
 import { throwIfNotBrowser } from './util'
+import { Account } from "./types"
 
 
 // INDEX DB Wrappers
-
-type Account = {
-  name: string,
-  address: string,
-  encryptedPrivateKey: string,
-  // TODO: Complete the fields
-}
 
 /** Provides access to a local cache DB, containing the last known list of registered token addresses */
 export class AccountDb extends Dexie {

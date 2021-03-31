@@ -6,9 +6,15 @@ import styled from "styled-components"
 import Button from '../components/button'
 import { Column, Grid } from '../components/grid'
 import { Card, StatusCard } from '../components/cards'
+import { useWallet } from '../hooks/use-wallet'
+import { Wallet } from 'ethers'
+import { useDbAccounts } from '../hooks/use-db-accounts'
 
 // MAIN COMPONENT
 const IndexPage = () => {
+  const { wallet, setWallet, setWalletFromEntity } = useWallet()
+  const { accounts, addAccount, error, refreshAccounts } = useDbAccounts()
+
   return (
     <div>
       <h1>Buttons</h1>
@@ -148,6 +154,25 @@ const IndexPage = () => {
           <h3>2345</h3>
         </StatusCard>
       </Grid>
+
+      <h1>Hooks</h1>
+      <h2>Use Wallet</h2>
+      <div>
+        <p>Current wallet: {wallet?.address || "-"}</p>
+        {wallet ? <p>This wallet can be accessed globally</p> : null}
+        <Button positive small onClick={() => setWallet(Wallet.createRandom())}>Sign in using a new wallet</Button>
+      </div>
+
+      <h2>Use DB Accounts</h2>
+      <div>
+        <p>Current accounts:</p>
+        <ul>
+          {accounts.map(account => <li key={account.address}>{account.name}</li>)}
+        </ul>
+        <Button small onClick={() => refreshAccounts()}>Refresh accounts (unneeded)</Button>
+        &nbsp;&nbsp;
+        <Button positive small onClick={() => addAccount({ name: "Account " + Math.random(), address: "0xaddr-" + Math.random(), encryptedPrivateKey: "abcde" + Math.random() })}>Add account</Button>
+      </div>
     </div>
   )
 }

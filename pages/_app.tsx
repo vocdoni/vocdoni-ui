@@ -10,8 +10,8 @@ import { ThemeProvider } from 'styled-components'
 import { Layout } from '../components/layout'
 import { UseMessageAlertProvider } from '../hooks/message-alert'
 import { UseLoadingAlertProvider } from '../hooks/loading-alert'
+import { UseWalletContextProvider } from '../hooks/use-wallet'
 import { UseBackendProvider } from '../hooks/backend'
-
 
 import { FixedGlobalStyle, theme } from '../theme'
 import 'react-datetime/css/react-datetime.css'
@@ -29,6 +29,7 @@ const VocdoniApp: FC<NextAppProps> = ({ Component, pageProps }) => {
 
   return (
   <ThemeProvider theme={theme}>
+    <UseWalletContextProvider>
     <UseMessageAlertProvider>
       <UseLoadingAlertProvider>
         <UsePoolProvider
@@ -54,6 +55,7 @@ const VocdoniApp: FC<NextAppProps> = ({ Component, pageProps }) => {
         </UsePoolProvider>
       </UseLoadingAlertProvider>
     </UseMessageAlertProvider>
+    </UseWalletContextProvider>
   </ThemeProvider>
   )
 }
