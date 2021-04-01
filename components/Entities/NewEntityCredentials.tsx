@@ -4,6 +4,10 @@ import { Checkbox } from '@aragon/ui'
 import { UseEntityCreationContext } from '../../hooks/entity-creation'
 import { StepProps } from '../../lib/types'
 import { Column, Grid } from '../grid'
+import { Input } from '../inputs'
+import { Button } from '../button'
+import styled from 'styled-components'
+import i18n from '../../i18n'
 
 type State = {
   password: string,
@@ -26,19 +30,20 @@ export default class NewEntityCredentials extends Component<StepProps, State> {
     this.context.setPassword('')
   }
 
-  get valid() {
+  validate(): string {
     const required = ['password', 'passwordRepeat']
     for (const req of required) {
       if (!this.state[req].length) {
-        return false
+        return i18n.t("errors.choose_passphrase_and_repeat_it")
       }
     }
 
     if (this.state.password !== this.state.passwordRepeat) {
-      return false
+      return i18n.t("errors.passphrases_do_not_match")
     }
 
-    return this.state.ack
+    if (!this.state.ack) return i18n.t("errors.please_accept_credentials_tos")
+    return null
   }
 
   gotoNext() {
@@ -48,34 +53,34 @@ export default class NewEntityCredentials extends Component<StepProps, State> {
   }
 
   render() {
+    const err = this.validate()
+
     return (
       <Grid>
         <Column span={12}>
-          <h2>Choose a passphrase</h2>
+          <h2>{i18n.t("entity.choose_a_passphrase")}</h2>
         </Column>
-        <Column span={6}>
-          <label htmlFor='pwd'>Passphrase</label>
-          <input
+        <Column md={6}>
+          <label htmlFor='pwd'>{i18n.t("entity.passphrase")}</label>
+          <Input
             id='pwd'
+            wide
             type='password'
             value={this.state.password}
-            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-              this.setState({ password: e.target.value })
-            }
+            onChange={e => this.setState({ password: e.target.value })}
           />
         </Column>
-        <Column span={6}>
-          <label htmlFor='rep'>Repeat passphrase</label>
-          <input
+        <Column md={6}>
+          <label htmlFor='rep'>{i18n.t("entity.repeat_passphrase")}</label>
+          <Input
             id='rep'
+            wide
             type='password'
             value={this.state.passwordRepeat}
-            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-              this.setState({ passwordRepeat: e.target.value })
-            }
+            onChange={e => this.setState({ passwordRepeat: e.target.value })}
           />
         </Column>
-        <Column span={12}>
+        <Column>
           <label>
             <Checkbox
               checked={this.state.ack}
@@ -84,20 +89,27 @@ export default class NewEntityCredentials extends Component<StepProps, State> {
             I ack...
           </label>
         </Column>
-        <Column span={6}>
-          <button onClick={() => this.props.setStep('NewEntityDetails')}>
-            Back
-          </button>
-        </Column>
-        <Column span={6}>
-          <button
-            onClick={this.gotoNext.bind(this)}
-            disabled={!this.valid}
-          >
-            Next step
-          </button>
+        <Column>
+          <BottomDiv>
+            <Button border onClick={() => this.props.setStep('NewEntityDetails')}>
+              {i18n.t("steps.go_back")}
+            </Button>
+            <Button
+              positive
+              onClick={this.gotoNext.bind(this)}
+              disabled={!!err}
+            >
+              {i18n.t("steps.continue")}
+            </Button>
+          </BottomDiv>
         </Column>
       </Grid>
     )
   }
 }
+
+const BottomDiv = styled.div`
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+`

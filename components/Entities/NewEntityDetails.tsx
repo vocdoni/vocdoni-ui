@@ -9,18 +9,13 @@ import { Column, Grid } from '../grid'
 import { Input, Textarea } from '../inputs'
 import i18n from '../../i18n'
 import { Button } from '../button'
+import styled from 'styled-components'
 
-type State = {
-  valid: boolean,
-}
+type State = {}
 
 export default class FormDetails extends Component<StepProps, State> {
   static contextType = UseEntityCreationContext
   context !: React.ContextType<typeof UseEntityCreationContext>
-
-  state = {
-    valid: false,
-  }
 
   get valid() {
     const required = ['name', 'email']
@@ -51,7 +46,7 @@ export default class FormDetails extends Component<StepProps, State> {
   render() {
     return (
       <Grid>
-        <Column span={12}>
+        <Column>
           <h2>{i18n.t('entity.new_entity')}</h2>
         </Column>
         <Column md={6}>
@@ -78,7 +73,7 @@ export default class FormDetails extends Component<StepProps, State> {
             }
           />
         </Column>
-        <Column span={12}>
+        <Column>
           <h2>{i18n.t('description')}</h2>
           <div>
             <label htmlFor='edesc'>{i18n.t('entity.introduction')}</label>
@@ -116,7 +111,7 @@ export default class FormDetails extends Component<StepProps, State> {
             />
           </div>
         </Column>
-        <Column span={12}>
+        <Column>
           <label>
             <Checkbox
               checked={this.context.terms}
@@ -125,16 +120,25 @@ export default class FormDetails extends Component<StepProps, State> {
             I accept...
           </label>
         </Column>
-        <Column span={12}>
-          <Button
-            positive
-            onClick={() => this.props.setStep('NewEntityCredentials')}
-            disabled={!this.valid}
-          >
-            {i18n.t('next_step')}
-          </Button>
+        <Column>
+          <BottomDiv>
+            <div />
+            <Button
+              positive
+              onClick={() => this.props.setStep('NewEntityCredentials')}
+              disabled={!this.valid}
+            >
+              {i18n.t("steps.continue")}
+            </Button>
+          </BottomDiv>
         </Column>
       </Grid>
     )
   }
 }
+
+const BottomDiv = styled.div`
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+`
