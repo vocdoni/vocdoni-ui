@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 // import Link from 'next/link'
 import { withRouter } from 'next/router'
 
@@ -12,11 +12,14 @@ import { useDbAccounts } from '../hooks/use-db-accounts'
 import { Symmetric } from 'dvote-js'
 import { Buffer } from "buffer/"
 import { Steps } from '../components/steps'
+import { Input, Textarea } from '../components/inputs'
+import { Radio } from '../components/radio'
 
 // MAIN COMPONENT
 const IndexPage = () => {
   const { wallet, setWallet, setWalletFromEntity } = useWallet()
   const { accounts, addAccount, error, refreshAccounts } = useDbAccounts()
+  const [myVal, setMyVal] = useState("-")
 
   return (
     <div>
@@ -183,7 +186,26 @@ const IndexPage = () => {
 
       <h2>Steps</h2>
       <div>
+        <Steps steps={["Step 1", "Step 2", "Step 3", "Step 4"]} activeIdx={0} />
+        <Steps steps={["Step 1", "Step 2", "Step 3", "Step 4"]} activeIdx={1} />
         <Steps steps={["Step 1", "Step 2", "Step 3", "Step 4"]} activeIdx={2} />
+        <Steps steps={["Step 1", "Step 2", "Step 3", "Step 4"]} activeIdx={3} />
+      </div>
+
+      <h2>Input fields</h2>
+      <div>
+        <Input placeholder="Placeholder here" />
+        <br />
+        <Input wide placeholder="Wide input form" />
+        <br />
+        <Textarea placeholder="Default textarea" />
+        <br />
+        <Textarea wide placeholder="Wide textarea" />
+        <br />
+        <Radio name="my-question-1" onClick={() => setMyVal("Option A")}>Option A</Radio>
+        <Radio name="my-question-1" onClick={() => setMyVal("Option B")}>Option B</Radio>
+        <Radio name="my-question-1" onClick={() => setMyVal("Option C")}>Option C</Radio>
+        <p>Current selection: {myVal}</p>
       </div>
     </div>
   )

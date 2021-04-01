@@ -1,7 +1,28 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import styled from 'styled-components'
 
-const Radio = styled.label`
+type RadioProps = {
+  children: ReactNode
+  onClick?: () => void,
+  /** The name used to group radio controls */
+  name: string,
+  checked?: boolean
+}
+
+export const Radio = ({ children, onClick, name, checked }: RadioProps) => (
+  <RadioLabel onClick={() => onClick && onClick()}>
+    {" "}
+    <input
+      type="radio"
+      readOnly
+      checked={checked}
+      name={name}
+    />
+    <div className="checkmark"></div> {children}
+  </RadioLabel>
+)
+
+const RadioLabel = styled.label`
   cursor: pointer;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -24,12 +45,12 @@ const Radio = styled.label`
 
   /* Create a custom radio button */
   .checkmark {
-    height: 22px;
-    width: 22px;
+    height: 16px;
+    width: 16px;
     background-color: ${({ theme }) => theme.white};
     border-radius: 50%;
     margin-right: 1em;
-    border: 1px solid ${({ theme }) => theme.accent1};
+    border: 1px solid ${({ theme }) => theme.accent2};
   }
 
   /* When the radio button is checked, add a blue background */
@@ -52,21 +73,10 @@ const Radio = styled.label`
   /* Style the indicator (dot/circle) */
   .checkmark:after {
     border-radius: 50%;
-    background: ${({ theme }) => theme.accent1};
+    background: ${({ theme }) => theme.accent2};
     z-index: 9;
-    height: 16px;
-    width: 16px;
+    height: 10px;
+    width: 10px;
     margin: 3px;
   }
 `
-
-const RadioChoice = ({
-  onClick,
-  children,
-}: {
-  onClick: (args: unknown) => void
-  children: React.ReactNode
-}) => <Radio onClick={onClick}>{children}</Radio>
-
-RadioChoice.Style = Radio
-export default RadioChoice
