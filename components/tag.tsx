@@ -1,19 +1,19 @@
 import React, { ReactNode } from "react"
 import styled from "styled-components"
 
-type LabelProps = {
+type TagProps = {
   negative?: boolean,
   large?: boolean,
   children: ReactNode
 }
 
-export const Label = ({ negative, large, children }: LabelProps) => {
-  return <LabelDiv negative={negative} large={large}>
+export const Tag = ({ negative, large, children }: TagProps) => {
+  return <TagDiv negative={negative} large={large}>
     {children}
-  </LabelDiv>
+  </TagDiv>
 }
 
-const LabelDiv = styled.div<{ large?: boolean, negative?: boolean }>`
+const TagDiv = styled.div<{ large?: boolean, negative?: boolean }>`
   ${props => props.large ? "padding: 11px 20px;" :
       "padding: 8px 15px;"}
 

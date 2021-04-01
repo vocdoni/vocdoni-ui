@@ -9,6 +9,12 @@ type StatusCardProps = ColumnProps & {
   href?: string
 }
 
+export const PageCard = styled.div`
+background-color: ${({ theme }) => theme.white};
+padding: 32px;
+border-radius: 16px;
+`
+
 export const Card = ({ span, sm, md, lg, xl, ...props }: CardProps) => <Column {...{ span, sm, md, lg, xl }}>
   <CardDiv>
     {props.children}

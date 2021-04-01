@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { PageCard } from '../../components/cards'
 
 import Creation from '../../components/Entities/Creation'
 import FormDetails from '../../components/Entities/FormDetails'
@@ -29,23 +30,23 @@ const NewEntity = () => {
 
   return (
     <UseEntityCreationProvider>
-      <Grid>
-        <Column span={6}>
-          <h1>New entity</h1>
-          <span style={{ color: colors.textAccent1 }}>
-            Enter the details of the organization
-          </span>
-        </Column>
-        <Column span={6}>
-          <Steps
-            steps={Object.values(steps).map(({ step }) => step)}
-            activeIdx={Object.keys(steps).findIndex((name) => name === step)}
-          />
-        </Column>
-        <Column span={12}>
-          <StepComponent setStep={setStep} />
-        </Column>
-      </Grid>
+      <PageCard>
+        <Grid>
+          <Column span={6}>
+            <h1>New entity</h1>
+            <span style={{ color: colors.textAccent1 }}>Enter the details of the organization</span>
+          </Column>
+          <Column span={6}>
+            <Steps
+              steps={Object.values(steps).map(({ step }) => step)}
+              activeIdx={Object.keys(steps).findIndex((name) => name === step)}
+            />
+          </Column>
+          <Column span={12}>
+            <StepComponent setStep={setStep} />
+          </Column>
+        </Grid>
+      </PageCard>
     </UseEntityCreationProvider>
   )
 }

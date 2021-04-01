@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import { ColumnProps } from "./grid"
-import { Label } from "./label"
+import { Tag } from "./tag"
 import { ReactNode } from "react"
 import i18n from "../i18n"
 
@@ -21,7 +21,7 @@ export const VoteListItem = ({ icon, entityId, entityName, processId, title, des
       {icon}<EntityName>{entityName}</EntityName>
     </EntityNameDiv>
     <VoteStatus>
-      <Label>{(() => {
+      <Tag>{(() => {
         switch (status) {
           case "active": return i18n.t("vote.active_vote")
           case "paused": return i18n.t("vote.paused_vote")
@@ -29,7 +29,7 @@ export const VoteListItem = ({ icon, entityId, entityName, processId, title, des
           default: return ""
         }
       })()}
-      </Label>
+      </Tag>
     </VoteStatus>
   </TopDiv>
 

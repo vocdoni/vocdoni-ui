@@ -5,7 +5,7 @@ import { withRouter } from 'next/router'
 import styled from "styled-components"
 import { Button } from '../components/button'
 import { Column, Grid } from '../components/grid'
-import { Card, StatusCard } from '../components/cards'
+import { Card, PageCard, StatusCard } from '../components/cards'
 import { useWallet } from '../hooks/use-wallet'
 import { Wallet } from 'ethers'
 import { useDbAccounts } from '../hooks/use-db-accounts'
@@ -176,7 +176,7 @@ const IndexPage = () => {
         </Banner>
       </Grid>
 
-      <h2>With VoteListItem</h2>
+      <h1>VoteListItem</h1>
       <VoteListItem
         icon={<span>(logo)</span>}
         entityName="My Entity"
@@ -187,6 +187,12 @@ const IndexPage = () => {
         status="active"
         dateText="1 day left"
       />
+
+      <h1>PageCard</h1>
+      <PageCard>
+        <h3>Content goes here</h3>
+        <p>Some more text goes here</p>
+      </PageCard>
 
       <h1>Hooks</h1>
       <h2>Use Wallet</h2>

@@ -26,12 +26,12 @@ export const Button = ({ disabled, positive, negative, color, href, onClick, wid
     let component: JSX.Element
 
     if (disabled) {
-        return <BaseButton wide={wide} large={large} small={small} width={width} onClick={ev => (onClick && !disabled) ? onClick(ev) : null}>
+        return <DisabledButton wide={wide} large={large} small={small} width={width} onClick={ev => (onClick && !disabled) ? onClick(ev) : null}>
             {icon ?
                 <ButtonContent color={theme.darkLightFg}>{icon}&nbsp;{children}</ButtonContent> :
                 <ButtonContent color={theme.darkLightFg}>{children}</ButtonContent>
             }
-        </BaseButton>
+        </DisabledButton>
     }
 
     if (positive) {
@@ -77,14 +77,16 @@ ${props => props.large ? "padding: 13px 25px;" :
 ${props => props.large ? "font-size: 125%;" :
         props.small ? "font-size: 85%;" : ""}
 
-cursor: no-drop;
-
 background: ${props => props.theme.lightBg};
 box-shadow: 0px 6px 6px rgba(180, 193, 228, 0.35);
 border-radius: 8px;
 user-select: none;
 margin-bottom: 10px;
 box-sizing: border-box;
+`
+
+const DisabledButton = styled(BaseButton)`
+cursor: no-drop;
 `
 
 const DefaultButton = styled(BaseButton)`
