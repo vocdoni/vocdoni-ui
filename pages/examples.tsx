@@ -11,6 +11,7 @@ import { Wallet } from 'ethers'
 import { useDbAccounts } from '../hooks/use-db-accounts'
 import { Symmetric } from 'dvote-js'
 import { Buffer } from "buffer/"
+import { Steps } from '../components/steps'
 
 // MAIN COMPONENT
 const IndexPage = () => {
@@ -178,6 +179,11 @@ const IndexPage = () => {
         <Button small onClick={() => refreshAccounts()}>Refresh accounts (unneeded)</Button>
         &nbsp;&nbsp;
         <Button positive small onClick={() => addAccount({ name: "Account " + Math.random(), address: "0xaddr-" + Math.random(), encryptedPrivateKey: "abcde" + Math.random() })}>Add account</Button>
+      </div>
+
+      <h2>Steps</h2>
+      <div>
+        <Steps steps={["Step 1", "Step 2", "Step 3", "Step 4"]} activeIdx={2} />
       </div>
     </div>
   )

@@ -6,6 +6,7 @@ export const colors: Colors = {
   text3: "#46C4C2",
   accent1: "#A3EC93",
   accent2: "#46C4C2",
+  accent2Disabled: "#B8C2F6",
   negative1: "#FF9E6D",
   negative2: "#FF5442",
   white: "white",
