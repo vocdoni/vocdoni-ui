@@ -1,4 +1,5 @@
 import styled from "styled-components"
+import Link from "next/link"
 import { ColumnProps } from "./grid"
 import { Tag } from "./tag"
 import { ReactNode } from "react"
@@ -7,7 +8,6 @@ import i18n from "../i18n"
 type VoteListItemProps = ColumnProps & {
   icon: ReactNode,
   entityName: string,
-  entityId: string,
   processId: string,
   title: string,
   description: string,
@@ -15,28 +15,34 @@ type VoteListItemProps = ColumnProps & {
   dateText: string
 }
 
-export const VoteListItem = ({ icon, entityId, entityName, processId, title, description, status, dateText }: VoteListItemProps) => <ListItemDiv>
-  <TopDiv>
-    <EntityNameDiv>
-      {icon}<EntityName>{entityName}</EntityName>
-    </EntityNameDiv>
-    <VoteStatus>
-      <Tag>{(() => {
-        switch (status) {
-          case "active": return i18n.t("vote.active_vote")
-          case "paused": return i18n.t("vote.paused_vote")
-          case "ended": return i18n.t("vote.ended_vote")
-          default: return ""
-        }
-      })()}
-      </Tag>
-    </VoteStatus>
-  </TopDiv>
+export const VoteListItem = ({ icon, entityName, processId, title, description, status, dateText }: VoteListItemProps) => (
+  <Link href={"/processes#/" + processId}>
+    <a>
+      <ListItemDiv>
+        <TopDiv>
+          <EntityNameDiv>
+            {icon}<EntityName>{entityName}</EntityName>
+          </EntityNameDiv>
+          <VoteStatus>
+            <Tag>{(() => {
+              switch (status) {
+                case "active": return i18n.t("vote.active_vote")
+                case "paused": return i18n.t("vote.paused_vote")
+                case "ended": return i18n.t("vote.ended_vote")
+                default: return ""
+              }
+            })()}
+            </Tag>
+          </VoteStatus>
+        </TopDiv>
 
-  <VoteListItemTitle>{title}</VoteListItemTitle>
-  <VoteListItemDescription>{description}</VoteListItemDescription>
-  <VoteListItemDate>{dateText}</VoteListItemDate>
-</ListItemDiv>
+        <VoteListItemTitle>{title}</VoteListItemTitle>
+        <VoteListItemDescription>{description}</VoteListItemDescription>
+        <VoteListItemDate>{dateText}</VoteListItemDate>
+      </ListItemDiv>
+    </a>
+  </Link>
+)
 
 // Styles
 
@@ -47,6 +53,13 @@ const ListItemDiv = styled.div`
   box-shadow: 0px 3px 3px rgba(180, 193, 228, 0.35);
   border-radius: 16px;
   box-sizing: border-box;
+
+  &:hover {
+    background-color: ${props => props.theme.lightBg};
+  }
+  &:active {
+    background-color: ${props => props.theme.lightBg2};
+  }
 `
 
 const TopDiv = styled.div`

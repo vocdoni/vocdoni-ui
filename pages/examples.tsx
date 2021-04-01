@@ -180,7 +180,6 @@ const IndexPage = () => {
       <VoteListItem
         icon={<span>(logo)</span>}
         entityName="My Entity"
-        entityId="0x0000000000111111111122222222223333333333"
         processId="0x1111111111222222222233333333334444444444"
         title="Vote title here"
         description="Description of the process goes here"
