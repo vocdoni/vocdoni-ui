@@ -15,6 +15,7 @@ import { Steps } from '../components/steps'
 import { Input, Textarea } from '../components/inputs'
 import { Radio } from '../components/radio'
 import { colors } from '../theme/colors'
+import { Banner } from '../components/banners'
 
 // MAIN COMPONENT
 const IndexPage = () => {
@@ -161,6 +162,29 @@ const IndexPage = () => {
         <StatusCard lg={3} md={6} title="Random votes" rightText="More here" href="/">
           <h3>2345</h3>
         </StatusCard>
+      </Grid>
+
+      <h2>With Banner</h2>
+      <Grid>
+        <Banner title="Banner title here" subtitle="Lorem ipsum" rightButton={<Button positive width={180}>Click me</Button>} icon={<span>(icon)</span>}>
+          <h3>1234</h3>
+        </Banner>
+        <Banner title="Ended votes" subtitle="Lorem ipsum" rightButton={<Button positive width={180}>Click me</Button>} icon={<span>(icon)</span>}>
+          <h3>1234</h3>
+        </Banner>
+
+        <Banner title="Random votes" subtitle="Lorem ipsum" rightButton={<Button positive width={180}>Click me</Button>} icon={<span>(icon)</span>}>
+          <h3>2345</h3>
+        </Banner>
+        <Banner title="Random votes" subtitle="Lorem ipsum" rightButton={<Button positive width={180}>Click me</Button>} icon={<span>(icon)</span>}>
+          <h3>2345</h3>
+        </Banner>
+        <Banner title="Random votes" subtitle="Lorem ipsum" rightButton={<Button positive width={180}>Click me</Button>} icon={<span>(icon)</span>}>
+          <h3>2345</h3>
+        </Banner>
+        <Banner title="Random votes" subtitle="Lorem ipsum" rightButton={<Button positive width={180}>Click me</Button>} icon={<span>(icon)</span>}>
+          <h3>2345</h3>
+        </Banner>
       </Grid>
 
       <h1>Hooks</h1>

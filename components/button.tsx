@@ -109,7 +109,6 @@ ${({ large, small, border }) =>
 const PositiveButton = styled(BaseButton)`
 cursor: pointer;
 
-// box-shadow: 0px 3px 3px rgba(180, 193, 228, 0.25);
 background: linear-gradient(106.26deg, ${props => hexToRgbA(props.theme.accent1B)} 5.73%, ${props => hexToRgbA(props.theme.accent1)} 93.83%);
 
 &:hover {
@@ -123,7 +122,6 @@ background: linear-gradient(106.26deg, ${props => hexToRgbA(props.theme.accent1B
 const NegativeButton = styled(BaseButton)`
 cursor: pointer;
 
-// box-shadow: 0px 3px 3px rgba(180, 193, 228, 0.25);
 background: linear-gradient(106.26deg, ${props => hexToRgbA(props.theme.accent2B)} 5.73%, ${props => hexToRgbA(props.theme.accent2)} 93.83%);
 
 &:hover {

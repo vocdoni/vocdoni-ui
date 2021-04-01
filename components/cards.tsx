@@ -34,7 +34,7 @@ export const StatusCard = ({ span, sm, md, lg, xl, ...props }: StatusCardProps) 
 
 const CardDiv = styled.div`
   padding: 11px 20px;
-  background: #FFFFFF;
+  background: ${props => props.theme.white};
   box-shadow: 0px 3px 3px rgba(180, 193, 228, 0.35);
   border-radius: 16px;
 `
