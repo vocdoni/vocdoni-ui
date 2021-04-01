@@ -30,7 +30,7 @@ const RadioLabel = styled.label`
   user-select: none;
   padding: 5px 0;
   font-weight: 500;
-  color: ${({ theme }) => theme.mainText};
+  color: ${({ theme }) => theme.text};
 
   display: flex;
   flex-direction: row;
@@ -50,7 +50,7 @@ const RadioLabel = styled.label`
     background-color: ${({ theme }) => theme.white};
     border-radius: 50%;
     margin-right: 1em;
-    border: 1px solid ${({ theme }) => theme.accent2};
+    border: 1px solid ${({ theme }) => theme.accent1};
   }
 
   /* When the radio button is checked, add a blue background */
@@ -73,7 +73,7 @@ const RadioLabel = styled.label`
   /* Style the indicator (dot/circle) */
   .checkmark:after {
     border-radius: 50%;
-    background: ${({ theme }) => theme.accent2};
+    background: ${({ theme }) => theme.accent1};
     z-index: 9;
     height: 10px;
     width: 10px;

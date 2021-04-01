@@ -1,14 +1,44 @@
 export type Color = string;
 
 export interface Colors {
-  text1: Color;
-  text2: Color;
-  text3: Color;
+  text: Color;
+  lightText: Color;
+  lighterText: Color;
+
+  /** Main positive text color */
+  textAccent1: Color;
+  /** Lighter positive text color */
+  textAccent1B: Color;
+  /** Disabled positive text color */
+  textAccent1C: Color;
+
+  /** Main negative text color */
+  textAccent2: Color;
+  /** Lighter negative text color */
+  textAccent2B: Color;
+
+  /** Main positive background color (solid) */
   accent1: Color;
+  /** Lighter positive background color (solid) */
+  accent1B: Color;
+  /** Disabled positive background color (solid) */
+  accent1C: Color;
+
+  /** Main negative background color (solid) */
   accent2: Color;
-  accent2Disabled: Color;
-  negative1: Color;
-  negative2: Color;
+  /** Main negative background color (solid) */
+  accent2B: Color;
+
+  /** Light accent background color (light) */
+  accentLight1: Color;
+  /** Lighter accent background color (light) */
+  accentLight1B: Color;
+
+  /** Main negative background color (light) */
+  accentLight2: Color;
+  /** Main negative background color (light) */
+  accentLight2B: Color;
+
   white: Color;
   darkFg: Color;
   darkMidFg: Color;
@@ -16,10 +46,6 @@ export interface Colors {
   lightBg: Color;
   lightBg2: Color;
   lightBorder: Color;
-
-  lightText: Color;
-  mainText: Color;
-  lighterText: Color;
 }
 
 export interface Screens {

@@ -13,8 +13,8 @@ const HeaderContainer = styled.div`
   padding: 10px 0 10px;
   background: linear-gradient(
     90deg,
-    ${({ theme }) => theme.accent1} 0%,
-    ${({ theme }) => theme.accent2} 100%
+    ${({ theme }) => theme.accent1B} 0%,
+    ${({ theme }) => theme.accent1} 100%
   );
 
   display: flex;

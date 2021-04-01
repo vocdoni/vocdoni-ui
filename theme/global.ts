@@ -10,7 +10,7 @@ body {
   font-size: 14px;
   font-family: 'Roboto', Arial, Helvetica, sans-serif !important;
   background-color: ${({ theme }) => theme.white} !important;
-  color: ${({ theme }) => theme.mainText};
+  color: ${({ theme }) => theme.text};
 }
 
 h1, h2, h3, h4, h5, h6 {

@@ -15,7 +15,7 @@ type ButtonProps = {
     wide?: boolean,
     width?: number,
     /** Text color to use (either a HEX color or "accent1" "accent2") */
-    color?: "accent1" | "accent2" | string,
+    color?: "positive" | "negative" | string,
     icon?: React.ReactNode,
     children?: React.ReactNode
     href?: string
@@ -110,13 +110,13 @@ const PositiveButton = styled(BaseButton)`
 cursor: pointer;
 
 // box-shadow: 0px 3px 3px rgba(180, 193, 228, 0.25);
-background: linear-gradient(106.26deg, ${props => hexToRgbA(props.theme.accent1)} 5.73%, ${props => hexToRgbA(props.theme.accent2)} 93.83%);
+background: linear-gradient(106.26deg, ${props => hexToRgbA(props.theme.accent1B)} 5.73%, ${props => hexToRgbA(props.theme.accent1)} 93.83%);
 
 &:hover {
-    background: linear-gradient(106.26deg, ${props => hexToRgbA(props.theme.accent1, 0.9)} 5.73%, ${props => hexToRgbA(props.theme.accent2, 0.9)} 93.83%);
+    background: linear-gradient(106.26deg, ${props => hexToRgbA(props.theme.accent1B, 0.9)} 5.73%, ${props => hexToRgbA(props.theme.accent1, 0.9)} 93.83%);
 }
 &:active {
-    background: linear-gradient(106.26deg, ${props => hexToRgbA(props.theme.accent1, 0.8)} 5.73%, ${props => hexToRgbA(props.theme.accent2, 0.8)} 93.83%);
+    background: linear-gradient(106.26deg, ${props => hexToRgbA(props.theme.accent1B, 0.8)} 5.73%, ${props => hexToRgbA(props.theme.accent1, 0.8)} 93.83%);
 }
 `
 
@@ -124,13 +124,13 @@ const NegativeButton = styled(BaseButton)`
 cursor: pointer;
 
 // box-shadow: 0px 3px 3px rgba(180, 193, 228, 0.25);
-background: linear-gradient(106.26deg, ${props => hexToRgbA(props.theme.negative1)} 5.73%, ${props => hexToRgbA(props.theme.negative2)} 93.83%);
+background: linear-gradient(106.26deg, ${props => hexToRgbA(props.theme.accent2B)} 5.73%, ${props => hexToRgbA(props.theme.accent2)} 93.83%);
 
 &:hover {
-    background: linear-gradient(106.26deg, ${props => hexToRgbA(props.theme.negative1, 0.9)} 5.73%, ${props => hexToRgbA(props.theme.negative2, 0.9)} 93.83%);
+    background: linear-gradient(106.26deg, ${props => hexToRgbA(props.theme.accent2B, 0.9)} 5.73%, ${props => hexToRgbA(props.theme.accent2, 0.9)} 93.83%);
 }
 &:active {
-    background: linear-gradient(106.26deg, ${props => hexToRgbA(props.theme.negative1, 0.8)} 5.73%, ${props => hexToRgbA(props.theme.negative2, 0.8)} 93.83%);
+    background: linear-gradient(106.26deg, ${props => hexToRgbA(props.theme.accent2B, 0.8)} 5.73%, ${props => hexToRgbA(props.theme.accent2, 0.8)} 93.83%);
 }
 `
 
@@ -139,8 +139,8 @@ display: flex;
 flex-direction: row;
 justify-content: center;
 align-items: center;
-${props => props.color == "accent1" ? "color: " + props.theme.accent1 + ";" :
-        props.color == "accent2" ? "color: " + props.theme.accent2 + ";" :
+${props => props.color == "positive" ? "color: " + props.theme.textAccent1 + ";" :
+        props.color == "negative" ? "color: " + props.theme.textAccent2 + ";" :
             !!props.color ? "color: " + props.color + ";" :
                 ""}
 `

@@ -44,6 +44,7 @@ const Step = ({ children, idx, activeIdx, isLast }: { children: ReactNode, idx: 
 const StepsContainer = styled.div`
 display: flex;
 user-select: none;
+margin-bottom: 16px;
 `
 
 const StepDiv = styled.div`
@@ -58,10 +59,10 @@ const StepTop = styled.div`
 width: 100%;
 height: ${TOP_ROW_HEIGHT}px;
 position: relative;
-margin-bottom: 17px;
+margin-bottom: 10px;
 `
 const StepText = styled.div<{ active: boolean }>`
-color: ${({ theme, active }) => active ? theme.accent2 : theme.accent2Disabled};
+color: ${({ theme, active }) => active ? theme.accent1 : theme.accent1C};
 `
 const LineLeft = styled.div<{ done: boolean }>`
 z-index: 10;
@@ -70,7 +71,7 @@ top: calc(50% - ${LINE_WIDTH / 2}px);
 left: 0;
 right: 50%;
 height: ${LINE_WIDTH}px;
-background: ${({ theme, done }) => done ? theme.accent2 : theme.accent2Disabled};
+background: ${({ theme, done }) => done ? theme.accent1 : theme.accent1C};
 `
 const LineRight = styled.div<{ done: boolean }>`
 z-index: 10;
@@ -79,13 +80,13 @@ top: calc(50% - ${LINE_WIDTH / 2}px);
 left: 50%;
 right: 0;
 height: ${LINE_WIDTH}px;
-background: ${({ theme, done }) => done ? theme.accent2 : theme.accent2Disabled};
+background: ${({ theme, done }) => done ? theme.accent1 : theme.accent1C};
 `
 
 const Dot = styled.div<{ done?: boolean }>`
 z-index: 20;
 position: absolute;
-background-color: ${({ theme, done }) => done ? theme.accent2 : theme.accent2Disabled};
+background-color: ${({ theme, done }) => done ? theme.accent1 : theme.accent1C};
 top: calc(50% - ${DOT_SIZE_SM / 2}px);
 left: calc(50% - ${DOT_SIZE_SM / 2}px);
 width: ${DOT_SIZE_SM}px;
@@ -95,7 +96,7 @@ border-radius: 50%;
 
 const DotActive = styled(Dot)`
 z-index: 15;
-background-color: ${({ theme }) => theme.accent1};
+background-color: ${({ theme }) => theme.accent1B};
 top: calc(50% - ${DOT_SIZE_LG / 2}px);
 left: calc(50% - ${DOT_SIZE_LG / 2}px);
 width: ${DOT_SIZE_LG}px;
