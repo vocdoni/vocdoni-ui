@@ -11,11 +11,11 @@ type State = {
   ack: boolean,
 }
 
-export default class FormPassword extends Component<StepProps, State> {
+export default class NewEntityCredentials extends Component<StepProps, State> {
   static contextType = UseEntityCreationContext
   context !: React.ContextType<typeof UseEntityCreationContext>
 
-  state : State = {
+  state: State = {
     password: '',
     passwordRepeat: '',
     ack: false,
@@ -26,7 +26,7 @@ export default class FormPassword extends Component<StepProps, State> {
     this.context.setPassword('')
   }
 
-  get valid () {
+  get valid() {
     const required = ['password', 'passwordRepeat']
     for (const req of required) {
       if (!this.state[req].length) {
@@ -44,7 +44,7 @@ export default class FormPassword extends Component<StepProps, State> {
   gotoNext() {
     this.context.setPassword(this.state.password)
 
-    this.props.setStep('Creation')
+    this.props.setStep('NewEntityCreation')
   }
 
   render() {
@@ -60,7 +60,7 @@ export default class FormPassword extends Component<StepProps, State> {
             type='password'
             value={this.state.password}
             onChange={(e: ChangeEvent<HTMLInputElement>) =>
-              this.setState({password: e.target.value})
+              this.setState({ password: e.target.value })
             }
           />
         </Column>
@@ -71,7 +71,7 @@ export default class FormPassword extends Component<StepProps, State> {
             type='password'
             value={this.state.passwordRepeat}
             onChange={(e: ChangeEvent<HTMLInputElement>) =>
-              this.setState({passwordRepeat: e.target.value})
+              this.setState({ passwordRepeat: e.target.value })
             }
           />
         </Column>
@@ -79,13 +79,13 @@ export default class FormPassword extends Component<StepProps, State> {
           <label>
             <Checkbox
               checked={this.state.ack}
-              onChange={(ack: boolean) => this.setState({ack})}
+              onChange={(ack: boolean) => this.setState({ ack })}
             />
             I ack...
           </label>
         </Column>
         <Column span={6}>
-          <button onClick={() => this.props.setStep('FormDetails')}>
+          <button onClick={() => this.props.setStep('NewEntityDetails')}>
             Back
           </button>
         </Column>

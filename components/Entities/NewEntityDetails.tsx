@@ -128,7 +128,7 @@ export default class FormDetails extends Component<StepProps, State> {
         <Column span={12}>
           <Button
             positive
-            onClick={() => this.props.setStep('FormPassword')}
+            onClick={() => this.props.setStep('NewEntityCredentials')}
             disabled={!this.valid}
           >
             {i18n.t('next_step')}

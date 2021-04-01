@@ -2,6 +2,7 @@ import { Wallet } from '@ethersproject/wallet'
 import { FileApi, GatewayPool } from 'dvote-js'
 import React, { useEffect, useRef, useState } from 'react'
 import { Else, If, Then } from 'react-if'
+import styled from 'styled-components'
 
 import i18n from '../i18n'
 import { FileReaderPromise } from '../lib/file'
@@ -30,20 +31,20 @@ const FileLoader = ({ onSelect, onChange, accept, ...props }: Props) => {
   const inputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
-    if (props.file) {
+    if (props.file && props.file != file) {
       setFile(props.file)
     }
-    if (props.url) {
+    if (props.url && props.url != fileUrl) {
       setFileUrl(props.url)
     }
   }, [])
 
   const onFilesSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setError(null)
     const [file] = Array.from(e.target.files)
 
     if (file.size >= 5 * 1024 * 1024) {
       setError(i18n.t('errors.file_too_big'))
-
       return
     }
 
@@ -72,6 +73,7 @@ const FileLoader = ({ onSelect, onChange, accept, ...props }: Props) => {
   }
 
   const removeFile = () => {
+    setError(null)
     if (typeof onSelect === 'function') {
       onSelect(null)
     }
@@ -87,21 +89,26 @@ const FileLoader = ({ onSelect, onChange, accept, ...props }: Props) => {
     input.accept = accept
   }
 
-  return (
+  return <>
     <div>
       <If condition={!file}>
         <Then>
-          <Input
+          <MyInput
             type='text'
+            placeholder={i18n.t("Enter the URL or upload a file")}
             value={fileUrl}
             onChange={onFileUrlChange}
           />
         </Then>
         <Else>
-          <span>
-            {file?.name}
-            <Button negative onClick={() => removeFile()}>🗑</Button>
-          </span>
+          <MyInput
+            type='text'
+            readOnly
+            style={{ cursor: "pointer" }}
+            value={file?.name}
+            onClick={() => removeFile()}
+            title={i18n.t("input.remove_file")}
+          />
         </Else>
       </If>
       <input
@@ -112,13 +119,21 @@ const FileLoader = ({ onSelect, onChange, accept, ...props }: Props) => {
         {...input}
       />
       <Button positive onClick={() => inputRef.current.click()}>
-        {i18n.t('examine')}
+        {i18n.t('upload.browse')}
       </Button>
-      <If condition={error}>
-        {error}
-      </If>
     </div>
-  )
+    <If condition={error}>
+      <ErrorMsg>{error}</ErrorMsg>
+    </If>
+  </>
 }
+
+const ErrorMsg = styled.span`
+color: ${({ theme }) => theme.textAccent2B};
+`
+
+const MyInput = styled(Input)`
+margin-right: 10px;
+`
 
 export default FileLoader

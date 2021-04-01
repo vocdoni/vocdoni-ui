@@ -1,6 +1,6 @@
 import { Wallet } from '@ethersproject/wallet'
 import { EntityApi, EntityMetadata, EntityMetadataTemplate, Symmetric } from 'dvote-js'
-import React, { Component, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Buffer } from 'buffer/'
 import { usePool } from '@vocdoni/react-hooks'
 import { Else, If, Then } from 'react-if'
@@ -11,14 +11,14 @@ import { useWallet } from '../../hooks/use-wallet'
 import { IPFSUpload } from '../FileLoader'
 import { useBackend } from '../../hooks/backend'
 import { useMessageAlert } from '../../hooks/message-alert'
-import {Button} from '../button'
+import { Button } from '../button'
 import i18n from '../../i18n'
 import { StepProps } from '../../lib/types'
 
-const EntityCreation = ({setStep} : StepProps) => {
+const EntityCreation = ({ setStep }: StepProps) => {
   const account = useEntityCreation()
   const [creating, setCreating] = useState<boolean>(false)
-  const {gw} = useBackend()
+  const { gw } = useBackend()
   const { wallet, setWallet, waitForGas } = useWallet()
   const { pool } = usePool()
   const { addAccount } = useDbAccounts()
@@ -27,7 +27,7 @@ const EntityCreation = ({setStep} : StepProps) => {
   const onError = (error: string) => {
     setCreating(false)
     setAlertMessage(error)
-    setStep('FormDetails')
+    setStep('NewEntityDetails')
   }
 
   useEffect(() => {
@@ -70,7 +70,7 @@ const EntityCreation = ({setStep} : StepProps) => {
         }
 
         // Store metadata
-        const metadata : EntityMetadata = {
+        const metadata: EntityMetadata = {
           ...JSON.parse(JSON.stringify(EntityMetadataTemplate)),
           name: {
             default: account.name,
