@@ -33,7 +33,7 @@ export const colors: Colors = {
   darkFg: "#333",
   darkMidFg: "#555",
   darkLightFg: "#7483AB",
-  lightBg: "#F8F9FB",
+  lightBg: "#F6F9FC",
   lightBg2: "#EFF1F7",
   lightBorder: "#EFF1F7",
 }

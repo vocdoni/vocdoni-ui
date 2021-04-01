@@ -4,6 +4,7 @@ import Link from 'next/link'
 // import Hamburger from 'hamburger-react'
 import { useIsMobile } from '../hooks/use-window-size'
 import { sizes } from '../theme/sizes'
+import { hexToRgbA } from '../lib/util'
 
 const HeaderContainer = styled.div`
   width: 100%;
@@ -12,7 +13,9 @@ const HeaderContainer = styled.div`
   position: fixed;
   top: 0;
   padding: 10px 0 10px;
-  background-color: ${({ theme }) => theme.background};
+  
+  background-color: ${({ theme }) => hexToRgbA(theme.background, 0.7)};
+  backdrop-filter: blur(10px);
 
   display: flex;
   flex-direction: row;
