@@ -3,20 +3,21 @@ import { Column, ColumnProps } from "./grid"
 import { ReactNode } from "react"
 
 type BannerProps = {
+  warning?: boolean,
   title: string,
   subtitle: string,
   icon: ReactNode,
   rightButton?: ReactNode,
-  children: ReactNode,
+  children?: ReactNode,
 }
 
 export const Banner = (props: BannerProps) => <Column>
-  <BannerDiv>
+  <BannerDiv warning={props.warning}>
     <BannerMainDiv>
       <BannerIcon>{props.icon}</BannerIcon>
       <BanerText>
-        <StatusCardTitle>{props.title}</StatusCardTitle>
-        <StatusCardSubtitle>{props.title}</StatusCardSubtitle>
+        <BannerTitle warning={props.warning}>{props.title}</BannerTitle>
+        <BannerSubtitle>{props.subtitle}</BannerSubtitle>
       </BanerText>
       {props.rightButton ?
         <BannerRight>
@@ -31,9 +32,9 @@ export const Banner = (props: BannerProps) => <Column>
 
 // Styles
 
-const BannerDiv = styled.div`
-  padding: 56px 20px 20px;
-  background: linear-gradient(106.26deg, ${props => props.theme.accentLight1B} 5.73%, ${props => props.theme.accentLight1} 93.83%);
+const BannerDiv = styled.div<{ warning?: boolean }>`
+  padding: 56px 32px 32px;
+  background: linear-gradient(106.26deg, ${({ theme, warning }) => warning ? theme.accentLight2B : theme.accentLight1B} 5.73%, ${({ theme, warning }) => warning ? theme.accentLight2 : theme.accentLight1} 93.83%);
   box-shadow: 0px 3px 3px rgba(180, 193, 228, 0.35);
   border-radius: 16px;
 `
@@ -45,6 +46,7 @@ const BanerText = styled.div`
 flex: 10;
 `
 const BannerRight = styled.div`
+text-align: right;
 flex: 3;
 `
 
@@ -55,19 +57,16 @@ const BannerMainDiv = styled.div`
   align-items: flex-start;
 `
 
-const StatusCardTitle = styled.h2`
-color: ${props => props.theme.text};
+const BannerTitle = styled.h2<{ warning?: boolean }>`
+color: ${({ theme, warning }) => warning ? theme.textAccent2B : theme.text};
 font-weight: normal;
-margin: 10px 0;
-line-height: 20px;
+margin: 0 0 10px;
 `
-const StatusCardSubtitle = styled.p`
+const BannerSubtitle = styled.p`
 color: ${props => props.theme.lighterText};
 font-weight: normal;
-margin: 10px 0;
-line-height: 20px;
+margin: 16px 0;
 `
 const RightLink = styled.div`
-margin: 10px 0;
 line-height: 20px;
 `

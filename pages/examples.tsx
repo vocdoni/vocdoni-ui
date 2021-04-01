@@ -166,24 +166,12 @@ const IndexPage = () => {
 
       <h2>With Banner</h2>
       <Grid>
-        <Banner title="Banner title here" subtitle="Lorem ipsum" rightButton={<Button positive width={180}>Click me</Button>} icon={<span>(icon)</span>}>
-          <h3>1234</h3>
-        </Banner>
-        <Banner title="Ended votes" subtitle="Lorem ipsum" rightButton={<Button positive width={180}>Click me</Button>} icon={<span>(icon)</span>}>
-          <h3>1234</h3>
-        </Banner>
-
-        <Banner title="Random votes" subtitle="Lorem ipsum" rightButton={<Button positive width={180}>Click me</Button>} icon={<span>(icon)</span>}>
-          <h3>2345</h3>
-        </Banner>
-        <Banner title="Random votes" subtitle="Lorem ipsum" rightButton={<Button positive width={180}>Click me</Button>} icon={<span>(icon)</span>}>
-          <h3>2345</h3>
-        </Banner>
-        <Banner title="Random votes" subtitle="Lorem ipsum" rightButton={<Button positive width={180}>Click me</Button>} icon={<span>(icon)</span>}>
-          <h3>2345</h3>
-        </Banner>
-        <Banner title="Random votes" subtitle="Lorem ipsum" rightButton={<Button positive width={180}>Click me</Button>} icon={<span>(icon)</span>}>
-          <h3>2345</h3>
+        <Banner title="Default banner" subtitle="Banner subtitle here" rightButton={<Button positive width={180}>Click me</Button>} icon={<span>(icon)</span>} />
+        <Banner warning title="Warning banner" subtitle="Banner subtitle here" rightButton={<Button negative width={180}>Click me</Button>} icon={<span>(icon)</span>} />
+        <Banner title="Container banner" subtitle="Banner subtitle here" rightButton={<Button positive width={180}>Click me</Button>} icon={<span>(icon)</span>}>
+          <Grid>
+            <Banner warning title="Nested banner" subtitle="Banner subtitle here" rightButton={<Button negative width={180}>Click me</Button>} icon={<span>(icon)</span>} />
+          </Grid>
         </Banner>
       </Grid>
 
@@ -258,9 +246,9 @@ const IndexPage = () => {
         <BgDiv style={{ background: colors.accentLight2 }}>This color is <code>accentLight2</code></BgDiv>
         <BgDiv style={{ background: colors.accentLight2B }}>This color is <code>accentLight2B</code></BgDiv>
         <BgDiv style={{ background: colors.white }}>This color is <code>white</code></BgDiv>
-        <FgDiv style={{ background: colors.darkFg }}>This color is <code>darkFg</code></FgDiv>
-        <FgDiv style={{ background: colors.darkMidFg }}>This color is <code>darkMidFg</code></FgDiv>
-        <FgDiv style={{ background: colors.darkLightFg }}>This color is <code>darkLightFg</code></FgDiv>
+        <BgDiv style={{ background: colors.darkFg }}>This color is <code>darkFg</code></BgDiv>
+        <BgDiv style={{ background: colors.darkMidFg }}>This color is <code>darkMidFg</code></BgDiv>
+        <BgDiv style={{ background: colors.darkLightFg }}>This color is <code>darkLightFg</code></BgDiv>
         <BgDiv style={{ background: colors.lightBg }}>This color is <code>lightBg</code></BgDiv>
         <BgDiv style={{ background: colors.lightBg2 }}>This color is <code>lightBg2</code></BgDiv>
         <BgDiv style={{ border: "3px solid " + colors.lightBorder }}>This border is <code>lightBorder</code></BgDiv>
@@ -277,13 +265,10 @@ const DivWithMarginChildren = styled.div`
 `
 
 const BgDiv = styled.div`
+padding: 20px;
 color: #777;
 margin-bottom: 20px;
-`
-
-const FgDiv = styled.div`
-color: #777;
-margin-bottom: 20px;
+border-radius: 8px;
 `
 
 const dummyEncrypt = (passphrase: string): string => {
