@@ -12,6 +12,7 @@ const HeaderContainer = styled.div`
   position: fixed;
   top: 0;
   padding: 10px 0 10px;
+  background-color: ${({ theme }) => theme.background};
 
   display: flex;
   flex-direction: row;

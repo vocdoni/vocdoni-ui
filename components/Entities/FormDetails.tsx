@@ -54,7 +54,7 @@ export default class FormDetails extends Component<StepProps, State> {
         <Column span={12}>
           <h2>{i18n.t('entity.new_entity')}</h2>
         </Column>
-        <Column span={6}>
+        <Column md={6}>
           <label htmlFor='name'>{i18n.t('entity.name')}</label>
           <Input
             wide
@@ -66,7 +66,7 @@ export default class FormDetails extends Component<StepProps, State> {
             }
           />
         </Column>
-        <Column span={6}>
+        <Column md={6}>
           <label htmlFor='email'>{i18n.t('entity.email')}</label>
           <Input
             wide
@@ -92,7 +92,7 @@ export default class FormDetails extends Component<StepProps, State> {
             />
           </div>
         </Column>
-        <Column span={6}>
+        <Column md={6}>
           <h2>{i18n.t('entity.logo')}</h2>
           <div>
             <FileLoader
@@ -104,7 +104,7 @@ export default class FormDetails extends Component<StepProps, State> {
             />
           </div>
         </Column>
-        <Column span={6}>
+        <Column md={6}>
           <h2>{i18n.t('entity.header')}</h2>
           <div>
             <FileLoader

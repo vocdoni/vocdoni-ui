@@ -26,7 +26,7 @@ export const Button = ({ disabled, positive, negative, color, href, onClick, wid
     let component: JSX.Element
 
     if (disabled) {
-        return <BaseButton wide={wide} large={large} small={small} width={width} onClick={ev => onClick ? onClick(ev) : null}>
+        return <BaseButton wide={wide} large={large} small={small} width={width} onClick={ev => (onClick && !disabled) ? onClick(ev) : null}>
             {icon ?
                 <ButtonContent color={theme.darkLightFg}>{icon}&nbsp;{children}</ButtonContent> :
                 <ButtonContent color={theme.darkLightFg}>{children}</ButtonContent>
@@ -35,7 +35,7 @@ export const Button = ({ disabled, positive, negative, color, href, onClick, wid
     }
 
     if (positive) {
-        component = <PositiveButton wide={wide} large={large} small={small} width={width} onClick={ev => onClick ? onClick(ev) : null}>
+        component = <PositiveButton wide={wide} large={large} small={small} width={width} onClick={ev => (onClick && !disabled) ? onClick(ev) : null}>
             {icon ?
                 <ButtonContent color={theme.white}>{icon}&nbsp;{children}</ButtonContent> :
                 <ButtonContent color={theme.white}>{children}</ButtonContent>
@@ -43,7 +43,7 @@ export const Button = ({ disabled, positive, negative, color, href, onClick, wid
         </PositiveButton>
     }
     else if (negative) {
-        component = <NegativeButton wide={wide} large={large} small={small} width={width} onClick={ev => onClick ? onClick(ev) : null}>
+        component = <NegativeButton wide={wide} large={large} small={small} width={width} onClick={ev => (onClick && !disabled) ? onClick(ev) : null}>
             {icon ?
                 <ButtonContent color={theme.white}>{icon}&nbsp;{children}</ButtonContent> :
                 <ButtonContent color={theme.white}>{children}</ButtonContent>
@@ -51,7 +51,7 @@ export const Button = ({ disabled, positive, negative, color, href, onClick, wid
         </NegativeButton>
     }
     else {
-        component = <DefaultButton wide={wide} border={border} large={large} small={small} width={width} onClick={ev => onClick ? onClick(ev) : null}>
+        component = <DefaultButton wide={wide} border={border} large={large} small={small} width={width} onClick={ev => (onClick && !disabled) ? onClick(ev) : null}>
             {icon ?
                 <ButtonContent color={color}>{icon}&nbsp;{children}</ButtonContent> :
                 <ButtonContent color={color}>{children}</ButtonContent>
@@ -61,7 +61,7 @@ export const Button = ({ disabled, positive, negative, color, href, onClick, wid
 
     if (href) {
         return <Link href={href}>
-            <MyAnchor>{component}</MyAnchor>
+            <MyAnchor target="_self">{component}</MyAnchor>
         </Link>
     }
     return component

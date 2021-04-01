@@ -80,10 +80,6 @@ const TopTokensContainer = styled.div`
   }
 `
 
-const ShowMoreButton = styled(Button)`
-  min-width: 200px;
-`
-
 const ClickableLink = styled.a`
   color: ${({ theme }) => theme.accent1};
   text-decoration: none;
@@ -170,7 +166,7 @@ const IndexPage = () => {
       <br />
 
       <Row justifyContent={'space-around'}>
-        <ShowMoreButton href='/tokens'>Show more</ShowMoreButton>
+        <Button href='/examples' width={200}>Show examples</Button>
       </Row>
     </div>
   )
