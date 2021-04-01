@@ -1,8 +1,9 @@
 import React, { ChangeEvent, Component } from 'react'
 import { Checkbox } from '@aragon/ui'
 
-import { UseAccountContext } from '../../hooks/account'
+import { UseEntityCreationContext } from '../../hooks/entity-creation'
 import { StepProps } from '../../lib/types'
+import { Column, Grid } from '../grid'
 
 type State = {
   password: string,
@@ -11,8 +12,8 @@ type State = {
 }
 
 export default class FormPassword extends Component<StepProps, State> {
-  static contextType = UseAccountContext
-  context !: React.ContextType<typeof UseAccountContext>
+  static contextType = UseEntityCreationContext
+  context !: React.ContextType<typeof UseEntityCreationContext>
 
   state : State = {
     password: '',
@@ -48,51 +49,55 @@ export default class FormPassword extends Component<StepProps, State> {
 
   render() {
     return (
-      <>
-        <div>
+      <Grid>
+        <Column span={12}>
           <h2>Choose a passphrase</h2>
-          <div>
-            <label>Passphrase</label>
-            <input
-              type='password'
-              value={this.state.password}
-              onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                this.setState({password: e.target.value})
-              }
-            />
-          </div>
-          <div>
-            <label>Repeat passphrase</label>
-            <input
-              type='password'
-              value={this.state.passwordRepeat}
-              onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                this.setState({passwordRepeat: e.target.value})
-              }
-            />
-          </div>
-        </div>
-        <div>
-        <label>
+        </Column>
+        <Column span={6}>
+          <label htmlFor='pwd'>Passphrase</label>
+          <input
+            id='pwd'
+            type='password'
+            value={this.state.password}
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              this.setState({password: e.target.value})
+            }
+          />
+        </Column>
+        <Column span={6}>
+          <label htmlFor='rep'>Repeat passphrase</label>
+          <input
+            id='rep'
+            type='password'
+            value={this.state.passwordRepeat}
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              this.setState({passwordRepeat: e.target.value})
+            }
+          />
+        </Column>
+        <Column span={12}>
+          <label>
             <Checkbox
               checked={this.state.ack}
               onChange={(ack: boolean) => this.setState({ack})}
             />
             I ack...
           </label>
-        </div>
-        <div>
+        </Column>
+        <Column span={6}>
           <button onClick={() => this.props.setStep('FormDetails')}>
             Back
           </button>
+        </Column>
+        <Column span={6}>
           <button
             onClick={this.gotoNext.bind(this)}
             disabled={!this.valid}
           >
             Next step
           </button>
-        </div>
-      </>
+        </Column>
+      </Grid>
     )
   }
 }

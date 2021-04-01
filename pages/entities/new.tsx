@@ -1,9 +1,12 @@
-import React, { Component, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import Creation from '../../components/Entities/Creation'
 import FormDetails from '../../components/Entities/FormDetails'
 import FormPassword from '../../components/Entities/FormPassword'
-import { UseAccountProvider } from '../../hooks/account'
+import { Column, Grid } from '../../components/grid'
+import { Steps } from '../../components/steps'
+import { UseEntityCreationProvider } from '../../hooks/entity-creation'
+import { colors } from '../../theme/colors'
 
 const steps = {
   FormDetails: {
@@ -25,26 +28,25 @@ const NewEntity = () => {
   let StepComponent = steps[step].component
 
   return (
-    <UseAccountProvider>
-      <div>
-        <h1>New entity</h1>
-        <span>
-          Enter the details of the organization
-          <button onClick={() => setStep('FormPassword')}>asdasd</button>
-        </span>
-        <div>
-          {
-            Object.keys(steps).map((st) => {
-              const current = steps[st]
-              const active = st === step
-
-              return <span style={{color: active ? 'red' : ''}}>{current.step}</span>
-            })
-          }
-        </div>
-      </div>
-      <StepComponent setStep={setStep} />
-    </UseAccountProvider>
+    <UseEntityCreationProvider>
+      <Grid>
+        <Column span={6}>
+          <h1>New entity</h1>
+          <span style={{ color: colors.textAccent1 }}>
+            Enter the details of the organization
+          </span>
+        </Column>
+        <Column span={6}>
+          <Steps
+            steps={Object.values(steps).map(({ step }) => step)}
+            activeIdx={Object.keys(steps).findIndex((name) => name === step)}
+          />
+        </Column>
+        <Column span={12}>
+          <StepComponent setStep={setStep} />
+        </Column>
+      </Grid>
+    </UseEntityCreationProvider>
   )
 }
 
