@@ -10,6 +10,8 @@ type ButtonProps = {
     disabled?: boolean,
     large?: boolean,
     small?: boolean,
+    /** Draws a gray border only in default buttons */
+    border?: boolean,
     wide?: boolean,
     width?: number,
     /** Text color to use (either a HEX color or "accent1" "accent2") */
@@ -20,7 +22,7 @@ type ButtonProps = {
     onClick?: (ev: React.MouseEvent<HTMLDivElement, MouseEvent>) => void
 }
 
-function Button({ disabled, positive, negative, color, href, onClick, width, icon, wide, large, small, children }: ButtonProps) {
+function Button({ disabled, positive, negative, color, href, onClick, width, icon, wide, border, large, small, children }: ButtonProps) {
     let component: JSX.Element
 
     if (disabled) {
@@ -49,7 +51,7 @@ function Button({ disabled, positive, negative, color, href, onClick, width, ico
         </NegativeButton>
     }
     else {
-        component = <DefaultButton wide={wide} large={large} small={small} width={width} onClick={ev => onClick ? onClick(ev) : null}>
+        component = <DefaultButton wide={wide} border={border} large={large} small={small} width={width} onClick={ev => onClick ? onClick(ev) : null}>
             {icon ?
                 <ButtonContent color={color}>{icon}&nbsp;{children}</ButtonContent> :
                 <ButtonContent color={color}>{children}</ButtonContent>
@@ -65,7 +67,7 @@ function Button({ disabled, positive, negative, color, href, onClick, width, ico
     return component
 }
 
-const BaseButton = styled.div<{ wide?: boolean, large?: boolean, small?: boolean, width?: number }>`
+const BaseButton = styled.div<{ wide?: boolean, large?: boolean, small?: boolean, width?: number, border?: boolean }>`
 ${props => props.wide ? "" : "display: inline-block;"}
 ${props => props.width != undefined ? "width: " + props.width + "px;" : ""}
 ${props => props.large ? "padding: 13px 25px;" :
@@ -87,13 +89,14 @@ box-sizing: border-box;
 
 const DefaultButton = styled(BaseButton)`
 cursor: pointer;
-border: 2px solid ${props => props.theme.lightBorder};
+${({ border, theme }) => border ? "border: 2px solid " + theme.lightBorder + ";" : ""}
 background: ${props => props.theme.white};
 
-// Compensate 2px border
-${props => props.large ? "padding: 11px 23px;" :
-        props.small ? "padding: 6px 13px;" :
-            "padding: 9px 18px;"}
+// Compensate 2px border (if applicable)
+${({ large, small, border }) =>
+        large ? (border ? "padding: 11px 23px;" : "padding: 13px 25px;") :
+            small ? (border ? "padding: 6px 13px;" : "padding: 8px 15px;") :
+                (border ? "padding: 9px 18px;" : "padding: 11px 20px;")}
 
 &:hover {
     background-color: ${props => props.theme.lightBg};

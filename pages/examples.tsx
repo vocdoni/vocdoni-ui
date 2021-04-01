@@ -31,6 +31,7 @@ const IndexPage = () => {
       </DivWithMarginChildren>
       <DivWithMarginChildren>
         <Button>Default button</Button>
+        <Button border>Default with border</Button>
         <Button positive>Positive button</Button>
         <Button negative>Negative button</Button>
         <Button disabled>Disabled button</Button>
