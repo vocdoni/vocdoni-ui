@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { withRouter } from 'next/router'
 
 import styled from "styled-components"
-import Button from '../components/button'
+import { Button } from '../components/button'
 import { Column, Grid } from '../components/grid'
 import { Card, StatusCard } from '../components/cards'
 import { useWallet } from '../hooks/use-wallet'
@@ -16,6 +16,7 @@ import { Input, Textarea } from '../components/inputs'
 import { Radio } from '../components/radio'
 import { colors } from '../theme/colors'
 import { Banner } from '../components/banners'
+import { VoteListItem } from '../components/list-items'
 
 // MAIN COMPONENT
 const IndexPage = () => {
@@ -175,6 +176,18 @@ const IndexPage = () => {
         </Banner>
       </Grid>
 
+      <h2>With VoteListItem</h2>
+      <VoteListItem
+        icon={<span>(logo)</span>}
+        entityName="My Entity"
+        entityId="0x0000000000111111111122222222223333333333"
+        processId="0x1111111111222222222233333333334444444444"
+        title="Vote title here"
+        description="Description of the process goes here"
+        status="active"
+        dateText="1 day left"
+      />
+
       <h1>Hooks</h1>
       <h2>Use Wallet</h2>
       <div>
@@ -234,6 +247,7 @@ const IndexPage = () => {
         <p style={{ color: colors.textAccent1 }}>This color is <code>textAccent1</code></p>
         <p style={{ color: colors.textAccent1B }}>This color is <code>textAccent1B</code></p>
         <p style={{ color: colors.textAccent1C }}>This color is <code>textAccent1C</code></p>
+        <p style={{ color: colors.textAccent1Grayed }}>This color is <code>textAccent1Grayed</code></p>
         <p style={{ color: colors.textAccent2 }}>This color is <code>textAccent2</code></p>
         <p style={{ color: colors.textAccent2B }}>This color is <code>textAccent2B</code></p>
         <BgDiv style={{ background: colors.accent1 }}>This color is <code>accent1</code></BgDiv>

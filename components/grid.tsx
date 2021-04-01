@@ -12,7 +12,7 @@ export type ColumnProps = {
   sm?: number
   /** [XS] Number of grid columns to use (1 to 12) */
   span?: number
-  children: React.ReactNode
+  children?: React.ReactNode
 }
 
 export const GRID_COLUMNS = 12

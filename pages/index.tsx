@@ -4,7 +4,7 @@ import { withRouter } from 'next/router'
 import styled, { CSSProperties } from 'styled-components'
 
 // import TokenCard from '../components/token-card'
-import Button from '../components/button'
+import { Button } from '../components/button'
 import { useIsMobile } from '../hooks/use-window-size'
 import i18n from '../i18n'
 

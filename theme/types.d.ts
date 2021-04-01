@@ -9,8 +9,10 @@ export interface Colors {
   textAccent1: Color;
   /** Lighter positive text color */
   textAccent1B: Color;
-  /** Disabled positive text color */
+  /** Another positive text color variant */
   textAccent1C: Color;
+  /** Disabled positive text color */
+  textAccent1Grayed: Color;
 
   /** Main negative text color */
   textAccent2: Color;
@@ -21,8 +23,10 @@ export interface Colors {
   accent1: Color;
   /** Lighter positive background color (solid) */
   accent1B: Color;
-  /** Disabled positive background color (solid) */
+  /** Another positive variant color (solid) */
   accent1C: Color;
+  /** Disabled positive background color (solid) */
+  accent1Grayed: Color;
 
   /** Main negative background color (solid) */
   accent2: Color;

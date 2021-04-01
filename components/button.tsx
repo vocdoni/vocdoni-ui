@@ -22,7 +22,7 @@ type ButtonProps = {
     onClick?: (ev: React.MouseEvent<HTMLDivElement, MouseEvent>) => void
 }
 
-function Button({ disabled, positive, negative, color, href, onClick, width, icon, wide, border, large, small, children }: ButtonProps) {
+export const Button = ({ disabled, positive, negative, color, href, onClick, width, icon, wide, border, large, small, children }: ButtonProps) => {
     let component: JSX.Element
 
     if (disabled) {
@@ -74,7 +74,7 @@ ${props => props.large ? "padding: 13px 25px;" :
         props.small ? "padding: 8px 15px;" :
             "padding: 11px 20px;"}
 
-${props => props.large ? "font-size: 130%;" :
+${props => props.large ? "font-size: 125%;" :
         props.small ? "font-size: 85%;" : ""}
 
 cursor: no-drop;
@@ -146,5 +146,3 @@ ${props => props.color == "positive" ? "color: " + props.theme.textAccent1 + ";"
 const MyAnchor = styled.a`
 color: unset;
 `
-
-export default Button

@@ -62,7 +62,7 @@ position: relative;
 margin-bottom: 10px;
 `
 const StepText = styled.div<{ active: boolean }>`
-color: ${({ theme, active }) => active ? theme.accent1 : theme.accent1C};
+color: ${({ theme, active }) => active ? theme.accent1 : theme.accent1Grayed};
 `
 const LineLeft = styled.div<{ done: boolean }>`
 z-index: 10;
@@ -71,7 +71,7 @@ top: calc(50% - ${LINE_WIDTH / 2}px);
 left: 0;
 right: 50%;
 height: ${LINE_WIDTH}px;
-background: ${({ theme, done }) => done ? theme.accent1 : theme.accent1C};
+background: ${({ theme, done }) => done ? theme.accent1 : theme.accent1Grayed};
 `
 const LineRight = styled.div<{ done: boolean }>`
 z-index: 10;
@@ -80,13 +80,13 @@ top: calc(50% - ${LINE_WIDTH / 2}px);
 left: 50%;
 right: 0;
 height: ${LINE_WIDTH}px;
-background: ${({ theme, done }) => done ? theme.accent1 : theme.accent1C};
+background: ${({ theme, done }) => done ? theme.accent1 : theme.accent1Grayed};
 `
 
 const Dot = styled.div<{ done?: boolean }>`
 z-index: 20;
 position: absolute;
-background-color: ${({ theme, done }) => done ? theme.accent1 : theme.accent1C};
+background-color: ${({ theme, done }) => done ? theme.accent1 : theme.accent1Grayed};
 top: calc(50% - ${DOT_SIZE_SM / 2}px);
 left: calc(50% - ${DOT_SIZE_SM / 2}px);
 width: ${DOT_SIZE_SM}px;

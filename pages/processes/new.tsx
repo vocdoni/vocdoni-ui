@@ -20,7 +20,7 @@ import Router from 'next/router'
 import Spinner from 'react-svg-spinner'
 import { providers } from 'ethers'
 
-import Button from '../../components/button'
+import { Button } from '../../components/button'
 import { useMessageAlert } from '../../hooks/message-alert'
 import { TopSection } from '../../components/top-section'
 import RadioChoice from '../../components/radio'
@@ -364,7 +364,7 @@ const NewProcessPage = () => {
     else if (!endDate)
       return setAlertMessage('Please, enter an ending date');
 
-    const fiveMin = add(new Date(), )
+    const fiveMin = add(new Date(),)
 
     if (moment(startDate).isBefore(moment().add(5, 'minutes'))) {
       return setAlertMessage(
@@ -394,7 +394,7 @@ const NewProcessPage = () => {
         if (!choice.title.default.trim())
           return setAlertMessage(
             'Please, fill in all the choices for question ' +
-              (qIdx + 1)
+            (qIdx + 1)
           );
 
         // Ensure values are unique and sequential
