@@ -2,24 +2,28 @@ import React, { ChangeEvent, Component } from 'react'
 import { Checkbox } from '@aragon/ui'
 
 import FileLoader from '../FileLoader'
-import { UseAccountContext } from '../../hooks/account'
+import { UseEntityCreationContext } from '../../hooks/entity-creation'
 import { StepProps } from '../../lib/types'
 import { EMAIL_REGEX } from '../../lib/regex'
+import { Column, Grid } from '../grid'
+import { Input, Textarea } from '../inputs'
+import i18n from '../../i18n'
+import { Button } from '../button'
 
 type State = {
   valid: boolean,
 }
 
 export default class FormDetails extends Component<StepProps, State> {
-  static contextType = UseAccountContext
-  context !: React.ContextType<typeof UseAccountContext>
+  static contextType = UseEntityCreationContext
+  context !: React.ContextType<typeof UseEntityCreationContext>
 
   state = {
     valid: false,
   }
 
-  get valid () {
-    const required = ['name', 'email', 'description']
+  get valid() {
+    const required = ['name', 'email']
     for (const req of required) {
       if (!this.context[req].length) {
         return false
@@ -46,71 +50,73 @@ export default class FormDetails extends Component<StepProps, State> {
 
   render() {
     return (
-      <>
-        <div>
+      <Grid>
+        <Column span={12}>
+          <h2>{i18n.t('entity.new_entity')}</h2>
+        </Column>
+        <Column span={6}>
+          <label htmlFor='name'>{i18n.t('entity.name')}</label>
+          <Input
+            wide
+            id='name'
+            type='text'
+            value={this.context.name}
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              this.context.setName(e.target.value)
+            }
+          />
+        </Column>
+        <Column span={6}>
+          <label htmlFor='email'>{i18n.t('entity.email')}</label>
+          <Input
+            wide
+            id='email'
+            type='email'
+            value={this.context.email}
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              this.context.setEmail(e.target.value)
+            }
+          />
+        </Column>
+        <Column span={12}>
+          <h2>{i18n.t('description')}</h2>
           <div>
-            <h2>Entity details</h2>
-            <div>
-              <label>Name of the entity</label>
-              <input
-                type='text'
-                value={this.context.name}
-                onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                  this.context.setName(e.target.value)
-                }
-              />
-            </div>
-            <div>
-              <label>Contact e-mail</label>
-              <input
-                type='email'
-                value={this.context.email}
-                onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                  this.context.setEmail(e.target.value)
-                }
-              />
-            </div>
+            <label htmlFor='edesc'>{i18n.t('entity.introduction')}</label>
+            <Textarea
+              wide
+              id='edesc'
+              value={this.context.description}
+              onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
+                this.context.setDescription(e.target.value)
+              }
+            />
           </div>
+        </Column>
+        <Column span={6}>
+          <h2>{i18n.t('entity.logo')}</h2>
           <div>
-            <h2>Description</h2>
-            <div>
-              <label>Optional introduction</label>
-              <textarea
-                value={this.context.description}
-                onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
-                  this.context.setDescription(e.target.value)
-                }
-              />
-            </div>
+            <FileLoader
+              onSelect={(file) => this.context.setLogoFile(file)}
+              onChange={this.context.setLogoUrl}
+              file={this.context.logoFile}
+              url={this.context.logoUrl}
+              accept='.jpg,.jpeg,.png'
+            />
           </div>
+        </Column>
+        <Column span={6}>
+          <h2>{i18n.t('entity.header')}</h2>
           <div>
-            <div>
-              <h2>Entity logo</h2>
-              <div>
-                <FileLoader
-                  onSelect={(file) => this.context.setLogoFile(file)}
-                  onChange={this.context.setLogoUrl}
-                  file={this.context.logoFile}
-                  url={this.context.logoUrl}
-                  accept='.jpg,.jpeg,.png'
-                />
-              </div>
-            </div>
-            <div>
-              <h2>Entity header</h2>
-              <div>
-                <FileLoader
-                  onSelect={(file) => this.context.setHeaderFile(file)}
-                  onChange={this.context.setHeaderUrl}
-                  file={this.context.headerFile}
-                  url={this.context.headerUrl}
-                  accept='.jpg,.jpeg,.png,.gif'
-                />
-              </div>
-            </div>
+            <FileLoader
+              onSelect={(file) => this.context.setHeaderFile(file)}
+              onChange={this.context.setHeaderUrl}
+              file={this.context.headerFile}
+              url={this.context.headerUrl}
+              accept='.jpg,.jpeg,.png,.gif'
+            />
           </div>
-        </div>
-        <div>
+        </Column>
+        <Column span={12}>
           <label>
             <Checkbox
               checked={this.context.terms}
@@ -118,14 +124,17 @@ export default class FormDetails extends Component<StepProps, State> {
             />
             I accept...
           </label>
-        </div>
-        <button
-          onClick={() => this.props.setStep('FormPassword')}
-          disabled={!this.valid}
-        >
-          Next step
-        </button>
-      </>
+        </Column>
+        <Column span={12}>
+          <Button
+            positive
+            onClick={() => this.props.setStep('FormPassword')}
+            disabled={!this.valid}
+          >
+            {i18n.t('next_step')}
+          </Button>
+        </Column>
+      </Grid>
     )
   }
 }

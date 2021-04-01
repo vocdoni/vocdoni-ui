@@ -3,8 +3,19 @@
     "hero_subtitle": "Vocdoni empowers communities to take their AGM's to the next level",
     "hero_title": "A universally verifiable, censorship-resistant and anonymous voting engine"
   },
+  "description": "Description",
+  "entity": {
+    "new_entity": "New entity",
+    "name": "Name of the entity",
+    "email": "Contact e-mail",
+    "introduction": "Optional introduction",
+    "logo": "Entity logo",
+    "header": "Entity header"
+  },
   "errors": {
     "general_error": "General error",
     "page_not_found": "Page not found"
-  }
+  },
+  "examine": "Examine",
+  "next_step": "Next step"
 }

@@ -1,6 +1,6 @@
 import { Component, createContext, useContext } from 'react'
 
-export interface AccountContext {
+export interface EntityCreationContext {
   description: string,
   email: string,
   headerFile: File,
@@ -10,6 +10,7 @@ export interface AccountContext {
   name: string,
   password: string,
   setDescription?(description: string): void,
+  setEmail?(email: string): void,
   setHeaderFile?(headerFile: File): void,
   setHeaderUrl?(headerUrl: string): void,
   setLogoFile?(logoFile: File): void,
@@ -20,19 +21,19 @@ export interface AccountContext {
   terms: boolean,
 }
 
-export const UseAccountContext = createContext<AccountContext>({} as any)
+export const UseEntityCreationContext = createContext<EntityCreationContext>({} as any)
 
-export const useAccount = () => {
-  const accountCtxt = useContext(UseAccountContext)
+export const useEntityCreation = () => {
+  const accountCtxt = useContext(UseEntityCreationContext)
   if (accountCtxt === null) {
-    throw new Error('useAccount() can only be used on the descendants of <UseAccountProvider />,')
+    throw new Error('useAccount() can only be used on the descendants of <UseEntityCreationProvider />,')
   }
 
   return accountCtxt
 }
 
-export class UseAccountProvider extends Component {
-  state: AccountContext = {
+export class UseEntityCreationProvider extends Component {
+  state: EntityCreationContext = {
     email: '',
     name: '',
     description: '',
@@ -96,9 +97,9 @@ export class UseAccountProvider extends Component {
 
   render() {
     return (
-      <UseAccountContext.Provider value={{ ...this.state, ...this.methods }}>
+      <UseEntityCreationContext.Provider value={{ ...this.state, ...this.methods }}>
         {this.props.children}
-      </UseAccountContext.Provider>
+      </UseEntityCreationContext.Provider>
     )
   }
 }

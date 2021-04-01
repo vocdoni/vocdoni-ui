@@ -1,6 +1,5 @@
 import { Wallet } from '@ethersproject/wallet'
 import { Symmetric } from 'dvote-js'
-import { Buffer } from "buffer/"
 import { useState, createContext, useContext, useEffect } from 'react'
 import i18n from '../i18n'
 
@@ -23,12 +22,33 @@ export const useWallet = () => {
     }
   }
 
-  return { wallet, setWallet, setWalletFromEntity }
+  const waitForGas = async (maxCount: number = 50) => {
+    let counter = 1
+    while (true) {
+      if (counter > maxCount) return false
+
+      if (+(await wallet.provider.getBalance(wallet.address)) > 0) {
+        return true
+      }
+
+      await new Promise(r => setTimeout(r, 1000)) // Wait a second
+      counter++
+    }
+  }
+
+  return { wallet, setWallet, setWalletFromEntity, waitForGas }
 }
 
 // CONTEXT
 
-const UseWalletContext = createContext<{ wallet: Wallet, setWallet: (w: Wallet) => void }>({ wallet: null, setWallet: (_) => { } })
+const UseWalletContext = createContext<{
+  wallet: Wallet,
+  setWallet: (w: Wallet) => void
+  waitForGas?: () => boolean,
+}>({
+  wallet: null,
+  setWallet: (_) => { },
+})
 
 export function UseWalletContextProvider({ children }) {
   const [wallet, setWallet] = useState<Wallet>(null)
