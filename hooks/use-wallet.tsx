@@ -1,3 +1,4 @@
+import { BigNumber } from '@ethersproject/bignumber'
 import { Wallet } from '@ethersproject/wallet'
 import { Symmetric } from 'dvote-js'
 import { useState, createContext, useContext, useEffect } from 'react'
@@ -22,18 +23,20 @@ export const useWallet = () => {
     }
   }
 
-  const waitForGas = async (maxCount: number = 50) => {
-    let counter = 1
-    while (true) {
-      if (counter > maxCount) return false
-
-      if (+(await wallet.provider.getBalance(wallet.address)) > 0) {
+  const waitForGas = async (retries: number = 25) => {
+    while (retries >= 0) {
+      if (!wallet) {
+        await new Promise(r => setTimeout(r, 2000)) // Wait 2s
+        if (!wallet) continue
+      }
+      else if ((await wallet.provider.getBalance(wallet.address)).gt(BigNumber.from(0))) {
         return true
       }
 
-      await new Promise(r => setTimeout(r, 1000)) // Wait a second
-      counter++
+      await new Promise(r => setTimeout(r, 2000)) // Wait 2s
+      retries--
     }
+    return false
   }
 
   return { wallet, setWallet, setWalletFromEntity, waitForGas }

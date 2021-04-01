@@ -19,8 +19,8 @@ const EntityCreation = ({ setStep }: StepProps) => {
   const account = useEntityCreation()
   const [creating, setCreating] = useState<boolean>(false)
   const { gw } = useBackend()
-  const { wallet, setWallet, waitForGas } = useWallet()
-  const { pool } = usePool()
+  const { setWallet, waitForGas } = useWallet()
+  const { poolPromise } = usePool()
   const { addAccount } = useDbAccounts()
   const { setAlertMessage } = useMessageAlert()
 
@@ -34,7 +34,8 @@ const EntityCreation = ({ setStep }: StepProps) => {
     setCreating(true)
     async function signup() {
       try {
-        const wallet = Wallet.createRandom()
+        const pool = await poolPromise
+        const wallet = Wallet.createRandom().connect(pool.provider)
         const bytes = Buffer.from(wallet.mnemonic.phrase, 'ascii')
         // Store wallet in memory
         setWallet(wallet)
