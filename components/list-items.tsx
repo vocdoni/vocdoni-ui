@@ -42,7 +42,7 @@ export const VoteListItem = ({ icon, entityId, entityName, processId, title, des
 
 const ListItemDiv = styled.div`
   width: 100%;
-  padding: 11px 20px;
+  padding: 20px 20px 10px;
   background: ${props => props.theme.white};
   box-shadow: 0px 3px 3px rgba(180, 193, 228, 0.35);
   border-radius: 16px;
@@ -59,6 +59,7 @@ const EntityName = styled.h5`
   display: inline-block;
   margin: 0 6px 10px;
   font-weight: normal;
+  font-size: 90%;
   color: ${props => props.theme.text};
 `
 

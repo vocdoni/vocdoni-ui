@@ -5,6 +5,8 @@ export const colors: Colors = {
   lightText: "#777777",
   lighterText: "#999",
 
+  background: "#F6F9FC",
+
   textAccent1: "#46C4C2",
   textAccent1B: "#A3EC93",
   textAccent1C: "#4BDD7C",

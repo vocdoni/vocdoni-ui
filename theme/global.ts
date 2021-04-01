@@ -9,7 +9,7 @@ body {
   margin: 0;
   font-size: 14px;
   font-family: 'Roboto', Arial, Helvetica, sans-serif !important;
-  background-color: ${({ theme }) => theme.white} !important;
+  background-color: ${({ theme }) => theme.background} !important;
   color: ${({ theme }) => theme.text};
 }
 
@@ -71,7 +71,7 @@ p {
 }
 
 a {
-  color: ${props => props.theme.text3};
+  color: ${props => props.theme.accent1};
   text-decoration: none;
   @media ${({ theme }) => theme.screenMax.tablet} {
     font-size: 12px;
@@ -129,8 +129,8 @@ textarea {
 `
 
 export const theme: DefaultTheme = {
-    ...colors,
-    screenMin,
-    screenMax,
-    margins: margins,
+  ...colors,
+  screenMin,
+  screenMax,
+  margins: margins,
 }

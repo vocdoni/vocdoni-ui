@@ -5,6 +5,9 @@ export interface Colors {
   lightText: Color;
   lighterText: Color;
 
+  /** Background color of the body */
+  background: Color;
+
   /** Main positive text color */
   textAccent1: Color;
   /** Lighter positive text color */
