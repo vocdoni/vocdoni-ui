@@ -26,7 +26,7 @@ export const useWallet = () => {
   const waitForGas = async (retries: number = 25) => {
     while (retries >= 0) {
       if (!wallet) {
-        await new Promise(r => setTimeout(r, 2000)) // Wait 2s
+        await new Promise(r => setTimeout(r, 200)) // Wait a bit
         if (!wallet) continue
       }
       else if ((await wallet.provider.getBalance(wallet.address)).gt(BigNumber.from(0))) {
