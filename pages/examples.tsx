@@ -213,7 +213,7 @@ const IndexPage = () => {
         </ul>
         <Button small onClick={() => refreshAccounts()}>Refresh accounts (unneeded)</Button>
         &nbsp;&nbsp;
-        <Button positive small onClick={() => addAccount({ name: "Account " + Math.random(), address: "0xaddr-" + Math.random(), encryptedPrivateKey: "abcde" + Math.random() })}>Add account</Button>
+        <Button positive small onClick={() => addAccount({ name: "Account " + Math.random(), address: "0xaddr-" + Math.random(), encryptedMnemonic: "abcde" + Math.random() })}>Add account</Button>
       </div>
 
       <h1>Steps</h1>

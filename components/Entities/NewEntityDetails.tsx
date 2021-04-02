@@ -3,17 +3,18 @@ import { Checkbox } from '@aragon/ui'
 
 import FileLoader from '../FileLoader'
 import { UseEntityCreationContext } from '../../hooks/entity-creation'
-import { StepProps } from '../../lib/types'
+import { NewEntityStepProps } from '../../lib/types'
 import { EMAIL_REGEX } from '../../lib/regex'
 import { Column, Grid } from '../grid'
 import { Input, Textarea } from '../inputs'
 import i18n from '../../i18n'
 import { Button } from '../button'
 import styled from 'styled-components'
+import { SectionTitle } from '../text'
 
 type State = {}
 
-export default class FormDetails extends Component<StepProps, State> {
+export default class FormDetails extends Component<NewEntityStepProps, State> {
   static contextType = UseEntityCreationContext
   context !: React.ContextType<typeof UseEntityCreationContext>
 
@@ -47,7 +48,7 @@ export default class FormDetails extends Component<StepProps, State> {
     return (
       <Grid>
         <Column>
-          <h2>{i18n.t('entity.new_entity')}</h2>
+          <SectionTitle>{i18n.t('entity.new_entity')}</SectionTitle>
         </Column>
         <Column md={6}>
           <label htmlFor='name'>{i18n.t('entity.name')}</label>
@@ -74,7 +75,7 @@ export default class FormDetails extends Component<StepProps, State> {
           />
         </Column>
         <Column>
-          <h2>{i18n.t('description')}</h2>
+          <SectionTitle bottomMargin>{i18n.t('description')}</SectionTitle>
           <div>
             <label htmlFor='edesc'>{i18n.t('entity.introduction')}</label>
             <Textarea
@@ -88,7 +89,7 @@ export default class FormDetails extends Component<StepProps, State> {
           </div>
         </Column>
         <Column md={6}>
-          <h2>{i18n.t('entity.logo')}</h2>
+          <SectionTitle>{i18n.t('entity.logo')}</SectionTitle>
           <div>
             <FileLoader
               onSelect={(file) => this.context.setLogoFile(file)}
@@ -100,7 +101,7 @@ export default class FormDetails extends Component<StepProps, State> {
           </div>
         </Column>
         <Column md={6}>
-          <h2>{i18n.t('entity.header')}</h2>
+          <SectionTitle>{i18n.t('entity.header')}</SectionTitle>
           <div>
             <FileLoader
               onSelect={(file) => this.context.setHeaderFile(file)}

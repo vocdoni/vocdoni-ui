@@ -18,7 +18,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-  font-size: 45px;
+  font-size: 35px;
   font-weight: 900;
   @media ${({ theme }) => theme.screenMax.tablet} {
     font-size: 24px;
@@ -27,7 +27,7 @@ h1 {
 }
 
 h2 {
-  font-size: 30px;
+  font-size: 20px;
   font-weight: 900;
   @media ${({ theme }) => theme.screenMax.tablet} {
     font-size: 20px;
@@ -36,7 +36,7 @@ h2 {
 }
 
 h3 {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 900;
   @media ${({ theme }) => theme.screenMax.tablet} {
     font-size: 18px;
@@ -78,6 +78,9 @@ a {
   }
 }
 
+input, textarea {
+  outline-width: 0;
+}
 
 textarea {
   min-height: 72px;

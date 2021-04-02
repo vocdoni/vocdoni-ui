@@ -105,16 +105,17 @@ height: ${DOT_SIZE_LG}px;
 animation-name: pulse;
 animation-duration: 2s; 
 // animation-timing-function: ease-in-out; 
+animation-timing-function: linear; 
 animation-iteration-count: infinite;
 
 @keyframes pulse {
   0% {
-    opacity: 0.2;
-    transform: scale(80%);
+    opacity: 0.5;
+    transform: scale(70%);
   }
   100% {
-    opacity: 0.5;
-    transform: scale(100%);
+    opacity: 0.2;
+    transform: scale(110%);
   }
 }
 `

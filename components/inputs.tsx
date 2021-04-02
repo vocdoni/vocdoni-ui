@@ -9,7 +9,7 @@ box-shadow: inset 0px 2px 3px rgba(180, 193, 228, 0.35);
 border-radius: 8px;
 outline-width: 0;
 
-margin-bottom: 20px;
+margin-bottom: 10px;
 
 ${({ wide }) => wide ? "width: 100%;" : ""}
 `
@@ -23,7 +23,7 @@ box-shadow: inset 0px 2px 3px rgba(180, 193, 228, 0.35);
 border-radius: 8px;
 outline-width: 0;
 
-margin-bottom: 20px;
+margin-bottom: 10px;
 
 ${({ wide }) => wide ? "width: 100%;" : ""}
 `

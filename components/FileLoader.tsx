@@ -9,6 +9,8 @@ import { FileReaderPromise } from '../lib/file'
 import { Button } from './button'
 import { Input } from './inputs'
 
+const BROWSE_BUTTON_WIDTH = 140
+
 type Props = {
   accept?: string,
   file?: File,
@@ -17,17 +19,17 @@ type Props = {
   onChange: (url: string) => void,
 }
 
-export const IPFSUpload = async (pool: GatewayPool, wallet: Wallet, file: File) => {
-  const buffer = await FileReaderPromise(file)
-
-  return await FileApi.add(buffer, file.name, wallet, pool)
+export const IPFSUpload = (pool: GatewayPool, wallet: Wallet, file: File) => {
+  return FileReaderPromise(file).then(buffer => {
+    return FileApi.add(buffer, file.name, wallet, pool)
+  })
 }
 
 const FileLoader = ({ onSelect, onChange, accept, ...props }: Props) => {
   const [file, setFile] = useState<File>(null)
   const [error, setError] = useState<string>(null)
   const [fileUrl, setFileUrl] = useState<string>('')
-  const [fileName, setFileName] = useState<string>('')
+  // const [fileName, setFileName] = useState<string>('')
   const inputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
@@ -82,11 +84,7 @@ const FileLoader = ({ onSelect, onChange, accept, ...props }: Props) => {
   }
 
   const input = {
-    accept: '*'
-  }
-
-  if (accept?.length) {
-    input.accept = accept
+    accept: accept ? accept : '*'
   }
 
   return <>
@@ -95,7 +93,7 @@ const FileLoader = ({ onSelect, onChange, accept, ...props }: Props) => {
         <Then>
           <MyInput
             type='text'
-            placeholder={i18n.t("Enter the URL or upload a file")}
+            placeholder={i18n.t("input.enter_the_url_or_upload_a_file")}
             value={fileUrl}
             onChange={onFileUrlChange}
           />
@@ -118,7 +116,7 @@ const FileLoader = ({ onSelect, onChange, accept, ...props }: Props) => {
         style={{ display: 'none' }}
         {...input}
       />
-      <Button positive onClick={() => inputRef.current.click()}>
+      <Button positive width={BROWSE_BUTTON_WIDTH} onClick={() => inputRef.current.click()}>
         {i18n.t('upload.browse')}
       </Button>
     </div>
@@ -134,6 +132,7 @@ color: ${({ theme }) => theme.textAccent2B};
 
 const MyInput = styled(Input)`
 margin-right: 10px;
+width: calc(100% - ${BROWSE_BUTTON_WIDTH}px - 10px);
 `
 
 export default FileLoader

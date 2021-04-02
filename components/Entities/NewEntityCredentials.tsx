@@ -2,7 +2,7 @@ import React, { ChangeEvent, Component } from 'react'
 import { Checkbox } from '@aragon/ui'
 
 import { UseEntityCreationContext } from '../../hooks/entity-creation'
-import { StepProps } from '../../lib/types'
+import { NewEntityStepProps } from '../../lib/types'
 import { Column, Grid } from '../grid'
 import { Input } from '../inputs'
 import { Button } from '../button'
@@ -15,7 +15,7 @@ type State = {
   ack: boolean,
 }
 
-export default class NewEntityCredentials extends Component<StepProps, State> {
+export default class NewEntityCredentials extends Component<NewEntityStepProps, State> {
   static contextType = UseEntityCreationContext
   context !: React.ContextType<typeof UseEntityCreationContext>
 

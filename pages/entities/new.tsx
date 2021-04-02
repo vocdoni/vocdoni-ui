@@ -2,14 +2,15 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { PageCard } from '../../components/cards'
 
-import { INewEntitySteps, NewEntitySteps } from '../../components/Entities/steps'
+import { INewEntityStepNames, NewEntitySteps } from '../../components/Entities/steps'
 import { Column, Grid } from '../../components/grid'
 import { Steps } from '../../components/steps'
+import { MainTitle, MainDescription } from '../../components/text'
 import { UseEntityCreationProvider } from '../../hooks/entity-creation'
 import i18n from '../../i18n'
 
 const NewEntity = () => {
-  const [step, setStep] = useState<INewEntitySteps>('NewEntityDetails')
+  const [step, setStep] = useState<INewEntityStepNames>('NewEntityDetails')
   const StepComponent = NewEntitySteps[step].component
 
   return (
@@ -17,8 +18,8 @@ const NewEntity = () => {
       <PageCard>
         <Grid>
           <Column span={6}>
-            <h1>{i18n.t("entity.new_entity")}</h1>
-            <SubtitleDescription>{i18n.t("entity.enter_the_details_of_the_organization")}</SubtitleDescription>
+            <MainTitle>{i18n.t("entity.new_entity")}</MainTitle>
+            <MainDescription>{i18n.t("entity.enter_the_details_of_the_organization")}</MainDescription>
           </Column>
           <Column span={6}>
             <Steps
@@ -34,9 +35,5 @@ const NewEntity = () => {
     </UseEntityCreationProvider>
   )
 }
-
-const SubtitleDescription = styled.span`
-color: ${({ theme }) => theme.textAccent1}
-`
 
 export default NewEntity

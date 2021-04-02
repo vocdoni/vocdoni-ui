@@ -18,4 +18,4 @@ export const NewEntitySteps = {
   }
 }
 
-export type INewEntitySteps = keyof typeof NewEntitySteps
+export type INewEntityStepNames = keyof typeof NewEntitySteps

@@ -13,11 +13,11 @@ import { useBackend } from '../../hooks/backend'
 import { useMessageAlert } from '../../hooks/message-alert'
 import { Button } from '../button'
 import i18n from '../../i18n'
-import { StepProps } from '../../lib/types'
+import { NewEntityStepProps } from '../../lib/types'
 
-const EntityCreation = ({ setStep }: StepProps) => {
+const EntityCreation = ({ setStep }: NewEntityStepProps) => {
   const account = useEntityCreation()
-  const [creating, setCreating] = useState<boolean>(false)
+  const [creating, setCreating] = useState<boolean>(true)
   const { gw } = useBackend()
   const { setWallet, waitForGas } = useWallet()
   const { poolPromise } = usePool()
@@ -25,7 +25,6 @@ const EntityCreation = ({ setStep }: StepProps) => {
   const { setAlertMessage } = useMessageAlert()
 
   const onError = (error: string) => {
-    setCreating(false)
     setAlertMessage(error)
     setStep('NewEntityDetails')
   }
@@ -44,7 +43,9 @@ const EntityCreation = ({ setStep }: StepProps) => {
         await addAccount({
           address: wallet.address,
           name: account.name,
-          encryptedPrivateKey: Symmetric.encryptBytes(bytes, account.password),
+          encryptedMnemonic: Symmetric.encryptBytes(bytes, account.password),
+          hdPath: wallet.mnemonic.path,
+          locale: wallet.mnemonic.locale
         })
 
         // Upload images
