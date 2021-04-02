@@ -104,10 +104,10 @@ const EntityCreation = ({ setStep }: NewEntityStepProps) => {
       </Then>
       <Else>
         <Button href='/dashboard'>
-          {i18n.t('go_to_dashboard')}
+          {i18n.t('action.go_to_dashboard')}
         </Button>
         <Button href='/processes/new' positive>
-          {i18n.t('create_new_proposal')}
+          {i18n.t('action.create_new_proposal')}
         </Button>
       </Else>
     </If>

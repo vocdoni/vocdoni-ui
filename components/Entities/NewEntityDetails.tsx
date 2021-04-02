@@ -75,9 +75,9 @@ export default class FormDetails extends Component<NewEntityStepProps, State> {
           />
         </Column>
         <Column>
-          <SectionTitle bottomMargin>{i18n.t('description')}</SectionTitle>
+          <SectionTitle bottomMargin>{i18n.t('entity.description')}</SectionTitle>
           <div>
-            <label htmlFor='edesc'>{i18n.t('entity.introduction')}</label>
+            <label htmlFor='edesc'>{i18n.t('entity.brief_description')}</label>
             <Textarea
               wide
               id='edesc'
@@ -129,7 +129,7 @@ export default class FormDetails extends Component<NewEntityStepProps, State> {
               onClick={() => this.props.setStep('NewEntityCredentials')}
               disabled={!this.valid}
             >
-              {i18n.t("steps.continue")}
+              {i18n.t("action.continue")}
             </Button>
           </BottomDiv>
         </Column>

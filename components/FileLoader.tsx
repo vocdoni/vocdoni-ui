@@ -117,7 +117,7 @@ const FileLoader = ({ onSelect, onChange, accept, ...props }: Props) => {
         {...input}
       />
       <Button positive width={BROWSE_BUTTON_WIDTH} onClick={() => inputRef.current.click()}>
-        {i18n.t('upload.browse')}
+        {i18n.t('action.browse')}
       </Button>
     </div>
     <If condition={error}>

@@ -1,6 +1,48 @@
 {
-  "home": {
-    "hero_subtitle": "",
-    "hero_title": ""
-  }
+    "action": {
+        "browse": "",
+        "continue": "",
+        "create_my_entity": "",
+        "create_new_proposal": "",
+        "go_back": "",
+        "go_to_dashboard": ""
+    },
+    "entity": {
+        "brief_description": "",
+        "choose_a_passphrase": "",
+        "creation": "",
+        "credentials": "",
+        "description": "",
+        "details": "",
+        "email": "",
+        "enter_the_details_of_the_organization": "",
+        "header": "",
+        "logo": "",
+        "name": "",
+        "new_entity": "",
+        "passphrase": "",
+        "repeat_passphrase": ""
+    },
+    "errors": {
+        "choose_passphrase_and_repeat_it": "",
+        "file_too_big": "",
+        "general_error": "",
+        "invalid_image_url": "",
+        "page_not_found": "",
+        "passphrases_do_not_match": "",
+        "please_accept_credentials_tos": ""
+    },
+    "home": {
+        "hero_subtitle": "",
+        "hero_title": ""
+    },
+    "input": {
+        "enter_the_url_or_upload_a_file": "",
+        "remove_file": ""
+    },
+    "vote": {
+        "active_vote": "",
+        "ended_vote": "",
+        "paused_vote": ""
+    }
 }

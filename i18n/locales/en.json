@@ -1,21 +1,48 @@
 {
-  "home": {
-    "hero_subtitle": "Vocdoni empowers communities to take their AGM's to the next level",
-    "hero_title": "A universally verifiable, censorship-resistant and anonymous voting engine"
-  },
-  "description": "Description",
-  "entity": {
-    "new_entity": "New entity",
-    "name": "Name of the entity",
-    "email": "Contact e-mail",
-    "introduction": "Optional introduction",
-    "logo": "Entity logo",
-    "header": "Entity header"
-  },
-  "errors": {
-    "general_error": "General error",
-    "page_not_found": "Page not found"
-  },
-  "examine": "Examine",
-  "next_step": "Next step"
+    "action": {
+        "browse": "",
+        "continue": "",
+        "create_my_entity": "",
+        "create_new_proposal": "",
+        "go_back": "",
+        "go_to_dashboard": ""
+    },
+    "entity": {
+        "brief_description": "Brief description of your entity",
+        "choose_a_passphrase": "",
+        "creation": "",
+        "credentials": "",
+        "description": "",
+        "details": "",
+        "email": "Contact e-mail",
+        "enter_the_details_of_the_organization": "",
+        "header": "Entity header",
+        "logo": "Entity logo",
+        "name": "Name of the entity",
+        "new_entity": "New entity",
+        "passphrase": "",
+        "repeat_passphrase": ""
+    },
+    "errors": {
+        "choose_passphrase_and_repeat_it": "",
+        "file_too_big": "",
+        "general_error": "General error",
+        "invalid_image_url": "",
+        "page_not_found": "Page not found",
+        "passphrases_do_not_match": "",
+        "please_accept_credentials_tos": ""
+    },
+    "home": {
+        "hero_subtitle": "Vocdoni empowers communities to take their AGM's to the next level",
+        "hero_title": "A universally verifiable, censorship-resistant and anonymous voting engine"
+    },
+    "input": {
+        "enter_the_url_or_upload_a_file": "",
+        "remove_file": ""
+    },
+    "vote": {
+        "active_vote": "",
+        "ended_vote": "",
+        "paused_vote": ""
+    }
 }

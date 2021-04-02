@@ -92,14 +92,14 @@ export default class NewEntityCredentials extends Component<NewEntityStepProps, 
         <Column>
           <BottomDiv>
             <Button border onClick={() => this.props.setStep('NewEntityDetails')}>
-              {i18n.t("steps.go_back")}
+              {i18n.t("action.go_back")}
             </Button>
             <Button
               positive
               onClick={this.gotoNext.bind(this)}
               disabled={!!err}
             >
-              {i18n.t("steps.continue")}
+              {i18n.t("action.continue")}
             </Button>
           </BottomDiv>
         </Column>
