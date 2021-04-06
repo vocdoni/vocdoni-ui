@@ -69,7 +69,7 @@ export function UseBackendProvider({
 
   // Ensure that by default, resolvePool always has a promise
   if (gw === null) {
-    gwPromise = new Promise<DVoteGateway>(resolve => {
+    gwPromise = new Promise<DVoteGateway>((resolve) => {
       resolveGwPromise = resolve
     })
   } else {
