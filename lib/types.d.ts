@@ -1,5 +1,6 @@
 import { ProcessContractParameters, ProcessMetadata } from 'dvote-js'
 import { INewEntityStepNames } from "../components/Entities/steps"
+import { INewVoteStepNames } from "../components/NewVote/steps"
 
 export type Account = {
   name: string,
@@ -18,4 +19,8 @@ export type ProcessInfo = {
 
 export type NewEntityStepProps = {
   setStep: (step: INewEntityStepNames) => void,
+}
+
+export type NewVoteStepProps = {
+  setStep: (step: INewVoteStepNames) => void,
 }

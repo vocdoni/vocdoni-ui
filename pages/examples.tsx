@@ -50,8 +50,8 @@ const IndexPage = () => {
       </DivWithMarginChildren>
       <DivWithMarginChildren>
         <Button>Default button</Button>
-        <Button color="accent1">Accent 1 button</Button>
-        <Button color="accent2">Accent 2 button</Button>
+        <Button color="positive">Positive button</Button>
+        <Button color="negative">Negative button</Button>
         <Button color="purple">Custom color button</Button>
       </DivWithMarginChildren>
       <DivWithMarginChildren>

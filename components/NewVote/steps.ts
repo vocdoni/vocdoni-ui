@@ -1,13 +1,12 @@
-import React from "react"
 import i18n from "../../i18n"
-// import NewVoteDetails from "./NewVoteDetails"
+import { FormDetails } from "./details"
 // import NewVoteCensus from "./NewVoteCensus"
 // import NewVoteGeneral from "./NewVoteGeneral"
 // import NewVoteCompletion from "./NewVoteCompletion"
 
 export const NewVoteSteps = {
   NewVoteDetails: {
-    component: () => "NewVoteDetails",
+    component: FormDetails,
     hideTopBar: false,
     step: i18n.t("vote.vote_details"),
   },
