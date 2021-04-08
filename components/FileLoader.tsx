@@ -1,11 +1,8 @@
-import { Wallet } from '@ethersproject/wallet'
-import { FileApi, GatewayPool } from 'dvote-js'
 import React, { useEffect, useRef, useState } from 'react'
 import { Else, If, Then } from 'react-if'
 import styled from 'styled-components'
 
 import i18n from '../i18n'
-import { FileReaderPromise } from '../lib/file'
 import { Button } from './button'
 import { Input } from './inputs'
 
@@ -17,12 +14,6 @@ type Props = {
   url?: string,
   onSelect: (file: File) => void,
   onChange: (url: string) => void,
-}
-
-export const IPFSUpload = (pool: GatewayPool, wallet: Wallet, file: File) => {
-  return FileReaderPromise(file).then(buffer => {
-    return FileApi.add(buffer, file.name, wallet, pool)
-  })
 }
 
 const FileLoader = ({ onSelect, onChange, accept, ...props }: Props) => {

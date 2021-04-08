@@ -1,21 +1,25 @@
 import i18n from "../../i18n"
-import NewEntityCreation from "./NewEntityCreation"
 import NewEntityDetails from "./NewEntityDetails"
 import NewEntityCredentials from "./NewEntityCredentials"
+import NewEntityCreation from "./NewEntityCreation"
 
-export const NewEntitySteps = {
-  NewEntityDetails: {
-    component: NewEntityDetails,
-    step: i18n.t("entity.details"),
-  },
-  NewEntityCredentials: {
-    component: NewEntityCredentials,
-    step: i18n.t("entity.credentials"),
-  },
-  NewEntityCreation: {
-    component: NewEntityCreation,
-    step: i18n.t("entity.creation"),
-  }
+export enum EntityCreationSteps {
+  DETAILS = 0,
+  CREDENTIALS = 1,
+  CREATION = 2
 }
 
-export type INewEntityStepNames = keyof typeof NewEntitySteps
+export const EntityCreationStepComponents = {
+  [EntityCreationSteps.DETAILS]: {
+    component: NewEntityDetails,
+    stepTitle: i18n.t("entity.details"),
+  },
+  [EntityCreationSteps.CREDENTIALS]: {
+    component: NewEntityCredentials,
+    stepTitle: i18n.t("entity.credentials"),
+  },
+  [EntityCreationSteps.CREATION]: {
+    component: NewEntityCreation,
+    stepTitle: i18n.t("entity.creation"),
+  }
+}

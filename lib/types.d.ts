@@ -1,14 +1,23 @@
-import { ProcessContractParameters, ProcessMetadata } from 'dvote-js'
-import { INewEntityStepNames } from "../components/Entities/steps"
-import { INewVoteStepNames } from "../components/NewVote/steps"
+import { EntityMetadata, ProcessContractParameters, ProcessMetadata } from 'dvote-js'
+import { EntityCreationSteps } from "../components/Entities/steps"
+import { VoteCreationSteps } from "../components/NewVote/steps"
+
+// IndexDB types
 
 export type Account = {
   name: string,
-  address: string,
   encryptedMnemonic: string,
   hdPath?: string,
   locale?: string
+  address: string,
+  pending?: {
+    creation: boolean,
+    metadata: EntityMetadata,
+    email: string
+  }
 }
+
+// Shared types
 
 export type ProcessInfo = {
   id: string,
@@ -17,10 +26,10 @@ export type ProcessInfo = {
   tokenAddress: string
 }
 
-export type NewEntityStepProps = {
-  setStep: (step: INewEntityStepNames) => void,
+// Wizard types
+
+export type EntityCreationStepProps = {
 }
 
-export type NewVoteStepProps = {
-  setStep: (step: INewVoteStepNames) => void,
+export type VoteCreationStepProps = {
 }

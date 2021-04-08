@@ -1,4 +1,3 @@
-import { BigNumber } from '@ethersproject/bignumber'
 import { Wallet } from '@ethersproject/wallet'
 import { Symmetric } from 'dvote-js'
 import { useState, createContext, useContext, useEffect } from 'react'
@@ -12,34 +11,17 @@ export const useWallet = () => {
   const { wallet, setWallet } = walletCtx
 
   /** Decrypts the private key and sets the current wallet from it */
-  const setWalletFromEntity = (encryptedPrivKey: string, passphrase: string) => {
+  const restoreEncryptedWallet = (encryptedMnemonic: string, hdPath: string, passphrase: string) => {
     try {
-      const privKeyBytes = Symmetric.decryptBytes(encryptedPrivKey, passphrase)
-      const hexPrivKey = "0x" + privKeyBytes.toString("hex")
-      setWallet(new Wallet(hexPrivKey))
+      const mnemonic = Symmetric.decryptString(encryptedMnemonic, passphrase)
+      setWallet(Wallet.fromMnemonic(mnemonic, hdPath))
     }
     catch (err) {
       throw new Error(i18n.t("errors.invalid_passphrase"))
     }
   }
 
-  const waitForGas = async (retries: number = 25) => {
-    while (retries >= 0) {
-      if (!wallet) {
-        await new Promise(r => setTimeout(r, 200)) // Wait a bit
-        if (!wallet) continue
-      }
-      else if ((await wallet.provider.getBalance(wallet.address)).gt(BigNumber.from(0))) {
-        return true
-      }
-
-      await new Promise(r => setTimeout(r, 2000)) // Wait 2s
-      retries--
-    }
-    return false
-  }
-
-  return { wallet, setWallet, setWalletFromEntity, waitForGas }
+  return { wallet, setWallet, restoreEncryptedWallet }
 }
 
 // CONTEXT
@@ -47,7 +29,6 @@ export const useWallet = () => {
 const UseWalletContext = createContext<{
   wallet: Wallet,
   setWallet: (w: Wallet) => void
-  waitForGas?: () => boolean,
 }>({
   wallet: null,
   setWallet: (_) => { },

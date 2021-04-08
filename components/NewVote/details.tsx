@@ -3,7 +3,7 @@ import { Checkbox } from '@aragon/ui'
 
 import FileLoader from '../FileLoader'
 import { useVoteCreation } from '../../hooks/vote-creation'
-import { NewVoteStepProps } from '../../lib/types'
+import { VoteCreationStepProps } from '../../lib/types'
 import { Column, Grid } from '../grid'
 import { Input, Textarea } from '../inputs'
 import i18n from '../../i18n'
@@ -11,7 +11,7 @@ import { Button } from '../button'
 import styled from 'styled-components'
 import { SectionTitle } from '../text'
 
-export const FormDetails = (props: NewVoteStepProps) => {
+export const FormDetails = (props: VoteCreationStepProps) => {
   const { metadata, parameters, methods } = useVoteCreation()
 
   const valid = () => {

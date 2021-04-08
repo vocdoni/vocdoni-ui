@@ -4,7 +4,7 @@ import { Account } from "../lib/types"
 import i18n from '../i18n'
 
 export const useDbAccounts = () => {
-  const [accounts, setAccounts] = useState<Account[]>([])
+  const [dbAccounts, setDbAccounts] = useState<Account[]>([])
   const [error, setError] = useState<string>()
 
   // Initial load
@@ -16,7 +16,7 @@ export const useDbAccounts = () => {
   const refreshAccounts = () => {
     const db = new AccountDb()
     return db.read().then(accounts => {
-      setAccounts(accounts)
+      setDbAccounts(accounts)
       setError(null)
     }).catch(err => {
       setError(i18n.t("errors.please_ensure_no_incognito_mode"))
@@ -24,13 +24,20 @@ export const useDbAccounts = () => {
   }
 
   /** Adds a new account to the local DB and refreshes the currently available list */
-  const addAccount = (account: Account) => {
+  const addDbAccount = (account: Account) => {
     if (!account) Promise.reject(new Error("Empty account"))
 
     const db = new AccountDb()
-    return db.write(accounts.concat([account]))
+    return db.write(dbAccounts.concat([account]))
       .then(() => refreshAccounts())
   }
 
-  return { accounts, addAccount, refreshAccounts, error }
+  const updateAccount = (address: string, account: Account) => {
+    if (!address || !account || !account.name || !account.encryptedMnemonic) throw new Error("Invalid parameters")
+
+    const db = new AccountDb()
+    return db.update(address, account)
+  }
+
+  return { dbAccounts, addDbAccount, refreshAccounts, updateAccount, error }
 }

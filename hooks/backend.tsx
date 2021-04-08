@@ -10,8 +10,8 @@ import { Nullable } from '@vocdoni/react-hooks'
 
 interface BackendContext {
   error: Nullable<string>,
-  gw: DVoteGateway,
-  gwPromise: Promise<DVoteGateway>,
+  bk: DVoteGateway,
+  bkPromise: Promise<DVoteGateway>,
   loading: boolean,
   setLoading?(loading: boolean): void,
   setError?(error: string): void,
@@ -19,8 +19,8 @@ interface BackendContext {
 
 export const UseBackendContext = createContext<BackendContext>({
   loading: false,
-  gw: null,
-  gwPromise: null,
+  bk: null,
+  bkPromise: null,
   error: null,
 })
 
@@ -30,7 +30,7 @@ export function useBackend() {
   if (bkContext === null) {
     throw new Error(
       'useBackend() can only be used on the descendants of <UseBackendProvider />, ' +
-        'please declare it at a higher level.'
+      'please declare it at a higher level.'
     )
   }
 
@@ -45,22 +45,22 @@ export function UseBackendProvider({
   // Promise holder for requests arriving before the pool is available
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<Nullable<string>>(null)
-  const [gw, setGw] = useState<DVoteGateway>(() => new DVoteGateway({
+  const [bk, setBk] = useState<DVoteGateway>(() => new DVoteGateway({
     supportedApis: ['registry'],
     uri: process.env.BACKEND_URL,
     publicKey: process.env.BACKEND_PUB_KEY,
   }))
-  let gwPromise : Promise<DVoteGateway>
-  let resolveGwPromise : (gw: DVoteGateway) => any
+  let bkPromise: Promise<DVoteGateway>
+  let resolveBackendPromise: (bk: DVoteGateway) => any
 
   useEffect(() => {
     setLoading(true)
     try {
-      gw.init().then(() => {
+      bk.init().then(() => {
         setLoading(false)
-        resolveGwPromise?.(gw)
-
-        return gw
+        resolveBackendPromise?.(bk)
+        setError(null)
+        return bk
       })
     } catch (e) {
       setError(e)
@@ -68,16 +68,16 @@ export function UseBackendProvider({
   }, [])
 
   // Ensure that by default, resolvePool always has a promise
-  if (gw === null) {
-    gwPromise = new Promise<DVoteGateway>((resolve) => {
-      resolveGwPromise = resolve
+  if (bk === null) {
+    bkPromise = new Promise<DVoteGateway>((resolve) => {
+      resolveBackendPromise = resolve
     })
   } else {
-    gwPromise = Promise.resolve(gw)
+    bkPromise = Promise.resolve(bk)
   }
 
   return (
-    <UseBackendContext.Provider value={{ gw, gwPromise, loading, error, setError, setLoading }}>
+    <UseBackendContext.Provider value={{ bk, bkPromise, loading, error, setError, setLoading }}>
       {children}
     </UseBackendContext.Provider>
   )

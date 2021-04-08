@@ -14,13 +14,16 @@ export class AccountDb extends Dexie {
     throwIfNotBrowser()
 
     // For newer model versions, DO NOT REMOVE any lines => ADD new ones below.
-    this.version(1).stores({
-      accounts: '&name,encryptedPrivateKey,address'
-    })
+    // See https://dexie.org/docs/Tutorial/Design for model upgrades
+    this.version(1).stores({ accounts: '&name,&address' })
 
     // The following line is needed if your typescript
     // is compiled using babel instead of tsc:
     this.accounts = this.table('accounts')
+  }
+
+  read(): Promise<Account[]> {
+    return this.accounts.toArray()
   }
 
   write(accounts: Account[]) {
@@ -28,7 +31,7 @@ export class AccountDb extends Dexie {
       .then(() => this.accounts.bulkAdd(accounts))
   }
 
-  read(): Promise<Account[]> {
-    return this.accounts.toArray()
+  update(address: string, account: Account) {
+    return this.accounts.where('address').equals(address).modify(account)
   }
 }
