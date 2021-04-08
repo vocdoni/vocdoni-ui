@@ -16,12 +16,12 @@ import i18n from '../../i18n'
 import { NewEntityStepProps } from '../../lib/types'
 
 const EntityCreation = ({ setStep }: NewEntityStepProps) => {
-  const account = useEntityCreation()
+  const entity = useEntityCreation()
   const [creating, setCreating] = useState<boolean>(true)
   const { gw } = useBackend()
-  const { setWallet, waitForGas } = useWallet()
+  const { wallet, setWallet, waitForGas } = useWallet()
   const { poolPromise } = usePool()
-  const { addAccount } = useDbAccounts()
+  const { addAccount, getAccount } = useDbAccounts()
   const { setAlertMessage } = useMessageAlert()
 
   const onError = (error: string) => {
@@ -33,63 +33,88 @@ const EntityCreation = ({ setStep }: NewEntityStepProps) => {
     setCreating(true)
     async function signup() {
       try {
+        // Start dvote and web3 pool
         const pool = await poolPromise
-        const wallet = Wallet.createRandom().connect(pool.provider)
-        const bytes = Buffer.from(wallet.mnemonic.phrase, 'ascii')
-        // Store wallet in memory
-        setWallet(wallet)
 
-        // Store account to local storage
-        await addAccount({
-          address: wallet.address,
-          name: account.name,
-          encryptedMnemonic: Symmetric.encryptBytes(bytes, account.password),
-          hdPath: wallet.mnemonic.path,
-          locale: wallet.mnemonic.locale
-        })
 
-        // Upload images
-        let avatar = account.logoUrl
-        if (account.logoFile) {
-          avatar = await IPFSUpload(pool, wallet, account.logoFile)
+        // Create wallet if not exists
+        let bytes: Buffer
+        if (wallet == null) {
+          const tempWallet = Wallet.createRandom().connect(pool.provider)
+          // Store wallet in memory
+          setWallet(tempWallet)
         }
-        let header = account.headerUrl
-        if (account.headerFile) {
-          header = await IPFSUpload(pool, wallet, account.headerFile)
+
+
+        let account = getAccount(entity.name)
+        if (typeof account == undefined) {
+          // Create Account if not exists
+          bytes = Buffer.from(wallet.mnemonic.phrase, 'ascii')
+          // Store account to local storage
+          await addAccount({
+            address: wallet.address,
+            name: entity.name,
+            encryptedMnemonic: Symmetric.encryptBytes(bytes, entity.password),
+            hdPath: wallet.mnemonic.path,
+            locale: wallet.mnemonic.locale
+          })
+        }
+        // TODO add check for uploadfiles
+        // Upload images
+        let avatar = entity.logoUrl
+        if (entity.logoFile) {
+          avatar = await IPFSUpload(pool, wallet, entity.logoFile)
+        }
+        let header = entity.headerUrl
+        if (entity.headerFile) {
+          header = await IPFSUpload(pool, wallet, entity.headerFile)
         }
 
         // Store email in centralized backend
-        await gw.sendRequest({
-          method: 'signUp',
-          entity: {
-            name: account.name,
-          },
-        }, wallet)
-
+        if (!entity.hasSignedUp) {
+          //TODO fix wallet issue
+          while (!wallet) {
+            await new Promise(r => setTimeout(r, 200))
+          }
+          const response = await gw.sendRequest({
+            method: 'signUp',
+            entity: {
+              name: entity.name,
+            },
+          }, wallet)
+          if (response.ok) {
+            entity.setHasSignedUp(true)
+          }
+        }
         // Wait for gas
         if (!await waitForGas()) {
           return onError(i18n.t('errors.general_error'))
         }
 
-        // Store metadata
-        const metadata: EntityMetadata = {
-          ...JSON.parse(JSON.stringify(EntityMetadataTemplate)),
-          name: {
-            default: account.name,
-          },
-          description: {
-            default: account.description,
-          },
-          media: {
-            avatar,
-            header,
+        if (entity.metadataURI.length == 0) {
+          // Store metadata
+          const metadata: EntityMetadata = {
+            ...JSON.parse(JSON.stringify(EntityMetadataTemplate)),
+            name: {
+              default: entity.name,
+            },
+            description: {
+              default: entity.description,
+            },
+            media: {
+              avatar,
+              header,
+            }
+          }
+          let metadataURI = await EntityApi.setMetadata(wallet.address, metadata, wallet, pool)
+          if (metadataURI.length > 0) {
+            entity.setMetadataURI(metadataURI)
           }
         }
-        await EntityApi.setMetadata(wallet.address, metadata, wallet, pool)
 
         setCreating(false)
       } catch (e) {
-        console.log('entity signup error', e)
+        console.error('entity signup error', e)
         onError(e.message || e)
       }
     }

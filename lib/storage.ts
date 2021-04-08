@@ -31,4 +31,9 @@ export class AccountDb extends Dexie {
   read(): Promise<Account[]> {
     return this.accounts.toArray()
   }
+
+  get(name: string): Promise<Account> {
+    return this.accounts.get(name)
+  }
+
 }

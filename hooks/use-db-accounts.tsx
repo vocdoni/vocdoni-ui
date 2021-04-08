@@ -32,5 +32,11 @@ export const useDbAccounts = () => {
       .then(() => refreshAccounts())
   }
 
-  return { accounts, addAccount, refreshAccounts, error }
+  /** Retrieves an account by name or returns undefined */
+  const getAccount = (name: string) => {
+    const db = new AccountDb()
+    return db.get(name)
+  }
+
+  return { accounts, addAccount, getAccount, refreshAccounts, error }
 }

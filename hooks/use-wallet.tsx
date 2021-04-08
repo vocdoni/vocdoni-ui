@@ -29,8 +29,12 @@ export const useWallet = () => {
         await new Promise(r => setTimeout(r, 200)) // Wait a bit
         if (!wallet) continue
       }
-      else if ((await wallet.provider.getBalance(wallet.address)).gt(BigNumber.from(0))) {
-        return true
+      else {
+        let balance = await wallet.provider.getBalance(wallet.address)
+        if (balance.gt(BigNumber.from(0))) {
+          console.log("wallet success")
+          return true
+        }
       }
 
       await new Promise(r => setTimeout(r, 2000)) // Wait 2s
@@ -39,7 +43,12 @@ export const useWallet = () => {
     return false
   }
 
-  return { wallet, setWallet, setWalletFromEntity, waitForGas }
+  const getBalance = async () : Promise<BigNumber> => {
+    return wallet.getBalance()
+
+  }
+
+  return { wallet, setWallet, setWalletFromEntity, waitForGas, getBalance }
 }
 
 // CONTEXT

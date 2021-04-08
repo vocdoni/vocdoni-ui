@@ -9,6 +9,9 @@ export interface EntityCreationContext {
   logoUrl: string,
   name: string,
   password: string,
+  metadataURI: string,
+  terms: boolean,
+  hasSignedUp: boolean,
   setDescription?(description: string): void,
   setEmail?(email: string): void,
   setHeaderFile?(headerFile: File): void,
@@ -17,8 +20,9 @@ export interface EntityCreationContext {
   setLogoUrl?(logoUrl: string): void,
   setName?(name: string): void,
   setPassword?(password: string): void,
+  setMetadataURI?(metadataURI: string): void,
   setTerms?(checked: boolean): void,
-  terms: boolean,
+  setHasSignedUp?(checked: boolean): void,
 }
 
 export const UseEntityCreationContext = createContext<EntityCreationContext>({} as any)
@@ -28,6 +32,8 @@ export const useEntityCreation = () => {
   if (accountCtxt === null) {
     throw new Error('useAccount() can only be used on the descendants of <UseEntityCreationProvider />,')
   }
+
+  const {} = accountCtxt
 
   return accountCtxt
 }
@@ -39,10 +45,12 @@ export class UseEntityCreationProvider extends Component {
     description: '',
     logoUrl: '',
     headerUrl: '',
+    metadataURI: '',
     logoFile: null,
     headerFile: null,
     password: '',
     terms: false,
+    hasSignedUp: false,
   }
 
   setEmail(email: string) {
@@ -77,8 +85,16 @@ export class UseEntityCreationProvider extends Component {
     this.setState({ headerFile })
   }
 
+  setMetadataURI(metadataURI: string) {
+    this.setState({ metadataURI })
+  }
+
   setTerms(terms: boolean) {
     this.setState({ terms })
+  }
+
+  setHasSignedUp(hasSignedUp: boolean) {
+    this.setState({hasSignedUp})
   }
 
   get methods() {
@@ -91,7 +107,9 @@ export class UseEntityCreationProvider extends Component {
       setLogoFile: this.setLogoFile.bind(this),
       setHeaderUrl: this.setHeaderUrl.bind(this),
       setHeaderFile: this.setHeaderFile.bind(this),
+      setMetadataURI: this.setMetadataURI.bind(this),
       setTerms: this.setTerms.bind(this),
+      setHasSignedUp: this.setHasSignedUp.bind(this),
     }
   }
 
