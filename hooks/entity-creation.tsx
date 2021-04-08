@@ -39,7 +39,7 @@ export interface EntityCreationContext {
   }
 }
 
-export const UseEntityCreationContext = createContext<EntityCreationContext>({} as any)
+export const UseEntityCreationContext = createContext<EntityCreationContext>({ step: 0, methods: {} } as any)
 
 export const useEntityCreation = () => {
   const [error, setError] = useState<string>()
@@ -53,6 +53,7 @@ export const useEntityCreation = () => {
   if (entityCreationCtx === null) {
     throw new Error('useEntityCreation() can only be used on the descendants of <UseEntityCreationProvider />,')
   }
+
   const { step, name, email, description, logoUrl, logoFile, headerUrl, headerFile, passphrase, methods } = entityCreationCtx
   const { setCreating } = methods
   const cleanError = () => { if (error) setError("") }
@@ -62,7 +63,7 @@ export const useEntityCreation = () => {
   const metadataValidationError = useMemo(() => {
     const required = ['name', 'email', 'description']
     for (const req of required) {
-      if (!entityCreationCtx[req].length) return i18n.t("errors.please_fill_in_all_the_fields")
+      if (!entityCreationCtx[req] || !entityCreationCtx[req].length) return i18n.t("errors.please_fill_in_all_the_fields")
     }
 
     if (!EMAIL_REGEX.test(entityCreationCtx.email)) {

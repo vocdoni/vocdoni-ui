@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { createContext, ReactNode, useContext, useEffect, useState } from 'react'
 // import Link from 'next/link'
 import { withRouter } from 'next/router'
 
@@ -18,6 +18,67 @@ import { colors } from '../theme/colors'
 import { Banner } from '../components/banners'
 import { VoteListItem } from '../components/list-items'
 
+const useMyComponents = () => {
+  const [inputText, setInputText] = useState<string>("")
+  const [strings, setStrings] = useState<string[]>([])
+  const [stringCount, setStringCount] = useState<number>(0)
+  const [clickCounter, setClickCounter] = useState<number>(0)
+
+  const textChanged = (txt: string) => setInputText(txt)
+  const onClick = () => {
+    setStrings([].concat(strings).concat(inputText))
+    setClickCounter(clickCounter + 1)
+  }
+  const cleanStrings = () => setStrings([])
+
+  useEffect(() => {
+    setStringCount(strings.length)
+
+    // API CALL
+  }, [strings])
+
+  return {
+    strings,
+    stringCount,
+    clickCounter,
+    textChanged,
+    onClick,
+    cleanStrings
+  }
+}
+
+const MyComponent = (props: { children: ReactNode, name?: string }) => {
+  const { strings, stringCount, clickCounter, textChanged, cleanStrings, onClick } = useMyComponents()
+
+  return <div>
+    <input type="text" onChange={e => textChanged(e.target.value)} />
+    <Button onClick={onClick}>Next</Button>
+    <Button onClick={cleanStrings}>Clean</Button>
+    <p>Strings: {strings.join(", ")}</p>
+    <p>Strings count: {stringCount}</p>
+    <p>Click counter: {clickCounter}</p>
+  </div>
+}
+
+// GOD
+const MyCounterContext = createContext<{ counter: number, setCounter: (n: number) => void }>({ counter: 0, setCounter: () => { } })
+
+// PROVIDER
+const MyParent = ({ children }) => {
+  const [counter, setCounter] = useState(0)
+
+  return <MyCounterContext.Provider value={{ counter, setCounter }}>
+    {children}
+  </MyCounterContext.Provider>
+}
+
+// CONSUMER
+const MyChildren = () => {
+  const { counter, setCounter } = useContext(MyCounterContext)
+
+  return <p onClick={() => setCounter(counter + 1)}>hola {counter}</p>
+}
+
 // MAIN COMPONENT
 const IndexPage = () => {
   const { wallet, setWallet, setWalletFromEntity } = useWallet()
@@ -27,6 +88,24 @@ const IndexPage = () => {
   return (
     <div>
       <h1>Buttons</h1>
+      <div>
+
+        <MyParent>
+          <MyChildren />
+          <MyChildren />
+          <MyChildren />
+          <MyChildren />
+          <MyChildren />
+          <MyChildren />
+          <MyChildren />
+          <MyChildren />
+          <MyChildren />
+        </MyParent>
+
+        <MyComponent >
+          HELLO MANOS
+        </MyComponent>
+      </div>
       <DivWithMarginChildren>
         <Button>Default button</Button>
         <Button wide>Wide button</Button>
@@ -272,7 +351,7 @@ const IndexPage = () => {
         <BgDiv style={{ background: colors.lightBg2 }}>This color is <code>lightBg2</code></BgDiv>
         <BgDiv style={{ border: "3px solid " + colors.lightBorder }}>This border is <code>lightBorder</code></BgDiv>
       </div>
-    </div>
+    </div >
   )
 }
 

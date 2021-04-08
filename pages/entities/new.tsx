@@ -16,6 +16,7 @@ const NewEntity = () => {
       <PageCard>
         {(() => {
           const { step } = useEntityCreation()
+console.log("STEP", step)
           const StepComponent = EntityCreationStepComponents[step].component
 
           return <Grid>
