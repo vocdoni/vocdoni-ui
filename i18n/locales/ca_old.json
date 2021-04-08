@@ -14,5 +14,12 @@
     "description": "",
     "entity": {
         "introduction": ""
+    },
+    "errors": {
+        "choose_passphrase_and_repeat_it": "",
+        "passphrases_do_not_match": ""
+    },
+    "vote": {
+        "vote_details": ""
     }
 }

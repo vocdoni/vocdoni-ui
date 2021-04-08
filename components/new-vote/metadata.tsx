@@ -11,7 +11,7 @@ import { Button } from '../button'
 import styled from 'styled-components'
 import { SectionTitle } from '../text'
 
-export const FormDetails = (props: VoteCreationStepProps) => {
+export const FormMetadata = (props: VoteCreationStepProps) => {
   const { metadata, parameters, methods } = useVoteCreation()
 
   const valid = () => {

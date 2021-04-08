@@ -1,6 +1,6 @@
 import { Wallet } from '@ethersproject/wallet'
 import { Symmetric } from 'dvote-js'
-import { useState, createContext, useContext, useEffect } from 'react'
+import { useState, createContext, useContext, useEffect, useCallback } from 'react'
 import i18n from '../i18n'
 
 export const useWallet = () => {
@@ -39,19 +39,19 @@ export function UseWalletContextProvider({ children }) {
 
   // Prevent accidental logout
   useEffect(() => {
+    const beforeUnload = (e: BeforeUnloadEvent): void => {
+      if (wallet) {
+        // Cancel the event
+        e.preventDefault() // If you prevent default behavior in Mozilla Firefox prompt will always be shown
+        // Chrome requires returnValue to be set
+        e.returnValue = ''
+      }
+    }
+
     window.addEventListener("beforeunload", beforeUnload)
 
     return () => window.removeEventListener("beforeunload", beforeUnload)
   }, [wallet])
-
-  const beforeUnload = (e: BeforeUnloadEvent): void => {
-    if (wallet) {
-      // Cancel the event
-      e.preventDefault() // If you prevent default behavior in Mozilla Firefox prompt will always be shown
-      // Chrome requires returnValue to be set
-      e.returnValue = ''
-    }
-  }
 
   return <UseWalletContext.Provider value={{ wallet, setWallet }}>
     {children}

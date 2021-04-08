@@ -5,7 +5,7 @@ import { useBackend } from './backend'
 import { waitForGas } from "../lib/api"
 import { useDbAccounts } from './use-db-accounts'
 import { useWallet } from './use-wallet'
-import { EntityCreationSteps } from '../components/Entities/steps'
+import { EntityCreationSteps } from '../components/entity-creation/steps'
 import { Wallet } from 'ethers'
 import { EMAIL_REGEX } from '../lib/regex'
 import { uploadFileToIpfs } from '../lib/file'
@@ -59,24 +59,24 @@ export const useEntityCreation = () => {
 
   // GETTERS
 
-  const validMetadata = useMemo(() => {
+  const metadataValidationError = useMemo(() => {
     const required = ['name', 'email', 'description']
     for (const req of required) {
-      if (!entityCreationCtx[req].length) return false
+      if (!entityCreationCtx[req].length) return i18n.t("errors.please_fill_in_all_the_fields")
     }
 
     if (!EMAIL_REGEX.test(entityCreationCtx.email)) {
-      return false
+      return i18n.t("errors.please_enter_a_valid_email")
     }
 
     const files = ['logo', 'header']
     for (const file of files) {
       if (entityCreationCtx[file + 'File'] === null && !entityCreationCtx[file + 'Url'].length) {
-        return false
+        return i18n.t("errors.please_select_an_image_for_the_header_and_the_logo")
       }
     }
 
-    return true
+    return null
   }, [name, email, description, logoUrl, logoFile, headerUrl, headerFile])
 
   // DATA MUTATION
@@ -84,7 +84,7 @@ export const useEntityCreation = () => {
   // Attempt to continue the entity creation whenever some more data is available
   useEffect(() => {
     if (!created) ensureSignedUp()
-  }, [passphrase, wallet, validMetadata, dbAccounts])
+  }, [passphrase, wallet, metadataValidationError, dbAccounts])
 
   // Step by step call that incrementally registers the entity
   const ensureSignedUp = useCallback(async () => {
@@ -111,7 +111,7 @@ export const useEntityCreation = () => {
 
     // 2) wallet => encrypt mnemonic => store DB account
 
-    if (!validMetadata) return
+    if (metadataValidationError) return
     else if (!dbAccounts.some(acc => acc.address == wallet.address)) {
       try {
         setCreating(true)
@@ -181,9 +181,8 @@ export const useEntityCreation = () => {
           await gw.sendRequest({
             method: 'signUp',
             entity: {
-              // TODO: entityName ??
               name: account.name,
-              // email: account.pending.email // TODO: confirm?
+              email: account.pending.email
             },
           }, wallet)
         }
@@ -224,14 +223,14 @@ export const useEntityCreation = () => {
     setCreating(false)
     setCreated(true)
 
-  }, [passphrase, wallet, validMetadata, dbAccounts])
+  }, [passphrase, wallet, metadataValidationError, dbAccounts])
 
-  return { ...entityCreationCtx, created, validMetadata, ensureSignedUp, error }
+  return { ...entityCreationCtx, created, metadataValidationError, ensureSignedUp, error }
 }
 
 export const UseEntityCreationProvider = ({ children }: { children: ReactNode }) => {
   const [creating, setCreating] = useState<boolean>(true)
-  const [step, setStep] = useState<EntityCreationSteps>(EntityCreationSteps.DETAILS)
+  const [step, setStep] = useState<EntityCreationSteps>(EntityCreationSteps.METADATA)
   const [name, setName] = useState<string>("")
   const [email, setEmail] = useState<string>("")
   const [description, setDescription] = useState<string>("")
@@ -240,7 +239,6 @@ export const UseEntityCreationProvider = ({ children }: { children: ReactNode })
   const [logoFile, setLogoFile] = useState<File>()
   const [headerUrl, setHeaderUrl] = useState<string>("")
   const [headerFile, setHeaderFile] = useState<File>()
-  const [termsAccepted, setTermsAccepted] = useState<boolean>(false)
 
   const value: EntityCreationContext = {
     creating,

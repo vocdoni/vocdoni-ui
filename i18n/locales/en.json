@@ -1,48 +1,62 @@
 {
     "action": {
-        "browse": "",
-        "continue": "",
-        "create_my_entity": "",
-        "create_new_proposal": "",
-        "go_back": "",
-        "go_to_dashboard": ""
+        "browse": "Browse",
+        "continue": "Continue",
+        "create_my_entity": "Create my entity",
+        "create_new_proposal": "Create new proposal",
+        "go_back": "Go back",
+        "go_to_dashboard": "Go to the Dashboard"
     },
     "entity": {
+        "acknowledge_passphrase_implications": "I acknowledge that the passphrase is required to manage my entity and that failure to keep access to it can prevent the ability to manage it in the future",
         "brief_description": "Brief description of your entity",
-        "choose_a_passphrase": "",
-        "creation": "",
-        "credentials": "",
-        "description": "",
-        "details": "",
+        "choose_a_passphrase": "Choose a passphrase",
+        "creation": "Creation",
+        "credentials": "Credentials",
+        "description": "Description",
+        "details": "Details",
         "email": "Contact e-mail",
-        "enter_the_details_of_the_organization": "",
+        "enter_the_details_of_the_organization": "Enter the details of the organization",
         "header": "Entity header",
+        "i_have_read_and_accept_the_privacy_policy_and_the_terms_of_service": "I have read and accept the Privacy Policy and the Terms of Service",
         "logo": "Entity logo",
         "name": "Name of the entity",
         "new_entity": "New entity",
-        "passphrase": "",
-        "repeat_passphrase": ""
+        "passphrase": "Passphrase",
+        "repeat_passphrase": "Repeat the passphrase"
     },
     "errors": {
-        "choose_passphrase_and_repeat_it": "",
-        "file_too_big": "",
+        "file_too_large": "The file is too large",
         "general_error": "General error",
-        "invalid_image_url": "",
+        "invalid_image_url": "Invalid image URL",
         "page_not_found": "Page not found",
-        "passphrases_do_not_match": "",
-        "please_accept_credentials_tos": ""
+        "please_accept_credentials_tos": "",
+        "please_enter_a_passphrase": "",
+        "please_repeat_the_passphrase": "",
+        "the_passphrase_does_not_match": "",
+        "the_passphrase_is_empty": "",
+        "the_passphrase_should_contain_some_uppercase_characters": "",
+        "the_passphrase_should_have_8_characters_or_more": ""
     },
     "home": {
         "hero_subtitle": "Vocdoni empowers communities to take their AGM's to the next level",
         "hero_title": "A universally verifiable, censorship-resistant and anonymous voting engine"
     },
     "input": {
-        "enter_the_url_or_upload_a_file": "",
-        "remove_file": ""
+        "enter_the_url_or_upload_a_file": "Enter the URL of an image or upload a file",
+        "remove_file": "Remove file"
     },
     "vote": {
         "active_vote": "",
+        "brief_description": "",
+        "description": "",
+        "details": "",
         "ended_vote": "",
-        "paused_vote": ""
+        "enter_the_details_of_the_organization": "",
+        "general": "",
+        "new_vote": "",
+        "paused_vote": "",
+        "title": "",
+        "who_can_vote": ""
     }
 }

@@ -37,7 +37,7 @@ const FileLoader = ({ onSelect, onChange, accept, ...props }: Props) => {
     const [file] = Array.from(e.target.files)
 
     if (file.size >= 5 * 1024 * 1024) {
-      setError(i18n.t('errors.file_too_big'))
+      setError(i18n.t('errors.file_too_large'))
       return
     }
 

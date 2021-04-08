@@ -1,25 +1,25 @@
 import i18n from "../../i18n"
-import NewEntityDetails from "./NewEntityDetails"
-import NewEntityCredentials from "./NewEntityCredentials"
-import NewEntityCreation from "./NewEntityCreation"
+import EntityCreationMetadata from "./metadata"
+import EntityCreationCredentials from "./credentials"
+import EntityCreationCreation from "./creation"
 
 export enum EntityCreationSteps {
-  DETAILS = 0,
+  METADATA = 0,
   CREDENTIALS = 1,
   CREATION = 2
 }
 
 export const EntityCreationStepComponents = {
-  [EntityCreationSteps.DETAILS]: {
-    component: NewEntityDetails,
+  [EntityCreationSteps.METADATA]: {
+    component: EntityCreationMetadata,
     stepTitle: i18n.t("entity.details"),
   },
   [EntityCreationSteps.CREDENTIALS]: {
-    component: NewEntityCredentials,
+    component: EntityCreationCredentials,
     stepTitle: i18n.t("entity.credentials"),
   },
   [EntityCreationSteps.CREATION]: {
-    component: NewEntityCreation,
+    component: EntityCreationCreation,
     stepTitle: i18n.t("entity.creation"),
   }
 }

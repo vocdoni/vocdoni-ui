@@ -1,7 +1,7 @@
 import React from 'react'
 import { PageCard } from '../../components/cards'
 
-import { EntityCreationStepComponents } from '../../components/Entities/steps'
+import { EntityCreationStepComponents } from '../../components/entity-creation/steps'
 import { Column, Grid } from '../../components/grid'
 import { Steps } from '../../components/steps'
 import { MainTitle, MainDescription } from '../../components/text'

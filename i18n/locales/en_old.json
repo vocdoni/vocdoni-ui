@@ -13,5 +13,12 @@
     "upload": {
         "browse": ""
     },
-    "description": "Description"
+    "description": "Description",
+    "errors": {
+        "choose_passphrase_and_repeat_it": "Choose a passphrase and repeat it",
+        "passphrases_do_not_match": "The passphrase does not match"
+    },
+    "vote": {
+        "vote_details": ""
+    }
 }

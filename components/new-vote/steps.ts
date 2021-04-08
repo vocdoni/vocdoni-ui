@@ -1,21 +1,21 @@
 import i18n from "../../i18n"
-import { FormDetails } from "./details"
+import { FormMetadata } from "./metadata"
 // import NewVoteCensus from "./NewVoteCensus"
 // import NewVoteGeneral from "./NewVoteGeneral"
 // import NewVoteCreation from "./NewVoteCreation"
 
 export enum VoteCreationSteps {
-  DETAILS = 0,
+  METADATA = 0,
   CENSUS = 1,
   GENERAL = 2,
   CREATION = 3
 }
 
 export const VoteCreationStepComponents = {
-  [VoteCreationSteps.DETAILS]: {
-    component: FormDetails,
+  [VoteCreationSteps.METADATA]: {
+    component: FormMetadata,
     hideTopBar: false,
-    stepTitle: i18n.t("vote.vote_details"),
+    stepTitle: i18n.t("vote.details"),
   },
   [VoteCreationSteps.CENSUS]: {
     component: () => "NewVoteCensus",
