@@ -82,9 +82,6 @@ export const useEntityCreation = () => {
 
 export const UseEntityCreationProvider = ({ children }: { children: ReactNode }) => {
   // FORM DATA
-  const [pageStep, setPageStep] = useState<EntityCreationPageSteps>(EntityCreationPageSteps.METADATA)
-  const [creationStep, setCreationStep] = useState(0)
-  const [pleaseWait, setPleaseWait] = useState(false)
   const [name, setName] = useState<string>("")
   const [email, setEmail] = useState<string>("")
   const [description, setDescription] = useState<string>("")
@@ -94,12 +91,16 @@ export const UseEntityCreationProvider = ({ children }: { children: ReactNode })
   const [headerUrl, setHeaderUrl] = useState<string>("")
   const [headerFile, setHeaderFile] = useState<File>()
 
-  // UTILS STATE
-  const [creationError, setCreationError] = useState<string>()
+  // UI STATE
+  const [pageStep, setPageStep] = useState<EntityCreationPageSteps>(EntityCreationPageSteps.METADATA)
   const { wallet, setWallet } = useWallet()
   const { dbAccounts, addDbAccount, updateAccount } = useDbAccounts()
   const { poolPromise } = usePool()
   const { bkPromise } = useBackend()
+
+  const [creationStep, setCreationStep] = useState(0)
+  const [pleaseWait, setPleaseWait] = useState(false)
+  const [creationError, setCreationError] = useState<string>()
 
   // UTIL
 
@@ -294,25 +295,23 @@ export const UseEntityCreationProvider = ({ children }: { children: ReactNode })
   // Continuation callback
   const continueCreation = () => {
     setPleaseWait(true)
+    cleanError()
 
     return entitySignupStepper(creationStep)
       .then(({ continueFrom, error }) => {
         // Either the process is completed, something needs a refresh or something failed
+        setPleaseWait(false)
 
         // Set the next step to continue from
         setCreationStep(continueFrom)
 
         if (error) {
           setCreationError(error)
-          setPleaseWait(false)
+          // This will cause the `useEffect` below to stop relaunching `continueCreation`
+          // until the caller manually invokes it again
         }
-        else cleanError()
-
-        if (continueFrom >= creationFuncs.length) {
-          // COMPLETED
-          setCreationStep(creationFuncs.length)
-          setPleaseWait(false)
-        }
+        // Otherwise, the `useEffect` below will relaunch `continueCreation` after
+        // the new state is available
       })
   }
 
