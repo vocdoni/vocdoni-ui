@@ -2,38 +2,36 @@ import React, { useMemo, useState } from 'react'
 import { Checkbox } from '@aragon/ui'
 
 import { useEntityCreation } from '../../hooks/entity-creation'
-import { EntityCreationStepProps } from '../../lib/types'
 import { Column, Grid } from '../grid'
 import { Input } from '../inputs'
 import { Button } from '../button'
 import styled from 'styled-components'
 import i18n from '../../i18n'
-import { EntityCreationSteps } from './steps'
+import { EntityCreationSteps } from '.'
 import { checkStrength } from '../../lib/util'
+import { useMessageAlert } from '../../hooks/message-alert'
 
-const FormCredentials = (props: EntityCreationStepProps) => {
+export const FormCredentials = () => {
+  const { setAlertMessage } = useMessageAlert()
   const { methods } = useEntityCreation()
   const [passphrase, setPassphrase] = useState("")
   const [passphrase2, setPassphrase2] = useState("")
   const [ack, setAck] = useState(false)
 
-  const errorMsg = useMemo(() => {
-    if (!passphrase) return i18n.t("errors.please_enter_a_passphrase")
-    else if (!passphrase2) return i18n.t("errors.please_repeat_the_passphrase")
-    const errMsg = checkStrength(passphrase)
-    if (errMsg) return errMsg
-    else if (passphrase != passphrase2) return i18n.t("errors.the_passphrase_does_not_match")
-    else if (!ack) return i18n.t("errors.please_accept_credentials_tos")
-
-  }, [passphrase, passphrase2, ack])
-
   const onValidate = () => {
-    if (errorMsg) return
+    if (!passphrase) return setAlertMessage(i18n.t("errors.please_enter_a_passphrase"))
+    else if (!passphrase2) return setAlertMessage(i18n.t("errors.please_repeat_the_passphrase"))
+    const errMsg = checkStrength(passphrase)
+    if (errMsg) return setAlertMessage(errMsg)
+    else if (passphrase != passphrase2) return setAlertMessage(i18n.t("errors.the_passphrase_does_not_match"))
+    else if (!ack) return setAlertMessage(i18n.t("errors.please_accept_credentials_tos"))
 
     // OK
     methods.setPassphrase(passphrase)
     methods.setStep(EntityCreationSteps.CREATION)
   }
+
+  const disabledContinue = !passphrase || !passphrase2 || !ack
 
   return (
     <Grid>
@@ -77,7 +75,7 @@ const FormCredentials = (props: EntityCreationStepProps) => {
           <Button
             positive
             onClick={onValidate}
-            disabled={!!errorMsg}
+            disabled={disabledContinue}
           >
             {i18n.t("action.continue")}
           </Button>
@@ -92,5 +90,3 @@ display: flex;
 flex-direction: row;
 justify-content: space-between;
 `
-
-export default FormCredentials

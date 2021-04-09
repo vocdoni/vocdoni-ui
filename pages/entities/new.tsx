@@ -1,7 +1,7 @@
 import React from 'react'
 import { PageCard } from '../../components/cards'
 
-import { EntityCreationStepComponents } from '../../components/entity-creation/steps'
+import { EntityCreationStep, EntityCreationStepTitles } from '../../components/steps-entity-creation'
 import { Column, Grid } from '../../components/grid'
 import { Steps } from '../../components/steps'
 import { MainTitle, MainDescription } from '../../components/text'
@@ -9,35 +9,32 @@ import { useEntityCreation, UseEntityCreationProvider } from '../../hooks/entity
 import i18n from '../../i18n'
 
 const NewEntity = () => {
-  const stepTitles = Object.values(EntityCreationStepComponents).map(({ stepTitle }) => stepTitle)
-
   return (
     <UseEntityCreationProvider>
       <PageCard>
-        {(() => {
-          const { step } = useEntityCreation()
-          const StepComponent = EntityCreationStepComponents[step].component
-
-          return <Grid>
-            <Column span={6}>
-              <MainTitle>{i18n.t("entity.new_entity")}</MainTitle>
-              <MainDescription>{i18n.t("entity.enter_the_details_of_the_organization")}</MainDescription>
-            </Column>
-            <Column span={6}>
-              <Steps
-                steps={stepTitles}
-                activeIdx={step}
-              />
-            </Column>
-            <Column span={12}>
-              {/* The actual step is rendered here */}
-              <StepComponent />
-            </Column>
-          </Grid>
-        })()}
+        <Grid>
+          <Column span={5}>
+            <MainTitle>{i18n.t("entity.new_entity")}</MainTitle>
+            <MainDescription>{i18n.t("entity.enter_the_details_of_the_organization")}</MainDescription>
+          </Column>
+          <Column span={7}>
+            <WizardSteps />
+          </Column>
+          <Column span={12}>
+            {/* The actual step is rendered here */}
+            <EntityCreationStep />
+          </Column>
+        </Grid>
       </PageCard>
     </UseEntityCreationProvider>
   )
+}
+
+const WizardSteps = () => {
+  const stepTitles = Object.values(EntityCreationStepTitles)
+  const { step } = useEntityCreation()
+
+  return <Steps steps={stepTitles} activeIdx={step} />
 }
 
 export default NewEntity

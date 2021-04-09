@@ -25,11 +25,3 @@ export type ProcessInfo = {
   parameters: ProcessContractParameters,
   tokenAddress: string
 }
-
-// Wizard types
-
-export type EntityCreationStepProps = {
-}
-
-export type VoteCreationStepProps = {
-}

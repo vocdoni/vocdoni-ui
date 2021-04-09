@@ -1,18 +1,14 @@
-import { Wallet } from '@ethersproject/wallet'
-import { EntityApi, EntityMetadata, EntityMetadataTemplate, Symmetric } from 'dvote-js'
-import React, { useEffect, useState } from 'react'
-import { Buffer } from 'buffer/'
-import { usePool } from '@vocdoni/react-hooks'
-import { Else, If, Then } from 'react-if'
+import React, { useEffect } from 'react'
 
 import { useEntityCreation } from '../../hooks/entity-creation'
 import { useMessageAlert } from '../../hooks/message-alert'
 import { Button } from '../button'
 import i18n from '../../i18n'
-import { EntityCreationStepProps } from '../../lib/types'
+import { EntityCreationSteps } from '.'
+import { Else, If, Then } from 'react-if'
 
-const EntityCreation = (props: EntityCreationStepProps) => {
-  const { error, creating, created } = useEntityCreation()
+export const FormCreation = () => {
+  const { error, creating, created, methods } = useEntityCreation()
   const { setAlertMessage } = useMessageAlert()
 
   useEffect(() => {
@@ -27,14 +23,22 @@ const EntityCreation = (props: EntityCreationStepProps) => {
       <p>Creating: {creating ? "YES" : "NO"}</p>
       <p>Created: {created ? "YES" : "NO"}</p>
       <p>Error: {error}</p>
-      <p>(Button to retry?)</p>
 
-      <Button href='/dashboard'>
-        {i18n.t('action.go_to_dashboard')}
-      </Button>
-      <Button href='/processes/new' positive>
-        {i18n.t('action.create_new_proposal')}
-      </Button>
+      <If condition={created}>
+        <Then>
+          <Button href='/dashboard'>
+            {i18n.t('action.go_to_dashboard')}
+          </Button>
+          <Button href='/processes/new' positive>
+            {i18n.t('action.create_new_proposal')}
+          </Button>
+        </Then>
+        <Else>
+          <Button onClick={() => methods.setStep(EntityCreationSteps.CREDENTIALS)}>Go Back</Button>
+          <Button onClick={methods.ensureSignedUp}>Retry</Button>
+
+        </Else>
+      </If>
     </div>
   )
   // return (
@@ -53,5 +57,3 @@ const EntityCreation = (props: EntityCreationStepProps) => {
   //   </If>
   // )
 }
-
-export default EntityCreation

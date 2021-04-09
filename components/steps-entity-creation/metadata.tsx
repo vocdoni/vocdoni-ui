@@ -3,16 +3,17 @@ import { Checkbox } from '@aragon/ui'
 
 import FileLoader from '../FileLoader'
 import { useEntityCreation } from '../../hooks/entity-creation'
-import { EntityCreationStepProps } from '../../lib/types'
 import { Column, Grid } from '../grid'
 import { Input, Textarea } from '../inputs'
 import i18n from '../../i18n'
 import { Button } from '../button'
 import styled from 'styled-components'
 import { SectionTitle } from '../text'
-import { EntityCreationSteps } from './steps'
+import { EntityCreationSteps } from '.'
+import { useMessageAlert } from '../../hooks/message-alert'
+import { useDbAccounts } from '../../hooks/use-db-accounts'
 
-const FormDetails = (props: EntityCreationStepProps) => {
+export const FormMetadata = () => {
   const { name,
     description,
     email,
@@ -24,10 +25,20 @@ const FormDetails = (props: EntityCreationStepProps) => {
     metadataValidationError
   } = useEntityCreation()
   const [terms, setTerms] = useState<boolean>(false)
+  const { setAlertMessage } = useMessageAlert()
+  const { dbAccounts } = useDbAccounts()
 
   const onContinue = () => {
+    if (metadataValidationError) {
+      return setAlertMessage(metadataValidationError)
+    }
+    else if (dbAccounts.some(acc => acc.name.toLowerCase().trim() == name.toLowerCase().trim())) {
+      return setAlertMessage(i18n.t("errors.there_is_already_one_entity_with_the_same_name"))
+    }
     methods.setStep(EntityCreationSteps.CREDENTIALS)
   }
+
+  const disabledContinue = !name || !email || !description || (!headerFile && !headerUrl) || (!logoFile && !logoUrl) || !terms
 
   return (
     <Grid>
@@ -106,13 +117,12 @@ const FormDetails = (props: EntityCreationStepProps) => {
         </label>
       </Column>
       <Column>
-        {metadataValidationError ? <p>{metadataValidationError}</p> : null}
         <BottomDiv>
           <div />
           <Button
             positive
             onClick={onContinue}
-            disabled={!!metadataValidationError || !terms}
+            disabled={disabledContinue}
           >
             {i18n.t("action.continue")}
           </Button>
@@ -127,5 +137,3 @@ display: flex;
 flex-direction: row;
 justify-content: space-between;
 `
-
-export default FormDetails
