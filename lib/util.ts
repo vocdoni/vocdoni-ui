@@ -1,4 +1,28 @@
-import i18n from "../i18n";
+import i18n from "../i18n"
+import { StepperFunc, StepperLoopFuncResult } from "./types"
+
+
+/** Returns a function that attempts to iterate over the given operators sequentially and reports any corresponding events */
+export function makeStepperLoopFunction(operations: StepperFunc[]) {
+  return async (startIdx: number = 0): Promise<StepperLoopFuncResult> => {
+    for (let i = startIdx; i < operations.length; i++) {
+      try {
+        const op = operations[i]
+        const { error, waitNext } = await op()
+
+        // Stop on failure or refresh needed
+        if (error) return { continueFrom: i, error }
+        else if (waitNext) {
+          return { continueFrom: i + 1 }
+        }
+      }
+      catch (err) {
+        return { continueFrom: i, error: err.message }
+      }
+    }
+    return { continueFrom: operations.length } // DONE
+  }
+}
 
 export const areAllNumbers = (slice: any[]) => {
   for (let i = 0; i < slice.length; i++) {
@@ -7,7 +31,7 @@ export const areAllNumbers = (slice: any[]) => {
     }
   }
   return true;
-};
+}
 
 export function limitedText(str: string, maxLength: number = 60): string {
   if (!str || !str.length || str.length < maxLength) return str;

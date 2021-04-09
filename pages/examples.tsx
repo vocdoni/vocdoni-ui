@@ -18,94 +18,15 @@ import { colors } from '../theme/colors'
 import { Banner } from '../components/banners'
 import { VoteListItem } from '../components/list-items'
 
-const useMyComponents = () => {
-  const [inputText, setInputText] = useState<string>("")
-  const [strings, setStrings] = useState<string[]>([])
-  const [stringCount, setStringCount] = useState<number>(0)
-  const [clickCounter, setClickCounter] = useState<number>(0)
-
-  const textChanged = (txt: string) => setInputText(txt)
-  const onClick = () => {
-    setStrings([].concat(strings).concat(inputText))
-    setClickCounter(clickCounter + 1)
-  }
-  const cleanStrings = () => setStrings([])
-
-  useEffect(() => {
-    setStringCount(strings.length)
-
-    // API CALL
-  }, [strings])
-
-  return {
-    strings,
-    stringCount,
-    clickCounter,
-    textChanged,
-    onClick,
-    cleanStrings
-  }
-}
-
-const MyComponent = (props: { children: ReactNode, name?: string }) => {
-  const { strings, stringCount, clickCounter, textChanged, cleanStrings, onClick } = useMyComponents()
-
-  return <div>
-    <input type="text" onChange={e => textChanged(e.target.value)} />
-    <Button onClick={onClick}>Next</Button>
-    <Button onClick={cleanStrings}>Clean</Button>
-    <p>Strings: {strings.join(", ")}</p>
-    <p>Strings count: {stringCount}</p>
-    <p>Click counter: {clickCounter}</p>
-  </div>
-}
-
-// GOD
-const MyCounterContext = createContext<{ counter: number, setCounter: (n: number) => void }>({ counter: 0, setCounter: () => { } })
-
-// PROVIDER
-const MyParent = ({ children }) => {
-  const [counter, setCounter] = useState(0)
-
-  return <MyCounterContext.Provider value={{ counter, setCounter }}>
-    {children}
-  </MyCounterContext.Provider>
-}
-
-// CONSUMER
-const MyChildren = () => {
-  const { counter, setCounter } = useContext(MyCounterContext)
-
-  return <p onClick={() => setCounter(counter + 1)}>hola {counter}</p>
-}
-
 // MAIN COMPONENT
 const IndexPage = () => {
-  const { wallet, setWallet, setWalletFromEntity } = useWallet()
-  const { accounts, addAccount, error, refreshAccounts } = useDbAccounts()
+  const { wallet, setWallet, restoreEncryptedWallet } = useWallet()
+  const { dbAccounts, addDbAccount, error, refreshAccounts } = useDbAccounts()
   const [myVal, setMyVal] = useState("-")
 
   return (
     <div>
       <h1>Buttons</h1>
-      <div>
-
-        <MyParent>
-          <MyChildren />
-          <MyChildren />
-          <MyChildren />
-          <MyChildren />
-          <MyChildren />
-          <MyChildren />
-          <MyChildren />
-          <MyChildren />
-          <MyChildren />
-        </MyParent>
-
-        <MyComponent >
-          HELLO MANOS
-        </MyComponent>
-      </div>
       <DivWithMarginChildren>
         <Button>Default button</Button>
         <Button wide>Wide button</Button>
@@ -279,7 +200,7 @@ const IndexPage = () => {
         {wallet ? <p>This wallet can be accessed globally</p> : null}
         <Button positive small onClick={() => setWallet(Wallet.createRandom())}>Sign in using a new wallet</Button>
         &nbsp;&nbsp;
-        <Button positive small onClick={() => setWalletFromEntity(dummyEncrypt("hello"), "hello")}>Simulate login</Button>
+        <Button positive small onClick={() => restoreEncryptedWallet(dummyEncrypt("hello"), null, "hello")}>Simulate login</Button>
         &nbsp;&nbsp;
         <Button negative small disabled={!wallet} onClick={() => setWallet(null)}>Sign out</Button>
       </div>
@@ -288,11 +209,11 @@ const IndexPage = () => {
       <div>
         <p>Current accounts:</p>
         <ul>
-          {accounts.map(account => <li key={account.address}>{account.name}</li>)}
+          {dbAccounts.map(account => <li key={account.address}>{account.name}</li>)}
         </ul>
         <Button small onClick={() => refreshAccounts()}>Refresh accounts (unneeded)</Button>
         &nbsp;&nbsp;
-        <Button positive small onClick={() => addAccount({ name: "Account " + Math.random(), address: "0xaddr-" + Math.random(), encryptedMnemonic: "abcde" + Math.random() })}>Add account</Button>
+        <Button positive small onClick={() => addDbAccount({ name: "Account " + Math.random(), address: "0xaddr-" + Math.random(), encryptedMnemonic: "abcde" + Math.random() })}>Add account</Button>
       </div>
 
       <h1>Steps</h1>

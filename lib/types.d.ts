@@ -1,6 +1,4 @@
 import { EntityMetadata, ProcessContractParameters, ProcessMetadata } from 'dvote-js'
-import { EntityCreationSteps } from "../components/Entities/steps"
-import { VoteCreationSteps } from "../components/NewVote/steps"
 
 // IndexDB types
 
@@ -25,3 +23,12 @@ export type ProcessInfo = {
   parameters: ProcessContractParameters,
   tokenAddress: string
 }
+
+export type StepperFuncResult = { error?: string, waitNext?: boolean }
+export type StepperLoopFuncResult = { continueFrom?: number, error?: string }
+
+/** A function that transforms the current state into a new one and returns whether the parent hook should break and wait before the next step */
+export type StepperFunc = () => Promise<StepperFuncResult>
+
+/** A function that transforms the current state into a new one and returns whether the parent hook should break and wait before the next step */
+export type StepperLoopFunc = () => Promise<StepperLoopFuncResult>

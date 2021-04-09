@@ -1,7 +1,7 @@
 import React from 'react'
 import { PageCard } from '../../components/cards'
 
-import { EntityCreationStep, EntityCreationStepTitles } from '../../components/steps-entity-creation'
+import { EntityCreationPageStep, EntityCreationPageStepTitles } from '../../components/steps-entity-creation'
 import { Column, Grid } from '../../components/grid'
 import { Steps } from '../../components/steps'
 import { MainTitle, MainDescription } from '../../components/text'
@@ -22,7 +22,7 @@ const NewEntity = () => {
           </Column>
           <Column span={12}>
             {/* The actual step is rendered here */}
-            <EntityCreationStep />
+            <EntityCreationPageStep />
           </Column>
         </Grid>
       </PageCard>
@@ -31,10 +31,10 @@ const NewEntity = () => {
 }
 
 const WizardSteps = () => {
-  const stepTitles = Object.values(EntityCreationStepTitles)
-  const { step } = useEntityCreation()
+  const stepTitles = Object.values(EntityCreationPageStepTitles)
+  const { pageStep } = useEntityCreation()
 
-  return <Steps steps={stepTitles} activeIdx={step} />
+  return <Steps steps={stepTitles} activeIdx={pageStep} />
 }
 
 export default NewEntity

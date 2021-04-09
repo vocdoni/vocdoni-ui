@@ -9,7 +9,7 @@ import i18n from '../../i18n'
 import { Button } from '../button'
 import styled from 'styled-components'
 import { SectionTitle } from '../text'
-import { EntityCreationSteps } from '.'
+import { EntityCreationPageSteps } from '.'
 import { useMessageAlert } from '../../hooks/message-alert'
 import { useDbAccounts } from '../../hooks/use-db-accounts'
 
@@ -35,7 +35,7 @@ export const FormMetadata = () => {
     else if (dbAccounts.some(acc => acc.name.toLowerCase().trim() == name.toLowerCase().trim())) {
       return setAlertMessage(i18n.t("errors.there_is_already_one_entity_with_the_same_name"))
     }
-    methods.setStep(EntityCreationSteps.CREDENTIALS)
+    methods.setPageStep(EntityCreationPageSteps.CREDENTIALS)
   }
 
   const disabledContinue = !name || !email || !description || (!headerFile && !headerUrl) || (!logoFile && !logoUrl) || !terms

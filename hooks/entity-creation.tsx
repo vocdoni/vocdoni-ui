@@ -1,22 +1,21 @@
 import { usePool } from '@vocdoni/react-hooks'
 import { ensHashAddress, EntityApi, EntityMetadata, EntityMetadataTemplate, GatewayPool, Symmetric, TextRecordKeys } from 'dvote-js'
-import { createContext, ReactNode, useCallback, useContext, useEffect, useMemo, useState } from 'react'
+import { createContext, ReactNode, useContext, useEffect, useMemo, useState } from 'react'
 import { useBackend } from './backend'
 import { waitForGas } from "../lib/api"
 import { useDbAccounts } from './use-db-accounts'
 import { useWallet } from './use-wallet'
-import { EntityCreationSteps } from '../components/steps-entity-creation'
+import { EntityCreationPageSteps } from '../components/steps-entity-creation'
 import { BigNumber, Wallet } from 'ethers'
-import { EMAIL_REGEX } from '../lib/regex'
+import { isValidEmail } from '../lib/regex'
 import { uploadFileToIpfs } from '../lib/file'
 import i18n from '../i18n'
-
-/** Returns whether the caller should return and wait for new hook values */
-type CreationStepFunc = () => Promise<boolean>
+import { makeStepperLoopFunction } from '../lib/util'
+import { StepperFunc } from '../lib/types'
 
 export interface EntityCreationContext {
-  creating: boolean,
-  step: EntityCreationSteps,
+  pageStep: EntityCreationPageSteps,
+  creationError: string,
 
   name: string,
   email: string,
@@ -27,9 +26,11 @@ export interface EntityCreationContext {
   headerFile: File,
   passphrase: string,
 
+  pleaseWait: boolean,
+  created: boolean,
+
   methods: {
-    setCreating: (c: boolean) => void,
-    setStep: (s: EntityCreationSteps) => void,
+    setPageStep: (s: EntityCreationPageSteps) => void,
 
     setName(name: string): void,
     setEmail(email: string): void,
@@ -39,27 +40,20 @@ export interface EntityCreationContext {
     setLogoFile(logoFile: File): void,
     setLogoUrl(logoUrl: string): void,
     setPassphrase(passphrase: string): void,
+    createEntity(): void
+    continueCreation(): void
   }
 }
 
 export const UseEntityCreationContext = createContext<EntityCreationContext>({ step: 0, methods: {} } as any)
 
 export const useEntityCreation = () => {
-  const [error, setError] = useState<string>()
-  const { wallet, setWallet } = useWallet()
-  const { dbAccounts, addDbAccount, updateAccount } = useDbAccounts()
-  const { poolPromise } = usePool()
-  const { bkPromise } = useBackend()
-  const [created, setCreated] = useState(false)
-
   const entityCreationCtx = useContext(UseEntityCreationContext)
   if (entityCreationCtx === null) {
     throw new Error('useEntityCreation() can only be used on the descendants of <UseEntityCreationProvider />,')
   }
 
-  const { step, creating, name, email, description, logoUrl, logoFile, headerUrl, headerFile, passphrase, methods } = entityCreationCtx
-  const { setCreating } = methods
-  const cleanError = () => { if (error) setError("") }
+  const { name, email, description, logoUrl, logoFile, headerUrl, headerFile } = entityCreationCtx
 
   // GETTERS
 
@@ -69,7 +63,7 @@ export const useEntityCreation = () => {
       if (!entityCreationCtx[req] || !entityCreationCtx[req].length) return i18n.t("errors.please_fill_in_all_the_fields")
     }
 
-    if (!EMAIL_REGEX.test(entityCreationCtx.email)) {
+    if (!isValidEmail(entityCreationCtx.email)) {
       return i18n.t("errors.please_enter_a_valid_email")
     }
 
@@ -83,71 +77,53 @@ export const useEntityCreation = () => {
     return null
   }, [name, email, description, logoUrl, logoFile, headerUrl, headerFile])
 
-  // DATA MUTATION
+  return { ...entityCreationCtx, metadataValidationError }
+}
 
-  // Attempt to continue the entity creation whenever some more data is available
-  useEffect(() => {
-    if (creating || created || error) return
+export const UseEntityCreationProvider = ({ children }: { children: ReactNode }) => {
+  // FORM DATA
+  const [pageStep, setPageStep] = useState<EntityCreationPageSteps>(EntityCreationPageSteps.METADATA)
+  const [creationStep, setCreationStep] = useState(0)
+  const [pleaseWait, setPleaseWait] = useState(false)
+  const [name, setName] = useState<string>("")
+  const [email, setEmail] = useState<string>("")
+  const [description, setDescription] = useState<string>("")
+  const [passphrase, setPassphrase] = useState<string>("")
+  const [logoUrl, setLogoUrl] = useState<string>("")
+  const [logoFile, setLogoFile] = useState<File>()
+  const [headerUrl, setHeaderUrl] = useState<string>("")
+  const [headerFile, setHeaderFile] = useState<File>()
 
-    ensureSignedUp()
-  }, [creating, created, passphrase, wallet, metadataValidationError, dbAccounts])
+  // UTILS STATE
+  const [creationError, setCreationError] = useState<string>()
+  const { wallet, setWallet } = useWallet()
+  const { dbAccounts, addDbAccount, updateAccount } = useDbAccounts()
+  const { poolPromise } = usePool()
+  const { bkPromise } = useBackend()
 
-  // Step by step call that incrementally registers the entity
-  const ensureSignedUp = async () => {
-    if (step != EntityCreationSteps.CREATION) return
-    else if (creating) return
+  // UTIL
 
-    setCreating(true)
+  const cleanError = () => { if (creationError) setCreationError("") }
 
-    // 1) passphrase => create wallet
-
-    if (!passphrase) return setCreating(false)
-
-    let shouldBreak = await ensureWallet()
-    if (shouldBreak) return setCreating(false)
-
-    // 2) wallet => encrypt mnemonic => store DB account
-
-    if (metadataValidationError) return setCreating(false)
-
-    shouldBreak = await ensureAccount()
-    if (shouldBreak) return setCreating(false)
-
-    // The account is now ready on IndexDB
-
-    shouldBreak = await ensureEntityCreation()
-    if (shouldBreak) return setCreating(false)
-
-
-    // display success
-    setCreating(false)
-    setCreated(true)
-  }
-
-  const ensureWallet: CreationStepFunc = () => {
+  const ensureWallet: StepperFunc = () => {
     if (wallet) {
-      cleanError()
-      return Promise.resolve(false)
+      return Promise.resolve({ waitNext: false })
     }
 
     return poolPromise.then(pool => {
       const newWallet = Wallet.createRandom().connect(pool.provider)
       setWallet(newWallet) // Note: this will not immediately update `wallet`
-      cleanError()
 
-      return true // continue when the new wallet is available on the scope
+      return { waitNext: true } // continue when the new wallet is available on the scope
     }).catch(err => {
       console.error(err)
-      setError(i18n.t("errors.your_credentials_cannot_be_created"))
-
-      return true
+      return { error: i18n.t("errors.your_credentials_cannot_be_created") }
     })
   }
 
-  const ensureAccount: CreationStepFunc = () => {
+  const ensureAccount: StepperFunc = () => {
     if (dbAccounts.some(acc => acc.address == wallet.address)) {
-      cleanError()
-      return Promise.resolve(false)
+      return Promise.resolve({ waitNext: false })
     }
 
     let pool: GatewayPool
@@ -191,38 +167,36 @@ export const useEntityCreation = () => {
         })
       })
       .then(() => {
-        cleanError()
-
         // break the paren't execution and continue when the dbAccounts hook value is updated
-        return true
+        return { waitNext: true }
       })
       .catch(err => {
         console.error(err)
-        setError(i18n.t("errors.the_account_metadata_could_not_be_stored"))
-        return true
+        return { error: i18n.t("errors.the_account_metadata_could_not_be_stored") }
       })
   }
 
-  const ensureEntityCreation: CreationStepFunc = async () => {
-    const account = dbAccounts.find(acc => acc.address == wallet.address)
-    if (!account.pending) return false
+  const ensureEntityCreation: StepperFunc = () => {
+    const account = dbAccounts.find(account => account.address == wallet.address)
+    if (!account.pending) {
+      return Promise.resolve({ waitNext: false })
+    }
 
     // 3) pending metadata => sign up and get gas
+    return ensureWalletBalance()
+      // 4) gas ready => upload metadata + register the entity
+      .then(() => ensureEntityMetadata())
+      // 5) entity => mark DB account as registered
+      .then(() => ensureNoPendingAccount())
+      .then(() => ({}))
+      .catch(err => {
+        console.error(err)
 
-    let shouldBreak = await ensureWalletBalance()
-    if (shouldBreak) return true
-
-    // 4) gas ready => upload metadata + register the entity
-
-    shouldBreak = await ensureEntityMetadata()
-    if (shouldBreak) return true
-
-    // 5) entity => mark DB account as registered
-    shouldBreak = await ensureNoPendingAccount()
-    return shouldBreak
+        return { error: err.message }
+      })
   }
 
-  const ensureWalletBalance: CreationStepFunc = async () => {
+  const ensureWalletBalance = async () => {
     let balance: BigNumber
     const pool = await poolPromise
 
@@ -230,12 +204,12 @@ export const useEntityCreation = () => {
       balance = await pool.provider.getBalance(wallet.address)
     }
     catch (err) {
-      setError(i18n.t("errors.cannot_connect_to_the_blockchain"))
-      return
+      console.error(err)
+      throw new Error(i18n.t("errors.cannot_connect_to_the_blockchain"))
     }
 
     // Done: skip
-    if (!balance.isZero()) return false
+    if (!balance.isZero()) return
 
     // Pending
     const account = dbAccounts.find(acc => acc.address == wallet.address)
@@ -252,96 +226,108 @@ export const useEntityCreation = () => {
     }
     catch (err) {
       console.error(err)
-      setError(i18n.t("errors.cannot_connect_to_vocdoni"))
-      return true
+      throw new Error(i18n.t("errors.cannot_connect_to_vocdoni"))
     }
 
     try {
       await waitForGas(wallet.address, wallet.provider)
     }
     catch (err) {
-      setError(i18n.t("errors.cannot_receive_credit_for_the_new_account"))
-      // break
-      return true
+      console.error(err)
+      throw new Error(i18n.t("errors.cannot_receive_credit_for_the_new_account"))
     }
-
-    cleanError()
-    // we can continue without expecting any hook update
-    return false
   }
 
-  const ensureEntityMetadata: CreationStepFunc = () => {
+  const ensureEntityMetadata = () => {
     let pool: GatewayPool
     const account = dbAccounts.find(acc => acc.address == wallet.address)
 
-    if (!account.pending || !account.pending.metadata) return Promise.resolve(true)
+    if (!account.pending || !account.pending.metadata) return Promise.resolve(null)
 
     return poolPromise
       .then(gwPool => {
         pool = gwPool
         return pool.getEnsPublicResolverInstance()
       })
-      .then(instance => instance.text(ensHashAddress(wallet.address), TextRecordKeys.JSON_METADATA_CONTENT_URI))
+      .then(instance => // Does it have metadata?
+        instance.text(ensHashAddress(wallet.address), TextRecordKeys.JSON_METADATA_CONTENT_URI)
+      )
+      .catch(err => null) // continue now with null
       .then(value => {
         // Done
-        if (value) {
-          cleanError()
-          // continue
-          return false
-        }
+        if (value) return
 
         // Pending
         return EntityApi.setMetadata(wallet.address, account.pending.metadata, wallet, pool)
-          .then(() => {
-            cleanError()
-            // we can continue without expecting any hook update
-            return false
-          })
+          .then(() => null)
           .catch(err => {
             console.error(err)
-            setError(i18n.t("errors.cannot_set_the_entity_details_on_the_blockchain"))
-            // break
-            return true
+            throw new Error(i18n.t("errors.cannot_set_the_entity_details_on_the_blockchain"))
           })
       })
   }
 
-  const ensureNoPendingAccount: CreationStepFunc = () => {
+  const ensureNoPendingAccount = () => {
     const account = dbAccounts.find(acc => acc.address == wallet.address)
 
     return updateAccount(wallet.address, { ...account, pending: null })
-      .then(() => {
-        cleanError()
-        // continue
-        return false
-      })
       .catch(err => {
         console.error(err)
-        setError(i18n.t("errors.cannot_complete_the_process"))
-        // break
-        return true
+        throw new Error(i18n.t("errors.cannot_complete_the_process"))
       })
   }
 
+  // Enumerate all the steps needed to create an entity
+  const creationFuncs = [ensureWallet, ensureAccount, ensureEntityCreation]
 
-  return { ...entityCreationCtx, methods: { ...methods, ensureSignedUp }, created, metadataValidationError, error }
-}
+  // Create a function to perform these steps iteratively, stopping when a break is needed or an error is found
+  const entitySignupStepper = makeStepperLoopFunction(creationFuncs)
 
-export const UseEntityCreationProvider = ({ children }: { children: ReactNode }) => {
-  const [creating, setCreating] = useState<boolean>(false)
-  const [step, setStep] = useState<EntityCreationSteps>(EntityCreationSteps.METADATA)
-  const [name, setName] = useState<string>("")
-  const [email, setEmail] = useState<string>("")
-  const [description, setDescription] = useState<string>("")
-  const [passphrase, setPassphrase] = useState<string>("")
-  const [logoUrl, setLogoUrl] = useState<string>("")
-  const [logoFile, setLogoFile] = useState<File>()
-  const [headerUrl, setHeaderUrl] = useState<string>("")
-  const [headerFile, setHeaderFile] = useState<File>()
+  // Creation entry point
+  const createEntity = () => {
+    setWallet(null)
 
+    // Start the work
+    return continueCreation()
+  }
+
+  // Continuation callback
+  const continueCreation = () => {
+    setPleaseWait(true)
+
+    return entitySignupStepper(creationStep)
+      .then(({ continueFrom, error }) => {
+        // Either the process is completed, something needs a refresh or something failed
+
+        // Set the next step to continue from
+        setCreationStep(continueFrom)
+
+        if (error) {
+          setCreationError(error)
+          setPleaseWait(false)
+        }
+        else cleanError()
+
+        if (continueFrom >= creationFuncs.length) {
+          // COMPLETED
+          setCreationStep(creationFuncs.length)
+          setPleaseWait(false)
+        }
+      })
+  }
+
+  useEffect(() => {
+    if (creationError) return
+    else if (pageStep < EntityCreationPageSteps.CREATION) return
+
+    continueCreation() // creationStep changed, continue
+  }, [creationStep, creationError])
+
+  // RETURN VALUES
   const value: EntityCreationContext = {
-    creating,
-    step,
+    pageStep,
+    creationError,
+
     name,
     email,
     description,
@@ -351,9 +337,11 @@ export const UseEntityCreationProvider = ({ children }: { children: ReactNode })
     headerFile,
     passphrase,
 
+    pleaseWait,
+    created: creationStep >= creationFuncs.length,
+
     methods: {
-      setCreating,
-      setStep,
+      setPageStep,
       setName,
       setEmail,
       setDescription,
@@ -362,6 +350,8 @@ export const UseEntityCreationProvider = ({ children }: { children: ReactNode })
       setLogoFile,
       setHeaderUrl,
       setHeaderFile,
+      createEntity,
+      continueCreation
     }
   }
 

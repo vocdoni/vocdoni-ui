@@ -4,25 +4,25 @@ import { FormCredentials } from "./credentials"
 import { FormCreation } from "./creation"
 import { useEntityCreation } from "../../hooks/entity-creation"
 
-export enum EntityCreationSteps {
+export enum EntityCreationPageSteps {
   METADATA = 0,
   CREDENTIALS = 1,
   CREATION = 2
 }
 
-export const EntityCreationStepTitles = {
-  [EntityCreationSteps.METADATA]: i18n.t("entity.details"),
-  [EntityCreationSteps.CREDENTIALS]: i18n.t("entity.credentials"),
-  [EntityCreationSteps.CREATION]: i18n.t("entity.creation"),
+export const EntityCreationPageStepTitles = {
+  [EntityCreationPageSteps.METADATA]: i18n.t("entity.details"),
+  [EntityCreationPageSteps.CREDENTIALS]: i18n.t("entity.credentials"),
+  [EntityCreationPageSteps.CREATION]: i18n.t("entity.creation"),
 }
 
-export const EntityCreationStep = () => {
-  const { step } = useEntityCreation()
+export const EntityCreationPageStep = () => {
+  const { pageStep } = useEntityCreation()
 
-  switch (step) {
-    case EntityCreationSteps.METADATA: return <FormMetadata />
-    case EntityCreationSteps.CREDENTIALS: return <FormCredentials />
-    case EntityCreationSteps.CREATION: return <FormCreation />
+  switch (pageStep) {
+    case EntityCreationPageSteps.METADATA: return <FormMetadata />
+    case EntityCreationPageSteps.CREDENTIALS: return <FormCredentials />
+    case EntityCreationPageSteps.CREATION: return <FormCreation />
   }
   return null
 }

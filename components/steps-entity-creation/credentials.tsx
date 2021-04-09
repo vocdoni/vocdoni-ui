@@ -7,7 +7,7 @@ import { Input } from '../inputs'
 import { Button } from '../button'
 import styled from 'styled-components'
 import i18n from '../../i18n'
-import { EntityCreationSteps } from '.'
+import { EntityCreationPageSteps } from '.'
 import { checkStrength } from '../../lib/util'
 import { useMessageAlert } from '../../hooks/message-alert'
 
@@ -21,14 +21,18 @@ export const FormCredentials = () => {
   const onValidate = () => {
     if (!passphrase) return setAlertMessage(i18n.t("errors.please_enter_a_passphrase"))
     else if (!passphrase2) return setAlertMessage(i18n.t("errors.please_repeat_the_passphrase"))
+
     const errMsg = checkStrength(passphrase)
     if (errMsg) return setAlertMessage(errMsg)
     else if (passphrase != passphrase2) return setAlertMessage(i18n.t("errors.the_passphrase_does_not_match"))
     else if (!ack) return setAlertMessage(i18n.t("errors.please_accept_credentials_tos"))
 
     // OK
+
     methods.setPassphrase(passphrase)
-    methods.setStep(EntityCreationSteps.CREATION)
+    methods.setPageStep(EntityCreationPageSteps.CREATION)
+
+    setTimeout(() => methods.createEntity(), 10)
   }
 
   const disabledContinue = !passphrase || !passphrase2 || !ack
@@ -69,7 +73,7 @@ export const FormCredentials = () => {
       </Column>
       <Column>
         <BottomDiv>
-          <Button border onClick={() => methods.setStep(EntityCreationSteps.METADATA)}>
+          <Button border onClick={() => methods.setPageStep(EntityCreationPageSteps.METADATA)}>
             {i18n.t("action.go_back")}
           </Button>
           <Button
