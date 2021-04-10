@@ -1,6 +1,6 @@
 import { usePool } from '@vocdoni/react-hooks'
 import { ensHashAddress, EntityApi, EntityMetadata, EntityMetadataTemplate, GatewayPool, Symmetric, TextRecordKeys } from 'dvote-js'
-import { createContext, ReactNode, useContext, useEffect, useMemo, useState } from 'react'
+import { createContext, ReactNode, useContext, useMemo, useState } from 'react'
 import { useBackend } from './backend'
 import { waitForGas } from "../lib/api"
 import { useDbAccounts } from './use-db-accounts'
@@ -10,8 +10,8 @@ import { BigNumber, Wallet } from 'ethers'
 import { isValidEmail } from '../lib/regex'
 import { uploadFileToIpfs } from '../lib/file'
 import i18n from '../i18n'
-import { makeStepperLoopFunction } from '../lib/util'
 import { StepperFunc } from '../lib/types'
+import { useStepper } from './use-stepper'
 
 export interface EntityCreationContext {
   pageStep: EntityCreationPageSteps,
@@ -41,7 +41,7 @@ export interface EntityCreationContext {
     setLogoUrl(logoUrl: string): void,
     setPassphrase(passphrase: string): void,
     createEntity(): void
-    continueCreation(): void
+    executeNextStep(): void
   }
 }
 
@@ -92,19 +92,13 @@ export const UseEntityCreationProvider = ({ children }: { children: ReactNode })
   const [headerFile, setHeaderFile] = useState<File>()
 
   // UI STATE
-  const [pageStep, setPageStep] = useState<EntityCreationPageSteps>(EntityCreationPageSteps.METADATA)
   const { wallet, setWallet } = useWallet()
   const { dbAccounts, addDbAccount, updateAccount } = useDbAccounts()
   const { poolPromise } = usePool()
   const { bkPromise } = useBackend()
 
-  const [creationStep, setCreationStep] = useState(0)
-  const [pleaseWait, setPleaseWait] = useState(false)
-  const [creationError, setCreationError] = useState<string>()
 
   // UTIL
-
-  const cleanError = () => { if (creationError) setCreationError("") }
 
   const ensureWallet: StepperFunc = () => {
     if (wallet) {
@@ -260,7 +254,7 @@ export const UseEntityCreationProvider = ({ children }: { children: ReactNode })
 
         // Pending
         return EntityApi.setMetadata(wallet.address, account.pending.metadata, wallet, pool)
-          .then(() => null)
+          .then((entityURL) => console.log("Entity URL:", entityURL))
           .catch(err => {
             console.error(err)
             throw new Error(i18n.t("errors.cannot_set_the_entity_details_on_the_blockchain"))
@@ -281,46 +275,15 @@ export const UseEntityCreationProvider = ({ children }: { children: ReactNode })
   // Enumerate all the steps needed to create an entity
   const creationFuncs = [ensureWallet, ensureAccount, ensureEntityCreation]
 
-  // Create a function to perform these steps iteratively, stopping when a break is needed or an error is found
-  const entitySignupStepper = makeStepperLoopFunction(creationFuncs)
+  const {pageStep, actionStep, pleaseWait, creationError, setPageStep, executeNextStep } = useStepper(creationFuncs)
 
   // Creation entry point
   const createEntity = () => {
     setWallet(null)
 
     // Start the work
-    return continueCreation()
+    return executeNextStep()
   }
-
-  // Continuation callback
-  const continueCreation = () => {
-    setPleaseWait(true)
-    cleanError()
-
-    return entitySignupStepper(creationStep)
-      .then(({ continueFrom, error }) => {
-        // Either the process is completed, something needs a refresh or something failed
-        setPleaseWait(false)
-
-        // Set the next step to continue from
-        setCreationStep(continueFrom)
-
-        if (error) {
-          setCreationError(error)
-          // This will cause the `useEffect` below to stop relaunching `continueCreation`
-          // until the caller manually invokes it again
-        }
-        // Otherwise, the `useEffect` below will relaunch `continueCreation` after
-        // the new state is available
-      })
-  }
-
-  useEffect(() => {
-    if (creationError) return
-    else if (pageStep < EntityCreationPageSteps.CREATION) return
-
-    continueCreation() // creationStep changed, continue
-  }, [creationStep, creationError])
 
   // RETURN VALUES
   const value: EntityCreationContext = {
@@ -337,7 +300,7 @@ export const UseEntityCreationProvider = ({ children }: { children: ReactNode })
     passphrase,
 
     pleaseWait,
-    created: creationStep >= creationFuncs.length,
+    created: actionStep >= creationFuncs.length,
 
     methods: {
       setPageStep,
@@ -350,7 +313,7 @@ export const UseEntityCreationProvider = ({ children }: { children: ReactNode })
       setHeaderUrl,
       setHeaderFile,
       createEntity,
-      continueCreation
+      executeNextStep
     }
   }
 
