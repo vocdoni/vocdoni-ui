@@ -38,7 +38,7 @@ export const FormCreation = () => {
             <Else>
               <BottomDiv>
                 <Button border onClick={() => methods.setPageStep(EntityCreationPageSteps.CREDENTIALS)}>Go Back</Button>
-                <Button border onClick={methods.executeNextStep}>Retry</Button>
+                <Button border onClick={methods.continueEntityCreation}>Retry</Button>
               </BottomDiv>
             </Else>
           </If>

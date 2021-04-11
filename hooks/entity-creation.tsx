@@ -41,7 +41,7 @@ export interface EntityCreationContext {
     setLogoUrl(logoUrl: string): void,
     setPassphrase(passphrase: string): void,
     createEntity(): void
-    executeNextStep(): void
+    continueEntityCreation(): void
   }
 }
 
@@ -96,7 +96,6 @@ export const UseEntityCreationProvider = ({ children }: { children: ReactNode })
   const { dbAccounts, addDbAccount, updateAccount } = useDbAccounts()
   const { poolPromise } = usePool()
   const { bkPromise } = useBackend()
-
 
   // UTIL
 
@@ -273,16 +272,17 @@ export const UseEntityCreationProvider = ({ children }: { children: ReactNode })
   }
 
   // Enumerate all the steps needed to create an entity
-  const creationFuncs = [ensureWallet, ensureAccount, ensureEntityCreation]
+  const creationStepFuncs = [ensureWallet, ensureAccount, ensureEntityCreation]
 
-  const {pageStep, actionStep, pleaseWait, creationError, setPageStep, executeNextStep } = useStepper(creationFuncs)
+  const creationStepper = useStepper<EntityCreationPageSteps>(creationStepFuncs, EntityCreationPageSteps.METADATA)
+  const { pageStep, actionStep, pleaseWait, creationError, setPageStep, doMainActionSteps } = creationStepper
 
   // Creation entry point
   const createEntity = () => {
     setWallet(null)
 
     // Start the work
-    return executeNextStep()
+    return doMainActionSteps()
   }
 
   // RETURN VALUES
@@ -300,7 +300,7 @@ export const UseEntityCreationProvider = ({ children }: { children: ReactNode })
     passphrase,
 
     pleaseWait,
-    created: actionStep >= creationFuncs.length,
+    created: actionStep >= creationStepFuncs.length,
 
     methods: {
       setPageStep,
@@ -313,7 +313,7 @@ export const UseEntityCreationProvider = ({ children }: { children: ReactNode })
       setHeaderUrl,
       setHeaderFile,
       createEntity,
-      executeNextStep
+      continueEntityCreation: doMainActionSteps
     }
   }
 

@@ -24,6 +24,8 @@ export type ProcessInfo = {
   tokenAddress: string
 }
 
+// React Hook Stepper types
+
 export type StepperFuncResult = { error?: string, waitNext?: boolean }
 export type StepperLoopFuncResult = { continueFrom: number, error?: string }
 
