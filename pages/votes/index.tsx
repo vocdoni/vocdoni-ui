@@ -17,11 +17,11 @@ import { useUrlHash } from 'use-url-hash';
 import styled from 'styled-components';
 
 import { strDateDiff } from '../../lib/date';
-import { HEX_REGEX } from '../../lib/regex';
+import { isValidHexString } from '../../lib/regex';
 import { areAllNumbers } from '../../lib/util';
 import { useMessageAlert } from '../../hooks/message-alert';
 import { TopSection } from '../../components/top-section';
-import RadioChoice from '../../components/radio';
+// import RadioChoice from '../../components/radio';
 import { useIsMobile } from '../../hooks/use-window-size';
 
 const BN_ZERO = BigNumber.from(0);
@@ -317,7 +317,7 @@ const ProcessPage = () => {
     processId
   );
 
-  if (typeof window != 'undefined' && !processId.match(HEX_REGEX)) {
+  if (typeof window != 'undefined' && !isValidHexString(processId)) {
     console.error('Invalid process ID', processId);
     router.replace('/tokens');
   }

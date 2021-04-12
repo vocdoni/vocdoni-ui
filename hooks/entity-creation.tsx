@@ -99,8 +99,19 @@ export const UseEntityCreationProvider = ({ children }: { children: ReactNode })
 
   // UTIL
 
+  const ensureNullWallet: StepperFunc = () => {
+    if (!wallet) {
+      // Already OK?
+      return Promise.resolve({ waitNext: false })
+    }
+
+    setWallet(null)
+    return Promise.resolve({ waitNext: true })
+  }
+
   const ensureWallet: StepperFunc = () => {
     if (wallet) {
+      // Already OK?
       return Promise.resolve({ waitNext: false })
     }
 
@@ -117,6 +128,7 @@ export const UseEntityCreationProvider = ({ children }: { children: ReactNode })
 
   const ensureAccount: StepperFunc = () => {
     if (dbAccounts.some(acc => acc.address == wallet.address)) {
+      // Already OK?
       return Promise.resolve({ waitNext: false })
     }
 
@@ -173,6 +185,7 @@ export const UseEntityCreationProvider = ({ children }: { children: ReactNode })
   const ensureEntityCreation: StepperFunc = () => {
     const account = dbAccounts.find(account => account.address == wallet.address)
     if (!account.pending) {
+      // Already OK?
       return Promise.resolve({ waitNext: false })
     }
 
@@ -190,6 +203,7 @@ export const UseEntityCreationProvider = ({ children }: { children: ReactNode })
       })
   }
 
+  // (helper of ensureEntityCreation)
   const ensureWalletBalance = async () => {
     let balance: BigNumber
     const pool = await poolPromise
@@ -232,6 +246,7 @@ export const UseEntityCreationProvider = ({ children }: { children: ReactNode })
     }
   }
 
+  // (helper of ensureEntityCreation)
   const ensureEntityMetadata = () => {
     let pool: GatewayPool
     const account = dbAccounts.find(acc => acc.address == wallet.address)
@@ -261,6 +276,7 @@ export const UseEntityCreationProvider = ({ children }: { children: ReactNode })
       })
   }
 
+  // (helper of ensureEntityCreation)
   const ensureNoPendingAccount = () => {
     const account = dbAccounts.find(acc => acc.address == wallet.address)
 
@@ -272,18 +288,10 @@ export const UseEntityCreationProvider = ({ children }: { children: ReactNode })
   }
 
   // Enumerate all the steps needed to create an entity
-  const creationStepFuncs = [ensureWallet, ensureAccount, ensureEntityCreation]
+  const creationStepFuncs = [ensureNullWallet, ensureWallet, ensureAccount, ensureEntityCreation]
 
   const creationStepper = useStepper<EntityCreationPageSteps>(creationStepFuncs, EntityCreationPageSteps.METADATA)
   const { pageStep, actionStep, pleaseWait, creationError, setPageStep, doMainActionSteps } = creationStepper
-
-  // Creation entry point
-  const createEntity = () => {
-    setWallet(null)
-
-    // Start the work
-    return doMainActionSteps()
-  }
 
   // RETURN VALUES
   const value: EntityCreationContext = {
@@ -312,7 +320,7 @@ export const UseEntityCreationProvider = ({ children }: { children: ReactNode })
       setLogoFile,
       setHeaderUrl,
       setHeaderFile,
-      createEntity,
+      createEntity: doMainActionSteps,
       continueEntityCreation: doMainActionSteps
     }
   }
