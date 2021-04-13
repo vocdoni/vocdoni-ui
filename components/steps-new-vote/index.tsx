@@ -16,13 +16,13 @@ export const VoteCreationStepTitles = {
   [VoteCreationSteps.METADATA]: i18n.t("vote.details"),
   [VoteCreationSteps.CENSUS]: i18n.t("vote.who_can_vote"),
   [VoteCreationSteps.GENERAL]: i18n.t("vote.general"),
-  [VoteCreationSteps.CREATION]: null
+  [VoteCreationSteps.CREATION]: i18n.t("vote.creation"),
 }
 
 export const VoteCreationStep = () => {
-  const { step } = useVoteCreation()
+  const { pageStep } = useVoteCreation()
 
-  switch (step) {
+  switch (pageStep) {
     case VoteCreationSteps.METADATA: return <FormMetadata />
     case VoteCreationSteps.CENSUS: return null // <VoteCreationCredentials />
     case VoteCreationSteps.GENERAL: return null // <VoteCreationCredentials />
