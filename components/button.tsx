@@ -10,6 +10,7 @@ type ButtonProps = {
     disabled?: boolean,
     large?: boolean,
     small?: boolean,
+    verticalAlign?: boolean,
     /** Draws a gray border only in default buttons */
     border?: boolean,
     wide?: boolean,
@@ -22,14 +23,14 @@ type ButtonProps = {
     onClick?: (ev: React.MouseEvent<HTMLDivElement, MouseEvent>) => void
 }
 
-export const Button = ({ disabled, positive, negative, color, href, onClick, width, icon, wide, border, large, small, children }: ButtonProps) => {
+export const Button = ({ disabled, positive, negative, color, href, onClick, width, icon, wide, border, verticalAlign, large, small, children }: ButtonProps) => {
     let component: JSX.Element
 
     if (disabled) {
         return <DisabledButton wide={wide} large={large} small={small} width={width} onClick={ev => (onClick && !disabled) ? onClick(ev) : null}>
             {icon ?
                 <ButtonContent color={theme.darkLightFg}>{icon}&nbsp;{children}</ButtonContent> :
-                <ButtonContent color={theme.darkLightFg}>{children}</ButtonContent>
+                <ButtonContent color={theme.darkLightFg} verticalAlign={verticalAlign}>{children}</ButtonContent>
             }
         </DisabledButton>
     }
@@ -38,7 +39,7 @@ export const Button = ({ disabled, positive, negative, color, href, onClick, wid
         component = <PositiveButton wide={wide} large={large} small={small} width={width} onClick={ev => (onClick && !disabled) ? onClick(ev) : null}>
             {icon ?
                 <ButtonContent color={theme.white}>{icon}&nbsp;{children}</ButtonContent> :
-                <ButtonContent color={theme.white}>{children}</ButtonContent>
+                <ButtonContent color={theme.white} verticalAlign={verticalAlign}>{children}</ButtonContent>
             }
         </PositiveButton>
     }
@@ -46,7 +47,7 @@ export const Button = ({ disabled, positive, negative, color, href, onClick, wid
         component = <NegativeButton wide={wide} large={large} small={small} width={width} onClick={ev => (onClick && !disabled) ? onClick(ev) : null}>
             {icon ?
                 <ButtonContent color={theme.white}>{icon}&nbsp;{children}</ButtonContent> :
-                <ButtonContent color={theme.white}>{children}</ButtonContent>
+                <ButtonContent color={theme.white} verticalAlign={verticalAlign}>{children}</ButtonContent>
             }
         </NegativeButton>
     }
@@ -54,7 +55,7 @@ export const Button = ({ disabled, positive, negative, color, href, onClick, wid
         component = <DefaultButton wide={wide} border={border} large={large} small={small} width={width} onClick={ev => (onClick && !disabled) ? onClick(ev) : null}>
             {icon ?
                 <ButtonContent color={color}>{icon}&nbsp;{children}</ButtonContent> :
-                <ButtonContent color={color}>{children}</ButtonContent>
+                <ButtonContent color={color} verticalAlign={verticalAlign}>{children}</ButtonContent>
             }
         </DefaultButton>
     }
@@ -66,6 +67,13 @@ export const Button = ({ disabled, positive, negative, color, href, onClick, wid
     }
     return component
 }
+
+export const SquareButton = ({ icon, children, width, disabled, onClick }: ButtonProps) => (
+    <Button onClick={onClick} disabled={disabled} width={width} border verticalAlign>
+        <SquareButtonIconContainer>{icon}</SquareButtonIconContainer>
+        {children}
+    </Button>
+)
 
 const BaseButton = styled.div<{ wide?: boolean, large?: boolean, small?: boolean, width?: number, border?: boolean }>`
 ${props => props.wide ? "" : "display: inline-block;"}
@@ -134,9 +142,9 @@ background: linear-gradient(106.26deg, ${props => hexToRgbA(props.theme.accent2B
 }
 `
 
-const ButtonContent = styled.div<{ color?: ButtonProps["color"] }>`
+const ButtonContent = styled.div<{ color?: ButtonProps["color"], verticalAlign?: boolean}>`
 display: flex;
-flex-direction: row;
+flex-direction: ${({verticalAlign}) => verticalAlign? 'column': 'row'};
 justify-content: center;
 align-items: center;
 ${props => props.color == "positive" ? "color: " + props.theme.textAccent1 + ";" :
@@ -147,4 +155,14 @@ ${props => props.color == "positive" ? "color: " + props.theme.textAccent1 + ";"
 
 const MyAnchor = styled.a`
 color: unset;
+`
+
+const SquareButtonIconContainer = styled.div`
+  height: 66px;
+  width: 66px;
+  margin: 36px auto 16px;
+
+  & > img {
+    width: 100%;
+  }
 `

@@ -3,6 +3,7 @@ import Link from "next/link"
 import { Column, ColumnProps } from "./grid"
 
 type CardProps = ColumnProps
+
 type StatusCardProps = ColumnProps & {
   title: string,
   rightText?: string,

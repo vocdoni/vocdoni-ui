@@ -3,7 +3,7 @@ import React, { createContext, ReactNode, useContext, useEffect, useState } from
 import { withRouter } from 'next/router'
 
 import styled from "styled-components"
-import { Button } from '../components/button'
+import { Button, SquareButton } from '../components/button'
 import { Column, Grid } from '../components/grid'
 import { Card, PageCard, StatusCard } from '../components/cards'
 import { useWallet } from '../hooks/use-wallet'
@@ -12,7 +12,7 @@ import { useDbAccounts } from '../hooks/use-db-accounts'
 import { Symmetric } from 'dvote-js'
 import { Buffer } from "buffer/"
 import { Steps } from '../components/steps'
-import { Input, Textarea } from '../components/inputs'
+import { Input, Select, Textarea } from '../components/inputs'
 import { Radio } from '../components/radio'
 import { colors } from '../theme/colors'
 import { Banner } from '../components/banners'
@@ -58,7 +58,14 @@ const IndexPage = () => {
         <Button>Default width</Button>
         <Button width={300}>300px button</Button>
       </DivWithMarginChildren>
-
+      <DivWithMarginChildren>
+        <SquareButton 
+          icon={<div style={{textAlign:'center'}}>(LOGO)</div>}
+        >
+          <p>Square button</p>
+        </SquareButton>
+      </DivWithMarginChildren>
+      
       <h1>Grid</h1>
       <p>A Grid can contain <code>Colum</code>, <code>Card</code> and <code>CardStatus</code></p>
 
@@ -237,6 +244,20 @@ const IndexPage = () => {
         <br />
         <Textarea wide placeholder="Wide textarea" />
       </div>
+
+      <h2>Select</h2>
+      <div>
+        <Select options={[
+          {
+            value: 'First option',
+            label: 'first_option'
+          }, {
+            value: 'Second option',
+            label: 'Second_option'
+          }
+        ]}/>
+      </div>
+
       <h2>Radio</h2>
       <div>
         <Radio name="my-question-1" onClick={() => setMyVal("Option A")}>Option A</Radio>
