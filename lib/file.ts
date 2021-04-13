@@ -4,7 +4,7 @@ import { Wallet } from "ethers"
 /**
  * Handy Promise for reading RcFile with FileReader
  *
- * @param RcFile Which file to read the contents from.
+ * @param File Which file to read the contents from.
  */
 export const FileReaderPromise = (file: File): Promise<Buffer> => new Promise((resolve, reject) => {
   const reader = new FileReader()

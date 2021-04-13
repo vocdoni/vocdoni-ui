@@ -1,4 +1,6 @@
-import i18n from "../i18n"
+import { CensusOffChainApi } from 'dvote-js'
+import { ethers } from 'ethers'
+import i18n from '../i18n'
 
 export const areAllNumbers = (slice: any[]) => {
   for (let i = 0; i < slice.length; i++) {
@@ -56,4 +58,18 @@ export function checkStrength(passphrase: string): string {
   else if (passphrase.length < 8) return i18n.t("errors.the_passphrase_should_have_8_characters_or_more")
   else if (!passphrase.match(/[A-Z]/)) return i18n.t("errors.the_passphrase_should_contain_some_uppercase_characters")
   return null
+}
+
+export const importedRowToString = (row: string[], entityId: string): string => {
+  return row.reduce((i, j) => { return i + j }) + entityId
+}
+
+export const extractDigestedPubKeyFromString = (data: string): { privKey: string, digestedHexClaim: string } => {
+  const bytes = ethers.utils.toUtf8Bytes(data)
+  const hashed = ethers.utils.keccak256(bytes)
+  const tempWallet = new ethers.Wallet(hashed)
+  return {
+      privKey: tempWallet.privateKey,
+      digestedHexClaim: CensusOffChainApi.digestPublicKey(tempWallet.publicKey),
+  }
 }
