@@ -23,7 +23,9 @@
         "name": "Name of the entity",
         "new_entity": "New entity",
         "passphrase": "Passphrase",
-        "repeat_passphrase": "Repeat the passphrase"
+        "please_wait_creating_account": "",
+        "repeat_passphrase": "Repeat the passphrase",
+        "your_account_has_been_created": ""
     },
     "errors": {
         "file_too_large": "The file is too large",
@@ -36,7 +38,8 @@
         "the_passphrase_does_not_match": "",
         "the_passphrase_is_empty": "",
         "the_passphrase_should_contain_some_uppercase_characters": "",
-        "the_passphrase_should_have_8_characters_or_more": ""
+        "the_passphrase_should_have_8_characters_or_more": "",
+        "there_is_already_one_entity_with_the_same_name": ""
     },
     "home": {
         "hero_subtitle": "Vocdoni empowers communities to take their AGM's to the next level",
@@ -45,6 +48,21 @@
     "input": {
         "enter_the_url_or_upload_a_file": "Enter the URL of an image or upload a file",
         "remove_file": "Remove file"
+    },
+    "sign_in": {
+        "additional_entities": "Additional entities",
+        "continue": "Continue",
+        "create_new_entity": "Create a new entity",
+        "forgot_your_password_restore_from_a_backup": "Forgot your password? Restore from a backup →",
+        "if_you_have_an_account_file_you_can_import_it_on_this_computer": "If you have an account file, you can import it on this computer",
+        "import_an_account": "Import an account",
+        "import_an_account_or_create_a_new_entity": "Create a new entity",
+        "invalid_passphrase": "Invalid passphrase",
+        "passphrase": "Passphrase",
+        "select_the_account": "Select the account",
+        "select_the_account_to_use_and_enter_your_passphrase": "Select the account to use and enter your passphrase.",
+        "sign_in": "Sign in",
+        "write_your_passphrase": "Enter your passphrase"
     },
     "vote": {
         "active_vote": "",
