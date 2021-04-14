@@ -5,28 +5,28 @@ import { FormMetadata } from "./metadata"
 // import NewVoteGeneral from "./NewVoteGeneral"
 // import NewVoteCreation from "./NewVoteCreation"
 
-export enum VoteCreationSteps {
+export enum VoteCreationPageSteps {
   METADATA = 0,
   CENSUS = 1,
   GENERAL = 2,
   CREATION = 3
 }
 
-export const VoteCreationStepTitles = {
-  [VoteCreationSteps.METADATA]: i18n.t("vote.details"),
-  [VoteCreationSteps.CENSUS]: i18n.t("vote.who_can_vote"),
-  [VoteCreationSteps.GENERAL]: i18n.t("vote.general"),
-  [VoteCreationSteps.CREATION]: i18n.t("vote.creation"),
+export const VoteCreationPageStepTitles = {
+  [VoteCreationPageSteps.METADATA]: i18n.t("vote.details"),
+  [VoteCreationPageSteps.CENSUS]: i18n.t("vote.who_can_vote"),
+  [VoteCreationPageSteps.GENERAL]: i18n.t("vote.general"),
+  [VoteCreationPageSteps.CREATION]: i18n.t("vote.creation"),
 }
 
-export const VoteCreationStep = () => {
+export const VoteCreationPageStep = () => {
   const { pageStep } = useVoteCreation()
 
   switch (pageStep) {
-    case VoteCreationSteps.METADATA: return <FormMetadata />
-    case VoteCreationSteps.CENSUS: return null // <VoteCreationCredentials />
-    case VoteCreationSteps.GENERAL: return null // <VoteCreationCredentials />
-    case VoteCreationSteps.CREATION: return null // <VoteCreationCreation />
+    case VoteCreationPageSteps.METADATA: return <FormMetadata />
+    case VoteCreationPageSteps.CENSUS: return null // <VoteCreationCredentials />
+    case VoteCreationPageSteps.GENERAL: return null // <VoteCreationCredentials />
+    case VoteCreationPageSteps.CREATION: return null // <VoteCreationCreation />
   }
   return null
 }
