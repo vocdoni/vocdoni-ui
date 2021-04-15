@@ -6,11 +6,13 @@ import {
   ProcessEnvelopeType,
   ProcessMetadata,
   ProcessMetadataTemplate,
+  checkValidProcessMetadata,
   ProcessMode,
   VotingApi,
   INewProcessParams,
   ProcessCensusOrigin,
-  GatewayPool
+  GatewayPool,
+  FileApi
 } from 'dvote-js'
 import { createContext, useContext, useState } from 'react'
 import { VoteCreationPageSteps } from '../components/steps-new-vote'
@@ -55,31 +57,65 @@ export const UseVoteCreationProvider = ({ children }) => {
   const { parameters, methods: paramsMethods } = useProcessParameters()
   const [spreadsheetData, setSpreadsheetData] = useState<string[][]>()
   const [headerFile, setHeaderFile] = useState<File>()
+  const [headerURL, setHeaderURL] = useState<string>('')
   const { wallet } = useWallet()
   const { pool, poolPromise } = usePool()
 
   // STEPPER OPERATIONS
 
   const stepEnsureMedia: StepperFunc = () => {
-    // TODO: detect if needed
-    if (/* ... */ false) return Promise.resolve({ waitNext: false }) // next step
+    // TODO: how to check if a new header file or url is added?
+    if (metadata.media.header.length) return Promise.resolve({ waitNext: false }) // next step
+    if (!headerURL.length || !headerFile) return Promise.reject({ error: i18n.t('errors.missing_media_info') })
 
-    // TODO: Get the Header values. Upload to IPFS if it is a file.
-    //       Leave it as a string if so.
-    //       We may need to add an extra state to hold the `File` value
-
-    return Promise.reject(new Error("unimplemented"))
+    // TODO: We may need to add an extra state to hold the `File` value
+    return poolPromise
+      .then(pool => {
+        if (headerFile) return uploadFileToIpfs(headerFile, pool, wallet)
+        return headerURL
+      })
+      .then(header => {
+        metadataMethods.setMedia({ header })
+        return Promise.resolve({ waitNext: false })
+      })
+      .catch(err => {
+        console.error(err)
+        return Promise.reject({ error: i18n.t('errors.cannot_upload_file') })
+      })
   }
 
   const stepEnsureMetadataUploaded: StepperFunc = () => {
     if (parameters.metadata.length) return Promise.resolve({ waitNext: true })
 
+    if (!metadata.title.default.length)
+      return Promise.reject({ error: i18n.t('errors.missing_title') })
+
+
+    if (!metadata.description.default.length)
+      return Promise.reject({ error: i18n.t('errors.missing_description') })
+
+    try {
+      const meta = checkValidProcessMetadata(metadata)
+      metadataMethods.setRawMetadata(meta)
+    } catch (error) {
+      return Promise.reject({ error: i18n.t('errors.process.invalid_metadata') })
+    }
+
+
     // TODO: Get the JSON metadata, update it to IPFS
-    // TODO: parameters.setMetadata(ipfs://<hash>)
+    // TODO: check it does not overlap with
+    const strJsonMeta = JSON.stringify(metadata)
 
-    return Promise.reject(new Error("unimplemented"))
-
-    return Promise.resolve({ waitNext: true })
+    return poolPromise
+      .then(pool => FileApi.add(strJsonMeta, `process-metadata.json`, wallet, pool))
+      .then(metadataURL => {
+        paramsMethods.setMetadata(metadataURL)
+        return Promise.resolve({ waitNext: false })
+      })
+      .catch(err => {
+        console.error(err)
+        return Promise.reject({ error: i18n.t('errors.cannot_upload_file') })
+      })
   }
 
   const stepEnsureCensusCreated: StepperFunc = async () => {
@@ -115,10 +151,11 @@ export const UseVoteCreationProvider = ({ children }) => {
   const stepEnsureValidParams: StepperFunc = () => {
 
     // TODO: Do a synchronous check that the process params make sense and contain no incompatible values
+    if (isNaN(parameters.startBlock) || isNaN(parameters.blockCount))
+      return Promise.reject({ error: i18n.t('errors.process.invalid_starting_date') })
 
-    // TODO: Validate the metadata using dvote-js
-
-    // TODO: throw an error or return {error: "..."} if applicable
+    if (parameters.blockCount <= 0)
+      return Promise.reject({ error: i18n.t('errors.process.invalid_dates') })
 
     return Promise.resolve({ waitNext: false })
   }
@@ -129,15 +166,6 @@ export const UseVoteCreationProvider = ({ children }) => {
     return poolPromise
       .then(async (p) => {
         pool = p
-
-        // TODO: MOVE THIS TO stepEnsureMedia()
-        let headerUrl = ''
-        if (headerFile) {
-          headerUrl = await uploadFileToIpfs(headerFile, pool, wallet)
-        }
-        metadataMethods.setMedia({ header: headerUrl })
-        // /TODO
-
 
         // ProcessContractParameters !== INewProcessParams
         // parameters.metadata = metadata
@@ -213,6 +241,8 @@ export const UseVoteCreationProvider = ({ children }) => {
     methods: {
       ...metadataMethods,
       ...paramsMethods,
+      setHeaderFile,
+      setHeaderURL,
       setPageStep,
       createProcess: doMainActionSteps,
       continueCreation: doMainActionSteps,
@@ -252,7 +282,8 @@ const useProcessMetadata = () => {
     setDescription,
     setMedia,
     setMetaFields,
-    setQuestions
+    setQuestions,
+    setRawMetadata
   }
   return { metadata, methods }
 }
@@ -263,10 +294,14 @@ const useProcessParameters = () => {
   const forceUpdate = useForceUpdate()
 
   const setMode = (mode: ProcessMode) => {
+    if (parameters.mode === mode) return
+
     parameters.mode = mode
     forceUpdate()
   }
   const setEnvelopeType = (envelopeType: ProcessEnvelopeType) => {
+    if (parameters.envelopeType === envelopeType) return
+
     parameters.envelopeType = envelopeType
     forceUpdate()
   }
@@ -283,23 +318,31 @@ const useProcessParameters = () => {
     forceUpdate()
   }
   const setCensusOrigin = (censusOrigin: ProcessCensusOrigin) => {
+    if (parameters.censusOrigin === censusOrigin) return
+
     parameters.censusOrigin = censusOrigin
     forceUpdate()
   }
   const setCensusRoot = (censusRoot: string) => {
     if (!censusRoot) throw new Error("Invalid censusRoot")
+    if (parameters.censusRoot === censusRoot) return
+
 
     parameters.censusRoot = censusRoot
     forceUpdate()
   }
   const setCensusUri = (censusUri: string) => {
     if (!censusUri) throw new Error("Invalid censusUri")
+    if (parameters.censusUri === censusUri) return
+
 
     parameters.censusUri = censusUri
     forceUpdate()
   }
   const setCostExponent = (costExponent: number) => {
     if (costExponent < 0 || costExponent >= 65535) throw new Error("Invalid cost exponent")
+    if (parameters.costExponent === costExponent) return
+
 
     parameters.costExponent = costExponent
     forceUpdate()
@@ -315,24 +358,32 @@ const useProcessParameters = () => {
 
   const setMaxCount = (maxCount: number) => {
     if (maxCount < 0) throw new Error("Invalid maxCount")
+    if (parameters.maxCount === maxCount) return
+
 
     parameters.maxCount = maxCount
     forceUpdate()
   }
   const setMaxTotalCost = (maxTotalCost: number) => {
     if (maxTotalCost < 0) throw new Error("Invalid maxTotalCost")
+    if (parameters.maxTotalCost === maxTotalCost) return
+
 
     parameters.maxTotalCost = maxTotalCost
     forceUpdate()
   }
   const setMaxValue = (maxValue: number) => {
     if (maxValue < 0) throw new Error("Invalid maxValue")
+    if (parameters.maxValue === maxValue) return
+
 
     parameters.maxValue = maxValue
     forceUpdate()
   }
   const setMaxVoteOverwrites = (maxVoteOverwrites: number) => {
     if (maxVoteOverwrites < 0) throw new Error("Invalid maxVoteOverwrites")
+    if (parameters.maxVoteOverwrites === maxVoteOverwrites) return
+
 
     parameters.maxVoteOverwrites = maxVoteOverwrites
     forceUpdate()
