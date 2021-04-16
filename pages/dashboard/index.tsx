@@ -20,7 +20,6 @@ const DashboardPage = () => {
   const [activeVotes, setActiveVotes] = useState<ProcessInfo[]>([])
   const [upcomingVotes, setUpcomingVotes] = useState<ProcessInfo[]>([])
   const [votesResults, setVotesResults] = useState<ProcessInfo[]>([])
-  const [companyMembers, setCompanyMembers] = useState<ProcessInfo[]>([])
 
   const router = useRouter()
   const { poolPromise } = usePool()
@@ -82,7 +81,6 @@ const DashboardPage = () => {
         activeVotes={activeVotes.length}
         upcomingVotes={upcomingVotes.length}
         votesResults={votesResults.length}
-        companyMembers={companyMembers.length}
       />
 
       <DashboardProcessList

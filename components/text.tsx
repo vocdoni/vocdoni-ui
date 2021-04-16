@@ -25,7 +25,7 @@ export const SectionTitle = styled.h2<{  align: TextAlign, topMargin?: boolean, 
 font-weight: 500;
 size: 44px;
 line-height: 1.3em;
-text-align: ${({align}) => align? align: TextAlign.Center};
+text-align: ${({align}) => align? align: TextAlign.Left};
 ${({ topMargin }) => topMargin ? "" : "margin-top: 0;"}
 ${({ bottomMargin }) => bottomMargin ? "" : "margin-bottom: 0;"}
 `
@@ -34,7 +34,7 @@ export const SectionText = styled.p<{align?: TextAlign}>`
 font-weight: 400;
 font-size: 18px;
 line-height: 1.3em;
-text-align: ${({align}) => align? align: TextAlign.Center}
+text-align: ${({align}) => align? align: TextAlign.Left}
 `
 
 export const SectionDescription = styled.span`
