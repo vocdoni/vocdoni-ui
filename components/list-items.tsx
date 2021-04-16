@@ -5,13 +5,19 @@ import { Tag } from "./tag"
 import { ReactNode } from "react"
 import i18n from "../i18n"
 
+export enum VoteStatusType {
+  Active = 'active',
+  Paused = 'paused',
+  Ended = 'ended'
+} 
+
 type VoteListItemProps = ColumnProps & {
   icon: ReactNode,
   entityName: string,
   processId: string,
   title: string,
   description: string,
-  status: "active" | "paused" | "ended",
+  status: VoteStatusType,
   dateText: string
 }
 
@@ -26,9 +32,9 @@ export const VoteListItem = ({ icon, entityName, processId, title, description, 
           <VoteStatus>
             <Tag>{(() => {
               switch (status) {
-                case "active": return i18n.t("vote.active_vote")
-                case "paused": return i18n.t("vote.paused_vote")
-                case "ended": return i18n.t("vote.ended_vote")
+                case VoteStatusType.Active: return i18n.t("vote.active_vote")
+                case VoteStatusType.Paused: return i18n.t("vote.paused_vote")
+                case VoteStatusType.Ended: return i18n.t("vote.ended_vote")
                 default: return ""
               }
             })()}
@@ -37,7 +43,7 @@ export const VoteListItem = ({ icon, entityName, processId, title, description, 
         </TopDiv>
 
         <VoteListItemTitle>{title}</VoteListItemTitle>
-        <VoteListItemDescription>{description}</VoteListItemDescription>
+        <VoteListItemDescription><div dangerouslySetInnerHTML={{ __html: description}} /></VoteListItemDescription>
         <VoteListItemDate>{dateText}</VoteListItemDate>
       </ListItemDiv>
     </a>

@@ -7,6 +7,24 @@
         "go_back": "Go back",
         "go_to_dashboard": "Go to the Dashboard"
     },
+    "dashboard": {
+        "active_votes": "Active votes",
+        "company_logo": "Company Logo",
+        "company_members": "Company members",
+        "create_backup_now": "Create a backup now",
+        "create_new_proposal": "Create a new proposal",
+        "create_new_proposal_in_only_5_minutes": "Create a new proposal in only 5 minutes",
+        "create_proposal": "Create a new proposal",
+        "if_you_lose_access_to_your_passphrase_you_will_not_be_able_to_manage_your_entity_anymore": "If you lose access to your passphrase, you will not be able to manage your entity anymore",
+        "lorem_ipsum": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        "manage_your_community_and_schedule_new_votes": "Manage your community and schedule new votes",
+        "no_proposals_yet": "No proposals yet!",
+        "process_finished": "Process finished",
+        "process_paused": "Process paused",
+        "upcoming_votes": "Upcoming votes",
+        "vote_results": "Vote results",
+        "your_account_is_unsafe": "Your account is unsafe!"
+    },
     "entity": {
         "acknowledge_passphrase_implications": "I acknowledge that the passphrase is required to manage my entity and that failure to keep access to it can prevent the ability to manage it in the future",
         "brief_description": "Brief description of your entity",
@@ -65,16 +83,16 @@
         "write_your_passphrase": "Enter your passphrase"
     },
     "vote": {
-        "active_vote": "",
-        "brief_description": "",
-        "description": "",
-        "details": "",
-        "ended_vote": "",
-        "enter_the_details_of_the_organization": "",
-        "general": "",
-        "new_vote": "",
-        "paused_vote": "",
-        "title": "",
-        "who_can_vote": ""
+        "active_vote": "Active vote",
+        "brief_description": "Brief_description",
+        "description": "Description",
+        "details": "Detail",
+        "ended_vote": "Ended vote",
+        "enter_the_details_of_the_organization": "Enter the details of the organization",
+        "general": "General",
+        "new_vote": "New vote",
+        "paused_vote": "Paused vote",
+        "title": "Title",
+        "who_can_vote": "Who can vote"
     }
 }

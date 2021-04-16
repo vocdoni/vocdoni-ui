@@ -1,11 +1,16 @@
-export function strDateDiff(type: 'start-date' | 'end-date', target: Date): string {
+export enum DateDiffType {
+  Start = 'start-date',
+  End = 'end-date'
+}
+
+export function strDateDiff(type: DateDiffType, target: Date): string {
   if (!target) return ''
   let diff = (target.getTime() - Date.now()) / 1000
   let num: number, prefix: string
 
   if (diff > 3) {
-    prefix = type == 'start-date' ? 'starting' :
-      type == 'end-date' ? 'ending' : ''
+    prefix = type == DateDiffType.Start ? 'starting' :
+      type == DateDiffType.End ? 'ending' : ''
 
     // future
     if (diff > 60 * 60 * 24) {
@@ -22,8 +27,8 @@ export function strDateDiff(type: 'start-date' | 'end-date', target: Date): stri
       return `${prefix} in ${num} seconds`
     }
   } else if (diff < -3) {
-    prefix = type == 'start-date' ? 'started' :
-      type == 'end-date' ? 'ended' : ''
+    prefix = type == DateDiffType.Start ? 'started' :
+      type == DateDiffType.End ? 'ended' : ''
 
     diff = -diff
 
@@ -42,8 +47,8 @@ export function strDateDiff(type: 'start-date' | 'end-date', target: Date): stri
       return `${prefix} ${num} seconds ago`
     }
   } else {
-    prefix = type == 'start-date' ? 'starting' :
-      type == 'end-date' ? 'ending' : ''
+    prefix = type == DateDiffType.Start ? 'starting' :
+      type == DateDiffType.End ? 'ending' : ''
 
     return 'right now'
   }

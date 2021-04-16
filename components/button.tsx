@@ -4,6 +4,11 @@ import styled from "styled-components"
 import { hexToRgbA } from "../lib/util"
 import { theme } from "../theme"
 
+export enum ButtonColor {
+    Positive = "positive",
+    Negative = "negative"
+}
+
 type ButtonProps = {
     positive?: boolean,
     negative?: boolean,
@@ -16,7 +21,7 @@ type ButtonProps = {
     wide?: boolean,
     width?: number,
     /** Text color to use (either a HEX color or "accent1" "accent2") */
-    color?: "positive" | "negative" | string,
+    color?: ButtonColor | string,
     icon?: React.ReactNode,
     children?: React.ReactNode
     href?: string

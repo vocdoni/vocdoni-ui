@@ -29,8 +29,8 @@ const LogInPage = () => {
         account.hdPath,
         passphrase
       )
-
-      router.push(DASHBOARD_PATH)
+      
+      router.push(`${DASHBOARD_PATH}#/account/${account.address}`)
     } catch (error) {
       setAlertMessage(i18n.t('sign_in.invalid_passphrase'))
     }

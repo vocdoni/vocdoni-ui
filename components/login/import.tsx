@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 import i18n from '../../i18n'
 import { CREATE_ENTITY_PATH } from '../../const/routes'
 
-import { SectionTitleCentered, SectionTextCentered } from '../text'
+import { SectionTitle, SectionText, TextAlign } from '../text'
 import { Column, Grid } from '../grid'
 import { SquareButton } from '../button'
 
@@ -26,12 +26,12 @@ export const LogInImport = ({ hasAccount }: SignInImportProps) => {
   return (
     <>
       <div>
-        <SectionTitleCentered>{title}</SectionTitleCentered>
-        <SectionTextCentered>
+        <SectionTitle align={TextAlign.Center}>{title}</SectionTitle>
+        <SectionText align={TextAlign.Center}>
           {i18n.t(
             'sign_in.if_you_have_an_account_file_you_can_import_it_on_this_computer'
           )}
-        </SectionTextCentered>
+        </SectionText>
       </div>
 
       <ImportContainer>
@@ -48,7 +48,7 @@ export const LogInImport = ({ hasAccount }: SignInImportProps) => {
                   />
                 }
               >
-                <ButtonText>
+                <ButtonText align={TextAlign.Center}>
                   {i18n.t('sign_in.import_an_account')}
                 </ButtonText>
               </SquareButton>
@@ -67,9 +67,7 @@ export const LogInImport = ({ hasAccount }: SignInImportProps) => {
                   />
                 }
               >
-                <ButtonText>
-                  {i18n.t('sign_in.create_new_entity')}
-                </ButtonText>
+                <ButtonText>{i18n.t('sign_in.create_new_entity')}</ButtonText>
               </SquareButton>
             </ButtonContainer>
           </Column>
@@ -83,7 +81,7 @@ const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
 `
-const ButtonText = styled(SectionTextCentered)`
+const ButtonText = styled(SectionText)`
   font-weight: 500;
   font-size: 20px;
   line-height: 1.4em;
