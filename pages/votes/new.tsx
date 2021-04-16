@@ -2,40 +2,40 @@ import React from 'react'
 // import styled from 'styled-components'
 import { PageCard } from '../../components/cards'
 
-import { VoteCreationStep, VoteCreationStepTitles } from '../../components/steps-new-vote'
+import { ProcessCreationPageStep, ProcessCreationPageStepTitles } from '../../components/steps-new-vote'
 import { Column, Grid } from '../../components/grid'
 import { Steps } from '../../components/steps'
 import { MainTitle, MainDescription } from '../../components/text'
-import { UseVoteCreationProvider } from '../../hooks/vote-creation'
+import { UseProcessCreationProvider } from '../../hooks/process-creation'
 import i18n from '../../i18n'
-import { useEntityCreation } from '../../hooks/entity-creation'
+import { useProcessCreation } from '../../hooks/process-creation'
 
 const NewVote = () => {
   return (
-    <UseVoteCreationProvider>
+    <UseProcessCreationProvider>
       <PageCard>
         <Grid>
           <Column span={6}>
             <MainTitle>{i18n.t("vote.new_vote")}</MainTitle>
-            <MainDescription>{i18n.t("vote.enter_the_details_of_the_organization")}</MainDescription>
+            <MainDescription>{i18n.t("vote.enter_the_details_of_the_porposal")}</MainDescription>
           </Column>
           <Column span={6}>
             <WizardSteps />
           </Column>
           <Column span={12}>
-            <VoteCreationStep />
+            <ProcessCreationPageStep />
           </Column>
         </Grid>
       </PageCard>
-    </UseVoteCreationProvider>
+    </UseProcessCreationProvider>
   )
 }
 
 const WizardSteps = () => {
-  const stepTitles = Object.values(VoteCreationStepTitles)
-  const { step } = useEntityCreation()
+  const stepTitles = Object.values(ProcessCreationPageStepTitles)
+  const { pageStep } = useProcessCreation()
 
-  return <Steps steps={stepTitles} activeIdx={step} />
+  return <Steps steps={stepTitles} activeIdx={pageStep} />
 }
 
 export default NewVote

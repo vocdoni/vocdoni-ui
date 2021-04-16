@@ -1,32 +1,34 @@
-import { useVoteCreation } from "../../hooks/vote-creation"
+import { useProcessCreation } from "../../hooks/process-creation"
 import i18n from "../../i18n"
 import { FormMetadata } from "./metadata"
-// import NewVoteCensus from "./NewVoteCensus"
+import { FormCensus } from "./census"
+import { FormOptions } from "./options"
+import { FormCreation } from "./creation"
 // import NewVoteGeneral from "./NewVoteGeneral"
-// import NewVoteCreation from "./NewVoteCreation"
+// import NewProcessCreation from "./NewProcessCreation"
 
-export enum VoteCreationPageSteps {
+export enum ProcessCreationPageSteps {
   METADATA = 0,
   CENSUS = 1,
-  GENERAL = 2,
+  OPTIONS = 2,
   CREATION = 3
 }
 
-export const VoteCreationPageStepTitles = {
-  [VoteCreationPageSteps.METADATA]: i18n.t("vote.details"),
-  [VoteCreationPageSteps.CENSUS]: i18n.t("vote.who_can_vote"),
-  [VoteCreationPageSteps.GENERAL]: i18n.t("vote.general"),
-  [VoteCreationPageSteps.CREATION]: i18n.t("vote.creation"),
+export const ProcessCreationPageStepTitles = {
+  [ProcessCreationPageSteps.METADATA]: i18n.t("vote.details"),
+  [ProcessCreationPageSteps.CENSUS]: i18n.t("vote.who_can_vote"),
+  [ProcessCreationPageSteps.OPTIONS]: i18n.t("vote.options"),
+  [ProcessCreationPageSteps.CREATION]: i18n.t("vote.creation"),
 }
 
-export const VoteCreationPageStep = () => {
-  const { pageStep } = useVoteCreation()
+export const ProcessCreationPageStep = () => {
+  const { pageStep } = useProcessCreation()
 
   switch (pageStep) {
-    case VoteCreationPageSteps.METADATA: return <FormMetadata />
-    case VoteCreationPageSteps.CENSUS: return null // <VoteCreationCredentials />
-    case VoteCreationPageSteps.GENERAL: return null // <VoteCreationCredentials />
-    case VoteCreationPageSteps.CREATION: return null // <VoteCreationCreation />
+    case ProcessCreationPageSteps.METADATA: return <FormMetadata />
+    case ProcessCreationPageSteps.CENSUS: return <FormCensus />
+    case ProcessCreationPageSteps.OPTIONS: return <FormOptions />
+    case ProcessCreationPageSteps.CREATION: return <FormCreation />
   }
   return null
 }

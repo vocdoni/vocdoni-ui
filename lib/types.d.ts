@@ -25,6 +25,8 @@ export type ProcessInfo = {
   entity: string
 }
 
+export type Nullable<T> = T | null
+
 // React Hook Stepper types
 
 export type StepperFuncResult = { error?: string, waitNext?: boolean }

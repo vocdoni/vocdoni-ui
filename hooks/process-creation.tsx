@@ -14,8 +14,8 @@ import {
   GatewayPool,
   FileApi
 } from 'dvote-js'
-import { createContext, useContext, useState } from 'react'
-import { VoteCreationPageSteps } from '../components/steps-new-vote'
+import { createContext, ReactNode, useContext, useEffect, useState } from 'react'
+import { ProcessCreationPageSteps } from '../components/steps-new-vote'
 import { useForceUpdate } from "./use-force-update"
 import i18n from '../i18n'
 import { uploadFileToIpfs } from '../lib/file'
@@ -23,52 +23,91 @@ import { StepperFunc, StepperFuncResult } from '../lib/types'
 import { extractDigestedPubKeyFromString, importedRowToString } from '../lib/util'
 import { useStepper } from './use-stepper'
 import { useWallet } from './use-wallet'
+import moment from 'moment'
 
-export interface VoteCreationContext {
+export interface ProcessCreationContext {
   metadata: ProcessMetadata,
   parameters: ProcessContractParameters,
-  pageStep: VoteCreationPageSteps,
+  pageStep: ProcessCreationPageSteps,
 
   processId: string,
   created: boolean,
   pleaseWait: boolean,
   creationError: string,
+  headerFile: File,
+  headerURL: string,
+  startRightAway: boolean,
+  startDate: Date,
+  endDate: Date,
   methods: {
-    // TODO: ADD METHODS EXPORTED BELOW
+    setPageStep: (s: ProcessCreationPageSteps) => void,
+
+    setTitle: (title: string) => void;
+    setDescription: (description: string) => void;
+    setMedia: (media: ProcessMetadata["media"]) => void;
+    setMetaFields: (values: {
+      [k: string]: any;
+    }) => void;
+    setQuestions: (questions: ProcessMetadata["questions"]) => void;
+    setRawMetadata: (metadata: ProcessMetadata) => void,
+    //
+    setMode: (mode: ProcessMode) => void;
+    setEnvelopeType: (envelopeType: ProcessEnvelopeType) => void;
+    setStartBlock: (startBlock: number) => void;
+    setBlockCount: (blockCount: number) => void;
+    setCensusOrigin: (censusOrigin: ProcessCensusOrigin) => void;
+    // TODO:
+    setCensusRoot: (censusRoot: string) => void,
+    setCensusUri: (censusUri: string) => void,
+    setCostExponent: (costExponent: number) => void,
+    // setEntityAddress,
+    setMaxCount: (maxCount: number) => void,
+    setMaxTotalCost: (maxTotalCost: number) => void,
+    setMaxValue: (maxValue: number) => void,
+    setMaxVoteOverwrites: (maxVoteOverwrites: number) => void,
+    setStringMetadata: (metadataOrigin: string) => void,
+    setHeaderFile,
+    setHeaderURL,
+    setStartRightAway,
+    setStartDate,
+    setEndDate,
+    createProcess(): void,
+    continueProcessCreation(): void,
   },
 }
 
-export const UseVoteCreationContext = createContext<VoteCreationContext>({} as any)
+export const UseProcessCreationContext = createContext<ProcessCreationContext>({} as any)
 
 // Frontend
-export const useVoteCreation = () => {
-  const voteCtx = useContext(UseVoteCreationContext)
+export const useProcessCreation = () => {
+  const voteCtx = useContext(UseProcessCreationContext)
   if (voteCtx === null) {
-    throw new Error('useAccount() can only be used on the descendants of <UseVoteCreationProvider />,')
+    throw new Error('useAccount() can only be used on the descendants of <UseProcessCreationProvider />,')
   }
 
   return voteCtx
 }
 
 // Backend
-export const UseVoteCreationProvider = ({ children }) => {
+export const UseProcessCreationProvider = ({ children }: { children: ReactNode }) => {
   const [processId, setProcessId] = useState("")
   const { metadata, methods: metadataMethods } = useProcessMetadata()
   const { parameters, methods: paramsMethods } = useProcessParameters()
   const [spreadsheetData, setSpreadsheetData] = useState<string[][]>()
   const [headerFile, setHeaderFile] = useState<File>()
   const [headerURL, setHeaderURL] = useState<string>('')
+  const [startRightAway, setStartRightAway] = useState<boolean>(true)
+  const [startDate, setStartDate] = useState<Date>()
+  const [endDate, setEndDate] = useState<Date>()
   const { wallet } = useWallet()
   const { pool, poolPromise } = usePool()
 
   // STEPPER OPERATIONS
 
   const stepEnsureMedia: StepperFunc = () => {
-    // TODO: how to check if a new header file or url is added?
-    if (metadata.media.header.length) return Promise.resolve({ waitNext: false }) // next step
-    if (!headerURL.length || !headerFile) return Promise.reject({ error: i18n.t('errors.missing_media_info') })
+    // Check if the metadata value is already updated
+    if (headerURL == metadata.media.header || !(headerFile || headerURL.length)) return Promise.resolve({ waitNext: false }) // next step
 
-    // TODO: We may need to add an extra state to hold the `File` value
     return poolPromise
       .then(pool => {
         if (headerFile) return uploadFileToIpfs(headerFile, pool, wallet)
@@ -80,45 +119,12 @@ export const UseVoteCreationProvider = ({ children }) => {
       })
       .catch(err => {
         console.error(err)
-        return Promise.reject({ error: i18n.t('errors.cannot_upload_file') })
-      })
-  }
-
-  const stepEnsureMetadataUploaded: StepperFunc = () => {
-    if (parameters.metadata.length) return Promise.resolve({ waitNext: true })
-
-    if (!metadata.title.default.length)
-      return Promise.reject({ error: i18n.t('errors.missing_title') })
-
-
-    if (!metadata.description.default.length)
-      return Promise.reject({ error: i18n.t('errors.missing_description') })
-
-    try {
-      const meta = checkValidProcessMetadata(metadata)
-      metadataMethods.setRawMetadata(meta)
-    } catch (error) {
-      return Promise.reject({ error: i18n.t('errors.process.invalid_metadata') })
-    }
-
-
-    // TODO: Get the JSON metadata, update it to IPFS
-    // TODO: check it does not overlap with
-    const strJsonMeta = JSON.stringify(metadata)
-
-    return poolPromise
-      .then(pool => FileApi.add(strJsonMeta, `process-metadata.json`, wallet, pool))
-      .then(metadataURL => {
-        paramsMethods.setMetadata(metadataURL)
-        return Promise.resolve({ waitNext: false })
-      })
-      .catch(err => {
-        console.error(err)
-        return Promise.reject({ error: i18n.t('errors.cannot_upload_file') })
+        return Promise.reject({ error: i18n.t('errors.cannot_set_media_header') })
       })
   }
 
   const stepEnsureCensusCreated: StepperFunc = async () => {
+    // TODO: Is it possible that the user re-uploads the spreadsheet? How this could be checked?
     if (parameters.censusRoot && parameters.censusUri) return { waitNext: false } // next step
 
     const name = metadata.title.default + '_' + Math.floor(Date.now() / 1000)
@@ -148,15 +154,23 @@ export const UseVoteCreationProvider = ({ children }) => {
     return { waitNext: true }
   }
 
-  const stepEnsureValidParams: StepperFunc = () => {
+  const stepEnsureValidParams: StepperFunc = async () => {
+
+    // TODO:  if Start right await =>  startBlock = now + 8 min
 
     // TODO: Do a synchronous check that the process params make sense and contain no incompatible values
     if (isNaN(parameters.startBlock) || isNaN(parameters.blockCount))
-      return Promise.reject({ error: i18n.t('errors.process.invalid_starting_date') })
+      return Promise.reject({ error: i18n.t('errors.process.invalid_start_date') })
 
     if (parameters.blockCount <= 0)
       return Promise.reject({ error: i18n.t('errors.process.invalid_dates') })
 
+    const pool = await poolPromise
+    let localStartDate  = await VotingApi.estimateDateAtBlock(parameters.startBlock, pool)
+
+    if (Math.abs(moment(localStartDate).diff(moment.now(), 'minute')) > 8) {
+      return Promise.reject({ error: i18n.t('errors.process.invalid_start_date') })
+    }
     return Promise.resolve({ waitNext: false })
   }
 
@@ -213,9 +227,22 @@ export const UseVoteCreationProvider = ({ children }) => {
       })
   }
 
+  const updateDateRange = async () => {
+    const startBlock = await VotingApi.estimateBlockAtDateTime(startDate, pool)
+    const endBlock = await VotingApi.estimateBlockAtDateTime(endDate, pool)
+    const blockCount = endBlock - startBlock
+
+    paramsMethods.setStartBlock(startBlock)
+    paramsMethods.setBlockCount(blockCount)
+
+  }
+
+  useEffect(() => {
+    updateDateRange()
+  }, [startDate, endDate])
+
   const creationStepFuncs = [
     stepEnsureMedia,
-    stepEnsureMetadataUploaded,
     stepEnsureCensusCreated,
     stepEnsureValidParams,
     stepEnsureProcessCreated,
@@ -228,14 +255,19 @@ export const UseVoteCreationProvider = ({ children }) => {
     creationError,
     setPageStep,
     doMainActionSteps,
-  } = useStepper<VoteCreationPageSteps>(creationStepFuncs, VoteCreationPageSteps.METADATA)
+  } = useStepper<ProcessCreationPageSteps>(creationStepFuncs, ProcessCreationPageSteps.METADATA)
 
-  const value = {
+  const value: ProcessCreationContext = {
     processId,
     pageStep,
     created: actionStep >= creationStepFuncs.length,
     pleaseWait,
     creationError,
+    headerFile,
+    headerURL,
+    startRightAway,
+    startDate,
+    endDate,
     metadata,
     parameters,
     methods: {
@@ -243,16 +275,19 @@ export const UseVoteCreationProvider = ({ children }) => {
       ...paramsMethods,
       setHeaderFile,
       setHeaderURL,
+      setStartRightAway,
+      setStartDate,
+      setEndDate,
       setPageStep,
       createProcess: doMainActionSteps,
-      continueCreation: doMainActionSteps,
+      continueProcessCreation: doMainActionSteps,
     }
   }
 
   return (
-    <UseVoteCreationContext.Provider value={value}>
+    <UseProcessCreationContext.Provider value={value}>
       {children}
-    </UseVoteCreationContext.Provider>
+    </UseProcessCreationContext.Provider>
   )
 }
 
@@ -388,10 +423,10 @@ const useProcessParameters = () => {
     parameters.maxVoteOverwrites = maxVoteOverwrites
     forceUpdate()
   }
-  const setMetadata = (metadata: string) => {
-    if (!metadata) throw new Error("Invalid metadata")
+  const setStringMetadata = (metadataOrigin: string) => {
+    if (!metadataOrigin) throw new Error("Invalid metadataOrigin")
 
-    parameters.metadata = metadata
+    parameters.metadata = metadataOrigin
     forceUpdate()
   }
 
@@ -415,7 +450,8 @@ const useProcessParameters = () => {
     setMaxTotalCost,
     setMaxValue,
     setMaxVoteOverwrites,
-    setMetadata,
+    setStringMetadata,
   }
   return { parameters, methods }
 }
+

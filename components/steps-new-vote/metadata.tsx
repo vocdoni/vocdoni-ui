@@ -1,27 +1,30 @@
-import React, { ChangeEvent, Component } from 'react'
+import React, { ChangeEvent, Component, useState } from 'react'
 import { Checkbox } from '@aragon/ui'
 
 import FileLoader from '../FileLoader'
-import { useVoteCreation } from '../../hooks/vote-creation'
-import { VoteCreationStepProps } from '../../lib/types'
+import { useProcessCreation } from '../../hooks/process-creation'
 import { Column, Grid } from '../grid'
 import { Input, Textarea } from '../inputs'
+import { checkValidProcessMetadata } from "dvote-js"
 import i18n from '../../i18n'
 import { Button } from '../button'
 import styled from 'styled-components'
 import { SectionTitle } from '../text'
+import { ProcessCreationPageSteps } from '.'
 
-export const FormMetadata = (props: VoteCreationStepProps) => {
-  const { metadata, parameters, methods } = useVoteCreation()
+export const FormMetadata = () => {
+  const { headerURL, headerFile, metadata, parameters, methods } = useProcessCreation()
 
   const valid = () => {
-    const required = ['title', 'description']
-    for (const req of required) {
-      if (!metadata[req].length) {
-        return false
-      }
+    if (!metadata.title.default.length || !(headerFile || headerURL)) {
+      return false
     }
     // TODO: Add more here
+    try {
+      methods.setRawMetadata(checkValidProcessMetadata(metadata))
+    } catch (error) {
+      throw new Error(i18n.t('error.invalid_metadata'))
+    }
     return true
   }
 
@@ -56,51 +59,36 @@ export const FormMetadata = (props: VoteCreationStepProps) => {
           />
         </div>
       </Column>
-      {/* <Column md={6}>
-        <SectionTitle>{i18n.t('vote.logo')}</SectionTitle>
-        <div>
-          <FileLoader
-            onSelect={(file) => methods.setLogoFile(file)}
-            onChange={methods.setLogoUrl}
-            file={metadata.logoFile}
-            url={metadata.logoUrl}
-            accept='.jpg,.jpeg,.png'
-          />
-        </div>
-      </Column>
       <Column md={6}>
         <SectionTitle>{i18n.t('vote.header')}</SectionTitle>
         <div>
           <FileLoader
             onSelect={(file) => methods.setHeaderFile(file)}
-            onChange={methods.setHeaderUrl}
-            file={metadata.headerFile}
-            url={metadata.headerUrl}
+            onChange={methods.setHeaderURL}
+            file={headerFile}
+            url={headerURL}
             accept='.jpg,.jpeg,.png,.gif'
           />
         </div>
       </Column>
       <Column>
-        <label>
-          <Checkbox
-            checked={metadata.terms}
-            onChange={methods.setTerms}
-          />
-            I accept...
-          </label>
-      </Column>
-      <Column>
         <BottomDiv>
           <div />
           <Button
+            negative
+            // onClick=
+          >
+            {i18n.t("action.preview_proposal")}
+          </Button>
+          <Button
             positive
-            onClick={() => this.props.setStep('NewEntityCredentials')}
-            disabled={!this.valid}
+            onClick={() => methods.setPageStep(ProcessCreationPageSteps.CENSUS)}
+            disabled={!valid()}
           >
             {i18n.t("action.continue")}
           </Button>
         </BottomDiv>
-      </Column> */}
+      </Column>
     </Grid>
   )
 }
