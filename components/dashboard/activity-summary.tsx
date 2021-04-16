@@ -1,0 +1,49 @@
+import React from 'react'
+
+import i18n from '../../i18n'
+
+import { StatusCard } from '../cards'
+import { Column, Grid } from '../grid'
+
+interface IDashboardActivitySummaryProps {
+  activeVotes: number
+  upcomingVotes: number
+  votesResults: number
+  companyMembers: number
+}
+
+export const DashboardActivitySummary = ({
+  activeVotes,
+  upcomingVotes,
+  votesResults,
+  companyMembers,
+}: IDashboardActivitySummaryProps) => {
+  return (
+    <Grid>
+      <Column lg={3} sm={6}>
+        <StatusCard title={i18n.t('dashboard.active_votes')}>
+          <h1>{activeVotes}</h1>
+        </StatusCard>
+      </Column>
+
+      <Column lg={3} sm={6}>
+        <StatusCard title={i18n.t('dashboard.upcoming_votes')}>
+          <h1>{upcomingVotes}</h1>
+        </StatusCard>
+      </Column>
+
+      <Column lg={3} sm={6}>
+        <StatusCard title={i18n.t('dashboard.vote_results')}>
+          <h1>{votesResults}</h1>
+        </StatusCard>
+      </Column>
+
+      <Column lg={3} sm={6}>
+        {' '}
+        <StatusCard title={i18n.t('dashboard.company_members')}>
+          <h1>{companyMembers}</h1>
+        </StatusCard>
+      </Column>
+    </Grid>
+  )
+}

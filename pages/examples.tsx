@@ -3,7 +3,7 @@ import React, { createContext, ReactNode, useContext, useEffect, useState } from
 import { withRouter } from 'next/router'
 
 import styled from "styled-components"
-import { Button, SquareButton } from '../components/button'
+import { Button, SquareButton, ButtonColor } from '../components/button'
 import { Column, Grid } from '../components/grid'
 import { Card, PageCard, StatusCard } from '../components/cards'
 import { useWallet } from '../hooks/use-wallet'
@@ -16,7 +16,7 @@ import { Input, Select, Textarea } from '../components/inputs'
 import { Radio } from '../components/radio'
 import { colors } from '../theme/colors'
 import { Banner } from '../components/banners'
-import { VoteListItem } from '../components/list-items'
+import { VoteListItem, VoteStatusType } from '../components/list-items'
 
 // MAIN COMPONENT
 const IndexPage = () => {
@@ -50,8 +50,8 @@ const IndexPage = () => {
       </DivWithMarginChildren>
       <DivWithMarginChildren>
         <Button>Default button</Button>
-        <Button color="positive">Positive button</Button>
-        <Button color="negative">Negative button</Button>
+        <Button color={ButtonColor.Positive}>Positive button</Button>
+        <Button color={ButtonColor.Negative}>Negative button</Button>
         <Button color="purple">Custom color button</Button>
       </DivWithMarginChildren>
       <DivWithMarginChildren>
@@ -190,7 +190,7 @@ const IndexPage = () => {
         processId="0x1111111111222222222233333333334444444444"
         title="Vote title here"
         description="Description of the process goes here"
-        status="active"
+        status={VoteStatusType.Active}
         dateText="1 day left"
       />
 

@@ -16,7 +16,7 @@ import TokenAmount from 'token-amount';
 import { useUrlHash } from 'use-url-hash';
 import styled from 'styled-components';
 
-import { strDateDiff } from '../../lib/date';
+import { DateDiffType, strDateDiff } from '../../lib/date';
 import { isValidHexString } from '../../lib/regex';
 import { areAllNumbers } from '../../lib/util';
 import { useMessageAlert } from '../../hooks/message-alert';
@@ -566,8 +566,8 @@ const ProcessPage = () => {
 
   const remainingTime = startDate
     ? hasStarted
-      ? strDateDiff('end-date', endDate)
-      : strDateDiff('start-date', startDate)
+      ? strDateDiff(DateDiffType.End, endDate)
+      : strDateDiff(DateDiffType.Start, startDate)
     : '';
 
   let status: string = '';
