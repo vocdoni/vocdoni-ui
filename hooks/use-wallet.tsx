@@ -1,17 +1,27 @@
 import { useState, createContext, useContext, useEffect } from 'react'
+import { useRouter } from 'next/router'
 import { Wallet } from '@ethersproject/wallet'
 import { Symmetric } from 'dvote-js'
 
-import { PATH_WITH_WALLET, SIGN_IN_PATH } from '../const/routes'
+import { CREATE_PROPOSAL_PATH, DASHBOARD_PATH, SIGN_IN_PATH } from '../const/routes'
 
 import i18n from '../i18n'
+
+const routesRequireWallet = [
+  DASHBOARD_PATH,
+  CREATE_PROPOSAL_PATH
+]
+
+const redirectSignIn = (path: string, wallet: Wallet): boolean => (
+  routesRequireWallet.includes(path) && !wallet
+)
 
 export const useWallet = () => {
   const walletCtx = useContext(UseWalletContext)
   if (walletCtx === null) {
     throw new Error('useWallet() can only be used on the descendants of <UseWalletContextProvider />,')
   }
-  const { wallet, setWallet } = walletCtx
+  const { wallet, setWallet, loadingWallet } = walletCtx
 
   /** Decrypts the private key and sets the current wallet from it */
   const restoreEncryptedWallet = (encryptedMnemonic: string, hdPath: string, passphrase: string) => {
@@ -24,21 +34,25 @@ export const useWallet = () => {
     }
   }
 
-  return { wallet, setWallet, restoreEncryptedWallet }
+  return { wallet, setWallet, loadingWallet, restoreEncryptedWallet }
 }
 
 // CONTEXT
 
 const UseWalletContext = createContext<{
   wallet: Wallet,
+  loadingWallet: boolean,
   setWallet: (w: Wallet) => void
 }>({
   wallet: null,
+  loadingWallet: false,
   setWallet: (_) => { },
 })
 
 export function UseWalletContextProvider({ children }) {
   const [wallet, setWallet] = useState<Wallet>(null)
+  const [loadingWallet, setLoadingWallet] = useState<boolean>(true)
+  const router = useRouter();
 
   // Prevent accidental logout
   useEffect(() => {
@@ -56,7 +70,15 @@ export function UseWalletContextProvider({ children }) {
     return () => window.removeEventListener("beforeunload", beforeUnload)
   }, [wallet])
 
-  return <UseWalletContext.Provider value={{ wallet, setWallet }}>
+  useEffect(() => {    
+    if (redirectSignIn(router.pathname, wallet)) {
+      router.replace(SIGN_IN_PATH)
+    } else if (loadingWallet) {
+      setLoadingWallet(false);
+    }
+  }, [router.pathname])
+
+  return <UseWalletContext.Provider value={{ wallet, loadingWallet, setWallet }}>
     {children}
   </UseWalletContext.Provider>
 }

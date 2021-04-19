@@ -1,27 +1,23 @@
 import React, { useEffect, useState } from 'react'
 import { usePool } from '@vocdoni/react-hooks'
 import { GatewayPool, ProcessStatus } from 'dvote-js'
-import { useRouter } from 'next/router'
 
 import {
   DashboardActivitySummary,
   DashboardHeader,
   DashboardProcessList,
 } from '../../components/dashboard'
-import { Loader } from '../../components/loader'
 
 import { Account, ProcessInfo } from '../../lib/types'
 import { getProcesses } from '../../lib/api'
 import { useDbAccounts } from '../../hooks/use-db-accounts'
 import { useWallet } from '../../hooks/use-wallet'
-import { SIGN_IN_PATH } from '../../const/routes'
 
 const DashboardPage = () => {
   const [activeVotes, setActiveVotes] = useState<ProcessInfo[]>([])
   const [upcomingVotes, setUpcomingVotes] = useState<ProcessInfo[]>([])
   const [votesResults, setVotesResults] = useState<ProcessInfo[]>([])
 
-  const router = useRouter();
   const { poolPromise } = usePool()
   const { wallet } = useWallet()
   const { dbAccounts } = useDbAccounts()
@@ -60,14 +56,8 @@ const DashboardPage = () => {
           )
         )
       })
-    } else {
-      router.replace(SIGN_IN_PATH)
-    }
+    } 
   }, [wallet])
-
-  if (!hasWalletAddress) {
-    return <Loader />
-  }
 
   return (
     <>
