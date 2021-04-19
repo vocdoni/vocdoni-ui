@@ -44,21 +44,27 @@ export const DashboardProcessListItem = ({
   }, [poolPromise])
 
   return (
-    <VoteListItem
-      icon={
-        <ProcessImageContainer>
-          <img src={process.metadata.media.header} />
-        </ProcessImageContainer>
-      }
-      description={process.metadata.description.default}
-      title={process.metadata.title.default}
-      processId={process.id}
-      entityName={accountName}
-      dateText={endDate}
-      status={status}
-    />
+    <VoteItemWrapper>
+      <VoteListItem
+        icon={
+          <ProcessImageContainer>
+            <img src={process.metadata.media.header} />
+          </ProcessImageContainer>
+        }
+        description={process.metadata.description.default}
+        title={process.metadata.title.default}
+        processId={process.id}
+        entityName={accountName}
+        dateText={endDate}
+        status={status}
+      />
+    </VoteItemWrapper>
   )
 }
+
+const VoteItemWrapper = styled.div`
+  margin-bottom: 10px;
+`
 const ProcessImageContainer = styled.div`
   & > img {
     width: 100%;
