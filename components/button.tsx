@@ -93,6 +93,7 @@ ${props => props.large ? "font-size: 125%;" :
 background: ${props => props.theme.lightBg};
 box-shadow: 0px 6px 6px rgba(180, 193, 228, 0.35);
 border-radius: 8px;
+white-space: nowrap;
 user-select: none;
 margin-bottom: 10px;
 box-sizing: border-box;

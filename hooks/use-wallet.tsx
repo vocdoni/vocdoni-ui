@@ -1,5 +1,4 @@
 import { useState, createContext, useContext, useEffect } from 'react'
-import { useRouter } from 'next/router'
 import { Wallet } from '@ethersproject/wallet'
 import { Symmetric } from 'dvote-js'
 
@@ -40,7 +39,6 @@ const UseWalletContext = createContext<{
 
 export function UseWalletContextProvider({ children }) {
   const [wallet, setWallet] = useState<Wallet>(null)
-  const router = useRouter();
 
   // Prevent accidental logout
   useEffect(() => {
@@ -57,14 +55,6 @@ export function UseWalletContextProvider({ children }) {
 
     return () => window.removeEventListener("beforeunload", beforeUnload)
   }, [wallet])
-
-  useEffect(() => {
-    const pathNeedsWallet = PATH_WITH_WALLET.includes(router.pathname) && !wallet;
-    
-    if (pathNeedsWallet) {
-      router.replace(SIGN_IN_PATH)
-    }
-  }, [router.pathname])
 
   return <UseWalletContext.Provider value={{ wallet, setWallet }}>
     {children}
