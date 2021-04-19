@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { usePool } from '@vocdoni/react-hooks'
-import { useRouter } from 'next/router'
+import { GatewayPool, ProcessStatus } from 'dvote-js'
 
 import {
   DashboardActivitySummary,
@@ -10,32 +10,26 @@ import {
 
 import { Account, ProcessInfo } from '../../lib/types'
 import { getProcesses } from '../../lib/api'
-import { GatewayPool, ProcessStatus } from 'dvote-js'
 import { useDbAccounts } from '../../hooks/use-db-accounts'
-
-const accountRegexp = /\/account\/(0x.+)[\/?]?/
+import { useWallet } from '../../hooks/use-wallet'
 
 const DashboardPage = () => {
   const [account, setAccount] = useState<Account | null>()
+
   const [activeVotes, setActiveVotes] = useState<ProcessInfo[]>([])
   const [upcomingVotes, setUpcomingVotes] = useState<ProcessInfo[]>([])
   const [votesResults, setVotesResults] = useState<ProcessInfo[]>([])
 
-  const router = useRouter()
   const { poolPromise } = usePool()
+  const { wallet } = useWallet()
   const { dbAccounts } = useDbAccounts()
 
-  const getUrlAccount = () =>
-    accountRegexp.test(router.asPath)
-      ? accountRegexp.exec(router.asPath)[1]
-      : null
-
   useEffect(() => {
-    const urlAccount: string | null = getUrlAccount()
+    const hasWalletAddress = wallet && wallet.address
 
-    if (urlAccount) {
+    if (hasWalletAddress) {
       poolPromise.then(async (pool: GatewayPool) => {
-        const processes = await getProcesses(urlAccount, pool)
+        const processes = await getProcesses(wallet.address, pool)
 
         setActiveVotes(
           processes.filter(
@@ -59,19 +53,19 @@ const DashboardPage = () => {
         )
       })
     }
-  }, [router.asPath])
+  }, [wallet])
 
   useEffect(() => {
-    if (dbAccounts.length) {
-      const urlAccount: string | null = getUrlAccount()
+    const hasDbAccountAndWallet = wallet && wallet.address && dbAccounts.length
 
+    if (hasDbAccountAndWallet) {
       setAccount(
         dbAccounts.find(
-          (iterateAccount) => iterateAccount.address == urlAccount
+          (iterateAccount) => iterateAccount.address == wallet.address
         )
       )
     }
-  }, [dbAccounts])
+  }, [wallet, dbAccounts])
 
   return (
     <>

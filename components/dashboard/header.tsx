@@ -50,28 +50,30 @@ export const DashboardHeader = ({ account }: IDashboardHeaderProps) => {
   )
 
   return (
-    <Banner
-      title={account?.name}
-      subtitle={i18n.t(
-        'dashboard.manage_your_community_and_schedule_new_votes'
-      )}
-      rightButton={createProposalButton}
-      icon={accountImage}
-    >
-      {!account?.backupMnemonic && (
-        <Grid>
-          <Banner
-            title={i18n.t('dashboard.your_account_is_unsafe')}
-            subtitle={i18n.t(
-              'dashboard.if_you_lose_access_to_your_passphrase_you_will_not_be_able_to_manage_your_entity_anymore'
-            )}
-            icon={downloadImage}
-            rightButton={backupButton}
-            warning
-          />
-        </Grid>
-      )}
-    </Banner>
+    <Grid>
+      <Banner
+        title={account?.name}
+        subtitle={i18n.t(
+          'dashboard.manage_your_community_and_schedule_new_votes'
+        )}
+        rightButton={createProposalButton}
+        icon={accountImage}
+      >
+        {!account?.backupMnemonic && (
+          <Grid>
+            <Banner
+              title={i18n.t('dashboard.your_account_is_unsafe')}
+              subtitle={i18n.t(
+                'dashboard.if_you_lose_access_to_your_passphrase_you_will_not_be_able_to_manage_your_entity_anymore'
+              )}
+              icon={downloadImage}
+              rightButton={backupButton}
+              warning
+            />
+          </Grid>
+        )}
+      </Banner>
+    </Grid>
   )
 }
 

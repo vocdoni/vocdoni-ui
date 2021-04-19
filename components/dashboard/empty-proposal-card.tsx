@@ -7,7 +7,7 @@ import { Card } from '../cards'
 import { SectionText, SectionTitle, TextAlign } from '../text'
 
 export const EmptyProposalCard = () => (
-  <Card>
+  <Card md={8} sm={12}>
     <EmptyProposalContainer>
       <div>
         <NoProposalsImageContainer>

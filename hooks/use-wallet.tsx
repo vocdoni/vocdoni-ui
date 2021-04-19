@@ -62,7 +62,7 @@ export function UseWalletContextProvider({ children }) {
     const pathNeedsWallet = PATH_WITH_WALLET.includes(router.pathname) && !wallet;
     
     if (pathNeedsWallet) {
-      router.push(SIGN_IN_PATH)
+      router.replace(SIGN_IN_PATH)
     }
   }, [router.pathname])
 

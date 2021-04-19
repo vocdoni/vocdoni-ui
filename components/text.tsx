@@ -34,7 +34,7 @@ export const SectionText = styled.p<{align?: TextAlign}>`
 font-weight: 400;
 font-size: 18px;
 line-height: 1.3em;
-text-align: ${({align}) => align? align: TextAlign.Left}
+text-align: ${({align}) => align ? align : TextAlign.Left}
 `
 
 export const SectionDescription = styled.span`

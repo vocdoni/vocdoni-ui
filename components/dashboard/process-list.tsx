@@ -62,13 +62,13 @@ export const DashboardProcessList = ({
     ],
   ])
   const renderProcessItem = (process: ProcessInfo) => (
-    <Column key={process.id}>
+    <div key={process.id}>
       <DashboardProcessListItem
         process={process}
         status={processList.status}
         accountName={account?.name}
       />
-    </Column>
+    </div>
   )
   const handleClick = (navItem: ProcessTypes) => {
     setActiveList(navItem)
@@ -80,24 +80,16 @@ export const DashboardProcessList = ({
 
   return (
     <>
-      <Grid>
-        <Column>
-          <DashboardProcessListNav navItems={navItems} onClick={handleClick} />
-        </Column>
-      </Grid>
+      <DashboardProcessListNav navItems={navItems} onClick={handleClick} />
 
       <Grid>
-        <Column md={9} sm={12}>
-          {processList?.items && processList.items.length ? (
-            <Grid>{processList.items.map(renderProcessItem)}</Grid>
-          ) : (
-            <EmptyProposalCard />
-          )}
-        </Column>
+        {processList?.items && processList.items.length ? (
+          <Column md={8} sm={12} >{processList.items.map(renderProcessItem)}</Column>
+        ) : (
+          <EmptyProposalCard />
+        )}
 
-        <Column md={3} sm={12}>
-          <DashboardCreateProposalCard />
-        </Column>
+        <DashboardCreateProposalCard />
       </Grid>
     </>
   )
