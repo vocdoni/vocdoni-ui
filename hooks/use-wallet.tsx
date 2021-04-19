@@ -51,8 +51,10 @@ const UseWalletContext = createContext<{
 
 export function UseWalletContextProvider({ children }) {
   const [wallet, setWallet] = useState<Wallet>(null)
-  const [loadingWallet, setLoadingWallet] = useState<boolean>(true)
   const router = useRouter();
+  const [loadingWallet, setLoadingWallet] = useState<boolean>(
+    redirectSignIn(router.pathname, wallet)
+  )
 
   // Prevent accidental logout
   useEffect(() => {
