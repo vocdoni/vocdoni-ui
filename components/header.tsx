@@ -5,6 +5,90 @@ import Link from 'next/link'
 import { useIsMobile } from '../hooks/use-window-size'
 import { sizes } from '../theme/sizes'
 import { hexToRgbA } from '../lib/util'
+import { Else, If, Then } from 'react-if'
+import { Button } from './button'
+import { useWallet } from '../hooks/use-wallet'
+
+export const LINKS: HeaderLink[] = [
+  {
+    url: 'https://blog.vocdoni.io',
+    name: 'Blog',
+    external: true,
+    header: true,
+  },
+  {
+    url: 'https://docs.vocdoni.io',
+    name: 'Docs',
+    external: true,
+    header: true,
+  },
+  {
+    url: 'https://discord.gg/sQCxgYs',
+    name: 'Discord',
+    external: true,
+    header: true,
+    footer: true,
+  },
+  {
+    url: 'https://twitter.com/vocdoni',
+    name: 'Twitter',
+    external: true,
+    footer: true,
+  },
+  {
+    url: 'https://t.me/vocdoni',
+    name: 'Telegram',
+    external: true,
+    footer: true,
+  },
+]
+
+export const Header = () => {
+  const { wallet } = useWallet()
+  const [showMenu, setShowMenu] = useState(false)
+  const isMobile = useIsMobile()
+  const HEADER_LINKS = LINKS.filter((l) => l.header)
+
+  return (
+    <>
+      {/* {isMobile && (
+        <MobileMenuContainer showMenu={showMenu}>
+          {LINKS.map((link) => (
+            <LinkItem
+              {...link}
+              key={link.name}
+              onClick={() => setShowMenu(false)}
+            />
+          ))}
+          <Section>Vocdoni {new Date().getFullYear()}</Section>
+        </MobileMenuContainer>
+      )} */}
+      <HeaderContainer>
+        <ListContainer>
+          <Link href='/' passHref>
+            <HomeLink target='_self'>Vocdoni</HomeLink>
+          </Link>
+          <MenuItemsContainer>
+            {!isMobile &&
+              HEADER_LINKS.map((link) => (
+                <LinkItem {...link} key={link.name} />
+              ))}
+          </MenuItemsContainer>
+        </ListContainer>
+        <RightContainer>
+          <If condition={!!wallet}>
+            <Then>
+              <Button positive small href="/dashboard">Dashboard</Button>
+            </Then>
+            <Else>
+              <Button positive small href="/login">Sign in</Button>
+            </Else>
+          </If>
+        </RightContainer>
+      </HeaderContainer>
+    </>
+  )
+}
 
 const HeaderContainer = styled.div`
   width: 100%;
@@ -33,7 +117,7 @@ const HeaderContainer = styled.div`
 const ListContainer = styled.div`
   padding: 0 20px;
   display: flex;
-  width: 100%;
+  // width: 100%;
   justify-content: flex-start;
   align-items: center;
 
@@ -42,6 +126,12 @@ const ListContainer = styled.div`
   @media ${({ theme }) => theme.screenMin.tablet} {
     padding: 0 ${({ theme }) => theme.margins.desktop.horizontal};
   }
+`
+
+const RightContainer = styled.div`
+@media ${({ theme }) => theme.screenMin.tablet} {
+  padding: 0 ${({ theme }) => theme.margins.desktop.horizontal};
+}
 `
 
 const MenuItemsContainer = styled.div`
@@ -101,40 +191,6 @@ interface HeaderLink {
   footer?: boolean;
 }
 
-export const LINKS: HeaderLink[] = [
-  {
-    url: 'https://blog.vocdoni.io',
-    name: 'Blog',
-    external: true,
-    header: true,
-  },
-  {
-    url: 'https://docs.vocdoni.io',
-    name: 'Docs',
-    external: true,
-    header: true,
-  },
-  {
-    url: 'https://discord.gg/sQCxgYs',
-    name: 'Discord',
-    external: true,
-    header: true,
-    footer: true,
-  },
-  {
-    url: 'https://twitter.com/vocdoni',
-    name: 'Twitter',
-    external: true,
-    footer: true,
-  },
-  {
-    url: 'https://t.me/vocdoni',
-    name: 'Telegram',
-    external: true,
-    footer: true,
-  },
-]
-
 const LinkItem = ({
   name,
   url,
@@ -152,39 +208,3 @@ const LinkItem = ({
     </Link>
   </ListItem>
 )
-
-export const Header = () => {
-  const [showMenu, setShowMenu] = useState(false)
-  const isMobile = useIsMobile()
-  const HEADER_LINKS = LINKS.filter((l) => l.header)
-
-  return (
-    <>
-      {isMobile && (
-        <MobileMenuContainer showMenu={showMenu}>
-          {LINKS.map((link) => (
-            <LinkItem
-              {...link}
-              key={link.name}
-              onClick={() => setShowMenu(false)}
-            />
-          ))}
-          <Section>Vocdoni {new Date().getFullYear()}</Section>
-        </MobileMenuContainer>
-      )}
-      <HeaderContainer>
-        <ListContainer>
-          <Link href='/' passHref>
-            <HomeLink target='_self'>Vocdoni</HomeLink>
-          </Link>
-          <MenuItemsContainer>
-            {!isMobile &&
-              HEADER_LINKS.map((link) => (
-                <LinkItem {...link} key={link.name} />
-              ))}
-          </MenuItemsContainer>
-        </ListContainer>
-      </HeaderContainer>
-    </>
-  )
-}
