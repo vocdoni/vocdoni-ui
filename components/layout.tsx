@@ -24,16 +24,17 @@ const LayoutContainer = styled.div`
 `
 
 export const Layout = ({ children }) => {
-  const { loadingWallet } = useWallet();
-  
+  const { checkingNeedsSignin } = useWallet();
+
   return (
     <>
       <MessageAlert />
       <LoadingAlert />
       <Header />
-      
-      <Loader visible={loadingWallet} />
+
+      <Loader visible={checkingNeedsSignin} />
       <LayoutContainer>{children}</LayoutContainer>
+
       <Footer />
     </>
   )
