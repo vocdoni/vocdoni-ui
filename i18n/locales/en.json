@@ -10,12 +10,12 @@
     "dashboard": {
         "active_votes": "Active votes",
         "company_logo": "Company Logo",
-        "company_members": "Company members",
         "create_backup_now": "Create a backup now",
         "create_new_proposal": "Create a new proposal",
         "create_new_proposal_in_only_5_minutes": "Create a new proposal in only 5 minutes",
         "create_proposal": "Create a new proposal",
         "if_you_lose_access_to_your_passphrase_you_will_not_be_able_to_manage_your_entity_anymore": "If you lose access to your passphrase, you will not be able to manage your entity anymore",
+        "loading": "Loading",
         "lorem_ipsum": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
         "manage_your_community_and_schedule_new_votes": "Manage your community and schedule new votes",
         "no_proposals_yet": "No proposals yet!",

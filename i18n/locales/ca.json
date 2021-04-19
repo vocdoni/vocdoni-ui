@@ -10,12 +10,12 @@
     "dashboard": {
         "active_votes": "",
         "company_logo": "",
-        "company_members": "",
         "create_backup_now": "",
         "create_new_proposal": "",
         "create_new_proposal_in_only_5_minutes": "",
         "create_proposal": "",
         "if_you_lose_access_to_your_passphrase_you_will_not_be_able_to_manage_your_entity_anymore": "",
+        "loading": "",
         "lorem_ipsum": "",
         "manage_your_community_and_schedule_new_votes": "",
         "no_proposals_yet": "",

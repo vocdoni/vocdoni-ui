@@ -1,20 +1,22 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
+import styled from 'styled-components'
 import { useRouter } from 'next/router'
 
 import i18n from '../../i18n'
 
 import { Column, Grid } from '../../components/grid'
 import { PageCard } from '../../components/cards'
-import { LogInForm } from '../../components/login/form'
-import { LogInImport } from '../../components/login/import'
+import { LogInForm, LogInImport } from '../../components/login'
 import { Account } from '../../lib/types'
 import { useDbAccounts } from '../../hooks/use-db-accounts'
 import { useWallet } from '../../hooks/use-wallet'
 import { useMessageAlert } from '../../hooks/message-alert'
+import { useResponsive } from '../../hooks/use-window-size'
 import { DASHBOARD_PATH } from '../../const/routes'
 
 const LogInPage = () => {
   const { dbAccounts } = useDbAccounts()
+  const { laptop } = useResponsive()
   const { restoreEncryptedWallet } = useWallet()
   const { setAlertMessage } = useMessageAlert()
   const router = useRouter()
@@ -30,7 +32,7 @@ const LogInPage = () => {
         passphrase
       )
       
-      router.push(`${DASHBOARD_PATH}`)
+      router.push(DASHBOARD_PATH)
     } catch (error) {
       setAlertMessage(i18n.t('sign_in.invalid_passphrase'))
     }
@@ -45,6 +47,8 @@ const LogInPage = () => {
               accounts={dbAccounts}
               onSubmit={handlerSubmit}
             />
+
+            {!laptop && <LoginDivider />}
           </Column>
         ) : null}
 
@@ -55,5 +59,11 @@ const LogInPage = () => {
     </PageCard>
   )
 }
+
+const LoginDivider = styled.div`
+  margin: 15px;
+  border-radius: 2px;
+  border-bottom: solid 2px ${({ theme }) => theme.lightBorder };
+`
 
 export default LogInPage

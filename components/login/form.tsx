@@ -115,4 +115,9 @@ const FormGroup = styled.div`
 
 const ButtonContainer = styled.div`
   margin-top: 56px;
+
+  @media ${({ theme }) => theme.screenMax.laptop} {
+    display: flex;
+    justify-content: center;
+  }
 `

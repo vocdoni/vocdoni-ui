@@ -24,5 +24,8 @@
     },
     "sign_in": {
         "select_the_account_to_use_and_enterr_your_passphrase": ""
+    },
+    "dashboard": {
+        "company_members": ""
     }
 }

@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import { Column, ColumnProps } from "./grid"
+import { Column } from "./grid"
 import { ReactNode } from "react"
 
 type BannerProps = {
@@ -33,17 +33,31 @@ export const Banner = (props: BannerProps) => <Column>
 // Styles
 
 const BannerDiv = styled.div<{ warning?: boolean }>`
-  padding: 56px 32px 32px;
+  padding: 32px;
   background: linear-gradient(106.26deg, ${({ theme, warning }) => warning ? theme.accentLight2B : theme.accentLight1B} 5.73%, ${({ theme, warning }) => warning ? theme.accentLight2 : theme.accentLight1} 93.83%);
   box-shadow: 0px 3px 3px rgba(180, 193, 228, 0.35);
   border-radius: 16px;
+
+  @media ${({theme})  => theme.screenMax.mobileL } {
+    padding: 14px;
+  }
+
+  @media ${({theme})  => theme.screenMax.tabletL } {
+    padding: 24px;
+  }
 `
 
 const BannerIcon = styled.div`
 flex: 1;
+
 `
 const BanerText = styled.div`
 flex: 10;
+margin: 0 10px;
+
+@media ${({theme})  => theme.screenMax.mobileL } {
+  margin: 0;
+}
 `
 const BannerRight = styled.div`
 text-align: right;
@@ -55,6 +69,11 @@ const BannerMainDiv = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
+
+
+  @media ${({theme})  => theme.screenMax.mobileL } {
+    flex-direction: column;
+  }
 `
 
 const BannerTitle = styled.h2<{ warning?: boolean }>`
