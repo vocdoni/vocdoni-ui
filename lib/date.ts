@@ -1,6 +1,23 @@
+import { GatewayPool, VotingApi } from "dvote-js"
+
+import { ProcessInfo } from "./types"
+
 export enum DateDiffType {
   Start = 'start-date',
   End = 'end-date'
+}
+
+export const getRemainingDays = async (
+  process: ProcessInfo,
+  pool: GatewayPool
+): Promise<string> => {
+  const endDate = await VotingApi.estimateDateAtBlock(
+    process.parameters.startBlock + process.parameters.blockCount,
+    pool
+  )
+  const remainTime = strDateDiff(DateDiffType.End, endDate)
+
+  return remainTime
 }
 
 export function strDateDiff(type: DateDiffType, target: Date): string {

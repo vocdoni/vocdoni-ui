@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { usePool } from '@vocdoni/react-hooks'
-import { GatewayPool, VotingApi } from 'dvote-js'
+import { GatewayPool } from 'dvote-js'
 
 import { ProcessInfo } from '../../lib/types'
-import { DateDiffType, strDateDiff } from '../../lib/date'
+import { getRemainingDays } from '../../lib/date'
 
 import { VoteListItem, VoteStatusType } from '../list-items'
 import i18n from '../../i18n'
@@ -13,19 +13,6 @@ interface IDashboardProcessListItemProps {
   process: ProcessInfo
   status: VoteStatusType
   accountName?: string
-}
-
-const getRemainingDays = async (
-  process: ProcessInfo,
-  pool: GatewayPool
-): Promise<string> => {
-  const endDate = await VotingApi.estimateDateAtBlock(
-    process.parameters.startBlock + process.parameters.blockCount,
-    pool
-  )
-  const remainTime = strDateDiff(DateDiffType.End, endDate)
-
-  return remainTime
 }
 
 export const DashboardProcessListItem = ({
@@ -37,25 +24,23 @@ export const DashboardProcessListItem = ({
   const { poolPromise } = usePool()
 
   useEffect(() => {
-    if (poolPromise) {
-      poolPromise.then(async (pool: GatewayPool) => {
-        switch (status) {
-          case VoteStatusType.Active:
-            const remainDays = await getRemainingDays(process, pool)
+    poolPromise.then(async (pool: GatewayPool) => {
+      switch (status) {
+        case VoteStatusType.Active:
+          const remainDays = await getRemainingDays(process, pool)
 
-            setEndDate(remainDays)
-            break
+          setEndDate(remainDays)
+          break
 
-          case VoteStatusType.Ended:
-            setEndDate(i18n.t('dashboard.process_finished'))
-            break
+        case VoteStatusType.Ended:
+          setEndDate(i18n.t('dashboard.process_finished'))
+          break
 
-          case VoteStatusType.Paused:
-            setEndDate(i18n.t('dashboard.process_paused'))
-            break
-        }
-      })
-    }
+        case VoteStatusType.Paused:
+          setEndDate(i18n.t('dashboard.process_paused'))
+          break
+      }
+    })
   }, [poolPromise])
 
   return (

@@ -10,7 +10,7 @@ import { Card } from '../cards'
 import { SectionText, TextAlign } from '../text'
 
 export const DashboardCreateProposalCard = () => (
-  <Card>
+  <Card md={4} sm={12}>
     <CreateProposalImageContainer>
       <img src="/images/dashboard/create-proposal.png"></img>
     </CreateProposalImageContainer>
