@@ -7,21 +7,17 @@ import { CREATE_PROPOSAL_PATH, DASHBOARD_PATH, SIGN_IN_PATH } from '../const/rou
 
 import i18n from '../i18n'
 
-const routesRequireWallet = [
+const pathsRequiringWallet = [
   DASHBOARD_PATH,
   CREATE_PROPOSAL_PATH
 ]
-
-const redirectSignIn = (path: string, wallet: Wallet): boolean => (
-  routesRequireWallet.includes(path) && !wallet
-)
 
 export const useWallet = () => {
   const walletCtx = useContext(UseWalletContext)
   if (walletCtx === null) {
     throw new Error('useWallet() can only be used on the descendants of <UseWalletContextProvider />,')
   }
-  const { wallet, setWallet, loadingWallet } = walletCtx
+  const { wallet, setWallet, checkingNeedsSignin } = walletCtx
 
   /** Decrypts the private key and sets the current wallet from it */
   const restoreEncryptedWallet = (encryptedMnemonic: string, hdPath: string, passphrase: string) => {
@@ -34,26 +30,28 @@ export const useWallet = () => {
     }
   }
 
-  return { wallet, setWallet, loadingWallet, restoreEncryptedWallet }
+  return { wallet, setWallet, checkingNeedsSignin, restoreEncryptedWallet }
 }
 
 // CONTEXT
 
 const UseWalletContext = createContext<{
+  /** The wallet currently available for use */
   wallet: Wallet,
-  loadingWallet: boolean,
+  /** Whether the current route needs a wallet and a Loading message should be displayed */
+  checkingNeedsSignin: boolean,
   setWallet: (w: Wallet) => void
 }>({
   wallet: null,
-  loadingWallet: false,
+  checkingNeedsSignin: false,
   setWallet: (_) => { },
 })
 
 export function UseWalletContextProvider({ children }) {
   const [wallet, setWallet] = useState<Wallet>(null)
   const router = useRouter();
-  const [loadingWallet, setLoadingWallet] = useState<boolean>(
-    redirectSignIn(router.pathname, wallet)
+  const [checkingNeedsSignin, setCheckingNeedsSignin] = useState<boolean>(
+    () => pathRequiresSignin(router.pathname, wallet)
   )
 
   // Prevent accidental logout
@@ -72,15 +70,22 @@ export function UseWalletContextProvider({ children }) {
     return () => window.removeEventListener("beforeunload", beforeUnload)
   }, [wallet])
 
-  useEffect(() => {    
-    if (redirectSignIn(router.pathname, wallet)) {
+  useEffect(() => {
+    if (pathRequiresSignin(router.pathname, wallet)) {
+      // The current path requires an active wallet but there is none
       router.replace(SIGN_IN_PATH)
-    } else if (loadingWallet) {
-      setLoadingWallet(false);
+    } else if (checkingNeedsSignin) {
+      setCheckingNeedsSignin(false);
     }
-  }, [router.pathname])
+  }, [router.pathname, wallet])
 
-  return <UseWalletContext.Provider value={{ wallet, loadingWallet, setWallet }}>
+  return <UseWalletContext.Provider value={{ wallet, checkingNeedsSignin, setWallet }}>
     {children}
   </UseWalletContext.Provider>
 }
+
+// HELPERS
+
+const pathRequiresSignin = (path: string, wallet: Wallet): boolean => (
+  pathsRequiringWallet.includes(path) && !wallet
+)
