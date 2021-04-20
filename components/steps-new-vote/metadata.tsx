@@ -11,21 +11,38 @@ import { Button } from '../button'
 import styled from 'styled-components'
 import { SectionTitle } from '../text'
 import { ProcessCreationPageSteps } from '.'
+import { useMessageAlert } from '../../hooks/message-alert'
 
 export const FormMetadata = () => {
   const { headerURL, headerFile, metadata, parameters, methods } = useProcessCreation()
+  const { setAlertMessage } = useMessageAlert()
 
-  const valid = () => {
+  const hasCompleteMetadata = () => {
     if (!metadata.title.default.length || !(headerFile || headerURL)) {
       return false
     }
-    // TODO: Add more here
-    try {
-      methods.setRawMetadata(checkValidProcessMetadata(metadata))
-    } catch (error) {
-      throw new Error(i18n.t('error.invalid_metadata'))
-    }
+    // TODO: Add completeness tests here
     return true
+  }
+
+  const onPreview = () => {
+    // TODO: 
+  }
+
+  const onContinue = () => {
+    // TODO: Check for correctness
+    // TODO: at least one question
+    // TODO: at least 2 choices each
+
+
+    try {
+      const validatedMeta = checkValidProcessMetadata(metadata)
+      methods.setRawMetadata(validatedMeta)
+
+      methods.setPageStep(ProcessCreationPageSteps.CENSUS)
+    } catch (error) {
+      setAlertMessage(i18n.t('error.the_vote_details_are_invalid'))
+    }
   }
 
   return (
@@ -77,15 +94,15 @@ export const FormMetadata = () => {
           <div>
             <Button
               negative
-            // onClick=
+              onClick={onPreview}
             >
               {i18n.t("action.preview_proposal")}
             </Button>
             &nbsp;&nbsp;&nbsp;&nbsp;
             <Button
               positive
-              onClick={() => methods.setPageStep(ProcessCreationPageSteps.CENSUS)}
-              disabled={!valid()}
+              onClick={onContinue}
+              disabled={!hasCompleteMetadata()}
             >
               {i18n.t("action.continue")}
             </Button>

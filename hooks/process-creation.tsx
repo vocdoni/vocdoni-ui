@@ -24,6 +24,7 @@ import { extractDigestedPubKeyFromString, importedRowToString } from '../lib/uti
 import { useStepper } from './use-stepper'
 import { useWallet } from './use-wallet'
 import moment from 'moment'
+import { isUri } from '../lib/regex'
 
 export interface ProcessCreationContext {
   metadata: ProcessMetadata,
@@ -106,11 +107,12 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
 
   const stepEnsureMedia: StepperFunc = () => {
     // Check if the metadata value is already updated
-    if (headerURL == metadata.media.header || !(headerFile || headerURL.length)) return Promise.resolve({ waitNext: false }) // next step
+    if (metadata.media.header) return Promise.resolve({ waitNext: false }) // next step
 
     return poolPromise
       .then(pool => {
         if (headerFile) return uploadFileToIpfs(headerFile, pool, wallet)
+        else if (!headerURL || !isUri(headerURL)) throw new Error(i18n.t("errors.the_header_image_link_is_not_valid"))
         return headerURL
       })
       .then(header => {
@@ -139,10 +141,10 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
     }))) as { key: string, value?: string }[]
 
     // Create the census
-    const { censusId } = await CensusOffChainApi.addCensus(name, [wallet._signingKey().publicKey], wallet, pool)
+    const { censusId } = await CensusOffChainApi.addCensus(name, [wallet.publicKey], wallet, pool)
     const { censusRoot, invalidClaims } = await CensusOffChainApi.addClaimBulk(censusId, claims, true, wallet, pool)
     if (invalidClaims.length) {
-      return { error: i18n.t('error.invalid_claims_found', { total: invalidClaims.length }) }
+      return { error: i18n.t('error.num_entries_could_not_be_added_to_the_census', { total: invalidClaims.length }) }
     }
     const censusUri = await CensusOffChainApi.publishCensus(censusId, wallet, pool)
 
@@ -156,21 +158,23 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
 
   const stepEnsureValidParams: StepperFunc = async () => {
 
-    // TODO:  if Start right await =>  startBlock = now + 8 min
-
     // TODO: Do a synchronous check that the process params make sense and contain no incompatible values
+
     if (isNaN(parameters.startBlock) || isNaN(parameters.blockCount))
       return Promise.reject({ error: i18n.t('errors.process.invalid_start_date') })
 
     if (parameters.blockCount <= 0)
-      return Promise.reject({ error: i18n.t('errors.process.invalid_dates') })
+      return Promise.reject({ error: i18n.t('errors.process.the_vote_cannot_end_before_the_start') })
 
-    const pool = await poolPromise
-    let localStartDate  = await VotingApi.estimateDateAtBlock(parameters.startBlock, pool)
+    if (!startRightAway) {
+      const pool = await poolPromise
+      let localStartDate = await VotingApi.estimateDateAtBlock(parameters.startBlock, pool)
 
-    if (Math.abs(moment(localStartDate).diff(moment.now(), 'minute')) > 8) {
-      return Promise.reject({ error: i18n.t('errors.process.invalid_start_date') })
+      if (Math.abs(moment(localStartDate).diff(moment.now(), 'minute')) > 8) {
+        return Promise.reject({ error: i18n.t('errors.process.invalid_start_date') })
+      }
     }
+
     return Promise.resolve({ waitNext: false })
   }
 
@@ -181,6 +185,12 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
       .then(async (p) => {
         pool = p
 
+        if (!startRightAway) return parameters.startBlock
+
+        // startBlock => now + 8 min
+        return VotingApi.estimateBlockAtDateTime(new Date(Date.now() + 1000 * 60 * 8), pool)
+      })
+      .then(startBlock => {
         // ProcessContractParameters !== INewProcessParams
         // parameters.metadata = metadata
         // Set proper maxValue and maxCount
@@ -198,7 +208,7 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
 
         // Creation
         const finalParams: INewProcessParams = {
-          startBlock: parameters.startBlock,
+          startBlock,
           blockCount: parameters.blockCount,
           censusOrigin: parameters.censusOrigin,
           censusRoot: parameters.censusRoot,
@@ -234,7 +244,6 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
 
     paramsMethods.setStartBlock(startBlock)
     paramsMethods.setBlockCount(blockCount)
-
   }
 
   useEffect(() => {
