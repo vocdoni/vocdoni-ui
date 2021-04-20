@@ -22,7 +22,7 @@ export type ProcessInfo = {
   id: string,
   metadata: ProcessMetadata,
   parameters: ProcessContractParameters,
-  tokenAddress: string
+  entity: string
 }
 
 // React Hook Stepper types
