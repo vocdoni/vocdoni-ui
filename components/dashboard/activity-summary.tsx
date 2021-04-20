@@ -22,12 +22,12 @@ export const DashboardActivitySummary = ({
         <h1>{activeVotes}</h1>
       </StatusCard>
 
-      <StatusCard lg={4} title={i18n.t('dashboard.upcoming_votes')}>
-        <h1>{upcomingVotes}</h1>
-      </StatusCard>
-
       <StatusCard lg={4} title={i18n.t('dashboard.vote_results')}>
         <h1>{votesResults}</h1>
+      </StatusCard>
+
+      <StatusCard lg={4} title={i18n.t('dashboard.upcoming_votes')}>
+        <h1>{upcomingVotes}</h1>
       </StatusCard>
 
       {/* <Column lg={3} sm={6}>

@@ -10,7 +10,6 @@ import { Account, ProcessInfo } from '../../lib/types'
 import { useDbAccounts } from '../../hooks/use-db-accounts'
 import { useWallet } from '../../hooks/use-wallet'
 import { useProcessesFromAccount } from '../../hooks/use-process'
-import { ProcessStatus } from 'dvote-solidity'
 import { useBlockNumber } from '../../hooks/use-blocknumber'
 
 const DashboardPage = () => {
@@ -23,7 +22,9 @@ const DashboardPage = () => {
   const { blockNumber } = useBlockNumber()
   // TODO: use loadingProcessList and loadingProcessesDetails to wait until data is loaded
   // TODO: call useProcessesFromAccount(wallet.address) instead of below
-  const { processes, loadingProcessList, loadingProcessesDetails } = useProcessesFromAccount('0x2Df8B6979fa7e75FFb6B464eD2c913Ab90995afA')
+  const { processIds, processes, loadingProcessList, loadingProcessesDetails } = useProcessesFromAccount('0x2Df8B6979fa7e75FFb6B464eD2c913Ab90995afA')
+  // NOTE: processes is a singleton map (for efficiency reasons). This means that no re-render will occur based on `processes`.
+  //       Use processIds and loadingProcessList + loadingProcessesDetails instead.
 
   const hasDbAccountAndWallet = wallet && wallet.address && dbAccounts.length
   const account: Account | null = hasDbAccountAndWallet
@@ -33,14 +34,17 @@ const DashboardPage = () => {
     : null
 
   useEffect(() => {
+    if (loadingProcessList) return
+
     const active = []
     const results = []
     const upcoming = []
 
     for (let proc of processes.values()) {
-      if (proc.parameters?.status?.isCanceled) continue // ignore
+      if (!proc || !proc.parameters) continue // info not loaded yet
+      else if (proc.parameters?.status?.isCanceled) continue // ignore
 
-      if (proc.parameters.startBlock > blockNumber) upcoming.push(proc)
+      else if (proc.parameters?.startBlock > blockNumber) upcoming.push(proc)
       else if (processEndBlock(proc) < blockNumber) results.push(proc)
 
       else if (proc.parameters?.status?.isEnded || proc.parameters?.status?.hasResults) {
@@ -54,7 +58,7 @@ const DashboardPage = () => {
     setActiveVotes(active)
     setVotesResults(results)
     setUpcomingVotes(upcoming)
-  }, [processes])
+  }, [processIds, loadingProcessList, loadingProcessesDetails])
 
   return (
     <>
@@ -79,6 +83,6 @@ const DashboardPage = () => {
 // HELPERS
 
 const processEndBlock = (process: ProcessInfo) =>
-  process.parameters.startBlock + process.parameters.blockCount
+  process.parameters?.startBlock + process.parameters?.blockCount
 
 export default DashboardPage

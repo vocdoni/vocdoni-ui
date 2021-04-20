@@ -47,5 +47,5 @@ export const useProcessesFromAccount = (entityId: string) => {
       })
   }
 
-  return { processes, loadingProcessList, loadingProcessesDetails, error }
+  return { processIds, processes, loadingProcessList, loadingProcessesDetails, error }
 }
