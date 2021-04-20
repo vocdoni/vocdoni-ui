@@ -20,41 +20,40 @@ const DashboardPage = () => {
 
   const { wallet } = useWallet()
   const { dbAccounts } = useDbAccounts()
-  const {blockNumber} = useBlockNumber()
+  const { blockNumber } = useBlockNumber()
   // TODO: use loadingProcessList and loadingProcessesDetails to wait until data is loaded
+  // TODO: call useProcessesFromAccount(wallet.address) instead of below
   const { processes, loadingProcessList, loadingProcessesDetails } = useProcessesFromAccount('0x2Df8B6979fa7e75FFb6B464eD2c913Ab90995afA')
 
   const hasDbAccountAndWallet = wallet && wallet.address && dbAccounts.length
   const account: Account | null = hasDbAccountAndWallet
     ? dbAccounts.find(
-        (iterateAccount) => iterateAccount.address == wallet.address
-      )
+      (iterateAccount) => iterateAccount.address == wallet.address
+    )
     : null
 
-  const processFinishTime = (process: ProcessInfo) =>
-    process.parameters.startBlock + process.parameters.blockCount
-
   useEffect(() => {
-    setActiveVotes(
-      Array.from(processes.values()).filter(
-        (process) => process.parameters?.status.value === ProcessStatus.READY &&
-          processFinishTime(process) < blockNumber
-      )
-    )
+    const active = []
+    const results = []
+    const upcoming = []
 
-    setVotesResults(
-       Array.from(processes.values()).filter(
-         // TODO: Fix the results case
-        (process) => process.parameters?.status.value === ProcessStatus.RESULTS
-      )
-    )
+    for (let proc of processes.values()) {
+      if (proc.parameters?.status?.isCanceled) continue // ignore
 
-    setUpcomingVotes(
-       Array.from(processes.values()).filter(
-        (process) => process.parameters?.status.value === ProcessStatus.ENDED ||
-          processFinishTime(process) < blockNumber
-      )
-    )
+      if (proc.parameters.startBlock > blockNumber) upcoming.push(proc)
+      else if (processEndBlock(proc) < blockNumber) results.push(proc)
+
+      else if (proc.parameters?.status?.isEnded || proc.parameters?.status?.hasResults) {
+        results.push(proc)
+      }
+      // Ready or paused
+      else {
+        active.push(proc)
+      }
+    }
+    setActiveVotes(active)
+    setVotesResults(results)
+    setUpcomingVotes(upcoming)
   }, [processes])
 
   return (
@@ -76,5 +75,10 @@ const DashboardPage = () => {
     </>
   )
 }
+
+// HELPERS
+
+const processEndBlock = (process: ProcessInfo) =>
+  process.parameters.startBlock + process.parameters.blockCount
 
 export default DashboardPage
