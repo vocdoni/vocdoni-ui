@@ -6,22 +6,20 @@ import { SectionText } from '../text'
 import { ProcessTypes, IProcessItem } from './process-list'
 
 interface IDashboardProcessListNavProps {
+  activeItem: ProcessTypes
   navItems: Map<ProcessTypes, IProcessItem>
   onClick: (navItem: ProcessTypes) => void
 }
 
 export const DashboardProcessListNav = ({
+  activeItem,
   navItems,
   onClick,
 }: IDashboardProcessListNavProps) => {
-  const [activeItem, setActiveItem] = useState<ProcessTypes>(
-    ProcessTypes.ActiveVotes
-  )
-
   const handleClick = (navKey: ProcessTypes) => {
-    setActiveItem(navKey)
     onClick(navKey)
   }
+  
   const renderLiItem = (navKey: ProcessTypes, navItem: IProcessItem) => {
     const active = activeItem === navKey
 

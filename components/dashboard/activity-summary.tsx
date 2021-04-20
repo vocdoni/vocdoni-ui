@@ -9,24 +9,38 @@ interface IDashboardActivitySummaryProps {
   activeVotes: number
   upcomingVotes: number
   votesResults: number
+  loading?: boolean
 }
 
 export const DashboardActivitySummary = ({
   activeVotes,
   upcomingVotes,
   votesResults,
+  loading,
 }: IDashboardActivitySummaryProps) => {
   return (
     <Grid>
-      <StatusCard lg={4} title={i18n.t('dashboard.active_votes')}>
+      <StatusCard
+        skeleton={loading}
+        lg={4}
+        title={i18n.t('dashboard.active_votes')}
+      >
         <h1>{activeVotes}</h1>
       </StatusCard>
 
-      <StatusCard lg={4} title={i18n.t('dashboard.vote_results')}>
+      <StatusCard
+        skeleton={loading}
+        lg={4}
+        title={i18n.t('dashboard.vote_results')}
+      >
         <h1>{votesResults}</h1>
       </StatusCard>
 
-      <StatusCard lg={4} title={i18n.t('dashboard.upcoming_votes')}>
+      <StatusCard
+        skeleton={loading}
+        lg={4}
+        title={i18n.t('dashboard.upcoming_votes')}
+      >
         <h1>{upcomingVotes}</h1>
       </StatusCard>
 
