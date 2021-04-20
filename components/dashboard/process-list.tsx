@@ -1,9 +1,11 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import i18n from '../../i18n'
 import { ProcessInfo, Account } from '../../lib/types'
 import { Column, Grid } from '../grid'
-import { VoteListItem, VoteStatusType } from '../list-items'
+import { VoteStatusType } from '../list-items'
+import { Skeleton } from '../skeleton'
+import { Card } from '../cards'
 
 import { DashboardCreateProposalCard } from './create-proposal-card'
 import { EmptyProposalCard } from './empty-proposal-card'
@@ -24,16 +26,22 @@ export interface IProcessItem {
 
 interface IDashboardProcessListProps {
   account: Account
+  initialActiveItem: ProcessTypes
   activeVotes: ProcessInfo[]
   votesResults: ProcessInfo[]
   upcomingVoting: ProcessInfo[]
+  loading?: boolean
+  skeletonItems?: number
 }
 
 export const DashboardProcessList = ({
   account,
+  initialActiveItem,
   activeVotes,
   votesResults,
   upcomingVoting,
+  loading,
+  skeletonItems = 3,
 }: IDashboardProcessListProps) => {
   const navItems: Map<ProcessTypes, IProcessItem> = new Map([
     [
@@ -70,6 +78,20 @@ export const DashboardProcessList = ({
       />
     </div>
   )
+  const renderSkeleton = () => {
+    return (
+      <Column md={8} sm={12}>
+        {Array(skeletonItems)
+          .fill(0)
+          .map(() => (
+            <Card>
+              <Skeleton />
+            </Card>
+          ))}
+      </Column>
+    )
+  }
+
   const handleClick = (navItem: ProcessTypes) => {
     setActiveList(navItem)
   }
@@ -78,13 +100,26 @@ export const DashboardProcessList = ({
   )
   const processList = navItems.get(activeList)
 
+  useEffect(() => {
+    console.log(initialActiveItem)
+    setActiveList(initialActiveItem)
+  }, [initialActiveItem])
+
   return (
     <>
-      <DashboardProcessListNav navItems={navItems} onClick={handleClick} />
+      <DashboardProcessListNav
+        activeItem={activeList}
+        navItems={navItems}
+        onClick={handleClick}
+      />
 
       <Grid>
-        {processList?.items && processList.items.length ? (
-          <Column md={8} sm={12} >{processList.items.map(renderProcessItem)}</Column>
+        {loading ? (
+          renderSkeleton()
+        ) : processList?.items && processList.items.length ? (
+          <Column md={8} sm={12}>
+            {processList.items.map(renderProcessItem)}
+          </Column>
         ) : (
           <EmptyProposalCard />
         )}
