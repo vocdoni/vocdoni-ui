@@ -1,4 +1,4 @@
-export default {}
+export default () => <div />
 
 // import React, { CSSProperties, useState } from 'react'
 // import {
