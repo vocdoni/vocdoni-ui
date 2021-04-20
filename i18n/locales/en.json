@@ -41,9 +41,9 @@
         "name": "Name of the entity",
         "new_entity": "New entity",
         "passphrase": "Passphrase",
-        "please_wait_creating_account": "",
+        "please_wait_creating_account": "Please wait, creating the account...",
         "repeat_passphrase": "Repeat the passphrase",
-        "your_account_has_been_created": ""
+        "your_account_has_been_created": "Your account has been created"
     },
     "errors": {
         "file_too_large": "The file is too large",
@@ -84,9 +84,9 @@
     },
     "vote": {
         "active_vote": "Active vote",
-        "brief_description": "Brief_description",
+        "brief_description": "Brief description",
         "description": "Description",
-        "details": "Detail",
+        "details": "Details",
         "ended_vote": "Ended vote",
         "enter_the_details_of_the_organization": "Enter the details of the organization",
         "general": "General",

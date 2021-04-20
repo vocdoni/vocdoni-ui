@@ -37,8 +37,8 @@ export const FormCreation = () => {
           <If condition={pleaseWait}>
             <Else>
               <BottomDiv>
-                <Button border onClick={() => methods.setPageStep(EntityCreationPageSteps.CREDENTIALS)}>Go Back</Button>
-                <Button border onClick={methods.continueEntityCreation}>Retry</Button>
+                <Button border onClick={() => methods.setPageStep(EntityCreationPageSteps.CREDENTIALS)}>{i18n.t("action.go_back")}</Button>
+                <Button border onClick={methods.continueEntityCreation}>{i18n.t("action.retry")}</Button>
               </BottomDiv>
             </Else>
           </If>
