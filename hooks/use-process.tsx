@@ -4,37 +4,37 @@ import { getProcessList } from '../lib/api'
 import { useProcesses } from '@vocdoni/react-hooks'
 import { useWallet } from './use-wallet'
 import { useMessageAlert } from './message-alert'
+import i18n from '../i18n'
 
 
-export const useProcessesFromAccount = (accountAddress: string) => {
-  const [processIds, setProcessIds] = useState([] as string[]);
-  const [loadingProcessList, setLoadingProcessList] = useState(true);
+export const useProcessesFromAccount = (entityId: string) => {
+  const [processIds, setProcessIds] = useState([] as string[])
+  const [loadingProcessList, setLoadingProcessList] = useState(true)
   const { setAlertMessage } = useMessageAlert()
-  const {wallet} = useWallet()
+  const { wallet } = useWallet()
   const { processes, error, loading: loadingProcessesDetails } = useProcesses(
     processIds || []
-  );
+  )
   const { poolPromise } = usePool()
-
 
   // Effects
 
   useEffect(() => {
-    const interval = setInterval(() => updateProcessIds, 1000 * 60 )
+    const interval = setInterval(() => updateProcessIds, 1000 * 60)
     updateProcessIds()
 
     // Done
-    return () => clearInterval(interval);
-  }, [wallet, accountAddress])
+    return () => clearInterval(interval)
+  }, [wallet, entityId])
 
   // Loaders
+
   const updateProcessIds = () => {
-    if (!(wallet && wallet.address) || !accountAddress) return
-    const address = (wallet && wallet.address) ? wallet.address : accountAddress
+    if (!entityId) return
     setLoadingProcessList(true)
 
     poolPromise
-      .then((pool) => getProcessList(address, pool))
+      .then((pool) => getProcessList(entityId, pool))
       .then((ids) => {
         setLoadingProcessList(false)
         setProcessIds(ids)
@@ -43,7 +43,7 @@ export const useProcessesFromAccount = (accountAddress: string) => {
         setLoadingProcessList(false)
 
         console.error(err)
-        setAlertMessage("The list of processes could not be loaded")
+        setAlertMessage(i18n.t("errors.the_list_of_votes_cannot_be_loaded"))
       })
   }
 
