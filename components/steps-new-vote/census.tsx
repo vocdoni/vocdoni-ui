@@ -27,7 +27,9 @@ export const FormCensus = () => {
       </Column>
       <Column>
         <BottomDiv>
-          <div />
+          <Button border onClick={() => methods.setPageStep(ProcessCreationPageSteps.METADATA)}>
+            {i18n.t("action.go_back")}
+          </Button>
           <Button
             positive
             onClick={() => methods.setPageStep(ProcessCreationPageSteps.OPTIONS)}

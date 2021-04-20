@@ -73,20 +73,23 @@ export const FormMetadata = () => {
       </Column>
       <Column>
         <BottomDiv>
-          <div />
-          <Button
-            negative
+          <div /> {/* left space holder */}
+          <div>
+            <Button
+              negative
             // onClick=
-          >
-            {i18n.t("action.preview_proposal")}
-          </Button>
-          <Button
-            positive
-            onClick={() => methods.setPageStep(ProcessCreationPageSteps.CENSUS)}
-            disabled={!valid()}
-          >
-            {i18n.t("action.continue")}
-          </Button>
+            >
+              {i18n.t("action.preview_proposal")}
+            </Button>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <Button
+              positive
+              onClick={() => methods.setPageStep(ProcessCreationPageSteps.CENSUS)}
+              disabled={!valid()}
+            >
+              {i18n.t("action.continue")}
+            </Button>
+          </div>
         </BottomDiv>
       </Column>
     </Grid>

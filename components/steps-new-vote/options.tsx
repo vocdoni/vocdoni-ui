@@ -21,6 +21,13 @@ export const FormOptions = () => {
     return true
   }
 
+  const onSubmit = () => {
+    // TODO: Validate, check, etc
+
+    methods.createProcess() // Trigger the main action
+    methods.setPageStep(ProcessCreationPageSteps.CREATION)
+  }
+
   return (
     <Grid>
       <Column>
@@ -28,10 +35,12 @@ export const FormOptions = () => {
       </Column>
       <Column>
         <BottomDiv>
-          <div />
+          <Button border onClick={() => methods.setPageStep(ProcessCreationPageSteps.CENSUS)}>
+            {i18n.t("action.go_back")}
+          </Button>
           <Button
             positive
-            onClick={() => methods.setPageStep(ProcessCreationPageSteps.CREATION)}
+            onClick={() => onSubmit()}
             disabled={!valid()}
           >
             {i18n.t("action.continue")}
