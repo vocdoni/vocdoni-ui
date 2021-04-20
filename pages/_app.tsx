@@ -15,6 +15,7 @@ import { UseBackendProvider } from '../hooks/backend'
 
 import { FixedGlobalStyle, theme } from '../theme'
 import 'react-datetime/css/react-datetime.css'
+import { UseBlockNumberProvider } from '../hooks/use-blocknumber'
 
 type NextAppProps = AppInitialProps & {
   Component: NextComponentType<NextPageContext, any, any>
@@ -38,6 +39,7 @@ const VocdoniApp: FC<NextAppProps> = ({ Component, pageProps }) => {
           environment={environment}
         >
           <UseBackendProvider>
+            <UseBlockNumberProvider>
             <UseProcessProvider>
               <FixedGlobalStyle />
               <Head>
@@ -51,6 +53,7 @@ const VocdoniApp: FC<NextAppProps> = ({ Component, pageProps }) => {
                 <Component {...pageProps} />
               </Layout>
             </UseProcessProvider>
+            </UseBlockNumberProvider>
           </UseBackendProvider>
         </UsePoolProvider>
       </UseLoadingAlertProvider>

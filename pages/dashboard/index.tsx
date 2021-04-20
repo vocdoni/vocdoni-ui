@@ -11,6 +11,7 @@ import { useDbAccounts } from '../../hooks/use-db-accounts'
 import { useWallet } from '../../hooks/use-wallet'
 import { useProcessesFromAccount } from '../../hooks/use-process'
 import { ProcessStatus } from 'dvote-solidity'
+import { useBlockNumber } from '../../hooks/use-blocknumber'
 
 const DashboardPage = () => {
   const [activeVotes, setActiveVotes] = useState<ProcessInfo[]>([])
@@ -19,8 +20,9 @@ const DashboardPage = () => {
 
   const { wallet } = useWallet()
   const { dbAccounts } = useDbAccounts()
-  const accountAddress = wallet ? wallet.address: ''
-  const { processes } = useProcessesFromAccount(accountAddress)
+  const {blockNumber} = useBlockNumber()
+  // TODO: use loadingProcessList and loadingProcessesDetails to wait until data is loaded
+  const { processes, loadingProcessList, loadingProcessesDetails } = useProcessesFromAccount('0x2Df8B6979fa7e75FFb6B464eD2c913Ab90995afA')
 
   const hasDbAccountAndWallet = wallet && wallet.address && dbAccounts.length
   const account: Account | null = hasDbAccountAndWallet
@@ -29,22 +31,28 @@ const DashboardPage = () => {
       )
     : null
 
+  const processFinishTime = (process: ProcessInfo) =>
+    process.parameters.startBlock + process.parameters.blockCount
+
   useEffect(() => {
     setActiveVotes(
-      processes.filter(
-        (process) => process.parameters?.status.value === ProcessStatus.READY
+      Array.from(processes.values()).filter(
+        (process) => process.parameters?.status.value === ProcessStatus.READY &&
+          processFinishTime(process) < blockNumber
       )
     )
 
     setVotesResults(
-      processes.filter(
+       Array.from(processes.values()).filter(
+         // TODO: Fix the results case
         (process) => process.parameters?.status.value === ProcessStatus.RESULTS
       )
     )
 
     setUpcomingVotes(
-      processes.filter(
-        (process) => process.parameters?.status.value === ProcessStatus.ENDED
+       Array.from(processes.values()).filter(
+        (process) => process.parameters?.status.value === ProcessStatus.ENDED ||
+          processFinishTime(process) < blockNumber
       )
     )
   }, [processes])
