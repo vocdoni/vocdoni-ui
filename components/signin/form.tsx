@@ -13,13 +13,13 @@ import { Input, Select } from '../inputs'
 import { SectionTitle, SectionText } from '../text'
 import { Button } from '../button'
 
-interface LogInFormProps {
+interface SignInFormProps {
   accounts: Account[]
   disabled?: boolean
   onSubmit: (account: Account, passphrase: string) => void
 }
 
-export const LogInForm = ({ accounts, disabled, onSubmit }: LogInFormProps) => {
+export const SignInForm = ({ accounts, disabled, onSubmit }: SignInFormProps) => {
   const [passphrase, setPassphrase] = useState<string>('')
   const [account, setAccount] = useState<Account>()
   const [selectOptions, setSelectOptions] = useState<OptionTypeBase[]>([])

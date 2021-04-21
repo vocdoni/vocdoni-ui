@@ -13,7 +13,7 @@ interface SignInImportProps {
   hasAccount: boolean
 }
 
-export const LogInImport = ({ hasAccount }: SignInImportProps) => {
+export const SignInImport = ({ hasAccount }: SignInImportProps) => {
   const router = useRouter()
   const title = hasAccount
     ? i18n.t('sign_in.additional_entities')
