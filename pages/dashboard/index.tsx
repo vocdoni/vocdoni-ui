@@ -48,8 +48,8 @@ const DashboardPage = () => {
     const upcoming = []
 
     for (let proc of processes.values()) {
-      if (!proc || !proc.parameters) continue
       // info not loaded yet
+      if (!proc || !proc.parameters) continue
       else if (proc.parameters?.status?.isCanceled) continue
       // ignore
       else if (proc.parameters?.startBlock > blockNumber) upcoming.push(proc)

@@ -101,7 +101,6 @@ export const DashboardProcessList = ({
   const processList = navItems.get(activeList)
 
   useEffect(() => {
-    console.log(initialActiveItem)
     setActiveList(initialActiveItem)
   }, [initialActiveItem])
 
