@@ -5,7 +5,10 @@
         "create_my_entity": "",
         "create_new_proposal": "",
         "go_back": "",
-        "go_to_dashboard": ""
+        "go_to_dashboard": "",
+        "preview_proposal": "",
+        "retry": "",
+        "sign_in": ""
     },
     "dashboard": {
         "active_votes": "",
@@ -34,7 +37,6 @@
         "description": "",
         "details": "",
         "email": "",
-        "enter_the_details_of_the_organization": "",
         "header": "",
         "i_have_read_and_accept_the_privacy_policy_and_the_terms_of_service": "",
         "logo": "",
@@ -44,6 +46,9 @@
         "please_wait_creating_account": "",
         "repeat_passphrase": "",
         "your_account_has_been_created": ""
+    },
+    "error": {
+        "the_vote_details_are_invalid": ""
     },
     "errors": {
         "file_too_large": "",
@@ -67,6 +72,14 @@
         "enter_the_url_or_upload_a_file": "",
         "remove_file": ""
     },
+    "links": {
+        "about": "",
+        "blog": "",
+        "dashboard": "",
+        "docs": "",
+        "pricing": "",
+        "support": ""
+    },
     "sign_in": {
         "additional_entities": "",
         "continue": "",
@@ -85,12 +98,16 @@
     "vote": {
         "active_vote": "",
         "brief_description": "",
+        "creation": "",
         "description": "",
         "details": "",
         "ended_vote": "",
-        "enter_the_details_of_the_organization": "",
-        "general": "",
+        "enter_the_details_of_the_porposal": "",
+        "enter_the_details_of_the_process": "",
+        "header": "",
+        "new_process": "",
         "new_vote": "",
+        "options": "",
         "paused_vote": "",
         "title": "",
         "who_can_vote": ""

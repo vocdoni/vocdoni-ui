@@ -19,12 +19,21 @@
         "passphrases_do_not_match": "The passphrase does not match"
     },
     "vote": {
-        "vote_details": ""
+        "vote_details": "",
+        "enter_the_details_of_the_organization": "Enter the details of the organization",
+        "general": "General"
     },
     "sign_in": {
         "select_the_account_to_use_and_enterr_your_passphrase": ""
     },
     "dashboard": {
         "company_members": "Company members"
+    },
+    "entity": {
+        "enter_the_details_of_the_organization": "Enter the details of the organization"
+    },
+    "process": {
+        "enter_the_details_of_the_process": "",
+        "new_process": ""
     }
 }

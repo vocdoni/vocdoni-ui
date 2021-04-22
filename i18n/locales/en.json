@@ -5,7 +5,10 @@
         "create_my_entity": "Create my entity",
         "create_new_proposal": "Create new proposal",
         "go_back": "Go back",
-        "go_to_dashboard": "Go to the Dashboard"
+        "go_to_dashboard": "Go to the Dashboard",
+        "preview_proposal": "Preview proposal",
+        "retry": "Retry",
+        "sign_in": "Sign in"
     },
     "dashboard": {
         "active_votes": "Active votes",
@@ -34,7 +37,6 @@
         "description": "Description",
         "details": "Details",
         "email": "Contact e-mail",
-        "enter_the_details_of_the_organization": "Enter the details of the organization",
         "header": "Entity header",
         "i_have_read_and_accept_the_privacy_policy_and_the_terms_of_service": "I have read and accept the Privacy Policy and the Terms of Service",
         "logo": "Entity logo",
@@ -44,6 +46,9 @@
         "please_wait_creating_account": "Please wait, creating the account...",
         "repeat_passphrase": "Repeat the passphrase",
         "your_account_has_been_created": "Your account has been created"
+    },
+    "error": {
+        "the_vote_details_are_invalid": ""
     },
     "errors": {
         "file_too_large": "The file is too large",
@@ -67,6 +72,14 @@
         "enter_the_url_or_upload_a_file": "Enter the URL of an image or upload a file",
         "remove_file": "Remove file"
     },
+    "links": {
+        "about": "About",
+        "blog": "Blog",
+        "dashboard": "Dashboard",
+        "docs": "Docs",
+        "pricing": "Pricing",
+        "support": "Support"
+    },
     "sign_in": {
         "additional_entities": "Additional entities",
         "continue": "Continue",
@@ -85,12 +98,16 @@
     "vote": {
         "active_vote": "Active vote",
         "brief_description": "Brief description",
+        "creation": "",
         "description": "Description",
         "details": "Details",
         "ended_vote": "Ended vote",
-        "enter_the_details_of_the_organization": "Enter the details of the organization",
-        "general": "General",
+        "enter_the_details_of_the_porposal": "",
+        "enter_the_details_of_the_process": "",
+        "header": "",
+        "new_process": "",
         "new_vote": "New vote",
+        "options": "",
         "paused_vote": "Paused vote",
         "title": "Title",
         "who_can_vote": "Who can vote"

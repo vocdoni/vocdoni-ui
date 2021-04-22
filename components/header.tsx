@@ -5,41 +5,61 @@ import Link from 'next/link'
 import { useIsMobile } from '../hooks/use-window-size'
 import { sizes } from '../theme/sizes'
 import { hexToRgbA } from '../lib/util'
-import { Else, If, Then } from 'react-if'
+import { Else, If, Then, Unless } from 'react-if'
 import { Button } from './button'
 import { useWallet } from '../hooks/use-wallet'
+import { DASHBOARD_PATH, PRICING_PATH, ABOUT_PATH } from '../const/routes'
+import i18n from '../i18n'
 
 export const LINKS: HeaderLink[] = [
   {
+    url: DASHBOARD_PATH,
+    name: i18n.t("links.dashboard"),
+    external: false,
+    logged: true,
+    guest: false
+  },
+  {
     url: 'https://blog.vocdoni.io',
-    name: 'Blog',
+    name: i18n.t("links.blog"),
     external: true,
-    header: true,
+    logged: true,
+    guest: true
+  },
+  {
+    url: PRICING_PATH,
+    name: i18n.t("links.pricing"),
+    external: false,
+    logged: false,
+    guest: true
   },
   {
     url: 'https://docs.vocdoni.io',
-    name: 'Docs',
+    name: i18n.t("links.docs"),
     external: true,
-    header: true,
+    logged: true,
+    guest: true
+  },
+  // {
+  //   url: 'https://discord.gg/sQCxgYs',
+  //   name: 'Discord',
+  //   external: true,
+  //   logged: false,
+  //   guest: true
+  // },
+  {
+    url: ABOUT_PATH,
+    name: i18n.t("links.about"),
+    external: false,
+    logged: false,
+    guest: true
   },
   {
     url: 'https://discord.gg/sQCxgYs',
-    name: 'Discord',
+    name: i18n.t("links.support"),
     external: true,
-    header: true,
-    footer: true,
-  },
-  {
-    url: 'https://twitter.com/vocdoni',
-    name: 'Twitter',
-    external: true,
-    footer: true,
-  },
-  {
-    url: 'https://t.me/vocdoni',
-    name: 'Telegram',
-    external: true,
-    footer: true,
+    logged: true,
+    guest: false
   },
 ]
 
@@ -47,13 +67,13 @@ export const Header = () => {
   const { wallet } = useWallet()
   const [showMenu, setShowMenu] = useState(false)
   const isMobile = useIsMobile()
-  const HEADER_LINKS = LINKS.filter((l) => l.header)
+  const links = wallet ? LINKS.filter(link => link.logged) : LINKS.filter(link => link.guest)
 
   return (
     <>
       {/* {isMobile && (
         <MobileMenuContainer showMenu={showMenu}>
-          {LINKS.map((link) => (
+          {links.map((link) => (
             <LinkItem
               {...link}
               key={link.name}
@@ -65,23 +85,24 @@ export const Header = () => {
       )} */}
       <HeaderContainer>
         <ListContainer>
-          <Link href='/' passHref>
-            <HomeLink target='_self'>Vocdoni</HomeLink>
+          <Link href={wallet ? DASHBOARD_PATH : "/"} passHref>
+            <HomeLink target='_self'><img src="/media/logo-full.svg" alt="Vocdoni" /></HomeLink>
           </Link>
           <MenuItemsContainer>
-            {!isMobile &&
-              HEADER_LINKS.map((link) => (
+            <Unless condition={isMobile}>
+              {links.map((link) => (
                 <LinkItem {...link} key={link.name} />
               ))}
+            </Unless>
           </MenuItemsContainer>
         </ListContainer>
         <RightContainer>
           <If condition={!!wallet}>
             <Then>
-              <Button positive small href="/dashboard">Dashboard</Button>
+              <Button positive small href="/dashboard">{i18n.t("links.dashboard")}</Button>
             </Then>
             <Else>
-              <Button positive small href="/login">Sign in</Button>
+              <Button positive small href="/login">{i18n.t("action.sign_in")}</Button>
             </Else>
           </If>
         </RightContainer>
@@ -129,6 +150,8 @@ const ListContainer = styled.div`
 `
 
 const RightContainer = styled.div`
+padding: 0 ${({ theme }) => theme.margins.mobile.horizontal};
+
 @media ${({ theme }) => theme.screenMin.tablet} {
   padding: 0 ${({ theme }) => theme.margins.desktop.horizontal};
 }
@@ -149,46 +172,49 @@ const ListItem = styled.div`
 `
 
 const HomeLink = styled.a`
-  font-weight: 500;
-  color: ${({ theme }) => theme.text};
   cursor: pointer;
-`
 
-const MobileMenuContainer = styled.div<{ showMenu: boolean }>`
-  position: fixed;
-  padding: 0;
-  margin: 0;
-  top: -100%;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: ${({ theme }) => theme.white};
-  z-index: 10;
-  margin-top: 70px;
-
-  -webkit-transition: top 0.5s ease-in-out;
-  -moz-transition: top 0.5s ease-in-out;
-  -o-transition: top 0.5s ease-in-out;
-  transition: top 0.5s ease-in-out;
-
-  @media ${({ theme }) => theme.screenMin.tablet} {
-    top: ${({ showMenu }) => (showMenu ? '0' : '-100%')};
+  & > img {
+    margin-top: 6px;
+    height: 45px;
   }
 `
 
-const Section = styled.div`
-  display: flex;
-  margin-top: 30px;
-  justify-content: center;
-  color: ${({ color }) => color};
-`
+// const MobileMenuContainer = styled.div<{ showMenu: boolean }>`
+//   position: fixed;
+//   padding: 0;
+//   margin: 0;
+//   top: -100%;
+//   left: 0;
+//   width: 100%;
+//   height: 100%;
+//   background: ${({ theme }) => theme.white};
+//   z-index: 10;
+//   margin-top: 70px;
+
+//   -webkit-transition: top 0.5s ease-in-out;
+//   -moz-transition: top 0.5s ease-in-out;
+//   -o-transition: top 0.5s ease-in-out;
+//   transition: top 0.5s ease-in-out;
+
+//   @media ${({ theme }) => theme.screenMin.tablet} {
+//     top: ${({ showMenu }) => (showMenu ? '0' : '-100%')};
+//   }
+// `
+
+// const Section = styled.div`
+//   display: flex;
+//   margin-top: 30px;
+//   justify-content: center;
+//   color: ${({ color }) => color};
+// `
 
 interface HeaderLink {
   name: string;
   url: string;
   external?: boolean;
-  header?: boolean;
-  footer?: boolean;
+  logged?: boolean;
+  guest?: boolean;
 }
 
 const LinkItem = ({

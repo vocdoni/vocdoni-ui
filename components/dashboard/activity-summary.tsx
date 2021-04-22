@@ -22,7 +22,7 @@ export const DashboardActivitySummary = ({
     <Grid>
       <StatusCard
         skeleton={loading}
-        lg={4}
+        md={4}
         title={i18n.t('dashboard.active_votes')}
       >
         <h1>{activeVotes}</h1>
@@ -30,7 +30,7 @@ export const DashboardActivitySummary = ({
 
       <StatusCard
         skeleton={loading}
-        lg={4}
+        md={4}
         title={i18n.t('dashboard.vote_results')}
       >
         <h1>{votesResults}</h1>
@@ -38,7 +38,7 @@ export const DashboardActivitySummary = ({
 
       <StatusCard
         skeleton={loading}
-        lg={4}
+        md={4}
         title={i18n.t('dashboard.upcoming_votes')}
       >
         <h1>{upcomingVotes}</h1>
