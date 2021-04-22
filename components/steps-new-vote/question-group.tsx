@@ -46,7 +46,7 @@ export const QuestionGroup = ({
 }: IQuestionGroupProps) => {
   const handleUpdateQuestion = (field: QuestionFields, value) => {
     const clonedQuestion: IQuestion = cloneDeep(question)
-    clonedQuestion[field] = value
+    clonedQuestion[field]['default'] = value
 
     onUpdateQuestion(index, clonedQuestion)
   }
@@ -84,7 +84,7 @@ export const QuestionGroup = ({
                 {i18n.t('vote.question', { number: index + 1 })}
               </SectionTitle>
             </FillSpaceWrapper>
-            
+
             {canBeDeleted && (
               <Button
                 border

@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect } from 'react'
+import React, { ChangeEvent, useEffect, useState } from 'react'
 import { checkValidProcessMetadata } from 'dvote-js'
 import styled from 'styled-components'
 import cloneDeep from 'lodash/cloneDeep'
@@ -12,16 +12,19 @@ import { FileLoaderFormGroup, InputFormGroup, TextareaFormGroup } from '../form'
 import { SectionText } from '../text'
 
 import { ProcessCreationPageSteps } from '.'
-import { IChoice, IQuestion, QuestionGroup } from './question-group'
-import { createEmptyQuestion, validateMetadata } from './metadata-helper'
-
+import { IQuestion, QuestionGroup } from './question-group'
+import {
+  ErrorFields,
+  createEmptyQuestion,
+  validateMetadata,
+} from './metadata-helper'
 
 export enum MetadataFields {
   Title = 'process-title',
   Description = 'process-description',
   PdfLink = 'process-pdf-link',
   ForumLink = 'process-forum-link',
-  Question = 'process-question'
+  Question = 'process-question',
 }
 
 export const FormMetadata = () => {
@@ -33,19 +36,12 @@ export const FormMetadata = () => {
     methods,
   } = useProcessCreation()
 
-  const hasCompleteMetadata = () => {
-    if (!metadata.title.default.length || !(headerFile || headerURL)) {
-      return false
-    }
-    // TODO: Add completeness tests here
-    return true
-  }
-
+  const [metadataCompleted, setMetadataCompleted] = useState<boolean>(false)
   const onPreview = () => {
     // TODO:
   }
 
-  const onContinue = () => {
+  const handleContinue = () => {
     // TODO: Check for correctness
     // TODO: at least one question
     // TODO: at least 2 choices each
@@ -83,12 +79,16 @@ export const FormMetadata = () => {
     const newMedia = cloneDeep(metadata.media)
     newMedia[mediaField] = value
 
-    methods.setMedia(newMedia);
+    methods.setMedia(newMedia)
   }
 
   useEffect(() => {
-    console.log(metadata)
-    validateMetadata(metadata)
+    const invalidFields: ErrorFields = validateMetadata(metadata)
+    const newMetadataCompleted = !invalidFields.size
+
+    if (newMetadataCompleted !== metadataCompleted) {
+      setMetadataCompleted(newMetadataCompleted)
+    }
   }, [metadata])
 
   return (
@@ -158,14 +158,14 @@ export const FormMetadata = () => {
       </Grid>
 
       {metadata.questions.map((question: IQuestion, index: number) => (
-          <QuestionGroup
-            key={index}
-            canBeDeleted={metadata.questions.length > 1}
-            question={question}
-            index={index}
-            onDeleteQuestion={handleDeleteQuestion}
-            onUpdateQuestion={handleUpdateQuestion}
-          />
+        <QuestionGroup
+          key={index}
+          canBeDeleted={metadata.questions.length > 1}
+          question={question}
+          index={index}
+          onDeleteQuestion={handleDeleteQuestion}
+          onUpdateQuestion={handleUpdateQuestion}
+        />
       ))}
 
       <Button
@@ -191,11 +191,9 @@ export const FormMetadata = () => {
             </Button> */}
             <Button
               positive
-              onClick={() =>
-                methods.setPageStep(ProcessCreationPageSteps.CENSUS)
-              }
+              onClick={handleContinue}
               large
-              disabled={true}
+              disabled={!metadataCompleted}
             >
               {i18n.t('action.continue')}
             </Button>
@@ -216,8 +214,7 @@ const AddQuestionImageContainer = styled.div`
 
 const BottomDiv = styled.div`
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-end;
 `
 
 const AddQuestionText = styled(SectionText)`

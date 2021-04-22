@@ -3,6 +3,7 @@ import { ProcessMetadata } from 'dvote-js'
 import { MetadataFields } from './metadata'
 import { IChoice, IQuestion } from './question-group'
 
+const MIN_CHOICE_LENGTH = 1
 const MIN_TITLE_LENGTH = 4
 const MIN_DESCRIPTION_LENGTH = 40
 
@@ -17,31 +18,48 @@ const descriptionValidator = (description: string): boolean =>
 const linkValidator = (link: string): boolean => linkRegexp.test(link)
 
 const choiceValidator = (choice: IChoice): boolean =>
-  choice.title.default.length >= MIN_TITLE_LENGTH && choice.value !== undefined
+  choice.title.default.length >= MIN_CHOICE_LENGTH && choice.value !== undefined
 
-const questionValidator = (question: IQuestion): boolean => {
-  // Guard non create questions
-  if (!question.title || !question.description || !question.choices) {
-    return false
+const questionValidator = (questions: IQuestion[]): boolean => {
+  const validateQuestion = (question: IQuestion) => {
+    const questionIsValid =
+      question.title.default.length >= MIN_TITLE_LENGTH ||
+      question.description.default.length >= MIN_DESCRIPTION_LENGTH
+
+    const invalidChoices = question.choices.filter(
+      (choice: IChoice) => !choiceValidator(choice)
+    )
+
+    return questionIsValid && invalidChoices.length === 0
   }
 
-  const questionIsValid = question.title.default.length >= MIN_TITLE_LENGTH || question.description.default.length >= MIN_DESCRIPTION_LENGTH
-  const invalidChoices = question.choices.filter((choice: IChoice) => !choiceValidator(choice))
-  
-  return !questionIsValid || invalidChoices.length > 0
+  for (let iterateQuestion of questions) {
+    // Guard non create questions
+    if (
+      !iterateQuestion.title ||
+      !iterateQuestion.description ||
+      !iterateQuestion.choices
+    ) {
+      return false
+    }
+
+    if (!validateQuestion(iterateQuestion)) {
+      return false
+    }
+  }
+
+  return true
 }
 
-type ErrorFields = Map<string, string>
+export type ErrorFields = Map<string, string>
 
 interface IValidation {
   argument: any
   validator: (arg) => boolean
 }
 
-const validateFields = (
-  validations: Map<string, IValidation>
-): ErrorFields => {
-  let errorFields: ErrorFields  = new Map();
+const validateFields = (validations: Map<string, IValidation>): ErrorFields => {
+  let errorFields: ErrorFields = new Map()
 
   validations.forEach((validation: IValidation, key: string) => {
     if (!validation.validator(validation.argument)) {
@@ -74,14 +92,14 @@ export const validateMetadata = (metadata: ProcessMetadata): ErrorFields => {
     [
       MetadataFields.Title,
       {
-        argument: metadata.title,
+        argument: metadata.title.default,
         validator: titleValidator,
       },
     ],
     [
       MetadataFields.Description,
       {
-        argument: metadata.description,
+        argument: metadata.description.default,
         validator: descriptionValidator,
       },
     ],
@@ -95,7 +113,7 @@ export const validateMetadata = (metadata: ProcessMetadata): ErrorFields => {
     [
       MetadataFields.ForumLink,
       {
-        argument: metadata.media[MetadataFields.PdfLink],
+        argument: metadata.media[MetadataFields.ForumLink],
         validator: linkValidator,
       },
     ],
