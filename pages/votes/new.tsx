@@ -35,7 +35,7 @@ const WizardSteps = () => {
   const stepTitles = Object.values(ProcessCreationPageStepTitles)
   const { pageStep } = useProcessCreation()
 
-  return <Steps steps={stepTitles} activeIdx={pageStep} />
+  return <Steps steps={stepTitles} activeIdx={pageStep} showProgress={true}/>
 }
 
 export default NewVote

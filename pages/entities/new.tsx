@@ -34,7 +34,7 @@ const WizardSteps = () => {
   const stepTitles = Object.values(EntityCreationPageStepTitles)
   const { pageStep } = useEntityCreation()
 
-  return <Steps steps={stepTitles} activeIdx={pageStep} />
+  return <Steps steps={stepTitles} activeIdx={pageStep} showProgress={true} />
 }
 
 export default NewEntity
