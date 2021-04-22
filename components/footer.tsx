@@ -17,10 +17,10 @@ export const Footer = () => {
       </Link>
     </Section>
     <Section color={theme.lightText}>
-      {links.map(({ url, name }, i) => (
+      {links.map(({ url, name, external }, i) => (
         <div key={name}>
           <Link href={url} passHref>
-            <ClickableText target='_blank'>
+            <ClickableText target={external ? '_blank' : '_self'}>
               {name}
             </ClickableText>
           </Link>
@@ -56,9 +56,9 @@ const HomeLink = styled.a`
   cursor: pointer;
 
   & > img {
-    margin-top: -3px;
+    margin-top: -6px;
     margin-right: 20px;
-    height: 25px;
+    height: 35px;
   }
 `
 

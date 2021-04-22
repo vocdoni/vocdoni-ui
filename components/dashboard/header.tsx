@@ -9,6 +9,7 @@ import { Account } from '../../lib/types'
 import { Banner } from '../banners'
 import { Button } from '../button'
 import { Grid } from '../grid'
+import { Unless } from 'react-if'
 
 interface IDashboardHeaderProps {
   account?: Account
@@ -58,21 +59,19 @@ export const DashboardHeader = ({ account }: IDashboardHeaderProps) => {
         )}
         rightButton={createProposalButton}
         icon={accountImage}
-      >
-        {!account?.backupMnemonic && (
-          <Grid>
-            <Banner
-              title={i18n.t('dashboard.your_account_is_unsafe')}
-              subtitle={i18n.t(
-                'dashboard.if_you_lose_access_to_your_passphrase_you_will_not_be_able_to_manage_your_entity_anymore'
-              )}
-              icon={downloadImage}
-              rightButton={backupButton}
-              warning
-            />
-          </Grid>
-        )}
-      </Banner>
+      />
+
+      <Unless condition={account?.backupMnemonic}>
+        <Banner
+          title={i18n.t('dashboard.your_account_is_unsafe')}
+          subtitle={i18n.t(
+            'dashboard.if_you_lose_access_to_your_passphrase_you_will_not_be_able_to_manage_your_entity_anymore'
+          )}
+          icon={downloadImage}
+          rightButton={backupButton}
+          warning
+        />
+      </Unless>
     </Grid>
   )
 }
