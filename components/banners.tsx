@@ -33,7 +33,7 @@ export const Banner = (props: BannerProps) => <Column>
 // Styles
 
 const BannerDiv = styled.div<{ warning?: boolean }>`
-  padding: 32px;
+  padding: 24px;
   background: linear-gradient(106.26deg, ${({ theme, warning }) => warning ? theme.accentLight2B : theme.accentLight1B} 5.73%, ${({ theme, warning }) => warning ? theme.accentLight2 : theme.accentLight1} 93.83%);
   box-shadow: 0px 3px 3px rgba(180, 193, 228, 0.35);
   border-radius: 16px;
@@ -43,7 +43,7 @@ const BannerDiv = styled.div<{ warning?: boolean }>`
   }
 
   @media ${({theme})  => theme.screenMax.tabletL } {
-    padding: 24px;
+    padding: 18px;
   }
 `
 

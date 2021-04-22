@@ -178,7 +178,9 @@ const IndexPage = () => {
         <Banner warning title="Warning banner" subtitle="Banner subtitle here" rightButton={<Button negative width={180}>Click me</Button>} icon={<span>(icon)</span>} />
         <Banner title="Container banner" subtitle="Banner subtitle here" rightButton={<Button positive width={180}>Click me</Button>} icon={<span>(icon)</span>}>
           <Grid>
-            <Banner warning title="Nested banner" subtitle="Banner subtitle here" rightButton={<Button negative width={180}>Click me</Button>} icon={<span>(icon)</span>} />
+            <Card md={4}>Nested</Card>
+            <Card md={4}>Content</Card>
+            <Card md={4}>Here</Card>
           </Grid>
         </Banner>
       </Grid>
