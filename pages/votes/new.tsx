@@ -17,7 +17,7 @@ const NewVote = () => {
         <Grid>
           <Column span={6}>
             <MainTitle>{i18n.t("vote.new_vote")}</MainTitle>
-            <MainDescription>{i18n.t("vote.enter_the_details_of_the_porposal")}</MainDescription>
+            <MainDescription>{i18n.t("vote.enter_the_details_of_the_proposal")}</MainDescription>
           </Column>
           <Column span={6}>
             <WizardSteps />

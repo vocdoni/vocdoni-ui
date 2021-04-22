@@ -33,6 +33,7 @@
     "filesize": "^6.2.2",
     "hamburger-react": "^2.4.0",
     "i18next": "^20.1.0",
+    "lodash": "^4.17.21",
     "moment": "^2.29.1",
     "next": "10.0.5",
     "react": "^17.0.1",

@@ -72,13 +72,9 @@
         "enter_the_url_or_upload_a_file": "",
         "remove_file": ""
     },
-    "links": {
-        "about": "",
-        "blog": "",
-        "dashboard": "",
-        "docs": "",
-        "pricing": "",
-        "support": ""
+    "process": {
+        "enter_the_details_of_the_process": "",
+        "new_process": ""
     },
     "sign_in": {
         "additional_entities": "",
@@ -97,6 +93,8 @@
     },
     "vote": {
         "active_vote": "",
+        "add_new_question": "",
+        "add_option": "",
         "brief_description": "",
         "creation": "",
         "description": "",
@@ -109,6 +107,11 @@
         "new_vote": "",
         "options": "",
         "paused_vote": "",
+        "pdf_link": "",
+        "pdf_link_label": "",
+        "plus_icon_alt": "",
+        "question": "",
+        "set_option": "",
         "title": "",
         "who_can_vote": ""
     }

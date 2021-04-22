@@ -21,7 +21,9 @@
     "vote": {
         "vote_details": "",
         "enter_the_details_of_the_organization": "Enter the details of the organization",
-        "general": "General"
+        "general": "General",
+        "enter_the_details_of_the_porposal": "",
+        "pdf_ling": ""
     },
     "sign_in": {
         "select_the_account_to_use_and_enterr_your_passphrase": ""

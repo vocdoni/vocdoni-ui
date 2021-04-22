@@ -80,6 +80,10 @@
         "pricing": "Pricing",
         "support": "Support"
     },
+    "process": {
+        "enter_the_details_of_the_process": "Enter the details of the new process",
+        "new_process": "New process"
+    },
     "sign_in": {
         "additional_entities": "Additional entities",
         "continue": "Continue",
@@ -97,18 +101,26 @@
     },
     "vote": {
         "active_vote": "Active vote",
+        "add_new_question": "Add new question",
+        "add_option": "Add new option",
         "brief_description": "Brief description",
-        "creation": "",
+        "creation": "Creation",
         "description": "Description",
         "details": "Details",
         "ended_vote": "Ended vote",
-        "enter_the_details_of_the_porposal": "",
-        "enter_the_details_of_the_process": "",
-        "header": "",
-        "new_process": "",
+        "enter_the_details_of_the_proposal": "Enter the details of a new governance process",
+        "forum_link": "Forum link",
+        "forum_link_label": "Optional introduction",
+        "header": "New vote",
         "new_vote": "New vote",
-        "options": "",
+        "optional_introduction": "Optional introduction",
+        "options": "Option {{ number }}",
         "paused_vote": "Paused vote",
+        "pdf_link": "PDF link",
+        "pdf_link_label": "Optional introduction",
+        "plus_icon_alt": "Ad new question",
+        "question": "Question {{ number }}",
+        "set_option": "Set option",
         "title": "Title",
         "who_can_vote": "Who can vote"
     }

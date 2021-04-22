@@ -3,7 +3,9 @@ import Link from 'next/link'
 import { Column, ColumnProps } from './grid'
 import { Skeleton } from './skeleton'
 
-type CardProps = ColumnProps
+type CardProps = ColumnProps & {
+  border: boolean
+}
 
 type StatusCardProps = ColumnProps & {
   title: string
@@ -18,9 +20,9 @@ export const PageCard = styled.div`
   border-radius: 16px;
 `
 
-export const Card = ({ span, sm, md, lg, xl, ...props }: CardProps) => (
+export const Card = ({ span, sm, md, lg, xl, border, ...props }: CardProps) => (
   <Column {...{ span, sm, md, lg, xl }}>
-    <CardDiv>{props.children}</CardDiv>
+    <CardDiv border>{props.children}</CardDiv>
   </Column>
 )
 
@@ -62,9 +64,10 @@ export const StatusCard = ({
 
 // Styles
 
-const CardDiv = styled.div`
+const CardDiv = styled.div<{border?: boolean}>`
   padding: 11px 20px;
   background: ${(props) => props.theme.white};
+  border: ${({theme, border}) => border? `solid 2px ${theme.lightBorder}`: 'none'};
   box-shadow: 0px 3px 3px rgba(180, 193, 228, 0.35);
   border-radius: 16px;
 `

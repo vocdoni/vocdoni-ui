@@ -46,6 +46,9 @@ export interface Colors {
   /** Main negative background color (light) */
   accentLight2B: Color;
 
+  /** Error color */
+  danger: Color;
+
   white: Color;
   darkFg: Color;
   darkMidFg: Color;

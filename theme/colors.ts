@@ -28,6 +28,7 @@ export const colors: Colors = {
 
   accentLight2: "#FFE0E0",
   accentLight2B: "#FFFEDE",
+  danger: "#ce2020",
 
   white: "white",
   darkFg: "#333",

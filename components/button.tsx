@@ -20,6 +20,7 @@ type ButtonProps = {
     border?: boolean,
     wide?: boolean,
     width?: number,
+    justify?: JustifyContent,
     /** Text color to use (either a HEX color or "accent1" "accent2") */
     color?: ButtonColor | string,
     icon?: React.ReactNode,
@@ -28,14 +29,14 @@ type ButtonProps = {
     onClick?: (ev: React.MouseEvent<HTMLDivElement, MouseEvent>) => void
 }
 
-export const Button = ({ disabled, positive, negative, color, href, onClick, width, icon, wide, border, verticalAlign, large, small, children }: ButtonProps) => {
+export const Button = ({ disabled, positive, negative, color, href, onClick, width, icon, wide, border, justify, verticalAlign, large, small, children }: ButtonProps) => {
     let component: JSX.Element
 
     if (disabled) {
         return <DisabledButton wide={wide} large={large} small={small} width={width} onClick={ev => (onClick && !disabled) ? onClick(ev) : null}>
             {icon ?
-                <ButtonContent color={theme.darkLightFg}>{icon}&nbsp;{children}</ButtonContent> :
-                <ButtonContent color={theme.darkLightFg} verticalAlign={verticalAlign}>{children}</ButtonContent>
+                <ButtonContent color={theme.darkLightFg} justify={justify}>{icon}&nbsp;{children}</ButtonContent> :
+                <ButtonContent color={theme.darkLightFg} verticalAlign={verticalAlign} justify={justify}>{children}</ButtonContent>
             }
         </DisabledButton>
     }
@@ -43,24 +44,24 @@ export const Button = ({ disabled, positive, negative, color, href, onClick, wid
     if (positive) {
         component = <PositiveButton wide={wide} large={large} small={small} width={width} onClick={ev => (onClick && !disabled) ? onClick(ev) : null}>
             {icon ?
-                <ButtonContent color={theme.white}>{icon}&nbsp;{children}</ButtonContent> :
-                <ButtonContent color={theme.white} verticalAlign={verticalAlign}>{children}</ButtonContent>
+                <ButtonContent color={theme.white} justify={justify}>{icon}&nbsp;{children}</ButtonContent> :
+                <ButtonContent color={theme.white} verticalAlign={verticalAlign} justify={justify}>{children}</ButtonContent>
             }
         </PositiveButton>
     }
     else if (negative) {
         component = <NegativeButton wide={wide} large={large} small={small} width={width} onClick={ev => (onClick && !disabled) ? onClick(ev) : null}>
             {icon ?
-                <ButtonContent color={theme.white}>{icon}&nbsp;{children}</ButtonContent> :
-                <ButtonContent color={theme.white} verticalAlign={verticalAlign}>{children}</ButtonContent>
+                <ButtonContent color={theme.white} justify={justify}>{icon}&nbsp;{children}</ButtonContent> :
+                <ButtonContent color={theme.white} verticalAlign={verticalAlign} justify={justify}>{children}</ButtonContent>
             }
         </NegativeButton>
     }
     else {
         component = <DefaultButton wide={wide} border={border} large={large} small={small} width={width} onClick={ev => (onClick && !disabled) ? onClick(ev) : null}>
             {icon ?
-                <ButtonContent color={color}>{icon}&nbsp;{children}</ButtonContent> :
-                <ButtonContent color={color} verticalAlign={verticalAlign}>{children}</ButtonContent>
+                <ButtonContent color={color} justify={justify}>{icon}&nbsp;{children}</ButtonContent> :
+                <ButtonContent color={color} verticalAlign={verticalAlign} justify={justify}>{children}</ButtonContent>
             }
         </DefaultButton>
     }
@@ -148,10 +149,16 @@ background: linear-gradient(106.26deg, ${props => hexToRgbA(props.theme.accent2B
 }
 `
 
-const ButtonContent = styled.div<{ color?: ButtonProps["color"], verticalAlign?: boolean}>`
+export enum JustifyContent {
+    Left = 'left',
+    Right = 'right',
+    Center = 'center'
+}
+
+const ButtonContent = styled.div<{ color?: ButtonProps["color"], justify?: JustifyContent, verticalAlign?: boolean}>`
 display: flex;
 flex-direction: ${({verticalAlign}) => verticalAlign? 'column': 'row'};
-justify-content: center;
+justify-content: ${({justify}) => justify? justify: JustifyContent.Center};
 align-items: center;
 ${props => props.color == "positive" ? "color: " + props.theme.textAccent1 + ";" :
         props.color == "negative" ? "color: " + props.theme.textAccent2 + ";" :
