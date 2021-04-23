@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 
 import { useProcess } from '@vocdoni/react-hooks'
-import { useVoting } from '../../hooks/use-voting'
 import { Column, Grid } from '../grid'
 import { Input, Textarea } from '../inputs'
 import { checkValidProcessMetadata } from "dvote-js"
@@ -23,14 +22,9 @@ export const FormLogin = () => {
 
   const processInfo = useProcess(processId)
 
-  // const { } = useVoting()
   const { setAlertMessage } = useMessageAlert()
 
 
-
-  const onPreview = () => {
-    // TODO:
-  }
 
   const onContinue = () => {
     // TODO: Check for correctness
