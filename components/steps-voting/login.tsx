@@ -12,8 +12,12 @@ import { SectionText, SectionTitle, TextAlign } from '../text'
 import { useMessageAlert } from '../../hooks/message-alert'
 import { useUrlHash } from 'use-url-hash'
 import { Checkbox } from '@aragon/ui'
+import { useWallet } from '../../hooks/use-wallet'
+import { Wallet } from '@ethersproject/wallet'
+import { VOTING_AUTH_FORM_PATH } from "../../const/routes"
 
 export const FormLogin = () => {
+  const { wallet, setWallet } = useWallet({ voter: true })
   const processId = useUrlHash().slice(2) // Skip #/
   const invalidProcessId = !processId.match(/^0x[0-9a-fA-A]{64}$/)
 
@@ -33,6 +37,11 @@ export const FormLogin = () => {
     // TODO: at least one question
     // TODO: at least 2 choices each
 
+
+    // TODO: Set the voter wallet recovered
+    setWallet(Wallet.createRandom())
+
+    // TODO: Navigate to VOTING_AUTH_FORM_PATH + "#/<processID>"
   }
 
 
