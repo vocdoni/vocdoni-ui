@@ -4,15 +4,16 @@ import { createContext, ReactNode, useContext, useEffect, useMemo, useState } fr
 import { useWallet } from './use-wallet'
 import { Wallet } from 'ethers'
 import i18n from '../i18n'
-import { SendVotePageSteps } from '../components/steps-send-vote'
+import { VotingPageSteps } from '../components/steps-voting'
 import { extractDigestedPubKeyFromString, importedRowToString } from '../lib/util'
+import { StepperFunc } from '../lib/types'
 
 
-export interface SendVoteContext {
-  pageStep: SendVotePageSteps,
+export interface VotingContext {
+  pageStep: VotingPageSteps,
   processLoading: boolean,
   processError: string,
-  sendVoteError: string,
+  votingError: string,
 
   entityID: string,
   processID: string,
@@ -25,25 +26,22 @@ export interface SendVoteContext {
     setEntityAddress(id: string): void,
     setFields(fields: string[]): void,
     setFormValues(formValues: object): void,
+
+    ensureVoteDelivery: StepperFunc
   }
 }
 
-export const UseSendVoteContext = createContext<SendVoteContext>({ step: 0, methods: {} } as any)
+export const UseVotingContext = createContext<VotingContext>({ step: 0, methods: {} } as any)
 
-export const useSendVote = (entityID: string, processID: string) => {
-  const sendVoteCtx = useContext(UseSendVoteContext)
-  if (sendVoteCtx === null) {
-    throw new Error('useSendVote() can only be used on the descendants of <UseSendVoteProvider />,')
+export const useVoting = () => {
+  const votingCtx = useContext(UseVotingContext)
+  if (votingCtx === null) {
+    throw new Error('useVoting() can only be used on the descendants of <UsevotingProvider />,')
   }
-  const { methods } = sendVoteCtx
-  // TODO: how can I pass process ID to the provider code?
-  methods.setProcessID(processID)
-
-  return { ...sendVoteCtx, entityID, processID, }
+  return votingCtx
 }
 
-export const UseSendVoteProvider = ({ children }: { children: ReactNode }) => {
-
+export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
 
   // FORM DATA
   const [formID, setFormID] = useState<string>("")
@@ -77,17 +75,21 @@ export const UseSendVoteProvider = ({ children }: { children: ReactNode }) => {
         result.push(formValues[field])
       }
     }
+
+    // TODO: Normalize strings
+    // SEE https://github.com/vocdoni/protocol/discussions/19
+
     return extractDigestedPubKeyFromString(importedRowToString(result, entityAddress))
   }
 
-  const ensureWallet = () => {
-    if (wallet) {
-      // Already OK?
-      return Promise.resolve({ waitNext: false })
-    }
-    if (!entityAddress) return Promise.reject({ error: i18n.t('error.missing_entity_address') })
+  const ensureMerkleProof = () => {
+    // if (wallet) {
+    //   // Already OK?
+    //   return Promise.resolve({ waitNext: false })
+    // }
+    // if (!entityAddress) return Promise.reject({ error: i18n.t('error.missing_entity_address') })
 
-    if (processError) return Promise.reject({ error: i18n.t('error.cannot_load_process') })
+    // if (processError) return Promise.reject({ error: i18n.t('error.cannot_load_process') })
 
     return poolPromise.then(pool => {
       const { privKey, digestedHexClaim } = processFormValues()
@@ -109,13 +111,13 @@ export const UseSendVoteProvider = ({ children }: { children: ReactNode }) => {
 
   }
 
-  const ensureSendVote: () => {
+  const ensureVoteDelivery: StepperFunc = () => {
 
   }
 
 
   // RETURN VALUES
-  const value: SendVoteContext = {
+  const value: VotingContext = {
     processError,
     processLoading,
 
@@ -125,13 +127,15 @@ export const UseSendVoteProvider = ({ children }: { children: ReactNode }) => {
       setEntityAddress,
       setFields,
       setFormValues,
+
+      ensureVoteDelivery
     }
   }
 
 
   return (
-    <UseSendVoteContext.Provider value={value}>
+    <UseVotingContext.Provider value={value}>
       {children}
-    </UseSendVoteContext.Provider>
+    </UseVotingContext.Provider>
   )
 }

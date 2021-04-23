@@ -1,11 +1,11 @@
 import React from 'react'
 import { PageCard } from '../../components/cards'
 
-import { SendVotePageStep, SendVotePageStepTitles } from '../../components/steps-send-vote'
+import { VotingPageStep, VotingPageStepTitles } from '../../components/steps-voting'
 import { Column, Grid } from '../../components/grid'
 import { Steps } from '../../components/steps'
 import { MainTitle, MainDescription } from '../../components/text'
-import { useSendVote, UseSendVoteProvider } from '../../hooks/send-vote'
+import { useVoting, UseVotingProvider } from '../../hooks/use-voting'
 import i18n from '../../i18n'
 import { UseProcessProvider } from '@vocdoni/react-hooks'
 
@@ -13,7 +13,7 @@ import { UseProcessProvider } from '@vocdoni/react-hooks'
 const NewEntity = () => {
   return (
     <UseProcessProvider>
-      <UseSendVoteProvider>
+      <UseVotingProvider>
         <PageCard>
           <Grid>
             <Column span={5}>
@@ -25,18 +25,18 @@ const NewEntity = () => {
             </Column>
             <Column span={12}>
               {/* The actual step is rendered here */}
-              <SendVotePageStep />
+              <VotingPageStep />
             </Column>
           </Grid>
         </PageCard>
-      </UseSendVoteProvider>
+      </UseVotingProvider>
     </UseProcessProvider>
   )
 }
 
 const WizardSteps = () => {
-  const stepTitles = Object.values(SendVotePageStepTitles)
-  const { pageStep } = useSendVote()
+  const stepTitles = Object.values(VotingPageStepTitles)
+  const { pageStep } = useVoting()
 
   return <Steps steps={stepTitles} activeIdx={pageStep} showProgress={false} />
 }
