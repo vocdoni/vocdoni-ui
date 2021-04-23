@@ -25,9 +25,7 @@ export interface VotingContext {
     setFormID(id: string): void,
     setEntityAddress(id: string): void,
     setFields(fields: string[]): void,
-    setFormValues(formValues: object): void,
-
-    ensureVoteDelivery: StepperFunc
+    setFormValues(formValues: string[]): void,
   }
 }
 
@@ -52,7 +50,7 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
   const { process, error: processError, loading: processLoading } = useProcess(processID)
 
   // UI STATE
-  const { wallet, setWallet } = useWallet()
+  const { wallet, setWallet } = useWallet({ voter: true })
   const { poolPromise } = usePool()
 
   // UTIL
