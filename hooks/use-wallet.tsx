@@ -7,57 +7,68 @@ import { CREATE_PROPOSAL_PATH, DASHBOARD_PATH, SIGN_IN_PATH } from '../const/rou
 
 import i18n from '../i18n'
 
-const pathsRequiringWallet = [
+const pathsRequiringAdminWallet = [
   DASHBOARD_PATH,
   CREATE_PROPOSAL_PATH
 ]
 
-export const useWallet = () => {
+/** Provides the currently available wallet for the admin (by default) or for the voter otherwise  */
+export const useWallet = ({ voter }: { voter: boolean } = { voter: false }) => {
   const walletCtx = useContext(UseWalletContext)
   if (walletCtx === null) {
     throw new Error('useWallet() can only be used on the descendants of <UseWalletContextProvider />,')
   }
-  const { wallet, setWallet, checkingNeedsSignin } = walletCtx
+  const { adminWallet, voterWallet, setAdminWallet, setVoterWallet, checkingNeedsSignin } = walletCtx
 
-  /** Decrypts the private key and sets the current wallet from it */
+  /** Decrypts the private key and sets the current **ADMIN** wallet from it */
   const restoreEncryptedWallet = (encryptedMnemonic: string, hdPath: string, passphrase: string) => {
     try {
       const mnemonic = Symmetric.decryptString(encryptedMnemonic, passphrase)
-      setWallet(Wallet.fromMnemonic(mnemonic, hdPath))
+      setAdminWallet(Wallet.fromMnemonic(mnemonic, hdPath))
     }
     catch (err) {
       throw new Error(i18n.t("errors.invalid_passphrase"))
     }
   }
 
-  return { wallet, setWallet, checkingNeedsSignin, restoreEncryptedWallet }
+  if (voter) {
+    return { wallet: voterWallet, setWallet: setVoterWallet, checkingNeedsSignin, restoreEncryptedWallet }
+  }
+  else {
+    return { wallet: adminWallet, setWallet: setAdminWallet, checkingNeedsSignin, restoreEncryptedWallet }
+  }
 }
 
 // CONTEXT
 
 const UseWalletContext = createContext<{
   /** The wallet currently available for use */
-  wallet: Wallet,
+  adminWallet?: Wallet,
+  voterWallet?: Wallet,
   /** Whether the current route needs a wallet and a Loading message should be displayed */
   checkingNeedsSignin: boolean,
-  setWallet: (w: Wallet) => void
+  setAdminWallet: (w: Wallet) => void
+  setVoterWallet: (w: Wallet) => void
 }>({
-  wallet: null,
+  adminWallet: null,
+  voterWallet: null,
   checkingNeedsSignin: false,
-  setWallet: (_) => { },
+  setAdminWallet: (_) => { },
+  setVoterWallet: (_) => { },
 })
 
 export function UseWalletContextProvider({ children }) {
-  const [wallet, setWallet] = useState<Wallet>(null)
-  const router = useRouter();
+  const [adminWallet, setAdminWallet] = useState<Wallet>(null)
+  const [voterWallet, setVoterWallet] = useState<Wallet>(null)
+  const router = useRouter()
   const [checkingNeedsSignin, setCheckingNeedsSignin] = useState<boolean>(
-    () => pathRequiresSignin(router.pathname, wallet)
+    () => pathRequiresAdminSignin(router.pathname, adminWallet)
   )
 
   // Prevent accidental logout
   useEffect(() => {
     const beforeUnload = (e: BeforeUnloadEvent): void => {
-      if (wallet) {
+      if (adminWallet || voterWallet) {
         // Cancel the event
         e.preventDefault() // If you prevent default behavior in Mozilla Firefox prompt will always be shown
         // Chrome requires returnValue to be set
@@ -68,24 +79,24 @@ export function UseWalletContextProvider({ children }) {
     window.addEventListener("beforeunload", beforeUnload)
 
     return () => window.removeEventListener("beforeunload", beforeUnload)
-  }, [wallet])
+  }, [adminWallet, voterWallet])
 
   useEffect(() => {
-    if (pathRequiresSignin(router.pathname, wallet)) {
+    if (pathRequiresAdminSignin(router.pathname, adminWallet)) {
       // The current path requires an active wallet but there is none
       router.replace(SIGN_IN_PATH)
     } else if (checkingNeedsSignin) {
-      setCheckingNeedsSignin(false);
+      setCheckingNeedsSignin(false)
     }
-  }, [router.pathname, wallet])
+  }, [router.pathname, adminWallet])
 
-  return <UseWalletContext.Provider value={{ wallet, checkingNeedsSignin, setWallet }}>
+  return <UseWalletContext.Provider value={{ adminWallet, voterWallet, checkingNeedsSignin, setAdminWallet, setVoterWallet }}>
     {children}
   </UseWalletContext.Provider>
 }
 
 // HELPERS
 
-const pathRequiresSignin = (path: string, wallet: Wallet): boolean => (
-  pathsRequiringWallet.includes(path) && !wallet
+const pathRequiresAdminSignin = (path: string, wallet: Wallet): boolean => (
+  pathsRequiringAdminWallet.includes(path) && !wallet
 )

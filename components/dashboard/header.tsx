@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 import i18n from '../../i18n'
-import { FALLBACK_ACCOUNT_ICON } from '../../const/accoount'
+import { FALLBACK_ACCOUNT_ICON } from '../../const/account'
 import { CREATE_PROPOSAL_PATH } from '../../const/routes'
 import { Account } from '../../lib/types'
 
