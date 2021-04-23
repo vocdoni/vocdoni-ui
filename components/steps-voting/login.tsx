@@ -1,7 +1,7 @@
-import React, { ChangeEvent, Component, useState } from 'react'
-import { Checkbox } from '@aragon/ui'
+import React, { useState } from 'react'
 
-import { useSendVote } from '../../hooks/send-vote'
+import { useProcess } from '@vocdoni/react-hooks'
+import { useVoting } from '../../hooks/use-voting'
 import { Column, Grid } from '../grid'
 import { Input, Textarea } from '../inputs'
 import { checkValidProcessMetadata } from "dvote-js"
@@ -9,11 +9,17 @@ import i18n from '../../i18n'
 import { Button } from '../button'
 import styled from 'styled-components'
 import { SectionText, SectionTitle, TextAlign } from '../text'
-import { SendVotePageSteps } from '.'
 import { useMessageAlert } from '../../hooks/message-alert'
+import { useUrlHash } from 'use-url-hash'
+import { Checkbox } from '@aragon/ui'
 
 export const FormLogin = () => {
-  const { } = useSendVote()
+  const processId = useUrlHash().slice(2) // Skip #/
+  const invalidProcessId = !processId.match(/^0x[0-9a-fA-A]{64}$/)
+
+  const processInfo = useProcess(processId)
+
+  // const { } = useVoting()
   const { setAlertMessage } = useMessageAlert()
 
 
@@ -27,19 +33,34 @@ export const FormLogin = () => {
     // TODO: at least one question
     // TODO: at least 2 choices each
 
+  }
 
+
+  if (invalidProcessId) {
+    // TODO: Show invalid link info
+
+    return <Grid>
+      <Column>
+        <SectionTitle align={TextAlign.Center}>{i18n.t('vote.login_title')}</SectionTitle>
+        <SectionText align={TextAlign.Center}>
+          {i18n.t(
+            'vote.the_link_you_have_followed_is_not_valid'
+          )}
+        </SectionText>
+      </Column>
+    </Grid>
   }
 
   return (
     <Grid>
-      <div>
+      <Column>
         <SectionTitle align={TextAlign.Center}>{i18n.t('vote.login_title')}</SectionTitle>
         <SectionText align={TextAlign.Center}>
           {i18n.t(
             'vote.login_with_your_credentials_to_access_the_process'
           )}
         </SectionText>
-      </div>
+      </Column>
       {/* <Column>
         <SectionTitle bottomMargin>{i18n.t('vote.description')}</SectionTitle>
         <div>
