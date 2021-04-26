@@ -15,7 +15,31 @@ import { useMessageAlert } from '../../hooks/message-alert'
 import { useVoting } from '../../hooks/use-voting'
 
 const VotingPage = () => {
-  const { } = useVoting()
+  const {
+    pageStep,
+    actionStep,
+    pleaseWait,
+    actionError,
+    loadingInfoError,
+    invalidProcessId,
+    loadingInfo,
+    refreshingVotedStatus,
+    processInfo,
+
+    hasStarted,
+    hasEnded,
+    isInCensus,
+
+    canVote,
+    remainingTime,
+    allQuestionsChosen,
+    statusText,
+
+    isSubmitting,  // redundant
+    results,
+
+    methods
+  } = useVoting()
 
   return (
     <Grid>
