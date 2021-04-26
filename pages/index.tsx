@@ -7,6 +7,7 @@ import styled, { CSSProperties } from 'styled-components'
 import { Button } from '../components/button'
 import { useIsMobile } from '../hooks/use-window-size'
 import i18n from '../i18n'
+import { CREATE_ACCOUNT_PATH } from '../const/routes'
 
 const Head = styled.div`
   display: flex;
@@ -118,7 +119,7 @@ const IndexPage = () => {
         </LeftSection>
         {isMobile ? null : (
           <RightSection width='100%' textAlign='right'>
-            <Button positive href="/entities/new">{i18n.t("action.create_my_entity")}</Button>
+            <Button positive href={CREATE_ACCOUNT_PATH}>{i18n.t("action.create_my_entity")}</Button>
           </RightSection>
         )}
       </Row>

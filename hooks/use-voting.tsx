@@ -2,12 +2,9 @@ import { usePool, useProcess } from '@vocdoni/react-hooks'
 import { CensusOffChainApi } from 'dvote-js'
 import { createContext, ReactNode, useContext, useEffect, useMemo, useState } from 'react'
 import { useWallet } from './use-wallet'
-import { Wallet } from 'ethers'
 import i18n from '../i18n'
 import { VotingPageSteps } from '../components/steps-voting'
-import { extractDigestedPubKeyFromString, importedRowToString } from '../lib/util'
 import { StepperFunc } from '../lib/types'
-
 
 export interface VotingContext {
   pageStep: VotingPageSteps,
@@ -22,10 +19,7 @@ export interface VotingContext {
 
   methods: {
     setProcessID(id: string): void,
-    setFormID(id: string): void,
     setEntityAddress(id: string): void,
-    setFields(fields: string[]): void,
-    setFormValues(formValues: string[]): void,
   }
 }
 
@@ -42,9 +36,6 @@ export const useVoting = () => {
 export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
 
   // FORM DATA
-  const [formID, setFormID] = useState<string>("")
-  const [fields, setFields] = useState<string[]>([])
-  const [formValues, setFormValues] = useState({})
   const [entityAddress, setEntityAddress] = useState<string>("")
   const [processID, setProcessID] = useState<string>("")
   const { process, error: processError, loading: processLoading } = useProcess(processID)
@@ -54,31 +45,6 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
   const { poolPromise } = usePool()
 
   // UTIL
-
-  useEffect(() => {
-    setFields(formIDtoFieldNames(formID))
-  }, [formID])
-
-
-  // helper that extracts login fields
-  const formIDtoFieldNames = (id: string): string[] => {
-    return Buffer.from(id, 'base64').toString('utf8').split(',')
-  }
-
-  // hepler that converts form values to {privKey,digestebPubKey}
-  const processFormValues = () => {
-    const result: string[] = []
-    for (const field of fields) {
-      if (formValues[field]) {
-        result.push(formValues[field])
-      }
-    }
-
-    // TODO: Normalize strings
-    // SEE https://github.com/vocdoni/protocol/discussions/19
-
-    return extractDigestedPubKeyFromString(importedRowToString(result, entityAddress))
-  }
 
   const ensureMerkleProof = () => {
     // if (wallet) {
@@ -90,9 +56,7 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
     // if (processError) return Promise.reject({ error: i18n.t('error.cannot_load_process') })
 
     return poolPromise.then(pool => {
-      const { privKey, digestedHexClaim } = processFormValues()
-      const walletTemp = new Wallet(privKey)
-      setWallet(walletTemp)
+
       return CensusOffChainApi.generateProof(
         process.parameters.censusRoot,
         { key: digestedHexClaim },
@@ -121,10 +85,7 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
 
     methods: {
       setProcessID,
-      setFormID,
       setEntityAddress,
-      setFields,
-      setFormValues,
 
       ensureVoteDelivery
     }

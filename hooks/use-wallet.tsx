@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import { Wallet } from '@ethersproject/wallet'
 import { Symmetric } from 'dvote-js'
 
-import { CREATE_PROPOSAL_PATH, DASHBOARD_PATH, SIGN_IN_PATH } from '../const/routes'
+import { CREATE_PROPOSAL_PATH, DASHBOARD_PATH, ENTITY_SIGN_IN_PATH } from '../const/routes'
 
 import i18n from '../i18n'
 
@@ -84,7 +84,7 @@ export function UseWalletContextProvider({ children }) {
   useEffect(() => {
     if (pathRequiresAdminSignin(router.pathname, adminWallet)) {
       // The current path requires an active wallet but there is none
-      router.replace(SIGN_IN_PATH)
+      router.replace(ENTITY_SIGN_IN_PATH)
     } else if (checkingNeedsSignin) {
       setCheckingNeedsSignin(false)
     }
