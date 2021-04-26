@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { useRouter } from 'next/router'
 
 import i18n from '../../i18n'
-import { CREATE_ENTITY_PATH } from '../../const/routes'
+import { CREATE_ACCOUNT_PATH } from '../../const/routes'
 
 import { SectionTitle, SectionText, TextAlign } from '../text'
 import { Column, Grid } from '../grid'
@@ -20,7 +20,7 @@ export const SignInImport = ({ hasAccount }: SignInImportProps) => {
     : i18n.t('sign_in.import_an_account_or_create_a_new_entity')
 
   const gotToCreateEntity = () => {
-    router.push(CREATE_ENTITY_PATH)
+    router.push(CREATE_ACCOUNT_PATH)
   }
 
   return (

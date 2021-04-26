@@ -6,7 +6,7 @@ import Link from 'next/link'
 import i18n from '../../i18n'
 
 import { Account } from '../../lib/types'
-import { FORGOT_PASSPHRASE_PATH } from '../../const/routes'
+import { ENTITY_FORGOT_PASSPHRASE_PATH } from '../../const/routes'
 
 import { Fieldset } from '../form'
 import { Input, Select } from '../inputs'
@@ -84,7 +84,7 @@ export const SignInForm = ({ accounts, disabled, onSubmit }: SignInFormProps) =>
           />
         </FormGroup>
 
-        <Link href={FORGOT_PASSPHRASE_PATH}>
+        <Link href={ENTITY_FORGOT_PASSPHRASE_PATH}>
           {i18n.t('sign_in.forgot_your_password_restore_from_a_backup')}
         </Link>
 

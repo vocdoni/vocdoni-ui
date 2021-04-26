@@ -1,6 +1,5 @@
 import { useVoting } from "../../hooks/use-voting"
 import i18n from "../../i18n"
-import { FormLogin } from "./login"
 import { FormVote } from "./vote"
 
 export enum VotingPageSteps {

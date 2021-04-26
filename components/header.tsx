@@ -8,7 +8,7 @@ import { hexToRgbA } from '../lib/util'
 import { Else, If, Then, Unless } from 'react-if'
 import { Button } from './button'
 import { useWallet } from '../hooks/use-wallet'
-import { DASHBOARD_PATH, PRICING_PATH, ABOUT_PATH } from '../const/routes'
+import { DASHBOARD_PATH, ENTITY_SIGN_IN_PATH, PRICING_PATH, ABOUT_PATH } from '../const/routes'
 import i18n from '../i18n'
 
 export const LINKS: HeaderLink[] = [
@@ -65,7 +65,7 @@ export const LINKS: HeaderLink[] = [
 
 export const Header = () => {
   const { wallet } = useWallet()
-  const [showMenu, setShowMenu] = useState(false)
+  // const [showMenu, setShowMenu] = useState(false)
   const isMobile = useIsMobile()
   const links = wallet ? LINKS.filter(link => link.logged) : LINKS.filter(link => link.guest)
 
@@ -99,10 +99,10 @@ export const Header = () => {
         <RightContainer>
           <If condition={!!wallet}>
             <Then>
-              <Button positive small href="/dashboard">{i18n.t("links.dashboard")}</Button>
+              <Button positive small href={DASHBOARD_PATH}>{i18n.t("links.dashboard")}</Button>
             </Then>
             <Else>
-              <Button positive small href="/login">{i18n.t("action.sign_in")}</Button>
+              <Button positive small href={ENTITY_SIGN_IN_PATH}>{i18n.t("action.sign_in")}</Button>
             </Else>
           </If>
         </RightContainer>
