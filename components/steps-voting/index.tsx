@@ -1,6 +1,6 @@
 import { useVoting } from "../../hooks/use-voting"
 import i18n from "../../i18n"
-import { FormVote } from "./vote"
+import VotingPage from "./main"
 
 export enum VotingPageSteps {
   // LOGIN = 0,
@@ -17,7 +17,7 @@ export const VotingPageStep = () => {
 
   switch (pageStep) {
     // case VotingPageSteps.LOGIN: return <FormLogin />
-    case VotingPageSteps.VOTE: return <FormVote />
+    case VotingPageSteps.VOTE: return <VotingPage />
   }
   return null
 }

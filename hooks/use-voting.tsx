@@ -18,7 +18,6 @@ export interface VotingContext {
   pageStep: VotingPageSteps,
   loadingInfo: boolean,
   loadingInfoError: string,
-  votingError: string,
 
   processInfo: ProcessInfo,
 
@@ -30,6 +29,11 @@ export interface VotingContext {
   remainingTime: string,
   allQuestionsChosen: boolean,
   statusText: string,
+
+  invalidProcessId: boolean,
+  refreshingVotedStatus: boolean,
+  isSubmitting: boolean,
+  results: DigestedProcessResults,
 
   // sent: boolean,
 
@@ -381,11 +385,14 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
 
   // RETURN VALUES
   const value: VotingContext = {
+    pageStep: VotingPageSteps.VOTE,
     actionStep,
     pleaseWait,
     actionError: creationError,
     loadingInfoError,
+    invalidProcessId,
     loadingInfo,
+    refreshingVotedStatus,
     processInfo,
 
     hasStarted,
@@ -397,6 +404,9 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
     allQuestionsChosen,
     statusText,
 
+    isSubmitting,  // redundant
+    results,
+
     methods: {
       onSelect,
 
@@ -404,7 +414,6 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
       continueSubmitVote: doMainActionSteps
     }
   }
-
 
   return (
     <UseVotingContext.Provider value={value}>
