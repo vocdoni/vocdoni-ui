@@ -11,7 +11,7 @@ import { SectionText, SectionTitle, TextAlign } from '../../../../components/tex
 import { useMessageAlert } from '../../../../hooks/message-alert'
 import { useUrlHash } from 'use-url-hash'
 import { Checkbox } from '@aragon/ui'
-import { useWallet } from '../../../../hooks/use-wallet'
+import { useWallet, WalletRoles } from '../../../../hooks/use-wallet'
 import { Wallet } from '@ethersproject/wallet'
 import { VOTING_PATH } from "../../../../const/routes"
 import { useRouter } from 'next/router'
@@ -21,7 +21,7 @@ import { CensusOffChainApi } from 'dvote-js'
 const VoteAuthLogin = () => {
   const router = useRouter()
   const { poolPromise } = usePool()
-  const { wallet, setWallet } = useWallet({ voter: true })
+  const { wallet, setWallet } = useWallet({ role: WalletRoles.VOTER })
   const processId = useUrlHash().slice(2) // Skip #/
   const invalidProcessId = !processId.match(/^0x[0-9a-fA-A]{64}$/)
   const { loading, error, process: processInfo } = useProcess(processId)

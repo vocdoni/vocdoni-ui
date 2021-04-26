@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 import i18n from '../../i18n'
 
-import { CREATE_PROPOSAL_PATH } from '../../const/routes'
+import { CREATE_PROCESS_PATH } from '../../const/routes'
 import { Button } from '../button'
 
 import { Card } from '../cards'
@@ -20,7 +20,7 @@ export const DashboardCreateProposalCard = () => (
     </SectionText>
 
     <CreateProposalButtonContainer>
-      <Button href={CREATE_PROPOSAL_PATH} positive>
+      <Button href={CREATE_PROCESS_PATH} positive>
         {i18n.t('dashboard.create_proposal')}
       </Button>
     </CreateProposalButtonContainer>
