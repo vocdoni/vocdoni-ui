@@ -130,12 +130,13 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
     if (parameters.censusRoot && parameters.censusUri) return { waitNext: false } // next step
 
     const name = metadata.title.default + '_' + Math.floor(Date.now() / 1000)
+    const entityId = wallet.address
 
     // Process the CSV entries
     const claims = await Promise.all(spreadsheetData.map((row) => new Promise((resolve) => {
       setTimeout(() =>
         resolve({
-          key: extractDigestedPubKeyFromString(importedRowToString(row, wallet.address)).digestedHexClaim,
+          key: extractDigestedPubKeyFromString(importedRowToString(row, entityId)).digestedHexClaim,
         })
         , 50)
     }))) as { key: string, value?: string }[]
