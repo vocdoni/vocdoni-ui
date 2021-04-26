@@ -1,5 +1,5 @@
 import { CensusOffChainApi } from 'dvote-js'
-import { ethers } from 'ethers'
+import { ethers, Wallet } from 'ethers'
 import i18n from '../i18n'
 
 export const areAllNumbers = (slice: any[]) => {
@@ -64,12 +64,17 @@ export const importedRowToString = (row: string[], entityId: string): string => 
   return row.reduce((i, j) => { return i + j }) + entityId
 }
 
-export const extractDigestedPubKeyFromString = (data: string): { privKey: string, digestedHexClaim: string } => {
+export const digestedWalletFromString = (data: string): Wallet => {
   const bytes = ethers.utils.toUtf8Bytes(data)
   const hashed = ethers.utils.keccak256(bytes)
-  const tempWallet = new ethers.Wallet(hashed)
+  return new ethers.Wallet(hashed)
+}
+
+export const extractDigestedPubKeyFromString = (data: string): { privKey: string, digestedHexClaim: string } => {
+  const tempWallet = digestedWalletFromString(data)
+
   return {
-      privKey: tempWallet.privateKey,
-      digestedHexClaim: CensusOffChainApi.digestPublicKey(tempWallet.publicKey),
+    privKey: tempWallet.privateKey,
+    digestedHexClaim: CensusOffChainApi.digestPublicKey(tempWallet.publicKey),
   }
 }

@@ -5,21 +5,28 @@ import { useWallet, WalletRoles } from './use-wallet'
 import i18n from '../i18n'
 import { VotingPageSteps } from '../components/steps-voting'
 import { StepperFunc } from '../lib/types'
+import { useStepper } from './use-stepper'
 
 export interface VotingContext {
+  pleaseWait: boolean,
+  actionStep: number,
+  actionError?: string,
   pageStep: VotingPageSteps,
   processLoading: boolean,
-  processError: string,
+  processLoadingError: string,
   votingError: string,
 
   entityID: string,
   processID: string,
 
-  sent: boolean,
+  // sent: boolean,
 
   methods: {
     setProcessID(id: string): void,
     setEntityAddress(id: string): void,
+
+    submitVote: () => Promise<void>,
+    continueSubmitVote: () => Promise<void>
   }
 }
 
@@ -38,7 +45,7 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
   // FORM DATA
   const [entityAddress, setEntityAddress] = useState<string>("")
   const [processID, setProcessID] = useState<string>("")
-  const { process, error: processError, loading: processLoading } = useProcess(processID)
+  const { process, error: processLoadingError, loading: processLoading } = useProcess(processID)
 
   // UI STATE
   const { wallet, setWallet } = useWallet({ role: WalletRoles.VOTER })
@@ -46,48 +53,55 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
 
   // UTIL
 
-  const ensureMerkleProof = () => {
+  const ensureMerkleProof: StepperFunc = () => {
     // if (wallet) {
     //   // Already OK?
     //   return Promise.resolve({ waitNext: false })
     // }
     // if (!entityAddress) return Promise.reject({ error: i18n.t('error.missing_entity_address') })
 
-    // if (processError) return Promise.reject({ error: i18n.t('error.cannot_load_process') })
+    // if (processLoadingError) return Promise.reject({ error: i18n.t('error.cannot_load_process') })
 
-    return poolPromise.then(pool => {
+    return poolPromise
+      .then(pool => {
 
-      return CensusOffChainApi.generateProof(
-        process.parameters.censusRoot,
-        { key: digestedHexClaim },
-        true,
-        pool)
-    })
+        return CensusOffChainApi.generateProof(
+          process.parameters.censusRoot,
+          { key: digestedHexClaim },
+          true,
+          pool)
+      })
       .then(merkleProof => {
         if (merkleProof) return { waitNext: false }
         return { error: i18n.t('error.invalid_login') }
       })
-      .catch(error => {
-        console.error(error)
-      })
-
   }
 
   const ensureVoteDelivery: StepperFunc = () => {
 
   }
 
+  // Enumerate all the steps needed to create an entity
+  const creationStepFuncs = [ensureMerkleProof, ensureVoteDelivery]
+
+  const creationStepper = useStepper(creationStepFuncs, 0)
+  const { actionStep, pleaseWait, creationError, doMainActionSteps } = creationStepper
+
 
   // RETURN VALUES
   const value: VotingContext = {
-    processError,
+    actionStep,
+    pleaseWait,
+    actionError: creationError,
+    processLoadingError,
     processLoading,
 
     methods: {
       setProcessID,
       setEntityAddress,
 
-      ensureVoteDelivery
+      submitVote: doMainActionSteps,
+      continueSubmitVote: doMainActionSteps
     }
   }
 
