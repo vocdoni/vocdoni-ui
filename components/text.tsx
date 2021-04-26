@@ -18,6 +18,10 @@ export enum TextAlign {
   Right = 'right',
 }
 
+export enum TextSize {
+  Small = '14px',
+  Regular = '18px'
+}
 
 // SECTION
 
@@ -30,10 +34,10 @@ ${({ topMargin }) => topMargin ? "" : "margin-top: 0;"}
 ${({ bottomMargin }) => bottomMargin ? "" : "margin-bottom: 0;"}
 `
 
-export const SectionText = styled.p<{align?: TextAlign}>`
+export const SectionText = styled.p<{align?: TextAlign, size?: TextSize}>`
 font-weight: 400;
-font-size: 18px;
 line-height: 1.3em;
+font-size: ${({size}) => size? size: TextSize.Regular};
 text-align: ${({align}) => align ? align : TextAlign.Left}
 `
 

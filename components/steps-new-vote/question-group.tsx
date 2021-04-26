@@ -67,9 +67,9 @@ export const QuestionGroup = ({
     onUpdateQuestion(index, clonedQuestion)
   }
 
-  const handleDeleteQuestion = (index: number) => {
+  const handleDeleteQuestion = (choiceIndex: number) => {
     const clonedQuestion: IQuestion = cloneDeep(question)
-    clonedQuestion.choices.splice(index, 1)
+    clonedQuestion.choices.splice(choiceIndex, 1)
 
     onUpdateQuestion(index, clonedQuestion)
   }

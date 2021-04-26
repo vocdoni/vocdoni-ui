@@ -23,13 +23,14 @@ type ButtonProps = {
     justify?: JustifyContent,
     /** Text color to use (either a HEX color or "accent1" "accent2") */
     color?: ButtonColor | string,
+    borderColor?: ButtonColor | string,
     icon?: React.ReactNode,
     children?: React.ReactNode
     href?: string
     onClick?: (ev: React.MouseEvent<HTMLDivElement, MouseEvent>) => void
 }
 
-export const Button = ({ disabled, positive, negative, color, href, onClick, width, icon, wide, border, justify, verticalAlign, large, small, children }: ButtonProps) => {
+export const Button = ({ disabled, positive, negative, color, href, onClick, width, icon, wide, border, borderColor, justify, verticalAlign, large, small, children }: ButtonProps) => {
     let component: JSX.Element
 
     if (disabled) {
@@ -58,7 +59,7 @@ export const Button = ({ disabled, positive, negative, color, href, onClick, wid
         </NegativeButton>
     }
     else {
-        component = <DefaultButton wide={wide} border={border} large={large} small={small} width={width} onClick={ev => (onClick && !disabled) ? onClick(ev) : null}>
+        component = <DefaultButton wide={wide} border={border} borderColor={borderColor} large={large} small={small} width={width} onClick={ev => (onClick && !disabled) ? onClick(ev) : null}>
             {icon ?
                 <ButtonContent color={color} justify={justify}>{icon}&nbsp;{children}</ButtonContent> :
                 <ButtonContent color={color} verticalAlign={verticalAlign} justify={justify}>{children}</ButtonContent>
@@ -81,7 +82,7 @@ export const SquareButton = ({ icon, children, width, disabled, onClick }: Butto
     </Button>
 )
 
-const BaseButton = styled.div<{ wide?: boolean, large?: boolean, small?: boolean, width?: number, border?: boolean }>`
+const BaseButton = styled.div<{ wide?: boolean, large?: boolean, small?: boolean, width?: number, border?: boolean, borderColor?: ButtonColor | string }>`
 ${props => props.wide ? "" : "display: inline-block;"}
 ${props => props.width != undefined ? "width: " + props.width + "px;" : ""}
 ${props => props.large ? "padding: 13px 25px;" :
@@ -106,7 +107,7 @@ cursor: no-drop;
 
 const DefaultButton = styled(BaseButton)`
 cursor: pointer;
-${({ border, theme }) => border ? "border: 2px solid " + theme.lightBorder + ";" : ""}
+${({ border, borderColor, theme }) => border ? "border: 2px solid " + (borderColor? borderColor: theme.lightBorder)+ ";" : ""}
 background: ${props => props.theme.white};
 
 // Compensate 2px border (if applicable)

@@ -4,11 +4,54 @@ import { margins, screenMin, screenMax } from './sizes'
 
 export const FixedGlobalStyle = createGlobalStyle`
 
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 100;
+  src: local('Manrope'), url('/fonts/manrope/static/manrope-extra-light.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Manrope'), url('/fonts/manrope/static/manrope-light.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Manrope'), url('/fonts/manrope/static/manrope-regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 500;
+  src: local('Manrope'), url('/fonts/manrope/static/manrope-medium.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 600;
+  src: local('Manrope'), url('/fonts/manrope/static/manrope-semi-bold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Manrope'), url('/fonts/manrope/static/manrope-bold.ttf') format('truetype');
+}
+
+
 body {
   padding: 0;
   margin: 0;
   font-size: 14px;
-  font-family: 'Manrope', Arial, Helvetica, sans-serif !important;
+  font-family: 'Manrope', 'Roboto', Arial, Helvetica, sans-serif !important;
   background-color: ${({ theme }) => theme.background} !important;
   color: ${({ theme }) => theme.text};
 }

@@ -1,49 +1,76 @@
-import React, { ChangeEvent, Component, useState } from 'react'
-import { Checkbox } from '@aragon/ui'
+import React, { ChangeEvent, Component, useRef, useState } from 'react'
 
 import { useProcessCreation } from '../../hooks/process-creation'
-import { Column, Grid } from '../grid'
-
 import i18n from '../../i18n'
+
+import { Column, Grid } from '../grid'
 import { Button } from '../button'
 import styled from 'styled-components'
-import { SectionTitle } from '../text'
+
 import { ProcessCreationPageSteps } from '.'
+import {
+  OptionDateSelector,
+  IProcessPeriod,
+  RadioOptions,
+  addOffsetToDate,
+} from './options-date-selector'
+import {
+  OptionsResultsAvailability,
+  ResultsAvailability,
+} from './options-results-availability'
 
 export const FormOptions = () => {
-  const { metadata, parameters, methods } = useProcessCreation()
-
+  const { startDate, endDate, methods } = useProcessCreation()
+  const periodRef = useRef<IProcessPeriod>()
 
   const valid = () => {
-    // TODO:  if Start right await =>  startdate = now + 8 min
-
-    // TODO: Add more here
-    return true
+    return startDate && endDate
   }
 
   const onSubmit = () => {
-    // TODO: Validate, check, etc
+    methods.setEndDate(
+      periodRef.current.startOption === RadioOptions.StartDelayed
+        ? periodRef.current.start
+        : addOffsetToDate(new Date(), 8)
+    )
 
-    methods.createProcess() // Trigger the main action
+    methods.createProcess()
     methods.setPageStep(ProcessCreationPageSteps.CREATION)
   }
+
+  const handleChangeDate = (period: IProcessPeriod) => {
+    periodRef.current = period
+
+    methods.setStartDate(periodRef.current.start)
+    methods.setEndDate(periodRef.current.end)
+  }
+
+  const handleChangeAvailability = (availability: ResultsAvailability) => {}
 
   return (
     <Grid>
       <Column>
-        <SectionTitle>{i18n.t('vote.new_vote')}</SectionTitle>
+        <Grid>
+          <Column md={6} sm={12}>
+            <OptionDateSelector onChangeDate={handleChangeDate} />
+          </Column>
+
+          <Column md={6} sm={12}>
+            <OptionsResultsAvailability onChange={handleChangeAvailability} />
+          </Column>
+        </Grid>
       </Column>
+
       <Column>
         <BottomDiv>
-          <Button border onClick={() => methods.setPageStep(ProcessCreationPageSteps.CENSUS)}>
-            {i18n.t("action.go_back")}
-          </Button>
           <Button
-            positive
-            onClick={() => onSubmit()}
-            disabled={!valid()}
+            border
+            onClick={() => methods.setPageStep(ProcessCreationPageSteps.CENSUS)}
           >
-            {i18n.t("action.continue")}
+            {i18n.t('action.go_back')}
+          </Button>
+          <Button positive onClick={() => onSubmit()} disabled={!valid()}>
+            {i18n.t('action.continue')}
           </Button>
         </BottomDiv>
       </Column>
@@ -52,7 +79,7 @@ export const FormOptions = () => {
 }
 
 const BottomDiv = styled.div`
-display: flex;
-flex-direction: row;
-justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 `

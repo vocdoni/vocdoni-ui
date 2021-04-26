@@ -70,7 +70,11 @@ export const digestedWalletFromString = (data: string): Wallet => {
   return new ethers.Wallet(hashed)
 }
 
-export const extractDigestedPubKeyFromString = (data: string): { privKey: string, digestedHexClaim: string } => {
+export type ProcessKey = {
+  privKey: string,
+  digestedHexClaim: string
+}
+export const extractDigestedPubKeyFromString = (data: string): ProcessKey => {
   const tempWallet = digestedWalletFromString(data)
 
   return {

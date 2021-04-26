@@ -30,7 +30,7 @@ export interface ProcessCreationContext {
   metadata: ProcessMetadata,
   parameters: ProcessContractParameters,
   pageStep: ProcessCreationPageSteps,
-
+  actionStep: number,
   processId: string,
   created: boolean,
   pleaseWait: boolean,
@@ -67,6 +67,7 @@ export interface ProcessCreationContext {
     setMaxValue: (maxValue: number) => void,
     setMaxVoteOverwrites: (maxVoteOverwrites: number) => void,
     setStringMetadata: (metadataOrigin: string) => void,
+    setSpreadsheetData: (data: string[][]) => void,
     setHeaderFile,
     setHeaderURL,
     setStartRightAway,
@@ -271,6 +272,7 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
     processId,
     pageStep,
     created: actionStep >= creationStepFuncs.length,
+    actionStep: actionStep,
     pleaseWait,
     creationError,
     headerFile,
@@ -283,6 +285,7 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
     methods: {
       ...metadataMethods,
       ...paramsMethods,
+      setSpreadsheetData,
       setHeaderFile,
       setHeaderURL,
       setStartRightAway,

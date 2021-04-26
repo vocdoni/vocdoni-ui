@@ -26,6 +26,7 @@ export const Input = styled.input<IInputProps>`
 export type Textarea = typeof Textarea
 export const Textarea = styled.textarea<IInputProps>`
   padding: 11px;
+  font-family: 'Manrope', 'Roboto', Arial, Helvetica, sans-serif !important;
   margin-top: 8px;
   border: 2px solid #eff1f7;
   box-sizing: border-box;

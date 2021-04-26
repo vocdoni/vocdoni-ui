@@ -42,10 +42,6 @@ export const FormMetadata = () => {
   }
 
   const handleContinue = () => {
-    // TODO: Check for correctness
-    // TODO: at least one question
-    // TODO: at least 2 choices each
-
     try {
       const validatedMeta = checkValidProcessMetadata(metadata)
       methods.setRawMetadata(validatedMeta)
@@ -62,14 +58,14 @@ export const FormMetadata = () => {
   }
 
   const handleCreateQuestion = () => {
-    const newQuestions = cloneDeep(metadata.questions)
+    const newQuestions = [...metadata.questions]
     newQuestions.push(createEmptyQuestion())
 
     methods.setQuestions(newQuestions)
   }
 
   const handleDeleteQuestion = (index) => {
-    const newQuestions = cloneDeep(metadata.questions)
+    const newQuestions = [...metadata.questions]
     newQuestions.splice(index, 1)
 
     methods.setQuestions(newQuestions)

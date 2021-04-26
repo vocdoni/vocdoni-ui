@@ -23,7 +23,7 @@ const choiceValidator = (choice: IChoice): boolean =>
 const questionValidator = (questions: IQuestion[]): boolean => {
   const validateQuestion = (question: IQuestion) => {
     const questionIsValid =
-      question.title.default.length >= MIN_TITLE_LENGTH ||
+      question.title.default.length >= MIN_TITLE_LENGTH &&
       question.description.default.length >= MIN_DESCRIPTION_LENGTH
 
     const invalidChoices = question.choices.filter(
