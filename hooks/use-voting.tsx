@@ -1,7 +1,7 @@
 import { usePool, useProcess } from '@vocdoni/react-hooks'
 import { CensusOffChainApi } from 'dvote-js'
 import { createContext, ReactNode, useContext, useEffect, useMemo, useState } from 'react'
-import { useWallet } from './use-wallet'
+import { useWallet, WalletRoles } from './use-wallet'
 import i18n from '../i18n'
 import { VotingPageSteps } from '../components/steps-voting'
 import { StepperFunc } from '../lib/types'
@@ -41,7 +41,7 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
   const { process, error: processError, loading: processLoading } = useProcess(processID)
 
   // UI STATE
-  const { wallet, setWallet } = useWallet({ voter: true })
+  const { wallet, setWallet } = useWallet({ role: WalletRoles.VOTER })
   const { poolPromise } = usePool()
 
   // UTIL
