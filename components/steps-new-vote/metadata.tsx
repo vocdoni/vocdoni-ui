@@ -33,7 +33,7 @@ export const FormMetadata = () => {
     headerURL,
     headerFile,
     metadata,
-    parameters,
+    meta,
     methods,
   } = useProcessCreation()
   const { setAlertMessage } = useMessageAlert()
@@ -94,6 +94,7 @@ export const FormMetadata = () => {
             title={i18n.t('vote.new_vote')}
             label={i18n.t('vote.title')}
             placeholder={i18n.t('vote.title')}
+            value={metadata.title.default}
             id={MetadataFields.Title}
             onChange={(e: ChangeEvent<HTMLInputElement>) =>
               methods.setTitle(e.target.value)
@@ -133,6 +134,7 @@ export const FormMetadata = () => {
             label={i18n.t('vote.pdf_link_label')}
             placeholder={i18n.t('vote.pdf_link')}
             id={MetadataFields.PdfLink}
+            value={metadata.meta[MetadataFields.PdfLink]}
             onChange={(event: ChangeEvent<HTMLInputElement>) => {
               handleMeta(MetadataFields.PdfLink, event.target.value)
             }}
@@ -145,6 +147,7 @@ export const FormMetadata = () => {
             label={i18n.t('vote.forum_link_label')}
             placeholder={i18n.t('vote.forum_link')}
             id={MetadataFields.ForumLink}
+            value={metadata.meta[MetadataFields.ForumLink]}
             onChange={(event: ChangeEvent<HTMLInputElement>) =>
               handleMeta(MetadataFields.ForumLink, event.target.value)
             }

@@ -14,24 +14,17 @@ import { XlsReader } from '../../lib/xls-reader'
 import { CensusFileData } from './census-file-data'
 
 export const FormCensus = () => {
-  const [fileName, setFileName] = useState<string | null>(null)
-  const [parsingData, setParsingData] = useState<boolean>(false)
-  const { methods } = useProcessCreation()
-  const xlsRef = useRef<XlsReader>()
+  const { methods, spreadSheetReader } = useProcessCreation()
 
-  const handleOnXlsUpload = (xls: XlsReader) => {
-    xlsRef.current = xls
-    setFileName(xls.file.name)
+  const handleOnXlsUpload = (spreadSheet: XlsReader) => {
+    methods.setSpreadSheetReader(spreadSheet)
   }
 
   const handleOnChangeXls = () => {
-    xlsRef.current = undefined
-    setFileName(null)
+    methods.setSpreadSheetReader(null)
   }
 
   const handleContinue = () => {
-    setParsingData(true)
-    methods.setSpreadsheetData(xlsRef.current.data)
     methods.setPageStep(ProcessCreationPageSteps.OPTIONS)
   }
   
@@ -45,12 +38,12 @@ export const FormCensus = () => {
       </Column>
 
       <Column>
-        <CensusContainer disabled={parsingData}>
-          {fileName ? (
+        <CensusContainer>
+          {spreadSheetReader ? (
             <CensusFileData
-              fileName={xlsRef.current.file.name}
-              fileHeaders={xlsRef.current.header}
-              censusSize={xlsRef.current.data.length}
+              fileName={spreadSheetReader.file.name}
+              fileHeaders={spreadSheetReader.header}
+              censusSize={spreadSheetReader.data.length}
               onChangeFile={handleOnChangeXls}
             />
           ) : (
@@ -75,7 +68,7 @@ export const FormCensus = () => {
           >
             {i18n.t('action.go_back')}
           </Button>
-          <Button positive onClick={handleContinue} disabled={!fileName}>
+          <Button positive onClick={handleContinue} disabled={!spreadSheetReader}>
             {i18n.t('action.continue')}
           </Button>
         </BottomDiv>

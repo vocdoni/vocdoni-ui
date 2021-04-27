@@ -25,6 +25,7 @@ import { useStepper } from './use-stepper'
 import { useWallet } from './use-wallet'
 import moment from 'moment'
 import { isUri } from '../lib/regex'
+import { XlsReader } from '../lib/xls-reader'
 
 export interface ProcessCreationContext {
   metadata: ProcessMetadata,
@@ -40,6 +41,7 @@ export interface ProcessCreationContext {
   startRightAway: boolean,
   startDate: Date,
   endDate: Date,
+  spreadSheetReader,
   methods: {
     setPageStep: (s: ProcessCreationPageSteps) => void,
 
@@ -67,7 +69,7 @@ export interface ProcessCreationContext {
     setMaxValue: (maxValue: number) => void,
     setMaxVoteOverwrites: (maxVoteOverwrites: number) => void,
     setStringMetadata: (metadataOrigin: string) => void,
-    setSpreadsheetData: (data: string[][]) => void,
+    setSpreadSheetReader: (metadata: XlsReader) => void ,
     setHeaderFile,
     setHeaderURL,
     setStartRightAway,
@@ -95,7 +97,7 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
   const [processId, setProcessId] = useState("")
   const { metadata, methods: metadataMethods } = useProcessMetadata()
   const { parameters, methods: paramsMethods } = useProcessParameters()
-  const [spreadsheetData, setSpreadsheetData] = useState<string[][]>()
+  const [ spreadSheetReader, setSpreadSheetReader ] = useState<XlsReader>()
   const [headerFile, setHeaderFile] = useState<File>()
   const [headerURL, setHeaderURL] = useState<string>('')
   const [startRightAway, setStartRightAway] = useState<boolean>(true)
@@ -134,6 +136,7 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
 
     const name = metadata.title.default + '_' + Math.floor(Date.now() / 1000)
     const entityId = wallet.address
+    const spreadsheetData = spreadSheetReader.data
 
     // Process the CSV entries
     const claims = await Promise.all(spreadsheetData.map((row) => new Promise((resolve) => {
@@ -284,10 +287,11 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
     endDate,
     metadata,
     parameters,
+    spreadSheetReader,
     methods: {
       ...metadataMethods,
       ...paramsMethods,
-      setSpreadsheetData,
+      setSpreadSheetReader,
       setHeaderFile,
       setHeaderURL,
       setStartRightAway,
