@@ -69,7 +69,7 @@ const HeaderText = styled(SectionTitle)`
 `
 
 const LoaderHeader = styled.div`
-  max-width: 500px;
+  max-width: 600px;
   margin: auto;
 `
 
