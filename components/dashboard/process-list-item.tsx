@@ -4,7 +4,7 @@ import { usePool } from '@vocdoni/react-hooks'
 import { GatewayPool } from 'dvote-js'
 
 import { ProcessInfo } from '../../lib/types'
-import { getRemainingDays } from '../../lib/date'
+import { getDaysUntilEnd } from '../../lib/date'
 
 import { VoteListItem, VoteStatusType } from '../list-items'
 import i18n from '../../i18n'
@@ -27,7 +27,7 @@ export const DashboardProcessListItem = ({
     poolPromise.then(async (pool: GatewayPool) => {
       switch (status) {
         case VoteStatusType.Active:
-          const remainDays = await getRemainingDays(process, pool)
+          const remainDays = await getDaysUntilEnd(process, pool)
 
           setEndDate(remainDays)
           break

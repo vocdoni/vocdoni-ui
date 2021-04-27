@@ -8,7 +8,7 @@ import { ProcessInfo, StepperFunc } from '../lib/types'
 import { useStepper } from './use-stepper'
 import { useUrlHash } from 'use-url-hash'
 import { useMessageAlert } from './message-alert'
-import { DateDiffType, strDateDiff } from '../lib/date'
+import { DateDiffType, localizedStrDateDiff } from '../lib/date'
 import { areAllNumbers, waitBlockFraction } from '../lib/util'
 
 export interface VotingContext {
@@ -79,7 +79,7 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
       if (skip) return
 
       Promise.all([
-        updateVoteStatus(),
+        updateEnvelopeStatus(),
         updateResults()
       ]).catch((err) =>
         console.error(err)
@@ -99,7 +99,7 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
 
   // Vote status
   useEffect(() => {
-    updateVoteStatus()
+    updateEnvelopeStatus()
   }, [wallet, nullifier])
 
   // Census status
@@ -172,7 +172,7 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
       })
   }
 
-  const updateVoteStatus = () => {
+  const updateEnvelopeStatus = () => {
     if (!processId || invalidProcessId || !nullifier) return
     setRefreshingVotedStatus(true)
 
@@ -221,7 +221,6 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
     if (!confirmed) return Promise.resolve({ error: i18n.t("errors.you_canceled_the_operation") })
     return Promise.resolve({})
   }
-
 
   const ensureCensusProof: StepperFunc = () => {
     if (censusProof) return Promise.resolve({})
@@ -281,7 +280,7 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
       // detached update
       setTimeout(() => {
         updateResults()
-        updateVoteStatus()
+        updateEnvelopeStatus()
       })
 
       setAlertMessage(i18n.t("vote.your_vote_has_been_successfully_registered"))
@@ -309,11 +308,10 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
 
   const canVote = processInfo && nullifier && isInCensus && !hasVoted && hasStarted && !hasEnded
 
-  // TODO: LOCALIZED strDateDiff
   const remainingTime = startDate
     ? hasStarted
-      ? strDateDiff(DateDiffType.End, endDate)
-      : strDateDiff(DateDiffType.Start, startDate)
+      ? localizedStrDateDiff(DateDiffType.End, endDate)
+      : localizedStrDateDiff(DateDiffType.Start, startDate)
     : ''
 
   let statusText: string = ''
