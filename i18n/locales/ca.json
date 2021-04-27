@@ -6,7 +6,6 @@
         "create_new_proposal": "",
         "go_back": "",
         "go_to_dashboard": "",
-        "preview_proposal": "",
         "retry": "",
         "sign_in": ""
     },
@@ -72,9 +71,13 @@
         "enter_the_url_or_upload_a_file": "",
         "remove_file": ""
     },
-    "process": {
-        "enter_the_details_of_the_process": "",
-        "new_process": ""
+    "links": {
+        "about": "",
+        "blog": "",
+        "dashboard": "",
+        "docs": "",
+        "pricing": "",
+        "support": ""
     },
     "sign_in": {
         "additional_entities": "",
@@ -109,14 +112,17 @@
         "drag_a_spreadsheet_containing_personal_information": "",
         "end_date": "",
         "ended_vote": "",
-        "enter_the_details_of_the_porposal": "",
         "enter_the_details_of_the_process": "",
+        "enter_the_details_of_the_proposal": "",
+        "forum_link": "",
+        "forum_link_label": "",
         "header": "",
-        "new_process": "",
         "import_the_list_of_voters": "",
         "invalid_file_type": "",
         "invalid_xls_file": "",
+        "new_process": "",
         "new_vote": "",
+        "optional_introduction": "",
         "options": "",
         "paused_vote": "",
         "pdf_link": "",
@@ -136,6 +142,8 @@
         "start_date": "",
         "start_on_a_specific_date": "",
         "start_right_away_5_minutes_from_now": "",
+        "stream_link": "",
+        "stream_link_label": "",
         "supported_formats_csv_xls_and_ods": "",
         "the_first_row_of_the_spreadsheet_will_be_used_as_the_name": "",
         "the_vote_will_end_at_the_given_time": "",

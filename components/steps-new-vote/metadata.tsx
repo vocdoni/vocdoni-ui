@@ -25,6 +25,7 @@ export enum MetadataFields {
   Description = 'process-description',
   PdfLink = 'pdf-url',
   ForumLink = 'forum-url',
+  StreamLink = 'stream-url',
   Question = 'process-question',
 }
 
@@ -33,7 +34,6 @@ export const FormMetadata = () => {
     headerURL,
     headerFile,
     metadata,
-    meta,
     methods,
   } = useProcessCreation()
   const { setAlertMessage } = useMessageAlert()
@@ -150,6 +150,21 @@ export const FormMetadata = () => {
             value={metadata.meta[MetadataFields.ForumLink]}
             onChange={(event: ChangeEvent<HTMLInputElement>) =>
               handleMeta(MetadataFields.ForumLink, event.target.value)
+            }
+          />
+        </Column>
+      </Grid>
+
+      <Grid>
+        <Column md={6} sm={12}>
+          <InputFormGroup
+            title={i18n.t('vote.stream_link')}
+            label={i18n.t('vote.stream_link_label')}
+            placeholder={i18n.t('vote.stream_link')}
+            id={MetadataFields.StreamLink}
+            value={metadata.meta[MetadataFields.StreamLink]}
+            onChange={(event: ChangeEvent<HTMLInputElement>) =>
+              methods.setMediaStreamURI(event.target.value)
             }
           />
         </Column>

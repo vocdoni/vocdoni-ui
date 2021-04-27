@@ -59,13 +59,13 @@ const IndexPage = () => {
         <Button width={300}>300px button</Button>
       </DivWithMarginChildren>
       <DivWithMarginChildren>
-        <SquareButton 
+        <SquareButton
           icon={<div style={{textAlign:'center'}}>(LOGO)</div>}
         >
           <p>Square button</p>
         </SquareButton>
       </DivWithMarginChildren>
-      
+
       <h1>Grid</h1>
       <p>A Grid can contain <code>Colum</code>, <code>Card</code> and <code>CardStatus</code></p>
 
@@ -227,10 +227,10 @@ const IndexPage = () => {
 
       <h1>Steps</h1>
       <div>
-        <Steps steps={["Step 1", "Step 2", "Step 3", "Step 4"]} activeIdx={0} />
-        <Steps steps={["Step 1", "Step 2", "Step 3", "Step 4"]} activeIdx={1} />
-        <Steps steps={["Step 1", "Step 2", "Step 3", "Step 4"]} activeIdx={2} />
-        <Steps steps={["Step 1", "Step 2", "Step 3", "Step 4"]} activeIdx={3} />
+        <Steps steps={["Step 1", "Step 2", "Step 3", "Step 4"]} activeIdx={0} showProgress={true} />
+        <Steps steps={["Step 1", "Step 2", "Step 3", "Step 4"]} activeIdx={1} showProgress={true} />
+        <Steps steps={["Step 1", "Step 2", "Step 3", "Step 4"]} activeIdx={2} showProgress={true} />
+        <Steps steps={["Step 1", "Step 2", "Step 3", "Step 4"]} activeIdx={3} showProgress={true} />
       </div>
 
       <h1>Input fields</h1>

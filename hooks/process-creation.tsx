@@ -48,6 +48,7 @@ export interface ProcessCreationContext {
     setTitle: (title: string) => void;
     setDescription: (description: string) => void;
     // setMedia: (media: ProcessMetadata["media"]) => void;
+    setMediaStreamURI: (streamUri: string) => void 
     setMetaFields: (values: {
       [k: string]: any;
     }) => void;

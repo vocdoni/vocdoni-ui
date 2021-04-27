@@ -4,6 +4,7 @@ import copy from 'copy-to-clipboard';
 
 import i18n from '../../i18n'
 import { colors } from '../../theme/colors'
+import { DASHBOARD_PATH } from '../../const/routes';
 
 import { Button } from '../button'
 import { FlexContainer, FlexJustifyContent } from '../flex'
@@ -12,7 +13,7 @@ import { SectionText, SectionTitle, TextAlign } from '../text'
 
 export const ProcessReady = () => {
   const voteUrl = 'https://plaza.vocdoni.net/vote/auth/#/0x1234567890'
-  
+
   const handleCopy = () => {
     copy(voteUrl)
   }
@@ -40,7 +41,7 @@ export const ProcessReady = () => {
       </LinkContainer>
 
       <BackButtonContainer justify={FlexJustifyContent.Center}>
-          <Button color={colors.textAccent1} border>
+          <Button color={colors.textAccent1} href={DASHBOARD_PATH} border>
             {i18n.t('vote.back_to_dashboard')}
           </Button>
       </BackButtonContainer>

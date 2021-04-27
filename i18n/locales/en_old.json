@@ -35,7 +35,11 @@
         "enter_the_details_of_the_organization": "Enter the details of the organization"
     },
     "action": {
-        "preview_proposal": ""
+        "preview_proposal": "Preview proposal"
     },
-    "this_is_the_form_that_your_community_will_need_to_fill_in_order_to_vote": ""
+    "this_is_the_form_that_your_community_will_need_to_fill_in_order_to_vote": "",
+    "process": {
+        "enter_the_details_of_the_process": "Enter the details of the new process",
+        "new_process": "New process"
+    }
 }
