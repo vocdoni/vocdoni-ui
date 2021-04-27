@@ -15,7 +15,9 @@ const titleValidator = (title: string): boolean =>
 const descriptionValidator = (description: string): boolean =>
   description.length >= MIN_DESCRIPTION_LENGTH
 
-const linkValidator = (link: string): boolean => linkRegexp.test(link)
+const linkValidator = (link: string): boolean =>  linkRegexp.test(link)
+
+const optionalLinkValidator = (link: string): boolean => (!link) ? true : linkRegexp.test(link)
 
 const choiceValidator = (choice: IChoice): boolean =>
   choice.title.default.length >= MIN_CHOICE_LENGTH && choice.value !== undefined
@@ -107,14 +109,14 @@ export const validateMetadata = (metadata: ProcessMetadata): ErrorFields => {
       MetadataFields.PdfLink,
       {
         argument: metadata.media[MetadataFields.PdfLink],
-        validator: linkValidator,
+        validator: optionalLinkValidator,
       },
     ],
     [
       MetadataFields.ForumLink,
       {
         argument: metadata.media[MetadataFields.ForumLink],
-        validator: linkValidator,
+        validator: optionalLinkValidator,
       },
     ],
     [

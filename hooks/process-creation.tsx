@@ -45,7 +45,7 @@ export interface ProcessCreationContext {
 
     setTitle: (title: string) => void;
     setDescription: (description: string) => void;
-    setMedia: (media: ProcessMetadata["media"]) => void;
+    // setMedia: (media: ProcessMetadata["media"]) => void;
     setMetaFields: (values: {
       [k: string]: any;
     }) => void;
@@ -108,7 +108,7 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
 
   const stepEnsureMedia: StepperFunc = () => {
     // Check if the metadata value is already updated
-    if (metadata.media.header) return Promise.resolve({ waitNext: false }) // next step
+    if (headerURL == metadata.media.header || !(headerFile || headerURL.length)) return Promise.resolve({ waitNext: false }) // next step
 
     return poolPromise
       .then(pool => {
@@ -117,7 +117,7 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
         return headerURL
       })
       .then(header => {
-        metadataMethods.setMedia({ header })
+        metadataMethods.setMediaHeader(header)
         return Promise.resolve({ waitNext: false })
       })
       .catch(err => {
@@ -128,7 +128,9 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
 
   const stepEnsureCensusCreated: StepperFunc = async () => {
     // TODO: Is it possible that the user re-uploads the spreadsheet? How this could be checked?
-    if (parameters.censusRoot && parameters.censusUri) return { waitNext: false } // next step
+    if ((parameters.censusRoot && parameters.censusRoot != defaultCensusRoot) &&
+      (parameters.censusUri && parameters.censusUri != defaultCensusUri))
+      return { waitNext: false } // next step
 
     const name = metadata.title.default + '_' + Math.floor(Date.now() / 1000)
     const entityId = wallet.address
@@ -151,7 +153,7 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
     const censusUri = await CensusOffChainApi.publishCensus(censusId, wallet, pool)
 
     // Update the state
-    paramsMethods.setCensusOrigin(new ProcessCensusOrigin(ProcessCensusOrigin.OFF_CHAIN_TREE))
+    // paramsMethods.setCensusOrigin(new ProcessCensusOrigin(ProcessCensusOrigin.OFF_CHAIN_TREE))
     paramsMethods.setCensusRoot(censusRoot)
     paramsMethods.setCensusUri(censusUri)
 
@@ -315,8 +317,14 @@ const useProcessMetadata = () => {
   const setDescription = (description: string) => {
     setRawMetadata({ ...metadata, description: { default: description } })
   }
-  const setMedia = (media: ProcessMetadata["media"]) => {
-    setRawMetadata({ ...metadata, media: { ...metadata.media, ...media } })
+  // const setMedia = (media: ProcessMetadata["media"]) => {
+  //   setRawMetadata({ ...metadata, media: { ...metadata.media, ...media } })
+  // }
+  const setMediaHeader = (header: string) => {
+    setRawMetadata({ ...metadata, media: { ...metadata.media, header } })
+  }
+  const setMediaStreamURI = (streamUri: string) => {
+    setRawMetadata({ ...metadata, media: { ...metadata.media, streamUri } })
   }
   const setMetaFields = (values: ({ [k: string]: any })) => {
     setRawMetadata({ ...metadata, meta: { ...metadata.meta, ...values } })
@@ -328,7 +336,9 @@ const useProcessMetadata = () => {
   const methods = {
     setTitle,
     setDescription,
-    setMedia,
+    // setMedia,s
+    setMediaHeader,
+    setMediaStreamURI,
     setMetaFields,
     setQuestions,
     setRawMetadata
@@ -336,8 +346,27 @@ const useProcessMetadata = () => {
   return { metadata, methods }
 }
 
+const defaultCensusRoot = "0x"
+const defaultCensusUri = "ipfs://"
+
 const useProcessParameters = () => {
-  const [parameters, setParameters] = useState<ProcessContractParameters>(() => new ProcessContractParameters())
+  const [parameters, setParameters] = useState<ProcessContractParameters>(() => ProcessContractParameters.fromParams({
+    startBlock: 0,
+    blockCount: 10000,
+    censusOrigin: ProcessCensusOrigin.OFF_CHAIN_TREE,
+    censusRoot: defaultCensusRoot,
+    costExponent: 1,
+    envelopeType: ProcessEnvelopeType.make({ serial: true, uniqueValues: true, encryptedVotes: false, anonymousVoters: false }),
+    maxCount: 1,
+    maxTotalCost: 0,
+    maxValue: 1,
+    maxVoteOverwrites: 0,
+    mode: ProcessMode.make({ autoStart: true, interruptible: true, dynamicCensus: false, encryptedMetadata: false }),
+    metadata: JSON.parse(JSON.stringify(ProcessMetadataTemplate)),
+    censusUri: defaultCensusUri,
+    paramsSignature: "0x0000000000000000000000000000000000000000000000000000000000000000",
+    questionCount: 1,
+  }))
   // manually trigger updates without the need of creating instance clones
   const forceUpdate = useForceUpdate()
 

@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import cloneDeep from 'lodash/cloneDeep'
 
 import { useProcessCreation } from '../../hooks/process-creation'
+import { useMessageAlert } from '../../hooks/message-alert'
 import i18n from '../../i18n'
 
 import { Column, Grid } from '../grid'
@@ -22,8 +23,8 @@ import {
 export enum MetadataFields {
   Title = 'process-title',
   Description = 'process-description',
-  PdfLink = 'process-pdf-link',
-  ForumLink = 'process-forum-link',
+  PdfLink = 'pdf-url',
+  ForumLink = 'forum-url',
   Question = 'process-question',
 }
 
@@ -35,6 +36,7 @@ export const FormMetadata = () => {
     parameters,
     methods,
   } = useProcessCreation()
+  const { setAlertMessage } = useMessageAlert()
 
   const [metadataCompleted, setMetadataCompleted] = useState<boolean>(false)
   const onPreview = () => {
@@ -71,11 +73,8 @@ export const FormMetadata = () => {
     methods.setQuestions(newQuestions)
   }
 
-  const handleMedia = (mediaField: string, value) => {
-    const newMedia = cloneDeep(metadata.media)
-    newMedia[mediaField] = value
-
-    methods.setMedia(newMedia)
+  const handleMeta = (fieldName: string, value) => {
+    methods.setMetaFields({[fieldName]: value})
   }
 
   useEffect(() => {
@@ -135,7 +134,7 @@ export const FormMetadata = () => {
             placeholder={i18n.t('vote.pdf_link')}
             id={MetadataFields.PdfLink}
             onChange={(event: ChangeEvent<HTMLInputElement>) => {
-              handleMedia(MetadataFields.PdfLink, event.target.value)
+              handleMeta(MetadataFields.PdfLink, event.target.value)
             }}
           />
         </Column>
@@ -147,7 +146,7 @@ export const FormMetadata = () => {
             placeholder={i18n.t('vote.forum_link')}
             id={MetadataFields.ForumLink}
             onChange={(event: ChangeEvent<HTMLInputElement>) =>
-              handleMedia(MetadataFields.ForumLink, event.target.value)
+              handleMeta(MetadataFields.ForumLink, event.target.value)
             }
           />
         </Column>

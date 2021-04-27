@@ -18,9 +18,10 @@ import {
   OptionsResultsAvailability,
   ResultsAvailability,
 } from './options-results-availability'
+import { ProcessEnvelopeType } from 'dvote-solidity'
 
 export const FormOptions = () => {
-  const { startDate, endDate, methods } = useProcessCreation()
+  const { startDate, endDate, parameters, methods,  } = useProcessCreation()
   const periodRef = useRef<IProcessPeriod>()
 
   const valid = () => {
@@ -45,7 +46,10 @@ export const FormOptions = () => {
     methods.setEndDate(periodRef.current.end)
   }
 
-  const handleChangeAvailability = (availability: ResultsAvailability) => {}
+  const handleChangeAvailability = (availability: ResultsAvailability) => {
+    let envelopeType = ProcessEnvelopeType.ENCRYPTED_VOTES ^ parameters.envelopeType.value
+    methods.setEnvelopeType(new ProcessEnvelopeType(envelopeType))
+  }
 
   return (
     <Grid>
