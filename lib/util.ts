@@ -78,3 +78,12 @@ export const extractDigestedPubKeyFromString = (data: string): { privKey: string
     digestedHexClaim: CensusOffChainApi.digestPublicKey(tempWallet.publicKey),
   }
 }
+
+/** Waits for a Vochain block, multiplied by the given factor (by default, 1) */
+export function waitBlockFraction(factor: number = 1) {
+  const delay = parseInt(process.env.BLOCK_TIME) * 1000 * factor
+
+  return new Promise((resolve) =>
+    setTimeout(resolve, Math.floor(delay))
+  )
+}
