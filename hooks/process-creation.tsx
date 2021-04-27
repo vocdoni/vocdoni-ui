@@ -25,7 +25,7 @@ import { useStepper } from './use-stepper'
 import { useWallet } from './use-wallet'
 import moment from 'moment'
 import { isUri } from '../lib/regex'
-import { XlsReader } from '../lib/xls-reader'
+import { SpreadSheetReader } from '../lib/spread-sheet-reader'
 
 export interface ProcessCreationContext {
   metadata: ProcessMetadata,
@@ -69,7 +69,7 @@ export interface ProcessCreationContext {
     setMaxValue: (maxValue: number) => void,
     setMaxVoteOverwrites: (maxVoteOverwrites: number) => void,
     setStringMetadata: (metadataOrigin: string) => void,
-    setSpreadSheetReader: (metadata: XlsReader) => void ,
+    setSpreadSheetReader: (metadata: SpreadSheetReader) => void ,
     setHeaderFile,
     setHeaderURL,
     setStartRightAway,
@@ -97,7 +97,7 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
   const [processId, setProcessId] = useState("")
   const { metadata, methods: metadataMethods } = useProcessMetadata()
   const { parameters, methods: paramsMethods } = useProcessParameters()
-  const [ spreadSheetReader, setSpreadSheetReader ] = useState<XlsReader>()
+  const [ spreadSheetReader, setSpreadSheetReader ] = useState<SpreadSheetReader>()
   const [headerFile, setHeaderFile] = useState<File>()
   const [headerURL, setHeaderURL] = useState<string>('')
   const [startRightAway, setStartRightAway] = useState<boolean>(true)

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { FileSelector } from 'react-rainbow-components'
 import styled from 'styled-components'
 
-import { XlsReader } from '../../lib/xls-reader'
+import { SpreadSheetReader } from '../../lib/spread-sheet-reader'
 import i18n from '../../i18n'
 
 const containerStyles = {
@@ -11,7 +11,7 @@ const containerStyles = {
 }
 
 interface ICensusFileSelector {
-  onXlsLoad: (xls: XlsReader) => void
+  onXlsLoad: (xls: SpreadSheetReader) => void
 }
 
 export const CensusFileSelector = ({onXlsLoad}:ICensusFileSelector) => {
@@ -22,13 +22,13 @@ export const CensusFileSelector = ({onXlsLoad}:ICensusFileSelector) => {
 
     if (!file) {
       return setInvalidFileType(null)
-    } else if (!XlsReader.AcceptedTypes.includes(file.type)) {
+    } else if (!SpreadSheetReader.AcceptedTypes.includes(file.type)) {
       return setInvalidFileType(i18n.t('vote.invalid_file_type'))
     }
 
-    const xlsReader = new XlsReader(file)
+    const spreadSheetReader = new SpreadSheetReader(file)
 
-    xlsReader.onLoad((reader: XlsReader) => {
+    spreadSheetReader.onLoad((reader: SpreadSheetReader) => {
       try {
         reader.validateDataIntegrity()
 

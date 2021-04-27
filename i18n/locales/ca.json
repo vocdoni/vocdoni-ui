@@ -95,10 +95,12 @@
         "active_vote": "",
         "add_new_question": "",
         "add_option": "",
+        "back_to_dashboard": "",
         "brief_description": "",
         "census_size": "",
         "confirm_details": "",
         "consolidating_path": "",
+        "copy": "",
         "creating_process": "",
         "creation": "",
         "delete_question": "",
@@ -138,10 +140,13 @@
         "the_first_row_of_the_spreadsheet_will_be_used_as_the_name": "",
         "the_vote_will_end_at_the_given_time": "",
         "this_is_the_form_that_your_community_will_need_to_fill_in_order_to_vote": "",
+        "this_is_the_link_that_you_need_to_send_your_community_members": "",
         "title": "",
         "upload_different_document": "",
         "we_are_using_a_decentralized_secure_system": "",
         "who_can_vote": "",
+        "your_process_is_ready": "",
+        "your_vote_is_set_up": "",
         "your_vote_process_is_being_created": ""
     }
 }

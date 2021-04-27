@@ -103,10 +103,12 @@
         "active_vote": "Active vote",
         "add_new_question": "Add new question",
         "add_option": "Add new option",
+        "back_to_dashboard": "Back to the dashboard",
         "brief_description": "Brief description",
         "census_size": "Census size: {{ size }} voters",
         "confirm_details": "Confirm details",
         "consolidating_path": "Consolidating path",
+        "copy": "Copy",
         "creating_process": "Creating process",
         "creation": "Creation",
         "delete_question": "Delete question",
@@ -147,10 +149,13 @@
         "the_first_row_of_the_spreadsheet_will_be_used_as_the_name": "The first row of the spreadsheet will be used as the name of the fields that voters will be prompted for. These fields are case insensitive, blank spaces will be ignored and diacritics will be transformed into plain letters.",
         "the_vote_will_end_at_the_given_time": "The vote will end at the given time, but it can also be ended earlier, if needed",
         "this_is_the_form_that_your_community_will_need_to_fill_in_order_to_vote": "This is the form that your community will need to fill in order to vote",
+        "this_is_the_link_that_you_need_to_send_your_community_members": "This is the link that you need to send to your community members:",
         "title": "Title",
         "upload_different_document": "Upload different document",
         "we_are_using_a_decentralized_secure_system": "We are using a decentralized secure system. this action may take a few minutes, be patient.",
         "who_can_vote": "Who can vote",
+        "your_process_is_ready": "Your process is ready",
+        "your_vote_is_set_up": "Your vote is set up",
         "your_vote_process_is_being_created": "Your account is being created"
     }
 }

@@ -4,7 +4,7 @@ import { Column, ColumnProps } from './grid'
 import { Skeleton } from './skeleton'
 
 type CardProps = ColumnProps & {
-  border: boolean
+  border?: boolean
 }
 
 type StatusCardProps = ColumnProps & {

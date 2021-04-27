@@ -1,8 +1,8 @@
 import xlsx, { WorkBook } from 'xlsx'
-import { extractDigestedPubKeyFromString, ProcessKey } from '../lib/util'
+import { extractDigestedPubKeyFromString, ProcessKey } from './util'
 
 
-export class XlsReader {
+export class SpreadSheetReader {
   private readonly reader
   private readonly readerPromise
 
@@ -53,7 +53,7 @@ export class XlsReader {
     return keys
   }
 
-  private handleUploadPromise(): Promise<XlsReader> {
+  private handleUploadPromise(): Promise<SpreadSheetReader> {
     return new Promise((resolve, reject): void => {
       this.reader.onload = (event) => {
         try {

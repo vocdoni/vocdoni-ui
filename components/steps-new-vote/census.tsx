@@ -10,13 +10,13 @@ import { SectionTitle, SectionText, TextSize } from '../text'
 
 import { ProcessCreationPageSteps } from '.'
 import { CensusFileSelector } from './census-file-selector'
-import { XlsReader } from '../../lib/xls-reader'
+import { SpreadSheetReader } from '../../lib/spread-sheet-reader'
 import { CensusFileData } from './census-file-data'
 
 export const FormCensus = () => {
   const { methods, spreadSheetReader } = useProcessCreation()
 
-  const handleOnXlsUpload = (spreadSheet: XlsReader) => {
+  const handleOnXlsUpload = (spreadSheet: SpreadSheetReader) => {
     methods.setSpreadSheetReader(spreadSheet)
   }
 

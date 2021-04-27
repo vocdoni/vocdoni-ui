@@ -7,6 +7,7 @@ import { ProcessInfo } from '../../lib/types'
 import { getDaysUntilEnd } from '../../lib/date'
 
 import { VoteListItem, VoteStatusType } from '../list-items'
+import { ImageContainer } from '../images'
 import i18n from '../../i18n'
 
 interface IDashboardProcessListItemProps {
@@ -47,9 +48,9 @@ export const DashboardProcessListItem = ({
     <VoteItemWrapper>
       <VoteListItem
         icon={
-          <ProcessImageContainer>
+          <ImageContainer width={200}>
             <img src={process.metadata.media.header} />
-          </ProcessImageContainer>
+          </ImageContainer>
         }
         description={process.metadata.description.default}
         title={process.metadata.title.default}
@@ -64,10 +65,4 @@ export const DashboardProcessListItem = ({
 
 const VoteItemWrapper = styled.div`
   margin-bottom: 10px;
-`
-const ProcessImageContainer = styled.div`
-  & > img {
-    width: 100%;
-    max-width: 200px;
-  }
 `

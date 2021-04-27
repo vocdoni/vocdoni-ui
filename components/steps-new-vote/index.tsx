@@ -4,6 +4,7 @@ import { FormMetadata } from "./metadata"
 import { FormCensus } from "./census"
 import { FormOptions } from "./options"
 import { FormCreation } from "./creation"
+import { ProcessReady } from "./process-ready"
 // import NewVoteGeneral from "./NewVoteGeneral"
 // import NewProcessCreation from "./NewProcessCreation"
 
@@ -11,7 +12,8 @@ export enum ProcessCreationPageSteps {
   METADATA = 0,
   CENSUS = 1,
   OPTIONS = 2,
-  CREATION = 3
+  CREATION = 3,
+  READY = 4
 }
 
 export const ProcessCreationPageStepTitles = {
@@ -19,6 +21,7 @@ export const ProcessCreationPageStepTitles = {
   [ProcessCreationPageSteps.CENSUS]: i18n.t("vote.who_can_vote"),
   [ProcessCreationPageSteps.OPTIONS]: i18n.t("vote.options"),
   [ProcessCreationPageSteps.CREATION]: i18n.t("vote.creation"),
+  [ProcessCreationPageSteps.READY]: i18n.t("vote.your_process_is_ready"),
 }
 
 export const ProcessCreationPageStep = () => {
@@ -29,6 +32,7 @@ export const ProcessCreationPageStep = () => {
     case ProcessCreationPageSteps.CENSUS: return <FormCensus />
     case ProcessCreationPageSteps.OPTIONS: return <FormOptions />
     case ProcessCreationPageSteps.CREATION: return <FormCreation />
+    case ProcessCreationPageSteps.READY: return <ProcessReady />
   }
   return null
 }

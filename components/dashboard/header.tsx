@@ -10,6 +10,7 @@ import { Banner } from '../banners'
 import { Button } from '../button'
 import { Grid } from '../grid'
 import { Unless } from 'react-if'
+import { ImageContainer } from '../images'
 
 interface IDashboardHeaderProps {
   account?: Account
@@ -34,7 +35,7 @@ export const DashboardHeader = ({ account }: IDashboardHeaderProps) => {
   )
 
   const accountImage = (
-    <ImageContainer>
+    <ImageContainer width={50} height={70}>
       <img
         src={account?.pending?.metadata?.media.avatar || FALLBACK_ACCOUNT_ICON}
         alt={i18n.t('dashboard.company_logo')}
@@ -42,7 +43,7 @@ export const DashboardHeader = ({ account }: IDashboardHeaderProps) => {
     </ImageContainer>
   )
   const downloadImage = (
-    <ImageContainer>
+    <ImageContainer width={50} height={70}>
       <img
         src="/images/dashboard/download.svg"
         alt={i18n.t('dashboard.company_logo')}
@@ -75,10 +76,3 @@ export const DashboardHeader = ({ account }: IDashboardHeaderProps) => {
     </Grid>
   )
 }
-
-const ImageContainer = styled.div`
-  & > img {
-    max-width: 50px;
-    max-height: 70px;
-  }
-`

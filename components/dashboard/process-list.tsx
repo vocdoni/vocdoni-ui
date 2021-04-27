@@ -83,8 +83,8 @@ export const DashboardProcessList = ({
       <Column md={8} sm={12}>
         {Array(skeletonItems)
           .fill(0)
-          .map(() => (
-            <Card>
+          .map((value ,index: number) => (
+            <Card key={index}>
               <Skeleton />
             </Card>
           ))}

@@ -32,7 +32,7 @@ export const ProcessLoader = ({
             <path
               fill="none"
               stroke="currentColor"
-              stroke-width="3"
+              strokeWidth="3"
               d="M1.73 12.91l6.37 6.37L22.79 4.59"
             />
           </svg>
