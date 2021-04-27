@@ -48,7 +48,7 @@ export interface ProcessCreationContext {
     setTitle: (title: string) => void;
     setDescription: (description: string) => void;
     // setMedia: (media: ProcessMetadata["media"]) => void;
-    setMediaStreamURI: (streamUri: string) => void 
+    setMediaStreamURI: (streamUri: string) => void
     setMetaFields: (values: {
       [k: string]: any;
     }) => void;
@@ -70,7 +70,7 @@ export interface ProcessCreationContext {
     setMaxValue: (maxValue: number) => void,
     setMaxVoteOverwrites: (maxVoteOverwrites: number) => void,
     setStringMetadata: (metadataOrigin: string) => void,
-    setSpreadSheetReader: (metadata: SpreadSheetReader) => void ,
+    setSpreadSheetReader: (metadata: SpreadSheetReader) => void,
     setHeaderFile,
     setHeaderURL,
     setStartRightAway,
@@ -98,7 +98,7 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
   const [processId, setProcessId] = useState("")
   const { metadata, methods: metadataMethods } = useProcessMetadata()
   const { parameters, methods: paramsMethods } = useProcessParameters()
-  const [ spreadSheetReader, setSpreadSheetReader ] = useState<SpreadSheetReader>()
+  const [spreadSheetReader, setSpreadSheetReader] = useState<SpreadSheetReader>()
   const [headerFile, setHeaderFile] = useState<File>()
   const [headerURL, setHeaderURL] = useState<string>('')
   const [startRightAway, setStartRightAway] = useState<boolean>(true)

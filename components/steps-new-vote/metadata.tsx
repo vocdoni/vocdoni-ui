@@ -19,6 +19,7 @@ import {
   createEmptyQuestion,
   validateMetadata,
 } from './metadata-helper'
+import { PlazaMetadataKeys } from '../../const/metadata-keys'
 
 export enum MetadataFields {
   Title = 'process-title',
@@ -66,15 +67,16 @@ export const FormMetadata = () => {
     methods.setQuestions(newQuestions)
   }
 
-  const handleDeleteQuestion = (index) => {
+  const handleDeleteQuestion = (index: number) => {
     const newQuestions = [...metadata.questions]
     newQuestions.splice(index, 1)
 
     methods.setQuestions(newQuestions)
   }
 
-  const handleMeta = (fieldName: string, value) => {
-    methods.setMetaFields({[fieldName]: value})
+  // Only for arbitrary fields within process.metadata.meta[...]
+  const handleMeta = (fieldName: PlazaMetadataKeys, value: string) => {
+    methods.setMetaFields({ [fieldName]: value })
   }
 
   useEffect(() => {
@@ -136,7 +138,7 @@ export const FormMetadata = () => {
             id={MetadataFields.PdfLink}
             value={metadata.meta[MetadataFields.PdfLink]}
             onChange={(event: ChangeEvent<HTMLInputElement>) => {
-              handleMeta(MetadataFields.PdfLink, event.target.value)
+              handleMeta(PlazaMetadataKeys.ATTACHMENT_URI, event.target.value)
             }}
           />
         </Column>
@@ -149,7 +151,7 @@ export const FormMetadata = () => {
             id={MetadataFields.ForumLink}
             value={metadata.meta[MetadataFields.ForumLink]}
             onChange={(event: ChangeEvent<HTMLInputElement>) =>
-              handleMeta(MetadataFields.ForumLink, event.target.value)
+              handleMeta(PlazaMetadataKeys.DISCUSSION_URL, event.target.value)
             }
           />
         </Column>
