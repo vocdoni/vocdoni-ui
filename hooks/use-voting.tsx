@@ -3,13 +3,13 @@ import { CensusOffChainApi, DigestedProcessResults, ProcessStatus, VotingApi } f
 import { createContext, ReactNode, useContext, useEffect, useMemo, useState } from 'react'
 import { useWallet, WalletRoles } from './use-wallet'
 import i18n from '../i18n'
-import { VotingPageSteps } from '../components/steps-voting'
+import { DEFAULT_VOTING_PAGE_STEP, VotingPageSteps } from '../components/steps-voting'
 import { ProcessInfo, StepperFunc } from '../lib/types'
 import { useStepper } from './use-stepper'
 import { useUrlHash } from 'use-url-hash'
 import { useMessageAlert } from './message-alert'
 import { DateDiffType, strDateDiff } from '../lib/date'
-import { areAllNumbers } from '../lib/util'
+import { areAllNumbers, waitBlockFraction } from '../lib/util'
 
 export interface VotingContext {
   pleaseWait: boolean,
@@ -23,16 +23,15 @@ export interface VotingContext {
 
   hasStarted: boolean,
   hasEnded: boolean,
-  isInCensus: boolean,
+  remainingTime: string,
 
   canVote: boolean,
-  remainingTime: string,
+  // isInCensus: boolean,
   allQuestionsChosen: boolean,
   statusText: string,
 
   invalidProcessId: boolean,
   refreshingVotedStatus: boolean,
-  isSubmitting: boolean,
   results: DigestedProcessResults,
 
   // sent: boolean,
@@ -56,28 +55,20 @@ export const useVoting = () => {
 }
 
 export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
-
   const { poolPromise } = usePool()
-  const { wallet, setWallet } = useWallet({ role: WalletRoles.VOTER })
-  const processId = useUrlHash().slice(1) // Skip /
+  const { wallet } = useWallet({ role: WalletRoles.VOTER })
+  const { setAlertMessage } = useMessageAlert()
+  const processId = useUrlHash().slice(1) // Skip "/"
   const invalidProcessId = !processId.match(/^0x[0-9a-fA-A]{64}$/)
   const { loading: loadingInfo, error: loadingInfoError, process: processInfo } = useProcess(processId)
   const [startDate, setStartDate] = useState(null as Date)
   const [endDate, setEndDate] = useState(null as Date)
-  const { setAlertMessage } = useMessageAlert()
-  const [censusProof, setCensusProof] = useState(
-    null as { key: string, proof: string[], value: string }
-  )
+  const [nullifier, setNullifier] = useState("")
+  const [censusProof, setCensusProof] = useState("")
   const [hasVoted, setHasVoted] = useState(false)
   const [refreshingVotedStatus, setRefreshingVotedStatus] = useState(false)
-  const [isSubmitting, setIsSubmitting] = useState(false)
   const [choices, setChoices] = useState([] as number[])
   const [results, setResults] = useState(null as DigestedProcessResults)
-
-  const nullifier = VotingApi.getSignedVoteNullifier(
-    wallet?.address || '',
-    processId
-  )
 
   // Effects
 
@@ -87,7 +78,10 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
     const refreshInterval = setInterval(() => {
       if (skip) return
 
-      Promise.all([updateVoteStatus(), updateResults()]).catch((err) =>
+      Promise.all([
+        updateVoteStatus(),
+        updateResults()
+      ]).catch((err) =>
         console.error(err)
       )
     }, 1000 * 30)
@@ -111,71 +105,48 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
   // Census status
   useEffect(() => {
     updateCensusStatus()
-  }, [wallet, nullifier, processInfo?.entity])
+  }, [wallet, nullifier])
 
   // Dates
   useEffect(() => {
     updateDates()
   }, [processInfo?.parameters?.startBlock])
 
+  // Nullifier
+  useEffect(() => {
+    if (!wallet?.address || !processId || invalidProcessId) return
+
+    // Future: adapt to the zk snark case
+
+    const nullifier = VotingApi.getSignedVoteNullifier(wallet.address, processId)
+    setNullifier(nullifier)
+  }, [wallet?.address, processId])
+
   // Loaders
-  const updateVoteStatus = () => {
-    if (!processId || !nullifier) return
-    setRefreshingVotedStatus(true)
-
-    poolPromise
-      .then((pool) =>
-        VotingApi.getEnvelopeStatus(processId, nullifier, pool)
-      )
-      .then(({ registered }) => {
-        setRefreshingVotedStatus(false)
-        setHasVoted(registered)
-      })
-      .catch((err) => {
-        setRefreshingVotedStatus(false)
-        console.error(err)
-      })
-  }
-
-  const updateResults = () => {
-    if (!processId) return
-
-    poolPromise
-      .then((pool) => VotingApi.getResultsDigest(processId, pool))
-      .then((results) => setResults(results))
-      .catch((err) => console.error(err))
-  }
 
   const updateCensusStatus = async () => {
-    // TODO: ADAPT TO OFFCHAIN CENSUS
+    if (!wallet?.publicKey) return
 
-    // if (!wallet?.address) {
-    //   setCensusProof(null)
-    //   return
-    // }
+    try {
+      const pool = await poolPromise
 
-    // const pool = await poolPromise
+      const isDigested = true
+      const digestedHexClaim = CensusOffChainApi.digestPublicKey(wallet.publicKey)
 
-    // if (!(await CensusErc20Api.isRegistered(token.address, pool))) {
-    //   setTokenRegistered(false)
-    //   return setAlertMessage('The token contract is not yet registered')
-    // } else if (tokenRegistered !== true) setTokenRegistered(true)
+      const censusProof = await CensusOffChainApi.generateProof(
+        processInfo.parameters.censusRoot,
+        { key: digestedHexClaim },
+        isDigested,
+        pool
+      )
+      if (!censusProof) return setAlertMessage(i18n.t("errors.you_are_not_part_of_the_census"))
 
-    // const processEthCreationBlock = processInfo.parameters.evmBlockHeight
-    // const balanceSlot = CensusErc20Api.getHolderBalanceSlot(
-    //   wallet.account,
-    //   token.balanceMappingPosition
-    // )
-
-    // const proofFields = await CensusErc20Api.generateProof(
-    //   token.address,
-    //   [balanceSlot],
-    //   processEthCreationBlock,
-    //   pool.provider as providers.JsonRpcProvider
-    // )
-
-    // setCensusProof(proofFields.proof.storageProof[0])
+      setCensusProof(censusProof)
+    } catch (err) {
+      return setAlertMessage(i18n.t("errors.could_not_check_the_census"))
+    }
   }
+
   const updateDates = () => {
     if (!processInfo?.parameters?.startBlock) return
 
@@ -201,6 +172,33 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
       })
   }
 
+  const updateVoteStatus = () => {
+    if (!processId || invalidProcessId || !nullifier) return
+    setRefreshingVotedStatus(true)
+
+    poolPromise
+      .then((pool) =>
+        VotingApi.getEnvelopeStatus(processId, nullifier, pool)
+      )
+      .then(({ registered }) => {
+        setRefreshingVotedStatus(false)
+        setHasVoted(registered)
+      })
+      .catch((err) => {
+        setRefreshingVotedStatus(false)
+        console.error(err)
+      })
+  }
+
+  const updateResults = () => {
+    if (!processId || invalidProcessId) return
+
+    poolPromise
+      .then((pool) => VotingApi.getResultsDigest(processId, pool))
+      .then((results) => setResults(results))
+      .catch((err) => console.error(err))
+  }
+
   // Callbacks
 
   const onSelect = (questionIdx: number, choiceValue: number) => {
@@ -214,130 +212,90 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
 
   // MAIN ACTION STEPS
 
-  const ensureMerkleProof: StepperFunc = () => {
-    // if (wallet) {
-    //   // Already OK?
-    //   return Promise.resolve({ waitNext: false })
-    // }
-    // if (!entityAddress) return Promise.reject({ error: i18n.t('error.missing_entity_address') })
+  const confirmAction: StepperFunc = () => {
+    const confirmed = confirm(
+      i18n.t("confirm.you_are_about_to_submit_your_vote") + ". " +
+      i18n.t("confirm.this_action_cannot_be_undone") + ".\n\n" +
+      i18n.t("confirm.do_you_want_to_continue")
+    )
+    if (!confirmed) return Promise.resolve({ error: i18n.t("errors.you_canceled_the_operation") })
+    return Promise.resolve({})
+  }
 
-    // if (loadingInfoError) return Promise.reject({ error: i18n.t('error.cannot_load_process') })
 
-    return poolPromise
-      .then(pool => {
+  const ensureCensusProof: StepperFunc = () => {
+    if (censusProof) return Promise.resolve({})
 
-        return CensusOffChainApi.generateProof(
-          process.parameters.censusRoot,
-          { key: digestedHexClaim },
-          true,
-          pool)
-      })
-      .then(merkleProof => {
-        if (merkleProof) return { waitNext: false }
-        return { error: i18n.t('error.invalid_login') }
+    return updateCensusStatus()
+      .then(() => {
+        return { waitNext: true }
       })
   }
 
-  const ensureVoteDelivery: StepperFunc = () => {
-    // TODO: ADAPT TO OFFCHAIN CENSUS
+  const ensureVoteSubmission: StepperFunc = async () => {
+    try {
+      const pool = await poolPromise
 
-    //     if (
-    //       !confirm(
-    //         'You are about to submit your vote. This action cannot be undone.\n\nDo you want to continue?'
-    //       )
-    //     )
-    //       return
+      // Detect encryption
+      if (processInfo.parameters.envelopeType.hasEncryptedVotes) {
+        const processKeys = await VotingApi.getProcessKeys(processId, pool)
+        const envelope = await VotingApi.packageSignedEnvelope({ censusOrigin: processInfo.parameters.censusOrigin, votes: choices, censusProof, processId, walletOrSigner: wallet, processKeys })
+        await VotingApi.submitEnvelope(envelope, wallet, pool)
+      }
+      else {
+        const envelope = await VotingApi.packageSignedEnvelope({ censusOrigin: processInfo.parameters.censusOrigin, votes: choices, censusProof, processId, walletOrSigner: wallet })
+        await VotingApi.submitEnvelope(envelope, wallet, pool)
+      }
 
-    //     try {
-    //       setIsSubmitting(true)
+      return { waitNext: false }
+    } catch (err) {
+      console.error(err)
+      return { error: i18n.t("errors.your_vote_could_not_be_delivered") }
+    }
+  }
 
-    //       const pool = await poolPromise
+  const ensureVoteInclusion: StepperFunc = async () => {
+    try {
+      const pool = await poolPromise
 
-    //       // Census Proof
-    //       const holderAddr = wallet.account
-    //       const processEthCreationBlock = processInfo.parameters.evmBlockHeight
-    //       const balanceSlot = CensusErc20Api.getHolderBalanceSlot(
-    //         holderAddr,
-    //         token.balanceMappingPosition
-    //       )
-    //       const { proof } = await CensusErc20Api.generateProof(
-    //         token.address,
-    //         [balanceSlot],
-    //         processEthCreationBlock,
-    //         pool.provider as providers.JsonRpcProvider
-    //       )
+      // wait a block
+      await waitBlockFraction(1.2)
 
-    //       // Detect encryption
-    //       if (processInfo.parameters.envelopeType.hasEncryptedVotes) {
-    //         const keys = await VotingApi.getProcessKeys(processId, pool)
-    //         const envelope = await VotingApi.packageSignedEnvelope({
-    //           votes: choices,
-    //           censusOrigin: processInfo.parameters.censusOrigin,
-    //           censusProof: proof.storageProof[0],
-    //           processId,
-    //           walletOrSigner: signer,
-    //           processKeys: keys,
-    //         })
-    //         await VotingApi.submitEnvelope(envelope, signer, pool)
-    //       } else {
-    //         const envelope = await VotingApi.packageSignedEnvelope({
-    //           votes: choices,
-    //           censusOrigin: processInfo.parameters.censusOrigin,
-    //           censusProof: proof.storageProof[0],
-    //           processId,
-    //           walletOrSigner: signer,
-    //         })
-    //         await VotingApi.submitEnvelope(envelope, signer, pool)
-    //       }
+      let voted = false
+      for (let i = 0; i < 30; i++) {
+        const { registered, date } = await VotingApi.getEnvelopeStatus(
+          processId,
+          nullifier,
+          pool
+        )
+        if (registered) {
+          voted = true
+          setHasVoted(true)
+          break
+        }
+        // keep waiting
+        await waitBlockFraction(1.1)
+      }
+      if (!voted) return { error: i18n.t("errors.the_vote_has_not_been_registered") }
 
-    //       // wait a block
-    //       await new Promise((resolve) =>
-    //         setTimeout(
-    //           resolve,
-    //           Math.floor(parseInt(process.env.BLOCK_TIME) * 1000 * 1.2)
-    //         )
-    //       )
+      // detached update
+      setTimeout(() => {
+        updateResults()
+        updateVoteStatus()
+      })
 
-    //       let voted = false
-    //       for (let i = 0; i < 10; i++) {
-    //         const { registered, date } = await VotingApi.getEnvelopeStatus(
-    //           processId,
-    //           nullifier,
-    //           pool
-    //         )
-    //         voted = registered
-    //         setHasVoted(voted)
-
-    //         if (registered) break
-    //         await new Promise((resolve) =>
-    //           setTimeout(
-    //             resolve,
-    //             Math.floor(parseInt(process.env.BLOCK_TIME) * 500)
-    //           )
-    //         )
-    //       }
-    //       if (!voted) throw new Error('The vote has not been registered')
-
-    //       // detached update
-    //       setTimeout(() => {
-    //         updateResults()
-    //         updateVoteStatus()
-    //       })
-
-    //       setAlertMessage('Your vote has been sucessfully submitted')
-    //       setHasVoted(true)
-    //       setIsSubmitting(false)
-    //     } catch (err) {
-    //       console.error(err)
-    //       setIsSubmitting(false)
-    //       setAlertMessage('The delivery of your vote could not be completed')
-    //     }
+      setAlertMessage(i18n.t("vote.your_vote_has_been_successfully_registered"))
+      setHasVoted(true)
+    } catch (err) {
+      console.error(err)
+      return { error: i18n.t("errors.the_vote_has_not_been_registered") }
+    }
   }
 
   // Enumerate all the steps needed to create an entity
-  const creationStepFuncs = [ensureMerkleProof, ensureVoteDelivery]
+  const creationStepFuncs = [confirmAction, ensureCensusProof, ensureVoteSubmission, ensureVoteInclusion]
 
-  const creationStepper = useStepper(creationStepFuncs, 0)
+  const creationStepper = useStepper(creationStepFuncs, DEFAULT_VOTING_PAGE_STEP)
   const { actionStep, pleaseWait, creationError, doMainActionSteps } = creationStepper
 
   // Render precomputed params
@@ -349,13 +307,9 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
   const hasEnded = endDate && endDate.getTime() < Date.now()
   const isInCensus = !!censusProof
 
-  const canVote =
-    processInfo &&
-    isInCensus &&
-    !hasVoted &&
-    hasStarted &&
-    !hasEnded
+  const canVote = processInfo && nullifier && isInCensus && !hasVoted && hasStarted && !hasEnded
 
+  // TODO: LOCALIZED strDateDiff
   const remainingTime = startDate
     ? hasStarted
       ? strDateDiff(DateDiffType.End, endDate)
@@ -397,14 +351,13 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
 
     hasStarted,
     hasEnded,
-    isInCensus,
+    // isInCensus,
 
     canVote,
     remainingTime,
     allQuestionsChosen,
     statusText,
 
-    isSubmitting,  // redundant
     results,
 
     methods: {
