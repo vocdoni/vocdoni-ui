@@ -28,14 +28,12 @@ const VotingPage = () => {
 
     hasStarted,
     hasEnded,
-    isInCensus,
 
     canVote,
     remainingTime,
     allQuestionsChosen,
     statusText,
 
-    isSubmitting,  // redundant
     results,
 
     methods
