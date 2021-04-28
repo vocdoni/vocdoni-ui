@@ -139,6 +139,7 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
     const name = metadata.title.default + '_' + Math.floor(Date.now() / 1000)
     const entityId = wallet.address
     const spreadsheetData = spreadSheetReader.data
+    metadataMethods.setMetaFields({'formFieldTitles': spreadSheetReader.header})
 
     // TODO: USE Bluebird to limit the concurrency and leave the UI thread some space
 
@@ -238,14 +239,39 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
         return VotingApi.newProcess(finalParams, wallet, pool)
       }).then(processId => {
         setProcessId(processId)
-
+        console.log("process created with id: ", processId)
         return {
-          waitNext: false,
+          waitNext: true,
         }
       })
       .catch((error) => {
         console.error(error)
-        return { error }
+        return { error: i18n.t('error.the_process_could_not_be_registered') }
+      })
+  }
+
+  const stepEnsureProcessPublished: StepperFunc = (): Promise<StepperFuncResult> => {
+
+    return poolPromise
+      .then(async pool => {
+        let retries = 10
+        while (retries >= 0) {
+          const processList = await VotingApi.getProcessList({ entityId: wallet.address }, pool)
+          console.log(processList)
+          if (processList.length && processList.includes(processId)) {
+            setPageStep(pageStep + 1)
+            return {
+              waitNext: true,
+            }
+          }
+          await new Promise(r => setTimeout(r, 2000)) // Wait 2s
+          retries--
+        }
+
+      })
+      .catch((error) => {
+        console.error(error)
+        return { error: i18n.t('error.the_process_could_not_be_registered') }
       })
   }
 
@@ -267,6 +293,7 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
     stepEnsureCensusCreated,
     stepEnsureValidParams,
     stepEnsureProcessCreated,
+    stepEnsureProcessPublished,
   ]
 
   const {

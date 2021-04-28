@@ -1,5 +1,5 @@
 import xlsx, { WorkBook } from 'xlsx'
-import { extractDigestedPubKeyFromString, ProcessKey } from './util'
+import { digestedWalletFromString} from './util'
 
 
 export class SpreadSheetReader {
@@ -42,16 +42,16 @@ export class SpreadSheetReader {
     })
   }
 
-  public async generateFromDataKeys(entityId: string): Promise<ProcessKey[]> {
-    // Maybe we need optimize these process if is hight CPU consumption, doing in some batch package
-    const keys: ProcessKey[] = this.data.map((row): ProcessKey => {
-      const srtRow = this.rowToString(row) + entityId
+  // public async generateFromDataKeys(entityId: string): Promise<ProcessKey[]> {
+  //   // Maybe we need optimize these process if is hight CPU consumption, doing in some batch package
+  //   const keys: ProcessKey[] = this.data.map((row): ProcessKey => {
+  //     const srtRow = this.rowToString(row) + entityId
 
-      return extractDigestedPubKeyFromString(srtRow)
-    })
+  //     return digestedWalletFromString(srtRow).privateKey
+  //   })
 
-    return keys
-  }
+  //   return keys
+  // }
 
   private handleUploadPromise(): Promise<SpreadSheetReader> {
     return new Promise((resolve, reject): void => {

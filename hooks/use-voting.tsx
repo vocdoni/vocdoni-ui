@@ -1,5 +1,5 @@
 import { usePool, useProcess } from '@vocdoni/react-hooks'
-import { CensusOffChainApi, DigestedProcessResults, ProcessStatus, VotingApi } from 'dvote-js'
+import { CensusOffChainApi, DigestedProcessResults, ProcessStatus, VotingApi, CensusOffchainDigestType } from 'dvote-js'
 import { createContext, ReactNode, useContext, useEffect, useMemo, useState } from 'react'
 import { useWallet, WalletRoles } from './use-wallet'
 import i18n from '../i18n'
@@ -131,7 +131,7 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
       const pool = await poolPromise
 
       const isDigested = true
-      const digestedHexClaim = CensusOffChainApi.digestPublicKey(wallet.publicKey)
+      const digestedHexClaim = CensusOffChainApi.digestPublicKey(wallet.publicKey,CensusOffchainDigestType.RAW_PUBKEY)
 
       const censusProof = await CensusOffChainApi.generateProof(
         processInfo.parameters.censusRoot,

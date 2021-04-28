@@ -19,6 +19,7 @@ const processSteps = [
   i18n.t('vote.signing_transactions'),
   i18n.t('vote.consolidating_path'),
   i18n.t('vote.creating_process'),
+  i18n.t('vote.verifying_creation')
 ]
 
 export const FormCreation = () => {
