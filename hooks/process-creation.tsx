@@ -104,10 +104,23 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
   const [startRightAway, setStartRightAway] = useState<boolean>(true)
   const [startDate, setStartDate] = useState<Date>()
   const [endDate, setEndDate] = useState<Date>()
-  const { wallet } = useWallet()
+  const { wallet, setWallet } = useWallet()
   const { pool, poolPromise } = usePool()
 
   // STEPPER OPERATIONS
+  const stepEnsureWallet: StepperFunc = () => {
+    if (wallet.provider) return Promise.resolve({ waitNext: false })
+    return poolPromise
+      .then(pool => {
+        // TODO: check why this is not working
+        wallet.connect(pool.provider)
+        setWallet(wallet)
+        return Promise.resolve({ waitNext: false })
+      }).catch(err => {
+        console.error(err)
+        return { error: i18n.t("errors.cannot_connect_wallet") }
+      })
+  }
 
   const stepEnsureMedia: StepperFunc = () => {
     // Check if the metadata value is already updated
@@ -150,7 +163,7 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
 
     // Create the census
     const { censusId } = await CensusOffChainApi.addCensus(name, [wallet.publicKey], wallet, pool)
-    const { censusRoot, invalidClaims } = await CensusOffChainApi.addClaimBulk(censusId, claims, true, wallet, pool)
+    const { censusRoot, invalidClaims } = await CensusOffChainApi.addClaimBulk(censusId, claims, false, wallet, pool)
     if (invalidClaims.length) {
       return { error: i18n.t('error.num_entries_could_not_be_added_to_the_census', { total: invalidClaims.length }) }
     }
@@ -259,6 +272,7 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
   }, [startDate, endDate])
 
   const creationStepFuncs = [
+    stepEnsureWallet,
     stepEnsureMedia,
     stepEnsureCensusCreated,
     stepEnsureValidParams,

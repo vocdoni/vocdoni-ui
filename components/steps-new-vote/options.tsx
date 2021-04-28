@@ -18,7 +18,7 @@ import {
   OptionsResultsAvailability,
   ResultsAvailability,
 } from './options-results-availability'
-import { ProcessEnvelopeType } from 'dvote-solidity'
+import { ProcessEnvelopeType } from 'dvote-js'
 
 export const FormOptions = () => {
   const { startDate, endDate, parameters, methods,  } = useProcessCreation()
