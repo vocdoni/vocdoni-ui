@@ -2,6 +2,7 @@
 import { usePool } from '@vocdoni/react-hooks'
 import {
   CensusOffChainApi,
+  CensusOffchainDigestType,
   ProcessContractParameters,
   ProcessEnvelopeType,
   ProcessMetadata,
@@ -20,7 +21,7 @@ import { useForceUpdate } from "./use-force-update"
 import i18n from '../i18n'
 import { uploadFileToIpfs } from '../lib/file'
 import { StepperFunc, StepperFuncResult } from '../lib/types'
-import { extractDigestedPubKeyFromString, importedRowToString } from '../lib/util'
+import { digestedWalletFromString, importedRowToString } from '../lib/util'
 import { useStepper } from './use-stepper'
 import { useWallet } from './use-wallet'
 import moment from 'moment'
@@ -139,13 +140,16 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
     const entityId = wallet.address
     const spreadsheetData = spreadSheetReader.data
 
+    // TODO: USE Bluebird to limit the concurrency and leave the UI thread some space
+
     // Process the CSV entries
     const claims = await Promise.all(spreadsheetData.map((row) => new Promise((resolve) => {
-      setTimeout(() =>
-        resolve({
-          key: extractDigestedPubKeyFromString(importedRowToString(row, entityId)).digestedHexClaim,
-        })
-        , 50)
+      setTimeout(() => {
+        const payload = importedRowToString(row, entityId)
+        const voterWallet = digestedWalletFromString(payload)
+        const key = CensusOffChainApi.digestPublicKey(voterWallet.publicKey, CensusOffchainDigestType.RAW_PUBKEY)
+        resolve({ key })
+      }, 50)
     }))) as { key: string, value?: string }[]
 
     // Create the census

@@ -1,10 +1,10 @@
 import { useState, createContext, useContext, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { Wallet } from '@ethersproject/wallet'
-import { CensusOffChainApi, Symmetric } from 'dvote-js'
+import { CensusOffChainApi, CensusOffchainDigestType } from 'dvote-js'
 import { VOTING_PATH } from '../const/routes'
 import i18n from '../i18n'
-import { digestedWalletFromString, extractDigestedPubKeyFromString, importedRowToString } from '../lib/util'
+import { digestedWalletFromString, importedRowToString } from '../lib/util'
 import { useMessageAlert } from './message-alert'
 import { usePool, useProcess } from '@vocdoni/react-hooks'
 import { useUrlHash } from 'use-url-hash'
@@ -62,7 +62,7 @@ export const useAuthForm = () => {
 
     const strPayload = importedRowToString(authFields, processInfo.entity)
     const voterWallet = digestedWalletFromString(strPayload)
-    const digestedHexClaim = CensusOffChainApi.digestPublicKey(voterWallet.publicKey)
+    const digestedHexClaim = CensusOffChainApi.digestPublicKey(voterWallet.publicKey, CensusOffchainDigestType.RAW_PUBKEY)
 
     return poolPromise.then(pool =>
       CensusOffChainApi.generateProof(processInfo.parameters.censusRoot, { key: digestedHexClaim }, true, pool)

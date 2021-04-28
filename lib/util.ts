@@ -1,4 +1,4 @@
-import { CensusOffChainApi } from 'dvote-js'
+// import { } from 'dvote-js'
 import { ethers, Wallet } from 'ethers'
 import i18n from '../i18n'
 
@@ -68,19 +68,6 @@ export const digestedWalletFromString = (data: string): Wallet => {
   const bytes = ethers.utils.toUtf8Bytes(data)
   const hashed = ethers.utils.keccak256(bytes)
   return new ethers.Wallet(hashed)
-}
-
-export type ProcessKey = {
-  privKey: string,
-  digestedHexClaim: string
-}
-export const extractDigestedPubKeyFromString = (data: string): ProcessKey => {
-  const tempWallet = digestedWalletFromString(data)
-
-  return {
-    privKey: tempWallet.privateKey,
-    digestedHexClaim: CensusOffChainApi.digestPublicKey(tempWallet.publicKey),
-  }
 }
 
 /** Waits for a Vochain block, multiplied by the given factor (by default, 1) */
