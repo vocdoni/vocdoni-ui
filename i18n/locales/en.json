@@ -141,7 +141,7 @@
         "signing_transactions": "Signing transactions",
         "start_date": "Start date",
         "start_on_a_specific_date": "Start on a specific date",
-        "start_right_away_5_minutes_from_now": "Start right away (5 minutes from now)",
+        "start_right_away_7_minutes_from_now": "Start right away (7 minutes from now)",
         "stream_link": "Steam link",
         "stream_link_label": "Optional introduction",
         "supported_formats_csv_xls_and_ods": "Supported formats: CSV, XLSX and ODS",

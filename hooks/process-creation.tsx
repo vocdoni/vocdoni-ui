@@ -104,23 +104,10 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
   const [startRightAway, setStartRightAway] = useState<boolean>(true)
   const [startDate, setStartDate] = useState<Date>()
   const [endDate, setEndDate] = useState<Date>()
-  const { wallet, setWallet } = useWallet()
+  const { wallet } = useWallet()
   const { pool, poolPromise } = usePool()
 
   // STEPPER OPERATIONS
-  const stepEnsureWallet: StepperFunc = () => {
-    if (wallet.provider) return Promise.resolve({ waitNext: false })
-    return poolPromise
-      .then(pool => {
-        // TODO: check why this is not working
-        wallet.connect(pool.provider)
-        setWallet(wallet)
-        return Promise.resolve({ waitNext: false })
-      }).catch(err => {
-        console.error(err)
-        return { error: i18n.t("errors.cannot_connect_wallet") }
-      })
-  }
 
   const stepEnsureMedia: StepperFunc = () => {
     // Check if the metadata value is already updated
@@ -203,13 +190,13 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
     let pool: GatewayPool
 
     return poolPromise
-      .then(async (p) => {
+      .then((p) => {
         pool = p
 
         if (!startRightAway) return parameters.startBlock
 
-        // startBlock => now + 8 min
-        return VotingApi.estimateBlockAtDateTime(new Date(Date.now() + 1000 * 60 * 8), pool)
+        // startBlock => now + 7 min
+        return VotingApi.estimateBlockAtDateTime(new Date(Date.now() + 1000 * 60 * 7), pool)
       })
       .then(startBlock => {
         // ProcessContractParameters !== INewProcessParams
@@ -246,7 +233,7 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
         }
         return VotingApi.newProcess(finalParams, wallet, pool)
       }).then(processId => {
-        console.debug("processId:", processId)
+        setProcessId(processId)
 
         return {
           waitNext: false,
@@ -272,7 +259,6 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
   }, [startDate, endDate])
 
   const creationStepFuncs = [
-    stepEnsureWallet,
     stepEnsureMedia,
     stepEnsureCensusCreated,
     stepEnsureValidParams,

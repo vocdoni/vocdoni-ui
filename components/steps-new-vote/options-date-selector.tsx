@@ -87,7 +87,7 @@ export const OptionDateSelector = ({
                 name={RadioOptions.StartNow}
               >
                 <RadioText size={TextSize.Small}>
-                  {i18n.t('vote.start_right_away_5_minutes_from_now')}
+                  {i18n.t('vote.start_right_away_7_minutes_from_now')}
                 </RadioText>
               </Radio>
         </DateSelectContainer>
