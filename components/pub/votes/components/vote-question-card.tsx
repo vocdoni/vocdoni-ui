@@ -73,7 +73,7 @@ const RadioContainer = styled.div`
 `
 
 const QuestionContainer = styled.div`
-  padding: 10px 20px;
+  padding: 8px 20px;
 `
 
 const QuestionTitle = styled(SectionTitle)`

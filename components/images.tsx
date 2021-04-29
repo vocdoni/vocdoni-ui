@@ -10,6 +10,6 @@ export const ImageContainer = styled(FlexContainer)<ImageContainerProps>`
   & > img {
     max-width: ${({ width }) => width? width: 'auto'};
     width: 100%;
-    max-height: ${({ height }) => (height ? height: 'auto')};
+    max-height: ${({ height }) => (height ? height: 'inherit')};
   }
 `
