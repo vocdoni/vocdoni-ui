@@ -7,6 +7,7 @@ import { Button } from '../button'
 import i18n from '../../i18n'
 import { Else, If, Then } from 'react-if'
 import { EntityCreationPageSteps } from '.'
+import { CREATE_PROCESS_PATH, DASHBOARD_PATH } from '../../const/routes'
 
 export const FormCreation = () => {
   const { creationError, pleaseWait, created, methods } = useEntityCreation()
@@ -25,10 +26,10 @@ export const FormCreation = () => {
       <If condition={created}>
         <Then>
           <BottomDiv>
-            <Button href='/dashboard'>
+            <Button href={DASHBOARD_PATH}>
               {i18n.t('action.go_to_dashboard')}
             </Button>
-            <Button href='/processes/new' positive>
+            <Button href={CREATE_PROCESS_PATH} positive>
               {i18n.t('action.create_new_proposal')}
             </Button>
           </BottomDiv>

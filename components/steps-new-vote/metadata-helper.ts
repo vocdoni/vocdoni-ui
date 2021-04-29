@@ -1,11 +1,12 @@
 import { ProcessMetadata } from 'dvote-js'
+import { PlazaMetadataKeys } from '../../const/metadata-keys'
 
 import { MetadataFields } from './metadata'
 import { IChoice, IQuestion } from './question-group'
 
 const MIN_CHOICE_LENGTH = 1
 const MIN_TITLE_LENGTH = 4
-const MIN_DESCRIPTION_LENGTH = 40
+const MIN_DESCRIPTION_LENGTH = 10
 
 const linkRegexp = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/
 
@@ -15,7 +16,7 @@ const titleValidator = (title: string): boolean =>
 const descriptionValidator = (description: string): boolean =>
   description.length >= MIN_DESCRIPTION_LENGTH
 
-const linkValidator = (link: string): boolean =>  linkRegexp.test(link)
+const linkValidator = (link: string): boolean => linkRegexp.test(link)
 
 const optionalLinkValidator = (link: string): boolean => (!link) ? true : linkRegexp.test(link)
 
@@ -106,16 +107,23 @@ export const validateMetadata = (metadata: ProcessMetadata): ErrorFields => {
       },
     ],
     [
-      MetadataFields.PdfLink,
+      MetadataFields.StreamLink,
       {
-        argument: metadata.media[MetadataFields.PdfLink],
+        argument: metadata.media?.streamUri,
         validator: optionalLinkValidator,
       },
     ],
     [
-      MetadataFields.ForumLink,
+      MetadataFields.AttachmentLink,
       {
-        argument: metadata.media[MetadataFields.ForumLink],
+        argument: metadata.meta[PlazaMetadataKeys.ATTACHMENT_URI],
+        validator: optionalLinkValidator,
+      },
+    ],
+    [
+      MetadataFields.DiscussionLink,
+      {
+        argument: metadata.meta[PlazaMetadataKeys.DISCUSSION_URL],
         validator: optionalLinkValidator,
       },
     ],

@@ -28,15 +28,15 @@ const DashboardPage = () => {
     processes,
     loadingProcessList,
     loadingProcessesDetails,
-  } = useProcessesFromAccount('0x2Df8B6979fa7e75FFb6B464eD2c913Ab90995afA')
+  } = useProcessesFromAccount(wallet.address)
   // NOTE: processes is a singleton map (for efficiency reasons). This means that no re-render will occur based on `processes`.
   //       Use processIds and loadingProcessList + loadingProcessesDetails instead.
 
   const hasDbAccountAndWallet = wallet && wallet.address && dbAccounts.length
   const account: Account | null = hasDbAccountAndWallet
     ? dbAccounts.find(
-        (iterateAccount) => iterateAccount.address == wallet.address
-      )
+      (iterateAccount) => iterateAccount.address == wallet.address
+    )
     : null
   let initialActiveItem = useRef<ProcessTypes>(ProcessTypes.ActiveVotes);
 
@@ -69,10 +69,10 @@ const DashboardPage = () => {
     initialActiveItem.current = active.length
       ? ProcessTypes.ActiveVotes
       : results.length
-      ? ProcessTypes.VoteResults
-      : upcoming.length
-      ? ProcessTypes.UpcomingVotes
-      : ProcessTypes.ActiveVotes
+        ? ProcessTypes.VoteResults
+        : upcoming.length
+          ? ProcessTypes.UpcomingVotes
+          : ProcessTypes.ActiveVotes
 
     setActiveVotes(active)
     setVotesResults(results)

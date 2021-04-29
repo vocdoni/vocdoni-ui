@@ -102,8 +102,8 @@ const InputTitle = styled(SectionTitle)``
 
 const InputLabel = styled.label`
   font-weight: 400;
-  font-size: 18px;
-  line-height: 1.3em;
+  font-size: 13px;
+  line-height: 1.6em;
 `
 
 const InputError = styled.p`

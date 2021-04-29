@@ -58,6 +58,7 @@ export function useStepper<T>(mainActionStepFuncs: StepperFunc[], initialPageSte
     /** The error message thrown (if any) by the latest operation executed */
     creationError,
     setPageStep,
+    resetActionStep: () => setActionStep(0),
     // setActionStep,
     // setPleaseWait,
     // setCreationError,

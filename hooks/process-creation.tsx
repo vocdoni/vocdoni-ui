@@ -139,7 +139,7 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
     const name = metadata.title.default + '_' + Math.floor(Date.now() / 1000)
     const entityId = wallet.address
     const spreadsheetData = spreadSheetReader.data
-    metadataMethods.setMetaFields({'formFieldTitles': spreadSheetReader.header})
+    metadataMethods.setMetaFields({ 'formFieldTitles': spreadSheetReader.header })
 
     // TODO: USE Bluebird to limit the concurrency and leave the UI thread some space
 
@@ -254,26 +254,29 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
 
     return poolPromise
       .then(async pool => {
-        let retries = 10
+        let retries = 30
         while (retries >= 0) {
           const processList = await VotingApi.getProcessList({ entityId: wallet.address }, pool)
-          console.log(processList)
-          if (processList.length && processList.includes(processId)) {
+          if (processList.length && processList.includes(processId.replace("0x", ""))) {
             setPageStep(pageStep + 1)
             return {
               waitNext: true,
             }
           }
-          await new Promise(r => setTimeout(r, 2000)) // Wait 2s
+          await new Promise(r => setTimeout(r, 4000)) // Wait 4s
           retries--
         }
 
+        // Nothing after timeout
+        return { error: i18n.t('error.the_vote_is_not_available_yet') }
       })
       .catch((error) => {
         console.error(error)
         return { error: i18n.t('error.the_process_could_not_be_registered') }
       })
   }
+
+  // Callbacks
 
   const updateDateRange = async () => {
     const startBlock = await VotingApi.estimateBlockAtDateTime(startDate, pool)
@@ -302,8 +305,14 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
     pleaseWait,
     creationError,
     setPageStep,
+    resetActionStep,
     doMainActionSteps,
   } = useStepper<ProcessCreationPageSteps>(creationStepFuncs, ProcessCreationPageSteps.METADATA)
+
+  const createProcess = () => {
+    resetActionStep() // Ensure that the index is zero (for retry)
+    setTimeout(() => doMainActionSteps(), 50)
+  }
 
   const value: ProcessCreationContext = {
     processId,
@@ -330,7 +339,7 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
       setStartDate,
       setEndDate,
       setPageStep,
-      createProcess: doMainActionSteps,
+      createProcess,
       continueProcessCreation: doMainActionSteps,
     }
   }
@@ -372,7 +381,7 @@ const useProcessMetadata = () => {
   const methods = {
     setTitle,
     setDescription,
-    // setMedia,s
+    // setMedia,
     setMediaHeader,
     setMediaStreamURI,
     setMetaFields,
@@ -382,7 +391,7 @@ const useProcessMetadata = () => {
   return { metadata, methods }
 }
 
-const defaultCensusRoot = "0x"
+const defaultCensusRoot = "0x0000000000000000000000000000000000000000000000000000000000000000"
 const defaultCensusUri = "ipfs://"
 
 const useProcessParameters = () => {
@@ -392,7 +401,7 @@ const useProcessParameters = () => {
     censusOrigin: ProcessCensusOrigin.OFF_CHAIN_TREE,
     censusRoot: defaultCensusRoot,
     costExponent: 1,
-    envelopeType: ProcessEnvelopeType.make({ serial: true, uniqueValues: true, encryptedVotes: false, anonymousVoters: false }),
+    envelopeType: ProcessEnvelopeType.make({ serial: false, uniqueValues: false, encryptedVotes: false, anonymousVoters: false }),
     maxCount: 1,
     maxTotalCost: 0,
     maxValue: 1,

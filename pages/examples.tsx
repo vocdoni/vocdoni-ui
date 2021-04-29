@@ -17,6 +17,7 @@ import { Radio } from '../components/radio'
 import { colors } from '../theme/colors'
 import { Banner } from '../components/banners'
 import { VoteListItem, VoteStatusType } from '../components/list-items'
+import { DASHBOARD_PATH } from '../const/routes'
 
 // MAIN COMPONENT
 const IndexPage = () => {
@@ -46,7 +47,7 @@ const IndexPage = () => {
       </DivWithMarginChildren>
       <DivWithMarginChildren>
         <Button onClick={() => alert("Clicked")}>Click me</Button>
-        <Button href="/dashboard">Link to Dashboard</Button>
+        <Button href={DASHBOARD_PATH}>Link to Dashboard</Button>
       </DivWithMarginChildren>
       <DivWithMarginChildren>
         <Button>Default button</Button>
@@ -60,7 +61,7 @@ const IndexPage = () => {
       </DivWithMarginChildren>
       <DivWithMarginChildren>
         <SquareButton
-          icon={<div style={{textAlign:'center'}}>(LOGO)</div>}
+          icon={<div style={{ textAlign: 'center' }}>(LOGO)</div>}
         >
           <p>Square button</p>
         </SquareButton>
@@ -257,7 +258,7 @@ const IndexPage = () => {
             value: 'Second option',
             label: 'Second_option'
           }
-        ]}/>
+        ]} />
       </div>
 
       <h2>Radio</h2>

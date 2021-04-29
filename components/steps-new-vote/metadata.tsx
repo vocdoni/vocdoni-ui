@@ -24,8 +24,8 @@ import { PlazaMetadataKeys } from '../../const/metadata-keys'
 export enum MetadataFields {
   Title = 'process-title',
   Description = 'process-description',
-  PdfLink = 'pdf-url',
-  ForumLink = 'forum-url',
+  AttachmentLink = 'pdf-url',
+  DiscussionLink = 'forum-url',
   StreamLink = 'stream-url',
   Question = 'process-question',
 }
@@ -105,7 +105,7 @@ export const FormMetadata = () => {
 
           <FileLoaderFormGroup
             title={i18n.t('vote.header')}
-            label={i18n.t('vote.optional_introduction')}
+            label={i18n.t('vote.optional_field')}
             onSelect={(file) => methods.setHeaderFile(file)}
             onChange={methods.setHeaderURL}
             file={headerFile}
@@ -120,7 +120,7 @@ export const FormMetadata = () => {
             label={i18n.t('vote.brief_description')}
             placeholder={i18n.t('vote.brief_description')}
             id={MetadataFields.Description}
-            rows={10}
+            rows={8}
             value={metadata.description.default}
             onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
               methods.setDescription(e.target.value)
@@ -135,8 +135,8 @@ export const FormMetadata = () => {
             title={i18n.t('vote.pdf_link')}
             label={i18n.t('vote.pdf_link_label')}
             placeholder={i18n.t('vote.pdf_link')}
-            id={MetadataFields.PdfLink}
-            value={metadata.meta[MetadataFields.PdfLink]}
+            id={MetadataFields.AttachmentLink}
+            value={metadata.meta[MetadataFields.AttachmentLink]}
             onChange={(event: ChangeEvent<HTMLInputElement>) => {
               handleMeta(PlazaMetadataKeys.ATTACHMENT_URI, event.target.value)
             }}
@@ -148,8 +148,8 @@ export const FormMetadata = () => {
             title={i18n.t('vote.forum_link')}
             label={i18n.t('vote.forum_link_label')}
             placeholder={i18n.t('vote.forum_link')}
-            id={MetadataFields.ForumLink}
-            value={metadata.meta[MetadataFields.ForumLink]}
+            id={MetadataFields.DiscussionLink}
+            value={metadata.meta[MetadataFields.DiscussionLink]}
             onChange={(event: ChangeEvent<HTMLInputElement>) =>
               handleMeta(PlazaMetadataKeys.DISCUSSION_URL, event.target.value)
             }

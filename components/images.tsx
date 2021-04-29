@@ -7,10 +7,10 @@ type ImageContainerProps = FlexContainerProps & {
   height?: number
 }
 
-export const ImageContainer = styled(FlexContainer)<ImageContainerProps>`
+export const ImageContainer = styled(FlexContainer) <ImageContainerProps>`
   & > img {
-    max-width: ${({ width }) => width};
+    max-width: ${({ width }) => width}px;
     width: 100%;
-    max-height: ${({ height }) => (height ? height : 'auto')};
+    max-height: ${({ height }) => (height ? height + "px" : 'auto')};
   }
 `

@@ -10,9 +10,11 @@ import { Button } from '../button'
 import { FlexContainer, FlexJustifyContent } from '../flex'
 import { ImageContainer } from '../images'
 import { SectionText, SectionTitle, TextAlign } from '../text'
+import { useProcessCreation } from '../../hooks/process-creation';
 
 export const ProcessReady = () => {
-  const voteUrl = 'https://plaza.vocdoni.net/vote/auth/#/0x1234567890'
+  const { processId } = useProcessCreation()
+  const voteUrl = typeof location != "undefined" ? 'https://' + location.host + '/vote/auth/#/' + processId : ""
 
   const handleCopy = () => {
     copy(voteUrl)
@@ -41,9 +43,9 @@ export const ProcessReady = () => {
       </LinkContainer>
 
       <BackButtonContainer justify={FlexJustifyContent.Center}>
-          <Button color={colors.textAccent1} href={DASHBOARD_PATH} border>
-            {i18n.t('vote.back_to_dashboard')}
-          </Button>
+        <Button color={colors.textAccent1} href={DASHBOARD_PATH} border>
+          {i18n.t('vote.back_to_dashboard')}
+        </Button>
       </BackButtonContainer>
     </ProcessReadyContainer>
   )
