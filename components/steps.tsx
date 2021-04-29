@@ -31,13 +31,16 @@ const Step = ({ children, idx, activeIdx, isLast, showProgress }: { children: Re
 
   return <StepDiv>
     {showProgress ?
-      <StepTop>
-        {idx > 0 ? <LineLeft done={doneLeftLine} /> : null}
-        {active ? <><Dot done={done} /><DotActive /></> : <Dot done={done} />}
-        {isLast ? null : <LineRight done={doneRightLine} />}
-      </StepTop>
-    :
-      <StepText active={active || done}>{children}</StepText>
+      <>
+        <StepTop>
+          {idx > 0 ? <LineLeft done={doneLeftLine} /> : null}
+          {active ? <><Dot done={done} /><DotActive /></> : <Dot done={done} />}
+          {isLast ? null : <LineRight done={doneRightLine} />}
+        </StepTop>
+
+        <StepText active={active || done}>{children}</StepText>
+      </>
+    : null
     }
   </StepDiv>
 }

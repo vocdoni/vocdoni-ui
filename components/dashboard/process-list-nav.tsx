@@ -74,7 +74,7 @@ const NavList = styled.nav`
   & > ul {
     list-style: none;
     padding-left: 10px;
-    margin: 0 0 -20px;
+    margin: 6px 0 -10px;
 
     & > li {
       display: inline-block;

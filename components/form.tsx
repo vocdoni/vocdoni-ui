@@ -119,7 +119,10 @@ export const FileLoaderFormGroup = ({
   )
 }
 
-const InputTitle = styled(SectionTitle)``
+const InputTitle = styled(SectionTitle)`
+  font-size: 26px;
+  font-weight: 400;
+`
 
 const InputLabel = styled.label`
   font-weight: 400;
