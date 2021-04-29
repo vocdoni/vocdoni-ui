@@ -12,6 +12,7 @@ import { ProcessCreationPageSteps } from '.'
 import { CensusFileSelector } from './census-file-selector'
 import { SpreadSheetReader } from '../../lib/spread-sheet-reader'
 import { CensusFileData } from './census-file-data'
+import { colors } from 'theme/colors'
 
 export const FormCensus = () => {
   const { methods, spreadSheetReader } = useProcessCreation()
@@ -32,9 +33,9 @@ export const FormCensus = () => {
     <Grid>
       <Column>
         <SectionTitle>{i18n.t('vote.import_the_list_of_voters')}</SectionTitle>
-        <LightText>
+        <SectionText color={colors.lightText}>
           {i18n.t('vote.drag_a_spreadsheet_containing_personal_information')}
-        </LightText>
+        </SectionText>
       </Column>
 
       <Column>
@@ -80,10 +81,6 @@ export const FormCensus = () => {
 const CensusContainer = styled.div<{ disabled?: boolean }>`
   opacity: ${({ disabled }) => (disabled ? '0.6' : '1')};
   pointer-events: ${({ disabled }) => (disabled ? 'none' : 'auto')};
-`
-
-const LightText = styled(SectionText)`
-  color: #7a859f;
 `
 
 const BottomDiv = styled.div`

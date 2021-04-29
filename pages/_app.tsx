@@ -16,6 +16,7 @@ import { UseBackendProvider } from '../hooks/backend'
 import { FixedGlobalStyle, theme } from '../theme'
 import 'react-datetime/css/react-datetime.css'
 import { UseBlockNumberProvider } from '../hooks/use-blocknumber'
+import { UseVotingProvider } from '@hooks/use-voting'
 
 type NextAppProps = AppInitialProps & {
   Component: NextComponentType<NextPageContext, any, any>
@@ -41,6 +42,7 @@ const VocdoniApp: FC<NextAppProps> = ({ Component, pageProps }) => {
           <UseBackendProvider>
             <UseBlockNumberProvider>
             <UseProcessProvider>
+            <UseVotingProvider>
               <FixedGlobalStyle />
               <Head>
                 <meta
@@ -52,6 +54,7 @@ const VocdoniApp: FC<NextAppProps> = ({ Component, pageProps }) => {
               <Layout>
                 <Component {...pageProps} />
               </Layout>
+            </UseVotingProvider>
             </UseProcessProvider>
             </UseBlockNumberProvider>
           </UseBackendProvider>

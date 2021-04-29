@@ -1,8 +1,8 @@
 import { ProcessMetadata } from 'dvote-js'
 import { PlazaMetadataKeys } from '../../const/metadata-keys'
+import { Choice, Question } from '@lib/types'
 
 import { MetadataFields } from './metadata'
-import { IChoice, IQuestion } from './question-group'
 
 const MIN_CHOICE_LENGTH = 1
 const MIN_TITLE_LENGTH = 4
@@ -20,18 +20,18 @@ const linkValidator = (link: string): boolean => linkRegexp.test(link)
 
 const optionalLinkValidator = (link: string): boolean => (!link) ? true : linkRegexp.test(link)
 
-const choiceValidator = (choice: IChoice): boolean =>
+const choiceValidator = (choice: Choice): boolean =>
   choice.title.default.length >= MIN_CHOICE_LENGTH && choice.value !== undefined
 
-const questionValidator = (questions: IQuestion[]): boolean => {
-  const validateQuestion = (question: IQuestion) => {
+const questionValidator = (questions: Question[]): boolean => {
+  const validateQuestion = (question: Question) => {
     const questionIsValid =
       question.title.default.length >= MIN_TITLE_LENGTH
 
     // Note: the question description is not needed
 
     const invalidChoices = question.choices.filter(
-      (choice: IChoice) => !choiceValidator(choice)
+      (choice: Choice) => !choiceValidator(choice)
     )
 
     return questionIsValid && invalidChoices.length === 0
@@ -74,14 +74,14 @@ const validateFields = (validations: Map<string, IValidation>): ErrorFields => {
   return errorFields
 }
 
-export const createEmptyOption = (value: number): IChoice => ({
+export const createEmptyOption = (value: number): Choice => ({
   title: {
     default: '',
   },
   value: value,
 })
 
-export const createEmptyQuestion = (): IQuestion => ({
+export const createEmptyQuestion = (): Question => ({
   title: {
     default: '',
   },

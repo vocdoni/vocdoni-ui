@@ -3,14 +3,13 @@ import styled from 'styled-components'
 import { FlexContainer, FlexContainerProps } from './flex'
 
 type ImageContainerProps = FlexContainerProps & {
-  width: number
-  height?: number
+  width: string
 }
 
-export const ImageContainer = styled(FlexContainer) <ImageContainerProps>`
+export const ImageContainer = styled(FlexContainer)<ImageContainerProps>`
   & > img {
-    max-width: ${({ width }) => width}px;
+    max-width: ${({ width }) => width? width: 'auto'};
     width: 100%;
-    max-height: ${({ height }) => (height ? height + "px" : 'auto')};
+    max-height: ${({ height }) => (height ? height: 'auto')};
   }
 `

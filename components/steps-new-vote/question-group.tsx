@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useState } from 'react'
-import { MultiLanguage } from 'dvote-js'
+
 import cloneDeep from 'lodash/cloneDeep'
 import styled from 'styled-components'
 
@@ -12,22 +12,12 @@ import { Card } from '../cards'
 import { Grid } from '../grid'
 
 import { createEmptyOption } from './metadata-helper'
-
-export interface IChoice {
-  title: MultiLanguage<string>
-  value: number
-}
-
-export interface IQuestion {
-  title: MultiLanguage<string>
-  description?: MultiLanguage<string>
-  choices: IChoice[]
-}
+import { Choice, Question } from '@lib/types'
 
 interface IQuestionGroupProps {
-  question: IQuestion
+  question: Question
   index: number
-  onUpdateQuestion: (index, IQuestion) => void
+  onUpdateQuestion: (index, Question) => void
   onDeleteQuestion: (index) => void
   canBeDeleted?: boolean
 }
@@ -45,21 +35,21 @@ export const QuestionGroup = ({
   onDeleteQuestion,
 }: IQuestionGroupProps) => {
   const handleUpdateQuestion = (field: QuestionFields, value) => {
-    const clonedQuestion: IQuestion = cloneDeep(question)
+    const clonedQuestion: Question = cloneDeep(question)
     clonedQuestion[field]['default'] = value
 
     onUpdateQuestion(index, clonedQuestion)
   }
 
   const handleUpdateTitleChoice = (choiceIndex: number, value: string) => {
-    const clonedQuestion: IQuestion = cloneDeep(question)
+    const clonedQuestion: Question = cloneDeep(question)
     clonedQuestion.choices[choiceIndex][QuestionFields.Title]['default'] = value
 
     onUpdateQuestion(index, clonedQuestion)
   }
 
   const handleCreateChoice = () => {
-    const clonedQuestion: IQuestion = cloneDeep(question)
+    const clonedQuestion: Question = cloneDeep(question)
     clonedQuestion.choices.push(
       createEmptyOption(clonedQuestion.choices.length + 1)
     )
@@ -68,7 +58,7 @@ export const QuestionGroup = ({
   }
 
   const handleDeleteQuestion = (choiceIndex: number) => {
-    const clonedQuestion: IQuestion = cloneDeep(question)
+    const clonedQuestion: Question = cloneDeep(question)
     clonedQuestion.choices.splice(choiceIndex, 1)
 
     onUpdateQuestion(index, clonedQuestion)
@@ -122,7 +112,7 @@ export const QuestionGroup = ({
             }
           />
 
-          {question.choices.map((choice: IChoice, choiceIndex: number) => (
+          {question.choices.map((choice: Choice, choiceIndex: number) => (
             <ContentContainer key={choiceIndex}>
               <FillSpaceWrapper>
                 <InputFormGroup

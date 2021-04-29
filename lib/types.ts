@@ -1,4 +1,4 @@
-import { EntityMetadata, ProcessContractParameters, ProcessMetadata } from 'dvote-js'
+import { EntityMetadata, MultiLanguage, ProcessContractParameters, ProcessMetadata } from 'dvote-js'
 
 // IndexDB types
 
@@ -23,6 +23,17 @@ export type ProcessInfo = {
   metadata: ProcessMetadata,
   parameters: ProcessContractParameters,
   entity: string
+}
+
+export type Question = {
+  title: MultiLanguage<string>
+  description?: MultiLanguage<string>
+  choices: Choice[]
+}
+
+export type Choice = {
+  title: MultiLanguage<string>
+  value: number
 }
 
 export type Nullable<T> = T | null

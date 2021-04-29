@@ -12,6 +12,7 @@ type BaseForGroupProps = {
   name?: string
   placeholder?: string
   error?: string
+  variant?: FormGroupVariant
 }
 
 type IInputFormGroupProps = {
@@ -33,6 +34,24 @@ const RANDOM_LENGTH = 10
 const generateRandomId = () =>
   (Math.random() * Math.pow(10, RANDOM_LENGTH)).toFixed(0)
 
+export enum FormGroupVariant {
+  Small = 'small',
+  Regular = 'regular',
+}
+
+interface IFormGroupProps {
+  marginBottom?: string
+}
+
+const FormGroupVariantProps = {
+  [FormGroupVariant.Small]: {
+    marginBottom: '16px',
+  },
+  [FormGroupVariant.Regular]: {
+    marginBottom: '32px',
+  },
+}
+
 export const formGroupHOC = (InputField) => ({
   title,
   label,
@@ -43,11 +62,12 @@ export const formGroupHOC = (InputField) => ({
   rows,
   error,
   onChange,
+  variant = FormGroupVariant.Regular,
 }: IInputFormGroupProps) => {
   const inputId = id || `input-${generateRandomId()}`
 
   return (
-    <FormGroup>
+    <FormGroup {...FormGroupVariantProps[variant]}>
       {title && <InputTitle>{title}</InputTitle>}
       {label && <InputLabel htmlFor={inputId}>{label}</InputLabel>}
 
@@ -78,11 +98,12 @@ export const FileLoaderFormGroup = ({
   error,
   onChange,
   onSelect,
+  variant = FormGroupVariant.Regular,
 }: FileFormGroupProps) => {
   const fileInputId = id || `file-${generateRandomId()}`
 
   return (
-    <FormGroup>
+    <FormGroup {...FormGroupVariantProps[variant]}>
       {title && <InputTitle>{title}</InputTitle>}
       {label && <InputLabel>{label}</InputLabel>}
 
@@ -107,10 +128,10 @@ const InputLabel = styled.label`
 `
 
 const InputError = styled.p`
-  color: ${({theme}) => theme.danger}
+  color: ${({ theme }) => theme.danger};
 `
 
-export const FormGroup = styled.div<{ marginBottom?: number }>`
+export const FormGroup = styled.div<IFormGroupProps>`
   margin-bottom: ${({ marginBottom }) =>
     marginBottom ? marginBottom : '32px'};
 `

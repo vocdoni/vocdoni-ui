@@ -34,7 +34,7 @@ export const useAuthForm = () => {
   const { poolPromise } = usePool()
   const { setWallet } = useWallet({ role: WalletRoles.VOTER })
   const processId = useUrlHash().slice(1) // Skip /
-  const invalidProcessId = !processId.match(/^0x[0-9a-fA-A]{64}$/)
+  const invalidProcessId = processId && !processId.match(/^0x[0-9a-fA-F]{64}$/)
   const { loading: loadingInfo, error: loadingInfoError, process: processInfo } = useProcess(processId)
   const { setAlertMessage } = useMessageAlert()
   const [formValues, setFormValues] = useState<{ [k: string]: string }>({})
@@ -79,7 +79,7 @@ export const useAuthForm = () => {
     })
   }
 
-  const emptyFields = !formValues || Object.values(formValues).some(v => !!v)
+  const emptyFields = !formValues || Object.values(formValues).some(v => !v)
 
   const value: IAuthForm = {
     loadingInfo,

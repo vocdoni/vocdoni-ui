@@ -12,7 +12,7 @@ export const EmptyProposalCard = () => (
   <Card md={8} sm={12}>
     <EmptyProposalContainer>
       <div>
-        <ImageContainer width={400} justify={FlexJustifyContent.Center}>
+        <ImageContainer width="400px" justify={FlexJustifyContent.Center}>
           <img
             src="/images/dashboard/empty-proposal.png"
             alt={i18n.t('dashboard.no_proposals_yet')}

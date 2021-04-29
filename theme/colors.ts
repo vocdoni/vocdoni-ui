@@ -2,8 +2,10 @@ import { Colors } from './types'
 
 export const colors: Colors = {
   text: "#434548",
-  lightText: "#777777",
+  lightText: "#7A859F",
   lighterText: "#999",
+  blueText: "#0D4752",
+
 
   background: "#F6F9FC",
 

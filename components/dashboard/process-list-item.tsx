@@ -48,7 +48,7 @@ export const DashboardProcessListItem = ({
     <VoteItemWrapper>
       <VoteListItem
         icon={
-          <ImageContainer width={200}>
+          <ImageContainer width="200px">
             <img src={process.metadata.media.header} />
           </ImageContainer>
         }

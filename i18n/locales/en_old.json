@@ -23,7 +23,13 @@
         "enter_the_details_of_the_organization": "Enter the details of the organization",
         "general": "General",
         "enter_the_details_of_the_porposal": "",
-        "pdf_ling": ""
+        "pdf_ling": "",
+        "login": "",
+        "participate_description": "",
+        "participate_title": "",
+        "send_vote": "Send vote",
+        "the_link_you_have_followed_is_not_valid": "",
+        "voting": ""
     },
     "sign_in": {
         "select_the_account_to_use_and_enterr_your_passphrase": ""
@@ -38,5 +44,8 @@
     "process": {
         "enter_the_details_of_the_process": "Enter the details of the new process",
         "new_process": "New process"
+    },
+    "action": {
+        "preview_proposal": "Preview proposal"
     }
 }

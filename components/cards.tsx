@@ -20,6 +20,17 @@ export const PageCard = styled.div`
   border-radius: 16px;
 `
 
+export const PageCardHeader = styled.div`
+  margin: -32px -32px 20px;
+  max-height: 240px;
+  border-radius: 16px 16px 0 0;
+  overflow: hidden;
+
+  & > img {
+    width: 100%;
+  }
+`
+
 export const Card = ({ span, sm, md, lg, xl, border, ...props }: CardProps) => (
   <Column {...{ span, sm, md, lg, xl }}>
     <CardDiv border>{props.children}</CardDiv>

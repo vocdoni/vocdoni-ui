@@ -17,7 +17,15 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "downlevelIteration": true
+    "downlevelIteration": true,
+    "baseUrl": "./",
+    "paths": {
+      "@components/*": ["components/*"],
+      "@hooks/*": ["hooks/*"],
+      "@const/*": ["const/*"] ,
+      "@lib/*": ["lib/*"],
+      "@i18n": ["i18n/index.ts"]
+    },
   },
   "exclude": [
     "node_modules"

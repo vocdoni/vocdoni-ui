@@ -1,21 +1,21 @@
 import { usePool, useProcess } from '@vocdoni/react-hooks'
 import { CensusOffChainApi, DigestedProcessResults, ProcessStatus, VotingApi, CensusOffchainDigestType } from 'dvote-js'
 import { createContext, ReactNode, useContext, useEffect, useMemo, useState } from 'react'
+
 import { useWallet, WalletRoles } from './use-wallet'
 import i18n from '../i18n'
-import { DEFAULT_VOTING_PAGE_STEP, VotingPageSteps } from '../components/steps-voting'
 import { ProcessInfo, StepperFunc } from '../lib/types'
 import { useStepper } from './use-stepper'
 import { useUrlHash } from 'use-url-hash'
 import { useMessageAlert } from './message-alert'
 import { DateDiffType, localizedStrDateDiff } from '../lib/date'
 import { areAllNumbers, waitBlockFraction } from '../lib/util'
+import { MetadataFields } from '@components/steps-new-vote/metadata'
 
 export interface VotingContext {
   pleaseWait: boolean,
   actionStep: number,
   actionError?: string,
-  pageStep: VotingPageSteps,
   loadingInfo: boolean,
   loadingInfoError: string,
 
@@ -24,9 +24,10 @@ export interface VotingContext {
   hasStarted: boolean,
   hasEnded: boolean,
   remainingTime: string,
-
+  hasVoted: boolean,
   canVote: boolean,
   // isInCensus: boolean,
+  choices: number[],
   allQuestionsChosen: boolean,
   statusText: string,
 
@@ -48,6 +49,7 @@ export const UseVotingContext = createContext<VotingContext>({ step: 0, methods:
 
 export const useVoting = () => {
   const votingCtx = useContext(UseVotingContext)
+  console.log('el vottoong contents', votingCtx)
   if (votingCtx === null) {
     throw new Error('useVoting() can only be used on the descendants of <UsevotingProvider />,')
   }
@@ -294,7 +296,7 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
   // Enumerate all the steps needed to create an entity
   const creationStepFuncs = [confirmAction, ensureCensusProof, ensureVoteSubmission, ensureVoteInclusion]
 
-  const creationStepper = useStepper(creationStepFuncs, DEFAULT_VOTING_PAGE_STEP)
+  const creationStepper = useStepper(creationStepFuncs, '')
   const { actionStep, pleaseWait, creationError, doMainActionSteps } = creationStepper
 
   // Render precomputed params
@@ -334,10 +336,8 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
       break
   }
 
-
   // RETURN VALUES
   const value: VotingContext = {
-    pageStep: VotingPageSteps.VOTE,
     actionStep,
     pleaseWait,
     actionError: creationError,
@@ -346,13 +346,14 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
     loadingInfo,
     refreshingVotedStatus,
     processInfo,
-
+    hasVoted,
     hasStarted,
     hasEnded,
     // isInCensus,
 
     canVote,
     remainingTime,
+    choices,
     allQuestionsChosen,
     statusText,
 

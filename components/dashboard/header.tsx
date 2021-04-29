@@ -1,5 +1,4 @@
 import React from 'react'
-import styled from 'styled-components'
 
 import i18n from '../../i18n'
 import { FALLBACK_ACCOUNT_ICON } from '../../const/account'
@@ -35,7 +34,7 @@ export const DashboardHeader = ({ account }: IDashboardHeaderProps) => {
   )
 
   const accountImage = (
-    <ImageContainer width={50} height={70}>
+    <ImageContainer width="50px" height="70px">
       <img
         src={account?.pending?.metadata?.media.avatar || FALLBACK_ACCOUNT_ICON}
         alt={i18n.t('dashboard.company_logo')}
@@ -43,7 +42,7 @@ export const DashboardHeader = ({ account }: IDashboardHeaderProps) => {
     </ImageContainer>
   )
   const downloadImage = (
-    <ImageContainer width={50} height={70}>
+    <ImageContainer width="50px" height="70px">
       <img
         src="/images/dashboard/download.svg"
         alt={i18n.t('dashboard.company_logo')}

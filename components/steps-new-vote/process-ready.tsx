@@ -22,7 +22,7 @@ export const ProcessReady = () => {
 
   return (
     <ProcessReadyContainer>
-      <ImageContainer width={500}>
+      <ImageContainer width="500px">
         <img src="/images/vote/create-proposal.png" />
       </ImageContainer>
       <SectionTitle align={TextAlign.Center}>

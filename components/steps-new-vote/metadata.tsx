@@ -1,7 +1,8 @@
 import React, { ChangeEvent, useEffect, useState } from 'react'
 import { checkValidProcessMetadata } from 'dvote-js'
 import styled from 'styled-components'
-import cloneDeep from 'lodash/cloneDeep'
+
+import { Question } from '@lib/types'
 
 import { useProcessCreation } from '../../hooks/process-creation'
 import { useMessageAlert } from '../../hooks/message-alert'
@@ -13,7 +14,7 @@ import { FileLoaderFormGroup, InputFormGroup, TextareaFormGroup } from '../form'
 import { SectionText } from '../text'
 
 import { ProcessCreationPageSteps } from '.'
-import { IQuestion, QuestionGroup } from './question-group'
+import { QuestionGroup } from './question-group'
 import {
   ErrorFields,
   createEmptyQuestion,
@@ -55,7 +56,7 @@ export const FormMetadata = () => {
     }
   }
 
-  const handleUpdateQuestion = (index: number, question: IQuestion) => {
+  const handleUpdateQuestion = (index: number, question: Question) => {
     metadata.questions[index] = question
     methods.setQuestions(metadata.questions)
   }
@@ -172,7 +173,7 @@ export const FormMetadata = () => {
         </Column>
       </Grid>
 
-      {metadata.questions.map((question: IQuestion, index: number) => (
+      {metadata.questions.map((question: Question, index: number) => (
         <QuestionGroup
           key={index}
           canBeDeleted={metadata.questions.length > 1}

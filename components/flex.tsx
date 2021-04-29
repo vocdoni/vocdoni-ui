@@ -17,14 +17,25 @@ export enum FlexAlignItem {
   Baseline = 'baseline'
 }
 
+export enum FlexDirection {
+  Row = 'row',
+  Column = 'column'
+}
+
 export type FlexContainerProps = {
   justify?: FlexJustifyContent,
-  alignItem?: FlexAlignItem
+  alignItem?: FlexAlignItem,
+  direction?: FlexDirection,
+  minHeight?: string,
+  height?: string,
 }
 
 export const FlexContainer = styled.div<FlexContainerProps>`
+  display: flex;
+  flex-direction: ${({direction}) => direction? direction: FlexDirection.Row};
   justify-content: ${({justify}) => justify? justify: FlexJustifyContent.Start};
   align-items: ${({alignItem}) => alignItem? alignItem: FlexAlignItem.Start};
-  display: flex
+  min-height: ${({minHeight}) => minHeight? minHeight: 'auto'};
+  height: ${({height}) => height? height: 'auto'};
 `
 

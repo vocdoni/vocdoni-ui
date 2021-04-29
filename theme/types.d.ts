@@ -4,6 +4,7 @@ export interface Colors {
   text: Color;
   lightText: Color;
   lighterText: Color;
+  blueText: Color;
 
   /** Background color of the body */
   background: Color;
