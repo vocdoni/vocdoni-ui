@@ -21,12 +21,13 @@ import { useForceUpdate } from "./use-force-update"
 import i18n from '../i18n'
 import { uploadFileToIpfs } from '../lib/file'
 import { StepperFunc, StepperFuncResult } from '../lib/types'
-import { digestedWalletFromString, importedRowToString } from '../lib/util'
+import { digestedWalletFromString, importedRowToString, normalize } from '../lib/util'
 import { useStepper } from './use-stepper'
 import { useWallet } from './use-wallet'
 import moment from 'moment'
 import { isUri } from '../lib/regex'
 import { SpreadSheetReader } from '../lib/spread-sheet-reader'
+import { utils } from 'ethers'
 
 export interface ProcessCreationContext {
   metadata: ProcessMetadata,
@@ -137,15 +138,16 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
       return { waitNext: false } // next step
 
     const name = metadata.title.default + '_' + Math.floor(Date.now() / 1000)
-    const entityId = wallet.address
+    const entityId = utils.getAddress(wallet.address)
     const spreadsheetData = spreadSheetReader.data
     metadataMethods.setMetaFields({ 'formFieldTitles': spreadSheetReader.header })
 
     // TODO: USE Bluebird to limit the concurrency and leave the UI thread some space
 
     // Process the CSV entries
-    const claims = await Promise.all(spreadsheetData.map((row) => new Promise((resolve) => {
+    const claims = await Promise.all(spreadsheetData.map((row: string[]) => new Promise((resolve) => {
       setTimeout(() => {
+        row = row.map(x => normalize(x))
         const payload = importedRowToString(row, entityId)
         const voterWallet = digestedWalletFromString(payload)
         const key = CensusOffChainApi.digestPublicKey(voterWallet.publicKey, CensusOffchainDigestType.RAW_PUBKEY)

@@ -1,15 +1,15 @@
 import { useState, createContext, useContext, useEffect } from 'react'
 import { useRouter } from 'next/router'
-import { Wallet } from '@ethersproject/wallet'
 import { CensusOffChainApi, CensusOffchainDigestType } from 'dvote-js'
 import { VOTING_PATH } from '../const/routes'
 import i18n from '../i18n'
-import { digestedWalletFromString, importedRowToString } from '../lib/util'
+import { digestedWalletFromString, importedRowToString, normalize } from '../lib/util'
 import { useMessageAlert } from './message-alert'
 import { usePool, useProcess } from '@vocdoni/react-hooks'
 import { useUrlHash } from 'use-url-hash'
 import { useWallet, WalletRoles } from './use-wallet'
 import { ProcessInfo } from '../lib/types'
+import { utils } from 'ethers'
 
 // CONTEXT
 
@@ -49,8 +49,8 @@ export const useAuthForm = () => {
     setFormValues(newValue)
   }
 
-  const onLogin = () => {
-    const authFields: string[] = []
+  const onLogin =  () => {
+    let authFields: string[] = []
     for (const fieldName of fieldNames) {
       if (!formValues[fieldName]) return setAlertMessage(i18n.t("errors.please_fill_in_all_the_fields"))
 
@@ -60,12 +60,14 @@ export const useAuthForm = () => {
       authFields.push(formValues[fieldName])
     }
 
-    const strPayload = importedRowToString(authFields, processInfo.entity)
+    const entityId = utils.getAddress(processInfo.entity)
+    authFields = authFields.map(x => normalize(x))
+    const strPayload = importedRowToString(authFields, entityId)
     const voterWallet = digestedWalletFromString(strPayload)
     const digestedHexClaim = CensusOffChainApi.digestPublicKey(voterWallet.publicKey, CensusOffchainDigestType.RAW_PUBKEY)
 
     return poolPromise.then(pool =>
-      CensusOffChainApi.generateProof(processInfo.parameters.censusRoot, { key: digestedHexClaim }, true, pool)
+      CensusOffChainApi.generateProof(processInfo.parameters.censusRoot, { key: digestedHexClaim }, false, pool)
     ).then(censusProof => {
       if (!censusProof) throw new Error("Invalid census proof")
 

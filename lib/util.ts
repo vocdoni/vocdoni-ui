@@ -78,3 +78,8 @@ export function waitBlockFraction(factor: number = 1) {
     setTimeout(resolve, Math.floor(delay))
   )
 }
+
+/** Dummy normalization */
+export const normalize = (data: string): string  => {
+  return data.trimStart().trimEnd()
+}

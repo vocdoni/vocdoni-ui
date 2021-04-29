@@ -5,9 +5,11 @@ import { useProcesses } from '@vocdoni/react-hooks'
 import { useWallet } from './use-wallet'
 import { useMessageAlert } from './message-alert'
 import i18n from '../i18n'
+import { utils } from 'ethers'
 
 
 export const useProcessesFromAccount = (entityId: string) => {
+  entityId = (entityId) ? utils.getAddress(entityId) : entityId
   const [processIds, setProcessIds] = useState([] as string[])
   const [loadingProcessList, setLoadingProcessList] = useState(true)
   const { setAlertMessage } = useMessageAlert()
@@ -22,7 +24,7 @@ export const useProcessesFromAccount = (entityId: string) => {
   useEffect(() => {
     const interval = setInterval(() => updateProcessIds, 1000 * 60)
     updateProcessIds()
-
+    entityId = (entityId) ? utils.getAddress(entityId) : entityId
     // Done
     return () => clearInterval(interval)
   }, [wallet, entityId])
@@ -32,6 +34,7 @@ export const useProcessesFromAccount = (entityId: string) => {
   const updateProcessIds = () => {
     if (!entityId) return
     setLoadingProcessList(true)
+
 
     poolPromise
       .then((pool) => getProcessList(entityId, pool))

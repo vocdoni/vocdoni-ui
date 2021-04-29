@@ -4,7 +4,7 @@ import copy from 'copy-to-clipboard';
 
 import i18n from '../../i18n'
 import { colors } from '../../theme/colors'
-import { DASHBOARD_PATH } from '../../const/routes';
+import { DASHBOARD_PATH, VOTING_AUTH_FORM_PATH } from '../../const/routes';
 
 import { Button } from '../button'
 import { FlexContainer, FlexJustifyContent } from '../flex'
@@ -14,7 +14,7 @@ import { useProcessCreation } from '../../hooks/process-creation';
 
 export const ProcessReady = () => {
   const { processId } = useProcessCreation()
-  const voteUrl = typeof location != "undefined" ? 'https://' + location.host + '/vote/auth/#/' + processId : ""
+  const voteUrl = typeof location != "undefined" ? 'https://' + location.host + VOTING_AUTH_FORM_PATH +'/#/' + processId : ""
 
   const handleCopy = () => {
     copy(voteUrl)
