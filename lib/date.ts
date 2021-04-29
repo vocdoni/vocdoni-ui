@@ -38,8 +38,8 @@ function strDiffFuture(type: DateDiffType, secondDiff: number): string {
     num = Math.floor(secondDiff / 60 / 60 / 24)
 
     if (num > 1) {
-      if (type == DateDiffType.Start) return i18n.t("dates.starting_in_n_days", { interpolation: { num } })
-      return i18n.t("dates.ending_in_n_days", { interpolation: { num } })
+      if (type == DateDiffType.Start) return i18n.t("dates.starting_in_n_days", { num })
+      return i18n.t("dates.ending_in_n_days", { num })
     }
     else {
       if (type == DateDiffType.Start) return i18n.t("dates.starting_tomorrow")
@@ -50,8 +50,8 @@ function strDiffFuture(type: DateDiffType, secondDiff: number): string {
     num = Math.floor(secondDiff / 60 / 60)
 
     if (num > 1) {
-      if (type == DateDiffType.Start) return i18n.t("dates.starting_in_n_hours", { interpolation: { num } })
-      return i18n.t("dates.ending_in_n_hours", { interpolation: { num } })
+      if (type == DateDiffType.Start) return i18n.t("dates.starting_in_n_hours", { num })
+      return i18n.t("dates.ending_in_n_hours", { num })
     }
     else {
       if (type == DateDiffType.Start) return i18n.t("dates.starting_in_one_hour")
@@ -62,8 +62,8 @@ function strDiffFuture(type: DateDiffType, secondDiff: number): string {
     num = Math.floor(secondDiff / 60)
 
     if (num > 1) {
-      if (type == DateDiffType.Start) return i18n.t("dates.starting_in_n_minutes", { interpolation: { num } })
-      return i18n.t("dates.ending_in_n_minutes", { interpolation: { num } })
+      if (type == DateDiffType.Start) return i18n.t("dates.starting_in_n_minutes", { num })
+      return i18n.t("dates.ending_in_n_minutes", { num })
     }
     else {
       if (type == DateDiffType.Start) return i18n.t("dates.starting_in_one_minute")
@@ -74,8 +74,8 @@ function strDiffFuture(type: DateDiffType, secondDiff: number): string {
     num = Math.floor(secondDiff)
 
     if (num > 1) {
-      if (type == DateDiffType.Start) return i18n.t("dates.starting_in_n_seconds", { interpolation: { num } })
-      return i18n.t("dates.ending_in_n_seconds", { interpolation: { num } })
+      if (type == DateDiffType.Start) return i18n.t("dates.starting_in_n_seconds", { num })
+      return i18n.t("dates.ending_in_n_seconds", { num })
     }
     else {
       if (type == DateDiffType.Start) return i18n.t("dates.starting_right_now")
@@ -92,8 +92,8 @@ function strDiffPast(type: DateDiffType, secondDiff: number): string {
     num = Math.floor(secondDiff / 60 / 60 / 24)
 
     if (num > 1) {
-      if (type == DateDiffType.Start) return i18n.t("dates.started_n_days_ago", { interpolation: { num } })
-      return i18n.t("dates.ended_n_days_ago", { interpolation: { num } })
+      if (type == DateDiffType.Start) return i18n.t("dates.started_n_days_ago", { num })
+      return i18n.t("dates.ended_n_days_ago", { num })
     }
     else {
       if (type == DateDiffType.Start) return i18n.t("dates.started_yesterday")
@@ -104,8 +104,8 @@ function strDiffPast(type: DateDiffType, secondDiff: number): string {
     num = Math.floor(secondDiff / 60 / 60)
 
     if (num > 1) {
-      if (type == DateDiffType.Start) return i18n.t("dates.started_n_hours_ago", { interpolation: { num } })
-      return i18n.t("dates.ended_n_hours_ago", { interpolation: { num } })
+      if (type == DateDiffType.Start) return i18n.t("dates.started_n_hours_ago", { num })
+      return i18n.t("dates.ended_n_hours_ago", { num })
     }
     else {
       if (type == DateDiffType.Start) return i18n.t("dates.started_an_hour_ago")
@@ -116,8 +116,8 @@ function strDiffPast(type: DateDiffType, secondDiff: number): string {
     num = Math.floor(secondDiff / 60)
 
     if (num > 1) {
-      if (type == DateDiffType.Start) return i18n.t("dates.started_n_minutes_ago", { interpolation: { num } })
-      return i18n.t("dates.ended_n_minutes_ago", { interpolation: { num } })
+      if (type == DateDiffType.Start) return i18n.t("dates.started_n_minutes_ago", { num })
+      return i18n.t("dates.ended_n_minutes_ago", { num })
     }
     else {
       if (type == DateDiffType.Start) return i18n.t("dates.started_a_minute_ago")
@@ -128,8 +128,8 @@ function strDiffPast(type: DateDiffType, secondDiff: number): string {
     num = Math.floor(secondDiff)
 
     if (num > 1) {
-      if (type == DateDiffType.Start) return i18n.t("dates.started_n_seconds_ago", { interpolation: { num } })
-      return i18n.t("dates.ended_n_seconds_ago", { interpolation: { num } })
+      if (type == DateDiffType.Start) return i18n.t("dates.started_n_seconds_ago", { num })
+      return i18n.t("dates.ended_n_seconds_ago", { num })
     }
     else {
       if (type == DateDiffType.Start) return i18n.t("dates.started_right_now")

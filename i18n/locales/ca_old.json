@@ -25,7 +25,8 @@
         "enter_the_details_of_the_organization": "",
         "general": "",
         "enter_the_details_of_the_porposal": "",
-        "pdf_ling": ""
+        "pdf_ling": "",
+        "optional_introduction": ""
     },
     "sign_in": {
         "select_the_account_to_use_and_enterr_your_passphrase": ""
@@ -36,9 +37,6 @@
     "process": {
         "enter_the_details_of_the_process": "",
         "new_process": ""
-    },
-    "action": {
-        "preview_proposal": ""
     },
     "this_is_the_form_that_your_community_will_need_to_fill_in_order_to_vote": ""
 }

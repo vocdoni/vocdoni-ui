@@ -4,12 +4,13 @@ import { ColumnProps } from "./grid"
 import { Tag } from "./tag"
 import { ReactNode } from "react"
 import i18n from "../i18n"
+import { SHOW_PROCESS_PATH } from "../const/routes"
 
 export enum VoteStatusType {
   Active = 'active',
   Paused = 'paused',
   Ended = 'ended'
-} 
+}
 
 type VoteListItemProps = ColumnProps & {
   icon: ReactNode,
@@ -22,7 +23,7 @@ type VoteListItemProps = ColumnProps & {
 }
 
 export const VoteListItem = ({ icon, entityName, processId, title, description, status, dateText }: VoteListItemProps) => (
-  <Link href={"/processes#/" + processId}>
+  <Link href={SHOW_PROCESS_PATH + "#/" + processId}>
     <a>
       <ListItemDiv>
         <TopDiv>
@@ -43,7 +44,7 @@ export const VoteListItem = ({ icon, entityName, processId, title, description, 
         </TopDiv>
 
         <VoteListItemTitle>{title}</VoteListItemTitle>
-        <VoteListItemDescription><span dangerouslySetInnerHTML={{ __html: description}} /></VoteListItemDescription>
+        <VoteListItemDescription><span dangerouslySetInnerHTML={{ __html: description }} /></VoteListItemDescription>
         <VoteListItemDate>{dateText}</VoteListItemDate>
       </ListItemDiv>
     </a>
