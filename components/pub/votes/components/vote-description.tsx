@@ -11,15 +11,15 @@ import { colors } from 'theme/colors'
 interface IVotePageProps {
   description: string
   liveSteam: string
-  documentUrl: string
-  forumUrl: string
+  attachmentUrl: string
+  discussionUrl: string
   voteStatus: number
 }
 export const VoteDescription = ({
   description,
   liveSteam,
-  documentUrl,
-  forumUrl,
+  attachmentUrl,
+  discussionUrl,
   voteStatus,
 }: IVotePageProps) => {
   const pdfIcon = (
@@ -31,6 +31,7 @@ export const VoteDescription = ({
       alt={i18n.t('vote.question_image_alt')}
     />
   )
+
   return (
     <Grid>
       <Column>
@@ -72,7 +73,7 @@ export const VoteDescription = ({
           border
           wide
           icon={pdfIcon}
-          href={documentUrl}
+          href={attachmentUrl}
           justify={JustifyContent.Left}
         >
           {i18n.t('vote.download_the_document')}
@@ -84,7 +85,7 @@ export const VoteDescription = ({
           border
           wide
           icon={questionIcon}
-          href={forumUrl}
+          href={discussionUrl}
           justify={JustifyContent.Left}
         >
           {i18n.t('vote.questions_and_answers')}

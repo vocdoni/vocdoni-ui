@@ -1,4 +1,5 @@
 import React from 'react'
+import styled from 'styled-components'
 import { Modal } from 'react-rainbow-components'
 
 import { useVoting } from '@hooks/use-voting'
@@ -38,5 +39,11 @@ export const ConfirmModal = ({ isOpen, onClose }: IConfigModal) => {
     renderVoteSubmitted,
   ])
 
-  return <Modal isOpen={isOpen}>{viewContext.getView()}</Modal>
+  return <Modal isOpen={isOpen} onRequestClose={onClose}>
+    <ModalContainer>{viewContext.getView()}</ModalContainer>
+  </Modal>
 }
+
+const ModalContainer = styled.div`
+  padding: 10px 20px 0;
+`

@@ -24,12 +24,17 @@ export const ModalQuestionList = ({
   onClose,
 }: IModalQuestionList) => {
   const renderQuestion = (question: Question, choice: Choice) => (
-    <QuestionGroup>
-      <SectionText color="#7E89AC">{i18n.t('vote.question')}</SectionText>
-      <QuestionText>{question.title.default}</QuestionText>
-      <SectionText color="#7E89AC">{i18n.t('vote.your_choice')}</SectionText>
-      <QuestionText>{choice.title.default}</QuestionText>
-    </QuestionGroup>
+    <>
+      <QuestionGroup>
+        <SectionText color="#7E89AC">{i18n.t('vote.question')}</SectionText>
+        <QuestionText>{question.title.default}</QuestionText>
+      </QuestionGroup>
+
+      <QuestionGroup>
+        <SectionText color="#7E89AC">{i18n.t('vote.your_choice')}</SectionText>
+        <QuestionText>{choice.title.default}</QuestionText>
+      </QuestionGroup>
+    </>
   )
   return (
     <>
@@ -69,4 +74,6 @@ const QuestionText = styled(SectionText)`
   font-weight: 500;
 `
 
-const QuestionGroup = styled.div``
+const QuestionGroup = styled.div`
+  margin: 24px 0;
+`

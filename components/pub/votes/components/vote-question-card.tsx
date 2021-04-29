@@ -69,11 +69,11 @@ export const VoteQuestionCard = ({
 
 
 const RadioContainer = styled.div`
-  margin: 16px 0;
+  margin: 10px 0;
 `
 
 const QuestionContainer = styled.div`
-  padding: 8px 20px;
+  padding: 12px 20px;
 `
 
 const QuestionTitle = styled(SectionTitle)`

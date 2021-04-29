@@ -24,31 +24,37 @@ export const VotingPageView = () => {
 
   const [confirmModalOpened, setConfirmModalOpened] = useState<boolean>(false)
   // Mocked data
-  const processTitle = 'General Assembly 2021'
   const entityName = 'Sixseven Company'
-  if(!processInfo) {
-    return <></>
-  }
-
   // end mocked data
+
   return (
     <>
       <PageCard>
-        <VotePageHeader processTitle={processTitle} entityName={entityName} />
+        <VotePageHeader
+          processTitle={processInfo.metadata.title.default}
+          entityName={entityName}
+        />
 
         <Grid>
           <Column lg={9} sm={12}>
             <VoteDescription
               description={processInfo.metadata.description.default}
               liveSteam={processInfo.metadata.media.streamUri}
-              forumUrl={processInfo.metadata.meta[MetadataFields.DiscussionLink]}
-              documentUrl={processInfo.metadata.meta[MetadataFields.AttachmentLink]}
+              discussionUrl={
+                processInfo.metadata.meta[MetadataFields.DiscussionLink]
+              }
+              attachmentUrl={
+                processInfo.metadata.meta[MetadataFields.AttachmentLink]
+              }
               voteStatus={1}
             />
           </Column>
 
           <Column lg={3} sm={12}>
-            <VoteNowCard />
+            <VoteNowCard
+              disabled={!allQuestionsChosen}
+              onVote={() => setConfirmModalOpened(true)}
+            />
           </Column>
         </Grid>
 
@@ -72,7 +78,7 @@ export const VotingPageView = () => {
         <SubmitButtonContainer justify={FlexJustifyContent.Center}>
           <Button
             positive
-            disabled={allQuestionsChosen}
+            disabled={!allQuestionsChosen}
             onClick={() => setConfirmModalOpened(true)}
           >
             {i18n.t('vote.submit_my_vote')}

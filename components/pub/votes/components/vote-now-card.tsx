@@ -11,7 +11,12 @@ import { Button } from '@components/button'
 import { Card } from '@components/cards'
 import { FlexJustifyContent } from '@components/flex'
 
-export const VoteNowCard = () => (
+interface IVoteNowCardProps {
+  disabled: boolean
+  onVote: () => void
+}
+
+export const VoteNowCard = ({ disabled, onVote }: IVoteNowCardProps) => (
   <Card>
     <ImageContainer width="80px" justify={FlexJustifyContent.Center}>
       <img src="/images/vote/vote-now.png"></img>
@@ -21,7 +26,12 @@ export const VoteNowCard = () => (
       {i18n.t('vote.you_cant_vote_now_on_this_proposal')}
     </TextContainer>
 
-    <Button wide href={CREATE_PROCESS_PATH} positive>
+    <Button
+      wide
+      positive
+      disabled={disabled}
+      onClick={onVote}
+    >
       {i18n.t('vote.vote_now')}
     </Button>
   </Card>

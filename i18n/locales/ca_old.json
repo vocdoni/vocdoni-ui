@@ -1,51 +1,15 @@
 {
-    "create_new_proposal": "",
-    "go_to_dashboard": "",
-    "home": {
-        "create_my_entity": ""
-    },
-    "steps": {
-        "go_back": "",
-        "continue": ""
-    },
-    "upload": {
-        "browse": ""
-    },
-    "description": "",
-    "entity": {
-        "introduction": "",
-        "enter_the_details_of_the_organization": ""
-    },
-    "errors": {
-        "choose_passphrase_and_repeat_it": "",
-        "passphrases_do_not_match": ""
+    "action": {
+        "preview_proposal": ""
     },
     "vote": {
-        "vote_details": "",
-        "enter_the_details_of_the_organization": "",
-        "general": "",
-        "enter_the_details_of_the_porposal": "",
-        "pdf_ling": "",
-        "optional_introduction": ""
+        "consolidating_path": "",
         "login": "",
+        "optional_introduction": "",
         "participate_description": "",
         "participate_title": "",
         "send_vote": "",
         "the_link_you_have_followed_is_not_valid": "",
         "voting": ""
-    },
-    "sign_in": {
-        "select_the_account_to_use_and_enterr_your_passphrase": ""
-    },
-    "dashboard": {
-        "company_members": ""
-    },
-    "process": {
-        "enter_the_details_of_the_process": "",
-        "new_process": ""
-    },
-    "this_is_the_form_that_your_community_will_need_to_fill_in_order_to_vote": "",
-    "action": {
-        "preview_proposal": ""
     }
 }
