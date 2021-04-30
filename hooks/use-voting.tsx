@@ -49,7 +49,7 @@ export const UseVotingContext = createContext<VotingContext>({ step: 0, methods:
 
 export const useVoting = () => {
   const votingCtx = useContext(UseVotingContext)
-  console.log('el vottoong contents', votingCtx)
+
   if (votingCtx === null) {
     throw new Error('useVoting() can only be used on the descendants of <UsevotingProvider />,')
   }

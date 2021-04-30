@@ -5,6 +5,7 @@ import { Tag } from "./tag"
 import { ReactNode } from "react"
 import i18n from "../i18n"
 import { SHOW_PROCESS_PATH } from "../const/routes"
+import { FlexAlignItem, FlexContainer } from "./flex"
 
 export enum VoteStatusType {
   Active = 'active',
@@ -27,9 +28,9 @@ export const VoteListItem = ({ icon, entityName, processId, title, description, 
     <a>
       <ListItemDiv>
         <TopDiv>
-          <EntityNameDiv>
+          <FlexContainer alignItem={FlexAlignItem.Center}>
             {icon}<EntityName>{entityName}</EntityName>
-          </EntityNameDiv>
+          </FlexContainer>
           <VoteStatus>
             <Tag>{(() => {
               switch (status) {

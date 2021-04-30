@@ -9,21 +9,24 @@ import { getDaysUntilEnd } from '../../lib/date'
 import { VoteListItem, VoteStatusType } from '../list-items'
 import { ImageContainer } from '../images'
 import i18n from '../../i18n'
+import { FALLBACK_ACCOUNT_ICON } from '@const/account'
 
 interface IDashboardProcessListItemProps {
   process: ProcessInfo
   status: VoteStatusType
   accountName?: string
+  entityLogo?: string
 }
 
 export const DashboardProcessListItem = ({
   process,
   accountName,
   status,
+  entityLogo
 }: IDashboardProcessListItemProps) => {
   const [endDate, setEndDate] = useState<string>('')
   const { poolPromise } = usePool()
-
+  
   useEffect(() => {
     poolPromise.then(async (pool: GatewayPool) => {
       switch (status) {
@@ -48,8 +51,8 @@ export const DashboardProcessListItem = ({
     <VoteItemWrapper>
       <VoteListItem
         icon={
-          <ImageContainer width="200px">
-            <img src={process.metadata.media.header} />
+          <ImageContainer width="30px">
+            <img src={entityLogo || FALLBACK_ACCOUNT_ICON} />
           </ImageContainer>
         }
         description={process.metadata.description.default}
