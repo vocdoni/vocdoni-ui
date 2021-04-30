@@ -14,7 +14,7 @@ interface IConfigModal {
 }
 
 export const ConfirmModal = ({ isOpen, onClose }: IConfigModal) => {
-  const { choices, processInfo, hasVoted } = useVoting()
+  const { choices, processInfo, hasVoted, methods } = useVoting()
 
   const renderResponsesList = new ViewStrategy(
     () => !hasVoted,
@@ -22,7 +22,7 @@ export const ConfirmModal = ({ isOpen, onClose }: IConfigModal) => {
       <ModalQuestionList
         questions={processInfo.metadata.questions}
         choices={choices}
-        onSubmit={() => console.log('submiting data')}
+        onSubmit={methods.submitVote}
         sendingVote={false}
         onClose={onClose}
       />

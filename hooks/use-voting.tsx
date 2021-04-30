@@ -132,7 +132,7 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
     try {
       const pool = await poolPromise
 
-      const isDigested = true
+      const isDigested = false
       const digestedHexClaim = CensusOffChainApi.digestPublicKey(wallet.publicKey,CensusOffchainDigestType.RAW_PUBKEY)
 
       const censusProof = await CensusOffChainApi.generateProof(
