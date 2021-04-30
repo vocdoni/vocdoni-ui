@@ -23,10 +23,12 @@ export const ModalQuestionList = ({
   onSubmit,
   onClose,
 }: IModalQuestionList) => {
-  const renderQuestion = (question: Question, choice: Choice) => (
-    <>
+  const renderQuestion = (question: Question, choice: Choice, index) => (
+    <div key={index}>
       <QuestionGroup>
-        <SectionText color="#7E89AC">{i18n.t('vote.question')}</SectionText>
+        <SectionText color="#7E89AC">
+          {i18n.t('vote.question', { number: index + 1 })}
+        </SectionText>
         <QuestionText>{question.title.default}</QuestionText>
       </QuestionGroup>
 
@@ -34,14 +36,14 @@ export const ModalQuestionList = ({
         <SectionText color="#7E89AC">{i18n.t('vote.your_choice')}</SectionText>
         <QuestionText>{choice.title.default}</QuestionText>
       </QuestionGroup>
-    </>
+    </div>
   )
   return (
     <>
       <ModalHeader>{i18n.t('vote.confirm_your_vote')}</ModalHeader>
 
       {questions.map((question: Question, index: number) =>
-        renderQuestion(question, question.choices[choices[index]])
+        renderQuestion(question, question.choices[choices[index]], index)
       )}
 
       <Grid>

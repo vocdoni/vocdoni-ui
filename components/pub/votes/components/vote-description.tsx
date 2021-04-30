@@ -1,19 +1,23 @@
 import React from 'react'
 import styled from 'styled-components'
+import ReactPlayer from 'react-player'
+import { ProcessStatus } from 'dvote-solidity'
 
 import i18n from '@i18n'
+
+import { colors } from 'theme/colors'
 
 import { SectionText, SectionTitle, TextSize } from '@components/text'
 import { Button, JustifyContent } from '@components/button'
 import { Column, Grid } from '@components/grid'
-import { colors } from 'theme/colors'
+import { ProcessStatusLabel } from '@components/process-status-label'
 
 interface IVotePageProps {
   description: string
   liveSteam: string
   attachmentUrl: string
   discussionUrl: string
-  voteStatus: number
+  voteStatus: ProcessStatus
 }
 export const VoteDescription = ({
   description,
@@ -31,10 +35,11 @@ export const VoteDescription = ({
       alt={i18n.t('vote.question_image_alt')}
     />
   )
-
+  console.log('El status es', voteStatus)
   return (
     <Grid>
       <Column>
+        <ProcessStatusLabel status={voteStatus}/>
         <SectionTitle color={colors.blueText}>{description}</SectionTitle>
       </Column>
 
@@ -45,15 +50,7 @@ export const VoteDescription = ({
           </SectionText>
 
           <LiveStreamVideoContainer>
-            <iframe
-              width="100%"
-              height="100%"
-              src={liveSteam}
-              title="YouTube video player"
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            ></iframe>
+            <ReactPlayer url={liveSteam} width="100%"/>
           </LiveStreamVideoContainer>
 
           <SectionText size={TextSize.Big} color={colors.blueText}>
@@ -97,10 +94,11 @@ export const VoteDescription = ({
 
 const LiveStreamContainer = styled.div`
   margin: 20px 0;
-`
-
-const LiveStreamVideoContainer = styled.div`
+  `
+  
+  const LiveStreamVideoContainer = styled.div`
+  border-radius: 10px;
+  overflow: hidden;
   width: auto;
-  height: 400px;
   margin-bottom: 20px;
 `

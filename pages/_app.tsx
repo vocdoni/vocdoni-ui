@@ -6,6 +6,8 @@ import { Router } from 'next/router'
 import { UsePoolProvider, UseProcessProvider } from '@vocdoni/react-hooks'
 import { EthNetworkID, VocdoniEnvironment } from 'dvote-js'
 import { ThemeProvider } from 'styled-components'
+import 'react-circular-progressbar/dist/styles.css';
+
 
 import { Layout } from '../components/layout'
 import { UseMessageAlertProvider } from '../hooks/message-alert'

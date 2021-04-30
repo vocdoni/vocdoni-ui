@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Modal } from 'react-rainbow-components'
 
@@ -14,7 +14,12 @@ interface IConfigModal {
 }
 
 export const ConfirmModal = ({ isOpen, onClose }: IConfigModal) => {
+  const [sendingVote, setSendingVote] = useState<boolean>(false)
   const { choices, processInfo, hasVoted, methods } = useVoting()
+  const handleSendVote = () => {
+    setSendingVote(true)
+    methods.submitVote()
+  }
 
   const renderResponsesList = new ViewStrategy(
     () => !hasVoted,
@@ -22,8 +27,8 @@ export const ConfirmModal = ({ isOpen, onClose }: IConfigModal) => {
       <ModalQuestionList
         questions={processInfo.metadata.questions}
         choices={choices}
-        onSubmit={methods.submitVote}
-        sendingVote={false}
+        onSubmit={handleSendVote}
+        sendingVote={sendingVote}
         onClose={onClose}
       />
     )
@@ -39,11 +44,11 @@ export const ConfirmModal = ({ isOpen, onClose }: IConfigModal) => {
     renderVoteSubmitted,
   ])
 
-  return <Modal isOpen={isOpen} onRequestClose={onClose}>
+  return <Modal isOpen={isOpen} onRequestClose={onClose} hideCloseButton={true}>
     <ModalContainer>{viewContext.getView()}</ModalContainer>
   </Modal>
 }
 
 const ModalContainer = styled.div`
-  padding: 10px 20px 0;
+  padding: 10px 20px 10px;
 `

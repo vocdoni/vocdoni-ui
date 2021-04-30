@@ -18,13 +18,24 @@ import { VoteNowCard } from './components/vote-now-card'
 import { VoteQuestionCard } from './components/vote-question-card'
 import { ConfirmModal } from './components/confirm-modal'
 import { VoteDescription } from './components/vote-description'
+import { VoteRegisteredCard } from './components/vote-registered-card'
+import { VOTING_PATH } from '@const/routes'
 
 export const VotingPageView = () => {
-  const { methods, choices, allQuestionsChosen, processInfo } = useVoting()
+  const {
+    methods,
+    choices,
+    allQuestionsChosen,
+    processInfo,
+    hasVoted,
+    results,
+  } = useVoting()
 
   const [confirmModalOpened, setConfirmModalOpened] = useState<boolean>(false)
+  const votePageLink = `${VOTING_PATH}/${processInfo.id}`
   // Mocked data
   const entityName = 'Sixseven Company'
+
   // end mocked data
 
   return (
@@ -46,44 +57,51 @@ export const VotingPageView = () => {
               attachmentUrl={
                 processInfo.metadata.meta[MetadataFields.AttachmentLink]
               }
-              voteStatus={1}
+              voteStatus={processInfo.parameters.status}
             />
           </Column>
 
           <Column lg={3} sm={12}>
             <VoteNowCard
+              hasVoted={hasVoted}
+              voteLink={votePageLink}
               disabled={!allQuestionsChosen}
               onVote={() => setConfirmModalOpened(true)}
             />
           </Column>
         </Grid>
 
+        {hasVoted && <VoteRegisteredCard voteLink={votePageLink} />}
+
         <Grid>
           {processInfo.metadata.questions.map(
             (question: Question, index: number) => (
-              <Column key={index}>
                 <VoteQuestionCard
+                  key={index}
                   question={question}
                   index={index}
+                  hasVoted={hasVoted}
+                  // results={results[]}
                   selectedChoice={choices ? choices[index] : 0}
                   onSelectChoice={(selectedChoice) => {
                     methods.onSelect(index, selectedChoice)
                   }}
                 />
-              </Column>
             )
           )}
         </Grid>
 
-        <SubmitButtonContainer justify={FlexJustifyContent.Center}>
-          <Button
-            positive
-            disabled={!allQuestionsChosen}
-            onClick={() => setConfirmModalOpened(true)}
-          >
-            {i18n.t('vote.submit_my_vote')}
-          </Button>
-        </SubmitButtonContainer>
+        {!hasVoted && (
+          <SubmitButtonContainer justify={FlexJustifyContent.Center}>
+            <Button
+              positive
+              disabled={!allQuestionsChosen}
+              onClick={() => setConfirmModalOpened(true)}
+            >
+              {i18n.t('vote.submit_my_vote')}
+            </Button>
+          </SubmitButtonContainer>
+        )}
       </PageCard>
 
       <ConfirmModal

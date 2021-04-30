@@ -1,12 +1,13 @@
 import React from 'react'
 import i18n from '@i18n'
+import styled from 'styled-components'
+import { CircularProgressbar } from 'react-circular-progressbar'
 
 import { Card } from '@components/cards'
 import { SectionText, SectionTitle } from '@components/text'
 import { Column, Grid } from '@components/grid'
 import { Radio } from '@components/radio'
 import { Choice, Question } from '@lib/types'
-import styled from 'styled-components'
 import { colors } from 'theme/colors'
 import {
   FlexContainer,
@@ -17,15 +18,22 @@ import {
 interface IVoteQuestionCardProps {
   question: Question
   index: number
+  hasVoted: boolean
   selectedChoice: number
   onSelectChoice: (choiceValue: number) => void
 }
+
 export const VoteQuestionCard = ({
   question,
   index,
+  hasVoted,
   selectedChoice,
   onSelectChoice,
 }: IVoteQuestionCardProps) => {
+  // Mocked data
+  const optionPercent = [30, 70]
+  // en mocked data
+
   return (
     <Card>
       <QuestionContainer>
@@ -49,15 +57,35 @@ export const VoteQuestionCard = ({
               justify={FlexJustifyContent.Center}
             >
               {question.choices.map((choice: Choice, index) => (
-                <RadioContainer key={index}>
-                  <Radio
-                    onClick={() => onSelectChoice(choice.value)}
-                    checked={choice.value === selectedChoice}
-                    name={choice.title.default}
-                  >
-                    {choice.title.default}
-                  </Radio>
-                </RadioContainer>
+                <OptionContainer key={index}>
+                  {hasVoted ? (
+                    <FlexContainer>
+                      <ProgressBarContainer>
+                        <CircularProgressbar
+                          styles={buildGraphStyle(optionPercent[index])}
+                          value={optionPercent[index]}
+                          text={`${optionPercent[index]}%`}
+                        />
+                      </ProgressBarContainer>
+                      <div>
+                        <DescriptionContainer>
+                          {choice.title.default}
+                        </DescriptionContainer>
+                        <SectionText color={colors.lightText}>
+                          {i18n.t('vote.number_votes')}
+                        </SectionText>
+                      </div>
+                    </FlexContainer>
+                  ) : (
+                    <Radio
+                      onClick={() => onSelectChoice(choice.value)}
+                      checked={choice.value === selectedChoice}
+                      name={choice.title.default}
+                    >
+                      {choice.title.default}
+                    </Radio>
+                  )}
+                </OptionContainer>
               ))}
             </FlexContainer>
           </Column>
@@ -66,9 +94,30 @@ export const VoteQuestionCard = ({
     </Card>
   )
 }
+const buildGraphStyle = (percent: number) => {
+  const mainColor = percent < 50 ? '#FC8B23' : colors.accent1
+  return {
+    text: {
+      fill: mainColor,
+      fontSize: '26px',
+      lineHeight: '1.3em'
+    },
+    path: {
+      stroke: mainColor,
+    },
+  }
+}
 
+const ProgressBarContainer = styled.div`
+  width: 60px;
+  margin-right: 12px;
+`
 
-const RadioContainer = styled.div`
+const DescriptionContainer = styled(SectionText)`
+  font-size: 24px;
+`
+
+const OptionContainer = styled.div`
   margin: 10px 0;
 `
 

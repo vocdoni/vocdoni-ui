@@ -3,24 +3,26 @@ import styled from 'styled-components'
 
 import i18n from '@i18n'
 import { ImageContainer } from '@components/images'
-import { SectionText, SectionTitle, TextAlign } from '@components/text'
+import { SectionText, SectionTitle, TextAlign, TextSize } from '@components/text'
 import { FlexContainer, FlexJustifyContent } from '@components/flex'
 import { Button } from '@components/button'
 import { DASHBOARD_PATH } from '@const/routes'
+import { colors } from 'theme/colors'
 
 export const VoteSubmitted = () => (
   <>
-    <ImageContainer width="430px">
+    <ImageContainer width="320px" justify={FlexJustifyContent.Center}>
       <img
         src="/images/vote/voted-submitted.png"
         alt={i18n.t('vote.vote_submitted_image_alt')}
       />
+    </ImageContainer>
 
       <TextContainer>
-        <SectionTitle align={TextAlign.Center}>
+        <SectionText size={TextSize.Big} align={TextAlign.Center}>
           {i18n.t('vote.your_vote_has_been_registered')}
-        </SectionTitle>
-        <SectionText>
+        </SectionText>
+        <SectionText color={colors.lightText}>
           {i18n.t('vote.thanks_for_participate_on_this_AGM')}
         </SectionText>
       </TextContainer>
@@ -28,8 +30,9 @@ export const VoteSubmitted = () => (
       <FlexContainer justify={FlexJustifyContent.Center}>
         <Button positive href={DASHBOARD_PATH}>{i18n.t('vote.go_back_to_home_page')}</Button>
       </FlexContainer>
-    </ImageContainer>
   </>
 )
 
-const TextContainer = styled.div``
+const TextContainer = styled.div`
+  margin-bottom: 12px;
+`

@@ -5,7 +5,7 @@ import { ReactNode } from "react"
 type BannerProps = {
   warning?: boolean,
   title: string,
-  subtitle: string,
+  subtitle: ReactNode,
   icon: ReactNode,
   rightButton?: ReactNode,
   children?: ReactNode,

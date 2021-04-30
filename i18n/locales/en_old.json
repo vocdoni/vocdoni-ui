@@ -49,5 +49,8 @@
     },
     "action": {
         "preview_proposal": "Preview proposal"
+    },
+    "votes": {
+        "number_votes": ""
     }
 }

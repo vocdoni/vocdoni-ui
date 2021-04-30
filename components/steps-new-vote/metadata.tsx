@@ -25,8 +25,8 @@ import { PlazaMetadataKeys } from '../../const/metadata-keys'
 export enum MetadataFields {
   Title = 'process-title',
   Description = 'process-description',
-  AttachmentLink = 'pdf-url',
-  DiscussionLink = 'forum-url',
+  AttachmentLink = 'attachmentUri',
+  DiscussionLink = 'discussionUrl',
   StreamLink = 'stream-url',
   Question = 'process-question',
 }
