@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 import i18n from '@i18n'
 
-import { FormGroupVariant, InputFormGroup } from '@components/form'
+import { Fieldset, FormGroupVariant, InputFormGroup } from '@components/form'
 import { Column } from '@components/grid'
 import { Button } from '@components/button'
 import { PageCard } from '@components/cards'
@@ -21,6 +21,7 @@ interface IFormProps {
   fields: string[]
   values: IFieldValues
   submitEnabled?: boolean
+  checkingCredentials?: boolean
   processInfo: ProcessInfo
   onChange: (field: string, value) => void
   onSubmit: () => void
@@ -31,6 +32,7 @@ export const SignInForm = ({
   submitEnabled,
   values,
   processInfo,
+  checkingCredentials,
   onSubmit,
   onChange,
 }: IFormProps) => {
@@ -41,10 +43,11 @@ export const SignInForm = ({
         processImage={processInfo?.metadata?.media.header}
       />
 
-      {fields.map((fieldName, i) => {
-        const isLastItem = i === fields.length - 1
-        return (
-          <FlexContainer justify={FlexJustifyContent.Center} key={i}>
+      <Fieldset disabled={checkingCredentials}>
+        {fields.map((fieldName, i) => {
+          const isLastItem = i === fields.length - 1
+          return (
+            <FlexContainer justify={FlexJustifyContent.Center} key={i}>
               <InputContainer>
                 <InputFormGroup
                   label={fieldName}
@@ -60,17 +63,18 @@ export const SignInForm = ({
                   </LinkContainer>
                 )}
               </InputContainer>
-          </FlexContainer>
-        )
-      })}
+            </FlexContainer>
+          )
+        })}
 
-      <FlexContainer justify={FlexJustifyContent.Center}>
-        <Column lg={3} md={4} sm={12}>
-          <Button wide positive onClick={onSubmit} disabled={submitEnabled}>
-            {i18n.t('action.continue')}
-          </Button>
-        </Column>
-      </FlexContainer>
+        <FlexContainer justify={FlexJustifyContent.Center}>
+          <Column lg={3} md={4} sm={12}>
+            <Button wide positive onClick={onSubmit} disabled={submitEnabled || checkingCredentials}>
+              {i18n.t('action.continue')}
+            </Button>
+          </Column>
+        </FlexContainer>
+      </Fieldset>
     </PageCard>
   )
 }

@@ -24,7 +24,7 @@ type IAuthForm = {
 
   methods: {
     setFormValue: (key: string, value: string) => void,
-    onLogin: () => void
+    onLogin: () => Promise<void>
   }
 }
 
@@ -49,7 +49,7 @@ export const useAuthForm = () => {
     setFormValues(newValue)
   }
 
-  const onLogin =  () => {
+  const onLogin =  async (): Promise<void> => {
     let authFields: string[] = []
     for (const fieldName of fieldNames) {
       if (!formValues[fieldName]) return setAlertMessage(i18n.t("errors.please_fill_in_all_the_fields"))

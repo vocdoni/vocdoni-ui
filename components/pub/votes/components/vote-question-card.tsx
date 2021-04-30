@@ -99,8 +99,7 @@ const buildGraphStyle = (percent: number) => {
   return {
     text: {
       fill: mainColor,
-      fontSize: '26px',
-      lineHeight: '1.3em'
+      fontSize: '26px'
     },
     path: {
       stroke: mainColor,

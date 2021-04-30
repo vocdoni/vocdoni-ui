@@ -30,7 +30,7 @@ export interface VotingContext {
   choices: number[],
   allQuestionsChosen: boolean,
   statusText: string,
-
+  processId: string,
   invalidProcessId: boolean,
   refreshingVotedStatus: boolean,
   results: DigestedProcessResults,
@@ -350,7 +350,7 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
     hasStarted,
     hasEnded,
     // isInCensus,
-
+    processId,
     canVote,
     remainingTime,
     choices,

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import i18n from '@i18n'
 
@@ -9,6 +9,7 @@ import { Loader } from '@components/loader'
 import { VotingErrorPage, SignInForm } from '@components/pub/votes/auth/form'
 
 const VoteAuthLogin = () => {
+  const [checkingCredentials, setCheckingCredentials] = useState<boolean>(false)
   const {
     invalidProcessId,
     loadingInfo,
@@ -20,10 +21,20 @@ const VoteAuthLogin = () => {
     methods,
   } = useAuthForm()
 
+  const handleSubmit = () => {
+    setCheckingCredentials(true)
+
+    methods.onLogin()
+      .finally(() => {
+        setCheckingCredentials(false)
+      })
+  }
+
   const renderLoadingPage = new ViewStrategy(
     () => loadingInfo,
     <Loader visible />
   )
+  
   const renderVotingInvalidLink = new ViewStrategy(
     () => invalidProcessId,
     (
@@ -57,11 +68,12 @@ const VoteAuthLogin = () => {
       <div>
         <Loader visible={loadingInfo} />
         <SignInForm
+          checkingCredentials={checkingCredentials}
           fields={fieldNames}
           values={formValues}
           processInfo={processInfo}
           onChange={methods.setFormValue}
-          onSubmit={methods.onLogin}
+          onSubmit={handleSubmit}
           submitEnabled={emptyFields}
         />
       </div>

@@ -33,6 +33,8 @@ export const VotingPageView = () => {
 
   const [confirmModalOpened, setConfirmModalOpened] = useState<boolean>(false)
   const votePageLink = `${VOTING_PATH}/${processInfo.id}`
+
+
   // Mocked data
   const entityName = 'Sixseven Company'
 

@@ -1,4 +1,4 @@
-import React, { ChangeEvent, ReactNode, useState } from 'react'
+import React, { ChangeEvent } from 'react'
 import styled from 'styled-components'
 import FileLoader from './FileLoader'
 
@@ -77,7 +77,7 @@ export const formGroupHOC = (InputField) => ({
         wide
         placeholder={placeholder}
         name={name}
-        value={value}
+        value={value || ''}
         onChange={onChange}
       />
       {error && <InputError>{error}</InputError>}
