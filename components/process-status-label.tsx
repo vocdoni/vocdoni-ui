@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { ProcessStatus } from 'dvote-solidity'
+import { ProcessStatus } from 'dvote-js'
 import i18n from '@i18n'
 
 interface IProcessStatusLabelProps {
@@ -11,7 +11,7 @@ export const ProcessStatusLabel = ({status}: IProcessStatusLabelProps) => {
   switch (status.value) {
     case ProcessStatus.READY:
       return <ActiveProcessStatusLabel>{i18n.t('vote.active_vote')}</ActiveProcessStatusLabel>
-    
+
     case ProcessStatus.ENDED:
       return <EndedProcessStatusLabel>{i18n.t('vote.ended_vote')}</EndedProcessStatusLabel>
 
@@ -20,7 +20,7 @@ export const ProcessStatusLabel = ({status}: IProcessStatusLabelProps) => {
 
     case ProcessStatus.CANCELED:
       return <EndedProcessStatusLabel>{i18n.t('vote.canceled_vote')}</EndedProcessStatusLabel>
-    
+
     default:
       return <></>
   }

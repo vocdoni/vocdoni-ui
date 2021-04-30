@@ -15,7 +15,7 @@ interface IConfigModal {
 
 export const ConfirmModal = ({ isOpen, onClose }: IConfigModal) => {
   const [sendingVote, setSendingVote] = useState<boolean>(false)
-  const { choices, processInfo, hasVoted, methods } = useVoting()
+  const { choices, processInfo, hasVoted, methods, actionError } = useVoting()
   const handleSendVote = () => {
     setSendingVote(true)
     methods.submitVote()

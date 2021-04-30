@@ -14,11 +14,14 @@ import {
   FlexDirection,
   FlexJustifyContent,
 } from '@components/flex'
+import { DigestedProcessResultItem } from 'dvote-js'
 
 interface IVoteQuestionCardProps {
   question: Question
   index: number
   hasVoted: boolean
+  totalVotes: number
+  result: DigestedProcessResultItem
   selectedChoice: number
   onSelectChoice: (choiceValue: number) => void
 }
@@ -27,12 +30,15 @@ export const VoteQuestionCard = ({
   question,
   index,
   hasVoted,
+  totalVotes,
+  result,
   selectedChoice,
   onSelectChoice,
 }: IVoteQuestionCardProps) => {
-  // Mocked data
-  const optionPercent = [30, 70]
-  // en mocked data
+
+  const getOptionResult = (index : number) : number =>  (result.voteResults[index].votes).toNumber()
+
+  const getOptionPercentage = (index : number) : number => getOptionResult(index) / totalVotes*100
 
   return (
     <Card>
@@ -58,13 +64,13 @@ export const VoteQuestionCard = ({
             >
               {question.choices.map((choice: Choice, index) => (
                 <OptionContainer key={index}>
-                  {hasVoted ? (
+                  {hasVoted ? ( // TODO above ProgressBarContainer check if totalVotes exist and if not do not render container
                     <FlexContainer>
                       <ProgressBarContainer>
                         <CircularProgressbar
-                          styles={buildGraphStyle(optionPercent[index])}
-                          value={optionPercent[index]}
-                          text={`${optionPercent[index]}%`}
+                          styles={buildGraphStyle(getOptionPercentage(index))}
+                          value={getOptionPercentage(index)}
+                          text={`${getOptionPercentage(index)}%`}
                         />
                       </ProgressBarContainer>
                       <div>
@@ -72,7 +78,7 @@ export const VoteQuestionCard = ({
                           {choice.title.default}
                         </DescriptionContainer>
                         <SectionText color={colors.lightText}>
-                          {i18n.t('vote.number_votes')}
+                          {i18n.t('vote.number_votes', {'number':getOptionResult(index)})}
                         </SectionText>
                       </div>
                     </FlexContainer>

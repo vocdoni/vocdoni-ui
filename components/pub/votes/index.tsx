@@ -37,6 +37,7 @@ export const VotingPageView = () => {
 
   // Mocked data
   const entityName = 'Sixseven Company'
+  const totalVotes = results.totalVotes || 0
 
   // end mocked data
 
@@ -83,7 +84,8 @@ export const VotingPageView = () => {
                   question={question}
                   index={index}
                   hasVoted={hasVoted}
-                  // results={results[]}
+                  totalVotes={totalVotes}
+                  result={results.questions[index]}
                   selectedChoice={choices ? choices[index] : 0}
                   onSelectChoice={(selectedChoice) => {
                     methods.onSelect(index, selectedChoice)

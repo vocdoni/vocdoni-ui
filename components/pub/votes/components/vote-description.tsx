@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import ReactPlayer from 'react-player'
-import { ProcessStatus } from 'dvote-solidity'
+import { ProcessStatus } from 'dvote-js'
 
 import i18n from '@i18n'
 
@@ -95,7 +95,7 @@ export const VoteDescription = ({
 const LiveStreamContainer = styled.div`
   margin: 20px 0;
   `
-  
+
   const LiveStreamVideoContainer = styled.div`
   border-radius: 10px;
   overflow: hidden;
