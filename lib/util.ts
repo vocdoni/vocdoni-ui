@@ -82,7 +82,7 @@ export function waitBlockFraction(factor: number = 1) {
 
 /** Dummy normalization */
 export const normalize = (data: string): string => {
-  return data.trim().replace(/[\s]+/g, " ").toLowerCase()
+  return data.trimStart().trimEnd()
 }
 
 
@@ -118,4 +118,13 @@ export const getVoteStatus = (processStatus, startBlock?, currentBlock?): VoteSt
     default:
       return VoteStatus.Unknown
   }
+}
+
+export function hasDuplicates<T>(values: T[]): boolean {
+  const seen: T[] = []
+  for (let v of values) {
+    if (seen.includes(v)) return true
+    seen.push(v)
+  }
+  return false
 }

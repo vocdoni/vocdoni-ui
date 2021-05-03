@@ -5,7 +5,7 @@ import { If } from 'react-if'
 import i18n from '@i18n'
 
 import { FALLBACK_ACCOUNT_ICON } from '@const/account'
-import { CREATE_PROCESS_PATH } from '@const/routes'
+import { ACCOUNT_BACKUP, CREATE_PROCESS_PATH } from '@const/routes'
 
 import { Banner } from '@components/banners'
 import { Button } from '@components/button'
@@ -15,7 +15,7 @@ import { Image } from '@components/common/image'
 
 interface IDashboardHeaderProps {
   entity?: EntityMetadata,
-  hasBackup?: boolean 
+  hasBackup?: boolean
 }
 
 export const DashboardHeader = ({ entity, hasBackup }: IDashboardHeaderProps) => {
@@ -26,10 +26,7 @@ export const DashboardHeader = ({ entity, hasBackup }: IDashboardHeaderProps) =>
   )
   const backupButton = (
     <Button
-      onClick={() => {
-        console.log('doing backup')
-      }}
-      disabled={true}
+      href={ACCOUNT_BACKUP}
       negative
     >
       {i18n.t('dashboard.create_backup_now')}

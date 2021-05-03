@@ -2,12 +2,13 @@ import { useState, createContext, useContext, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { Wallet } from '@ethersproject/wallet'
 import { Symmetric } from 'dvote-js'
-import { CREATE_PROCESS_PATH, DASHBOARD_PATH, ENTITY_SIGN_IN_PATH } from '../const/routes'
+import { CREATE_PROCESS_PATH, DASHBOARD_PATH, ACCOUNT_BACKUP, ENTITY_SIGN_IN_PATH } from '../const/routes'
 import i18n from '../i18n'
 
 const pathsRequiringAdminWallet = [
   DASHBOARD_PATH,
-  CREATE_PROCESS_PATH
+  CREATE_PROCESS_PATH,
+  ACCOUNT_BACKUP
 ]
 
 export enum WalletRoles {

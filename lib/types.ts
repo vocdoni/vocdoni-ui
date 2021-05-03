@@ -8,7 +8,7 @@ export type Account = {
   hdPath?: string,
   locale?: string
   address: string,
-  backupMnemonic?: boolean,
+  hasBackup?: boolean,
   pending?: {
     creation: boolean,
     metadata: EntityMetadata,
