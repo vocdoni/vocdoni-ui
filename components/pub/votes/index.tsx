@@ -44,7 +44,7 @@ export const VotingPageView = () => {
       <PageCard>
         <VotePageHeader
           processTitle={processInfo.metadata.title.default}
-          entityName={metadata.name.default}
+          entityName={metadata?.name.default}
         />
 
         <Grid>

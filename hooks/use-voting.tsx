@@ -1,4 +1,4 @@
-import { ProcessInfo, usePool, useProcess } from '@vocdoni/react-hooks'
+import { ProcessInfo, usePool } from '@vocdoni/react-hooks'
 import { CensusOffChainApi, DigestedProcessResults, ProcessStatus, VotingApi, CensusOffchainDigestType } from 'dvote-js'
 import { createContext, ReactNode, useContext, useEffect, useMemo, useState } from 'react'
 
@@ -8,8 +8,8 @@ import { StepperFunc } from '../lib/types'
 import { useStepper } from './use-stepper'
 import { useUrlHash } from 'use-url-hash'
 import { useMessageAlert } from './message-alert'
-import { DateDiffType, localizedStrDateDiff } from '../lib/date'
 import { areAllNumbers, waitBlockFraction } from '../lib/util'
+import { useProcessWrapper } from '@hooks/use-process-wrapper'
 import { MetadataFields } from '@components/steps-new-vote/metadata'
 
 export interface VotingContext {
@@ -58,19 +58,25 @@ export const useVoting = () => {
 
 export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
   const { poolPromise } = usePool()
-  const { wallet } = useWallet({ role: WalletRoles.VOTER })
-  const { setAlertMessage } = useMessageAlert()
   const processId = useUrlHash().slice(1) // Skip "/"
   const invalidProcessId = !processId.match(/^0x[0-9a-fA-A]{64}$/)
-  const { loading: loadingInfo, error: loadingInfoError, process: processInfo } = useProcess(processId)
-  const [startDate, setStartDate] = useState(null as Date)
-  const [endDate, setEndDate] = useState(null as Date)
+  const {
+    loadingInfoError,
+    loadingInfo,
+    processInfo,
+    hasStarted,
+    hasEnded,
+    remainingTime,
+    statusText,
+    results,
+  } = useProcessWrapper(processId)
+  const { wallet } = useWallet({ role: WalletRoles.VOTER })
+  const { setAlertMessage } = useMessageAlert()
   const [nullifier, setNullifier] = useState("")
   const [censusProof, setCensusProof] = useState("")
   const [hasVoted, setHasVoted] = useState(false)
   const [refreshingVotedStatus, setRefreshingVotedStatus] = useState(false)
   const [choices, setChoices] = useState([] as number[])
-  const [results, setResults] = useState(null as DigestedProcessResults)
 
   // Effects
 
@@ -82,7 +88,7 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
 
       Promise.all([
         updateEnvelopeStatus(),
-        updateResults()
+        // updateResults()
       ]).catch((err) =>
         console.error(err)
       )
@@ -94,11 +100,6 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [processId])
 
-  // Vote results
-  useEffect(() => {
-    updateResults()
-  }, [processId])
-
   // Vote status
   useEffect(() => {
     updateEnvelopeStatus()
@@ -108,11 +109,6 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     updateCensusStatus()
   }, [wallet, nullifier])
-
-  // Dates
-  useEffect(() => {
-    updateDates()
-  }, [processInfo?.parameters?.startBlock])
 
   // Nullifier
   useEffect(() => {
@@ -149,31 +145,6 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
     }
   }
 
-  const updateDates = () => {
-    if (!processInfo?.parameters?.startBlock) return
-
-    return poolPromise
-      .then((pool) =>
-        Promise.all([
-          VotingApi.estimateDateAtBlock(
-            processInfo.parameters.startBlock,
-            pool
-          ),
-          VotingApi.estimateDateAtBlock(
-            processInfo.parameters.startBlock + processInfo.parameters.blockCount,
-            pool
-          ),
-        ])
-      )
-      .then(([startDate, endDate]) => {
-        setStartDate(startDate)
-        setEndDate(endDate)
-      })
-      .catch((err) => {
-        console.error(err)
-      })
-  }
-
   const updateEnvelopeStatus = () => {
     if (!processId || invalidProcessId || !nullifier) return
     setRefreshingVotedStatus(true)
@@ -192,16 +163,7 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
       })
   }
 
-  const updateResults = () => {
-    if (!processId || invalidProcessId) return
-
-    poolPromise
-      .then((pool) => VotingApi.getResultsDigest(processId, pool))
-      .then((results) => setResults(results))
-      .catch((err) => console.error(err))
-  }
-
-  // Callbacks
+  // // Callbacks
 
   const onSelect = (questionIdx: number, choiceValue: number) => {
     if (typeof choiceValue == 'string') choiceValue = parseInt(choiceValue)
@@ -281,7 +243,7 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
 
       // detached update
       setTimeout(() => {
-        updateResults()
+        // updateResults()
         updateEnvelopeStatus()
       })
 
@@ -304,37 +266,11 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
   const allQuestionsChosen =
     areAllNumbers(choices) &&
     choices.length == processInfo?.metadata?.questions?.length
-  const hasStarted = startDate && startDate.getTime() <= Date.now()
-  const hasEnded = endDate && endDate.getTime() < Date.now()
+  // const hasStarted = startDate && startDate.getTime() <= Date.now()
+  // const hasEnded = endDate && endDate.getTime() < Date.now()
   const isInCensus = !!censusProof
 
   const canVote = processInfo && nullifier && isInCensus && !hasVoted && hasStarted && !hasEnded
-
-  const remainingTime = startDate
-    ? hasStarted
-      ? localizedStrDateDiff(DateDiffType.End, endDate)
-      : localizedStrDateDiff(DateDiffType.Start, startDate)
-    : ''
-
-  let statusText: string = ''
-  switch (processInfo?.parameters.status.value) {
-    case ProcessStatus.READY:
-      if (hasEnded) statusText = i18n.t("status.the_vote_has_ended")
-      else if (hasStarted) statusText = i18n.t("status.the_vote_is_open_for_voting")
-      else if (!hasStarted)
-        statusText = i18n.t("status.the_vote_will_start_soon")
-      break
-    case ProcessStatus.PAUSED:
-      statusText = i18n.t("status.the_vote_is_paused")
-      break
-    case ProcessStatus.CANCELED:
-      statusText = i18n.t("status.the_vote_is_canceled")
-      break
-    case ProcessStatus.ENDED:
-    case ProcessStatus.RESULTS:
-      statusText = i18n.t("status.the_vote_has_ended")
-      break
-  }
 
   // RETURN VALUES
   const value: VotingContext = {
