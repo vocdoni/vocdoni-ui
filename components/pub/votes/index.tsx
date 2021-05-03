@@ -14,11 +14,11 @@ import { PageCard } from '@components/cards'
 import { Button } from '@components/button'
 import { FlexContainer, FlexJustifyContent } from '@components/flex'
 import { MetadataFields } from '@components/steps-new-vote/metadata'
+import { VoteQuestionCard } from '@components/common/vote-question-card'
 
 import { VotePageHeader } from './common/vote-page-header'
 
 import { VoteNowCard } from './components/vote-now-card'
-import { VoteQuestionCard } from './components/vote-question-card'
 import { ConfirmModal } from './components/confirm-modal'
 import { VoteDescription } from './components/vote-description'
 import { VoteRegisteredCard } from './components/vote-registered-card'

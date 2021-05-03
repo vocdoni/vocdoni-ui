@@ -1,4 +1,4 @@
-import { EntityMetadata, MultiLanguage, ProcessContractParameters, ProcessMetadata } from 'dvote-js'
+import { EntityMetadata, MultiLanguage } from 'dvote-js'
 
 // IndexDB types
 
@@ -17,13 +17,6 @@ export type Account = {
 }
 
 // Shared types
-
-export type ProcessInfo = {
-  id: string,
-  metadata: ProcessMetadata,
-  parameters: ProcessContractParameters,
-  entity: string
-}
 
 export type Question = {
   title: MultiLanguage<string>

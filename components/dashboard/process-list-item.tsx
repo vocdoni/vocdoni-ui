@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { usePool } from '@vocdoni/react-hooks'
+import { usePool, ProcessInfo } from '@vocdoni/react-hooks'
 import { GatewayPool } from 'dvote-js'
 
-import { ProcessInfo } from '../../lib/types'
 import { getDaysUntilEnd } from '../../lib/date'
 
 import { VoteListItem, VoteStatusType } from '../list-items'

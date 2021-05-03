@@ -1,14 +1,13 @@
-import { useState, createContext, useContext, useEffect } from 'react'
+import { useState } from 'react'
+import { ProcessInfo, usePool, useProcess } from '@vocdoni/react-hooks'
 import { useRouter } from 'next/router'
 import { CensusOffChainApi, CensusOffchainDigestType } from 'dvote-js'
 import { VOTING_PATH } from '../const/routes'
 import i18n from '../i18n'
 import { digestedWalletFromString, importedRowToString, normalize } from '../lib/util'
 import { useMessageAlert } from './message-alert'
-import { usePool, useProcess } from '@vocdoni/react-hooks'
 import { useUrlHash } from 'use-url-hash'
 import { useWallet, WalletRoles } from './use-wallet'
-import { ProcessInfo } from '../lib/types'
 import { utils } from 'ethers'
 
 // CONTEXT

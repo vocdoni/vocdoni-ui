@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
+import { ProcessInfo } from '@vocdoni/react-hooks'
 
 import {
   DashboardActivitySummary,
@@ -7,7 +8,7 @@ import {
   ProcessTypes,
 } from '../../components/dashboard'
 
-import { Account, ProcessInfo } from '../../lib/types'
+import { Account } from '../../lib/types'
 import { useDbAccounts } from '../../hooks/use-db-accounts'
 import { useWallet } from '../../hooks/use-wallet'
 import { useProcessesFromAccount } from '../../hooks/use-process'

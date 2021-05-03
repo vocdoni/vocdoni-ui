@@ -129,6 +129,21 @@
         "sign_in": "",
         "write_your_passphrase": ""
     },
+    "vote_detail": {
+        "cancel_vote": "",
+        "end_vote": "",
+        "generate_pdf": "",
+        "generate_pdf_with_results": "",
+        "view_and_manage_the_status_of_the_process": "",
+        "vote_details": "",
+        "vote_link": "",
+        "vote_results": ""
+    },
+    "vote_question_card": {
+        "no_available_results": "",
+        "number_votes": "",
+        "question": ""
+    },
     "vote": {
         "active_vote": "",
         "add_new_question": "",
@@ -168,7 +183,6 @@
         "new_process": "",
         "new_vote": "",
         "no_back_to_login": "",
-        "number_votes": "",
         "optional_field": "",
         "options": "",
         "paused_vote": "",

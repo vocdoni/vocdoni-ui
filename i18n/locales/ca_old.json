@@ -10,9 +10,16 @@
         "participate_title": "",
         "send_vote": "",
         "the_link_you_have_followed_is_not_valid": "",
-        "voting": ""
+        "voting": "",
+        "number_votes": ""
     },
     "votes": {
         "number_votes": ""
+    },
+    "results": {
+        "no_available_results": ""
+    },
+    "vote_detail": {
+        "create_new_proposal_in_only_5_minutes": ""
     }
 }

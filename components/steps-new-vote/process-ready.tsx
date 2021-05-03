@@ -1,24 +1,24 @@
 import React from 'react'
 import styled from 'styled-components'
-import copy from 'copy-to-clipboard';
 
 import i18n from '../../i18n'
 import { colors } from '../../theme/colors'
-import { DASHBOARD_PATH, VOTING_AUTH_FORM_PATH } from '../../const/routes';
 
-import { Button } from '../button'
-import { FlexContainer, FlexJustifyContent } from '../flex'
-import { ImageContainer } from '../images'
-import { SectionText, SectionTitle, TextAlign } from '../text'
-import { useProcessCreation } from '../../hooks/process-creation';
+import RouterService from '@lib/router'
+
+import { DASHBOARD_PATH, VOTING_AUTH_FORM_PATH } from '@const/routes';
+
+import { useProcessCreation } from '@hooks/process-creation';
+
+import { SectionText, SectionTitle, TextAlign } from '@components/text'
+import { FlexContainer, FlexJustifyContent } from '@components/flex'
+import { DashedLink } from '@components/common/dashed-link';
+import { ImageContainer } from '@components/images'
+import { Button } from '@components/button'
 
 export const ProcessReady = () => {
   const { processId } = useProcessCreation()
-  const voteUrl = typeof location != "undefined" ? 'https://' + location.host + VOTING_AUTH_FORM_PATH +'/#/' + processId : ""
-
-  const handleCopy = () => {
-    copy(voteUrl)
-  }
+  const voteUrl = RouterService.instance.get(VOTING_AUTH_FORM_PATH, {processId})
 
   return (
     <ProcessReadyContainer>
@@ -34,13 +34,7 @@ export const ProcessReady = () => {
         )}
       </SectionText>
 
-      <LinkContainer justify={FlexJustifyContent.SpaceBetween}>
-        <LinkText>{voteUrl}</LinkText>
-
-        <Button color={colors.textAccent1} border onClick={handleCopy}>
-          {i18n.t('vote.copy')}
-        </Button>
-      </LinkContainer>
+      <DashedLink link={voteUrl}/>
 
       <BackButtonContainer justify={FlexJustifyContent.Center}>
         <Button color={colors.textAccent1} href={DASHBOARD_PATH} border>
@@ -55,18 +49,6 @@ const ProcessReadyContainer = styled.div`
   min-height: 600px;
   max-width: 620px;
   margin: auto;
-`
-
-const LinkContainer = styled(FlexContainer)`
-  border: dashed 2px ${({ theme }) => theme.lightBorder};
-  padding: 8px 16px;
-  border-radius: 6px;
-`
-
-const LinkText = styled(SectionText)`
-  color: ${({ theme }) => theme.textAccent1};
-  overflow: hidden;
-  margin: 12px 0;
 `
 
 const BackButtonContainer = styled(FlexContainer)`

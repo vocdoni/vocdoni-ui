@@ -76,7 +76,7 @@ export const StatusCard = ({
 // Styles
 
 const CardDiv = styled.div<{border?: boolean}>`
-  padding: 11px 20px;
+  padding: 20px;
   background: ${(props) => props.theme.white};
   border: ${({theme, border}) => border? `solid 2px ${theme.lightBorder}`: 'none'};
   box-shadow: 0px 3px 3px rgba(180, 193, 228, 0.35);

@@ -7,7 +7,7 @@ export const CREATE_PROCESS_PATH = '/votes/new' // TODO: entity/votes/new
 export const SHOW_PROCESS_PATH = '/votes/show' // TODO: entity/votes/show
 
 // VOTER
-export const VOTING_AUTH_FORM_PATH = '/pub/votes/auth/form' // + processId
+export const VOTING_AUTH_FORM_PATH = '/pub/votes/auth/form#/{processId}' // + processId
 export const VOTING_AUTH_LINK_PATH = '/pub/votes/auth/link' // + processId + key
 export const VOTING_PATH = '/pub/votes' // + processId
 

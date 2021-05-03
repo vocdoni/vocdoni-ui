@@ -1,6 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 import { EntityMetadata } from 'dvote-js'
+import { ProcessInfo } from '@vocdoni/react-hooks'
+
 
 import i18n from '@i18n'
 
@@ -10,7 +12,6 @@ import { Button } from '@components/button'
 import { PageCard } from '@components/cards'
 import { FlexContainer, FlexJustifyContent } from '@components/flex'
 
-import { ProcessInfo } from '@lib/types'
 
 import { VotePageHeader } from '../../common/vote-page-header'
 

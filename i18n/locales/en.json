@@ -129,6 +129,21 @@
         "sign_in": "Sign in",
         "write_your_passphrase": "Enter your passphrase"
     },
+    "vote_detail": {
+        "cancel_vote": "Cancel vote",
+        "end_vote": "End vote",
+        "generate_pdf": "Generate PDF",
+        "generate_pdf_with_results": "Generate a PDF with results",
+        "view_and_manage_the_status_of_the_process": "View and manage the status of the process",
+        "vote_details": "Vote details",
+        "vote_link": "Voting link",
+        "vote_results": "Vote results"
+    },
+    "vote_question_card": {
+        "no_available_results": "No available results",
+        "number_votes": "{{ number }} votes",
+        "question": "Question {{ number }}"
+    },
     "vote": {
         "active_vote": "Active vote",
         "add_new_question": "Add new question",
@@ -168,7 +183,6 @@
         "new_process": "New process",
         "new_vote": "New vote",
         "no_back_to_login": "No, back to voting",
-        "number_votes": "{{ number }} votes",
         "optional_field": "This field is optional",
         "options": "Option {{ number }}",
         "paused_vote": "Paused vote",

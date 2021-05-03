@@ -1,6 +1,6 @@
+import { ProcessInfo } from '@vocdoni/react-hooks';
 import { GatewayPool, VotingApi } from 'dvote-js'
 import { BigNumber, providers } from 'ethers'
-import { ProcessInfo } from './types'
 
 // VOCDONI API wrappers
 

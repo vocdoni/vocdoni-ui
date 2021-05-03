@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
+import { ProcessInfo } from '@vocdoni/react-hooks'
+import { Account } from '@lib/types'
 
 import i18n from '../../i18n'
-import { ProcessInfo, Account } from '../../lib/types'
 import { Column, Grid } from '../grid'
 import { VoteStatusType } from '../list-items'
 import { Skeleton } from '../skeleton'
