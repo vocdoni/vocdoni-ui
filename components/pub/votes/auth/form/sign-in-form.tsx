@@ -44,7 +44,7 @@ export const SignInForm = ({
       <VotePageHeader
         processTitle={processInfo?.metadata.title.default}
         processImage={processInfo?.metadata?.media.header}
-        entityName={entity.name.default}
+        entityName={entity?.name.default}
       />
 
       <Fieldset disabled={checkingCredentials}>
