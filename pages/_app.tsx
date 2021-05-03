@@ -3,7 +3,7 @@ import { NextComponentType, NextPageContext } from 'next'
 import { AppInitialProps } from 'next/app'
 import Head from 'next/head'
 import { Router } from 'next/router'
-import { UsePoolProvider, UseProcessProvider } from '@vocdoni/react-hooks'
+import { UseEntityProvider, UsePoolProvider, UseProcessProvider } from '@vocdoni/react-hooks'
 import { EthNetworkID, VocdoniEnvironment } from 'dvote-js'
 import { ThemeProvider } from 'styled-components'
 import 'react-circular-progressbar/dist/styles.css';
@@ -45,17 +45,19 @@ const VocdoniApp: FC<NextAppProps> = ({ Component, pageProps }) => {
             <UseBlockNumberProvider>
             <UseProcessProvider>
             <UseVotingProvider>
-              <FixedGlobalStyle />
-              <Head>
-                <meta
-                  name='viewport'
-                  content='width=device-width, initial-scale=1.0, max-scale=1.0'
-                />
-                <title>{appTitle}</title>
-              </Head>
-              <Layout>
-                <Component {...pageProps} />
-              </Layout>
+              <UseEntityProvider>
+                <FixedGlobalStyle />
+                <Head>
+                  <meta
+                    name='viewport'
+                    content='width=device-width, initial-scale=1.0, max-scale=1.0'
+                  />
+                  <title>{appTitle}</title>
+                </Head>
+                <Layout>
+                  <Component {...pageProps} />
+                </Layout>
+              </UseEntityProvider>
             </UseVotingProvider>
             </UseProcessProvider>
             </UseBlockNumberProvider>

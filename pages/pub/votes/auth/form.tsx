@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useEntity } from '@vocdoni/react-hooks'
 
 import i18n from '@i18n'
 
@@ -20,6 +21,8 @@ const VoteAuthLogin = () => {
     processInfo,
     methods,
   } = useAuthForm()
+  const { metadata, loading } = useEntity(processInfo?.entity)
+
 
   const handleSubmit = () => {
     setCheckingCredentials(true)
@@ -31,10 +34,10 @@ const VoteAuthLogin = () => {
   }
 
   const renderLoadingPage = new ViewStrategy(
-    () => loadingInfo,
+    () => loadingInfo || loading,
     <Loader visible />
   )
-  
+
   const renderVotingInvalidLink = new ViewStrategy(
     () => invalidProcessId,
     (
@@ -72,6 +75,7 @@ const VoteAuthLogin = () => {
           fields={fieldNames}
           values={formValues}
           processInfo={processInfo}
+          entity={metadata}
           onChange={methods.setFormValue}
           onSubmit={handleSubmit}
           submitEnabled={emptyFields}

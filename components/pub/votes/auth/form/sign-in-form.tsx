@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { EntityMetadata } from 'dvote-js'
 
 import i18n from '@i18n'
 
@@ -23,6 +24,7 @@ interface IFormProps {
   submitEnabled?: boolean
   checkingCredentials?: boolean
   processInfo: ProcessInfo
+  entity: EntityMetadata
   onChange: (field: string, value) => void
   onSubmit: () => void
 }
@@ -32,6 +34,7 @@ export const SignInForm = ({
   submitEnabled,
   values,
   processInfo,
+  entity,
   checkingCredentials,
   onSubmit,
   onChange,
@@ -41,6 +44,7 @@ export const SignInForm = ({
       <VotePageHeader
         processTitle={processInfo?.metadata.title.default}
         processImage={processInfo?.metadata?.media.header}
+        entityName={entity.name.default}
       />
 
       <Fieldset disabled={checkingCredentials}>

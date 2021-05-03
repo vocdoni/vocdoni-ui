@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
+import { useEntity } from '@vocdoni/react-hooks'
 
 import i18n from '@i18n'
 
 import { Question } from '@lib/types'
 import { useVoting } from '@hooks/use-voting'
+
+import { VOTING_PATH } from '@const/routes'
 
 import { Column, Grid } from '@components/grid'
 import { PageCard } from '@components/cards'
@@ -19,7 +22,6 @@ import { VoteQuestionCard } from './components/vote-question-card'
 import { ConfirmModal } from './components/confirm-modal'
 import { VoteDescription } from './components/vote-description'
 import { VoteRegisteredCard } from './components/vote-registered-card'
-import { VOTING_PATH } from '@const/routes'
 
 export const VotingPageView = () => {
   const {
@@ -30,23 +32,19 @@ export const VotingPageView = () => {
     hasVoted,
     results,
   } = useVoting()
+  const { metadata } = useEntity(processInfo?.entity)
 
   const [confirmModalOpened, setConfirmModalOpened] = useState<boolean>(false)
   const votePageLink = `${VOTING_PATH}/${processInfo.id}`
 
-
-  // Mocked data
-  const entityName = 'Sixseven Company'
   const totalVotes = results.totalVotes || 0
-
-  // end mocked data
 
   return (
     <>
       <PageCard>
         <VotePageHeader
           processTitle={processInfo.metadata.title.default}
-          entityName={entityName}
+          entityName={metadata.name.default}
         />
 
         <Grid>
