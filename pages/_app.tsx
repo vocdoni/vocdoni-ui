@@ -30,43 +30,47 @@ const VocdoniApp: FC<NextAppProps> = ({ Component, pageProps }) => {
   const networkId = process.env.ETH_NETWORK_ID as EthNetworkID
   const environment = process.env.VOCDONI_ENVIRONMENT as VocdoniEnvironment
   const appTitle = process.env.APP_TITLE
+  const commitSHA = process.env.COMMIT_SHA
 
   return (
-  <ThemeProvider theme={theme}>
-    <UseWalletContextProvider>
-    <UseMessageAlertProvider>
-      <UseLoadingAlertProvider>
-        <UsePoolProvider
-          bootnodeUri={bootnodeUri}
-          networkId={networkId}
-          environment={environment}
-        >
-          <UseBackendProvider>
-            <UseBlockNumberProvider>
-            <UseProcessProvider>
-            <UseVotingProvider>
-              <UseEntityProvider>
-                <FixedGlobalStyle />
-                <Head>
-                  <meta
-                    name='viewport'
-                    content='width=device-width, initial-scale=1.0, max-scale=1.0'
-                  />
-                  <title>{appTitle}</title>
-                </Head>
-                <Layout>
-                  <Component {...pageProps} />
-                </Layout>
-              </UseEntityProvider>
-            </UseVotingProvider>
-            </UseProcessProvider>
-            </UseBlockNumberProvider>
-          </UseBackendProvider>
-        </UsePoolProvider>
-      </UseLoadingAlertProvider>
-    </UseMessageAlertProvider>
-    </UseWalletContextProvider>
-  </ThemeProvider>
+    <ThemeProvider theme={theme}>
+      <UseWalletContextProvider>
+        <UseMessageAlertProvider>
+          <UseLoadingAlertProvider>
+            <UsePoolProvider
+              bootnodeUri={bootnodeUri}
+              networkId={networkId}
+              environment={environment}
+            >
+              <UseBackendProvider>
+                <UseBlockNumberProvider>
+                  <UseProcessProvider>
+                    <UseVotingProvider>
+                      <UseEntityProvider>
+                        <FixedGlobalStyle />
+                        <Head>
+                          <meta
+                            name='viewport'
+                            content='width=device-width, initial-scale=1.0, max-scale=1.0'
+                          />
+                          <title>{appTitle}</title>
+                        </Head>
+                        <Layout>
+                          <Component {...pageProps} />
+                        </Layout>
+                        <div id='commit-sha' style={{ display: 'none' }}>
+                          {commitSHA}
+                        </div>
+                      </UseEntityProvider>
+                    </UseVotingProvider>
+                  </UseProcessProvider>
+                </UseBlockNumberProvider>
+              </UseBackendProvider>
+            </UsePoolProvider>
+          </UseLoadingAlertProvider>
+        </UseMessageAlertProvider>
+      </UseWalletContextProvider>
+    </ThemeProvider>
   )
 }
 

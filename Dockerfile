@@ -1,6 +1,8 @@
 # Static web site compiler
 FROM node:14 as builder
 
+ARG COMMIT_SHA
+ENV COMMIT_SHA=${COMMIT_SHA}
 ARG NODE_ENV="development"
 ENV NODE_ENV=${NODE_ENV}
 ARG ETH_NETWORK_ID
