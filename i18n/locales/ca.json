@@ -70,10 +70,10 @@
         "description": "",
         "details": "",
         "email": "",
+        "entity_details": "",
         "header": "",
         "i_have_read_and_accept_the_privacy_policy_and_the_terms_of_service": "",
         "logo": "",
-        "name": "",
         "new_entity": "",
         "passphrase": "",
         "please_wait_creating_account": "",
@@ -81,7 +81,10 @@
         "your_account_has_been_created": ""
     },
     "error": {
-        "the_vote_details_are_invalid": ""
+        "process_already_ended": "",
+        "process_cannot_be_canceled": "",
+        "the_vote_details_are_invalid": "",
+        "wallet_not_available": ""
     },
     "errors": {
         "file_too_large": "",
@@ -234,5 +237,10 @@
         "your_vote_has_been_registered": "",
         "your_vote_is_set_up": "",
         "your_vote_process_is_being_created": ""
+    },
+    "votes": {
+        "show": {
+            "updating": ""
+        }
     }
 }

@@ -8,9 +8,17 @@ import i18n from '../../i18n'
 import { Else, If, Then } from 'react-if'
 import { EntityCreationPageSteps } from '.'
 import { CREATE_PROCESS_PATH, DASHBOARD_PATH } from '../../const/routes'
+import { ProcessLoader } from '@components/process-loader'
+
+const processSteps = [
+  i18n.t('entity.confirming_details'),
+  i18n.t('entity.signing_transactions'),
+  i18n.t('entity.consolidating_path'),
+  i18n.t('entity.validating_creation'),
+]
 
 export const FormCreation = () => {
-  const { creationError, pleaseWait, created, methods } = useEntityCreation()
+  const { creationError, pleaseWait, created, methods, actionStep } = useEntityCreation()
   const { setAlertMessage } = useMessageAlert()
 
   useEffect(() => {
@@ -19,9 +27,16 @@ export const FormCreation = () => {
 
   return (
     <div>
-      {pleaseWait ? <p>{i18n.t('entity.please_wait_creating_account')}</p> : null}
-      {created ? <p>{i18n.t('entity.your_account_has_been_created')}</p> : null}
-      {creationError ? <p>{creationError}</p> : null}
+      <If condition={!creationError}>
+        <Then>
+          <ProcessLoader
+            steps={processSteps}
+            currentStep={actionStep}
+            title={i18n.t('vote.your_vote_process_is_being_created')}
+            subtitle={i18n.t('vote.we_are_using_a_decentralized_secure_system')}
+          />
+        </Then>
+      </If>
 
       <If condition={created}>
         <Then>
@@ -34,16 +49,15 @@ export const FormCreation = () => {
             </Button>
           </BottomDiv>
         </Then>
-        <Else>
-          <If condition={pleaseWait}>
-            <Else>
-              <BottomDiv>
-                <Button border onClick={() => methods.setPageStep(EntityCreationPageSteps.CREDENTIALS)}>{i18n.t("action.go_back")}</Button>
-                <Button border onClick={methods.continueEntityCreation}>{i18n.t("action.retry")}</Button>
-              </BottomDiv>
-            </Else>
-          </If>
-        </Else>
+      </If>
+
+      <If condition={creationError}>
+        <Then>
+          <BottomDiv>
+            <Button border onClick={() => methods.setPageStep(EntityCreationPageSteps.CREDENTIALS)}>{i18n.t("action.go_back")}</Button>
+            <Button border onClick={methods.continueEntityCreation}>{i18n.t("action.retry")}</Button>
+          </BottomDiv>
+        </Then>
       </If>
     </div>
   )

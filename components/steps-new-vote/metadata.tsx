@@ -15,34 +15,33 @@ import { SectionText } from '../text'
 
 import { ProcessCreationPageSteps } from '.'
 import { QuestionGroup } from './question-group'
+import { PreviewModal } from './preview-modal'
 import {
   ErrorFields,
   createEmptyQuestion,
   validateMetadata,
 } from './metadata-helper'
 import { PlazaMetadataKeys } from '../../const/metadata-keys'
+import { colors } from 'theme/colors'
+import { FlexContainer, FlexJustifyContent } from '@components/flex'
 
 export enum MetadataFields {
   Title = 'process-title',
   Description = 'process-description',
   AttachmentLink = 'attachmentUri',
   DiscussionLink = 'discussionUrl',
-  StreamLink = 'stream-url',
+  StreamLink = 'streamUri',
   Question = 'process-question',
 }
 
 export const FormMetadata = () => {
-  const {
-    headerURL,
-    headerFile,
-    metadata,
-    methods,
-  } = useProcessCreation()
+  const { headerURL, headerFile, metadata, methods } = useProcessCreation()
   const { setAlertMessage } = useMessageAlert()
 
   const [metadataCompleted, setMetadataCompleted] = useState<boolean>(false)
-  const onPreview = () => {
-    // TODO:
+  const [showPreviewModal, setShowPreviewModal] = useState<boolean>(false)
+  const handleTogglePreviewModal = () => {
+    setShowPreviewModal(!showPreviewModal)
   }
 
   const handleContinue = () => {
@@ -165,7 +164,7 @@ export const FormMetadata = () => {
             label={i18n.t('vote.stream_link_label')}
             placeholder={i18n.t('vote.stream_link')}
             id={MetadataFields.StreamLink}
-            value={metadata.meta[MetadataFields.StreamLink]}
+            value={metadata.media[MetadataFields.StreamLink]}
             onChange={(event: ChangeEvent<HTMLInputElement>) =>
               methods.setMediaStreamURI(event.target.value)
             }
@@ -198,42 +197,45 @@ export const FormMetadata = () => {
 
       <Grid>
         <Column>
-          <BottomDiv>
-            {/* <Button
-              negative
-              // onClick=
-            >
-              {i18n.t('action.preview_proposal')}
-            </Button> */}
-            <Button
-              positive
-              onClick={handleContinue}
-              large
-              disabled={!metadataCompleted}
-            >
-              {i18n.t('action.continue')}
-            </Button>
-          </BottomDiv>
+          <FlexContainer justify={FlexJustifyContent.End}>
+            <ButtonContainer>
+              <Button
+                color={colors.accent1}
+                large
+                onClick={handleTogglePreviewModal}
+              >
+                {i18n.t('action.preview_proposal')}
+              </Button>
+            </ButtonContainer>
+
+            <ButtonContainer>
+              <Button
+                positive
+                onClick={handleContinue}
+                large
+                disabled={!metadataCompleted}
+              >
+                {i18n.t('action.continue')}
+              </Button>
+            </ButtonContainer>
+          </FlexContainer>
         </Column>
       </Grid>
+
+      <PreviewModal
+        visible={showPreviewModal}
+        onClose={handleTogglePreviewModal}
+      />
     </>
   )
 }
 
-const AddQuestionContainer = styled.div`
-  display: flex;
+const ButtonContainer = styled.div`
+  margin-left: 15px;
+  margin-top: 20px;
 `
 
-const AddQuestionImageContainer = styled.div`
-  margin-right: 20px;
-`
-
-const BottomDiv = styled.div`
-  display: flex;
-  justify-content: flex-end;
-`
-
-const AddQuestionText = styled(SectionText)`
+const AddQuestionText = styled.p`
   font-weight: 500;
   font-size: 20px;
   margin: 6px 10px;

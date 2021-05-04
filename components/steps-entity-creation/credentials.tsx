@@ -1,15 +1,16 @@
 import React, { useMemo, useState } from 'react'
 import { Checkbox } from '@aragon/ui'
+import styled from 'styled-components'
 
 import { useEntityCreation } from '../../hooks/entity-creation'
 import { Column, Grid } from '../grid'
 import { Input } from '../inputs'
 import { Button } from '../button'
-import styled from 'styled-components'
 import i18n from '../../i18n'
 import { EntityCreationPageSteps } from '.'
 import { checkStrength } from '../../lib/util'
 import { useMessageAlert } from '../../hooks/message-alert'
+import { FlexAlignItem, FlexContainer } from '@components/flex'
 
 export const FormCredentials = () => {
   const { setAlertMessage } = useMessageAlert()
@@ -63,13 +64,16 @@ export const FormCredentials = () => {
         />
       </Column>
       <Column>
-        <label>
+        <FlexContainer alignItem={FlexAlignItem.Center}>
           <Checkbox
+            id='accept-terms'
             checked={ack}
             onChange={(ack: boolean) => setAck(ack)}
           />
-          {i18n.t("entity.acknowledge_passphrase_implications")}
-        </label>
+          <label htmlFor='accept-terms'>
+            {i18n.t("entity.acknowledge_passphrase_implications")}
+          </label>
+        </FlexContainer>
       </Column>
       <Column>
         <BottomDiv>

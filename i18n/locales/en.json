@@ -70,10 +70,10 @@
         "description": "Description",
         "details": "Details",
         "email": "Contact e-mail",
+        "entity_details": "Entity details",
         "header": "Entity header",
         "i_have_read_and_accept_the_privacy_policy_and_the_terms_of_service": "I have read and accept the Privacy Policy and the Terms of Service",
         "logo": "Entity logo",
-        "name": "Name of the entity",
         "new_entity": "New entity",
         "passphrase": "Passphrase",
         "please_wait_creating_account": "Please wait, creating the account...",
@@ -81,7 +81,10 @@
         "your_account_has_been_created": "Your account has been created"
     },
     "error": {
-        "the_vote_details_are_invalid": ""
+        "process_already_ended": "",
+        "process_cannot_be_canceled": "",
+        "the_vote_details_are_invalid": "",
+        "wallet_not_available": ""
     },
     "errors": {
         "file_too_large": "The file is too large",
@@ -234,5 +237,10 @@
         "your_vote_has_been_registered": "Your vote has been registered",
         "your_vote_is_set_up": "Your vote is set up",
         "your_vote_process_is_being_created": "Your account is being created"
+    },
+    "votes": {
+        "show": {
+            "updating": ""
+        }
     }
 }

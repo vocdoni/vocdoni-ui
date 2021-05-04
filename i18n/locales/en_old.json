@@ -41,7 +41,8 @@
         "company_members": "Company members"
     },
     "entity": {
-        "enter_the_details_of_the_organization": "Enter the details of the organization"
+        "enter_the_details_of_the_organization": "Enter the details of the organization",
+        "name": "Name of the entity"
     },
     "this_is_the_form_that_your_community_will_need_to_fill_in_order_to_vote": "",
     "process": {

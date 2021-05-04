@@ -28,7 +28,7 @@ export interface EntityCreationContext {
 
   pleaseWait: boolean,
   created: boolean,
-
+  actionStep: number,
   methods: {
     setPageStep: (s: EntityCreationPageSteps) => void,
 
@@ -309,7 +309,7 @@ export const UseEntityCreationProvider = ({ children }: { children: ReactNode })
 
     pleaseWait,
     created: actionStep >= creationStepFuncs.length,
-
+    actionStep,
     methods: {
       setPageStep,
       setName,
