@@ -42,15 +42,14 @@
     },
     "entity": {
         "enter_the_details_of_the_organization": "Enter the details of the organization",
-        "name": "Name of the entity"
+        "name": "Name of the entity",
+        "please_wait_creating_account": "Please wait, creating the account...",
+        "your_account_has_been_created": "Your account has been created"
     },
     "this_is_the_form_that_your_community_will_need_to_fill_in_order_to_vote": "",
     "process": {
         "enter_the_details_of_the_process": "Enter the details of the new process",
         "new_process": "New process"
-    },
-    "action": {
-        "preview_proposal": "Preview proposal"
     },
     "votes": {
         "number_votes": ""

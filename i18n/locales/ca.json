@@ -6,6 +6,7 @@
         "create_new_proposal": "",
         "go_back": "",
         "go_to_dashboard": "",
+        "preview_proposal": "",
         "retry": "",
         "sign_in": ""
     },
@@ -65,6 +66,8 @@
         "acknowledge_passphrase_implications": "",
         "brief_description": "",
         "choose_a_passphrase": "",
+        "confirming_details": "",
+        "consolidating_path": "",
         "creation": "",
         "credentials": "",
         "description": "",
@@ -76,9 +79,9 @@
         "logo": "",
         "new_entity": "",
         "passphrase": "",
-        "please_wait_creating_account": "",
         "repeat_passphrase": "",
-        "your_account_has_been_created": ""
+        "signing_transactions": "",
+        "validating_creation": ""
     },
     "error": {
         "process_already_ended": "",

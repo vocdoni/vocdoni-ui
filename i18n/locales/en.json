@@ -6,6 +6,7 @@
         "create_new_proposal": "Create new proposal",
         "go_back": "Go back",
         "go_to_dashboard": "Go to the Dashboard",
+        "preview_proposal": "Preview proposal",
         "retry": "Retry",
         "sign_in": "Sign in"
     },
@@ -65,6 +66,8 @@
         "acknowledge_passphrase_implications": "I acknowledge that the passphrase is required to manage my entity and that failure to keep access to it can prevent the ability to manage it in the future",
         "brief_description": "Brief description of your entity",
         "choose_a_passphrase": "Choose a passphrase",
+        "confirming_details": "Confirm details",
+        "consolidating_path": "Consolidating path",
         "creation": "Creation",
         "credentials": "Credentials",
         "description": "Description",
@@ -76,9 +79,9 @@
         "logo": "Entity logo",
         "new_entity": "New entity",
         "passphrase": "Passphrase",
-        "please_wait_creating_account": "Please wait, creating the account...",
         "repeat_passphrase": "Repeat the passphrase",
-        "your_account_has_been_created": "Your account has been created"
+        "signing_transactions": "Signing transactions",
+        "validating_creation": "Validating creation"
     },
     "error": {
         "process_already_ended": "",
