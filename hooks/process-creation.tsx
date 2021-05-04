@@ -123,7 +123,7 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
       })
       .then(header => {
         metadataMethods.setMediaHeader(header)
-        return Promise.resolve({ waitNext: false })
+        return Promise.resolve({ waitNext: true })
       })
       .catch(err => {
         console.error(err)
@@ -159,7 +159,7 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
     const { censusId } = await CensusOffChainApi.addCensus(name, [wallet.publicKey], wallet, pool)
     const { censusRoot, invalidClaims } = await CensusOffChainApi.addClaimBulk(censusId, claims, false, wallet, pool)
     if (invalidClaims.length) {
-      return { error: i18n.t('error.num_entries_could_not_be_added_to_the_census', { total: invalidClaims.length }) }
+      return Promise.reject({ error: i18n.t('error.num_entries_could_not_be_added_to_the_census', { total: invalidClaims.length }) })
     }
     const censusUri = await CensusOffChainApi.publishCensus(censusId, wallet, pool)
 
@@ -168,7 +168,7 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
     paramsMethods.setCensusRoot(censusRoot)
     paramsMethods.setCensusUri(censusUri)
 
-    return { waitNext: true }
+    return Promise.resolve({ waitNext: true })
   }
 
   const stepEnsureValidParams: StepperFunc = async () => {
@@ -190,7 +190,7 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
       }
     }
 
-    return Promise.resolve({ waitNext: false })
+    return Promise.resolve({ waitNext: true })
   }
 
   const stepEnsureProcessCreated: StepperFunc = (): Promise<StepperFuncResult> => {
@@ -257,9 +257,17 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
     return poolPromise
       .then(async pool => {
         let retries = 30
+        let processList = await VotingApi.getProcessList({ entityId: wallet.address }, pool)
+        const trimProcId = processId.replace(/^0x/, "")
+        let start = processList.length
         while (retries >= 0) {
-          const processList = await VotingApi.getProcessList({ entityId: wallet.address }, pool)
-          if (processList.length && processList.includes(processId.replace("0x", ""))) {
+          while (!processList.some(v => v == trimProcId)) {
+            processList = await VotingApi.getProcessList({ entityId: wallet.address, from: start }, pool)
+            if (!processList.length) break
+
+            start += processList.length
+          }
+          if (processList.length && processList.some(v => v == trimProcId)) {
             setPageStep(pageStep + 1)
             return {
               waitNext: true,

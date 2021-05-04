@@ -15,8 +15,8 @@ import { ProcessCreationPageSteps } from '.'
 // import { CREATE_PROCESS_PATH, DASHBOARD_PATH } from '../../const/routes'
 
 const processSteps = [
-  i18n.t('vote.confirm_details'),
-  i18n.t('vote.signing_transactions'),
+  i18n.t('vote.uploading_metadata'),
+  i18n.t('vote.creating_census'),
   i18n.t('vote.checking_details'),
   i18n.t('vote.creating_process'),
   i18n.t('vote.verifying_creation')

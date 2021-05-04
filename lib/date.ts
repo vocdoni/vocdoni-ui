@@ -1,6 +1,6 @@
 import { GatewayPool, VotingApi } from "dvote-js"
 import i18n from "../i18n"
-import { ProcessInfo } from "./types"
+import { ProcessInfo } from '@vocdoni/react-hooks'
 
 export enum DateDiffType {
   Start = 'start-date',

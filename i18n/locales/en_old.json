@@ -32,7 +32,8 @@
         "voting": "",
         "consolidating_path": "Consolidating path",
         "optional_introduction": "Optional introduction",
-        "number_votes": "{{ number }} votes"
+        "number_votes": "{{ number }} votes",
+        "signing_transactions": "Signing transactions"
     },
     "sign_in": {
         "select_the_account_to_use_and_enterr_your_passphrase": ""

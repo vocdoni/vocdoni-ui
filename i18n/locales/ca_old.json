@@ -8,7 +8,8 @@
         "send_vote": "",
         "the_link_you_have_followed_is_not_valid": "",
         "voting": "",
-        "number_votes": ""
+        "number_votes": "",
+        "signing_transactions": ""
     },
     "votes": {
         "number_votes": ""
