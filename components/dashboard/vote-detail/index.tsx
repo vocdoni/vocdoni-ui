@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { ProcessStatus } from 'dvote-solidity'
-import { ProcessInfo } from '@vocdoni/react-hooks'
-import { DigestedProcessResults } from 'dvote-js'
+import { ProcessInfo, usePool } from '@vocdoni/react-hooks'
+import { DigestedProcessResults, VotingApi } from 'dvote-js'
 
 import i18n from '@i18n'
 
@@ -26,6 +26,10 @@ import { DashedLink } from '@components/common/dashed-link'
 import { ProcessStatusLabel } from '@components/process-status-label'
 import { VoteQuestionCard } from '@components/common/vote-question-card'
 import { GeneratePdfCard } from './generate-pdf-card'
+import { useWallet, WalletRoles } from '@hooks/use-wallet'
+import { useMessageAlert } from '@hooks/message-alert'
+import { Loader } from '@components/loader'
+import { useLoadingAlert } from '@hooks/loading-alert'
 
 interface IProcessDetailProps {
   process: ProcessInfo
@@ -34,14 +38,49 @@ interface IProcessDetailProps {
 
 export const ViewDetail = ({ process, results }: IProcessDetailProps) => {
   const voteActive = process.parameters.status.value === ProcessStatus.READY
+  const { setLoadingMessage, hideLoading } = useLoadingAlert()
+  const { poolPromise } = usePool()
+  const { wallet } = useWallet({ role: WalletRoles.ADMIN })
+  const { setAlertMessage } = useMessageAlert()
   const voteLink = RouterService.instance.get(VOTING_AUTH_FORM_PATH, {
     processId: process.id,
   })
   const totalVotes = results?.totalVotes || 0
 
-  const handleCancelVote = () => {}
-  const handleEndVote = () => {}
-  const handleGeneratePdfResult = () => {}
+  const handleCancelVote = () => {
+    if (!wallet) {
+      setAlertMessage(i18n.t('error.wallet_not_available'))
+      return
+    }
+    // TODO which states allow for canceling?
+    if (process.parameters.status.isCanceled || process.parameters.status.isEnded) {
+      setAlertMessage(i18n.t('error.process_cannot_be_canceled'))
+    }
+    //TODO make loader work or add spinner
+    setLoadingMessage(i18n.t('votes.show.updating'))
+    return poolPromise.then(pool => {
+      wallet.connect(pool.provider)
+      return VotingApi.setStatus(process.id, ProcessStatus.CANCELED, wallet, pool)
+    }).then(() => hideLoading())
+  }
+
+  const handleEndVote = () => {
+    if (!wallet) {
+      setAlertMessage(i18n.t('error.wallet_not_available'))
+      return
+    }
+    if (process.parameters.status.isEnded) {
+      setAlertMessage(i18n.t('error.process_already_ended'))
+    }
+    //TODO make loader work or add spinner
+    setLoadingMessage(i18n.t('votes.show.updating'))
+    return poolPromise.then(pool => {
+      wallet.connect(pool.provider)
+      return VotingApi.setStatus(process.id, ProcessStatus.ENDED, wallet, pool)
+    }).then(() => hideLoading)
+  }
+  // TODO handleGeneratePdfResult return not implemented an make button not clickable
+  const handleGeneratePdfResult = () => { }
   return (
     <PageCard>
       <Grid>
@@ -125,9 +164,10 @@ export const ViewDetail = ({ process, results }: IProcessDetailProps) => {
         </Column>
 
         <Column md={3} sm={12}>
-          <GeneratePdfCard onClick={handleGeneratePdfResult}/>
+          <GeneratePdfCard onClick={handleGeneratePdfResult} />
         </Column>
       </Grid>
+      {/* </Loader> */}
     </PageCard>
   )
 }
