@@ -8,13 +8,24 @@ import { Input, Textarea } from '../inputs'
 import i18n from '../../i18n'
 import { Button } from '../button'
 import styled from 'styled-components'
-import { SectionTitle } from '../text'
+import { SectionText, SectionTitle, TextSize } from '../text'
 import { EntityCreationPageSteps } from '.'
 import { useMessageAlert } from '../../hooks/message-alert'
 import { useDbAccounts } from '../../hooks/use-db-accounts'
+import {
+  FileLoaderFormGroup,
+  InputFormGroup,
+  TextareaFormGroup,
+} from '@components/form'
+import {
+  FlexAlignItem,
+  FlexContainer,
+  FlexJustifyContent,
+} from '@components/flex'
 
 export const FormMetadata = () => {
-  const { name,
+  const {
+    name,
     description,
     email,
     logoFile,
@@ -22,7 +33,7 @@ export const FormMetadata = () => {
     headerFile,
     headerUrl,
     methods,
-    metadataValidationError
+    metadataValidationError,
   } = useEntityCreation()
   const [terms, setTerms] = useState<boolean>(false)
   const { setAlertMessage } = useMessageAlert()
@@ -31,109 +42,113 @@ export const FormMetadata = () => {
   const onContinue = () => {
     if (metadataValidationError) {
       return setAlertMessage(metadataValidationError)
-    }
-    else if (dbAccounts.some(acc => acc.name.toLowerCase().trim() == name.toLowerCase().trim())) {
-      return setAlertMessage(i18n.t("errors.there_is_already_one_entity_with_the_same_name"))
+    } else if (
+      dbAccounts.some(
+        (acc) => acc.name.toLowerCase().trim() == name.toLowerCase().trim()
+      )
+    ) {
+      return setAlertMessage(
+        i18n.t('errors.there_is_already_one_entity_with_the_same_name')
+      )
     }
     methods.setPageStep(EntityCreationPageSteps.CREDENTIALS)
   }
 
-  const disabledContinue = !name || !email || !description || (!headerFile && !headerUrl) || (!logoFile && !logoUrl) || !terms
+  const disabledContinue =
+    !name ||
+    !email ||
+    !description ||
+    (!headerFile && !headerUrl) ||
+    (!logoFile && !logoUrl) ||
+    !terms
 
   return (
     <Grid>
       <Column>
-        <SectionTitle>{i18n.t('entity.new_entity')}</SectionTitle>
+        <SectionText size={TextSize.Big}>{i18n.t('entity.entity_details')}</SectionText>
       </Column>
       <Column md={6}>
-        <label htmlFor='name'>{i18n.t('entity.name')}</label>
-        <Input
-          wide
+        <InputFormGroup
+          label={i18n.t('entity.new_entity')}
+          placeholder={i18n.t('entity.new_entity')}
           id='name'
-          type='text'
           value={name}
-          onChange={(e: ChangeEvent<HTMLInputElement>) =>
-            methods.setName(e.target.value)
+          onChange={(event: ChangeEvent<HTMLInputElement>) =>
+            methods.setName(event.target.value)
           }
         />
       </Column>
       <Column md={6}>
-        <label htmlFor='email'>{i18n.t('entity.email')}</label>
-        <Input
-          wide
+        <InputFormGroup
+          label={i18n.t('entity.email')}
+          placeholder={i18n.t('entity.email')}
           id='email'
-          type='email'
           value={email}
-          onChange={(e: ChangeEvent<HTMLInputElement>) =>
-            methods.setEmail(e.target.value)
+          onChange={(event: ChangeEvent<HTMLInputElement>) =>
+            methods.setEmail(event.target.value)
           }
         />
       </Column>
       <Column>
-        <SectionTitle bottomMargin>{i18n.t('entity.description')}</SectionTitle>
-        <div>
-          <label htmlFor='edesc'>{i18n.t('entity.brief_description')}</label>
-          <Textarea
-            wide
-            id='edesc'
-            value={description}
-            onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
-              methods.setDescription(e.target.value)
-            }
-          />
-        </div>
+        <TextareaFormGroup
+          title={i18n.t('entity.description')}
+          label={i18n.t('entity.brief_description')}
+          placeholder={i18n.t('entity.brief_description')}
+          id='description'
+          rows={4}
+          value={description}
+          onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
+            methods.setDescription(e.target.value)
+          }
+        />
       </Column>
       <Column md={6}>
-        <SectionTitle>{i18n.t('entity.logo')}</SectionTitle>
-        <div>
-          <FileLoader
-            onSelect={(file) => methods.setLogoFile(file)}
-            onChange={methods.setLogoUrl}
-            file={logoFile}
-            url={logoUrl}
-            accept='.jpg,.jpeg,.png'
-          />
-        </div>
+        <FileLoaderFormGroup
+          title={i18n.t('entity.logo')}
+          label={i18n.t('entity.logo')}
+          onSelect={(file) => methods.setLogoFile(file)}
+          onChange={methods.setLogoUrl}
+          file={logoFile}
+          url={logoUrl}
+          accept=".jpg,.jpeg,.png,.gif"
+        />
       </Column>
       <Column md={6}>
-        <SectionTitle>{i18n.t('entity.header')}</SectionTitle>
-        <div>
-          <FileLoader
-            onSelect={(file) => methods.setHeaderFile(file)}
-            onChange={methods.setHeaderUrl}
-            file={headerFile}
-            url={headerUrl}
-            accept='.jpg,.jpeg,.png,.gif'
-          />
-        </div>
+        <FileLoaderFormGroup
+          title={i18n.t('entity.header')}
+          label={i18n.t('entity.header')}
+          onSelect={(file) => methods.setHeaderFile(file)}
+          onChange={methods.setHeaderUrl}
+          file={headerFile}
+          url={headerUrl}
+          accept=".jpg,.jpeg,.png,.gif"
+        />
       </Column>
       <Column>
-        <label>
-          <Checkbox
-            checked={terms}
-            onChange={setTerms}
-          />
-          {i18n.t("entity.i_have_read_and_accept_the_privacy_policy_and_the_terms_of_service")}
-        </label>
+        <FlexContainer alignItem={FlexAlignItem.Center}>
+          <Checkbox id='terms-check' checked={terms} onChange={setTerms} />
+
+          <label htmlFor='terms-check' >
+            {i18n.t(
+              'entity.i_have_read_and_accept_the_privacy_policy_and_the_terms_of_service'
+            )}
+          </label>
+        </FlexContainer>
       </Column>
       <Column>
-        <BottomDiv>
+        <FlexContainer justify={FlexJustifyContent.End}>
           <div />
-          <Button
-            positive
-            onClick={onContinue}
-            disabled={disabledContinue}
-          >
-            {i18n.t("action.continue")}
+          <Button positive onClick={onContinue} disabled={disabledContinue}>
+            {i18n.t('action.continue')}
           </Button>
-        </BottomDiv>
+        </FlexContainer>
       </Column>
-    </Grid >
+    </Grid>
   )
 }
 
 const BottomDiv = styled.div`
-display: flex;
-flex-direction: row;
-justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 `

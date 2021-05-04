@@ -21,5 +21,8 @@
     },
     "vote_detail": {
         "create_new_proposal_in_only_5_minutes": ""
+    },
+    "entity": {
+        "name": ""
     }
 }

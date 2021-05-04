@@ -14,14 +14,14 @@ import { ProcessStatusLabel } from '@components/process-status-label'
 
 interface IVotePageProps {
   description: string
-  liveSteam: string
-  attachmentUrl: string
-  discussionUrl: string
+  liveStream: string
+  attachmentUrl?: string
+  discussionUrl?: string
   voteStatus: ProcessStatus
 }
 export const VoteDescription = ({
   description,
-  liveSteam,
+  liveStream,
   attachmentUrl,
   discussionUrl,
   voteStatus,
@@ -39,7 +39,7 @@ export const VoteDescription = ({
   return (
     <Grid>
       <Column>
-        <ProcessStatusLabel status={voteStatus}/>
+        <ProcessStatusLabel status={voteStatus} />
         <SectionTitle color={colors.blueText}>{description}</SectionTitle>
       </Column>
 
@@ -50,7 +50,7 @@ export const VoteDescription = ({
           </SectionText>
 
           <LiveStreamVideoContainer>
-            <ReactPlayer url={liveSteam} width="100%"/>
+            <ReactPlayer url={liveStream} width="100%" />
           </LiveStreamVideoContainer>
 
           <SectionText size={TextSize.Big} color={colors.blueText}>
@@ -65,38 +65,48 @@ export const VoteDescription = ({
         </LiveStreamContainer>
       </Column>
 
-      <Column>
-        <Button
-          border
-          wide
-          icon={pdfIcon}
-          href={attachmentUrl}
-          justify={JustifyContent.Left}
-        >
-          {i18n.t('vote.download_the_document')}
-        </Button>
-      </Column>
+      {attachmentUrl && (
+        <Column>
+          <Button
+            border
+            wide
+            icon={pdfIcon}
+            href={attachmentUrl}
+            justify={JustifyContent.Left}
+          >
+            <ButtonText>{i18n.t('vote.download_the_document')}</ButtonText>
+          </Button>
+        </Column>
+      )}
 
-      <Column>
-        <Button
-          border
-          wide
-          icon={questionIcon}
-          href={discussionUrl}
-          justify={JustifyContent.Left}
-        >
-          {i18n.t('vote.questions_and_answers')}
-        </Button>
-      </Column>
+      {discussionUrl && (
+        <Column>
+          <Button
+            border
+            wide
+            icon={questionIcon}
+            href={discussionUrl}
+            justify={JustifyContent.Left}
+          >
+            <ButtonText>{i18n.t('vote.questions_and_answers')}</ButtonText>
+          </Button>
+        </Column>
+      )}
     </Grid>
   )
 }
 
+const ButtonText = styled.p`
+  color: ${colors.blueText};
+  font-size: 20px;
+  font-weight: 500;
+  margin: 0 20px;
+`
 const LiveStreamContainer = styled.div`
   margin: 20px 0;
-  `
+`
 
-  const LiveStreamVideoContainer = styled.div`
+const LiveStreamVideoContainer = styled.div`
   border-radius: 10px;
   overflow: hidden;
   width: auto;

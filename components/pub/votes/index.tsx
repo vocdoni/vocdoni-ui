@@ -16,11 +16,11 @@ import { FlexContainer, FlexJustifyContent } from '@components/flex'
 import { MetadataFields } from '@components/steps-new-vote/metadata'
 import { VoteQuestionCard } from '@components/common/vote-question-card'
 
-import { VotePageHeader } from './common/vote-page-header'
+import { VotePageHeader } from '@common/vote-page-header'
+import { VoteDescription } from '@common/vote-description'
 
 import { VoteNowCard } from './components/vote-now-card'
 import { ConfirmModal } from './components/confirm-modal'
-import { VoteDescription } from './components/vote-description'
 import { VoteRegisteredCard } from './components/vote-registered-card'
 
 export const VotingPageView = () => {
@@ -51,7 +51,7 @@ export const VotingPageView = () => {
           <Column lg={9} sm={12}>
             <VoteDescription
               description={processInfo.metadata.description.default}
-              liveSteam={processInfo.metadata.media.streamUri}
+              liveStream={processInfo.metadata.media.streamUri}
               discussionUrl={
                 processInfo.metadata.meta[MetadataFields.DiscussionLink]
               }
