@@ -3,14 +3,14 @@ import styled from 'styled-components'
 
 import { PageCard } from '@components/cards'
 
-import { PreviewModalHeader } from './modal-header'
-import { PreviewModalBody } from './modal-body'
 import { VotePageHeader } from '@components/common/vote-page-header'
 import { useProcessCreation } from '@hooks/process-creation'
 import { VoteDescription } from '@components/common/vote-description'
 import { ProcessStatus } from 'dvote-solidity'
 import { PlazaMetadataKeys } from '@const/metadata-keys'
 import { MetadataFields } from '../metadata'
+import { VoteQuestionCard } from '@components/common/vote-question-card'
+import { Question } from '@lib/types'
 
 interface PreviewModalProps {
   visible: boolean
@@ -41,7 +41,19 @@ export const PreviewModal = ({visible, onClose}: PreviewModalProps) => {
           discussionUrl={metadata.meta[PlazaMetadataKeys.DISCUSSION_URL]}
           attachmentUrl={metadata.meta[PlazaMetadataKeys.ATTACHMENT_URI]}
         />
-        {/* <PreviewModalBody /> */}
+        
+        {metadata.questions.map(
+          (question: Question, index: number) => (
+            <VoteQuestionCard
+              key={index}
+              question={question}
+              index={index}
+              hasVoted={false}
+              totalVotes={0}
+              selectedChoice={0}
+            />
+          )
+        )}
       </Modal>
     </ModalBackdrop>
   )

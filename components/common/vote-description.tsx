@@ -7,8 +7,8 @@ import i18n from '@i18n'
 
 import { colors } from 'theme/colors'
 
-import { SectionText, SectionTitle, TextSize } from '@components/text'
-import { Button, JustifyContent } from '@components/button'
+import { SectionText, TextSize } from '@components/text'
+import { Button, JustifyContent, LinkTarget } from '@components/button'
 import { Column, Grid } from '@components/grid'
 import { ProcessStatusLabel } from '@components/process-status-label'
 
@@ -40,7 +40,10 @@ export const VoteDescription = ({
     <Grid>
       <Column>
         <ProcessStatusLabel status={voteStatus} />
-        <SectionTitle color={colors.blueText}>{description}</SectionTitle>
+      </Column>
+
+      <Column>
+        <SectionText color={colors.lightText}>{description}</SectionText>
       </Column>
 
       <Column>
@@ -72,6 +75,7 @@ export const VoteDescription = ({
             wide
             icon={pdfIcon}
             href={attachmentUrl}
+            target={LinkTarget.Blank}
             justify={JustifyContent.Left}
           >
             <ButtonText>{i18n.t('vote.download_the_document')}</ButtonText>
@@ -86,6 +90,7 @@ export const VoteDescription = ({
             wide
             icon={questionIcon}
             href={discussionUrl}
+            target={LinkTarget.Blank}
             justify={JustifyContent.Left}
           >
             <ButtonText>{i18n.t('vote.questions_and_answers')}</ButtonText>
@@ -103,7 +108,7 @@ const ButtonText = styled.p`
   margin: 0 20px;
 `
 const LiveStreamContainer = styled.div`
-  margin: 20px 0;
+  margin: 10px 0 20px 0;
 `
 
 const LiveStreamVideoContainer = styled.div`

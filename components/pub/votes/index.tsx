@@ -16,8 +16,8 @@ import { FlexContainer, FlexJustifyContent } from '@components/flex'
 import { MetadataFields } from '@components/steps-new-vote/metadata'
 import { VoteQuestionCard } from '@components/common/vote-question-card'
 
-import { VotePageHeader } from '@common/vote-page-header'
-import { VoteDescription } from '@common/vote-description'
+import { VotePageHeader } from '@components/common/vote-page-header'
+import { VoteDescription } from '@components/common/vote-description'
 
 import { VoteNowCard } from './components/vote-now-card'
 import { ConfirmModal } from './components/confirm-modal'
@@ -37,7 +37,7 @@ export const VotingPageView = () => {
   const [confirmModalOpened, setConfirmModalOpened] = useState<boolean>(false)
   const votePageLink = `${VOTING_PATH}/${processInfo.id}`
 
-  const totalVotes = results.totalVotes || 0
+  const totalVotes = results?.totalVotes || 0
 
   return (
     <>
@@ -83,7 +83,7 @@ export const VotingPageView = () => {
                   index={index}
                   hasVoted={hasVoted}
                   totalVotes={totalVotes}
-                  result={results.questions[index]}
+                  result={results?.questions[index]}
                   selectedChoice={choices ? choices[index] : 0}
                   onSelectChoice={(selectedChoice) => {
                     methods.onSelect(index, selectedChoice)

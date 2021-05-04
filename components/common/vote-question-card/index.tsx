@@ -9,7 +9,7 @@ import { ViewContext, ViewStrategy } from '@lib/strategy'
 import { Question } from '@lib/types'
 
 import { Card } from '@components/cards'
-import { SectionText, SectionTitle } from '@components/text'
+import { SectionText, SectionTitle, TextSize } from '@components/text'
 import { Column, Grid } from '@components/grid'
 import {
   FlexContainer,
@@ -25,7 +25,7 @@ interface IVoteQuestionCardProps {
   index: number
   hasVoted: boolean
   totalVotes: number
-  result: DigestedProcessResultItem
+  result?: DigestedProcessResultItem
   selectedChoice?: number
   onSelectChoice?: (choiceValue: number) => void
 }
@@ -82,7 +82,7 @@ export const VoteQuestionCard = ({
                 {i18n.t('vote_question_card.question', { number: index + 1 })}
               </SectionText>
 
-              <QuestionTitle>{question.title.default}</QuestionTitle>
+              <SectionText size={TextSize.Big}>{question.title.default}</SectionText>
 
               <SectionText color={colors.lightText}>
                 {question.description.default}

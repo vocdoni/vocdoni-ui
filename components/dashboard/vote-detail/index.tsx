@@ -37,11 +37,12 @@ interface IProcessDetailProps {
 }
 
 export const ViewDetail = ({ process, results }: IProcessDetailProps) => {
-  const voteActive = process.parameters.status.value === ProcessStatus.READY
   const { setLoadingMessage, hideLoading } = useLoadingAlert()
   const { poolPromise } = usePool()
   const { wallet } = useWallet({ role: WalletRoles.ADMIN })
   const { setAlertMessage } = useMessageAlert()
+  
+  const voteActive = process.parameters.status.value === ProcessStatus.READY
   const voteLink = RouterService.instance.get(VOTING_AUTH_FORM_PATH, {
     processId: process.id,
   })

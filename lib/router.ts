@@ -7,7 +7,7 @@ export default class RouterService {
   private static _instance: RouterService
 
   constructor(baseUrl?: string) {
-    this.baseUrl = baseUrl || `${location.protocol}//${location.host}`
+    this.baseUrl = baseUrl || typeof location !== 'undefined'? `${location.protocol}//${location.host}`: ''
   }
 
   static get instance(): RouterService {

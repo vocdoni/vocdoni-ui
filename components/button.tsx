@@ -9,6 +9,11 @@ export enum ButtonColor {
     Negative = "negative"
 }
 
+export enum LinkTarget {
+    Blank = '_blank',
+    Self = '_self'
+}
+
 type ButtonProps = {
     positive?: boolean,
     negative?: boolean,
@@ -27,10 +32,11 @@ type ButtonProps = {
     icon?: React.ReactNode,
     children?: React.ReactNode
     href?: string
+    target?: LinkTarget
     onClick?: (ev: React.MouseEvent<HTMLDivElement, MouseEvent>) => void
 }
 
-export const Button = ({ disabled, positive, negative, color, href, onClick, width, icon, wide, border, borderColor, justify, verticalAlign, large, small, children }: ButtonProps) => {
+export const Button = ({ disabled, positive, negative, color, href, target, onClick, width, icon, wide, border, borderColor, justify, verticalAlign, large, small, children }: ButtonProps) => {
     let component: JSX.Element
 
     if (disabled) {
@@ -69,7 +75,7 @@ export const Button = ({ disabled, positive, negative, color, href, onClick, wid
 
     if (href) {
         return <Link href={href}>
-            <MyAnchor target="_self">{component}</MyAnchor>
+            <MyAnchor target={target || LinkTarget.Self} href={href}>{component}</MyAnchor>
         </Link>
     }
     return component

@@ -11,9 +11,7 @@ import { Column } from '@components/grid'
 import { Button } from '@components/button'
 import { PageCard } from '@components/cards'
 import { FlexContainer, FlexJustifyContent } from '@components/flex'
-
-
-import { VotePageHeader } from '../../common/vote-page-header'
+import { VotePageHeader } from '@components/common/vote-page-header'
 
 interface IFieldValues {
   [field: string]: string
