@@ -44,6 +44,7 @@ export const SignInForm = ({
         processTitle={processInfo?.metadata.title.default}
         processImage={processInfo?.metadata?.media.header}
         entityName={entity?.name.default}
+        entityImage={entity?.media.avatar}
       />
 
       <Fieldset disabled={checkingCredentials}>

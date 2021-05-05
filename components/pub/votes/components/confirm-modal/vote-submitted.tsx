@@ -9,7 +9,11 @@ import { Button } from '@components/button'
 import { DASHBOARD_PATH } from '@const/routes'
 import { colors } from 'theme/colors'
 
-export const VoteSubmitted = () => (
+interface IVoteSubmittedProps {
+  onAccept: () => void
+}
+
+export const VoteSubmitted = ({onAccept}: IVoteSubmittedProps) => (
   <>
     <ImageContainer width="320px" justify={FlexJustifyContent.Center}>
       <img
@@ -28,7 +32,7 @@ export const VoteSubmitted = () => (
       </TextContainer>
 
       <FlexContainer justify={FlexJustifyContent.Center}>
-        <Button positive href={DASHBOARD_PATH}>{i18n.t('vote.go_back_to_home_page')}</Button>
+        <Button positive onClick={onAccept}>{i18n.t('vote.go_back_to_home_page')}</Button>
       </FlexContainer>
   </>
 )

@@ -22,12 +22,14 @@ export const ProcessReady = () => {
 
   return (
     <ProcessReadyContainer>
-      <ImageContainer width="500px">
+      <ImageContainer width="500px" justify={FlexJustifyContent.Center}>
         <img src="/images/vote/create-proposal.png" />
       </ImageContainer>
+
       <SectionTitle align={TextAlign.Center}>
         {i18n.t('vote.your_vote_is_set_up')}
       </SectionTitle>
+      
       <SectionText align={TextAlign.Center}>
         {i18n.t(
           'vote.this_is_the_link_that_you_need_to_send_your_community_members'

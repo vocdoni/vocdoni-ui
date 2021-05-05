@@ -36,7 +36,7 @@ export const ConfirmModal = ({ isOpen, onClose }: IConfigModal) => {
 
   const renderVoteSubmitted = new ViewStrategy(
     () => hasVoted,
-    <VoteSubmitted />
+    <VoteSubmitted onAccept={onClose}/>
   )
 
   const viewContext = new ViewContext([

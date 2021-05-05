@@ -25,7 +25,8 @@ export const PageCardHeader = styled.div`
   max-height: 240px;
   border-radius: 16px 16px 0 0;
   overflow: hidden;
-
+  max-height: 200px;
+  
   & > img {
     width: 100%;
   }
