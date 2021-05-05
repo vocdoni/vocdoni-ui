@@ -9,9 +9,10 @@ export function useStepper<T>(mainActionStepFuncs: StepperFunc[], initialPageSte
   const [creationError, setCreationError] = useState<string>()
 
   const cleanError = () => { if (creationError) setCreationError("") }
+  const incActionStep = () => setActionStep(actionStep + 1)
 
   // Create a function to perform these steps iteratively, stopping when a break is needed or an error is found
-  const actionStepper = makeStepperLoopFunction(mainActionStepFuncs)
+  const actionStepper = makeStepperLoopFunction(mainActionStepFuncs, incActionStep)
 
   // Continuation callback
   const doMainActionSteps = () => {
@@ -70,7 +71,7 @@ export function useStepper<T>(mainActionStepFuncs: StepperFunc[], initialPageSte
 // HELPERS
 
 /** Returns a function that attempts to iterate over the given operators sequentially and reports any corresponding events */
-function makeStepperLoopFunction(operations: StepperFunc[]) {
+function makeStepperLoopFunction(operations: StepperFunc[], onNextActionStep: () => void) {
   return async (startIdx: number = 0): Promise<StepperLoopFuncResult> => {
     for (let i = startIdx; i < operations.length; i++) {
       try {
@@ -82,6 +83,9 @@ function makeStepperLoopFunction(operations: StepperFunc[]) {
         else if (waitNext) {
           return { continueFrom: i + 1 }
         }
+
+        // continue to the next step
+        onNextActionStep()
       }
       catch (err) {
         return { continueFrom: i, error: err.message }
