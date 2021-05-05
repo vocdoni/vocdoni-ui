@@ -26,7 +26,7 @@ interface IVoteQuestionCardProps {
   index: number
   hasVoted: boolean
   totalVotes: number
-  processStatus: ProcessStatus 
+  processStatus: ProcessStatus
   result?: DigestedProcessResultItem
   selectedChoice?: number
   onSelectChoice?: (choiceValue: number) => void
@@ -42,8 +42,11 @@ export const VoteQuestionCard = ({
   selectedChoice,
   onSelectChoice,
 }: IVoteQuestionCardProps) => {
+
+  const showResults  = processStatus.value === ProcessStatus.ENDED || processStatus.value === ProcessStatus.RESULTS || hasVoted
+
   const resultsQuestionView = new ViewStrategy(
-    () => !!result && result.voteResults && hasVoted,
+    () =>  showResults && !!result && !!result.voteResults,
     (
       <QuestionResults
         question={question}
@@ -54,7 +57,7 @@ export const VoteQuestionCard = ({
   )
 
   const noResultsAvailableView = new ViewStrategy(
-    () => !result && hasVoted,
+    () => showResults && !result,
     <SectionText>{i18n.t('vote_question_card.no_available_results')}</SectionText>
   )
 
