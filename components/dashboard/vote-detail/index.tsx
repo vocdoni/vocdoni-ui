@@ -28,7 +28,6 @@ import { VoteQuestionCard } from '@components/common/vote-question-card'
 import { GeneratePdfCard } from './generate-pdf-card'
 import { useWallet, WalletRoles } from '@hooks/use-wallet'
 import { useMessageAlert } from '@hooks/message-alert'
-import { Loader } from '@components/loader'
 import { useLoadingAlert } from '@hooks/loading-alert'
 
 interface IProcessDetailProps {
@@ -41,7 +40,7 @@ export const ViewDetail = ({ process, results }: IProcessDetailProps) => {
   const { poolPromise } = usePool()
   const { wallet } = useWallet({ role: WalletRoles.ADMIN })
   const { setAlertMessage } = useMessageAlert()
-  
+
   const voteActive = process.parameters.status.value === ProcessStatus.READY
   const voteLink = RouterService.instance.get(VOTING_AUTH_FORM_PATH, {
     processId: process.id,
@@ -156,6 +155,7 @@ export const ViewDetail = ({ process, results }: IProcessDetailProps) => {
                   index={index}
                   hasVoted={true}
                   totalVotes={totalVotes}
+                  processStatus={process?.parameters.status}
                   result={results?.questions[index]}
                   selectedChoice={0}
                 />

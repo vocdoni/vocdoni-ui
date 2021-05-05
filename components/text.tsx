@@ -51,4 +51,19 @@ export const SectionDescription = styled.span`
 color: ${({ theme }) => theme.textAccent1}
 `
 
+export const QuestionMark = styled.span`
+  display: inline-block;
+  border-radius: 8px;
+  height: 16px;
+  width: 16px;
+  line-height: 16px;
+  background-color: #635BFF;
+  margin-left: 6px;
 
+  &:after {
+    content: '?';
+    padding: 0 4px;
+    color: ${({theme}) => theme.white};
+    2px 3px 4px rgb(0 0 0 / 20%);
+  }
+`

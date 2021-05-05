@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { FileApi } from 'dvote-js'
 import { usePool } from '@vocdoni/react-hooks'
 
@@ -19,19 +19,20 @@ const DEFAULT_IMAGE =
 
 export const Image = (props: IImageProps) => {
   const { poolPromise } = usePool()
-  const isIpfsUri = ipfsRegex.test(props.src)
   const [imageSrc, setImageSrc] = useState<string>(
-    isIpfsUri ? DEFAULT_IMAGE : props.src
+    ipfsRegex.test(props.src) ? DEFAULT_IMAGE : props.src
   )
 
-  if (isIpfsUri) {
-    poolPromise.then(async (pool) => {
-      const file = await FileApi.fetchBytes(props.src, pool.activeGateway)
-      const base64 = `data:image/png;base64,${file.toString('base64')}`
+  useEffect(() => {
+    if (ipfsRegex.test(props.src)) {
+      poolPromise.then(async (pool) => {
+        const file = await FileApi.fetchBytes(props.src, pool.activeGateway)
+        const base64 = `data:image/png;base64,${file.toString('base64')}`
 
-      setImageSrc(base64)
-    })
-  }
+        setImageSrc(base64)
+      })
+    }
+  }, [props.src])
 
   return <img {...props} src={imageSrc} />
 }
