@@ -1,7 +1,7 @@
 import React from 'react'
 import i18n from '@i18n'
 import styled from 'styled-components'
-import { DigestedProcessResultItem } from 'dvote-js'
+import { DigestedProcessResultItem, ProcessStatus } from 'dvote-js'
 
 import { colors } from 'theme/colors'
 
@@ -19,12 +19,14 @@ import {
 
 import { QuestionResults } from './question-results'
 import { ChoiceSelector } from './choice-selector'
+import { ChoiceList } from './choice-list'
 
 interface IVoteQuestionCardProps {
   question: Question
   index: number
   hasVoted: boolean
   totalVotes: number
+  processStatus: ProcessStatus 
   result?: DigestedProcessResultItem
   selectedChoice?: number
   onSelectChoice?: (choiceValue: number) => void
@@ -35,6 +37,7 @@ export const VoteQuestionCard = ({
   index,
   hasVoted,
   totalVotes,
+  processStatus,
   result,
   selectedChoice,
   onSelectChoice,
@@ -56,7 +59,7 @@ export const VoteQuestionCard = ({
   )
 
   const questionsView = new ViewStrategy(
-    () => !hasVoted,
+    () => !hasVoted && processStatus.value === ProcessStatus.READY,
     (
       <ChoiceSelector
         question={question}
@@ -66,10 +69,18 @@ export const VoteQuestionCard = ({
     )
   )
 
+  const questionListView = new ViewStrategy(
+    () => true,
+    (
+      <ChoiceList question={question}/>
+    )
+  )
+
   const choiceContextView = new ViewContext([
     questionsView,
     resultsQuestionView,
     noResultsAvailableView,
+    questionListView
   ])
 
   return (

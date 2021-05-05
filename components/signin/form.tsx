@@ -10,7 +10,7 @@ import { ENTITY_FORGOT_PASSPHRASE_PATH } from '../../const/routes'
 
 import { Fieldset } from '../form'
 import { Input, Select } from '../inputs'
-import { SectionTitle, SectionText } from '../text'
+import { SectionTitle, SectionText, QuestionMark } from '../text'
 import { Button } from '../button'
 
 interface SignInFormProps {
@@ -71,6 +71,7 @@ export const SignInForm = ({ accounts, disabled, onSubmit }: SignInFormProps) =>
         <FormGroup>
           <label htmlFor="passphrase">
             {i18n.t('sign_in.write_your_passphrase')}
+            <QuestionMark />
           </label>
           <Input
             wide

@@ -21,7 +21,6 @@ export const PreviewModal = ({visible, onClose}: PreviewModalProps) => {
   const { headerURL, headerFile, metadata, methods } = useProcessCreation()
   const processStatus = new ProcessStatus(ProcessStatus.READY);
 
-  console.log(visible)
   return (
     <ModalBackdrop visible={visible}>
       <CloseButton onClick={onClose}>
@@ -49,6 +48,7 @@ export const PreviewModal = ({visible, onClose}: PreviewModalProps) => {
               question={question}
               index={index}
               hasVoted={false}
+              processStatus={processStatus}
               totalVotes={0}
               selectedChoice={0}
             />

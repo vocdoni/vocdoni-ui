@@ -9,7 +9,8 @@
         "the_link_you_have_followed_is_not_valid": "",
         "voting": "",
         "number_votes": "",
-        "signing_transactions": ""
+        "signing_transactions": "",
+        "confirm_details": ""
     },
     "votes": {
         "number_votes": ""

@@ -85,6 +85,7 @@ export const VotingPageView = () => {
               hasVoted={hasVoted}
               totalVotes={totalVotes}
               result={results?.questions[index]}
+              processStatus={processInfo?.parameters.status}
               selectedChoice={choices ? choices[index] : 0}
               onSelectChoice={(selectedChoice) => {
                 methods.onSelect(index, selectedChoice)
