@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { useRouter } from 'next/router'
 
@@ -21,10 +21,16 @@ const SignInPage = () => {
   const { setAlertMessage } = useMessageAlert()
   const router = useRouter()
 
+  const [verifyingCredentials, setVerifyingCredentials] = useState<boolean>(
+    false
+  )
+
   const hasAccounts = !!dbAccounts.length
   const colSmSize = hasAccounts ? 6 : 12
 
   const handlerSubmit = (account: Account, passphrase: string) => {
+    setVerifyingCredentials(true)
+    
     try {
       restoreEncryptedWallet(
         account.encryptedMnemonic,
@@ -34,6 +40,7 @@ const SignInPage = () => {
 
       router.push(DASHBOARD_PATH)
     } catch (error) {
+      setVerifyingCredentials(false)
       setAlertMessage(i18n.t('sign_in.invalid_passphrase'))
     }
   }
@@ -46,6 +53,7 @@ const SignInPage = () => {
             <SignInForm
               accounts={dbAccounts}
               onSubmit={handlerSubmit}
+              disabled={verifyingCredentials}
             />
 
             {!laptop && <LoginDivider />}
@@ -63,7 +71,7 @@ const SignInPage = () => {
 const LoginDivider = styled.div`
   margin: 15px;
   border-radius: 2px;
-  border-bottom: solid 2px ${({ theme }) => theme.lightBorder };
+  border-bottom: solid 2px ${({ theme }) => theme.lightBorder};
 `
 
 export default SignInPage

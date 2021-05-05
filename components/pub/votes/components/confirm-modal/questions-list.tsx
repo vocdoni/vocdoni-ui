@@ -29,12 +29,12 @@ export const ModalQuestionList = ({
         <SectionText color="#7E89AC">
           {i18n.t('vote.question', { number: index + 1 })}
         </SectionText>
-        <QuestionText>{question.title.default}</QuestionText>
+        <QuestionText>{question?.title.default}</QuestionText>
       </QuestionGroup>
 
       <QuestionGroup>
         <SectionText color="#7E89AC">{i18n.t('vote.your_choice')}</SectionText>
-        <QuestionText>{choice.title.default}</QuestionText>
+        <QuestionText>{choice?.title.default}</QuestionText>
       </QuestionGroup>
     </div>
   )

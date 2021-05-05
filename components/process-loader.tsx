@@ -19,7 +19,7 @@ export const ProcessLoader = ({
   currentStep,
 }: IProcessLoaderProps) => {
   const renderStep = (step, index) => (
-    <StepContainer>
+    <StepContainer key={index}>
       {currentStep < index && <EmptyCheck />}
       {currentStep > index && (
         <Check>

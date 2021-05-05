@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { ProcessInfo } from '@vocdoni/react-hooks'
+import { ProcessInfo, useEntity } from '@vocdoni/react-hooks'
 
 import {
   DashboardActivitySummary,
@@ -22,6 +22,7 @@ const DashboardPage = () => {
   const { wallet } = useWallet()
   const { dbAccounts } = useDbAccounts()
   const { blockNumber } = useBlockNumber()
+  const { metadata: entityMetadata } = useEntity(wallet?.address)
   // TODO: use loadingProcessList and loadingProcessesDetails to wait until data is loaded
   // TODO: call useProcessesFromAccount(wallet.address) instead of below
   const {
@@ -82,7 +83,7 @@ const DashboardPage = () => {
 
   return (
     <>
-      <DashboardHeader account={account} />
+      <DashboardHeader entity={entityMetadata} hasBackup={account?.backupMnemonic}/>
 
       <DashboardActivitySummary
         loading={loadingProcessList || loadingProcessesDetails}

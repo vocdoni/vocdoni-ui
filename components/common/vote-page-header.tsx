@@ -10,6 +10,8 @@ import { FALLBACK_ACCOUNT_ICON } from '@const/account'
 import { Grid , Column} from '@components/grid'
 import { colors } from 'theme/colors'
 
+import { Image } from './image'
+
 interface IVotePageHeader {
   processTitle: string
   entityName?: string
@@ -29,11 +31,11 @@ export const VotePageHeader = ({
   return (
     <VotePageHeaderContainer>
       <PageCardHeader>
-        <img src={headerImageSrc} alt={i18n.t('vote.vote_process_image_alt')} />
+        <Image src={headerImageSrc} alt={i18n.t('vote.vote_process_image_alt')} />
       </PageCardHeader>
 
       <EntityLogoWrapper>
-        <img src={entityImageSrc} alt={i18n.t('vote.entity_logo_alt')} />
+        <Image src={entityImageSrc} alt={i18n.t('vote.entity_logo_alt')} />
       </EntityLogoWrapper>
 
       <Grid>

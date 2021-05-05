@@ -1,21 +1,24 @@
 import React from 'react'
+import { EntityMetadata } from 'dvote-js'
+import { If } from 'react-if'
 
-import i18n from '../../i18n'
-import { FALLBACK_ACCOUNT_ICON } from '../../const/account'
-import { CREATE_PROCESS_PATH } from '../../const/routes'
-import { Account } from '../../lib/types'
+import i18n from '@i18n'
 
-import { Banner } from '../banners'
-import { Button } from '../button'
-import { Grid } from '../grid'
-import { Unless } from 'react-if'
-import { ImageContainer } from '../images'
+import { FALLBACK_ACCOUNT_ICON } from '@const/account'
+import { CREATE_PROCESS_PATH } from '@const/routes'
+
+import { Banner } from '@components/banners'
+import { Button } from '@components/button'
+import { Grid } from '@components/grid'
+import { ImageContainer } from '@components/images'
+import { Image } from '@components/common/image'
 
 interface IDashboardHeaderProps {
-  account?: Account
+  entity?: EntityMetadata,
+  hasBackup?: boolean 
 }
 
-export const DashboardHeader = ({ account }: IDashboardHeaderProps) => {
+export const DashboardHeader = ({ entity, hasBackup }: IDashboardHeaderProps) => {
   const createProposalButton = (
     <Button href={CREATE_PROCESS_PATH} positive>
       {i18n.t('dashboard.create_new_proposal')}
@@ -35,8 +38,8 @@ export const DashboardHeader = ({ account }: IDashboardHeaderProps) => {
 
   const accountImage = (
     <ImageContainer width="50px" height="70px">
-      <img
-        src={account?.pending?.metadata?.media.avatar || FALLBACK_ACCOUNT_ICON}
+      <Image
+        src={entity?.media.avatar || FALLBACK_ACCOUNT_ICON}
         alt={i18n.t('dashboard.company_logo')}
       />
     </ImageContainer>
@@ -53,7 +56,7 @@ export const DashboardHeader = ({ account }: IDashboardHeaderProps) => {
   return (
     <Grid>
       <Banner
-        title={account?.name}
+        title={entity?.name.default}
         subtitle={i18n.t(
           'dashboard.manage_your_community_and_schedule_new_votes'
         )}
@@ -61,7 +64,7 @@ export const DashboardHeader = ({ account }: IDashboardHeaderProps) => {
         icon={accountImage}
       />
 
-      <Unless condition={account?.backupMnemonic}>
+      <If condition={!hasBackup}>
         <Banner
           title={i18n.t('dashboard.your_account_is_unsafe')}
           subtitle={i18n.t(
@@ -71,7 +74,7 @@ export const DashboardHeader = ({ account }: IDashboardHeaderProps) => {
           rightButton={backupButton}
           warning
         />
-      </Unless>
+      </If>
     </Grid>
   )
 }

@@ -44,7 +44,9 @@ export const VotingPageView = () => {
       <PageCard>
         <VotePageHeader
           processTitle={processInfo.metadata.title.default}
+          processImage={processInfo?.metadata?.media.header}
           entityName={metadata?.name.default}
+          entityImage={metadata?.media.avatar}
         />
 
         <Grid>
@@ -74,24 +76,22 @@ export const VotingPageView = () => {
 
         {hasVoted && <VoteRegisteredCard voteLink={votePageLink} />}
 
-        <Grid>
-          {processInfo.metadata.questions.map(
-            (question: Question, index: number) => (
-                <VoteQuestionCard
-                  key={index}
-                  question={question}
-                  index={index}
-                  hasVoted={hasVoted}
-                  totalVotes={totalVotes}
-                  result={results?.questions[index]}
-                  selectedChoice={choices ? choices[index] : 0}
-                  onSelectChoice={(selectedChoice) => {
-                    methods.onSelect(index, selectedChoice)
-                  }}
-                />
-            )
-          )}
-        </Grid>
+        {processInfo.metadata.questions.map(
+          (question: Question, index: number) => (
+            <VoteQuestionCard
+              key={index}
+              question={question}
+              index={index}
+              hasVoted={hasVoted}
+              totalVotes={totalVotes}
+              result={results?.questions[index]}
+              selectedChoice={choices ? choices[index] : 0}
+              onSelectChoice={(selectedChoice) => {
+                methods.onSelect(index, selectedChoice)
+              }}
+            />
+          )
+        )}
 
         {!hasVoted && (
           <SubmitButtonContainer justify={FlexJustifyContent.Center}>
