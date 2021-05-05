@@ -47,8 +47,11 @@ export const FormOptions = () => {
   }
 
   const handleChangeAvailability = (availability: ResultsAvailability) => {
-    let envelopeType = ProcessEnvelopeType.ENCRYPTED_VOTES ^ parameters.envelopeType.value
-    methods.setEnvelopeType(new ProcessEnvelopeType(envelopeType))
+    if ((availability === ResultsAvailability.Live && parameters.envelopeType.hasEncryptedVotes) ||
+        (availability === ResultsAvailability.End && !parameters.envelopeType.hasEncryptedVotes)) {
+      let envelopeType = ProcessEnvelopeType.ENCRYPTED_VOTES ^ parameters.envelopeType.value
+      methods.setEnvelopeType(new ProcessEnvelopeType(envelopeType))
+    }
   }
 
   return (
