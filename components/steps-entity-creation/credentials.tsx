@@ -2,31 +2,39 @@ import React, { useMemo, useState } from 'react'
 import { Checkbox } from '@aragon/ui'
 import styled from 'styled-components'
 
-import { useEntityCreation } from '../../hooks/entity-creation'
-import { Column, Grid } from '../grid'
-import { Input } from '../inputs'
-import { Button } from '../button'
-import i18n from '../../i18n'
-import { EntityCreationPageSteps } from '.'
-import { checkStrength } from '../../lib/util'
-import { useMessageAlert } from '../../hooks/message-alert'
+import i18n from '@i18n'
+
+import { useEntityCreation } from '@hooks/entity-creation'
+import { useMessageAlert } from '@hooks/message-alert'
+
+import { checkStrength } from '@lib/util'
+
+import { Column, Grid } from '@components/grid'
+import { Input } from '@components/inputs'
+import { Button } from '@components/button'
 import { FlexAlignItem, FlexContainer } from '@components/flex'
+import { EntityCreationPageSteps } from '.'
+import { Banner } from '@components/banners'
 
 export const FormCredentials = () => {
   const { setAlertMessage } = useMessageAlert()
   const { methods } = useEntityCreation()
-  const [passphrase, setPassphrase] = useState("")
-  const [passphrase2, setPassphrase2] = useState("")
+  const [passphrase, setPassphrase] = useState('')
+  const [passphrase2, setPassphrase2] = useState('')
   const [ack, setAck] = useState(false)
 
   const onValidate = () => {
-    if (!passphrase) return setAlertMessage(i18n.t("errors.please_enter_a_passphrase"))
-    else if (!passphrase2) return setAlertMessage(i18n.t("errors.please_repeat_the_passphrase"))
+    if (!passphrase)
+      return setAlertMessage(i18n.t('errors.please_enter_a_passphrase'))
+    else if (!passphrase2)
+      return setAlertMessage(i18n.t('errors.please_repeat_the_passphrase'))
 
     const errMsg = checkStrength(passphrase)
     if (errMsg) return setAlertMessage(errMsg)
-    else if (passphrase != passphrase2) return setAlertMessage(i18n.t("errors.the_passphrase_does_not_match"))
-    else if (!ack) return setAlertMessage(i18n.t("errors.please_accept_credentials_tos"))
+    else if (passphrase != passphrase2)
+      return setAlertMessage(i18n.t('errors.the_passphrase_does_not_match'))
+    else if (!ack)
+      return setAlertMessage(i18n.t('errors.please_accept_credentials_tos'))
 
     // OK
 
@@ -40,52 +48,70 @@ export const FormCredentials = () => {
 
   return (
     <Grid>
+      <Banner
+        warning
+        title={i18n.t('entity.why_this_is_important')}
+        subtitle={i18n.t(
+          'entity.decentralized_accounts_cannot_be_recovered_by_and_external_agent'
+        )}
+        icon={
+          <img
+            width="140px"
+            src="/images/entity/passphrase.png"
+            alt={i18n.t('entity.passphrase_image_alt')}
+          />
+        }
+      />
+
       <Column span={12}>
-        <h2>{i18n.t("entity.choose_a_passphrase")}</h2>
+        <h2>{i18n.t('entity.choose_a_passphrase')}</h2>
       </Column>
+
       <Column md={6}>
-        <label htmlFor='pwd'>{i18n.t("entity.passphrase")}</label>
+        <label htmlFor="pwd">{i18n.t('entity.passphrase')}</label>
         <Input
-          id='pwd'
+          id="pwd"
           wide
-          type='password'
+          type="password"
           value={passphrase}
-          onChange={e => setPassphrase(e.target.value)}
+          onChange={(e) => setPassphrase(e.target.value)}
         />
       </Column>
       <Column md={6}>
-        <label htmlFor='rep'>{i18n.t("entity.repeat_passphrase")}</label>
+        <label htmlFor="rep">{i18n.t('entity.repeat_passphrase')}</label>
         <Input
-          id='rep'
+          id="rep"
           wide
-          type='password'
+          type="password"
           value={passphrase2}
-          onChange={e => setPassphrase2(e.target.value)}
+          onChange={(e) => setPassphrase2(e.target.value)}
         />
       </Column>
       <Column>
         <FlexContainer alignItem={FlexAlignItem.Center}>
           <Checkbox
-            id='accept-terms'
+            id="accept-terms"
             checked={ack}
             onChange={(ack: boolean) => setAck(ack)}
           />
-          <label htmlFor='accept-terms'>
-            {i18n.t("entity.acknowledge_passphrase_implications")}
+          <label htmlFor="accept-terms">
+            {i18n.t('entity.acknowledge_passphrase_implications')}
           </label>
         </FlexContainer>
       </Column>
       <Column>
         <BottomDiv>
-          <Button border onClick={() => methods.setPageStep(EntityCreationPageSteps.METADATA)}>
-            {i18n.t("action.go_back")}
-          </Button>
           <Button
-            positive
-            onClick={onValidate}
-            disabled={disabledContinue}
+            border
+            onClick={() =>
+              methods.setPageStep(EntityCreationPageSteps.METADATA)
+            }
           >
-            {i18n.t("action.continue")}
+            {i18n.t('action.go_back')}
+          </Button>
+
+          <Button positive onClick={onValidate} disabled={disabledContinue}>
+            {i18n.t('action.continue')}
           </Button>
         </BottomDiv>
       </Column>
@@ -94,7 +120,7 @@ export const FormCredentials = () => {
 }
 
 const BottomDiv = styled.div`
-display: flex;
-flex-direction: row;
-justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 `

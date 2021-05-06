@@ -80,6 +80,7 @@ const StepsContainer = styled.div`
 
 const StepContainer = styled.div`
   display: flex;
+  margin: 10px 0;
   align-items: center;
 `
 const StepText = styled(SectionText)`

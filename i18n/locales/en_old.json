@@ -63,5 +63,9 @@
     },
     "vote_detail": {
         "create_new_proposal_in_only_5_minutes": ""
+    },
+    "action": {
+        "create_new_proposal": "Create new proposal",
+        "go_to_dashboard": "Go to the Dashboard"
     }
 }

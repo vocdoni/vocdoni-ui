@@ -12,6 +12,7 @@ import { Fieldset } from '../form'
 import { Input, Select } from '../inputs'
 import { SectionTitle, SectionText, QuestionMark } from '../text'
 import { Button } from '../button'
+import { HelpText } from '@components/common/help-text';
 
 interface SignInFormProps {
   accounts: Account[]
@@ -71,7 +72,7 @@ export const SignInForm = ({ accounts, disabled, onSubmit }: SignInFormProps) =>
         <FormGroup>
           <label htmlFor="passphrase">
             {i18n.t('sign_in.write_your_passphrase')}
-            <QuestionMark />
+            <HelpText text=''/>
           </label>
           <Input
             wide

@@ -68,7 +68,7 @@ const BannerMainDiv = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
 
 
   @media ${({theme})  => theme.screenMax.mobileL } {

@@ -15,7 +15,7 @@ const NewEntity = () => {
         <Grid>
           <Column span={5}>
             <MainTitle>{i18n.t("entity.new_entity")}</MainTitle>
-            <MainDescription>{i18n.t("entity.enter_the_details_of_the_entity")}</MainDescription>
+            <MainDescription>{i18n.t("entity.define_your_credentials_to_protect_the_account")}</MainDescription>
           </Column>
           <Column span={7}>
             <WizardSteps />

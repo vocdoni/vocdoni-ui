@@ -10,7 +10,6 @@ import { useUrlHash } from 'use-url-hash'
 import { useMessageAlert } from './message-alert'
 import { areAllNumbers, waitBlockFraction } from '../lib/util'
 import { useProcessWrapper } from '@hooks/use-process-wrapper'
-import { MetadataFields } from '@components/steps-new-vote/metadata'
 
 export interface VotingContext {
   pleaseWait: boolean,
