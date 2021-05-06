@@ -1,4 +1,5 @@
 // import { } from 'dvote-js'
+import { ProcessStatus } from 'dvote-js';
 import { ethers, Wallet } from 'ethers'
 import i18n from '../i18n'
 
@@ -80,6 +81,41 @@ export function waitBlockFraction(factor: number = 1) {
 }
 
 /** Dummy normalization */
-export const normalize = (data: string): string  => {
+export const normalize = (data: string): string => {
   return data.trimStart().trimEnd()
+}
+
+
+
+export enum VoteStatus {
+  Unknown = -1,
+  Active,
+  Paused,
+  Ended,
+  Canceled,
+  Upcoming,
+}
+
+export const getVoteStatus = (processStatus, startBlock?, currentBlock?): VoteStatus => {
+  switch (processStatus.value) {
+    case ProcessStatus.READY:
+      if (startBlock == undefined || currentBlock == undefined ) return VoteStatus.Unknown
+      if (startBlock > currentBlock) return VoteStatus.Upcoming
+      return VoteStatus.Active
+
+    case ProcessStatus.ENDED:
+      return VoteStatus.Ended
+
+    case ProcessStatus.PAUSED:
+      return VoteStatus.Paused
+
+    case ProcessStatus.CANCELED:
+      return VoteStatus.Canceled
+
+    case ProcessStatus.RESULTS:
+      return VoteStatus.Ended
+
+    default:
+      return VoteStatus.Unknown
+  }
 }
