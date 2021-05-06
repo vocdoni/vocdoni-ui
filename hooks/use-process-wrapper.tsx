@@ -6,6 +6,7 @@ import i18n from '../i18n'
 import { useUrlHash } from 'use-url-hash'
 import { useMessageAlert } from './message-alert'
 import { DateDiffType, localizedStrDateDiff } from '../lib/date'
+import { useBlockNumber } from './use-blocknumber'
 
 export interface ProcessWrapperContext {
   loadingInfo: boolean,
@@ -34,6 +35,7 @@ export const useProcessWrapper = (processId: string) => {
 
   const { poolPromise } = usePool()
   const { setAlertMessage } = useMessageAlert()
+  const { blockNumber } = useBlockNumber()
   const { loading: loadingInfo, error: loadingInfoError, process: processInfo } = useProcess(processId)
   const [startDate, setStartDate] = useState(null as Date)
   const [endDate, setEndDate] = useState(null as Date)
@@ -41,35 +43,17 @@ export const useProcessWrapper = (processId: string) => {
 
   // Effects
 
-  useEffect(() => {
-    let skip = false
-
-    const refreshInterval = setInterval(() => {
-      if (skip) return
-
-      Promise.all([
-        updateResults()
-      ]).catch((err) =>
-        console.error(err)
-      )
-    }, 1000 * 30)
-
-    return () => {
-      skip = true
-      clearInterval(refreshInterval)
-    }
-  }, [processId])
 
   // Vote results
   useEffect(() => {
     updateResults()
-  }, [processId])
+  }, [processId, blockNumber])
 
 
   // Dates
   useEffect(() => {
     updateDates()
-  }, [processInfo?.parameters?.startBlock])
+  }, [processInfo?.parameters?.startBlock, blockNumber])
 
   // Loaders
 

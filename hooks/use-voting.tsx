@@ -10,6 +10,8 @@ import { useUrlHash } from 'use-url-hash'
 import { useMessageAlert } from './message-alert'
 import { areAllNumbers, waitBlockFraction } from '../lib/util'
 import { useProcessWrapper } from '@hooks/use-process-wrapper'
+import { MetadataFields } from '@components/steps-new-vote/metadata'
+import { useBlockNumber } from './use-blocknumber'
 
 export interface VotingContext {
   pleaseWait: boolean,
@@ -71,6 +73,7 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
   } = useProcessWrapper(processId)
   const { wallet } = useWallet({ role: WalletRoles.VOTER })
   const { setAlertMessage } = useMessageAlert()
+  const { blockNumber } = useBlockNumber()
   const [nullifier, setNullifier] = useState("")
   const [censusProof, setCensusProof] = useState("")
   const [hasVoted, setHasVoted] = useState(false)
@@ -79,30 +82,11 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
 
   // Effects
 
-  useEffect(() => {
-    let skip = false
-
-    const refreshInterval = setInterval(() => {
-      if (skip) return
-
-      Promise.all([
-        updateEnvelopeStatus(),
-        // updateResults()
-      ]).catch((err) =>
-        console.error(err)
-      )
-    }, 1000 * 30)
-
-    return () => {
-      skip = true
-      clearInterval(refreshInterval)
-    }
-  }, [processId])
-
   // Vote status
   useEffect(() => {
     updateEnvelopeStatus()
-  }, [wallet, nullifier])
+  }, [processId, wallet, nullifier, blockNumber])
+
 
   // Census status
   useEffect(() => {
@@ -128,7 +112,7 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
       const pool = await poolPromise
 
       const isDigested = false
-      const digestedHexClaim = CensusOffChainApi.digestPublicKey(wallet.publicKey,CensusOffchainDigestType.RAW_PUBKEY)
+      const digestedHexClaim = CensusOffChainApi.digestPublicKey(wallet.publicKey, CensusOffchainDigestType.RAW_PUBKEY)
 
       const censusProof = await CensusOffChainApi.generateProof(
         processInfo.parameters.censusRoot,
