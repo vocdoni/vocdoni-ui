@@ -4,7 +4,7 @@ import { Account } from '@lib/types'
 
 import i18n from '../../i18n'
 import { Column, Grid } from '../grid'
-import { VoteStatusType } from '../list-items'
+import { VoteStatus } from '@lib/util'
 import { Skeleton } from '../skeleton'
 import { Card } from '../cards'
 
@@ -22,7 +22,7 @@ export enum ProcessTypes {
 export interface IProcessItem {
   label: string
   items?: ProcessInfo[]
-  status: VoteStatusType
+  status: VoteStatus
 }
 
 interface IDashboardProcessListProps {
@@ -50,7 +50,7 @@ export const DashboardProcessList = ({
       {
         label: i18n.t('dashboard.active_votes'),
         items: activeVotes,
-        status: VoteStatusType.Active,
+        status: VoteStatus.Active,
       },
     ],
     [
@@ -58,7 +58,7 @@ export const DashboardProcessList = ({
       {
         label: i18n.t('dashboard.vote_results'),
         items: votesResults,
-        status: VoteStatusType.Ended,
+        status: VoteStatus.Ended,
       },
     ],
     [
@@ -66,7 +66,7 @@ export const DashboardProcessList = ({
       {
         label: i18n.t('dashboard.upcoming_votes'),
         items: upcomingVoting,
-        status: VoteStatusType.Paused,
+        status: VoteStatus.Paused,
       },
     ],
   ])

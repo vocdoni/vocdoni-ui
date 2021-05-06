@@ -5,14 +5,15 @@ import { GatewayPool } from 'dvote-js'
 
 import { getDaysUntilEnd } from '../../lib/date'
 
-import { VoteListItem, VoteStatusType } from '../list-items'
+import { VoteListItem } from '../list-items'
+import { VoteStatus } from '@lib/util'
 import { ImageContainer } from '../images'
 import i18n from '../../i18n'
 import { FALLBACK_ACCOUNT_ICON } from '@const/account'
 
 interface IDashboardProcessListItemProps {
   process: ProcessInfo
-  status: VoteStatusType
+  status: VoteStatus
   accountName?: string
   entityLogo?: string
 }
@@ -25,21 +26,21 @@ export const DashboardProcessListItem = ({
 }: IDashboardProcessListItemProps) => {
   const [endDate, setEndDate] = useState<string>('')
   const { poolPromise } = usePool()
-  
+
   useEffect(() => {
     poolPromise.then(async (pool: GatewayPool) => {
       switch (status) {
-        case VoteStatusType.Active:
+        case VoteStatus.Active:
           const remainDays = await getDaysUntilEnd(process, pool)
 
           setEndDate(remainDays)
           break
 
-        case VoteStatusType.Ended:
+        case VoteStatus.Ended:
           setEndDate(i18n.t('dashboard.process_finished'))
           break
 
-        case VoteStatusType.Paused:
+        case VoteStatus.Paused:
           setEndDate(i18n.t('dashboard.process_paused'))
           break
       }

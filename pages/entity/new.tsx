@@ -14,8 +14,8 @@ const NewEntity = () => {
       <PageCard>
         <Grid>
           <Column span={5}>
-            <MainTitle>{i18n.t("vote.new_process")}</MainTitle>
-            <MainDescription>{i18n.t("vote.enter_the_details_of_the_process")}</MainDescription>
+            <MainTitle>{i18n.t("entity.new_entity")}</MainTitle>
+            <MainDescription>{i18n.t("entity.enter_the_details_of_the_entity")}</MainDescription>
           </Column>
           <Column span={7}>
             <WizardSteps />

@@ -29,6 +29,8 @@ import { GeneratePdfCard } from './generate-pdf-card'
 import { useWallet, WalletRoles } from '@hooks/use-wallet'
 import { useMessageAlert } from '@hooks/message-alert'
 import { useLoadingAlert } from '@hooks/loading-alert'
+import { useBlockNumber } from '@hooks/use-blocknumber'
+import { getVoteStatus, VoteStatus } from '@lib/util'
 
 interface IProcessDetailProps {
   process: ProcessInfo
@@ -46,6 +48,11 @@ export const ViewDetail = ({ process, results }: IProcessDetailProps) => {
     processId: process.id,
   })
   const totalVotes = results?.totalVotes || 0
+
+  const { blockNumber } = useBlockNumber()
+
+  const status : VoteStatus = getVoteStatus(process.parameters.status, process.parameters.startBlock, blockNumber)
+
 
   const handleCancelVote = () => {
     if (!wallet) {
@@ -130,7 +137,7 @@ export const ViewDetail = ({ process, results }: IProcessDetailProps) => {
 
           <SectionContainer>
             <ProcessStatusLabel
-              status={process.parameters.status}
+              status={status}
             ></ProcessStatusLabel>
           </SectionContainer>
 

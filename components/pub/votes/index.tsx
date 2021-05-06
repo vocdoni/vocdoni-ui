@@ -22,6 +22,8 @@ import { VoteDescription } from '@components/common/vote-description'
 import { VoteNowCard } from './components/vote-now-card'
 import { ConfirmModal } from './components/confirm-modal'
 import { VoteRegisteredCard } from './components/vote-registered-card'
+import { useBlockNumber } from '@hooks/use-blocknumber'
+import { VoteStatus, getVoteStatus } from '@lib/util'
 
 export const VotingPageView = () => {
   const {
@@ -38,6 +40,10 @@ export const VotingPageView = () => {
   const votePageLink = `${VOTING_PATH}/${processInfo.id}`
 
   const totalVotes = results?.totalVotes || 0
+
+  const { blockNumber } = useBlockNumber()
+
+  const voteStatus: VoteStatus = getVoteStatus(processInfo.parameters.status, processInfo.parameters.startBlock, blockNumber)
 
   return (
     <>
@@ -60,7 +66,7 @@ export const VotingPageView = () => {
               attachmentUrl={
                 processInfo.metadata.meta[MetadataFields.AttachmentLink]
               }
-              voteStatus={processInfo.parameters.status}
+              voteStatus={voteStatus}
             />
           </Column>
 
@@ -68,7 +74,7 @@ export const VotingPageView = () => {
             <VoteNowCard
               hasVoted={hasVoted}
               voteLink={votePageLink}
-              disabled={!allQuestionsChosen}
+              disabled={!allQuestionsChosen || voteStatus != VoteStatus.Active}
               onVote={() => setConfirmModalOpened(true)}
             />
           </Column>
@@ -98,7 +104,7 @@ export const VotingPageView = () => {
           <SubmitButtonContainer justify={FlexJustifyContent.Center}>
             <Button
               positive
-              disabled={!allQuestionsChosen}
+              disabled={!allQuestionsChosen || voteStatus != VoteStatus.Active}
               onClick={() => setConfirmModalOpened(true)}
             >
               {i18n.t('vote.submit_my_vote')}

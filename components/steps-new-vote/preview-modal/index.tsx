@@ -6,11 +6,12 @@ import { PageCard } from '@components/cards'
 import { VotePageHeader } from '@components/common/vote-page-header'
 import { useProcessCreation } from '@hooks/process-creation'
 import { VoteDescription } from '@components/common/vote-description'
-import { ProcessStatus } from 'dvote-solidity'
+import { VoteStatus } from '@lib/util'
 import { PlazaMetadataKeys } from '@const/metadata-keys'
 import { MetadataFields } from '../metadata'
 import { VoteQuestionCard } from '@components/common/vote-question-card'
 import { Question } from '@lib/types'
+import { ProcessStatus } from 'dvote-js'
 
 interface PreviewModalProps {
   visible: boolean
@@ -19,7 +20,8 @@ interface PreviewModalProps {
 
 export const PreviewModal = ({visible, onClose}: PreviewModalProps) => {
   const { headerURL, headerFile, metadata, methods } = useProcessCreation()
-  const processStatus = new ProcessStatus(ProcessStatus.READY);
+  const processStatus = new ProcessStatus(ProcessStatus.READY)
+  const voteStatus = VoteStatus.Active
 
   return (
     <ModalBackdrop visible={visible}>
@@ -33,14 +35,14 @@ export const PreviewModal = ({visible, onClose}: PreviewModalProps) => {
           entityName="entity name"
         />
 
-        <VoteDescription 
-          voteStatus={processStatus}
+        <VoteDescription
+          voteStatus={voteStatus}
           description={metadata.description.default}
           liveStream={metadata.media[MetadataFields.StreamLink]}
           discussionUrl={metadata.meta[PlazaMetadataKeys.DISCUSSION_URL]}
           attachmentUrl={metadata.meta[PlazaMetadataKeys.ATTACHMENT_URI]}
         />
-        
+
         {metadata.questions.map(
           (question: Question, index: number) => (
             <VoteQuestionCard
