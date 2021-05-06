@@ -6,7 +6,11 @@ import { VotingApi } from 'dvote-js'
 const UseBlockNumberContext = createContext({ blockNumber: 0, updateBlockNumber: () => {} })
 
 export function useBlockNumber() {
-  return useContext(UseBlockNumberContext)
+  const blockCtx = useContext(UseBlockNumberContext)
+  if (blockCtx === null) {
+    throw new Error('useWallet() can only be used on the descendants of <UseWalletContextProvider />,')
+  }
+  return blockCtx
 }
 
 export function UseBlockNumberProvider({ children }) {
@@ -14,22 +18,21 @@ export function UseBlockNumberProvider({ children }) {
   const { poolPromise } = usePool()
 
 
-  const updateBlockNumber = () => {
+  const updateBlockNumber = async () => {
     poolPromise
       .then((pool) => VotingApi.getBlockHeight(pool))
       .then((num) => {
         setBlockNumber(num)
-        console.log("Block: ",num)
       })
-      .catch((err) => console.error(err));
+      .catch((err) => console.error(err))
   };
 
   useEffect(() => {
-    const interval = setInterval(() => updateBlockNumber, 1000 * 13)
+    const interval = setInterval(() => updateBlockNumber(), 1000 * 13)
     updateBlockNumber()
 
     // Done
-    return () => clearInterval(interval);
+    return () => clearInterval(interval)
   }, []);
 
 
