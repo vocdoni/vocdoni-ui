@@ -11,19 +11,25 @@ import i18n from '../../i18n'
 import { hasDuplicates } from '../../lib/util'
 import styled from 'styled-components'
 import { Button } from '@components/button'
-import { When } from 'react-if'
+import { serializeWalletBackup, WalletBackup_Recovery_QuestionEnum } from 'dvote-js'
 
 const QUESTION_COUNT = 3
 const allRecoveryQuestions = [
   {
-    label: 'Question 1',
-    value: 0
+    label: i18n.t("backup.STUFFED_TOY"),
+    value: WalletBackup_Recovery_QuestionEnum.STUFFED_TOY
   }, {
-    label: 'Question 2',
-    value: 1
+    label: i18n.t("backup.FAVORITE_TEACHER"),
+    value: WalletBackup_Recovery_QuestionEnum.FAVORITE_TEACHER
   }, {
-    label: 'Question 3',
-    value: 2
+    label: i18n.t("backup.DRIVING_INSTRUCTOR"),
+    value: WalletBackup_Recovery_QuestionEnum.DRIVING_INSTRUCTOR
+  }, {
+    label: i18n.t("backup.FIRST_KISSED"),
+    value: WalletBackup_Recovery_QuestionEnum.FIRST_KISSED
+  }, {
+    label: i18n.t("backup.CHILDHOOD_NICKNAME"),
+    value: WalletBackup_Recovery_QuestionEnum.CHILDHOOD_NICKNAME
   }
 ]
 
@@ -31,18 +37,25 @@ const AccountBackup = () => {
   const { wallet } = useWallet({ role: WalletRoles.ADMIN })
   const { dbAccounts } = useDbAccounts()
   const [answers, setAnswers] = useState<string[]>([])
-  const [answerIndexes, setAnswerIndexes] = useState<number[]>([])
+  const [questionIndexes, setQuestionIndexes] = useState<number[]>([])
   const [ack, setAck] = useState(false)
 
   const onContinue = () => {
     alert("TO DO ")
+
+    const buff = serializeWalletBackup({
+      name: dbAccounts.find(acc => acc.address == wallet?.address)?.name,
+      timestamp: Math.floor(Date.now() / 1000),
+      passphraseRecovery: null,
+      wallet
+    })
   }
 
   const onSelectIndex = (qIdx: number, idx: number) => {
     if (qIdx >= QUESTION_COUNT) return
-    const newIndexes = [].concat(answerIndexes)
+    const newIndexes = [].concat(questionIndexes)
     newIndexes[qIdx] = idx
-    setAnswerIndexes(newIndexes)
+    setQuestionIndexes(newIndexes)
   }
   const onSetAnswer = (qIdx: number, value: string) => {
     if (qIdx >= QUESTION_COUNT) return
@@ -51,17 +64,12 @@ const AccountBackup = () => {
     setAnswers(newAnswers)
   }
 
-  const hasDupes = hasDuplicates(answerIndexes)
+  const hasDupes = hasDuplicates(questionIndexes)
   const isCompleted = answers.length == QUESTION_COUNT &&
-    answerIndexes.length == QUESTION_COUNT &&
+    questionIndexes.length == QUESTION_COUNT &&
     answers.every(v => !!v) &&
-    answerIndexes.every(v => v >= 0) &&
+    questionIndexes.every(v => v >= 0) &&
     !hasDupes
-
-  const availableQuestionChoices = [], usedIdxs = []
-  for (let i = 0; i < QUESTION_COUNT; i++) {
-    // TODO: Remove available indexes for each question as soon as they are used
-  }
 
   return (
     <PageCard>
@@ -74,10 +82,17 @@ const AccountBackup = () => {
 
           <MaxWidth width={600}>
             {
-              new Array(QUESTION_COUNT).fill(0).map((_, idx) => <>
-                <Select onChange={item => onSelectIndex(idx, item.value)} options={allRecoveryQuestions} />
-                <Input wide onChange={e => onSetAnswer(idx, e.target.value)} />
-              </>)
+              new Array(QUESTION_COUNT).fill(0).map((_, qIdx) => {
+                const availableIdxs = allRecoveryQuestions.map(() => true)
+                // Mark the indexes for questions already being used
+                questionIndexes.forEach((i) => { if (i >= 0) availableIdxs[i] = false })
+                const availableQuestions = allRecoveryQuestions.filter((q, idx) => availableIdxs[idx])
+
+                return <>
+                  <Select onChange={item => onSelectIndex(qIdx, item.value)} options={availableQuestions} />
+                  <Input wide onChange={e => onSetAnswer(qIdx, e.target.value)} />
+                </>
+              })
             }
 
             <label>
