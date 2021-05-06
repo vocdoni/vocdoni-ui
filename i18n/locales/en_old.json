@@ -34,7 +34,9 @@
         "optional_introduction": "Optional introduction",
         "number_votes": "{{ number }} votes",
         "signing_transactions": "Signing transactions",
-        "confirm_details": "Confirm details"
+        "confirm_details": "Confirm details",
+        "enter_the_details_of_the_process": "Enter the details of a new governance process",
+        "new_process": "New process"
     },
     "sign_in": {
         "select_the_account_to_use_and_enterr_your_passphrase": ""

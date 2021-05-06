@@ -6,12 +6,10 @@ import { ReactNode } from "react"
 import i18n from "../i18n"
 import { SHOW_PROCESS_PATH } from "../const/routes"
 import { FlexAlignItem, FlexContainer } from "./flex"
+import { VoteStatus } from "@lib/util"
+import { ProcessStatusLabel } from '@components/process-status-label'
 
-export enum VoteStatusType {
-  Active = 'active',
-  Paused = 'paused',
-  Ended = 'ended'
-}
+
 
 type VoteListItemProps = ColumnProps & {
   icon: ReactNode,
@@ -19,7 +17,7 @@ type VoteListItemProps = ColumnProps & {
   processId: string,
   title: string,
   description: string,
-  status: VoteStatusType,
+  status: VoteStatus,
   dateText: string
 }
 
@@ -31,17 +29,7 @@ export const VoteListItem = ({ icon, entityName, processId, title, description, 
           <FlexContainer alignItem={FlexAlignItem.Center}>
             {icon}<EntityName>{entityName}</EntityName>
           </FlexContainer>
-          <VoteStatus>
-            <Tag>{(() => {
-              switch (status) {
-                case VoteStatusType.Active: return i18n.t("vote.active_vote")
-                case VoteStatusType.Paused: return i18n.t("vote.paused_vote")
-                case VoteStatusType.Ended: return i18n.t("vote.ended_vote")
-                default: return ""
-              }
-            })()}
-            </Tag>
-          </VoteStatus>
+          <ProcessStatusLabel status={status}></ProcessStatusLabel>
         </TopDiv>
 
         <VoteListItemTitle>{title}</VoteListItemTitle>
@@ -97,4 +85,4 @@ const VoteListItemDate = styled.p`
   color: ${props => props.theme.lightText};
   font-size: 80%;
 `
-const VoteStatus = styled.div``
+const VotingStatus = styled.div``

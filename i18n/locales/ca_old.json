@@ -10,7 +10,9 @@
         "voting": "",
         "number_votes": "",
         "signing_transactions": "",
-        "confirm_details": ""
+        "confirm_details": "",
+        "enter_the_details_of_the_process": "",
+        "new_process": ""
     },
     "votes": {
         "number_votes": ""

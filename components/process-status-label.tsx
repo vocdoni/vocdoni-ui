@@ -1,25 +1,28 @@
 import React from 'react'
 import styled from 'styled-components'
-import { ProcessStatus } from 'dvote-js'
+import { VoteStatus } from '@lib/util'
 import i18n from '@i18n'
 
 interface IProcessStatusLabelProps {
-  status: ProcessStatus
+  status : VoteStatus
 }
 
 export const ProcessStatusLabel = ({status}: IProcessStatusLabelProps) => {
-  switch (status.value) {
-    case ProcessStatus.READY:
-      return <ActiveProcessStatusLabel>{i18n.t('vote.active_vote')}</ActiveProcessStatusLabel>
+  switch (status) {
+    case VoteStatus.Active:
+        return <ActiveProcessStatusLabel>{i18n.t('vote.active_vote')}</ActiveProcessStatusLabel>
 
-    case ProcessStatus.ENDED:
+    case VoteStatus.Upcoming:
+        return <UpcomingStatusLabel>{i18n.t('vote.upcoming_vote')}</UpcomingStatusLabel>
+
+    case VoteStatus.Ended:
       return <EndedProcessStatusLabel>{i18n.t('vote.ended_vote')}</EndedProcessStatusLabel>
 
-    case ProcessStatus.PAUSED:
+    case VoteStatus.Paused:
       return <EndedProcessStatusLabel>{i18n.t('vote.paused_vote')}</EndedProcessStatusLabel>
 
-    case ProcessStatus.CANCELED:
-      return <EndedProcessStatusLabel>{i18n.t('vote.canceled_vote')}</EndedProcessStatusLabel>
+    case VoteStatus.Canceled:
+      return <CanceledProcessStatusLabel>{i18n.t('vote.canceled_vote')}</CanceledProcessStatusLabel>
 
     default:
       return <></>
@@ -37,6 +40,10 @@ const BaseProcessStatusLabel = styled.span`
 
 const ActiveProcessStatusLabel = styled(BaseProcessStatusLabel)`
   background-color: ${({theme}) => theme.accent1C}
+`
+
+const UpcomingStatusLabel = styled(BaseProcessStatusLabel)`
+  background-color: ${({theme}) => theme.accent1B}
 `
 
 const EndedProcessStatusLabel = styled(BaseProcessStatusLabel)`
