@@ -82,7 +82,7 @@ export function waitBlockFraction(factor: number = 1) {
 
 /** Dummy normalization */
 export const normalize = (data: string): string => {
-  return data.trimStart().trimEnd()
+  return data.trim().replace(/[\s]+/g, " ").toLowerCase()
 }
 
 
@@ -99,7 +99,7 @@ export enum VoteStatus {
 export const getVoteStatus = (processStatus, startBlock?, currentBlock?): VoteStatus => {
   switch (processStatus.value) {
     case ProcessStatus.READY:
-      if (startBlock == undefined || currentBlock == undefined ) return VoteStatus.Unknown
+      if (startBlock == undefined || currentBlock == undefined) return VoteStatus.Unknown
       if (startBlock > currentBlock) return VoteStatus.Upcoming
       return VoteStatus.Active
 
