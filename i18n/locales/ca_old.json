@@ -27,5 +27,9 @@
         "name": "",
         "please_wait_creating_account": "",
         "your_account_has_been_created": ""
+    },
+    "action": {
+        "create_new_proposal": "",
+        "go_to_dashboard": ""
     }
 }

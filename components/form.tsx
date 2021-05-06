@@ -1,5 +1,6 @@
 import React, { ChangeEvent } from 'react'
 import styled from 'styled-components'
+import { HelpText } from './common/help-text'
 import FileLoader from './FileLoader'
 
 import { Input, Textarea } from './inputs'
@@ -8,6 +9,7 @@ import { SectionTitle } from './text'
 type BaseForGroupProps = {
   title?: string
   label?: string
+  helpText?: string
   id?: string
   name?: string
   placeholder?: string
@@ -19,6 +21,7 @@ type IInputFormGroupProps = {
   value?: string
   rows?: number
   onChange: (value: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
+  onBlur?: (value: string) => void
 } & BaseForGroupProps
 
 type FileFormGroupProps = {
@@ -56,12 +59,14 @@ export const formGroupHOC = (InputField) => ({
   title,
   label,
   name,
+  helpText,
   id,
   placeholder,
   value,
   rows,
   error,
   onChange,
+  onBlur,
   variant = FormGroupVariant.Regular,
 }: IInputFormGroupProps) => {
   const inputId = id || `input-${generateRandomId()}`
@@ -70,7 +75,7 @@ export const formGroupHOC = (InputField) => ({
     <FormGroup {...FormGroupVariantProps[variant]}>
       {title && <InputTitle>{title}</InputTitle>}
       {label && <InputLabel htmlFor={inputId}>{label}</InputLabel>}
-
+      {helpText && <HelpText text={helpText} />}
       <InputField
         id={inputId}
         rows={rows}
@@ -78,7 +83,9 @@ export const formGroupHOC = (InputField) => ({
         placeholder={placeholder}
         name={name}
         value={value || ''}
+        error={!!error}
         onChange={onChange}
+        onBlur={onBlur}
       />
       {error && <InputError>{error}</InputError>}
     </FormGroup>
@@ -132,9 +139,13 @@ const InputLabel = styled.label`
 
 const InputError = styled.p`
   color: ${({ theme }) => theme.danger};
+  position: absolute;
+  margin: 0 0 0 4px;
+  bottom: -10px;
 `
 
 export const FormGroup = styled.div<IFormGroupProps>`
+  position: relative;
   margin-bottom: ${({ marginBottom }) =>
     marginBottom ? marginBottom : '32px'};
 `

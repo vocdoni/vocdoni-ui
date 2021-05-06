@@ -7,16 +7,17 @@ import {
 } from 'react-select'
 
 interface IInputProps {
-  wide?: boolean
+  wide?: boolean,
+  error?: boolean
 }
 
 export type Input = typeof Input
 export const Input = styled.input<IInputProps>`
   padding: 11px;
   margin-top: 8px;
-  border: 2px solid #eff1f7;
+  border: 2px solid ${({theme, error}) => error? 'rgb(180 10 10 / 55%)': '#eff1f7'};
+  box-shadow: ${({error}) => error? 'inset 0px 2px 3px rgba(180, 10, 10, 0.35)': 'inset 0px 2px 3px rgba(180, 193, 228, 0.35)'};
   box-sizing: border-box;
-  box-shadow: inset 0px 2px 3px rgba(180, 193, 228, 0.35);
   border-radius: 8px;
   outline-width: 0;
   margin-bottom: 10px;
@@ -30,8 +31,8 @@ export const Textarea = styled.textarea<IInputProps>`
   margin-top: 8px;
   border: 2px solid #eff1f7;
   box-sizing: border-box;
-  box-shadow: inset 0px 2px 3px rgba(180, 193, 228, 0.35);
-  border-radius: 8px;
+  border: 2px solid ${({theme, error}) => error? 'rgb(180 10 10 / 55%)': '#eff1f7'};
+  box-shadow: ${({error}) => error? 'inset 0px 2px 3px rgba(180, 10, 10, 0.35)': 'inset 0px 2px 3px rgba(180, 193, 228, 0.35)'};  border-radius: 8px;
   outline-width: 0;
   margin-bottom: 10px;
   ${({ wide }) => (wide ? 'width: 100%;' : '')}

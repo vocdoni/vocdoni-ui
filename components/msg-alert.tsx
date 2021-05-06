@@ -14,37 +14,16 @@ export const MessageAlert = () => {
 const AlertContainer = styled.div<{ visible: boolean }>`
   position: fixed;
   z-index: 320;
-  top: 10px;
-  left: 10px;
+  top: 20px;
   right: 10px;
-  font-size: 90%;
-  text-align: center;
-  user-select: none;
-  font-size: 16px;
+  max-width: 280px;
+  color: ${({theme}) => theme.white};
+  background-color: rgba(179, 21, 21, 0.8);
 
-
-  box-sizing: border-box;
-  padding: ${({ visible }) => (visible ? '16px' : '0')};
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  background-color: ${({ theme }) => theme.white};
-  border: 1px solid ${({ theme }) => theme.lightBorder};
-  border-radius: 4px;
-
-  transform: ${({ visible }) => `translate(0px, ${visible ? 0 : 90} px)`};
+  padding: 8px 12px;
+  border-radius: 8px;
+  visibility: ${({ visible }) => (visible ? 'visible' : 'hidden')};
   opacity: ${({ visible }) => (visible ? '1' : '0')};
 
-  transition: transform 0.1s ease-out, opacity 0.1s ease-out;
-
-  @media ${({ theme }) => theme.screenMax.tablet} {
-    text-align: center;
-    left: 0;
-    right: 0;
-    margin: 0 auto;
-    max-width: 75vw;
-    transform: ${({ visible }) => `translate(${visible ? 0 : 360}px  0px)`};
-  }
+  transition: opacity 0.1s ease-out;
 `
