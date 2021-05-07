@@ -8,10 +8,14 @@ import { Checkbox } from '@aragon/ui'
 import { Column, Grid } from '../../components/grid'
 import { MainTitle, MainDescription } from '../../components/text'
 import i18n from '../../i18n'
-import { hasDuplicates } from '../../lib/util'
+import { downloadFile, hasDuplicates } from '../../lib/util'
 import styled from 'styled-components'
 import { Button } from '@components/button'
-import { serializeWalletBackup, WalletBackup_Recovery_QuestionEnum } from 'dvote-js'
+import { AccountBackup, WalletBackup_Recovery_QuestionEnum, Wallet_AuthMethod } from 'dvote-js'
+import { useMessageAlert } from '@hooks/message-alert'
+import { useRouter } from 'next/router'
+import { ENTITY_SIGN_IN_PATH } from '@const/routes'
+import { Buffer } from "buffer/"
 
 const QUESTION_COUNT = 3
 const allRecoveryQuestions = [
@@ -33,22 +37,53 @@ const allRecoveryQuestions = [
   }
 ]
 
-const AccountBackup = () => {
+const AccountBackupView = () => {
   const { wallet } = useWallet({ role: WalletRoles.ADMIN })
   const { dbAccounts } = useDbAccounts()
   const [answers, setAnswers] = useState<string[]>([])
   const [questionIndexes, setQuestionIndexes] = useState<number[]>([])
   const [ack, setAck] = useState(false)
+  const [passphrase, setPassphrase] = useState("")
+  const { setAlertMessage } = useMessageAlert()
+  const router = useRouter()
 
   const onContinue = () => {
-    alert("TO DO ")
-
-    const buff = serializeWalletBackup({
-      name: dbAccounts.find(acc => acc.address == wallet?.address)?.name,
-      timestamp: Math.floor(Date.now() / 1000),
-      passphraseRecovery: null,
-      wallet
+    const allGood = new Array(QUESTION_COUNT).fill(0).every((_, i) => {
+      if (!answers[i]) return false
+      else if (typeof questionIndexes[i] != "number" ||
+        questionIndexes[i] < 0 ||
+        questionIndexes[i] >= allRecoveryQuestions.length) return false
+      return true
     })
+    if (!allGood) return setAlertMessage(i18n.t("errors.please_select_and_fill_all_recovery_questions"))
+    else if (!passphrase) return setAlertMessage(i18n.t("errors.please_confirm_your_passphrase"))
+
+    const account = dbAccounts.find(acc => acc.address == wallet.address)
+    if (!account) {
+      router.push(ENTITY_SIGN_IN_PATH)
+      return setAlertMessage(i18n.t("errors.internal_error_please_log_in_again"))
+    }
+
+    try {
+      const encryptedMnemonic = new Uint8Array(Buffer.from(account.encryptedMnemonic, "base64"))
+      const backupBytes = AccountBackup.create({
+        backupName: account.name,
+        questionIds: questionIndexes,
+        answers,
+        accountWallet: {
+          encryptedMnemonic,
+          authMethod: Wallet_AuthMethod.PASS,
+          hdPath: account.hdPath,
+          locale: account.locale
+        },
+        currentPassphrase: passphrase
+      })
+
+      downloadFile(backupBytes, { fileName: account.name + "-vocdoni.bak" })
+    }
+    catch (err) {
+      setAlertMessage(i18n.t("errors.the_backup_cannot_be_generated_please_check_your_passphrase"))
+    }
   }
 
   const onSelectIndex = (qIdx: number, idx: number) => {
@@ -69,7 +104,8 @@ const AccountBackup = () => {
     questionIndexes.length == QUESTION_COUNT &&
     answers.every(v => !!v) &&
     questionIndexes.every(v => v >= 0) &&
-    !hasDupes
+    !hasDupes &&
+    ack
 
   return (
     <PageCard>
@@ -94,6 +130,9 @@ const AccountBackup = () => {
                 </>
               })
             }
+
+            <p>{i18n.t("backup.confirm_your_passphrase")}</p>
+            <Input wide type="password" onChange={e => setPassphrase(e.target.value)} />
 
             <label>
               <Checkbox
@@ -130,4 +169,4 @@ flex-direction: row;
 justify-content: space-between;
 `
 
-export default AccountBackup
+export default AccountBackupView
