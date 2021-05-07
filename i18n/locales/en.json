@@ -75,7 +75,6 @@
         "description": "Description",
         "details": "Details",
         "email": "Contact e-mail",
-        "enter_the_details_of_the_entity": "Enter the details of a new entity",
         "entity_details": "Entity details",
         "got_to_the_dashboard": "Go to the dashboard",
         "header": "Entity header",
@@ -93,10 +92,15 @@
         "your_company_was_created_successfully_no_you_cant_create_a_new_amg_proposal": "Your company was created successfully. Now you can create a new AGM proposal"
     },
     "error": {
+        "invalid_choice_error": "Invalid choice",
         "invalid_description": "The description must contain at least {{ length }} characters",
         "invalid_email_address": "Invalid email address",
         "invalid_entity_name": "The entity name must contain at least {{ length }} characters",
         "invalid_file": "Invalid file",
+        "invalid_question_error": "Invalid question",
+        "invalid_question_title": "The tittle must contain at least {{ length }} characters",
+        "invalid_title": "The tittle must contain at least {{ length }} characters",
+        "invalid_url": "Invalid URL",
         "process_already_ended": "Process already ended",
         "process_cannot_be_canceled": "Process cannot be canceled",
         "the_therms_must_be_checked": "Terms and conditions must be checked",

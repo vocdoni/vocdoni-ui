@@ -75,7 +75,6 @@
         "description": "",
         "details": "",
         "email": "",
-        "enter_the_details_of_the_entity": "",
         "entity_details": "",
         "got_to_the_dashboard": "",
         "header": "",
@@ -93,10 +92,15 @@
         "your_company_was_created_successfully_no_you_cant_create_a_new_amg_proposal": ""
     },
     "error": {
+        "invalid_choice_error": "",
         "invalid_description": "",
         "invalid_email_address": "",
         "invalid_entity_name": "",
         "invalid_file": "",
+        "invalid_question_error": "",
+        "invalid_question_title": "",
+        "invalid_title": "",
+        "invalid_url": "",
         "process_already_ended": "",
         "process_cannot_be_canceled": "",
         "the_therms_must_be_checked": "",
