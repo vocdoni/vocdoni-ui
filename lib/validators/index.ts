@@ -3,10 +3,12 @@ export type DirtyFields = Map<string, boolean>
 
 export type Validation = {
   argument: any
-  validator: (arg) => Error | null
+  validator: (arg) => Error
 }
 
-export const validateFields = (validations: Map<string, Validation>): ErrorFields => {
+export const validateFields = (
+  validations: Map<string, Validation>
+): ErrorFields => {
   let errorFields: ErrorFields = new Map()
 
   validations.forEach((validation: Validation, key: string) => {

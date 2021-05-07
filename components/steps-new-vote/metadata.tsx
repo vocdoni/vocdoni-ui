@@ -2,28 +2,32 @@ import React, { ChangeEvent, useEffect, useState } from 'react'
 import { checkValidProcessMetadata } from 'dvote-js'
 import styled from 'styled-components'
 
+import i18n from '@i18n'
+import { colors } from 'theme/colors'
+
+import { useProcessCreation } from '@hooks/process-creation'
+import { useMessageAlert } from '@hooks/message-alert'
+
 import { Question } from '@lib/types'
-
-import { useProcessCreation } from '../../hooks/process-creation'
-import { useMessageAlert } from '../../hooks/message-alert'
-import i18n from '../../i18n'
-
-import { Column, Grid } from '../grid'
-import { Button, JustifyContent } from '../button'
-import { FileLoaderFormGroup, InputFormGroup, TextareaFormGroup } from '../form'
-import { SectionText } from '../text'
+import { DirtyFields, ErrorFields } from '@lib/validators'
+import {
+  FileLoaderFormGroup,
+  InputFormGroup,
+  TextareaFormGroup,
+} from '@components/form'
+import { FlexContainer, FlexJustifyContent } from '@components/flex'
+import { Button, JustifyContent } from '@components/button'
+import { PlazaMetadataKeys } from '@const/metadata-keys'
+import { Column, Grid } from '@components/grid'
 
 import { ProcessCreationPageSteps } from '.'
-import { QuestionGroup } from './question-group'
+import { QuestionGroup, QuestionFields, createEmptyOption } from './question-group'
 import { PreviewModal } from './preview-modal'
+import { validateMetadata } from './metadata-validator'
 import {
-  ErrorFields,
-  createEmptyQuestion,
-  validateMetadata,
-} from './metadata-helper'
-import { PlazaMetadataKeys } from '../../const/metadata-keys'
-import { colors } from 'theme/colors'
-import { FlexContainer, FlexJustifyContent } from '@components/flex'
+  InvalidQuestionsError,
+  QuestionError,
+} from '@lib/validators/errors/invalid-question-error'
 
 export enum MetadataFields {
   Title = 'process-title',
@@ -34,24 +38,66 @@ export enum MetadataFields {
   Question = 'process-question',
 }
 
+const createEmptyQuestion = (): Question => ({
+  title: {
+    default: '',
+  },
+  description: {
+    default: '',
+  },
+  choices: [createEmptyOption(0), createEmptyOption(1)],
+})
+
 export const FormMetadata = () => {
   const { headerURL, headerFile, metadata, methods } = useProcessCreation()
   const { setAlertMessage } = useMessageAlert()
 
-  const [metadataCompleted, setMetadataCompleted] = useState<boolean>(false)
   const [showPreviewModal, setShowPreviewModal] = useState<boolean>(false)
+  const [dirtyFields, setDirtyField] = useState<DirtyFields>(new Map())
+  const [metadataErrors, setMetadataErrors] = useState<ErrorFields>(new Map())
+
+  const dirtyAllFields = () => {
+    const newDirtyFields = new Map([...dirtyFields])
+
+    for (let field in MetadataFields) {
+      newDirtyFields.set(MetadataFields[field], true)
+    }
+
+    for (let questionIndex in metadata.questions) {
+      const choices = metadata.questions[questionIndex].choices
+      newDirtyFields.set(`question-${QuestionFields.Title}-${questionIndex}`, true)
+      newDirtyFields.set(`question-${QuestionFields.Description}-${questionIndex}`, true)
+
+      for (let choiceIndex in choices) {
+        newDirtyFields.set(`question-${questionIndex}-choice-${choiceIndex}`, true)
+      }
+    }
+
+    setDirtyField(newDirtyFields)
+  }
+
   const handleTogglePreviewModal = () => {
     setShowPreviewModal(!showPreviewModal)
   }
 
-  const handleContinue = () => {
-    try {
-      const validatedMeta = checkValidProcessMetadata(metadata)
-      methods.setRawMetadata(validatedMeta)
+  const handleBlur = (field: MetadataFields) => {
+    const newDirtyFields = new Map(dirtyFields)
 
-      methods.setPageStep(ProcessCreationPageSteps.CENSUS)
-    } catch (error) {
-      setAlertMessage(i18n.t('error.the_vote_details_are_invalid'))
+    setDirtyField(newDirtyFields.set(field, true))
+  }
+
+  const handleContinue = () => {
+    if (!metadataErrors.size) {
+      try {
+        const validatedMeta = checkValidProcessMetadata(metadata)
+        methods.setRawMetadata(validatedMeta)
+
+        methods.setPageStep(ProcessCreationPageSteps.CENSUS)
+      } catch (error) {
+        setAlertMessage(i18n.t('error.the_vote_details_are_invalid'))
+      }
+    } else {
+      dirtyAllFields()
     }
   }
 
@@ -79,13 +125,21 @@ export const FormMetadata = () => {
     methods.setMetaFields({ [fieldName]: value })
   }
 
+  const getErrorMessage = (field: MetadataFields): string => {
+    return dirtyFields.get(field) ? metadataErrors.get(field)?.message : null
+  }
+
+  const getQuestionError = (index: number): QuestionError => {
+    const questionError: InvalidQuestionsError = metadataErrors.get(
+      MetadataFields.Question
+    ) as InvalidQuestionsError
+
+    return questionError?.question.get(index)
+  }
   useEffect(() => {
     const invalidFields: ErrorFields = validateMetadata(metadata)
-    const newMetadataCompleted = !invalidFields.size
 
-    if (newMetadataCompleted !== metadataCompleted) {
-      setMetadataCompleted(newMetadataCompleted)
-    }
+    setMetadataErrors(invalidFields)
   }, [metadata])
 
   return (
@@ -98,6 +152,8 @@ export const FormMetadata = () => {
             placeholder={i18n.t('vote.title')}
             value={metadata.title.default}
             id={MetadataFields.Title}
+            error={getErrorMessage(MetadataFields.Title)}
+            onBlur={() => handleBlur(MetadataFields.Title)}
             onChange={(e: ChangeEvent<HTMLInputElement>) =>
               methods.setTitle(e.target.value)
             }
@@ -122,6 +178,8 @@ export const FormMetadata = () => {
             id={MetadataFields.Description}
             rows={8}
             value={metadata.description.default}
+            error={getErrorMessage(MetadataFields.Description)}
+            onBlur={() => handleBlur(MetadataFields.Description)}
             onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
               methods.setDescription(e.target.value)
             }
@@ -137,6 +195,8 @@ export const FormMetadata = () => {
             placeholder={i18n.t('vote.pdf_link')}
             id={MetadataFields.AttachmentLink}
             value={metadata.meta[MetadataFields.AttachmentLink]}
+            error={getErrorMessage(MetadataFields.AttachmentLink)}
+            onBlur={() => handleBlur(MetadataFields.AttachmentLink)}
             onChange={(event: ChangeEvent<HTMLInputElement>) => {
               handleMeta(PlazaMetadataKeys.ATTACHMENT_URI, event.target.value)
             }}
@@ -150,6 +210,8 @@ export const FormMetadata = () => {
             placeholder={i18n.t('vote.forum_link')}
             id={MetadataFields.DiscussionLink}
             value={metadata.meta[MetadataFields.DiscussionLink]}
+            error={getErrorMessage(MetadataFields.DiscussionLink)}
+            onBlur={() => handleBlur(MetadataFields.DiscussionLink)}
             onChange={(event: ChangeEvent<HTMLInputElement>) =>
               handleMeta(PlazaMetadataKeys.DISCUSSION_URL, event.target.value)
             }
@@ -165,6 +227,8 @@ export const FormMetadata = () => {
             placeholder={i18n.t('vote.stream_link')}
             id={MetadataFields.StreamLink}
             value={metadata.media[MetadataFields.StreamLink]}
+            error={getErrorMessage(MetadataFields.StreamLink)}
+            onBlur={() => handleBlur(MetadataFields.StreamLink)}
             onChange={(event: ChangeEvent<HTMLInputElement>) =>
               methods.setMediaStreamURI(event.target.value)
             }
@@ -178,6 +242,9 @@ export const FormMetadata = () => {
           canBeDeleted={metadata.questions.length > 1}
           question={question}
           index={index}
+          error={getQuestionError(index)}
+          dirtyFields={dirtyFields}
+          onDirtyField={handleBlur}
           onDeleteQuestion={handleDeleteQuestion}
           onUpdateQuestion={handleUpdateQuestion}
         />
@@ -199,22 +266,13 @@ export const FormMetadata = () => {
         <Column>
           <FlexContainer justify={FlexJustifyContent.End}>
             <ButtonContainer>
-              <Button
-                color={colors.accent1}
-                large
-                onClick={handleTogglePreviewModal}
-              >
+              <Button color={colors.accent1} onClick={handleTogglePreviewModal}>
                 {i18n.t('action.preview_proposal')}
               </Button>
             </ButtonContainer>
 
             <ButtonContainer>
-              <Button
-                positive
-                onClick={handleContinue}
-                large
-                disabled={!metadataCompleted}
-              >
+              <Button positive onClick={handleContinue}>
                 {i18n.t('action.continue')}
               </Button>
             </ButtonContainer>
