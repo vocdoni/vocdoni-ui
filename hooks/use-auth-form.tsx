@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import { CensusOffChainApi, CensusOffchainDigestType } from 'dvote-js'
 import { VOTING_PATH } from '../const/routes'
 import i18n from '../i18n'
-import { digestedWalletFromString, importedRowToString, normalize } from '../lib/util'
+import { digestedWalletFromString, importedRowToString, normalizeSpreadsheetColum } from '../lib/util'
 import { useMessageAlert } from './message-alert'
 import { useUrlHash } from 'use-url-hash'
 import { useWallet, WalletRoles } from './use-wallet'
@@ -48,19 +48,19 @@ export const useAuthForm = () => {
     setFormValues(newValue)
   }
 
-  const onLogin =  async (): Promise<void> => {
+  const onLogin = async (): Promise<void> => {
     let authFields: string[] = []
     for (const fieldName of fieldNames) {
       if (!formValues[fieldName]) return setAlertMessage(i18n.t("errors.please_fill_in_all_the_fields"))
 
-      // TODO: Normalize strings
+      // TODO: normalizeSpreadsheetColum strings
       // SEE https://github.com/vocdoni/protocol/discussions/19
 
       authFields.push(formValues[fieldName])
     }
 
     const entityId = utils.getAddress(processInfo.entity)
-    authFields = authFields.map(x => normalize(x))
+    authFields = authFields.map(x => normalizeSpreadsheetColum(x))
     const strPayload = importedRowToString(authFields, entityId)
     const voterWallet = digestedWalletFromString(strPayload)
     const digestedHexClaim = CensusOffChainApi.digestPublicKey(voterWallet.publicKey, CensusOffchainDigestType.RAW_PUBKEY)

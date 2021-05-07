@@ -80,8 +80,8 @@ export function waitBlockFraction(factor: number = 1) {
   )
 }
 
-/** Dummy normalization */
-export const normalize = (data: string): string => {
+/** Returns a reduces string, removing the most typical mismatch sources (case, spaces, etc) */
+export const normalizeSpreadsheetColum = (data: string): string => {
   return data.trimStart().trimEnd()
 }
 
@@ -127,4 +127,22 @@ export function hasDuplicates<T>(values: T[]): boolean {
     seen.push(v)
   }
   return false
+}
+
+
+type FileDownloadParams = {
+  fileName?: string
+  mime?: string
+}
+export const downloadFile = (payload: Uint8Array, params: FileDownloadParams = {}) => {
+  if (!params.fileName) params.fileName = 'vocdoni.dat'
+  if (!params.mime) params.mime = 'application/octet-stream'
+
+  const element = document.createElement("a")
+  const file = new Blob([payload], { type: `${params.mime};charset=utf-8` })
+  element.href = URL.createObjectURL(file)
+  element.download = params.fileName
+  document.body.appendChild(element)
+  element.click()
+  element.remove()
 }
