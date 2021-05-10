@@ -2,8 +2,6 @@ import React, { useState } from 'react'
 import { FileSelector } from 'react-rainbow-components'
 import styled from 'styled-components'
 
-import { SpreadSheetReader } from '../../lib/spread-sheet-reader'
-import { AccountBackup, WalletBackup, WalletBackup_Recovery_QuestionEnum, Wallet_AuthMethod } from 'dvote-js'
 import i18n from '../../i18n'
 
 const containerStyles = {
@@ -12,7 +10,7 @@ const containerStyles = {
 }
 
 interface IBackupFileSelector {
-  onBackupLoad: (backup: WalletBackup) => void
+  onBackupLoad: (backup: Uint8Array) => void
 }
 
 export const BackupFileSelector = ({ onBackupLoad }: IBackupFileSelector) => {
@@ -31,7 +29,7 @@ export const BackupFileSelector = ({ onBackupLoad }: IBackupFileSelector) => {
     try {
       const buffer = await file.arrayBuffer()
       // TODO check if throws if file incorrect
-      const backup = AccountBackup.parse(Buffer.from(buffer))
+      const backup = Buffer.from(buffer)
 
       onBackupLoad(backup)
     } catch (error) {
