@@ -12,7 +12,7 @@ import i18n from '../../i18n'
 
 import { BackupFileSelector } from '@components/entity/backup-file-selector'
 
-import { Symmetric, WalletBackup } from 'dvote-js'
+import { AccountBackup, Symmetric, WalletBackup } from 'dvote-js'
 
 import { useWallet } from '@hooks/use-wallet'
 import { useDbAccounts } from '@hooks/use-db-accounts'
@@ -31,8 +31,8 @@ export const AccountImportView = () => {
 
   const isCompleted = passphrase && backup && ack
 
-  const handleOnBackupUpload = (backup: WalletBackup) => {
-    setBackup(backup)
+  const handleOnBackupUpload = (uploadedBackup: Uint8Array) => {
+    setBackup(AccountBackup.parse(uploadedBackup))
   }
 
   const onContinue = () => {
