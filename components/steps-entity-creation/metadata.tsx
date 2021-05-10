@@ -100,9 +100,7 @@ export const FormMetadata = () => {
   }
 
   const onContinue = () => {
-    if (metadataValidationError) {
-      return setAlertMessage(metadataValidationError)
-    } else if (
+    if (
       dbAccounts.some(
         (acc) => acc.name.toLowerCase().trim() == name.toLowerCase().trim()
       )
@@ -112,7 +110,11 @@ export const FormMetadata = () => {
       )
     }
 
-    methods.setPageStep(EntityCreationPageSteps.CREDENTIALS)
+    if (!metadataErrors.size) {
+      methods.setPageStep(EntityCreationPageSteps.CREDENTIALS)
+    } else {
+      dirtyAllFields()
+    }
   }
 
   return (
@@ -205,26 +207,20 @@ export const FormMetadata = () => {
             )}
           </Label>
         </FlexContainer>
-          <div>
-            {getErrorMessage(MetadataFields.Terms) ? (
-              <SectionText color={colors.danger} size={TextSize.Small}>
-                {getErrorMessage(MetadataFields.Terms)}
-              </SectionText>
-            ) : null}
-          </div>
+        <div>
+          {getErrorMessage(MetadataFields.Terms) ? (
+            <SectionText color={colors.danger} size={TextSize.Small}>
+              {getErrorMessage(MetadataFields.Terms)}
+            </SectionText>
+          ) : null}
+        </div>
       </Column>
 
       <Column>
         <FlexContainer justify={FlexJustifyContent.End}>
-          <div onClick={dirtyAllFields}>
-            <Button
-              positive
-              onClick={onContinue}
-              disabled={!!metadataErrors.size}
-            >
-              {i18n.t('action.continue')}
-            </Button>
-          </div>
+          <Button positive onClick={onContinue}>
+            {i18n.t('action.continue')}
+          </Button>
         </FlexContainer>
       </Column>
     </Grid>

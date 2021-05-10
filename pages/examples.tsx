@@ -16,7 +16,8 @@ import { Input, Select, Textarea } from '../components/inputs'
 import { Radio } from '../components/radio'
 import { colors } from '../theme/colors'
 import { Banner } from '../components/banners'
-import { VoteListItem, VoteStatusType } from '../components/list-items'
+import { VoteListItem } from '../components/list-items'
+import { VoteStatus } from "@lib/util"
 import { DASHBOARD_PATH } from '../const/routes'
 
 // MAIN COMPONENT
@@ -193,7 +194,7 @@ const IndexPage = () => {
         processId="0x1111111111222222222233333333334444444444"
         title="Vote title here"
         description="Description of the process goes here"
-        status={VoteStatusType.Active}
+        status={VoteStatus.Active}
         dateText="1 day left"
       />
 
