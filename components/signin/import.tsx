@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { useRouter } from 'next/router'
 
 import i18n from '../../i18n'
-import { CREATE_ACCOUNT_PATH } from '../../const/routes'
+import { CREATE_ACCOUNT_PATH, ACCOUNT_IMPORT } from '../../const/routes'
 
 import { SectionTitle, SectionText, TextAlign } from '../text'
 import { Column, Grid } from '../grid'
@@ -23,6 +23,10 @@ export const SignInImport = ({ hasAccount }: SignInImportProps) => {
     router.push(CREATE_ACCOUNT_PATH)
   }
 
+  const goToImportaccount = () => {
+    router.push(ACCOUNT_IMPORT)
+  }
+
   return (
     <>
       <div>
@@ -39,7 +43,7 @@ export const SignInImport = ({ hasAccount }: SignInImportProps) => {
           <Column sm={6}>
             <ButtonContainer>
               <SquareButton
-                disabled
+                onClick={() => goToImportaccount()}
                 width={206}
                 icon={
                   <img
