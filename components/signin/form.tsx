@@ -10,7 +10,7 @@ import { ENTITY_FORGOT_PASSPHRASE_PATH } from '../../const/routes'
 
 import { Fieldset } from '../form'
 import { Input, Select } from '../inputs'
-import { SectionTitle, SectionText, QuestionMark } from '../text'
+import { SectionTitle, SectionText } from '../text'
 import { Button } from '../button'
 import { HelpText } from '@components/common/help-text';
 
