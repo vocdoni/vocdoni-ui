@@ -17,6 +17,7 @@ import { Symmetric, WalletBackup } from 'dvote-js'
 import { useWallet } from '@hooks/use-wallet'
 import { useDbAccounts } from '@hooks/use-db-accounts'
 import { useRouter } from 'next/router'
+import { useMessageAlert } from '../../hooks/message-alert'
 
 
 export const AccountImportView = () => {
@@ -24,8 +25,9 @@ export const AccountImportView = () => {
   const [backup, setBackup] = useState<WalletBackup>(null)
   const [passphrase, setPassphrase] = useState<string>(null)
   const [ack, setAck] = useState(false)
-  const { wallet, restoreEncryptedWallet } = useWallet()
+  const { restoreEncryptedWallet } = useWallet()
   const { dbAccounts, addDbAccount } = useDbAccounts()
+  const { setAlertMessage } = useMessageAlert()
 
   const isCompleted = passphrase && backup && ack
 
@@ -34,26 +36,29 @@ export const AccountImportView = () => {
   }
 
   const onContinue = () => {
-    // Restore wallet
-    // TODO Check if encryptedMnemonic needs conversion from base64
-    const encryptedMnemonic = backup.wallet.encryptedMnemonic.toString()
-    // TODO  restoreEncryptedWallet fails
-    restoreEncryptedWallet(encryptedMnemonic, backup.wallet.hdPath, passphrase)
+    try {
+      // Restore wallet
+      const buffer = Buffer.from(backup.wallet.encryptedMnemonic)
+      const encryptedMnemonic = buffer.toString('base64')
+      const wallet = restoreEncryptedWallet(encryptedMnemonic, backup.wallet.hdPath, passphrase)
 
-    // Add account if not exists
-    const account = dbAccounts.find(acc => acc.address == wallet.address)
-    if (!account)
-      addDbAccount({
-        name : backup.name,
-        address : wallet.address,
-        encryptedMnemonic: Symmetric.encryptString(wallet.mnemonic.phrase, passphrase),
-        hdPath: wallet.mnemonic.path,
-        locale: backup.wallet.locale,
-      })
+      // Add account if not exists
+      const account = dbAccounts.find(acc => acc.address == wallet.address)
+      if (!account)
+        addDbAccount({
+          name: backup.name,
+          address: wallet.address,
+          encryptedMnemonic: Symmetric.encryptString(wallet.mnemonic.phrase, passphrase),
+          hdPath: wallet.mnemonic.path,
+          locale: backup.wallet.locale,
+        })
 
-    // Load dashboard
-    router.replace(DASHBOARD_PATH)
-
+      // Load dashboard
+      router.replace(DASHBOARD_PATH)
+    } catch (error) {
+      console.error(error)
+      setAlertMessage(i18n.t('import.error_importing_account'))
+    }
   }
 
   return (
@@ -85,21 +90,21 @@ export const AccountImportView = () => {
           <Input wide type="password" onChange={e => setPassphrase(e.target.value)} />
 
           <label>
-              <Checkbox
-                checked={ack}
-                onChange={(ack: boolean) => setAck(ack)}
-              />
-              {i18n.t("import.i_acknowledge_passphrase_implications")}
-            </label>
+            <Checkbox
+              checked={ack}
+              onChange={(ack: boolean) => setAck(ack)}
+            />
+            {i18n.t("import.i_acknowledge_passphrase_implications")}
+          </label>
 
-            <br />
-            <br />
+          <br />
+          <br />
           <BottomDiv>
             <Button positive disabled={!isCompleted} onClick={onContinue}>
               {i18n.t('import.import_account')
               }</Button>
           </BottomDiv>
-          </MaxWidth>
+        </MaxWidth>
       </Grid>
     </PageCard>
   )

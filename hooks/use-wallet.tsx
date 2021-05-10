@@ -25,10 +25,12 @@ export const useWallet = ({ role }: { role: WalletRoles } = { role: WalletRoles.
   const { adminWallet, voterWallet, setAdminWallet, setVoterWallet, checkingNeedsSignin } = walletCtx
 
   /** Decrypts the private key and sets the current **ADMIN** wallet from it */
-  const restoreEncryptedWallet = (encryptedMnemonic: string, hdPath: string, passphrase: string) => {
+  const restoreEncryptedWallet = (encryptedMnemonic: string, hdPath: string, passphrase: string) : Wallet => {
     try {
       const mnemonic = Symmetric.decryptString(encryptedMnemonic, passphrase)
-      setAdminWallet(Wallet.fromMnemonic(mnemonic, hdPath))
+      const wallet  = Wallet.fromMnemonic(mnemonic, hdPath)
+      setAdminWallet(wallet)
+      return wallet
     }
     catch (err) {
       throw new Error(i18n.t("errors.invalid_passphrase"))
