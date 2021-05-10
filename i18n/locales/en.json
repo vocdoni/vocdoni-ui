@@ -8,6 +8,19 @@
         "retry": "Retry",
         "sign_in": "Sign in"
     },
+    "backup": {
+        "CHILDHOOD_NICKNAME": "Chilhood nickname",
+        "confirm_your_passphrase": "Confirm your passphrase",
+        "continue": "Continue",
+        "download_credentials": "Download credentials",
+        "DRIVING_INSTRUCTOR": "Driving instructor",
+        "FAVORITE_TEACHER": "Favorite teacher",
+        "FIRST_KISSED": "First kissed",
+        "i_acknowledge_passphrase_implications": "I acknowledge that the passphrase is required to manage my Entity and that failure to keep access to it can prevent the ability to manage it in the future",
+        "protect_your_account_and_export_it_in_a_safe_way": "Protect your account and export it in a safe way",
+        "recovery_question": "Recovery question {{ number }}",
+        "STUFFED_TOY": "Stuffed toy"
+    },
     "dashboard": {
         "active_votes": "Active votes",
         "company_logo": "Company Logo",
@@ -79,6 +92,8 @@
         "got_to_the_dashboard": "Go to the dashboard",
         "header": "Entity header",
         "i_have_read_and_accept_the_privacy_policy_and_the_terms_of_service": "I have read and accept the Privacy Policy and the Terms of Service",
+        "invalid_file_type": "",
+        "invalid_xls_file": "",
         "logo": "Entity logo",
         "new_entity": "New entity",
         "passphrase": "Passphrase",
@@ -89,7 +104,9 @@
         "validating_creation": "Validating creation",
         "we_are_ready": "We’re ready!",
         "why_this_is_important": "Why this is important?",
-        "your_company_was_created_successfully_no_you_cant_create_a_new_amg_proposal": "Your company was created successfully. Now you can create a new AGM proposal"
+        "your_company_was_created_successfully_no_you_cant_create_a_new_amg_proposal": "Your company was created successfully. Now you can create a new AGM proposal",
+        "supported_formats_bak": "",
+        "your_account_has_been_created": "Your account has been created"
     },
     "error": {
         "invalid_choice_error": "Invalid choice",
@@ -110,6 +127,7 @@
     "errors": {
         "file_too_large": "The file is too large",
         "general_error": "General error",
+        "internal_error_please_log_in_again": "",
         "invalid_image_url": "Invalid image URL",
         "page_not_found": "Page not found",
         "please_accept_credentials_tos": "Please accept credentials tos",
@@ -125,6 +143,14 @@
     "home": {
         "hero_subtitle": "Vocdoni empowers communities to take their AGM's to the next level",
         "hero_title": "A universally verifiable, censorship-resistant and anonymous voting engine"
+    },
+    "import": {
+        "confirm_your_passphrase": "",
+        "credentials_explanation": "",
+        "drag_a_vocdoni_backup_file": "",
+        "i_acknowledge_passphrase_implications": "",
+        "import_account": "",
+        "import_an_account": ""
     },
     "input": {
         "enter_the_url_or_upload_a_file": "Enter the URL of an image or upload a file",

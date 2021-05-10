@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { DefaultTheme } from 'styled-components'
 import Link from 'next/link'
 import { Column, ColumnProps } from './grid'
 import { Skeleton } from './skeleton'
@@ -14,22 +14,45 @@ type StatusCardProps = ColumnProps & {
   skeleton?: boolean
 }
 
+export enum PageCardHeaderVariant {
+  Image = 'image',
+  Text = 'text',
+}
+
+const PageCardHeaderVariantStyle = {
+  [PageCardHeaderVariant.Image]: (theme: DefaultTheme) => `
+    & > img {
+      width: 100%;
+    }
+  `,
+  [PageCardHeaderVariant.Text]: (theme: DefaultTheme) => `
+    padding: 40px 60px;
+    border-bottom: solid 1px ${theme.lightBorder};
+
+    @media ${theme.screenMax.mobileL} {
+      padding: 30px 20px;
+    }
+`,
+}
+
+
 export const PageCard = styled.div`
   background-color: ${({ theme }) => theme.white};
   padding: 32px;
   border-radius: 16px;
 `
 
-export const PageCardHeader = styled.div`
+export const PageCardHeader = styled.div<{ variant?: PageCardHeaderVariant }>`
   margin: -32px -32px 20px;
   max-height: 240px;
   border-radius: 16px 16px 0 0;
   overflow: hidden;
   max-height: 200px;
-  
-  & > img {
-    width: 100%;
-  }
+
+  ${({ theme, variant }) =>
+    PageCardHeaderVariantStyle[variant || PageCardHeaderVariant.Image](
+      theme,
+    )}
 `
 
 export const Card = ({ span, sm, md, lg, xl, border, ...props }: CardProps) => (
@@ -76,10 +99,11 @@ export const StatusCard = ({
 
 // Styles
 
-const CardDiv = styled.div<{border?: boolean}>`
-  padding: 20px;
+const CardDiv = styled.div<{ border?: boolean }>`
+  padding: 11px 20px;
   background: ${(props) => props.theme.white};
-  border: ${({theme, border}) => border? `solid 2px ${theme.lightBorder}`: 'none'};
+  border: ${({ theme, border }) =>
+    border ? `solid 2px ${theme.lightBorder}` : 'none'};
   box-shadow: 0px 3px 3px rgba(180, 193, 228, 0.35);
   border-radius: 16px;
 `

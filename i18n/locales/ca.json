@@ -8,6 +8,19 @@
         "retry": "",
         "sign_in": ""
     },
+    "backup": {
+        "CHILDHOOD_NICKNAME": "",
+        "confirm_your_passphrase": "",
+        "continue": "",
+        "download_credentials": "",
+        "DRIVING_INSTRUCTOR": "",
+        "FAVORITE_TEACHER": "",
+        "FIRST_KISSED": "",
+        "i_acknowledge_passphrase_implications": "",
+        "protect_your_account_and_export_it_in_a_safe_way": "",
+        "recovery_question": "",
+        "STUFFED_TOY": ""
+    },
     "dashboard": {
         "active_votes": "",
         "company_logo": "",
@@ -79,6 +92,8 @@
         "got_to_the_dashboard": "",
         "header": "",
         "i_have_read_and_accept_the_privacy_policy_and_the_terms_of_service": "",
+        "invalid_file_type": "",
+        "invalid_xls_file": "",
         "logo": "",
         "new_entity": "",
         "passphrase": "",
@@ -110,12 +125,16 @@
     "errors": {
         "file_too_large": "",
         "general_error": "",
+        "internal_error_please_log_in_again": "",
         "invalid_image_url": "",
         "page_not_found": "",
         "please_accept_credentials_tos": "",
+        "please_confirm_your_passphrase": "",
         "please_enter_a_passphrase": "",
         "please_repeat_the_passphrase": "",
+        "please_select_and_fill_all_recovery_questions": "",
         "something_went_wrong": "",
+        "the_backup_cannot_be_generated_please_check_your_passphrase": "",
         "the_passphrase_does_not_match": "",
         "the_passphrase_is_empty": "",
         "the_passphrase_should_contain_some_uppercase_characters": "",
@@ -125,6 +144,14 @@
     "home": {
         "hero_subtitle": "",
         "hero_title": ""
+    },
+    "import": {
+        "confirm_your_passphrase": "",
+        "credentials_explanation": "",
+        "drag_a_vocdoni_backup_file": "",
+        "i_acknowledge_passphrase_implications": "",
+        "import_account": "",
+        "import_an_account": ""
     },
     "input": {
         "enter_the_url_or_upload_a_file": "",
