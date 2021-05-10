@@ -35,7 +35,7 @@ export const VoteDescription = ({
       alt={i18n.t('vote.question_image_alt')}
     />
   )
-  console.log('El status es', voteStatus)
+
   return (
     <Grid>
       <Column>

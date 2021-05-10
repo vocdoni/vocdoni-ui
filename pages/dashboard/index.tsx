@@ -95,6 +95,7 @@ const DashboardPage = () => {
       <DashboardProcessList
         initialActiveItem={initialActiveItem.current}
         loading={loadingProcessList || loadingProcessesDetails}
+        entityMetadata={entityMetadata}
         account={account}
         activeVotes={activeVotes}
         votesResults={votesResults}
