@@ -3,13 +3,16 @@ import styled from 'styled-components'
 import { usePool, ProcessInfo } from '@vocdoni/react-hooks'
 import { GatewayPool } from 'dvote-js'
 
-import { getDaysUntilEnd } from '../../lib/date'
+import { getDaysUntilEnd } from '@lib/date'
+import { VoteStatus } from '@lib/util'
+
+import i18n from '@i18n'
+
+import { FALLBACK_ACCOUNT_ICON } from '@const/account'
+import { Image } from '@components/common/image'
+import { ImageContainer } from '@components/images'
 
 import { VoteListItem } from '../list-items'
-import { VoteStatus } from '@lib/util'
-import { ImageContainer } from '../images'
-import i18n from '../../i18n'
-import { FALLBACK_ACCOUNT_ICON } from '@const/account'
 
 interface IDashboardProcessListItemProps {
   process: ProcessInfo
@@ -52,7 +55,7 @@ export const DashboardProcessListItem = ({
       <VoteListItem
         icon={
           <ImageContainer width="30px">
-            <img src={entityLogo || FALLBACK_ACCOUNT_ICON} />
+            <Image src={entityLogo || FALLBACK_ACCOUNT_ICON} />
           </ImageContainer>
         }
         description={process.metadata.description.default}
