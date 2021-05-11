@@ -103,7 +103,7 @@
         "validating_creation": "Validating creation",
         "we_are_ready": "We’re ready!",
         "why_this_is_important": "Why this is important?",
-        "your_account_is_protected_now_store_these_file_in_a_secure_place": "Your account is protected now, store these backup in a secure place",
+        "your_account_is_protected_store_file_safe_place": "Your account is now protected, store this file in a safe place",
         "your_company_was_created_successfully_no_you_cant_create_a_new_amg_proposal": "Your company was created successfully. Now you can create a new AGM proposal"
     },
     "error": {
@@ -150,14 +150,14 @@
     "import": {
         "confirm_your_passphrase": "Enter the passphrase that you used when you created the account",
         "credentials_explanation": "The first row of the spreadsheet will be used as the name of the fields that voters will be prompted for. These fields are case insensitive, blank spaces will be ignored and diacritics will be transformed into plain letters.",
-        "drag_a_vocdoni_backup_file": "Drag the Vocdoni credentials here",
+        "select_the_backup_file_of_your_account": "Select the backup file of your account",
         "error_importing_account": "Error importing account",
         "i_acknowledge_passphrase_implications": "I acknowledge that the passphrase is required to manage my Entity and that failure to keep access to it can prevent the ability to manage it in the future",
         "import_account": "Import account",
         "import_an_account": "Import an account",
         "invalid_imported_file": "Invalid backup file",
         "passphrase": "Passphrase",
-        "set_the_backup_file": "Set the backup file",
+        "backup_file": "Backup file",
         "your_account_has_been_imported_successfully": "Your account has been imported successfully"
     },
     "input": {
@@ -174,7 +174,7 @@
     },
     "recover": {
         "credentials_explanation": "",
-        "drag_a_vocdoni_backup_file": "",
+        "select_the_backup_file_of_your_account": "",
         "enter_a_new_passphrase": "",
         "i_acknowledge_passphrase_implications": "",
         "reset_passphrase": "",

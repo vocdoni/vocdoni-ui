@@ -15,11 +15,16 @@ import { AccountBackupSuccess } from '@components/entity/backup/backup-success'
 const AccountBackupPage = () => {
   const [hasBackup, setHasBackup] = useState<boolean>(false)
   const { wallet } = useWallet({ role: WalletRoles.ADMIN })
-  const { dbAccounts } = useDbAccounts()
+  const { dbAccounts, updateAccount } = useDbAccounts()
   const account = dbAccounts.find((acc) => acc.address == wallet?.address)
 
   const handleBackupDone = () => {
-    setHasBackup(true)
+    const newAccount = Object.assign({}, account, { hasBackup: true })
+    updateAccount(account.address, newAccount)
+      .then(() => {
+        setHasBackup(true)
+      })
+      .catch(_ => { })
   }
 
   const renderNoUserLoggedPage = new ViewStrategy(
@@ -31,7 +36,7 @@ const AccountBackupPage = () => {
     () => !hasBackup,
     <AccountBackupView account={account} onBackup={handleBackupDone} />
   )
-  
+
   const renderAccountBackupSuccess = new ViewStrategy(
     () => hasBackup,
     <AccountBackupSuccess />

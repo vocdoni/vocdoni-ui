@@ -23,7 +23,7 @@ export const SuccessCard = ({title, subtitle, text}: ISuccessCardProps) => (
   >
     <Grid>
       <Column>
-        <ImageContainer width="400px" justify={FlexJustifyContent.Center}>
+        <ImageContainer width="300px" justify={FlexJustifyContent.Center}>
           <img src="/images/entity/passphrase.png" />
         </ImageContainer>
       </Column>

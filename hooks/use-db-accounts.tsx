@@ -37,6 +37,7 @@ export const useDbAccounts = () => {
 
     const db = new AccountDb()
     return db.update(address, account)
+      .then(() => refreshAccounts())
   }
 
   return { dbAccounts, addDbAccount, refreshAccounts, updateAccount, error }

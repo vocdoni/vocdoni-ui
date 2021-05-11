@@ -143,7 +143,7 @@ const RecoveryPage = () => {
         <Column>
           <SectionTitle>{i18n.t('recover.reset_your_passphrase')}</SectionTitle>
           <SectionText color={colors.lightText}>
-            {i18n.t('recover.drag_a_vocdoni_backup_file')}
+            {i18n.t('recover.select_the_backup_file_of_your_account')}
           </SectionText>
         </Column>
 

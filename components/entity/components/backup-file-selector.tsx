@@ -47,7 +47,7 @@ export const BackupFileSelector = ({ onBackupLoad }: IBackupFileSelector) => {
             <img src="/images/common/logo.svg" alt="Backup" />
           </ImportImageContainer>
         }
-        placeholder={i18n.t('entity.supported_formats_bak')}
+        placeholder={i18n.t('import.account_backup_file')}
         variant="multiline"
         onChange={handleChange}
       />

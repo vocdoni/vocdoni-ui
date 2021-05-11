@@ -103,7 +103,7 @@
         "validating_creation": "",
         "we_are_ready": "",
         "why_this_is_important": "",
-        "your_account_is_protected_now_store_these_file_in_a_secure_place": "",
+        "your_account_is_protected_store_file_safe_place": "",
         "your_company_was_created_successfully_no_you_cant_create_a_new_amg_proposal": ""
     },
     "error": {
@@ -150,14 +150,14 @@
     "import": {
         "confirm_your_passphrase": "",
         "credentials_explanation": "",
-        "drag_a_vocdoni_backup_file": "",
+        "select_the_backup_file_of_your_account": "",
         "error_importing_account": "",
         "i_acknowledge_passphrase_implications": "",
         "import_account": "",
         "import_an_account": "",
         "invalid_imported_file": "",
         "passphrase": "",
-        "set_the_backup_file": "",
+        "backup_file": "",
         "your_account_has_been_imported_successfully": ""
     },
     "input": {
@@ -174,7 +174,7 @@
     },
     "recover": {
         "credentials_explanation": "",
-        "drag_a_vocdoni_backup_file": "",
+        "select_the_backup_file_of_your_account": "",
         "enter_a_new_passphrase": "",
         "i_acknowledge_passphrase_implications": "",
         "reset_passphrase": "",

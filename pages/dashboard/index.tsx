@@ -83,7 +83,7 @@ const DashboardPage = () => {
 
   return (
     <>
-      <DashboardHeader entity={entityMetadata} hasBackup={account?.backupMnemonic}/>
+      <DashboardHeader entity={entityMetadata} hasBackup={account?.hasBackup} />
 
       <DashboardActivitySummary
         loading={loadingProcessList || loadingProcessesDetails}
