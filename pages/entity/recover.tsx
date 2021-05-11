@@ -4,7 +4,7 @@ import { Column, Grid } from '@components/grid'
 import { Button } from '@components/button'
 import { SectionTitle, SectionText, TextSize } from '@components/text'
 import { colors } from 'theme/colors'
-import { DASHBOARD_PATH } from '@const/routes'
+import { ACCOUNT_RECOVER, DASHBOARD_PATH } from '@const/routes'
 import { PageCard } from '@components/cards'
 import { Input } from '../../components/inputs'
 import { Checkbox } from '@aragon/ui'
@@ -18,6 +18,9 @@ import { useWallet, WalletRoles } from '@hooks/use-wallet'
 import { useDbAccounts } from '@hooks/use-db-accounts'
 import { useRouter } from 'next/router'
 import { useMessageAlert } from '../../hooks/message-alert'
+import { Else, If, Then, Unless, When } from 'react-if'
+import { Wallet } from 'ethers'
+import Spinner from "react-svg-spinner"
 
 const allRecoveryQuestions = [
   {
@@ -40,27 +43,26 @@ const allRecoveryQuestions = [
 
 const RecoveryPage = () => {
   const { dbAccounts, addDbAccount, updateAccount } = useDbAccounts()
-  const { restoreEncryptedWallet } = useWallet({ role: WalletRoles.ADMIN })
+  const { setWallet } = useWallet({ role: WalletRoles.ADMIN })
   const router = useRouter()
   const { setAlertMessage } = useMessageAlert()
 
-  const [oldBackup, setOldBackup] = useState<Uint8Array>(null)
-  const [oldBackupParsed, setOldBackupParsed] = useState<WalletBackup>(null)
+  const [loading, setLoading] = useState(false)
+  const [accountBackupBytes, setAccountBackupBytes] = useState<Uint8Array>(null)
+  const [accountBackup, setAccountBackup] = useState<WalletBackup>(null)
   const [newPassphrase, setNewPassphrase] = useState<string>(null)
   const [answers, setAnswers] = useState<string[]>([])
   const [questionIds, setQuestionIds] = useState<number[]>([])
   const [ack, setAck] = useState(false)
 
-
-
-  const isCompleted = oldBackup && questionIds.length && answers.length && newPassphrase && ack
+  const isCompleted = accountBackup && questionIds.length && answers.length && newPassphrase && ack
 
   const handleOnBackupUpload = (uploadedBackup: Uint8Array) => {
-    setOldBackup(uploadedBackup)
-    const parsedBackup = AccountBackup.parse(uploadedBackup)
-    setOldBackupParsed(parsedBackup)
-    setQuestionIds(parsedBackup.passphraseRecovery.questionIds)
+    setAccountBackupBytes(uploadedBackup)
 
+    const parsedBackup = AccountBackup.parse(uploadedBackup)
+    setAccountBackup(parsedBackup)
+    setQuestionIds(parsedBackup.passphraseRecovery.questionIds)
   }
 
   const onSetAnswer = (qIdx: number, value: string) => {
@@ -75,67 +77,73 @@ const RecoveryPage = () => {
   // const onBackupDownload = () => {
   //   try {
   //     const backupBytes = AccountBackup.create({
-  //       backupName: oldBackupParsed.name,
-  //       questionIds: oldBackupParsed.passphraseRecovery.questionIds,
+  //       backupName: accountBackup.name,
+  //       questionIds: accountBackup.passphraseRecovery.questionIds,
   //       answers,
   //       accountWallet: {
   //         encryptedMnemonic: new Uint8Array(Buffer.from(encryptedMnemonic, "base64")),
-  //         authMethod: oldBackupParsed.wallet.authMethod,
-  //         hdPath: oldBackupParsed.wallet.hdPath,
-  //         locale: oldBackupParsed.wallet.locale
+  //         authMethod: accountBackup.wallet.authMethod,
+  //         hdPath: accountBackup.wallet.hdPath,
+  //         locale: accountBackup.wallet.locale
   //       },
   //       currentPassphrase: newPassphrase
   //     })
   //     setNewBackup(backupBytes)
-  //     downloadFile(backupBytes, { fileName: oldBackupParsed.name + "-vocdoni.bak" })
+  //     downloadFile(backupBytes, { fileName: accountBackup.name + "-vocdoni.bak" })
   //   } catch (error) {
-
+  //
   //   }
   // }
 
-  const onContinue = () => {
-
+  const onContinue = async () => {
     try {
-      const decryptedPassphrase = AccountBackup.recoverPassphrase(oldBackup, answers)
+      setLoading(true)
 
-      const buffer = Buffer.from(oldBackupParsed.wallet.encryptedMnemonic)
-      const oldEncryptedMnemonic = buffer.toString('base64')
-      const wallet = restoreEncryptedWallet(oldEncryptedMnemonic, oldBackupParsed.wallet.hdPath, decryptedPassphrase)
+      const decryptedPassphrase = AccountBackup.recoverPassphrase(accountBackupBytes, answers)
+      if (!decryptedPassphrase) throw new Error("Invalid answers")
 
+      const buffer = Buffer.from(accountBackup.wallet.encryptedMnemonic)
+      const originalEncryptedMnemonic = buffer.toString('base64')
+
+      // Recover the wallet
+      const mnemonic = Symmetric.decryptString(originalEncryptedMnemonic, decryptedPassphrase)
+      const wallet = Wallet.fromMnemonic(mnemonic, accountBackup.wallet.hdPath)
+
+      // Protect with the new passphrase
       const encryptedMnemonic = Symmetric.encryptString(wallet.mnemonic.phrase, newPassphrase)
 
       const account = dbAccounts.find(acc => acc.address == wallet.address)
-      console.log('old encrypted mnemonic', account.encryptedMnemonic)
-      console.log('new encrypted mnemonic', encryptedMnemonic)
       if (account) {
         // Update account if  exists
-        updateAccount(wallet.address, {
+        await updateAccount(wallet.address, {
           ...account,
-          hasBackup: false,
+          hasBackup: true,
           encryptedMnemonic,
         })
       } else {
         // add account if not exists
-        addDbAccount({
-          name: oldBackupParsed.name,
+        await addDbAccount({
+          name: accountBackup.name,
           address: wallet.address,
           encryptedMnemonic,
           hdPath: wallet.mnemonic.path,
-          locale: oldBackupParsed.wallet.locale,
-          hasBackup: false
+          locale: accountBackup.wallet.locale,
+          hasBackup: true
         })
       }
 
+      setWallet(wallet)
+
       // Load dashboard
-      router.replace(DASHBOARD_PATH)
+      setTimeout(() => router.replace(DASHBOARD_PATH), 100)
 
+      setLoading(false)
     } catch (err) {
+      setLoading(false)
       console.error(err)
-      setAlertMessage(i18n.t("errors.the_recovery_could not be completed"))
+      setAlertMessage(i18n.t("errors.the_recovery_could_not_be_completed"))
     }
-
   }
-
 
   return (
     <PageCard>
@@ -149,12 +157,9 @@ const RecoveryPage = () => {
 
         <MaxWidth width={600}>
           <FileContainer>
-            // TODO Implement view when the file is uploaded
-          {oldBackup ? (
-              <></>
-            ) : (
+            <Unless condition={!!accountBackup}>
               <BackupFileSelector onBackupLoad={handleOnBackupUpload} />
-            )}
+            </Unless>
           </FileContainer>
 
           <SectionText size={TextSize.Small}>
@@ -163,18 +168,14 @@ const RecoveryPage = () => {
             )}
           </SectionText>
 
-          {oldBackup && questionIds ?
-            questionIds.map((question, qIdx) => {
-              // Mark the indexes for questions already being used
-
+          <When condition={!!(accountBackup && questionIds)}>
+            {questionIds.map((question, qIdx) => {
               return <>
-                <p> {allRecoveryQuestions.find(x => x.value == question).label} </p>
+                <p> {allRecoveryQuestions.find(x => x.value == question)?.label || ("# " + (qIdx + 1))} </p>
                 <Input wide onChange={e => onSetAnswer(qIdx, e.target.value)} />
               </>
-            })
-            :
-            <></>
-          }
+            })}
+          </When>
 
           <p>{i18n.t("recover.enter_a_new_passphrase")}</p>
           <Input wide type="password" onChange={e => setNewPassphrase(e.target.value)} />
@@ -187,14 +188,21 @@ const RecoveryPage = () => {
             {i18n.t("recover.i_acknowledge_passphrase_implications")}
           </label>
 
-          <br />
-          <br />
-          { }
-          // TODO Warn that old backfile would be invalid for the new passaphrase and maybe ask to download new backup file?
+          <br /><br /><br />
+
+          {/* // TODO Warn that old backfile would be invalid for the new passaphrase and maybe ask to download new backup file? */}
+
           <BottomDiv>
-            <Button positive disabled={!isCompleted} onClick={onContinue}>
-              {i18n.t('recover.reset_passphrase')
-              }</Button>
+            <If condition={loading}>
+              <Then>
+                <Spinner />
+              </Then>
+              <Else>
+                <Button positive disabled={!isCompleted} onClick={onContinue}>
+                  {i18n.t('recover.reset_passphrase')
+                  }</Button>
+              </Else>
+            </If>
           </BottomDiv>
         </MaxWidth>
       </Grid>
@@ -217,7 +225,7 @@ const FileContainer = styled.div<{ disabled?: boolean }>`
 const BottomDiv = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
 `
 
 export default RecoveryPage

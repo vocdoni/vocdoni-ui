@@ -26,7 +26,8 @@ import { Label } from '@components/label'
 import { FormGroup, InputFormGroup } from '@components/form'
 import { Wallet } from 'ethers'
 import { useRouter } from 'next/router'
-import { DASHBOARD_PATH } from '@const/routes'
+import { ACCOUNT_RECOVER, DASHBOARD_PATH } from '@const/routes'
+import Link from 'next/link'
 
 interface IAccountImportViewProps {
   onImportedAccount: () => void
@@ -125,7 +126,12 @@ export const AccountImportView = ({
             onChange={(e) => setPassphrase(e.target.value)}
           />
 
+
           <DescriptionContainer hasError={!!invalidPassphrase}>
+            <Link href={ACCOUNT_RECOVER}>
+              {i18n.t('sign_in.forgot_your_password_restore_from_a_backup')}
+            </Link>
+            <br /><br />
             <SectionText size={TextSize.Small} color={colors.lightText}>
               {i18n.t('import.confirm_your_passphrase')}
             </SectionText>
