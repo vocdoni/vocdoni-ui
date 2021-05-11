@@ -8,10 +8,19 @@ import { ImageContainer } from '@components/images'
 import { SectionText, TextAlign } from '@components/text'
 import { FlexJustifyContent } from '@components/flex'
 
-import { AccountBackupPageCard } from './components/page-card'
+import { AccountBackupPageCard } from '../components/page-card'
 
-export const AccountBackupSuccess = () => (
-  <AccountBackupPageCard>
+interface ISuccessCardProps {
+  title: string,
+  subtitle: string,
+  text: string
+}
+
+export const SuccessCard = ({title, subtitle, text}: ISuccessCardProps) => (
+  <AccountBackupPageCard
+    title={title}
+    subtitle={subtitle}
+  >
     <Grid>
       <Column>
         <ImageContainer width="400px" justify={FlexJustifyContent.Center}>
@@ -22,9 +31,7 @@ export const AccountBackupSuccess = () => (
       <Column>
         <TextContainer>
           <SectionText align={TextAlign.Center}>
-            {i18n.t(
-              'entity.your_account_is_protected_now_store_these_file_in_a_secure_place'
-            )}
+            {text}
           </SectionText>
         </TextContainer>
       </Column>

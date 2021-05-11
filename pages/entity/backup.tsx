@@ -9,7 +9,7 @@ import { useDbAccounts } from '@hooks/use-db-accounts'
 
 import { Redirect } from '@components/redirect'
 import { AccountBackupView } from '@components/entity/backup'
-import { AccountBackupSuccess } from '@components/entity/backup/account-backup-success'
+import { AccountBackupSuccess } from '@components/entity/backup/backup-success'
 
 
 const AccountBackupPage = () => {

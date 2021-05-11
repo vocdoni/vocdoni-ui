@@ -26,7 +26,7 @@ const PageCardHeaderVariantStyle = {
     }
   `,
   [PageCardHeaderVariant.Text]: (theme: DefaultTheme) => `
-    padding: 40px 60px;
+    padding: 40px;
     border-bottom: solid 1px ${theme.lightBorder};
 
     @media ${theme.screenMax.mobileL} {

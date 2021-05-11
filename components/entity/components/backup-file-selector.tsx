@@ -2,10 +2,12 @@ import React, { useState } from 'react'
 import { FileSelector } from 'react-rainbow-components'
 import styled from 'styled-components'
 
-import i18n from '../../i18n'
+import i18n from '@i18n'
+
 
 const containerStyles = {
-  height: 385,
+  height: 260,
+  marginBottom: 14,
   borderRadius: 10,
 }
 
@@ -22,18 +24,14 @@ export const BackupFileSelector = ({ onBackupLoad }: IBackupFileSelector) => {
     if (!file) {
       return setInvalidFileType(null)
     }
-    // } else if (!SpreadSheetReader.AcceptedTypes.includes(file.type)) {
-    //   return setInvalidFileType(i18n.t('entity.invalid_file_type'))
-    // }
 
     try {
       const buffer = await file.arrayBuffer()
-      // TODO check if throws if file incorrect
       const backup = Buffer.from(buffer)
 
       onBackupLoad(backup)
     } catch (error) {
-      setInvalidFileType(i18n.t('entity.invalid_xls_file'))
+      setInvalidFileType(i18n.t('import.invalid_imported_file'))
     }
   }
 

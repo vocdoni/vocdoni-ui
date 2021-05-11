@@ -5,12 +5,9 @@ import {
   WalletBackup_Recovery_QuestionEnum,
   Wallet_AuthMethod,
 } from 'dvote-js'
-import { Checkbox } from '@aragon/ui'
 
 import i18n from '@i18n'
 
-import { useDbAccounts } from '@hooks/use-db-accounts'
-import { useWallet, WalletRoles } from '@hooks/use-wallet'
 import { useMessageAlert } from '@hooks/message-alert'
 
 import { colors } from 'theme/colors'
@@ -28,8 +25,10 @@ import {
   FlexJustifyContent,
 } from '@components/flex'
 import { InputFormGroup } from '@components/form'
+import { Checkbox } from '@components/checkbox'
+import { Label } from '@components/label'
 
-import { AccountBackupPageCard } from './components/page-card'
+import { AccountBackupPageCard } from '../components/page-card'
 
 const QUESTION_COUNT = 3
 const allRecoveryQuestions = [
@@ -60,7 +59,10 @@ interface AccountBackupViewProps {
   onBackup: () => void
 }
 
-export const AccountBackupView = ({account, onBackup}: AccountBackupViewProps) => {
+export const AccountBackupView = ({
+  account,
+  onBackup,
+}: AccountBackupViewProps) => {
   const [answers, setAnswers] = useState<string[]>([])
   const [questionIndexes, setQuestionIndexes] = useState<number[]>([])
   const [ack, setAck] = useState(false)
@@ -139,7 +141,12 @@ export const AccountBackupView = ({account, onBackup}: AccountBackupViewProps) =
     ack
 
   return (
-    <AccountBackupPageCard>
+    <AccountBackupPageCard
+      title={i18n.t('backup.download_credentials')}
+      subtitle={i18n.t(
+        'backup.protect_your_account_and_export_it_in_a_safe_way'
+      )}
+    >
       <Grid>
         <Column>
           <MaxWidth width={600}>
@@ -184,9 +191,9 @@ export const AccountBackupView = ({account, onBackup}: AccountBackupViewProps) =
                   id="terms-check"
                   onChange={(ack: boolean) => setAck(ack)}
                 />
-                <label htmlFor="terms-check">
+                <Label htmlFor="terms-check" color={colors.lightText}>
                   {i18n.t('backup.i_acknowledge_passphrase_implications')}
-                </label>
+                </Label>
               </FlexContainer>
             </QuestionContainer>
 

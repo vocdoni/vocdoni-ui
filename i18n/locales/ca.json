@@ -92,8 +92,6 @@
         "got_to_the_dashboard": "",
         "header": "",
         "i_have_read_and_accept_the_privacy_policy_and_the_terms_of_service": "",
-        "invalid_file_type": "",
-        "invalid_xls_file": "",
         "logo": "",
         "new_entity": "",
         "passphrase": "",
@@ -109,11 +107,13 @@
         "your_company_was_created_successfully_no_you_cant_create_a_new_amg_proposal": ""
     },
     "error": {
+        "invalid_back_up_file_error": "",
         "invalid_choice_error": "",
         "invalid_description": "",
         "invalid_email_address": "",
         "invalid_entity_name": "",
         "invalid_file": "",
+        "invalid_passphrase_error": "",
         "invalid_question_error": "",
         "invalid_question_title": "",
         "invalid_title": "",
@@ -140,6 +140,7 @@
         "the_passphrase_is_empty": "",
         "the_passphrase_should_contain_some_uppercase_characters": "",
         "the_passphrase_should_have_8_characters_or_more": "",
+        "the_recovery_could not be completed": "",
         "there_is_already_one_entity_with_the_same_name": ""
     },
     "home": {
@@ -150,9 +151,14 @@
         "confirm_your_passphrase": "",
         "credentials_explanation": "",
         "drag_a_vocdoni_backup_file": "",
+        "error_importing_account": "",
         "i_acknowledge_passphrase_implications": "",
         "import_account": "",
-        "import_an_account": ""
+        "import_an_account": "",
+        "invalid_imported_file": "",
+        "passphrase": "",
+        "set_the_backup_file": "",
+        "your_account_has_been_imported_successfully": ""
     },
     "input": {
         "enter_the_url_or_upload_a_file": "",
@@ -165,6 +171,14 @@
         "docs": "",
         "pricing": "",
         "support": ""
+    },
+    "recover": {
+        "credentials_explanation": "",
+        "drag_a_vocdoni_backup_file": "",
+        "enter_a_new_passphrase": "",
+        "i_acknowledge_passphrase_implications": "",
+        "reset_passphrase": "",
+        "reset_your_passphrase": ""
     },
     "sign_in": {
         "additional_entities": "",

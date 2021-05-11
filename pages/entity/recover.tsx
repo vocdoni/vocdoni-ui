@@ -10,7 +10,7 @@ import { Input } from '../../components/inputs'
 import { Checkbox } from '@aragon/ui'
 import i18n from '../../i18n'
 
-import { BackupFileSelector } from '@components/entity/backup-file-selector'
+import { BackupFileSelector } from '@components/entity/components/backup-file-selector'
 
 import { AccountBackup, WalletBackup, Symmetric, WalletBackup_Recovery_QuestionEnum, } from 'dvote-js'
 

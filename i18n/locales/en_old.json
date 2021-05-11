@@ -50,7 +50,9 @@
         "name": "Name of the entity",
         "please_wait_creating_account": "Please wait, creating the account...",
         "your_account_has_been_created": "Your account has been created",
-        "enter_the_details_of_the_entity": "Enter the details of a new entity"
+        "enter_the_details_of_the_entity": "Enter the details of a new entity",
+        "invalid_file_type": "",
+        "invalid_xls_file": ""
     },
     "this_is_the_form_that_your_community_will_need_to_fill_in_order_to_vote": "",
     "process": {

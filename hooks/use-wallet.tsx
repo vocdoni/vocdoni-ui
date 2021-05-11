@@ -4,6 +4,7 @@ import { Wallet } from '@ethersproject/wallet'
 import { Symmetric } from 'dvote-js'
 import { CREATE_PROCESS_PATH, DASHBOARD_PATH, ACCOUNT_BACKUP, ENTITY_SIGN_IN_PATH } from '../const/routes'
 import i18n from '../i18n'
+import { InvalidPassphraseError } from '@lib/validators/errors/invalid-passphrase-error'
 
 const pathsRequiringAdminWallet = [
   DASHBOARD_PATH,
@@ -33,7 +34,7 @@ export const useWallet = ({ role }: { role: WalletRoles } = { role: WalletRoles.
       return wallet
     }
     catch (err) {
-      throw new Error(i18n.t("errors.invalid_passphrase"))
+      throw new InvalidPassphraseError()
     }
   }
 
