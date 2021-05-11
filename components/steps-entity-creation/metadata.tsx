@@ -43,10 +43,10 @@ export const FormMetadata = () => {
     logoUrl,
     headerFile,
     headerUrl,
+    terms,
     methods,
     metadataValidationError,
   } = useEntityCreation()
-  const [terms, setTerms] = useState<boolean>(false)
   const [metadataErrors, setMetadataErrors] = useState<ErrorFields>(new Map())
   const [dirtyFields, setDirtyField] = useState<DirtyFields>(new Map())
   const { setAlertMessage } = useMessageAlert()
@@ -199,7 +199,7 @@ export const FormMetadata = () => {
 
       <Column>
         <FlexContainer alignItem={FlexAlignItem.Center}>
-          <Checkbox id="terms-check" checked={terms} onChange={setTerms} />
+          <Checkbox id="terms-check" checked={terms} onChange={() => methods.setTerms(!terms)} />
 
           <Label htmlFor="terms-check">
             {i18n.t(

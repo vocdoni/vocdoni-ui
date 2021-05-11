@@ -25,6 +25,7 @@ export interface EntityCreationContext {
   headerUrl: string,
   headerFile: File,
   passphrase: string,
+  terms: boolean,
 
   pleaseWait: boolean,
   created: boolean,
@@ -40,6 +41,7 @@ export interface EntityCreationContext {
     setLogoFile(logoFile: File): void,
     setLogoUrl(logoUrl: string): void,
     setPassphrase(passphrase: string): void,
+    setTerms(terms: boolean): void,
     createEntity(): void
     continueEntityCreation(): void
   }
@@ -90,6 +92,7 @@ export const UseEntityCreationProvider = ({ children }: { children: ReactNode })
   const [logoFile, setLogoFile] = useState<File>()
   const [headerUrl, setHeaderUrl] = useState<string>("")
   const [headerFile, setHeaderFile] = useState<File>()
+  const [terms, setTerms] = useState<boolean>(false)
 
   // UI STATE
   const { wallet, setWallet } = useWallet()
@@ -306,6 +309,7 @@ export const UseEntityCreationProvider = ({ children }: { children: ReactNode })
     headerUrl,
     headerFile,
     passphrase,
+    terms,
 
     pleaseWait,
     created: actionStep >= creationStepFuncs.length,
@@ -320,6 +324,7 @@ export const UseEntityCreationProvider = ({ children }: { children: ReactNode })
       setLogoFile,
       setHeaderUrl,
       setHeaderFile,
+      setTerms,
       createEntity: doMainActionSteps,
       continueEntityCreation: doMainActionSteps
     }
