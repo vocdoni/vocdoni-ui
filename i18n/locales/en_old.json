@@ -16,7 +16,8 @@
     "description": "Description",
     "errors": {
         "choose_passphrase_and_repeat_it": "Choose a passphrase and repeat it",
-        "passphrases_do_not_match": "The passphrase does not match"
+        "passphrases_do_not_match": "The passphrase does not match",
+        "internal_error_please_log_in_again": ""
     },
     "vote": {
         "vote_details": "",

@@ -1,5 +1,5 @@
 import React, { ChangeEvent } from 'react'
-import styled from 'styled-components'
+import styled, { DefaultTheme } from 'styled-components'
 import { HelpText } from './common/help-text'
 import FileLoader from './FileLoader'
 
@@ -20,6 +20,7 @@ type BaseForGroupProps = {
 type IInputFormGroupProps = {
   value?: string
   rows?: number
+  type?: string
   onChange: (value: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
   onBlur?: (value: string) => void
 } & BaseForGroupProps
@@ -42,17 +43,13 @@ export enum FormGroupVariant {
   Regular = 'regular',
 }
 
-interface IFormGroupProps {
-  marginBottom?: string
-}
-
-const FormGroupVariantProps = {
-  [FormGroupVariant.Small]: {
-    marginBottom: '16px',
-  },
-  [FormGroupVariant.Regular]: {
-    marginBottom: '32px',
-  },
+const FormGroupVariantStyle = {
+  [FormGroupVariant.Small]: (theme: DefaultTheme) => `
+    margin-bottom: 16px
+  `,
+  [FormGroupVariant.Regular]: (theme: DefaultTheme) => `
+    margin-bottom: 32px
+  `,
 }
 
 export const formGroupHOC = (InputField) => ({
@@ -63,6 +60,7 @@ export const formGroupHOC = (InputField) => ({
   id,
   placeholder,
   value,
+  type,
   rows,
   error,
   onChange,
@@ -72,7 +70,7 @@ export const formGroupHOC = (InputField) => ({
   const inputId = id || `input-${generateRandomId()}`
 
   return (
-    <FormGroup {...FormGroupVariantProps[variant]}>
+    <FormGroup variant={variant}>
       {title && <InputTitle>{title}</InputTitle>}
       {label && <InputLabel htmlFor={inputId}>{label}</InputLabel>}
       {helpText && <HelpText text={helpText} />}
@@ -81,6 +79,7 @@ export const formGroupHOC = (InputField) => ({
         rows={rows}
         wide
         placeholder={placeholder}
+        type={type}
         name={name}
         value={value || ''}
         error={!!error}
@@ -110,7 +109,7 @@ export const FileLoaderFormGroup = ({
   const fileInputId = id || `file-${generateRandomId()}`
 
   return (
-    <FormGroup {...FormGroupVariantProps[variant]}>
+    <FormGroup variant={variant}>
       {title && <InputTitle>{title}</InputTitle>}
       {label && <InputLabel>{label}</InputLabel>}
 
@@ -144,10 +143,10 @@ const InputError = styled.p`
   bottom: -10px;
 `
 
-export const FormGroup = styled.div<IFormGroupProps>`
+export const FormGroup = styled.div<{ variant: FormGroupVariant }>`
   position: relative;
-  margin-bottom: ${({ marginBottom }) =>
-    marginBottom ? marginBottom : '32px'};
+  ${({ theme, variant }) =>
+    FormGroupVariantStyle[variant || FormGroupVariant.Small](theme)}
 `
 
 export const Fieldset = styled.fieldset`
