@@ -100,10 +100,12 @@
         "passphrase_image_alt": "",
         "repeat_passphrase": "",
         "signing_transactions": "",
+        "supported_formats_bak": "",
         "this_will_be_the_email_for_the_members_of_the_entity_to_contact_you": "",
         "validating_creation": "",
         "we_are_ready": "",
         "why_this_is_important": "",
+        "your_account_is_protected_now_store_these_file_in_a_secure_place": "",
         "your_company_was_created_successfully_no_you_cant_create_a_new_amg_proposal": ""
     },
     "error": {
@@ -125,7 +127,6 @@
     "errors": {
         "file_too_large": "",
         "general_error": "",
-        "internal_error_please_log_in_again": "",
         "invalid_image_url": "",
         "page_not_found": "",
         "please_accept_credentials_tos": "",

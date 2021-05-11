@@ -5,6 +5,7 @@ import { ViewStrategy, ViewContext } from '@lib/strategy'
 import { ENTITY_SIGN_IN_PATH } from '@const/routes'
 
 import { useWallet, WalletRoles } from '@hooks/use-wallet'
+import { useDbAccounts } from '@hooks/use-db-accounts'
 
 import { Redirect } from '@components/redirect'
 import { AccountBackupView } from '@components/entity/backup'
@@ -14,19 +15,21 @@ import { AccountBackupSuccess } from '@components/entity/backup/account-backup-s
 const AccountBackupPage = () => {
   const [hasBackup, setHasBackup] = useState<boolean>(false)
   const { wallet } = useWallet({ role: WalletRoles.ADMIN })
+  const { dbAccounts } = useDbAccounts()
+  const account = dbAccounts.find((acc) => acc.address == wallet?.address)
 
   const handleBackupDone = () => {
     setHasBackup(true)
   }
 
   const renderNoUserLoggedPage = new ViewStrategy(
-    () => !wallet.address,
+    () => !wallet?.address,
     <Redirect to={ENTITY_SIGN_IN_PATH}></Redirect>
   )
 
   const renderAccountBackupPage = new ViewStrategy(
     () => !hasBackup,
-    <AccountBackupView onBackup={handleBackupDone} />
+    <AccountBackupView account={account} onBackup={handleBackupDone} />
   )
   
   const renderAccountBackupSuccess = new ViewStrategy(
@@ -39,7 +42,7 @@ const AccountBackupPage = () => {
     renderAccountBackupPage,
     renderAccountBackupSuccess
   ])
-  
+
   return viewContext.getView()
 }
 

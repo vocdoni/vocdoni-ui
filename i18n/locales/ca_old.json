@@ -32,5 +32,8 @@
     "action": {
         "create_new_proposal": "",
         "go_to_dashboard": ""
+    },
+    "errors": {
+        "internal_error_please_log_in_again": ""
     }
 }

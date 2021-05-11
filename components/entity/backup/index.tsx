@@ -16,6 +16,7 @@ import { useMessageAlert } from '@hooks/message-alert'
 import { colors } from 'theme/colors'
 
 import { downloadFile, hasDuplicates } from '@lib/util'
+import { Account } from '@lib/types'
 
 import { Input, Select } from '@components/inputs'
 import { Column, Grid } from '@components/grid'
@@ -27,6 +28,7 @@ import {
   FlexJustifyContent,
 } from '@components/flex'
 import { InputFormGroup } from '@components/form'
+
 import { AccountBackupPageCard } from './components/page-card'
 
 const QUESTION_COUNT = 3
@@ -54,12 +56,11 @@ const allRecoveryQuestions = [
 ]
 
 interface AccountBackupViewProps {
+  account: Account
   onBackup: () => void
 }
 
-export const AccountBackupView = ({onBackup}: AccountBackupViewProps) => {
-  const { wallet } = useWallet({ role: WalletRoles.ADMIN })
-  const { dbAccounts } = useDbAccounts()
+export const AccountBackupView = ({account, onBackup}: AccountBackupViewProps) => {
   const [answers, setAnswers] = useState<string[]>([])
   const [questionIndexes, setQuestionIndexes] = useState<number[]>([])
   const [ack, setAck] = useState(false)
@@ -85,8 +86,6 @@ export const AccountBackupView = ({onBackup}: AccountBackupViewProps) => {
     else if (!passphrase)
       return setAlertMessage(i18n.t('errors.please_confirm_your_passphrase'))
 
-    const account = dbAccounts.find((acc) => acc.address == wallet.address)
-
     try {
       const encryptedMnemonic = new Uint8Array(
         Buffer.from(account.encryptedMnemonic, 'base64')
@@ -105,7 +104,10 @@ export const AccountBackupView = ({onBackup}: AccountBackupViewProps) => {
       })
 
       downloadFile(backupBytes, { fileName: account.name + '-vocdoni.bak' })
+
+      onBackup()
     } catch (err) {
+      console.log(err)
       setAlertMessage(
         i18n.t(
           'errors.the_backup_cannot_be_generated_please_check_your_passphrase'
@@ -171,18 +173,22 @@ export const AccountBackupView = ({onBackup}: AccountBackupViewProps) => {
             <InputFormGroup
               type="password"
               label={i18n.t('backup.confirm_your_passphrase')}
+              value={passphrase}
               onChange={(e) => setPassphrase(e.target.value)}
             />
-            <FlexContainer alignItem={FlexAlignItem.Center}>
-              <Checkbox
-                checked={ack}
-                id="terms-check"
-                onChange={(ack: boolean) => setAck(ack)}
-              />
-              <label htmlFor="terms-check">
-                {i18n.t('backup.i_acknowledge_passphrase_implications')}
-              </label>
-            </FlexContainer>
+
+            <QuestionContainer>
+              <FlexContainer alignItem={FlexAlignItem.Center}>
+                <Checkbox
+                  checked={ack}
+                  id="terms-check"
+                  onChange={(ack: boolean) => setAck(ack)}
+                />
+                <label htmlFor="terms-check">
+                  {i18n.t('backup.i_acknowledge_passphrase_implications')}
+                </label>
+              </FlexContainer>
+            </QuestionContainer>
 
             <FlexContainer justify={FlexJustifyContent.End}>
               <Button positive disabled={!isCompleted} onClick={onContinue}>
