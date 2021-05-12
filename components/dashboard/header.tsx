@@ -53,7 +53,7 @@ export const DashboardHeader = ({ entity, hasBackup }: IDashboardHeaderProps) =>
   return (
     <Grid>
       <Banner
-        title={entity?.name?.default || "(" + i18n.t("dashboard.no_entity") + ")"}
+        title={entity?.name?.default || i18n.t("dashboard.entity")}
         subtitle={i18n.t(
           'dashboard.manage_your_community_and_schedule_new_votes'
         )}

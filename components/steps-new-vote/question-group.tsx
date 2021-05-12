@@ -157,7 +157,7 @@ export const QuestionGroup = ({
             <ContentContainer key={choiceIndex}>
               <FillSpaceWrapper>
                 <InputFormGroup
-                  label={i18n.t('vote.options', { number: choiceIndex + 1 })}
+                  label={i18n.t('vote.option_n', { number: choiceIndex + 1 })}
                   placeholder={i18n.t('vote.set_option')}
                   value={choice.title.default}
                   id={`process-vote-option-${choiceIndex}`}

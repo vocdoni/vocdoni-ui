@@ -261,7 +261,7 @@
         "new_vote": "",
         "no_back_to_login": "",
         "optional_field": "",
-        "options": "",
+        "settings": "",
         "paused_vote": "",
         "pdf_image_alt": "",
         "pdf_link": "",
@@ -310,7 +310,7 @@
         "you_cant_enter_contact_with_entity": "",
         "you_cant_vote_now_on_this_proposal": "",
         "your_choice": "",
-        "your_process_is_ready": "",
+        "ready": "",
         "your_vote_has_been_registered": "",
         "your_vote_is_set_up": "",
         "your_vote_process_is_being_created": ""

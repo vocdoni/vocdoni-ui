@@ -26,7 +26,7 @@ export const FormCensus = () => {
   }
 
   const handleContinue = () => {
-    methods.setPageStep(ProcessCreationPageSteps.OPTIONS)
+    methods.setPageStep(ProcessCreationPageSteps.SETTINGS)
   }
   
   return (

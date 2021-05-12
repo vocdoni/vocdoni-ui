@@ -11,7 +11,7 @@ import { ProcessReady } from "./process-ready"
 export enum ProcessCreationPageSteps {
   METADATA = 0,
   CENSUS = 1,
-  OPTIONS = 2,
+  SETTINGS = 2,
   CREATION = 3,
   READY = 4
 }
@@ -19,9 +19,9 @@ export enum ProcessCreationPageSteps {
 export const ProcessCreationPageStepTitles = {
   [ProcessCreationPageSteps.METADATA]: i18n.t("vote.details"),
   [ProcessCreationPageSteps.CENSUS]: i18n.t("vote.who_can_vote"),
-  [ProcessCreationPageSteps.OPTIONS]: i18n.t("vote.options"),
+  [ProcessCreationPageSteps.SETTINGS]: i18n.t("vote.settings"),
   [ProcessCreationPageSteps.CREATION]: i18n.t("vote.creation"),
-  [ProcessCreationPageSteps.READY]: i18n.t("vote.your_process_is_ready"),
+  [ProcessCreationPageSteps.READY]: i18n.t("vote.ready"),
 }
 
 export const ProcessCreationPageStep = () => {
@@ -30,7 +30,7 @@ export const ProcessCreationPageStep = () => {
   switch (pageStep) {
     case ProcessCreationPageSteps.METADATA: return <FormMetadata />
     case ProcessCreationPageSteps.CENSUS: return <FormCensus />
-    case ProcessCreationPageSteps.OPTIONS: return <FormOptions />
+    case ProcessCreationPageSteps.SETTINGS: return <FormOptions />
     case ProcessCreationPageSteps.CREATION: return <FormCreation />
     case ProcessCreationPageSteps.READY: return <ProcessReady />
   }

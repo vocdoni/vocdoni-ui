@@ -73,7 +73,7 @@ export const FormCreation = () => {
             <Button
               border
               onClick={() =>
-                methods.setPageStep(ProcessCreationPageSteps.OPTIONS)
+                methods.setPageStep(ProcessCreationPageSteps.SETTINGS)
               }
             >
               {i18n.t('action.go_back')}

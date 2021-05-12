@@ -261,7 +261,8 @@
         "new_vote": "New vote",
         "no_back_to_login": "No, back to voting",
         "optional_field": "This field is optional",
-        "options": "Option {{ number }}",
+        "option_n": "Option {{ number }}",
+        "settings": "Settings",
         "paused_vote": "Paused vote",
         "pdf_image_alt": "Pdf image",
         "pdf_link": "PDF link",
@@ -310,7 +311,7 @@
         "you_cant_enter_contact_with_entity": "You can’t enter? Contact with the entity",
         "you_cant_vote_now_on_this_proposal": "You can vote now on this proposal",
         "your_choice": "Your choice",
-        "your_process_is_ready": "Your process is ready",
+        "ready": "Ready",
         "your_vote_has_been_registered": "Your vote has been registered",
         "your_vote_is_set_up": "Your vote is set up",
         "your_vote_process_is_being_created": "Your voting process being created"
