@@ -33,7 +33,7 @@
         "lorem_ipsum": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
         "manage_your_community_and_schedule_new_votes": "Manage your community and schedule new votes",
         "no_proposals_yet": "No proposals yet!",
-        "process_finished": "Process finished",
+        "process_ended": "Process ended",
         "process_paused": "Process paused",
         "upcoming_votes": "Upcoming votes",
         "vote_results": "Vote results",

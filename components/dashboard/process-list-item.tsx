@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { usePool, ProcessInfo } from '@vocdoni/react-hooks'
-import { GatewayPool } from 'dvote-js'
+import { ProcessInfo, useBlockStatus } from '@vocdoni/react-hooks'
+import { VotingApi } from 'dvote-js'
 
-import { localizedEndTimeDiff } from '@lib/date'
+import { DateDiffType, localizedStrDateDiff } from '@lib/date'
 import { VoteStatus } from '@lib/util'
 
 import i18n from '@i18n'
@@ -28,27 +28,29 @@ export const DashboardProcessListItem = ({
   entityLogo
 }: IDashboardProcessListItemProps) => {
   const [endDate, setEndDate] = useState<string>('')
-  const { poolPromise } = usePool()
+  const { blockStatus } = useBlockStatus()
 
   useEffect(() => {
-    poolPromise.then(async (pool: GatewayPool) => {
-      switch (status) {
-        case VoteStatus.Active:
-          const remainDays = await localizedEndTimeDiff(process, pool)
+    switch (status) {
+      case VoteStatus.Active:
+        const endDate = VotingApi.estimateDateAtBlockSync(
+          process.parameters.startBlock + process.parameters.blockCount,
+          blockStatus
+        )
+        const timeLeft = localizedStrDateDiff(DateDiffType.End, endDate)
+        setEndDate(timeLeft)
+        break
 
-          setEndDate(remainDays)
-          break
+      case VoteStatus.Ended:
+        setEndDate(i18n.t('dashboard.process_ended'))
+        break
 
-        case VoteStatus.Ended:
-          setEndDate(i18n.t('dashboard.process_finished'))
-          break
+      case VoteStatus.Paused:
+        setEndDate(i18n.t('dashboard.process_paused'))
+        break
+    }
 
-        case VoteStatus.Paused:
-          setEndDate(i18n.t('dashboard.process_paused'))
-          break
-      }
-    })
-  }, [poolPromise])
+  }, [blockStatus])
 
   return (
     <VoteItemWrapper>

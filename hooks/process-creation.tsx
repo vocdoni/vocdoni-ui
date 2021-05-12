@@ -1,5 +1,5 @@
 /* eslint-disable react/react-in-jsx-scope */
-import { usePool } from '@vocdoni/react-hooks'
+import { useBlockAtDate, useBlockStatus, usePool } from '@vocdoni/react-hooks'
 import {
   CensusOffChainApi,
   CensusOffchainDigestType,
@@ -107,6 +107,7 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
   const [startDate, setStartDate] = useState<Date>()
   const [endDate, setEndDate] = useState<Date>()
   const { wallet } = useWallet()
+  const { blockStatus } = useBlockStatus()
   const { pool, poolPromise } = usePool()
 
   // STEPPER OPERATIONS
@@ -182,8 +183,7 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
       return Promise.reject({ error: i18n.t('errors.process.the_vote_cannot_end_before_the_start') })
 
     if (!startRightAway) {
-      const pool = await poolPromise
-      let localStartDate = await VotingApi.estimateDateAtBlock(parameters.startBlock, pool)
+      const localStartDate = VotingApi.estimateDateAtBlockSync(parameters.startBlock, blockStatus)
 
       if (Math.abs(moment(localStartDate).diff(moment.now(), 'minute')) > 8) {
         return Promise.reject({ error: i18n.t('errors.process.invalid_start_date') })
@@ -200,12 +200,11 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
       .then((p) => {
         pool = p
 
-        if (!startRightAway) return parameters.startBlock
-
         // startBlock => now + 7 min
-        return VotingApi.estimateBlockAtDateTime(new Date(Date.now() + 1000 * 60 * 7), pool)
-      })
-      .then(startBlock => {
+        const startBlock = startRightAway ?
+          VotingApi.estimateBlockAtDateTimeSync(new Date(Date.now() + 1000 * 60 * 7), blockStatus)
+          : parameters.startBlock
+
         // ProcessContractParameters !== INewProcessParams
         // parameters.metadata = metadata
         // Set proper maxValue and maxCount
@@ -241,7 +240,7 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
         return VotingApi.newProcess(finalParams, wallet, pool)
       }).then(processId => {
         setProcessId(processId)
-        console.log("process created with id: ", processId)
+        // console.log("process created with id: ", processId)
         return {
           waitNext: true,
         }
@@ -288,9 +287,9 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
 
   // Callbacks
 
-  const updateDateRange = async () => {
-    const startBlock = await VotingApi.estimateBlockAtDateTime(startDate, pool)
-    const endBlock = await VotingApi.estimateBlockAtDateTime(endDate, pool)
+  const updateDateRange = () => {
+    const startBlock = VotingApi.estimateBlockAtDateTimeSync(startDate, blockStatus)
+    const endBlock = VotingApi.estimateBlockAtDateTimeSync(endDate, blockStatus)
     const blockCount = endBlock - startBlock
 
     paramsMethods.setStartBlock(startBlock)
@@ -299,7 +298,7 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
 
   useEffect(() => {
     updateDateRange()
-  }, [startDate, endDate])
+  }, [startDate, endDate, blockStatus])
 
   const creationStepFuncs = [
     stepEnsureMedia,

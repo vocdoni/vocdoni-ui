@@ -1,21 +1,8 @@
-import { GatewayPool, VotingApi } from "dvote-js"
 import i18n from "../i18n"
-import { ProcessInfo } from '@vocdoni/react-hooks'
 
 export enum DateDiffType {
   Start = 'start-date',
   End = 'end-date'
-}
-
-export const localizedEndTimeDiff = async (
-  process: ProcessInfo,
-  pool: GatewayPool
-): Promise<string> => {
-  const endDate = await VotingApi.estimateDateAtBlock(
-    process.parameters.startBlock + process.parameters.blockCount,
-    pool
-  )
-  return localizedStrDateDiff(DateDiffType.End, endDate)
 }
 
 export function localizedStrDateDiff(type: DateDiffType, target: Date): string {
