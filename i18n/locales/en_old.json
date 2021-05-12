@@ -17,8 +17,7 @@
     "errors": {
         "choose_passphrase_and_repeat_it": "Choose a passphrase and repeat it",
         "passphrases_do_not_match": "The passphrase does not match",
-        "internal_error_please_log_in_again": "",
-        "the_recovery_could_not_be_completed": ""
+        "internal_error_please_log_in_again": ""
     },
     "vote": {
         "vote_details": "",
@@ -81,6 +80,7 @@
         "drag_a_vocdoni_backup_file": "Drag the Vocdoni credentials here"
     },
     "recover": {
-        "credentials_explanation": "The first row of the spreadsheet will be used as the name of the fields that voters will be prompted for. These fields are case insensitive, blank spaces will be ignored and diacritics will be transformed into plain letters."
+        "credentials_explanation": "The first row of the spreadsheet will be used as the name of the fields that voters will be prompted for. These fields are case insensitive, blank spaces will be ignored and diacritics will be transformed into plain letters.",
+        "recover_question": "Recover question {{ number }}"
     }
 }

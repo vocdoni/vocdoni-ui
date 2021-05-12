@@ -178,7 +178,6 @@
         "support": ""
     },
     "recover": {
-        "credentials_explanation": "",
         "continue": "",
         "drag_a_vocdoni_backup_file": "",
         "drag_the_file_that_you_download_when_you_downloaded_your_account_backup": "",
@@ -186,11 +185,9 @@
         "i_acknowledge_passphrase_implications": "",
         "invalid_recover_questions": "",
         "new_passphrase": "",
-        "recover_question": "",
         "repeat_a_new_passphrase": "",
         "reset_passphrase": "",
         "reset_your_passphrase": "",
-        "select_the_backup_file_of_your_account": "",
         "select_other_file": "",
         "select_the_backup_file": "",
         "your_account_has_been_recovered_successfully": ""
@@ -251,6 +248,7 @@
         "enter_the_details_of_the_proposal": "",
         "entity_logo_alt": "",
         "forum_link": "",
+        "forum_link_explanation": "",
         "forum_link_label": "",
         "go_back_to_home_page": "",
         "header": "",
@@ -267,6 +265,7 @@
         "paused_vote": "",
         "pdf_image_alt": "",
         "pdf_link": "",
+        "pdf_link_explanation": "",
         "pdf_link_label": "",
         "please_wait": "",
         "plus_icon_alt": "",
@@ -285,6 +284,7 @@
         "start_on_a_specific_date": "",
         "start_right_away_7_minutes_from_now": "",
         "stream_link": "",
+        "stream_link_explanation": "",
         "stream_link_label": "",
         "submit_my_vote": "",
         "supported_formats_csv_xls_and_ods": "",

@@ -38,8 +38,7 @@
         "go_to_dashboard": ""
     },
     "errors": {
-        "internal_error_please_log_in_again": "",
-        "the_recovery_could_not_be_completed": ""
+        "internal_error_please_log_in_again": ""
     },
     "import": {
         "error_importing_account": "",
@@ -48,6 +47,7 @@
     },
     "recover": {
         "credentials_explanation": "",
-        "select_the_backup_file_of_your_account": ""
+        "select_the_backup_file_of_your_account": "",
+        "recover_question": ""
     }
 }
