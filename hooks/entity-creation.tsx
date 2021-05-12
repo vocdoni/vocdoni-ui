@@ -1,6 +1,6 @@
 import { usePool } from '@vocdoni/react-hooks'
 import { ensHashAddress, EntityApi, EntityMetadata, EntityMetadataTemplate, GatewayPool, Symmetric, TextRecordKeys } from 'dvote-js'
-import { createContext, ReactNode, useContext, useMemo, useState } from 'react'
+import { createContext, ReactNode, useContext, useEffect, useMemo, useState } from 'react'
 import { useBackend } from './backend'
 import { waitForGas } from "../lib/api"
 import { useDbAccounts } from './use-db-accounts'
@@ -12,6 +12,7 @@ import { uploadFileToIpfs } from '../lib/file'
 import i18n from '../i18n'
 import { StepperFunc } from '../lib/types'
 import { useStepper } from './use-stepper'
+import { useMessageAlert } from './message-alert'
 
 export interface EntityCreationContext {
   pageStep: EntityCreationPageSteps,
@@ -93,12 +94,40 @@ export const UseEntityCreationProvider = ({ children }: { children: ReactNode })
   const [headerUrl, setHeaderUrl] = useState<string>("")
   const [headerFile, setHeaderFile] = useState<File>()
   const [terms, setTerms] = useState<boolean>(false)
+  const { setAlertMessage } = useMessageAlert()
 
   // UI STATE
   const { wallet, setWallet } = useWallet()
   const { dbAccounts, addDbAccount, updateAccount } = useDbAccounts()
   const { poolPromise } = usePool()
   const { bkPromise } = useBackend()
+
+  // Detect if there was an ongoing account creation and resume if so
+  useEffect(() => {
+    if (!wallet || !dbAccounts?.length) return
+
+    const account = dbAccounts.find(acc => acc.address.toLowerCase() == wallet.address.toLowerCase())
+    if (!account?.pending?.metadata || !account?.pending?.email) return
+
+    setEmail(account.pending.email)
+    setName(account.pending.metadata.name.default)
+    setDescription(account.pending.metadata.description.default)
+    setLogoUrl(account.pending.metadata.media.avatar)
+    setHeaderUrl(account.pending.metadata.media.header)
+    setTerms(true)
+
+    // Skip the metadata screen
+    setPageStep(EntityCreationPageSteps.CREDENTIALS)
+
+    // Bypass the wallet creation steps, since we already have one
+    const idx = creationStepFuncs.indexOf(ensureAccount)
+    if (idx < 0) return console.error("INTERNAL ERROR: ensureAccount not found")
+    forceActionStep(idx)
+
+    const str = i18n.t("warning.the_creation_of_your_entity_is_not_complete") + ". " +
+      i18n.t("warning.please_enter_your_passphrase_to_retry_it")
+    setAlertMessage(str)
+  }, [])
 
   // UTIL
 
@@ -240,13 +269,11 @@ export const UseEntityCreationProvider = ({ children }: { children: ReactNode })
       throw new Error(i18n.t("errors.cannot_connect_to_vocdoni"))
     }
 
-    try {
-      await waitForGas(wallet.address, wallet.provider)
-    }
-    catch (err) {
-      console.error(err)
-      throw new Error(i18n.t("errors.cannot_receive_credit_for_the_new_account"))
-    }
+    return waitForGas(wallet.address, wallet.provider)
+      .catch(err => {
+        console.error(err)
+        throw new Error(i18n.t("errors.cannot_receive_credit_for_the_new_account"))
+      })
   }
 
   // (helper of ensureEntityCreation)
@@ -294,7 +321,7 @@ export const UseEntityCreationProvider = ({ children }: { children: ReactNode })
   const creationStepFuncs = [ensureNullWallet, ensureWallet, ensureAccount, ensureEntityCreation]
 
   const creationStepper = useStepper<EntityCreationPageSteps>(creationStepFuncs, EntityCreationPageSteps.METADATA)
-  const { pageStep, actionStep, pleaseWait, creationError, setPageStep, doMainActionSteps } = creationStepper
+  const { pageStep, actionStep, pleaseWait, creationError, setPageStep, forceActionStep, doMainActionSteps } = creationStepper
 
   // RETURN VALUES
   const value: EntityCreationContext = {
