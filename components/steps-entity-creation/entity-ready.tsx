@@ -35,7 +35,7 @@ export const EntityReady = () => {
       <FlexContainer justify={FlexJustifyContent.Center}>
         <ButtonContainer>
           <Button large color={colors.accent1} href={DASHBOARD_PATH}>
-            {i18n.t('entity.got_to_the_dashboard')}
+            {i18n.t('entity.go_to_the_dashboard')}
           </Button>
         </ButtonContainer>
 

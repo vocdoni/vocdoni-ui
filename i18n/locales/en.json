@@ -89,7 +89,7 @@
         "details": "Details",
         "email": "Contact e-mail",
         "entity_details": "Entity details",
-        "got_to_the_dashboard": "Go to the dashboard",
+        "go_to_the_dashboard": "Go to the dashboard",
         "header": "Entity header",
         "i_have_read_and_accept_the_privacy_policy_and_the_terms_of_service": "I have read and accept the Privacy Policy and the Terms of Service",
         "logo": "Entity logo",
@@ -106,19 +106,22 @@
         "your_company_was_created_successfully_no_you_cant_create_a_new_amg_proposal": "Your company was created successfully. Now you can create a new AGM proposal"
     },
     "error": {
-        "invalid_back_up_file_error": "",
+        "invalid_answers_error": "Invalid answers",
+        "invalid_back_up_file_error": "Invalid backup file",
         "invalid_choice_error": "Invalid choice",
         "invalid_description": "The description must contain at least {{ length }} characters",
         "invalid_email_address": "Invalid email address",
         "invalid_entity_name": "The entity name must contain at least {{ length }} characters",
         "invalid_file": "Invalid file",
         "invalid_passphrase_error": "Invalid passphrase",
+        "invalid_passphrase_format_error": "The passphrase must contain at least {{ length }} characters",
         "invalid_question_error": "Invalid question",
         "invalid_question_title": "The tittle must contain at least {{ length }} characters",
         "invalid_title": "The tittle must contain at least {{ length }} characters",
         "invalid_url": "Invalid URL",
         "process_already_ended": "Process already ended",
         "process_cannot_be_canceled": "Process cannot be canceled",
+        "the_passphrase_dont_match": "The passphrase don't match",
         "the_therms_must_be_checked": "Terms and conditions must be checked",
         "the_vote_details_are_invalid": "The vote details are invalid",
         "wallet_not_available": "Wallet not available"
@@ -150,7 +153,7 @@
         "hero_title": "A universally verifiable, censorship-resistant and anonymous voting engine"
     },
     "import": {
-        "account_backup_file": "",
+        "account_backup_file": "Account backup file",
         "backup_file": "Backup file",
         "backup_file_explanation": "",
         "confirm_your_passphrase": "Enter the passphrase that you used when you created the account",
@@ -175,12 +178,20 @@
         "support": "Support"
     },
     "recover": {
-        "credentials_explanation": "",
-        "enter_a_new_passphrase": "",
-        "i_acknowledge_passphrase_implications": "",
-        "reset_passphrase": "",
-        "reset_your_passphrase": "",
-        "select_the_backup_file_of_your_account": ""
+        "continue": "Continue",
+        "drag_a_vocdoni_backup_file": "Drag the Vocdoni credentials here",
+        "drag_the_file_that_you_download_when_you_downloaded_your_account_backup": "Drag the file that you downloaded when you downloaded your account backup",
+        "enter_a_new_passphrase": "Enter a new passphrase",
+        "i_acknowledge_passphrase_implications": "I acknowledge that the passphrase is required to manage my Entity and that failure to keep access to it can prevent the ability to manage it in the future",
+        "invalid_recover_questions": "Invalid recover questions",
+        "new_passphrase": "New passphrase",
+        "recover_question": "Recover question {{ number }}",
+        "repeat_a_new_passphrase": "Repeat new passphrase",
+        "reset_passphrase": "Password reset",
+        "reset_your_passphrase": "Reset your passphrase",
+        "select_other_file": "Select other file",
+        "select_the_backup_file": "Select the backup file",
+        "your_account_has_been_recovered_successfully": "Your account has been recovered successfully"
     },
     "sign_in": {
         "additional_entities": "Additional entities",

@@ -13,15 +13,17 @@ const containerStyles = {
 
 interface IBackupFileSelector {
   onBackupLoad: (backup: Uint8Array) => void
+  onCleanFile?: () => void
 }
 
-export const BackupFileSelector = ({ onBackupLoad }: IBackupFileSelector) => {
+export const BackupFileSelector = ({ onBackupLoad, onCleanFile }: IBackupFileSelector) => {
   const [invalidFileType, setInvalidFileType] = useState<string | null>()
 
   const handleChange = async (files: FileList) => {
     const file = files[0]
 
     if (!file) {
+      onCleanFile()
       return setInvalidFileType(null)
     }
 

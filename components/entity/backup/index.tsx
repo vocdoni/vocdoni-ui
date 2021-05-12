@@ -29,30 +29,9 @@ import { Checkbox } from '@components/checkbox'
 import { Label } from '@components/label'
 
 import { AccountBackupPageCard } from '../components/page-card'
+import { ALL_RECOVER_QUESTIONS } from '../const/questions-list'
 
 const QUESTION_COUNT = 3
-const allRecoveryQuestions = [
-  {
-    label: i18n.t('backup.STUFFED_TOY'),
-    value: WalletBackup_Recovery_QuestionEnum.STUFFED_TOY,
-  },
-  {
-    label: i18n.t('backup.FAVORITE_TEACHER'),
-    value: WalletBackup_Recovery_QuestionEnum.FAVORITE_TEACHER,
-  },
-  {
-    label: i18n.t('backup.DRIVING_INSTRUCTOR'),
-    value: WalletBackup_Recovery_QuestionEnum.DRIVING_INSTRUCTOR,
-  },
-  {
-    label: i18n.t('backup.FIRST_KISSED'),
-    value: WalletBackup_Recovery_QuestionEnum.FIRST_KISSED,
-  },
-  {
-    label: i18n.t('backup.CHILDHOOD_NICKNAME'),
-    value: WalletBackup_Recovery_QuestionEnum.CHILDHOOD_NICKNAME,
-  },
-]
 
 interface AccountBackupViewProps {
   account: Account
@@ -75,7 +54,7 @@ export const AccountBackupView = ({
       else if (
         typeof questionIndexes[i] != 'number' ||
         questionIndexes[i] < 0 ||
-        questionIndexes[i] >= allRecoveryQuestions.length
+        questionIndexes[i] >= ALL_RECOVER_QUESTIONS.length
       )
         return false
       return true
@@ -151,12 +130,12 @@ export const AccountBackupView = ({
         <Column>
           <MaxWidth width={600}>
             {new Array(QUESTION_COUNT).fill(0).map((_, qIdx) => {
-              const availableIdxs = allRecoveryQuestions.map(() => true)
+              const availableIdxs = ALL_RECOVER_QUESTIONS.map(() => true)
               // Mark the indexes for questions already being used
               questionIndexes.forEach((i) => {
                 if (i >= 0) availableIdxs[i] = false
               })
-              const availableQuestions = allRecoveryQuestions.filter(
+              const availableQuestions = ALL_RECOVER_QUESTIONS.filter(
                 (q, idx) => availableIdxs[idx]
               )
 

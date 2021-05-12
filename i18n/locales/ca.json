@@ -89,7 +89,7 @@
         "details": "",
         "email": "",
         "entity_details": "",
-        "got_to_the_dashboard": "",
+        "go_to_the_dashboard": "",
         "header": "",
         "i_have_read_and_accept_the_privacy_policy_and_the_terms_of_service": "",
         "logo": "",
@@ -106,6 +106,7 @@
         "your_company_was_created_successfully_no_you_cant_create_a_new_amg_proposal": ""
     },
     "error": {
+        "invalid_answers_error": "",
         "invalid_back_up_file_error": "",
         "invalid_choice_error": "",
         "invalid_description": "",
@@ -113,12 +114,14 @@
         "invalid_entity_name": "",
         "invalid_file": "",
         "invalid_passphrase_error": "",
+        "invalid_passphrase_format_error": "",
         "invalid_question_error": "",
         "invalid_question_title": "",
         "invalid_title": "",
         "invalid_url": "",
         "process_already_ended": "",
         "process_cannot_be_canceled": "",
+        "the_passphrase_dont_match": "",
         "the_therms_must_be_checked": "",
         "the_vote_details_are_invalid": "",
         "wallet_not_available": ""
@@ -176,11 +179,21 @@
     },
     "recover": {
         "credentials_explanation": "",
+        "continue": "",
+        "drag_a_vocdoni_backup_file": "",
+        "drag_the_file_that_you_download_when_you_downloaded_your_account_backup": "",
         "enter_a_new_passphrase": "",
         "i_acknowledge_passphrase_implications": "",
+        "invalid_recover_questions": "",
+        "new_passphrase": "",
+        "recover_question": "",
+        "repeat_a_new_passphrase": "",
         "reset_passphrase": "",
         "reset_your_passphrase": "",
-        "select_the_backup_file_of_your_account": ""
+        "select_the_backup_file_of_your_account": "",
+        "select_other_file": "",
+        "select_the_backup_file": "",
+        "your_account_has_been_recovered_successfully": ""
     },
     "sign_in": {
         "additional_entities": "",

@@ -128,6 +128,7 @@ export const FileLoaderFormGroup = ({
 const InputTitle = styled(SectionTitle)`
   font-size: 26px;
   font-weight: 400;
+  color: ${({ theme }) => theme.blueText};
 `
 
 const InputLabel = styled.label`
