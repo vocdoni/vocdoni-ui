@@ -12,9 +12,12 @@ import { colors } from 'theme/colors'
 
 import { useDbAccounts } from '@hooks/use-db-accounts'
 import { useWallet, WalletRoles } from '@hooks/use-wallet'
+import { useMessageAlert } from '@hooks/message-alert'
 
 import { InvalidAnswersError } from '@lib/validators/errors/invalid-answers-error'
 import { passphraseValidator } from '@lib/validators/passphrase-validator'
+import { PassphraseNoMatchError } from '@lib/validators/errors/passphrase-no-match-error'
+import { InvalidPassphraseFormatError } from '@lib/validators/errors/invalid-passphrase-format-error'
 
 import {
   FlexAlignItem,
@@ -23,16 +26,12 @@ import {
 } from '@components/flex'
 import { FormGroupVariant, InputFormGroup } from '@components/form'
 import { Label } from '@components/label'
+import { SectionText, TextSize } from '@components/text'
 import { Checkbox } from '@components/checkbox'
 import { Button } from '@components/button'
 
 import { ALL_RECOVER_QUESTIONS } from '../const/questions-list'
 import { AccountBackupPageCard } from '../components/page-card'
-import { InvalidPassphraseError } from '@lib/validators/errors/invalid-passphrase-error'
-import { PassphraseNoMatchError } from '@lib/validators/errors/passphrase-no-match-error'
-import { SectionText, TextSize } from '@components/text'
-import { InvalidPassphraseFormatError } from '@lib/validators/errors/invalid-passphrase-format-error'
-import { useMessageAlert } from '@hooks/message-alert'
 
 interface IQuestionsFormViewProps {
   accountBackup: WalletBackup
@@ -133,7 +132,6 @@ export const QuestionsFormView = ({
 
       onRestoreBackup()
     } catch (err) {
-      console.log(err instanceof PassphraseNoMatchError)
       if (
         err instanceof InvalidPassphraseFormatError ||
         err instanceof PassphraseNoMatchError
