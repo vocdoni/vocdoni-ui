@@ -60,7 +60,7 @@ export const FormCreation = () => {
           <Then>
             <BottomDiv>
               <Button href={DASHBOARD_PATH}>
-                {i18n.t('action.go_to_dashboard')}
+                {i18n.t('action.go_to_the_dashboard')}
               </Button>
               <Button href={CREATE_PROCESS_PATH} positive>
                 {i18n.t('action.create_new_proposal')}

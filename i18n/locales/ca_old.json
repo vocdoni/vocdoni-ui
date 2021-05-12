@@ -30,17 +30,24 @@
         "enter_the_details_of_the_entity": "",
         "invalid_file_type": "",
         "invalid_xls_file": "",
-        "supported_formats_bak": ""
+        "supported_formats_bak": "",
+        "go_to_dashboard": ""
     },
     "action": {
         "create_new_proposal": "",
         "go_to_dashboard": ""
     },
     "errors": {
-        "internal_error_please_log_in_again": ""
+        "internal_error_please_log_in_again": "",
+        "the_recovery_could_not_be_completed": ""
     },
     "import": {
+        "error_importing_account": "",
         "credentials_explanation": "",
-        "error_importing_account": ""
+        "drag_a_vocdoni_backup_file": ""
+    },
+    "recover": {
+        "credentials_explanation": "",
+        "select_the_backup_file_of_your_account": ""
     }
 }

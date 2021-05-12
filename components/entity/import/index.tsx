@@ -22,12 +22,12 @@ import {
 import { colors } from 'theme/colors'
 import { Checkbox } from '@components/checkbox'
 import { Label } from '@components/label'
-// import { InvalidPassphraseError } from '@lib/validators/errors/invalid-passphrase-error'
-import { FormGroup, InputFormGroup } from '@components/form'
+import { InputFormGroup } from '@components/form'
 import { Wallet } from 'ethers'
 import { useRouter } from 'next/router'
 import { ACCOUNT_RECOVER, DASHBOARD_PATH } from '@const/routes'
 import Link from 'next/link'
+import { InvalidPassphraseError } from '@lib/validators/errors/invalid-passphrase-error'
 
 interface IAccountImportViewProps {
   onImportedAccount: () => void

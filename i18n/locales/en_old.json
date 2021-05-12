@@ -17,7 +17,8 @@
     "errors": {
         "choose_passphrase_and_repeat_it": "Choose a passphrase and repeat it",
         "passphrases_do_not_match": "The passphrase does not match",
-        "internal_error_please_log_in_again": ""
+        "internal_error_please_log_in_again": "",
+        "the_recovery_could_not_be_completed": ""
     },
     "vote": {
         "vote_details": "",
@@ -53,7 +54,8 @@
         "enter_the_details_of_the_entity": "Enter the details of a new entity",
         "invalid_file_type": "",
         "invalid_xls_file": "",
-        "supported_formats_bak": "Supported formats backup"
+        "supported_formats_bak": "Supported formats backup",
+        "go_to_dashboard": "Go to th"
     },
     "this_is_the_form_that_your_community_will_need_to_fill_in_order_to_vote": "",
     "process": {
@@ -74,7 +76,11 @@
         "go_to_dashboard": "Go to the Dashboard"
     },
     "import": {
+        "error_importing_account": "Error importing account",
         "credentials_explanation": "The first row of the spreadsheet will be used as the name of the fields that voters will be prompted for. These fields are case insensitive, blank spaces will be ignored and diacritics will be transformed into plain letters.",
-        "error_importing_account": "Error importing account"
+        "drag_a_vocdoni_backup_file": "Drag the Vocdoni credentials here"
+    },
+    "recover": {
+        "credentials_explanation": "The first row of the spreadsheet will be used as the name of the fields that voters will be prompted for. These fields are case insensitive, blank spaces will be ignored and diacritics will be transformed into plain letters."
     }
 }

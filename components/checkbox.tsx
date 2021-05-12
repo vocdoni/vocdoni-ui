@@ -16,5 +16,6 @@ export const Checkbox = ({ id, checked, onChange }: ICheckboxProps) => (
 
 const CheckboxContainer = styled.div`
   flex-shrink: 0;
-  margin-right: 10px;
+  margin-right: 4px;
+  margin-top: 6px;
 `
