@@ -1,4 +1,4 @@
-import { ProcessInfo, usePool } from '@vocdoni/react-hooks'
+import { ProcessInfo, usePool, useBlockHeight } from '@vocdoni/react-hooks'
 import { CensusOffChainApi, DigestedProcessResults, ProcessStatus, VotingApi, CensusOffchainDigestType } from 'dvote-js'
 import { createContext, ReactNode, useContext, useEffect, useMemo, useState } from 'react'
 
@@ -11,7 +11,6 @@ import { useMessageAlert } from './message-alert'
 import { areAllNumbers, waitBlockFraction } from '../lib/util'
 import { useProcessWrapper } from '@hooks/use-process-wrapper'
 import { MetadataFields } from '@components/steps-new-vote/metadata'
-import { useBlockHeight } from '@vocdoni/react-hooks'
 
 export interface VotingContext {
   pleaseWait: boolean,

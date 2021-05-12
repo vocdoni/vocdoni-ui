@@ -1,1 +1,1 @@
-export const FALLBACK_ACCOUNT_ICON = "/images/account/fallback-account-logo.svg"
+export const FALLBACK_ACCOUNT_ICON = "/images/account/fallback-account-logo.png"

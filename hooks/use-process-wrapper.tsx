@@ -1,12 +1,11 @@
-import { ProcessInfo, usePool, useProcess} from '@vocdoni/react-hooks'
+import { ProcessInfo, usePool, useProcess, useBlockHeight, useDateAtBlock } from '@vocdoni/react-hooks'
 import { DigestedProcessResults, ProcessStatus, VotingApi } from 'dvote-js'
-import { createContext, ReactNode, useContext, useEffect, useState } from 'react'
+import { createContext, ReactNode, useEffect, useState } from 'react'
 
 import i18n from '../i18n'
 // import { useUrlHash } from 'use-url-hash'
 import { useMessageAlert } from './message-alert'
 import { DateDiffType, localizedStrDateDiff } from '../lib/date'
-import { useBlockHeight } from '@vocdoni/react-hooks'
 
 export interface ProcessWrapperContext {
   loadingInfo: boolean,
@@ -37,50 +36,21 @@ export const useProcessWrapper = (processId: string) => {
   const { setAlertMessage } = useMessageAlert()
   const { blockHeight } = useBlockHeight()
   const { loading: loadingInfo, error: loadingInfoError, process: processInfo } = useProcess(processId)
-  const [startDate, setStartDate] = useState(null as Date)
-  const [endDate, setEndDate] = useState(null as Date)
   const [results, setResults] = useState(null as DigestedProcessResults)
 
-  // Effects
+  const startBlock = processInfo?.parameters?.startBlock || 0
+  const endBlock = startBlock + (processInfo?.parameters?.blockCount || 0)
+  const { date: startDate, loading: dateLoading, error: dateError } = useDateAtBlock(startBlock)
+  const { date: endDate } = useDateAtBlock(endBlock)
 
+  // Effects
 
   // Vote results
   useEffect(() => {
     updateResults()
   }, [processId, blockHeight])
 
-
-  // Dates
-  useEffect(() => {
-    updateDates()
-  }, [processInfo?.parameters?.startBlock, blockHeight])
-
   // Loaders
-
-  const updateDates = () => {
-    if (!processInfo?.parameters?.startBlock) return
-
-    return poolPromise
-      .then((pool) =>
-        Promise.all([
-          VotingApi.estimateDateAtBlock(
-            processInfo.parameters.startBlock,
-            pool
-          ),
-          VotingApi.estimateDateAtBlock(
-            processInfo.parameters.startBlock + processInfo.parameters.blockCount,
-            pool
-          ),
-        ])
-      )
-      .then(([startDate, endDate]) => {
-        setStartDate(startDate)
-        setEndDate(endDate)
-      })
-      .catch((err) => {
-        console.error(err)
-      })
-  }
 
   const updateResults = () => {
     if (!processId || invalidProcessId) return
@@ -96,7 +66,7 @@ export const useProcessWrapper = (processId: string) => {
   const hasEnded = endDate && endDate.getTime() < Date.now()
 
 
-  const remainingTime = startDate
+  const remainingTime = (startBlock && startDate)
     ? hasStarted
       ? localizedStrDateDiff(DateDiffType.End, endDate)
       : localizedStrDateDiff(DateDiffType.Start, startDate)
@@ -136,7 +106,7 @@ export const useProcessWrapper = (processId: string) => {
   }
 }
 
-export const UseProcessWrapperProvider = ({ processId,children }: { processId: string, children: ReactNode}) => {
+export const UseProcessWrapperProvider = ({ processId, children }: { processId: string, children: ReactNode }) => {
   const value = useProcessWrapper(processId)
   return (
     <UseProcessWrapperContext.Provider value={value}>

@@ -7,7 +7,7 @@ export enum DateDiffType {
   End = 'end-date'
 }
 
-export const getDaysUntilEnd = async (
+export const localizedEndTimeDiff = async (
   process: ProcessInfo,
   pool: GatewayPool
 ): Promise<string> => {

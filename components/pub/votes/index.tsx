@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { useEntity } from '@vocdoni/react-hooks'
+import { useEntity, useBlockHeight } from '@vocdoni/react-hooks'
 
 import i18n from '@i18n'
 
@@ -22,7 +22,6 @@ import { VoteDescription } from '@components/common/vote-description'
 import { VoteNowCard } from './components/vote-now-card'
 import { ConfirmModal } from './components/confirm-modal'
 import { VoteRegisteredCard } from './components/vote-registered-card'
-import { useBlockHeight } from '@vocdoni/react-hooks'
 import { VoteStatus, getVoteStatus } from '@lib/util'
 
 export const VotingPageView = () => {

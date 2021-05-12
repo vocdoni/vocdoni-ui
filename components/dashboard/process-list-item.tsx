@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { usePool, ProcessInfo } from '@vocdoni/react-hooks'
 import { GatewayPool } from 'dvote-js'
 
-import { getDaysUntilEnd } from '@lib/date'
+import { localizedEndTimeDiff } from '@lib/date'
 import { VoteStatus } from '@lib/util'
 
 import i18n from '@i18n'
@@ -34,7 +34,7 @@ export const DashboardProcessListItem = ({
     poolPromise.then(async (pool: GatewayPool) => {
       switch (status) {
         case VoteStatus.Active:
-          const remainDays = await getDaysUntilEnd(process, pool)
+          const remainDays = await localizedEndTimeDiff(process, pool)
 
           setEndDate(remainDays)
           break

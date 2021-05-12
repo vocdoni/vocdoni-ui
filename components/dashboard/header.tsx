@@ -36,7 +36,7 @@ export const DashboardHeader = ({ entity, hasBackup }: IDashboardHeaderProps) =>
   const accountImage = (
     <ImageContainer width="50px" height="70px">
       <Image
-        src={entity?.media.avatar || FALLBACK_ACCOUNT_ICON}
+        src={entity?.media?.avatar || FALLBACK_ACCOUNT_ICON}
         alt={i18n.t('dashboard.company_logo')}
       />
     </ImageContainer>
@@ -53,7 +53,7 @@ export const DashboardHeader = ({ entity, hasBackup }: IDashboardHeaderProps) =>
   return (
     <Grid>
       <Banner
-        title={entity?.name.default}
+        title={entity?.name?.default || "(" + i18n.t("dashboard.no_entity") + ")"}
         subtitle={i18n.t(
           'dashboard.manage_your_community_and_schedule_new_votes'
         )}

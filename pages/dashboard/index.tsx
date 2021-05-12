@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { ProcessInfo, useEntity } from '@vocdoni/react-hooks'
+import { ProcessInfo, useEntity, useBlockHeight } from '@vocdoni/react-hooks'
 
 import {
   DashboardActivitySummary,
@@ -12,7 +12,6 @@ import { Account } from '../../lib/types'
 import { useDbAccounts } from '../../hooks/use-db-accounts'
 import { useWallet } from '../../hooks/use-wallet'
 import { useProcessesFromAccount } from '../../hooks/use-processes'
-import { useBlockHeight } from '@vocdoni/react-hooks'
 
 const DashboardPage = () => {
   const [activeVotes, setActiveVotes] = useState<ProcessInfo[]>([])

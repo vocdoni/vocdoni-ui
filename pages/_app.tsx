@@ -3,7 +3,7 @@ import { NextComponentType, NextPageContext } from 'next'
 import { AppInitialProps } from 'next/app'
 import Head from 'next/head'
 import { Router } from 'next/router'
-import { UseEntityProvider, UsePoolProvider, UseProcessProvider } from '@vocdoni/react-hooks'
+import { UseEntityProvider, UsePoolProvider, UseProcessProvider, UseBlockStatusProvider } from '@vocdoni/react-hooks'
 import { EthNetworkID, VocdoniEnvironment } from 'dvote-js'
 import { ThemeProvider } from 'styled-components'
 import 'react-circular-progressbar/dist/styles.css';
@@ -45,20 +45,22 @@ const VocdoniApp: FC<NextAppProps> = ({ Component, pageProps }) => {
                 <UseProcessProvider>
                   <UseVotingProvider>
                     <UseEntityProvider>
-                      <FixedGlobalStyle />
-                      <Head>
-                        <meta
-                          name='viewport'
-                          content='width=device-width, initial-scale=1.0, max-scale=1.0'
-                        />
-                        <title>{appTitle}</title>
-                      </Head>
-                      <Layout>
-                        <Component {...pageProps} />
-                      </Layout>
-                      <div id='commit-sha' style={{ display: 'none' }}>
-                        {commitSHA}
-                      </div>
+                      <UseBlockStatusProvider>
+                        <FixedGlobalStyle />
+                        <Head>
+                          <meta
+                            name='viewport'
+                            content='width=device-width, initial-scale=1.0, max-scale=1.0'
+                          />
+                          <title>{appTitle}</title>
+                        </Head>
+                        <Layout>
+                          <Component {...pageProps} />
+                        </Layout>
+                        <div id='commit-sha' style={{ display: 'none' }}>
+                          {commitSHA}
+                        </div>
+                      </UseBlockStatusProvider>
                     </UseEntityProvider>
                   </UseVotingProvider>
                 </UseProcessProvider>
