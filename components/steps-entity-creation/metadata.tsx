@@ -24,6 +24,7 @@ import { DirtyFields, ErrorFields } from '@lib/validators'
 import { entityMetadataValidator } from './metadata-validator'
 import { Label } from '@components/label'
 import { colors } from 'theme/colors'
+import { useScrollTop } from "@hooks/use-scroll-top"
 
 export enum MetadataFields {
   Name = 'name',
@@ -35,6 +36,7 @@ export enum MetadataFields {
 }
 
 export const FormMetadata = () => {
+  useScrollTop()
   const {
     name,
     description,

@@ -12,8 +12,10 @@ import { SectionText, SectionTitle, TextAlign } from '@components/text'
 import { FlexContainer, FlexJustifyContent } from '@components/flex'
 import { ImageContainer } from '@components/images'
 import { Button } from '@components/button'
+import { useScrollTop } from "@hooks/use-scroll-top"
 
 export const EntityReady = () => {
+  useScrollTop()
   const { processId } = useProcessCreation()
 
   return (
