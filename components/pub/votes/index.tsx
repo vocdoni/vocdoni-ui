@@ -22,7 +22,7 @@ import { VoteDescription } from '@components/common/vote-description'
 import { VoteNowCard } from './components/vote-now-card'
 import { ConfirmModal } from './components/confirm-modal'
 import { VoteRegisteredCard } from './components/vote-registered-card'
-import { useBlockNumber } from '@hooks/use-blocknumber'
+import { useBlockHeight } from '@vocdoni/react-hooks'
 import { VoteStatus, getVoteStatus } from '@lib/util'
 
 export const VotingPageView = () => {
@@ -41,9 +41,9 @@ export const VotingPageView = () => {
 
   const totalVotes = results?.totalVotes || 0
 
-  const { blockNumber } = useBlockNumber()
+  const { blockHeight } = useBlockHeight()
 
-  const voteStatus: VoteStatus = getVoteStatus(processInfo.parameters.status, processInfo.parameters.startBlock, blockNumber)
+  const voteStatus: VoteStatus = getVoteStatus(processInfo.parameters.status, processInfo.parameters.startBlock, blockHeight)
 
   return (
     <>

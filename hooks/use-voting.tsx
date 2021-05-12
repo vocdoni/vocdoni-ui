@@ -11,7 +11,7 @@ import { useMessageAlert } from './message-alert'
 import { areAllNumbers, waitBlockFraction } from '../lib/util'
 import { useProcessWrapper } from '@hooks/use-process-wrapper'
 import { MetadataFields } from '@components/steps-new-vote/metadata'
-import { useBlockNumber } from './use-blocknumber'
+import { useBlockHeight } from '@vocdoni/react-hooks'
 
 export interface VotingContext {
   pleaseWait: boolean,
@@ -73,7 +73,7 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
   } = useProcessWrapper(processId)
   const { wallet } = useWallet({ role: WalletRoles.VOTER })
   const { setAlertMessage } = useMessageAlert()
-  const { blockNumber } = useBlockNumber()
+  const { blockHeight } = useBlockHeight()
   const [nullifier, setNullifier] = useState("")
   const [censusProof, setCensusProof] = useState("")
   const [hasVoted, setHasVoted] = useState(false)
@@ -85,7 +85,7 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
   // Vote status
   useEffect(() => {
     updateEnvelopeStatus()
-  }, [processId, wallet, nullifier, blockNumber])
+  }, [processId, wallet, nullifier, blockHeight])
 
 
   // Census status

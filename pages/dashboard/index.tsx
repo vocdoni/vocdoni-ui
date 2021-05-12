@@ -12,7 +12,7 @@ import { Account } from '../../lib/types'
 import { useDbAccounts } from '../../hooks/use-db-accounts'
 import { useWallet } from '../../hooks/use-wallet'
 import { useProcessesFromAccount } from '../../hooks/use-processes'
-import { useBlockNumber } from '../../hooks/use-blocknumber'
+import { useBlockHeight } from '@vocdoni/react-hooks'
 
 const DashboardPage = () => {
   const [activeVotes, setActiveVotes] = useState<ProcessInfo[]>([])
@@ -21,7 +21,7 @@ const DashboardPage = () => {
 
   const { wallet } = useWallet()
   const { dbAccounts } = useDbAccounts()
-  const { blockNumber } = useBlockNumber()
+  const { blockHeight } = useBlockHeight()
   const { metadata: entityMetadata } = useEntity(wallet?.address)
   // TODO: use loadingProcessList and loadingProcessesDetails to wait until data is loaded
   // TODO: call useProcessesFromAccount(wallet.address) instead of below
@@ -54,8 +54,8 @@ const DashboardPage = () => {
       if (!proc || !proc.parameters) continue
       else if (proc.parameters?.status?.isCanceled) continue
       // ignore
-      else if (proc.parameters?.startBlock > blockNumber) upcoming.push(proc)
-      else if (processEndBlock(proc) < blockNumber) results.push(proc)
+      else if (proc.parameters?.startBlock > blockHeight) upcoming.push(proc)
+      else if (processEndBlock(proc) < blockHeight) results.push(proc)
       else if (
         proc.parameters?.status?.isEnded ||
         proc.parameters?.status?.hasResults

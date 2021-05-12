@@ -25,7 +25,7 @@ import { Label } from '@components/label'
 import { InputFormGroup } from '@components/form'
 import { Wallet } from 'ethers'
 import { useRouter } from 'next/router'
-import { ACCOUNT_RECOVER, DASHBOARD_PATH } from '@const/routes'
+import { ACCOUNT_RECOVER_PATH, DASHBOARD_PATH } from '@const/routes'
 import Link from 'next/link'
 import { InvalidPassphraseError } from '@lib/validators/errors/invalid-passphrase-error'
 
@@ -128,7 +128,7 @@ export const AccountImportView = ({
 
 
           <DescriptionContainer hasError={!!invalidPassphrase}>
-            <Link href={ACCOUNT_RECOVER}>
+            <Link href={ACCOUNT_RECOVER_PATH}>
               {i18n.t('sign_in.forgot_your_password_restore_from_a_backup')}
             </Link>
             <br /><br />

@@ -5,11 +5,8 @@ import { ProcessInfo, usePool } from '@vocdoni/react-hooks'
 import { DigestedProcessResults, VotingApi } from 'dvote-js'
 
 import i18n from '@i18n'
-
 import { colors } from 'theme/colors'
-
 import { VOTING_AUTH_FORM_PATH } from '@const/routes'
-
 import RouterService from '@lib/router'
 import { Question } from '@lib/types'
 
@@ -29,7 +26,7 @@ import { GeneratePdfCard } from './generate-pdf-card'
 import { useWallet, WalletRoles } from '@hooks/use-wallet'
 import { useMessageAlert } from '@hooks/message-alert'
 import { useLoadingAlert } from '@hooks/loading-alert'
-import { useBlockNumber } from '@hooks/use-blocknumber'
+import { useBlockHeight } from '@vocdoni/react-hooks'
 import { getVoteStatus, VoteStatus } from '@lib/util'
 
 interface IProcessDetailProps {
@@ -49,9 +46,9 @@ export const ViewDetail = ({ process, results }: IProcessDetailProps) => {
   })
   const totalVotes = results?.totalVotes || 0
 
-  const { blockNumber } = useBlockNumber()
+  const { blockHeight } = useBlockHeight()
 
-  const status : VoteStatus = getVoteStatus(process.parameters.status, process.parameters.startBlock, blockNumber)
+  const status: VoteStatus = getVoteStatus(process.parameters.status, process.parameters.startBlock, blockHeight)
 
 
   const handleCancelVote = () => {

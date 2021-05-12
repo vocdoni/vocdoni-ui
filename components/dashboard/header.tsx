@@ -1,11 +1,11 @@
 import React from 'react'
 import { EntityMetadata } from 'dvote-js'
-import { If } from 'react-if'
+import { If, Then } from 'react-if'
 
 import i18n from '@i18n'
 
 import { FALLBACK_ACCOUNT_ICON } from '@const/account'
-import { ACCOUNT_BACKUP, CREATE_PROCESS_PATH } from '@const/routes'
+import { ACCOUNT_BACKUP_PATH, CREATE_PROCESS_PATH } from '@const/routes'
 
 import { Banner } from '@components/banners'
 import { Button } from '@components/button'
@@ -26,7 +26,7 @@ export const DashboardHeader = ({ entity, hasBackup }: IDashboardHeaderProps) =>
   )
   const backupButton = (
     <Button
-      href={ACCOUNT_BACKUP}
+      href={ACCOUNT_BACKUP_PATH}
       negative
     >
       {i18n.t('dashboard.create_backup_now')}
@@ -62,15 +62,17 @@ export const DashboardHeader = ({ entity, hasBackup }: IDashboardHeaderProps) =>
       />
 
       <If condition={!hasBackup}>
-        <Banner
-          title={i18n.t('dashboard.your_account_is_unsafe')}
-          subtitle={i18n.t(
-            'dashboard.if_you_lose_access_to_your_passphrase_you_will_not_be_able_to_manage_your_entity_anymore'
-          )}
-          icon={downloadImage}
-          rightButton={backupButton}
-          warning
-        />
+        <Then>
+          <Banner
+            title={i18n.t('dashboard.your_account_is_unsafe')}
+            subtitle={i18n.t(
+              'dashboard.if_you_lose_access_to_your_passphrase_you_will_not_be_able_to_manage_your_entity_anymore'
+            )}
+            icon={downloadImage}
+            rightButton={backupButton}
+            warning
+          />
+        </Then>
       </If>
     </Grid>
   )

@@ -5,7 +5,7 @@ import React, {
   useContext,
   ReactNode
 } from 'react'
-import { DVoteGateway, GatewayPool } from 'dvote-js'
+import { DVoteGateway } from 'dvote-js'
 import { Nullable } from '@vocdoni/react-hooks'
 
 interface BackendContext {

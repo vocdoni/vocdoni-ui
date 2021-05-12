@@ -3,10 +3,10 @@ import { DigestedProcessResults, ProcessStatus, VotingApi } from 'dvote-js'
 import { createContext, ReactNode, useContext, useEffect, useState } from 'react'
 
 import i18n from '../i18n'
-import { useUrlHash } from 'use-url-hash'
+// import { useUrlHash } from 'use-url-hash'
 import { useMessageAlert } from './message-alert'
 import { DateDiffType, localizedStrDateDiff } from '../lib/date'
-import { useBlockNumber } from './use-blocknumber'
+import { useBlockHeight } from '@vocdoni/react-hooks'
 
 export interface ProcessWrapperContext {
   loadingInfo: boolean,
@@ -35,7 +35,7 @@ export const useProcessWrapper = (processId: string) => {
 
   const { poolPromise } = usePool()
   const { setAlertMessage } = useMessageAlert()
-  const { blockNumber } = useBlockNumber()
+  const { blockHeight } = useBlockHeight()
   const { loading: loadingInfo, error: loadingInfoError, process: processInfo } = useProcess(processId)
   const [startDate, setStartDate] = useState(null as Date)
   const [endDate, setEndDate] = useState(null as Date)
@@ -47,13 +47,13 @@ export const useProcessWrapper = (processId: string) => {
   // Vote results
   useEffect(() => {
     updateResults()
-  }, [processId, blockNumber])
+  }, [processId, blockHeight])
 
 
   // Dates
   useEffect(() => {
     updateDates()
-  }, [processInfo?.parameters?.startBlock, blockNumber])
+  }, [processInfo?.parameters?.startBlock, blockHeight])
 
   // Loaders
 
