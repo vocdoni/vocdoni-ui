@@ -1,9 +1,28 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext, createContext, ReactNode } from 'react'
 import { AccountDb } from '../lib/storage'
 import { Account } from "../lib/types"
 import i18n from '../i18n'
 
+export interface DbAccountsContext {
+  dbAccounts: Account[],
+  addDbAccount: (account: Account) => Promise<void>,
+  refreshAccounts: () => Promise<void>,
+  updateAccount: (address: string, account: Account) => Promise<void>,
+  error: string,
+}
+
+export const UseDbAccountsContext = createContext<DbAccountsContext>({ step: 0, methods: {} } as any)
+
 export const useDbAccounts = () => {
+  const dbAccountsCtx = useContext(UseDbAccountsContext)
+
+  if (dbAccountsCtx === null) {
+    throw new Error('useDbAccounts() can only be used on the descendants of <UseDbAccountsProvider />,')
+  }
+  return dbAccountsCtx
+}
+
+export const UseDbAccountsProvider = ({ children }: { children: ReactNode }) => {
   const [dbAccounts, setDbAccounts] = useState<Account[]>([])
   const [error, setError] = useState<string>()
 
@@ -40,5 +59,11 @@ export const useDbAccounts = () => {
       .then(() => refreshAccounts())
   }
 
-  return { dbAccounts, addDbAccount, refreshAccounts, updateAccount, error }
+  const value = { dbAccounts, addDbAccount, refreshAccounts, updateAccount, error }
+
+  return (
+    <UseDbAccountsContext.Provider value={value}>
+      {children}
+    </UseDbAccountsContext.Provider>
+  )
 }

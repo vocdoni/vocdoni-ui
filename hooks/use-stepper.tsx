@@ -60,7 +60,7 @@ export function useStepper<T>(mainActionStepFuncs: StepperFunc[], initialPageSte
     creationError,
     setPageStep,
     resetActionStep: () => setActionStep(0),
-    // setActionStep,
+    forceActionStep: setActionStep,
     // setPleaseWait,
     // setCreationError,
     // cleanError,

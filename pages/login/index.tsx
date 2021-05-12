@@ -12,7 +12,7 @@ import { useDbAccounts } from '../../hooks/use-db-accounts'
 import { useWallet } from '../../hooks/use-wallet'
 import { useMessageAlert } from '../../hooks/message-alert'
 import { useResponsive } from '../../hooks/use-window-size'
-import { DASHBOARD_PATH } from '../../const/routes'
+import { CREATE_ACCOUNT_PATH, DASHBOARD_PATH } from '../../const/routes'
 
 const SignInPage = () => {
   const { dbAccounts } = useDbAccounts()
@@ -25,18 +25,24 @@ const SignInPage = () => {
     false
   )
 
-  const hasAccounts = !!dbAccounts.length
+  const hasAccounts = !!dbAccounts?.length
   const colSmSize = hasAccounts ? 6 : 12
 
   const handlerSubmit = (account: Account, passphrase: string) => {
     setVerifyingCredentials(true)
-    
+
     try {
       restoreEncryptedWallet(
         account.encryptedMnemonic,
         account.hdPath,
         passphrase
       )
+
+      // Did we start creating an account that is not ready yet?
+      if (account?.pending?.creation && account.pending.metadata) {
+        router.push(CREATE_ACCOUNT_PATH)
+        return
+      }
 
       router.push(DASHBOARD_PATH)
     } catch (error) {
