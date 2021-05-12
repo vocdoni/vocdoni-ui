@@ -7,6 +7,8 @@ import { colors } from 'theme/colors'
 
 import { useProcessCreation } from '@hooks/process-creation'
 import { useMessageAlert } from '@hooks/message-alert'
+import { useEntity } from '@vocdoni/react-hooks'
+import { useWallet } from '@hooks/use-wallet'
 
 import { Question } from '@lib/types'
 import { DirtyFields, ErrorFields } from '@lib/validators'
@@ -51,6 +53,8 @@ const createEmptyQuestion = (): Question => ({
 export const FormMetadata = () => {
   const { headerURL, headerFile, metadata, methods } = useProcessCreation()
   const { setAlertMessage } = useMessageAlert()
+  const { wallet } = useWallet()
+  const { metadata: entityMetadata } = useEntity(wallet?.address)
 
   const [showPreviewModal, setShowPreviewModal] = useState<boolean>(false)
   const [dirtyFields, setDirtyField] = useState<DirtyFields>(new Map())
@@ -193,6 +197,7 @@ export const FormMetadata = () => {
             title={i18n.t('vote.pdf_link')}
             label={i18n.t('vote.pdf_link_label')}
             placeholder={i18n.t('vote.pdf_link')}
+            helpText={i18n.t('vote.pdf_link_explanation')}
             id={MetadataFields.AttachmentLink}
             value={metadata.meta[MetadataFields.AttachmentLink]}
             error={getErrorMessage(MetadataFields.AttachmentLink)}
@@ -208,6 +213,7 @@ export const FormMetadata = () => {
             title={i18n.t('vote.forum_link')}
             label={i18n.t('vote.forum_link_label')}
             placeholder={i18n.t('vote.forum_link')}
+            helpText={i18n.t('vote.forum_link_explanation')}
             id={MetadataFields.DiscussionLink}
             value={metadata.meta[MetadataFields.DiscussionLink]}
             error={getErrorMessage(MetadataFields.DiscussionLink)}
@@ -225,6 +231,7 @@ export const FormMetadata = () => {
             title={i18n.t('vote.stream_link')}
             label={i18n.t('vote.stream_link_label')}
             placeholder={i18n.t('vote.stream_link')}
+            helpText={i18n.t('vote.stream_link_explanation')}
             id={MetadataFields.StreamLink}
             value={metadata.media[MetadataFields.StreamLink]}
             error={getErrorMessage(MetadataFields.StreamLink)}
@@ -283,6 +290,8 @@ export const FormMetadata = () => {
       <PreviewModal
         visible={showPreviewModal}
         onClose={handleTogglePreviewModal}
+        entityName={entityMetadata?.name.default}
+        entityLogo={entityMetadata?.media.avatar}
       />
     </>
   )

@@ -14,11 +14,13 @@ import { Question } from '@lib/types'
 import { ProcessStatus } from 'dvote-js'
 
 interface PreviewModalProps {
+  entityName: string
+  entityLogo: string
   visible: boolean
   onClose: () => void
 }
 
-export const PreviewModal = ({visible, onClose}: PreviewModalProps) => {
+export const PreviewModal = ({entityName, entityLogo, visible, onClose}: PreviewModalProps) => {
   const { headerURL, headerFile, metadata, methods } = useProcessCreation()
   const processStatus = new ProcessStatus(ProcessStatus.READY)
   const voteStatus = VoteStatus.Active
@@ -32,7 +34,9 @@ export const PreviewModal = ({visible, onClose}: PreviewModalProps) => {
       <Modal>
         <VotePageHeader
           processTitle={metadata.title.default}
-          entityName="entity name"
+          entityName={entityName}
+          entityImage={entityLogo}
+          processImage={headerURL}
         />
 
         <VoteDescription
