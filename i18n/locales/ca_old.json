@@ -29,7 +29,8 @@
         "your_account_has_been_created": "",
         "enter_the_details_of_the_entity": "",
         "invalid_file_type": "",
-        "invalid_xls_file": ""
+        "invalid_xls_file": "",
+        "supported_formats_bak": ""
     },
     "action": {
         "create_new_proposal": "",
@@ -37,5 +38,9 @@
     },
     "errors": {
         "internal_error_please_log_in_again": ""
+    },
+    "import": {
+        "credentials_explanation": "",
+        "error_importing_account": ""
     }
 }

@@ -52,7 +52,8 @@
         "your_account_has_been_created": "Your account has been created",
         "enter_the_details_of_the_entity": "Enter the details of a new entity",
         "invalid_file_type": "",
-        "invalid_xls_file": ""
+        "invalid_xls_file": "",
+        "supported_formats_bak": "Supported formats backup"
     },
     "this_is_the_form_that_your_community_will_need_to_fill_in_order_to_vote": "",
     "process": {
@@ -71,5 +72,9 @@
     "action": {
         "create_new_proposal": "Create new proposal",
         "go_to_dashboard": "Go to the Dashboard"
+    },
+    "import": {
+        "credentials_explanation": "The first row of the spreadsheet will be used as the name of the fields that voters will be prompted for. These fields are case insensitive, blank spaces will be ignored and diacritics will be transformed into plain letters.",
+        "error_importing_account": "Error importing account"
     }
 }
