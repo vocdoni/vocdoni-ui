@@ -89,7 +89,7 @@ export const QuestionGroup = ({
   }
 
   const getErrorMessage = (field: QuestionFields): string => {
-    return dirtyFields.get(`question-${field}-${index}`) && error? error[field]?.message : null
+    return dirtyFields.get(`question-${field}-${index}`) && error ? error[field]?.message : null
   }
 
   const getChoiceErrorMessage = (choiceIndex: number): string => {
@@ -179,7 +179,7 @@ export const QuestionGroup = ({
                   >
                     <img
                       src="/images/vote/cross.svg"
-                      alt="{i18n.t('vote.delete_option')}"
+                      alt={i18n.t('vote.delete_option')}
                     />
                   </Button>
                 )}

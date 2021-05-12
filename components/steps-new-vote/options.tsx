@@ -19,8 +19,10 @@ import {
   ResultsAvailability,
 } from './options-results-availability'
 import { ProcessEnvelopeType } from 'dvote-js'
+import { useScrollTop } from "@hooks/use-scroll-top"
 
 export const FormOptions = () => {
+  useScrollTop()
   const { startDate, endDate, parameters, methods,  } = useProcessCreation()
   const periodRef = useRef<IProcessPeriod>()
 

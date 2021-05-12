@@ -8,6 +8,7 @@ import i18n from '../../i18n'
 import { If, Then } from 'react-if'
 import { EntityCreationPageSteps } from '.'
 import { ProcessLoader } from '@components/process-loader'
+import { useScrollTop } from "@hooks/use-scroll-top"
 
 const processSteps = [
   i18n.t('entity.confirming_details'),
@@ -17,6 +18,7 @@ const processSteps = [
 ]
 
 export const FormCreation = () => {
+  useScrollTop()
   const { creationError, created, methods, actionStep } = useEntityCreation()
   const { setAlertMessage } = useMessageAlert()
 

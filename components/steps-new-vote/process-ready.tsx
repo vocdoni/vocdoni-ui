@@ -15,8 +15,10 @@ import { FlexContainer, FlexJustifyContent } from '@components/flex'
 import { DashedLink } from '@components/common/dashed-link';
 import { ImageContainer } from '@components/images'
 import { Button } from '@components/button'
+import { useScrollTop } from "@hooks/use-scroll-top"
 
 export const ProcessReady = () => {
+  useScrollTop()
   const { processId } = useProcessCreation()
   const voteUrl = RouterService.instance.get(VOTING_AUTH_FORM_PATH, {processId})
 

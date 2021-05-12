@@ -15,8 +15,10 @@ import { Button } from '@components/button'
 import { FlexAlignItem, FlexContainer } from '@components/flex'
 import { EntityCreationPageSteps } from '.'
 import { Banner } from '@components/banners'
+import { useScrollTop } from "@hooks/use-scroll-top"
 
 export const FormCredentials = () => {
+  useScrollTop()
   const { setAlertMessage } = useMessageAlert()
   const { methods } = useEntityCreation()
   const [passphrase, setPassphrase] = useState('')

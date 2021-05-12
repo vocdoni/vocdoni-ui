@@ -10,6 +10,7 @@ import i18n from '../../i18n'
 import { Column, Grid } from '../grid'
 import { SectionText, SectionTitle, TextAlign } from '../text'
 import { ProcessLoader } from '../process-loader'
+import { useScrollTop } from "@hooks/use-scroll-top"
 
 import { ProcessCreationPageSteps } from '.'
 // import { CREATE_PROCESS_PATH, DASHBOARD_PATH } from '../../const/routes'
@@ -23,6 +24,7 @@ const processSteps = [
 ]
 
 export const FormCreation = () => {
+  useScrollTop()
   const {
     creationError,
     pleaseWait,

@@ -13,8 +13,10 @@ import { CensusFileSelector } from './census-file-selector'
 import { SpreadSheetReader } from '../../lib/spread-sheet-reader'
 import { CensusFileData } from './census-file-data'
 import { colors } from 'theme/colors'
+import { useScrollTop } from "@hooks/use-scroll-top"
 
 export const FormCensus = () => {
+  useScrollTop()
   const { methods, spreadSheetReader } = useProcessCreation()
 
   const handleOnXlsUpload = (spreadSheet: SpreadSheetReader) => {

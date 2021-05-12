@@ -30,6 +30,7 @@ import {
   InvalidQuestionsError,
   QuestionError,
 } from '@lib/validators/errors/invalid-question-error'
+import { useScrollTop } from "@hooks/use-scroll-top"
 
 export enum MetadataFields {
   Title = 'process-title',
@@ -51,6 +52,7 @@ const createEmptyQuestion = (): Question => ({
 })
 
 export const FormMetadata = () => {
+  useScrollTop()
   const { headerURL, headerFile, metadata, methods } = useProcessCreation()
   const { setAlertMessage } = useMessageAlert()
   const { wallet } = useWallet()
