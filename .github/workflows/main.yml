@@ -58,7 +58,7 @@ jobs:
           file: ./Dockerfile
           platforms: linux/amd64
           push: true
-          build-args:
+          build-args: |
             COMMIT_SHA=${{ steps.vars.outputs.sha_short }}
           tags: |
             vocdoni/${{ github.event.repository.name }}:latest, vocdoni/${{ github.event.repository.name }}:${{ steps.var.outputs.branch }},
@@ -72,7 +72,7 @@ jobs:
           file: ./Dockerfile.static
           platforms: linux/amd64
           push: true
-          build-args:
+          build-args: |
             COMMIT_SHA=${{ steps.vars.outputs.sha_short }}
           tags: |
             vocdoni/${{ github.event.repository.name }}:latest-static, vocdoni/${{ github.event.repository.name }}:${{ steps.var.outputs.branch }}-static,
@@ -85,7 +85,7 @@ jobs:
           context: .
           file: ./Dockerfile.static
           platforms: linux/amd64
-          environment:
+          build-args: |
             COMMIT_SHA=${{ steps.vars.outputs.sha_short }}
             VOCDONI_ENVIRONMENT=stg
             ETH_NETWORK_ID=goerli
@@ -97,12 +97,12 @@ jobs:
 
       - name: Push to Docker Hub and ghcr.io (release)
         uses: docker/build-push-action@v2
-        if: github.ref == startsWith(github.ref, 'refs/heads/release')
+        if: startsWith(github.ref, 'refs/heads/release')
         with:
           context: .
           file: ./Dockerfile.static
           platforms: linux/amd64
-          environment:
+          build-args: |
             COMMIT_SHA=${{ steps.vars.outputs.sha_short }}
             NODE_ENV=production
             VOCDONI_ENVIRONMENT=prod
