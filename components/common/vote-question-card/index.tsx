@@ -42,11 +42,13 @@ export const VoteQuestionCard = ({
   selectedChoice,
   onSelectChoice,
 }: IVoteQuestionCardProps) => {
-
-  const showResults  = processStatus.value === ProcessStatus.ENDED || processStatus.value === ProcessStatus.RESULTS || hasVoted
+  const showResults =
+    processStatus.value === ProcessStatus.ENDED ||
+    processStatus.value === ProcessStatus.RESULTS ||
+    hasVoted
 
   const resultsQuestionView = new ViewStrategy(
-    () =>  showResults && !!result && !!result.voteResults,
+    () => showResults && !!result && !!result.voteResults,
     (
       <QuestionResults
         question={question}
@@ -58,7 +60,11 @@ export const VoteQuestionCard = ({
 
   const noResultsAvailableView = new ViewStrategy(
     () => showResults && !result,
-    <SectionText>{i18n.t('vote_question_card.no_available_results')}</SectionText>
+    (
+      <SectionText>
+        {i18n.t('vote_question_card.no_available_results')}
+      </SectionText>
+    )
   )
 
   const questionsView = new ViewStrategy(
@@ -74,16 +80,14 @@ export const VoteQuestionCard = ({
 
   const questionListView = new ViewStrategy(
     () => true,
-    (
-      <ChoiceList question={question}/>
-    )
+    <ChoiceList question={question} />
   )
 
   const choiceContextView = new ViewContext([
     questionsView,
     resultsQuestionView,
     noResultsAvailableView,
-    questionListView
+    questionListView,
   ])
 
   return (
@@ -96,11 +100,13 @@ export const VoteQuestionCard = ({
                 {i18n.t('vote_question_card.question', { number: index + 1 })}
               </SectionText>
 
-              <SectionText size={TextSize.Big}>{question.title.default}</SectionText>
-
-              <SectionText color={colors.lightText}>
-                {question.description.default}
+              <SectionText size={TextSize.Big}>
+                {question.title.default}
               </SectionText>
+
+              <DescriptionText color={colors.lightText}>
+                {question.description.default}
+              </DescriptionText>
             </Column>
 
             <Column md={4} sm={12}>
@@ -119,8 +125,16 @@ export const VoteQuestionCard = ({
   )
 }
 
+const DescriptionText = styled(SectionText)`
+  white-space: pre-wrap;
+`
+
 const QuestionContainer = styled.div`
   padding: 12px 20px;
+
+  @media ${({ theme }) => theme.screenMax.mobileL} {
+    padding: 6px 8px;
+  }
 `
 
 const QuestionTitle = styled(SectionTitle)`

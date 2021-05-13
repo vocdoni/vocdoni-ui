@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import { EntityMetadata } from 'dvote-js'
 import { ProcessInfo } from '@vocdoni/react-hooks'
 
-
 import i18n from '@i18n'
 
 import { Fieldset, FormGroupVariant, InputFormGroup } from '@components/form'
@@ -48,40 +47,53 @@ export const SignInForm = ({
       />
 
       <Fieldset disabled={checkingCredentials}>
-        {fields.map((fieldName, i) => {
-          const isLastItem = i === fields.length - 1
-          return (
-            <FlexContainer justify={FlexJustifyContent.Center} key={i}>
-              <InputContainer>
-                <InputFormGroup
-                  label={fieldName}
-                  id={fieldName}
-                  onChange={(e) => onChange(fieldName, e.target.value)}
-                  value={values[fieldName]}
-                  variant={FormGroupVariant.Small}
-                />
+        <form onSubmit={onSubmit}>
+          {fields.map((fieldName, i) => {
+            const isLastItem = i === fields.length - 1
+            return (
+              <FlexContainer justify={FlexJustifyContent.Center} key={i}>
+                <InputContainer>
+                  <InputFormGroup
+                    label={fieldName}
+                    id={fieldName}
+                    onChange={(e) => onChange(fieldName, e.target.value)}
+                    value={values[fieldName]}
+                    variant={FormGroupVariant.Small}
+                  />
 
-                {isLastItem && (
-                  <LinkContainer>
-                    <a>{i18n.t('vote.you_cant_enter_contact_with_entity')}</a>
-                  </LinkContainer>
-                )}
-              </InputContainer>
-            </FlexContainer>
-          )
-        })}
-
-        <FlexContainer justify={FlexJustifyContent.Center}>
-          <Column lg={3} md={4} sm={12}>
-            <Button wide positive onClick={onSubmit} disabled={submitEnabled || checkingCredentials}>
-              {i18n.t('action.continue')}
-            </Button>
-          </Column>
-        </FlexContainer>
+                  {isLastItem && (
+                    <LinkContainer>
+                      <a href={`mailto:`}>
+                        {i18n.t('vote.you_cant_enter_contact_with_entity')}
+                      </a>
+                    </LinkContainer>
+                  )}
+                </InputContainer>
+              </FlexContainer>
+            )
+          })}
+          <HiddenButton type='submit'></HiddenButton>
+          <FlexContainer justify={FlexJustifyContent.Center}>
+            <Column lg={3} md={4} sm={12}>
+              <Button
+                wide
+                positive
+                onClick={onSubmit}
+                spinner={submitEnabled || checkingCredentials}
+                disabled={submitEnabled || checkingCredentials}
+              >
+                {i18n.t('action.continue')}
+              </Button>
+            </Column>
+          </FlexContainer>
+        </form>
       </Fieldset>
     </PageCard>
   )
 }
+const HiddenButton = styled.button`
+  visibility: hidden;
+`
 
 const InputContainer = styled.div`
   max-width: 400px;

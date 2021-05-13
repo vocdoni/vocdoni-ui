@@ -81,9 +81,13 @@ export const QuestionGroup = ({
     onUpdateQuestion(index, clonedQuestion)
   }
 
-  const handleDeleteQuestion = (choiceIndex: number) => {
+  const handleDeleteChoice = (choiceIndex: number) => {
     const clonedQuestion: Question = cloneDeep(question)
     clonedQuestion.choices.splice(choiceIndex, 1)
+
+    for (let choiceIndex in clonedQuestion.choices) {
+      clonedQuestion.choices[choiceIndex].value = parseInt(choiceIndex)
+    }
 
     onUpdateQuestion(index, clonedQuestion)
   }
@@ -175,7 +179,7 @@ export const QuestionGroup = ({
                     border
                     large
                     width={50}
-                    onClick={() => handleDeleteQuestion(choiceIndex)}
+                    onClick={() => handleDeleteChoice(choiceIndex)}
                   >
                     <img
                       src="/images/vote/cross.svg"

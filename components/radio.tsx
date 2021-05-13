@@ -45,6 +45,7 @@ const RadioLabel = styled.label`
 
   /* Create a custom radio button */
   .checkmark {
+    position: relative;
     height: 16px;
     width: 16px;
     background-color: ${({ theme }) => theme.white};
