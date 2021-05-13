@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { ProcessInfo, useEntity, useBlockHeight } from '@vocdoni/react-hooks'
+import { useEntity, useBlockHeight } from '@vocdoni/react-hooks'
+import { IProcessInfo } from 'dvote-js'
 
 import {
   DashboardActivitySummary,
@@ -14,9 +15,9 @@ import { useWallet } from '../../hooks/use-wallet'
 import { useProcessesFromAccount } from '../../hooks/use-processes'
 
 const DashboardPage = () => {
-  const [activeVotes, setActiveVotes] = useState<ProcessInfo[]>([])
-  const [upcomingVotes, setUpcomingVotes] = useState<ProcessInfo[]>([])
-  const [votesResults, setVotesResults] = useState<ProcessInfo[]>([])
+  const [activeVotes, setActiveVotes] = useState<IProcessInfo[]>([])
+  const [upcomingVotes, setUpcomingVotes] = useState<IProcessInfo[]>([])
+  const [votesResults, setVotesResults] = useState<IProcessInfo[]>([])
 
   const { wallet } = useWallet()
   const { dbAccounts } = useDbAccounts()
@@ -106,7 +107,7 @@ const DashboardPage = () => {
 
 // HELPERS
 
-const processEndBlock = (process: ProcessInfo) =>
+const processEndBlock = (process: IProcessInfo) =>
   process.parameters?.startBlock + process.parameters?.blockCount
 
 export default DashboardPage

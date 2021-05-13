@@ -1,5 +1,5 @@
-import { ProcessInfo, usePool, useProcess, useBlockHeight, useDateAtBlock } from '@vocdoni/react-hooks'
-import { DigestedProcessResults, ProcessStatus, VotingApi } from 'dvote-js'
+import { usePool, useProcess, useBlockHeight, useDateAtBlock } from '@vocdoni/react-hooks'
+import { IProcessInfo, DigestedProcessResults, ProcessStatus, VotingApi } from 'dvote-js'
 import { createContext, ReactNode, useEffect, useState } from 'react'
 
 import i18n from '../i18n'
@@ -11,7 +11,7 @@ export interface ProcessWrapperContext {
   loadingInfo: boolean,
   loadingInfoError: string,
 
-  processInfo: ProcessInfo,
+  processInfo: IProcessInfo,
 
   hasStarted: boolean,
   hasEnded: boolean,

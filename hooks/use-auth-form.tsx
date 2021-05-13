@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import { ProcessInfo, usePool, useProcess } from '@vocdoni/react-hooks'
+import { usePool, useProcess } from '@vocdoni/react-hooks'
 import { useRouter } from 'next/router'
-import { CensusOffChainApi, CensusOffchainDigestType } from 'dvote-js'
+import { IProcessInfo, CensusOffChainApi, CensusOffchainDigestType } from 'dvote-js'
 import { VOTING_PATH } from '../const/routes'
 import i18n from '../i18n'
 import { digestedWalletFromString, importedRowToString, normalizeSpreadsheetColum } from '../lib/util'
@@ -17,7 +17,7 @@ type IAuthForm = {
   invalidProcessId?: boolean,
   loadingInfo?: boolean,
   loadingInfoError?: string,
-  processInfo?: ProcessInfo,
+  processInfo?: IProcessInfo,
   fieldNames: string[],
   formValues: { [k: string]: string },
 

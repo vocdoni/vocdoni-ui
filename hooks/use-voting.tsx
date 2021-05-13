@@ -1,5 +1,5 @@
-import { ProcessInfo, usePool, useBlockHeight } from '@vocdoni/react-hooks'
-import { CensusOffChainApi, DigestedProcessResults, ProcessStatus, VotingApi, CensusOffchainDigestType } from 'dvote-js'
+import { usePool, useBlockHeight } from '@vocdoni/react-hooks'
+import { IProcessInfo, CensusOffChainApi, DigestedProcessResults, ProcessStatus, VotingApi, CensusOffchainDigestType } from 'dvote-js'
 import { createContext, ReactNode, useContext, useEffect, useMemo, useState } from 'react'
 
 import { useWallet, WalletRoles } from './use-wallet'
@@ -19,7 +19,7 @@ export interface VotingContext {
   loadingInfo: boolean,
   loadingInfoError: string,
 
-  processInfo: ProcessInfo,
+  processInfo: IProcessInfo,
 
   hasStarted: boolean,
   hasEnded: boolean,

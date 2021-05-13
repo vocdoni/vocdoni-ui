@@ -1,5 +1,4 @@
-import { ProcessInfo } from '@vocdoni/react-hooks';
-import { GatewayPool, VotingApi } from 'dvote-js'
+import { IProcessInfo, GatewayPool, VotingApi } from 'dvote-js'
 import { BigNumber, providers } from 'ethers'
 
 // VOCDONI API wrappers
@@ -8,7 +7,7 @@ import { BigNumber, providers } from 'ethers'
 export async function getProcesses(
   entityId: string,
   pool: GatewayPool
-): Promise<ProcessInfo[]> {
+): Promise<IProcessInfo[]> {
   try {
     const list = await getProcessList(entityId, pool);
     const allProcess = list.map((processId) =>
@@ -25,7 +24,7 @@ export async function getProcesses(
   }
 }
 
-export async function getProcessInfo(processId: string, pool: GatewayPool): Promise<ProcessInfo> {
+export async function getProcessInfo(processId: string, pool: GatewayPool): Promise<IProcessInfo> {
   const [metadata, parameters] = await Promise.all([
     VotingApi.getProcessMetadata(processId, pool),
     VotingApi.getProcessParameters(processId, pool)

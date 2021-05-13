@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { ProcessInfo } from '@vocdoni/react-hooks'
 import { Account } from '@lib/types'
-import { EntityMetadata } from 'dvote-js';
+import { IProcessInfo, EntityMetadata } from 'dvote-js';
 
 import i18n from '../../i18n'
 import { Column, Grid } from '../grid'
@@ -22,16 +21,16 @@ export enum ProcessTypes {
 
 export interface IProcessItem {
   label: string
-  items?: ProcessInfo[]
+  items?: IProcessInfo[]
   status: VoteStatus
 }
 
 interface IDashboardProcessListProps {
   account: Account
   initialActiveItem: ProcessTypes
-  activeVotes: ProcessInfo[]
-  votesResults: ProcessInfo[]
-  upcomingVoting: ProcessInfo[]
+  activeVotes: IProcessInfo[]
+  votesResults: IProcessInfo[]
+  upcomingVoting: IProcessInfo[]
   entityMetadata: EntityMetadata
   loading?: boolean
   skeletonItems?: number
@@ -73,7 +72,7 @@ export const DashboardProcessList = ({
       },
     ],
   ])
-  const renderProcessItem = (process: ProcessInfo) => (
+  const renderProcessItem = (process: IProcessInfo) => (
     <div key={process.id}>
       <DashboardProcessListItem
         process={process}

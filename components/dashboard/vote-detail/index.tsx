@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { ProcessStatus } from 'dvote-solidity'
-import { ProcessInfo, usePool } from '@vocdoni/react-hooks'
-import { DigestedProcessResults, VotingApi } from 'dvote-js'
+import { usePool } from '@vocdoni/react-hooks'
+import { IProcessInfo, DigestedProcessResults, VotingApi } from 'dvote-js'
 
 import i18n from '@i18n'
 import { colors } from 'theme/colors'
@@ -30,7 +30,7 @@ import { useBlockHeight } from '@vocdoni/react-hooks'
 import { getVoteStatus, VoteStatus } from '@lib/util'
 
 interface IProcessDetailProps {
-  process: ProcessInfo
+  process: IProcessInfo
   results: DigestedProcessResults
 }
 
