@@ -1,5 +1,6 @@
 import React, { ReactNode } from "react"
-import { Spinner, SpinnerProps } from 'react-rainbow-components';
+import { Spinner } from 'react-rainbow-components'
+import { SpinnerProps } from "react-rainbow-components/components/Spinner"
 import Link from "next/link"
 import styled from "styled-components"
 import { hexToRgbA } from "../lib/util"
@@ -40,12 +41,12 @@ type ButtonProps = {
 
 export const Button = ({ disabled, positive, negative, color, href, target, onClick, width, icon, wide, border, borderColor, justify, verticalAlign, large, small, spinner, children }: ButtonProps) => {
     let component: JSX.Element
-    const getButtonText = (spinnerVariant: SpinnerProps.variant = 'brand'): ReactNode => (
-        spinner ? 
+    const getButtonText = (spinnerVariant: SpinnerProps['variant'] = 'brand'): ReactNode => (
+        spinner ?
             (<SpinnerContainer>
                 <Spinner size="medium" type="arc" variant={spinnerVariant} />
-            </SpinnerContainer>): 
-            children 
+            </SpinnerContainer>):
+            children
     )
 
     if (disabled) {
