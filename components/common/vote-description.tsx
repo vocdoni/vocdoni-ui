@@ -52,9 +52,11 @@ export const VoteDescription = ({
             {i18n.t('vote.live_stream')}
           </SectionText>
 
+          { liveStream && (
           <LiveStreamVideoContainer>
             <ReactPlayer url={liveStream} width="100%" />
           </LiveStreamVideoContainer>
+          )}
 
           <SectionText size={TextSize.Big} color={colors.blueText}>
             {i18n.t('vote.discussion')}

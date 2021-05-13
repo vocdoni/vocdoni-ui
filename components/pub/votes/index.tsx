@@ -32,6 +32,7 @@ export const VotingPageView = () => {
     processInfo,
     hasVoted,
     results,
+    nullifier,
   } = useVoting()
   const { metadata } = useEntity(processInfo?.entity)
 
@@ -43,6 +44,8 @@ export const VotingPageView = () => {
   const { blockHeight } = useBlockHeight()
 
   const voteStatus: VoteStatus = getVoteStatus(processInfo.parameters.status, processInfo.parameters.startBlock, blockHeight)
+
+  const explorerLink = process.env.EXPLORER_URL + '/envelope/'+nullifier
 
   return (
     <>
@@ -73,6 +76,7 @@ export const VotingPageView = () => {
             <VoteNowCard
               hasVoted={hasVoted}
               voteLink={votePageLink}
+              explorerLink={explorerLink}
               disabled={!allQuestionsChosen || voteStatus != VoteStatus.Active}
               onVote={() => setConfirmModalOpened(true)}
             />

@@ -7,10 +7,12 @@ const COMMIT_SHA = process.env.COMMIT_SHA || 'development'
 const VOCDONI_ENVIRONMENT = process.env.VOCDONI_ENVIRONMENT || 'dev'
 let bootnodes = 'https://bootnodes.vocdoni.net/gateways.json'
 let backend = 'https://manager.vocdoni.net/api/manager'
+let explorer = 'https://explorer.vocdoni.net'
 
 if (VOCDONI_ENVIRONMENT !== 'prod') {
   bootnodes = bootnodes.replace('.json', `.${VOCDONI_ENVIRONMENT}.json`)
   backend = backend.replace('manager.', `manager.${VOCDONI_ENVIRONMENT}.`)
+  explorer = explorer.replace('explorer.', `explorer.${VOCDONI_ENVIRONMENT}.`)
 }
 
 module.exports = {
@@ -30,6 +32,7 @@ module.exports = {
   BOOTNODES_URL: process.env.BOOTNODES_URL || bootnodes,
   BACKEND_URL: process.env.BACKEND_URL || backend,
   BACKEND_PUB_KEY: process.env.BACKEND_PUB_KEY || '028b1d1380c37d114ac5a2b056d11cec76439664d00b076f9ace97adbe03da6fe1',
+  EXPLORER_URL: process.env.EXPLORER_URL || explorer
 }
 
 console.log('Building the frontend with ENV:', module.exports)
