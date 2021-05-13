@@ -1,5 +1,6 @@
+import React, { ReactNode } from "react"
+import { Spinner, SpinnerProps } from 'react-rainbow-components';
 import Link from "next/link"
-import React from "react"
 import styled from "styled-components"
 import { hexToRgbA } from "../lib/util"
 import { theme } from "../theme"
@@ -33,17 +34,25 @@ type ButtonProps = {
     children?: React.ReactNode
     href?: string
     target?: LinkTarget
+    spinner?: boolean
     onClick?: (ev: React.MouseEvent<HTMLDivElement, MouseEvent>) => void
 }
 
-export const Button = ({ disabled, positive, negative, color, href, target, onClick, width, icon, wide, border, borderColor, justify, verticalAlign, large, small, children }: ButtonProps) => {
+export const Button = ({ disabled, positive, negative, color, href, target, onClick, width, icon, wide, border, borderColor, justify, verticalAlign, large, small, spinner, children }: ButtonProps) => {
     let component: JSX.Element
+    const getButtonText = (spinnerVariant: SpinnerProps.variant = 'brand'): ReactNode => (
+        spinner ? 
+            (<SpinnerContainer>
+                <Spinner size="medium" type="arc" variant={spinnerVariant} />
+            </SpinnerContainer>): 
+            children 
+    )
 
     if (disabled) {
         return <DisabledButton wide={wide} large={large} small={small} width={width} onClick={ev => (onClick && !disabled) ? onClick(ev) : null}>
             {icon ?
-                <ButtonContent color={theme.darkLightFg} justify={justify}>{icon}&nbsp;{children}</ButtonContent> :
-                <ButtonContent color={theme.darkLightFg} verticalAlign={verticalAlign} justify={justify}>{children}</ButtonContent>
+                <ButtonContent color={theme.darkLightFg} justify={justify}>{icon}&nbsp; { getButtonText() }</ButtonContent> :
+                <ButtonContent color={theme.darkLightFg} verticalAlign={verticalAlign} justify={justify}>{ getButtonText() }</ButtonContent>
             }
         </DisabledButton>
     }
@@ -51,24 +60,24 @@ export const Button = ({ disabled, positive, negative, color, href, target, onCl
     if (positive) {
         component = <PositiveButton wide={wide} large={large} small={small} width={width} onClick={ev => (onClick && !disabled) ? onClick(ev) : null}>
             {icon ?
-                <ButtonContent color={theme.white} justify={justify}>{icon}&nbsp;{children}</ButtonContent> :
-                <ButtonContent color={theme.white} verticalAlign={verticalAlign} justify={justify}>{children}</ButtonContent>
+                <ButtonContent color={theme.white} justify={justify}>{icon}&nbsp;{getButtonText('inverse')}</ButtonContent> :
+                <ButtonContent color={theme.white} verticalAlign={verticalAlign} justify={justify}>{getButtonText('inverse')}</ButtonContent>
             }
         </PositiveButton>
     }
     else if (negative) {
         component = <NegativeButton wide={wide} large={large} small={small} width={width} onClick={ev => (onClick && !disabled) ? onClick(ev) : null}>
             {icon ?
-                <ButtonContent color={theme.white} justify={justify}>{icon}&nbsp;{children}</ButtonContent> :
-                <ButtonContent color={theme.white} verticalAlign={verticalAlign} justify={justify}>{children}</ButtonContent>
+                <ButtonContent color={theme.white} justify={justify}>{icon}&nbsp;{getButtonText('inverse')}</ButtonContent> :
+                <ButtonContent color={theme.white} verticalAlign={verticalAlign} justify={justify}>{getButtonText('inverse')}</ButtonContent>
             }
         </NegativeButton>
     }
     else {
         component = <DefaultButton wide={wide} border={border} borderColor={borderColor} large={large} small={small} width={width} onClick={ev => (onClick && !disabled) ? onClick(ev) : null}>
             {icon ?
-                <ButtonContent color={color} justify={justify}>{icon}&nbsp;{children}</ButtonContent> :
-                <ButtonContent color={color} verticalAlign={verticalAlign} justify={justify}>{children}</ButtonContent>
+                <ButtonContent color={color} justify={justify}>{icon}&nbsp;{getButtonText('inverse')}</ButtonContent> :
+                <ButtonContent color={color} verticalAlign={verticalAlign} justify={justify}>{getButtonText('inverse')}</ButtonContent>
             }
         </DefaultButton>
     }
@@ -98,12 +107,16 @@ ${props => props.large ? "padding: 13px 25px;" :
 ${props => props.large ? "font-size: 125%;" :
         props.small ? "font-size: 85%;" : ""}
 
-background: ${props => props.theme.lightBg};
-box-shadow: 0px 6px 6px rgba(180, 193, 228, 0.35);
-border-radius: 8px;
-white-space: nowrap;
-user-select: none;
-box-sizing: border-box;
+    background: ${props => props.theme.lightBg};
+    box-shadow: 0px 6px 6px rgba(180, 193, 228, 0.35);
+    border-radius: 8px;
+    white-space: nowrap;
+    user-select: none;
+    box-sizing: border-box;
+
+    @media ${({theme})  => theme.screenMax.mobileL } {
+        white-space: normal;
+    }
 `
 
 const DisabledButton = styled(BaseButton)`
@@ -129,6 +142,10 @@ ${({ large, small, border }) =>
 }
 `
 
+const SpinnerContainer = styled.div`
+    position: relative;
+    height: 20px;
+`
 const PositiveButton = styled(BaseButton)`
 cursor: pointer;
 

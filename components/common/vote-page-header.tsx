@@ -57,9 +57,9 @@ const VotePageHeaderContainer = styled.div`
 const EntityLogoWrapper = styled.div`
   overflow: hidden;
   border-radius: 50%;
-  width: 52px;
-  height: 52px;
-  margin: -52px auto 10px;
+  width: 100px;
+  height: 100px;
+  margin: -75px auto 10px;
   border: solid 1px ${({ theme }) => theme.white};
 
   & > img {

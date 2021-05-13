@@ -57,8 +57,15 @@ export const ModalQuestionList = ({
             {i18n.t('vote.no_back_to_login')}
           </Button>
         </Column>
+
         <Column sm={6}>
-          <Button wide positive onClick={onSubmit} disabled={sendingVote}>
+          <Button
+            wide
+            positive
+            onClick={onSubmit}
+            disabled={sendingVote}
+            spinner={sendingVote}
+          >
             {i18n.t('vote.yes_submit_the_vote')}
           </Button>
         </Column>
@@ -71,6 +78,7 @@ const ModalHeader = styled(SectionText)`
   font-size: 20px;
   color: ${({ theme }) => theme.accent1};
 `
+
 const QuestionText = styled(SectionText)`
   size: 22px;
   font-weight: 500;

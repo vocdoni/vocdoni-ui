@@ -43,7 +43,7 @@ export const VoteDescription = ({
       </Column>
 
       <Column>
-        <SectionText color={colors.lightText}>{description}</SectionText>
+        <DescriptionText color={colors.lightText}>{description}</DescriptionText>
       </Column>
 
       <Column>
@@ -102,6 +102,10 @@ export const VoteDescription = ({
     </Grid>
   )
 }
+
+const DescriptionText = styled(SectionText)`
+  white-space: pre-line;
+`
 
 const ButtonText = styled.p`
   color: ${colors.blueText};

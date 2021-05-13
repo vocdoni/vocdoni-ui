@@ -37,6 +37,7 @@ const LoadingAlertContainer = styled.div<{ visible: boolean }>`
 
   transform: ${({ visible }) => `translate(0px, ${visible ? 0 : 90} px)`};
   opacity: ${({ visible }) => (visible ? '1' : '0')};
+  visibility: ${({ visible }) => (visible ? 'visible' : 'hidden')};
 
   transition: transform 0.1s ease-out, opacity 0.1s ease-out;
 
