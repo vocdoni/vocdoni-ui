@@ -7,15 +7,15 @@ import { ImageContainer } from '@components/images'
 import { Grid } from '@components/grid'
 
 interface IVoteRegisteredCardProps {
-  voteLink: string
+  explorerLink: string
 }
 
-export const VoteRegisteredCard = ({ voteLink }: IVoteRegisteredCardProps) => {
+export const VoteRegisteredCard = ({ explorerLink }: IVoteRegisteredCardProps) => {
   return (
     <Grid>
       <Banner
         title={i18n.t('vote.your_vote_has_been_registered')}
-        subtitle={<a href={voteLink}>{voteLink}</a>}
+        subtitle={<a href={explorerLink}>{explorerLink}</a>}
         icon={<ImageContainer width="80px">
           <img src='/images/vote/vocdoni-vote.png' alt={i18n.t('vote.voted_alt')}/>
         </ImageContainer>}

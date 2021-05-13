@@ -13,7 +13,6 @@ import { FlexJustifyContent } from '@components/flex'
 
 interface IVoteNowCardProps {
   disabled: boolean
-  voteLink: string
   explorerLink: string
   hasVoted: boolean
   onVote: () => void
@@ -22,7 +21,6 @@ interface IVoteNowCardProps {
 export const VoteNowCard = ({
   disabled,
   hasVoted,
-  voteLink,
   explorerLink,
   onVote,
 }: IVoteNowCardProps) => (
