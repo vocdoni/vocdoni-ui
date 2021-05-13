@@ -21,7 +21,8 @@
         "no_available_results": ""
     },
     "vote_detail": {
-        "create_new_proposal_in_only_5_minutes": ""
+        "create_new_proposal_in_only_5_minutes": "",
+        "generate_pdf": ""
     },
     "entity": {
         "name": "",
@@ -49,5 +50,8 @@
         "credentials_explanation": "",
         "select_the_backup_file_of_your_account": "",
         "recover_question": ""
+    },
+    "dashboard": {
+        "lorem_ipsum": ""
     }
 }

@@ -43,7 +43,8 @@
         "select_the_account_to_use_and_enterr_your_passphrase": ""
     },
     "dashboard": {
-        "company_members": "Company members"
+        "company_members": "Company members",
+        "lorem_ipsum": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
     },
     "entity": {
         "enter_the_details_of_the_organization": "Enter the details of the organization",
@@ -68,7 +69,8 @@
         "no_available_results": ""
     },
     "vote_detail": {
-        "create_new_proposal_in_only_5_minutes": ""
+        "create_new_proposal_in_only_5_minutes": "",
+        "generate_pdf": "Generate PDF"
     },
     "action": {
         "create_new_proposal": "Create new proposal",
