@@ -17,8 +17,8 @@ export const LoadingAlert = () => {
 
 const LoadingAlertContainer = styled.div<{ visible: boolean }>`
   // TODO:
-  // position: fixed;
-  // z-index: 320;
+  position: fixed;
+  z-index: 320;
   top: 10px;
   left: 10px;
   right: 10px;

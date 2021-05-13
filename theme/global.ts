@@ -46,6 +46,15 @@ export const FixedGlobalStyle = createGlobalStyle`
   src: local('Manrope'), url('/fonts/manrope/static/manrope-bold.ttf') format('truetype');
 }
 
+html,
+body {
+  height: 100%;
+}
+
+#__next {
+  min-height: 100%;
+  position: relative;
+}
 
 body {
   padding: 0;
