@@ -24,7 +24,7 @@ export const EmptyProposalCard = () => (
             {i18n.t('dashboard.no_proposals_yet')}
           </SectionTitle>
           <SectionText align={TextAlign.Center}>
-            {i18n.t('dashboard.lorem_ipsum')}
+            {i18n.t('dashboard.no_proposals_yet_description')}
           </SectionText>
         </NoProposalsTextContainer>
       </div>
