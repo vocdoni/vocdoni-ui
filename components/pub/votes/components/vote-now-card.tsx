@@ -14,6 +14,7 @@ import { FlexJustifyContent } from '@components/flex'
 interface IVoteNowCardProps {
   disabled: boolean
   voteLink: string
+  explorerLink: string
   hasVoted: boolean
   onVote: () => void
 }
@@ -22,6 +23,7 @@ export const VoteNowCard = ({
   disabled,
   hasVoted,
   voteLink,
+  explorerLink,
   onVote,
 }: IVoteNowCardProps) => (
   <Card>
@@ -32,18 +34,27 @@ export const VoteNowCard = ({
       </CheckImageContainer>
     </ImageContainer>
 
-    <TextContainer align={TextAlign.Center}>
-      {i18n.t('vote.you_cant_vote_now_on_this_proposal')}
-    </TextContainer>
-
     {hasVoted ? (
-      <Button wide positive href={voteLink}>
+      <div>
+      <TextContainer align={TextAlign.Center}>
+        {i18n.t('vote.verify_your_vote_in_the_explorer')}
+      </TextContainer>
+
+      <Button wide positive href={explorerLink}>
         {i18n.t('vote.view_link')}
       </Button>
+      </div>
+
     ) : (
+      <div>
+      <TextContainer align={TextAlign.Center}>
+        {i18n.t('vote.you_cant_vote_now_on_this_proposal')}
+      </TextContainer>
+
       <Button wide positive disabled={disabled} onClick={onVote}>
         {i18n.t('vote.vote_now')}
       </Button>
+      </div>
     )}
   </Card>
 )

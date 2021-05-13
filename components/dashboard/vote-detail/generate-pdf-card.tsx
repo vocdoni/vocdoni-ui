@@ -27,8 +27,8 @@ export const GeneratePdfCard = ({ onClick }: IGeneratePdfCardProps) => (
       {i18n.t('vote_detail.generate_pdf_with_results')}
     </SectionText>
 
-    <Button onClick={onClick} wide positive>
-      {i18n.t('vote_detail.generate_pdf')}
+    <Button onClick={onClick} wide positive disabled={true}>
+      {i18n.t('vote_detail.generate_pdf_coming_soon')}
     </Button>
   </Card>
 )

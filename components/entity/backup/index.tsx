@@ -84,7 +84,7 @@ export const AccountBackupView = ({
         currentPassphrase: passphrase,
       })
 
-      downloadFile(backupBytes, { fileName: account.name + '-vocdoni.bak' })
+      downloadFile(backupBytes, { fileName: 'backup_vocdoni_' + account.name + '.bak' })
 
       onBackup()
     } catch (err) {
