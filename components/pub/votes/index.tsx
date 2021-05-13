@@ -75,7 +75,6 @@ export const VotingPageView = () => {
           <Column lg={3} sm={12}>
             <VoteNowCard
               hasVoted={hasVoted}
-              voteLink={votePageLink}
               explorerLink={explorerLink}
               disabled={!allQuestionsChosen || voteStatus != VoteStatus.Active}
               onVote={() => setConfirmModalOpened(true)}
@@ -83,7 +82,7 @@ export const VotingPageView = () => {
           </Column>
         </Grid>
 
-        {hasVoted && <VoteRegisteredCard voteLink={votePageLink} />}
+        {hasVoted && <VoteRegisteredCard  explorerLink={explorerLink} />}
 
         {processInfo.metadata.questions.map(
           (question: Question, index: number) => (
