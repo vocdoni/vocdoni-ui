@@ -26,7 +26,7 @@ export const QuestionResults = ({
     result?.voteResults[index].votes.toNumber()
 
   const getOptionPercentage = (index: number): number =>
-    (getOptionResult(index) / totalVotes) * 100
+    totalVotes? (getOptionResult(index) / totalVotes) * 100: 0
 
   return (
     <>

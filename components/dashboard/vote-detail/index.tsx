@@ -35,7 +35,8 @@ interface IProcessDetailProps {
 }
 
 export const ViewDetail = ({ process, results }: IProcessDetailProps) => {
-  const { setLoadingMessage, hideLoading } = useLoadingAlert()
+  const [ cancelingVote, setCancelingVote ] = useState<boolean>(false)
+  const [ endingVote, setEndingVote ] = useState<boolean>(false)
   const { poolPromise } = usePool()
   const { wallet } = useWallet({ role: WalletRoles.ADMIN })
   const { setAlertMessage } = useMessageAlert()
@@ -48,8 +49,11 @@ export const ViewDetail = ({ process, results }: IProcessDetailProps) => {
 
   const { blockHeight } = useBlockHeight()
 
-  const status: VoteStatus = getVoteStatus(process.parameters.status, process.parameters.startBlock, blockHeight)
-
+  const status: VoteStatus = getVoteStatus(
+    process.parameters.status,
+    process.parameters.startBlock,
+    blockHeight
+  )
 
   const handleCancelVote = () => {
     if (!wallet) {
@@ -57,15 +61,27 @@ export const ViewDetail = ({ process, results }: IProcessDetailProps) => {
       return
     }
     // TODO which states allow for canceling?
-    if (process.parameters.status.isCanceled || process.parameters.status.isEnded) {
+    if (
+      process.parameters.status.isCanceled ||
+      process.parameters.status.isEnded
+    ) {
       setAlertMessage(i18n.t('error.process_cannot_be_canceled'))
     }
-    //TODO make loader work or add spinner
-    setLoadingMessage(i18n.t('votes.show.updating'))
-    return poolPromise.then(pool => {
-      wallet.connect(pool.provider)
-      return VotingApi.setStatus(process.id, ProcessStatus.CANCELED, wallet, pool)
-    }).then(() => hideLoading())
+
+    return poolPromise
+      .then((pool) => {
+        wallet.connect(pool.provider)
+        setCancelingVote(true)
+        return VotingApi.setStatus(
+          process.id,
+          ProcessStatus.CANCELED,
+          wallet,
+          pool
+        )
+      })
+      .then(() => {
+        setCancelingVote(false)
+      })
   }
 
   const handleEndVote = () => {
@@ -76,15 +92,24 @@ export const ViewDetail = ({ process, results }: IProcessDetailProps) => {
     if (process.parameters.status.isEnded) {
       setAlertMessage(i18n.t('error.process_already_ended'))
     }
-    //TODO make loader work or add spinner
-    setLoadingMessage(i18n.t('votes.show.updating'))
-    return poolPromise.then(pool => {
-      wallet.connect(pool.provider)
-      return VotingApi.setStatus(process.id, ProcessStatus.ENDED, wallet, pool)
-    }).then(() => hideLoading)
+
+    return poolPromise
+      .then((pool) => {
+        setEndingVote(true)
+        wallet.connect(pool.provider)
+        return VotingApi.setStatus(
+          process.id,
+          ProcessStatus.ENDED,
+          wallet,
+          pool
+        )
+      })
+      .then(() => {
+        setEndingVote(false)
+      })
   }
   // TODO handleGeneratePdfResult return not implemented an make button not clickable
-  const handleGeneratePdfResult = () => { }
+  const handleGeneratePdfResult = () => {}
   return (
     <PageCard>
       <Grid>
@@ -106,6 +131,8 @@ export const ViewDetail = ({ process, results }: IProcessDetailProps) => {
                     color={colors.accent2B}
                     border
                     wide
+                    disabled={endingVote || cancelingVote}
+                    spinner={cancelingVote}
                     onClick={handleCancelVote}
                   >
                     {i18n.t('vote_detail.cancel_vote')}
@@ -113,7 +140,14 @@ export const ViewDetail = ({ process, results }: IProcessDetailProps) => {
                 </ButtonContainer>
 
                 <ButtonContainer>
-                  <Button color={colors.accent1} wide border onClick={handleEndVote}>
+                  <Button
+                    color={colors.accent1}
+                    disabled={endingVote || cancelingVote}
+                    spinner={endingVote}
+                    wide
+                    border
+                    onClick={handleEndVote}
+                  >
                     {i18n.t('vote_detail.end_vote')}
                   </Button>
                 </ButtonContainer>
@@ -133,9 +167,7 @@ export const ViewDetail = ({ process, results }: IProcessDetailProps) => {
           </SectionContainer>
 
           <SectionContainer>
-            <ProcessStatusLabel
-              status={status}
-            ></ProcessStatusLabel>
+            <ProcessStatusLabel status={status}></ProcessStatusLabel>
           </SectionContainer>
 
           <SectionContainer>
