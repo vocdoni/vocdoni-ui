@@ -48,15 +48,17 @@ export const VoteDescription = ({
 
       <Column>
         <LiveStreamContainer>
+        { liveStream && (
+          <div>
           <SectionText size={TextSize.Big} color={colors.blueText}>
             {i18n.t('vote.live_stream')}
           </SectionText>
 
-          { liveStream && (
           <LiveStreamVideoContainer>
             <ReactPlayer url={liveStream} width="100%" />
           </LiveStreamVideoContainer>
-          )}
+          </div>
+        )}
 
           <SectionText size={TextSize.Big} color={colors.blueText}>
             {i18n.t('vote.discussion')}
