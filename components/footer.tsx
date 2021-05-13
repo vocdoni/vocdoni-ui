@@ -30,7 +30,11 @@ export const Footer = () => {
 }
 
 const Container = styled.div`
+  position: absolute;
+  bottom: 0;
+  width: 100%;
   background-color: ${({ theme }) => theme.white};
+  margin-top: -103px;
   padding: 30px 0 30px;
   font-size: 13px;
   display: flex;

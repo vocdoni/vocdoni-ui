@@ -11,15 +11,13 @@ import { Loader } from './loader'
 
 
 const LayoutContainer = styled.div`
-  padding: 0 ${({ theme }) => theme.margins.mobile.horizontal};
-  margin-bottom: 110px;
-  margin-top: 77px;
+  padding: 110px ${({ theme }) => theme.margins.mobile.horizontal} 120px;
   max-width: ${sizes.laptopL * 0.8}px;
   margin-left: auto;
   margin-right: auto;
 
   @media ${({ theme }) => theme.screenMin.tablet} {
-    padding: 0 ${({ theme }) => theme.margins.desktop.horizontal};
+    padding:  110px  ${({ theme }) => theme.margins.desktop.horizontal} 120px;;
   }
 `
 
