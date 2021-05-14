@@ -1,6 +1,6 @@
 import { usePool, useBlockHeight } from '@vocdoni/react-hooks'
 import { IProcessInfo, CensusOffChainApi, DigestedProcessResults, ProcessStatus, VotingApi, CensusOffchainDigestType } from 'dvote-js'
-import { createContext, ReactNode, useContext, useEffect, useMemo, useState } from 'react'
+import { createContext, ReactNode, useContext, useEffect, useState } from 'react'
 
 import { useWallet, WalletRoles } from './use-wallet'
 import i18n from '../i18n'

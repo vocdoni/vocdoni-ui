@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { StepperFunc, StepperLoopFuncResult } from "../lib/types"
+import { useLock } from "./use-lock"
 
 export function useStepper<T>(mainActionStepFuncs: StepperFunc[], initialPageStep: T) {
   const [pageStep, setPageStep] = useState<T>(() => initialPageStep)
@@ -7,6 +8,7 @@ export function useStepper<T>(mainActionStepFuncs: StepperFunc[], initialPageSte
   const [pleaseWait, setPleaseWait] = useState(false)
   const [started, setStarted] = useState(false)
   const [creationError, setCreationError] = useState<string>()
+  const { locked, lock, unlock } = useLock()
 
   const cleanError = () => { if (creationError) setCreationError("") }
   const incActionStep = () => setActionStep(actionStep + 1)
@@ -16,6 +18,9 @@ export function useStepper<T>(mainActionStepFuncs: StepperFunc[], initialPageSte
 
   // Continuation callback
   const doMainActionSteps = () => {
+    if (locked()) return
+    lock()
+
     setPleaseWait(true)
     cleanError()
     if (!started) {
@@ -26,6 +31,7 @@ export function useStepper<T>(mainActionStepFuncs: StepperFunc[], initialPageSte
     // Run or continue the main action
     return actionStepper(actionStep)
       .then(({ continueFrom, error }) => {
+        unlock()
         // Either the process is completed, something needs a refresh or something failed
         setPleaseWait(false)
 
@@ -40,14 +46,15 @@ export function useStepper<T>(mainActionStepFuncs: StepperFunc[], initialPageSte
         // Otherwise, the `useEffect` below will relaunch `continueCreation` after
         // the new state is available
       })
+    // .catch not needed, actionStepper will not throw
   }
 
-  // useEffect(() => {
-  //   if (creationError) return
-  //   else if (!started) return // do not auto start if not previously invoked
+  useEffect(() => {
+    if (creationError) return
+    else if (!started) return // do not auto start if not previously invoked
 
-    // doMainActionSteps() // creationStep changed, continue
-  // }, [actionStep, creationError])
+    doMainActionSteps() // creationStep changed, continue
+  }, [actionStep, creationError])
 
   return {
     /** The UI page that should be displayed among the wizard pages */

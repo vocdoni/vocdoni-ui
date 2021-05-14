@@ -270,6 +270,9 @@ export const UseEntityCreationProvider = ({ children }: { children: ReactNode })
     }
 
     return waitForGas(wallet.address, wallet.provider)
+      .then(hasBalance => {
+        if (!hasBalance) throw new Error("No balance")
+      })
       .catch(err => {
         console.error(err)
         throw new Error(i18n.t("errors.cannot_receive_credit_for_the_new_account"))
