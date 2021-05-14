@@ -78,7 +78,7 @@ export const SignInForm = ({
                 wide
                 positive
                 onClick={onSubmit}
-                spinner={submitEnabled || checkingCredentials}
+                spinner={submitEnabled && checkingCredentials}
                 disabled={submitEnabled || checkingCredentials}
               >
                 {i18n.t('action.continue')}

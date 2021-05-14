@@ -30,6 +30,7 @@ const VoteAuthLogin = () => {
       .catch(() => {
         setCheckingCredentials(false)
       })
+    setCheckingCredentials(false)
   }
 
   const renderLoadingPage = new ViewStrategy(
