@@ -109,7 +109,7 @@ jobs:
             NODE_ENV=production
             VOCDONI_ENVIRONMENT=prod
             ETH_NETWORK_ID=xdai
-            BOOTNODES_URL=https://bootnodes.vocdoni.net/gateways.json
+            BOOTNODES_URL=https://bootnodes.vocdoni.net/gateways.priv.json
           push: true
           tags: |
             vocdoni/${{ github.event.repository.name }}:${{ steps.var.outputs.branch }},
@@ -145,7 +145,7 @@ jobs:
           APP_TITLE: "Vocdoni"
           ETH_NETWORK_ID: "xdai"
           BLOCK_TIME: "12"
-          BOOTNODES_URL: "https://bootnodes.vocdoni.net/gateways.json"
+          BOOTNODES_URL: "https://bootnodes.vocdoni.net/gateways.priv.json"
           BACKEND_URL: "https://manager.vocdoni.net/api/manager"
           BACKEND_PUB_KEY: "03cd13285ea116b9093a47364b29ddb09eccf50aa2f0112b6084a0b10943964d4e"
 
