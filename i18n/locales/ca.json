@@ -32,7 +32,7 @@
         "if_you_lose_access_to_your_passphrase_you_will_not_be_able_to_manage_your_entity_anymore": "Si perds la contrasenya no podràs tornar a accedir a la teva entitat",
         "loading": "Carregant",
         "manage_your_community_and_schedule_new_votes": "Gestiona la teva entitat i programa votacions fàcilment",
-        "no_proposals_yet": "Encara no hi ha procesos de votació!" ,  
+        "no_proposals_yet": "Encara no hi ha procesos de votació!" ,
         "no_proposals_yet_description": "Els processos de votació que creïs apareixeran aquí",
         "process_ended": "Procés finalitzat",
         "process_paused": "Procés pausat",
@@ -125,10 +125,10 @@
         "the_passphrase_dont_match": "La contrasenya no coincideix",
         "the_therms_must_be_checked": "Has d'acceptar la Política de privacitat i les Condicions del servei",
         "the_vote_details_are_invalid": "Els detalls de la votació son invàlids",
-        "wallet_not_available": "Compte no disponible". 
+        "wallet_not_available": "Compte no disponible"
     },
     "errors": {
-        "could_not_import_the_account": "Compte no importat. Torna-ho a intentar.", 
+        "could_not_import_the_account": "Compte no importat. Torna-ho a intentar.",
         "file_too_large": "El fitxer supera el tamany màxim permès",
         "general_error": "Error",
         "invalid_image_url": "L'adreça de la imatge és invàlida",
@@ -147,15 +147,15 @@
         "the_recovery_could_not_be_completed": "La recuperació no s'ha pogut completar",
         "there_is_already_one_account_with_the_same_credentials": "Ja hi ha un altre compte amb aquestes credencials",
         "there_is_already_one_account_with_the_same_name": "Ja hi ha un altre compte amb aquest nom",
-        "there_is_already_one_entity_with_the_same_name": "Ja hi ha un altre compte amb aquet nom",
+        "there_is_already_one_entity_with_the_same_name": "Ja hi ha un altre compte amb aquet nom"
     },
     "home": {
         "hero_subtitle": "El protocol de vot més segur i flexible per organitzar tota mena de procesos de votació",
         "hero_title": "La solució fàcil i segura que cobreix les teves necessitats de governança"
     },
     "import": {
-        "account_backup_file": "Còpia de seguretat", 
-        "backup_file": "Fitxer de la còpia de seguretat" 
+        "account_backup_file": "Còpia de seguretat",
+        "backup_file": "Fitxer de la còpia de seguretat",
         "backup_file_explanation": "Aquest arxiu serveix per a recuperar o importar la teva entitat en un altre dispositiu o navegador",
         "confirm_your_passphrase": "Introdueix la contrasenya que vas utilitzar per crear el compte",
         "i_acknowledge_passphrase_implications": "Sóc conscient de què la pèrdua de la contrasenya pot implicar perdre l'accés a l'entitat",
@@ -184,7 +184,7 @@
         "enter_a_new_passphrase": "Introdueix una nova contrasenya",
         "i_acknowledge_passphrase_implications": "Soc conscient de què la pèrdua de la contrasenya pot implicar perdre l'accés a l'entitat",
         "invalid_recover_questions": "Preguntes de recuperaciò invàlides",
-        "new_passphrase": "Nova contasenya"
+        "new_passphrase": "Nova contasenya",
         "repeat_a_new_passphrase": "Torna a introduir la contrasenya",
         "reset_passphrase": "Reinicia la contrasenya",
         "reset_your_passphrase": "Reinicia la contrasenya",
@@ -296,7 +296,7 @@
         "the_vote_will_end_at_the_given_time": "La votació acabarà a l'hora predeterminada. Pots tancarla manualment, si ho necessites",
         "this_is_the_form_that_your_community_will_need_to_fill_in_order_to_vote": "Els membres hauràn de complimentar aquest formulari per accedir a la votació",
         "this_is_the_link_that_you_need_to_send_your_community_members": "Aquest és l'enllaç de votació que has de compartir amb els votants:",
-        "this_type_of_vote_is_not_supported_on_the_current_page": "Aquest tipus de votació encara no està disponible", 
+        "this_type_of_vote_is_not_supported_on_the_current_page": "Aquest tipus de votació encara no està disponible",
         "title": "Títol",
         "upcoming_vote": "Pròxima votació",
         "upload_different_document": "Carrega un cens diferent",
