@@ -20,7 +20,7 @@
 I acknowledge that losing my password will prevent the ability to access my account in the future",
         "protect_your_account_and_export_it_in_a_safe_way": "Protegeix el compte exportant-lo a un lloc segur"Protect your account and export it in a safe way",
         "recovery_question": "Recovery question {{ number }}",
-        "STUFFED_TOY": "Stuffed toy"
+        "STUFFED_TOY": "Ninot de peluix"
     },
     "dashboard": {
         "active_votes": "Vots actius",
@@ -32,7 +32,7 @@ I acknowledge that losing my password will prevent the ability to access my acco
         "entity": "Entitat",
         "if_you_lose_access_to_your_passphrase_you_will_not_be_able_to_manage_your_entity_anymore": "Si perds la contrasenya no podrás tornar a accedir a la teva entitat"If you lose access to your password, you will not be able to manage your entity anymore",
         "loading": "Carregant",
-        "manage_your_community_and_schedule_new_votes": "Gestiona la teva entitat i programa una nova votació" Manage your entity and schedule new votes",
+        "manage_your_community_and_schedule_new_votes": "Gestiona la teva entitat i programa una nova votació",
         "no_proposals_yet": "No proposals yet!",
         "no_proposals_yet_description": "XXXXXXXXX",
         "process_ended": "Procés finalitzat",
@@ -140,58 +140,58 @@ I acknowledge that losing my password will prevent the ability to access my acco
         "please_repeat_the_passphrase": "Repeteix la contrasenya",
         "please_select_and_fill_all_recovery_questions": "Selecciona i completa totes les preguntes de recuperació",
         "something_went_wrong": "Alguna cosa ha sortit malament",
-        "the_backup_cannot_be_generated_please_check_your_passphrase": "The backup cannot be generated, please check your password ",
+        "the_backup_cannot_be_generated_please_check_your_passphrase": "No es pot generar la còpia de seguretat, comprova la contrasenya",
         "the_passphrase_does_not_match": "La contrasenya no coincideix",
-        "the_passphrase_is_empty": "The password is empty",
-        "the_passphrase_should_contain_some_uppercase_characters": "The password should contain some uppercase characters",
-        "the_passphrase_should_have_8_characters_or_more": "The password should have 8 characters or more",
-        "the_recovery_could_not_be_completed": "The recovery could not be completed",
-        "there_is_already_one_account_with_the_same_credentials": "There is already one account with the same credentials",
-        "there_is_already_one_account_with_the_same_name": "There is already one account with the same name",
-        "there_is_already_one_entity_with_the_same_name": "There is already one entity with the same name"
+        "the_passphrase_is_empty": "La contrasenya està buida",
+        "the_passphrase_should_contain_some_uppercase_characters": "La contrasnya ha de contenir alguna majúscula",
+        "the_passphrase_should_have_8_characters_or_more": "La contrasenya ha de tenir 8 o més caràcters",
+        "the_recovery_could_not_be_completed": "La recuperació no s'ha pogut completar",
+        "there_is_already_one_account_with_the_same_credentials": "Ja hi ha un altre compte amb aquestes credencials",
+        "there_is_already_one_account_with_the_same_name": "Ja hi ha un altre compte amb aquest nom",
+        "there_is_already_one_entity_with_the_same_name": "Ja hi ha un altre compte amb aquet nom",
     },
     "home": {
-        "hero_subtitle": "The most flexible and secure voting protocol to organize any kind of voting process",
-        "hero_title": "Easy and secure solution for all your governance needs"
+        "hero_subtitle": "El protocol de vot més segur i flexible per organitzar tota mena de procesos de votació",
+        "hero_title": "La solució fàcil i segura que cobreix les teves necessitats de governança"
     },
     "import": {
-        "account_backup_file": "Account backup file",
-        "backup_file": "Backup file",
-        "backup_file_explanation": "This file serves as a backup to recover your account or import it to another device or browser.",
-        "confirm_your_passphrase": "Enter the password that you used when you created the account",
+        "account_backup_file": "Fitxer de recuperació", XXXXXXXXXXXX
+        "backup_file": "Arxiu de seguretat" Backup file",  XXXXXXXXXXXX
+        "backup_file_explanation": "Aquest arxiu serveix per a recuperar o importar la teva entitat a un altre dispositiu o navegador" This file serves as a backup to recover your account or import it to another device or browser.",
+        "confirm_your_passphrase": "Introdueix la contrasenya que vas utilitzar per crar el compte",
         "i_acknowledge_passphrase_implications": "I acknowledge that losing my password will prevent the ability to access my account in the future",
-        "import_account": "Import account",
-        "import_an_account": "Import an account",
-        "invalid_imported_file": "Invalid backup file",
-        "passphrase": "Password",
-        "select_the_backup_file_of_your_account": "Select the backup file of your account",
-        "your_account_has_been_imported_successfully": "Your account has been imported successfully"
+        "import_account": "Importar compte",
+        "import_an_account": "Importar un compte",
+        "invalid_imported_file": "Arxiu de seguretat invàlid",
+        "passphrase": "Contrasenya",
+        "select_the_backup_file_of_your_account": "Selecciona l'arxiu de seguretat del teu compte",
+        "your_account_has_been_imported_successfully": "El teu compte s'ha importat correctament"
     },
     "input": {
-        "enter_the_url_or_upload_a_file": "Enter the URL of an image or upload a file",
-        "remove_file": "Remove file"
+        "enter_the_url_or_upload_a_file": "Introdueix l'enllaç d'una imatge o puja un fitxer",
+        "remove_file": "Esborra fitxer"
     },
     "links": {
-        "about": "About",
+        "about": "Sobre Vocdoni",
         "blog": "Blog",
-        "dashboard": "Dashboard",
-        "docs": "Docs",
-        "pricing": "Pricing",
-        "support": "Support"
+        "dashboard": "Dashboard", XXXXXXXXXX 
+        "docs": "Documents",
+        "pricing": "Preu",
+        "support": "Suport"
     },
     "recover": {
-        "continue": "Continue",
-        "drag_a_vocdoni_backup_file": "Drag the Vocdoni credentials here",
+        "continue": "Continuar",
+        "drag_a_vocdoni_backup_file": "Drag the Vocdoni credentials here",  XXXXXXXXXXXXXXXXXXXXX
         "drag_the_file_that_you_download_when_you_downloaded_your_account_backup": "Drag here the backup file of your account",
-        "enter_a_new_passphrase": "Enter a new password",
+        "enter_a_new_passphrase": "Introdueix una nova contrasenya",
         "i_acknowledge_passphrase_implications": "I acknowledge that losing my password will prevent the ability to access my account in the future",
-        "invalid_recover_questions": "Invalid recover questions",
-        "new_passphrase": "New password",
-        "repeat_a_new_passphrase": "Repeat new password",
-        "reset_passphrase": "Password reset",
-        "reset_your_passphrase": "Reset your password",
-        "select_other_file": "Select other file",
-        "select_the_backup_file": "Select the backup file",
+        "invalid_recover_questions": "Preguntes de recuperaciò invàlides",
+        "new_passphrase": "Nova contasenya"
+        "repeat_a_new_passphrase": "Introdueix de nou la contrasenya",
+        "reset_passphrase": "Reinicia la contrasenya",
+        "reset_your_passphrase": "Reinicia la teva contrasenya",
+        "select_other_file": "Selecciona un fitxer",
+        "select_the_backup_file": "Selecciona un fitxer de copia de seguresta",
         "your_account_has_been_recovered_successfully": "Your account has been recovered successfully"
     },
     "sign_in": {
