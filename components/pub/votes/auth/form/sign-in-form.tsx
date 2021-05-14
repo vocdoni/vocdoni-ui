@@ -39,7 +39,7 @@ export const SignInForm = ({
   return (
     <PageCard>
       <VotePageHeader
-        processTitle={processInfo?.metadata.title.default}
+        processTitle={processInfo?.metadata?.title.default}
         processImage={processInfo?.metadata?.media.header}
         entityName={entity?.name.default}
         entityImage={entity?.media.avatar}

@@ -75,7 +75,7 @@ export const QuestionGroup = ({
   const handleCreateChoice = () => {
     const clonedQuestion: Question = cloneDeep(question)
     clonedQuestion.choices.push(
-      createEmptyOption(clonedQuestion.choices.length + 1)
+      createEmptyOption(clonedQuestion.choices.length)
     )
 
     onUpdateQuestion(index, clonedQuestion)

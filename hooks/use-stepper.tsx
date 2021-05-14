@@ -42,12 +42,12 @@ export function useStepper<T>(mainActionStepFuncs: StepperFunc[], initialPageSte
       })
   }
 
-  useEffect(() => {
-    if (creationError) return
-    else if (!started) return // do not auto start if not previously invoked
+  // useEffect(() => {
+  //   if (creationError) return
+  //   else if (!started) return // do not auto start if not previously invoked
 
-    doMainActionSteps() // creationStep changed, continue
-  }, [actionStep, creationError])
+    // doMainActionSteps() // creationStep changed, continue
+  // }, [actionStep, creationError])
 
   return {
     /** The UI page that should be displayed among the wizard pages */
