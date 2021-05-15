@@ -17,3 +17,5 @@ export const VOTING_PATH = '/pub/votes' // + processId
 // GENERAL
 export const PRICING_PATH = '/pricing'
 export const ABOUT_PATH = '/about'
+export const TERMS_PATH = '/terms'
+export const PRIVACY_PATH = '/privacy'
