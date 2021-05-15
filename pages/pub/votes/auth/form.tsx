@@ -21,7 +21,7 @@ const VoteAuthLogin = () => {
     processInfo,
     methods,
   } = useAuthForm()
-  const { metadata, loading } = useEntity(processInfo?.entity)
+  const { metadata, loading, error } = useEntity(processInfo?.entity)
 
   const handleSubmit = () => {
     setCheckingCredentials(true)
@@ -39,7 +39,7 @@ const VoteAuthLogin = () => {
   )
 
   const renderVotingInvalidLink = new ViewStrategy(
-    () => invalidProcessId,
+    () => (!loading && !loadingInfo) && invalidProcessId,
     (
       <VotingErrorPage
         message={i18n.t(
@@ -50,12 +50,12 @@ const VoteAuthLogin = () => {
   )
 
   const renderLoadingErrorPage = new ViewStrategy(
-    () => !!loadingInfoError,
+    () => !!loadingInfoError || !!error,
     <VotingErrorPage message={loadingInfoError} />
   )
 
   const renderVoteNotSupported = new ViewStrategy(
-    () => !fieldNames || !fieldNames.length,
+    () => (!loading && !loadingInfo) && (!fieldNames || !fieldNames?.length),
     (
       <VotingErrorPage
         message={i18n.t(
