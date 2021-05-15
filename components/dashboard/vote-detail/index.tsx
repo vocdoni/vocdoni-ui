@@ -1,8 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { ProcessStatus } from 'dvote-solidity'
-import { usePool } from '@vocdoni/react-hooks'
-import { IProcessInfo, DigestedProcessResults, VotingApi } from 'dvote-js'
+import { ProcessStatus, IProcessInfo, DigestedProcessResults, VotingApi } from 'dvote-js'
 
 import i18n from '@i18n'
 import { colors } from 'theme/colors'
@@ -25,23 +23,23 @@ import { VoteQuestionCard } from '@components/common/vote-question-card'
 import { GeneratePdfCard } from './generate-pdf-card'
 import { useWallet, WalletRoles } from '@hooks/use-wallet'
 import { useMessageAlert } from '@hooks/message-alert'
-import { useLoadingAlert } from '@hooks/loading-alert'
-import { useBlockHeight } from '@vocdoni/react-hooks'
+import { useBlockHeight, usePool } from '@vocdoni/react-hooks'
 import { getVoteStatus, VoteStatus } from '@lib/util'
 
 interface IProcessDetailProps {
   process: IProcessInfo
   results: DigestedProcessResults
+  refreshProcessInfo: (processId: string) => Promise<IProcessInfo>
 }
 
-export const ViewDetail = ({ process, results }: IProcessDetailProps) => {
-  const [ cancelingVote, setCancelingVote ] = useState<boolean>(false)
-  const [ endingVote, setEndingVote ] = useState<boolean>(false)
+export const ViewDetail = ({ process, results, refreshProcessInfo }: IProcessDetailProps) => {
+  const [cancelingVote, setCancelingVote] = useState<boolean>(false)
+  const [endingVote, setEndingVote] = useState<boolean>(false)
+  const [endedOrCanceled, setEndedOrCanceled] = useState<boolean>(false)
   const { poolPromise } = usePool()
   const { wallet } = useWallet({ role: WalletRoles.ADMIN })
   const { setAlertMessage } = useMessageAlert()
 
-  const voteActive = process.parameters.status.value === ProcessStatus.READY
   const voteLink = RouterService.instance.get(VOTING_AUTH_FORM_PATH, {
     processId: process.id,
   })
@@ -54,6 +52,10 @@ export const ViewDetail = ({ process, results }: IProcessDetailProps) => {
     process.parameters.startBlock,
     blockHeight
   )
+
+  const voteActive = status == VoteStatus.Active
+  const canCancelorEnd = wallet?.address && !cancelingVote && !endingVote && !endedOrCanceled &&
+    (status == VoteStatus.Active || status == VoteStatus.Paused)
 
   const handleCancelVote = () => {
     if (!wallet) {
@@ -79,7 +81,9 @@ export const ViewDetail = ({ process, results }: IProcessDetailProps) => {
           pool
         )
       })
+      .then(() => refreshProcessInfo(process.id))
       .then(() => {
+        setEndedOrCanceled(true)
         setCancelingVote(false)
       })
   }
@@ -104,12 +108,14 @@ export const ViewDetail = ({ process, results }: IProcessDetailProps) => {
           pool
         )
       })
+      .then(() => refreshProcessInfo(process.id))
       .then(() => {
+        setEndedOrCanceled(true)
         setEndingVote(false)
       })
   }
   // TODO handleGeneratePdfResult return not implemented an make button not clickable
-  const handleGeneratePdfResult = () => {}
+  const handleGeneratePdfResult = () => { }
   return (
     <PageCard>
       <Grid>
@@ -131,7 +137,7 @@ export const ViewDetail = ({ process, results }: IProcessDetailProps) => {
                     color={colors.accent2B}
                     border
                     wide
-                    disabled={endingVote || cancelingVote}
+                    disabled={!canCancelorEnd}
                     spinner={cancelingVote}
                     onClick={handleCancelVote}
                   >
@@ -142,7 +148,7 @@ export const ViewDetail = ({ process, results }: IProcessDetailProps) => {
                 <ButtonContainer>
                   <Button
                     color={colors.accent1}
-                    disabled={endingVote || cancelingVote}
+                    disabled={!canCancelorEnd}
                     spinner={endingVote}
                     wide
                     border
