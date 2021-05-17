@@ -36,6 +36,7 @@ import { UpdateDbAccountError } from '@lib/validators/errors/update-db-account-e
 import { CreateCredentialsError } from '@lib/validators/errors/create-credentials-error'
 import { EntityNameAlreadyExistError } from '@lib/validators/errors/entity-name-already-exits-error'
 import { StoreMediaError } from '@lib/validators/errors/store-media-error'
+import { InvalidIncognitoModeError } from '@lib/validators/errors/invalid-incognito-mode-error'
 
 export interface EntityCreationContext {
   pageStep: EntityCreationPageSteps
@@ -219,6 +220,12 @@ export const UseEntityCreationProvider = ({
         await addDbAccount(account)
       }
     } catch (error) {
+      console.log(error)
+      
+      if (error?.message?.indexOf?.("mutation") >= 0) { // if is incognito mode throw these error
+        return { error: new InvalidIncognitoModeError()}
+      }
+
       return { error: new EntityNameAlreadyExistError() }
     }
 
