@@ -16,11 +16,13 @@ const AlertContainer = styled.div<{ visible: boolean }>`
   z-index: 320;
   top: 20px;
   right: 10px;
-  max-width: 280px;
+  width: 280px;
+  font-size: 16px;
   color: ${({theme}) => theme.white};
   background-color: rgba(179, 21, 21, 0.8);
-
-  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  padding: 24px;
   border-radius: 8px;
   visibility: ${({ visible }) => (visible ? 'visible' : 'hidden')};
   opacity: ${({ visible }) => (visible ? '1' : '0')};

@@ -1,35 +1,38 @@
 import React, { ChangeEvent, useEffect, useState } from 'react'
-import Link from 'next/link'
-
-
-import { useEntityCreation } from '../../hooks/entity-creation'
-import { PRIVACY_PATH, TERMS_PATH } from '@const/routes'
-
-import { Checkbox } from '@components/checkbox'
-import { Column, Grid } from '../grid'
-import i18n from '../../i18n'
-import { Button } from '../button'
 import styled from 'styled-components'
-import { SectionText, TextSize } from '../text'
-import { EntityCreationPageSteps } from '.'
-import { useMessageAlert } from '../../hooks/message-alert'
-import { useDbAccounts } from '../../hooks/use-db-accounts'
+import { useEntityCreation } from '@hooks/entity-creation'
+import { PRIVACY_PATH, TERMS_PATH } from '@const/routes'
+import { Checkbox } from '@components/checkbox'
+import { Column, Grid } from '@components/grid'
+import i18n from '@i18n'
+import { Button } from '@components/button'
+
+import { useMessageAlert } from '@hooks/message-alert'
+import { useDbAccounts } from '@hooks/use-db-accounts'
+import { useScrollTop } from '@hooks/use-scroll-top'
+import { useWallet } from '@hooks/use-wallet'
+import { When } from 'react-if'
+
+import { colors } from 'theme/colors'
 import {
   FileLoaderFormGroup,
   InputFormGroup,
   TextareaFormGroup,
 } from '@components/form'
+import { SectionText, TextSize } from '@components/text'
 import {
   FlexAlignItem,
   FlexContainer,
   FlexJustifyContent,
 } from '@components/flex'
 import { DirtyFields, ErrorFields } from '@lib/validators'
-import { entityMetadataValidator } from './metadata-validator'
 import { Label } from '@components/label'
-import { colors } from 'theme/colors'
-import { useScrollTop } from "@hooks/use-scroll-top"
-import { When } from 'react-if'
+
+import { AccountStatus } from '@lib/types'
+
+import { entityMetadataValidator } from './metadata-validator'
+
+import { EntityCreationPageSteps } from '.'
 
 export enum MetadataFields {
   Name = 'name',
@@ -54,13 +57,12 @@ export const FormMetadata = () => {
     terms,
     privacy,
     methods,
-    metadataValidationError,
   } = useEntityCreation()
   const [metadataErrors, setMetadataErrors] = useState<ErrorFields>(new Map())
   const [dirtyFields, setDirtyField] = useState<DirtyFields>(new Map())
   const { setAlertMessage } = useMessageAlert()
   const { dbAccounts } = useDbAccounts()
-
+  const { wallet } = useWallet()
   useEffect(() => {
     const metadata = {
       [MetadataFields.Name]: name,
@@ -110,18 +112,24 @@ export const FormMetadata = () => {
   }
 
   const onContinue = () => {
-    if (
-      dbAccounts.some(
-        (acc) => acc.name.toLowerCase().trim() == name.toLowerCase().trim()
-      )
-    ) {
+    const registeredAccount = dbAccounts.find(
+      (acc) => acc.name.toLowerCase().trim() == name.toLowerCase().trim()
+    )
+
+    if (registeredAccount && registeredAccount.status === AccountStatus.Ready) {
       return setAlertMessage(
         i18n.t('errors.there_is_already_one_entity_with_the_same_name')
       )
     }
 
     if (!metadataErrors.size) {
-      methods.setPageStep(EntityCreationPageSteps.CREDENTIALS)
+      let destinationPage = EntityCreationPageSteps.CREDENTIALS
+
+      if (wallet) {
+        destinationPage = EntityCreationPageSteps.CREATION
+      }
+
+      methods.setPageStep(destinationPage)
     } else {
       dirtyAllFields()
     }
@@ -213,9 +221,11 @@ export const FormMetadata = () => {
             id="terms-check"
             checked={terms}
             onChange={() => methods.setTerms(!terms)}
-            text={i18n.t('entity.i_have_read_and_accept_the_privacy_policy')}
+            text={i18n.t('entity.i_have_read_and_accept_the_privacy_policy_and_the_terms_of_service')}
             href={TERMS_PATH}
           />
+        </FlexContainer>
+        <FlexContainer alignItem={FlexAlignItem.Center}>
           <When condition={getErrorMessage(MetadataFields.Terms)}>
             <SectionText color={colors.danger} size={TextSize.Small}>
               {getErrorMessage(MetadataFields.Terms)}
@@ -231,12 +241,11 @@ export const FormMetadata = () => {
             href={PRIVACY_PATH}
           />
           <When condition={getErrorMessage(MetadataFields.Privacy)}>
-              <SectionText color={colors.danger} size={TextSize.Small}>
-                {getErrorMessage(MetadataFields.Privacy)}
-              </SectionText>
+            <SectionText color={colors.danger} size={TextSize.Small}>
+              {getErrorMessage(MetadataFields.Privacy)}
+            </SectionText>
           </When>
         </FlexContainer>
-
       </Column>
 
       <Column>
@@ -249,9 +258,3 @@ export const FormMetadata = () => {
     </Grid>
   )
 }
-
-const BottomDiv = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-`

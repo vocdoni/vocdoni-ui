@@ -8,6 +8,7 @@ export interface DbAccountsContext {
   addDbAccount: (account: Account) => Promise<void>,
   refreshAccounts: () => Promise<void>,
   updateAccount: (address: string, account: Account) => Promise<void>,
+  getAccount: (address: string) => Account
   error: string,
 }
 
@@ -53,13 +54,18 @@ export const UseDbAccountsProvider = ({ children }: { children: ReactNode }) => 
 
   const updateAccount = (address: string, account: Account) => {
     if (!address || !account || !account.name || !account.encryptedMnemonic) throw new Error("Invalid parameters")
-
+    console.log(JSON.stringify(account));
+    
     const db = new AccountDb()
     return db.update(address, account)
       .then(() => refreshAccounts())
   }
 
-  const value = { dbAccounts, addDbAccount, refreshAccounts, updateAccount, error }
+  const getAccount = (address: string): Account => (
+    dbAccounts.find(acc => acc.address.toLowerCase() == address.toLowerCase())
+  )
+
+  const value = { dbAccounts, addDbAccount, refreshAccounts, updateAccount, getAccount, error }
 
   return (
     <UseDbAccountsContext.Provider value={value}>

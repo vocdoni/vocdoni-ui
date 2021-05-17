@@ -7,7 +7,7 @@ export function useStepper<T>(mainActionStepFuncs: StepperFunc[], initialPageSte
   const [actionStep, setActionStep] = useState(0)
   const [pleaseWait, setPleaseWait] = useState(false)
   const [started, setStarted] = useState(false)
-  const [creationError, setCreationError] = useState<string>()
+  const [creationError, setCreationError] = useState<string|Error>()
   const { locked, lock, unlock } = useLock()
 
   const cleanError = () => { if (creationError) setCreationError("") }
@@ -54,7 +54,7 @@ export function useStepper<T>(mainActionStepFuncs: StepperFunc[], initialPageSte
     else if (!started) return // do not auto start if not previously invoked
 
     doMainActionSteps() // creationStep changed, continue
-  }, [actionStep, creationError])
+  }, [actionStep])
 
   return {
     /** The UI page that should be displayed among the wizard pages */
@@ -84,7 +84,7 @@ function makeStepperLoopFunction(operations: StepperFunc[], onNextActionStep: ()
       try {
         const op = operations[i]
         const { error, waitNext } = await op()
-
+        
         // Stop on failure or refresh needed
         if (error) return { continueFrom: i, error }
         else if (waitNext) {

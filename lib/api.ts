@@ -1,5 +1,8 @@
 import { IProcessInfo, GatewayPool, VotingApi } from 'dvote-js'
 import { BigNumber, providers } from 'ethers'
+import { InvalidAddressError } from './validators/errors/invalid-address-error';
+import { InvalidEthereumProviderError } from './validators/errors/invalid-ethereum-provider-error';
+import { RetrieveGasTimeOutError } from './validators/errors/retrieve-gas-time-out-error';
 
 // VOCDONI API wrappers
 
@@ -54,15 +57,20 @@ export async function getProcessList(entityId: string, pool: GatewayPool): Promi
 
 /** Waits until the given Ethereum address has funds to operate */
 export async function waitForGas(address: string, provider: providers.Provider, retries: number = 50) {
-  if (!address || !provider) throw new Error("Invalid parameters")
+  const requestInterval = 2000
+  const maxMilliseconds = requestInterval * retries
+
+  if (!address) throw new InvalidAddressError()
+  else if (!provider) throw new InvalidEthereumProviderError()
 
   while (retries >= 0) {
     if ((await provider.getBalance(address)).gt(BigNumber.from(0))) {
       return true
     }
 
-    await new Promise(r => setTimeout(r, 2000)) // Wait 2s
+    await new Promise(r => setTimeout(r, requestInterval)) // Wait 2s
     retries--
   }
-  return false
+  
+  throw new RetrieveGasTimeOutError(maxMilliseconds)
 }

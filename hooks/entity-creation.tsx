@@ -1,8 +1,22 @@
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useMemo,
+  useState,
+} from 'react'
 import { usePool } from '@vocdoni/react-hooks'
-import { ensHashAddress, EntityApi, EntityMetadata, EntityMetadataTemplate, GatewayPool, Symmetric, TextRecordKeys } from 'dvote-js'
-import { createContext, ReactNode, useContext, useEffect, useMemo, useState } from 'react'
+import {
+  ensHashAddress,
+  EntityApi,
+  EntityMetadata,
+  EntityMetadataTemplate,
+  GatewayPool,
+  Symmetric,
+  TextRecordKeys,
+} from 'dvote-js'
 import { useBackend } from './backend'
-import { waitForGas } from "../lib/api"
+import { waitForGas } from '../lib/api'
 import { useDbAccounts } from './use-db-accounts'
 import { useWallet } from './use-wallet'
 import { EntityCreationPageSteps } from '../components/steps-entity-creation'
@@ -10,72 +24,102 @@ import { BigNumber, Wallet } from 'ethers'
 import { isValidEmail } from '../lib/regex'
 import { uploadFileToIpfs } from '../lib/file'
 import i18n from '../i18n'
-import { StepperFunc } from '../lib/types'
+import { Account, AccountStatus, StepperFunc } from '../lib/types'
 import { useStepper } from './use-stepper'
 import { useMessageAlert } from './message-alert'
 
+import { BlockchainConnectionError } from '@lib/validators/errors/blockchain-connection-error'
+import { VocdoniConnectionError } from '@lib/validators/errors/vocdoni-connection-error'
+import { InvalidAccountBalanceError } from '@lib/validators/errors/invalid-account-balance-error'
+import { StoringDataOnBlockchainError } from '@lib/validators/errors/storing-data-on-blockchain-error'
+import { UpdateDbAccountError } from '@lib/validators/errors/update-db-account-error'
+import { CreateCredentialsError } from '@lib/validators/errors/create-credentials-error'
+import { EntityNameAlreadyExistError } from '@lib/validators/errors/entity-name-already-exits-error'
+import { StoreMediaError } from '@lib/validators/errors/store-media-error'
+
 export interface EntityCreationContext {
-  pageStep: EntityCreationPageSteps,
-  creationError: string,
+  pageStep: EntityCreationPageSteps
+  creationError: Error | string
 
-  name: string,
-  email: string,
-  description: string,
-  logoUrl: string,
-  logoFile: File,
-  headerUrl: string,
-  headerFile: File,
-  passphrase: string,
-  terms: boolean,
-  privacy: boolean,
+  name: string
+  email: string
+  description: string
+  logoUrl: string
+  logoFile: File
+  headerUrl: string
+  headerFile: File
+  passphrase: string
+  terms: boolean
+  privacy: boolean
 
-  pleaseWait: boolean,
-  created: boolean,
-  actionStep: number,
+  pleaseWait: boolean
+  created: boolean
+  actionStep: number
   methods: {
-    setPageStep: (s: EntityCreationPageSteps) => void,
+    setPageStep: (s: EntityCreationPageSteps) => void
 
-    setName(name: string): void,
-    setEmail(email: string): void,
-    setDescription(description: string): void,
-    setHeaderFile(headerFile: File): void,
-    setHeaderUrl(headerUrl: string): void,
-    setLogoFile(logoFile: File): void,
-    setLogoUrl(logoUrl: string): void,
-    setPassphrase(passphrase: string): void,
-    setTerms(terms: boolean): void,
-    setPrivacy(privacy: boolean): void,
+    setName(name: string): void
+    setEmail(email: string): void
+    setDescription(description: string): void
+    setHeaderFile(headerFile: File): void
+    setHeaderUrl(headerUrl: string): void
+    setLogoFile(logoFile: File): void
+    setLogoUrl(logoUrl: string): void
+    setPassphrase(passphrase: string): void
+    setTerms(terms: boolean): void
+    setPrivacy(privacy: boolean): void
     createEntity(): void
     continueEntityCreation(): void
+    continuePendingProcessCreation(account: Account): void
   }
 }
 
-export const UseEntityCreationContext = createContext<EntityCreationContext>({ step: 0, methods: {} } as any)
+export const UseEntityCreationContext = createContext<EntityCreationContext>({
+  step: 0,
+  methods: {},
+} as any)
+
+const accountStatusToStepProcess = new Map<AccountStatus, number>([
+  [AccountStatus.Wallet, 0],
+  [AccountStatus.Media, 1],
+  [AccountStatus.Balance, 2],
+  [AccountStatus.Metadata, 3],
+])
 
 export const useEntityCreation = () => {
   const entityCreationCtx = useContext(UseEntityCreationContext)
   if (entityCreationCtx === null) {
-    throw new Error('useEntityCreation() can only be used on the descendants of <UseEntityCreationProvider />,')
+    throw new Error(
+      'useEntityCreation() can only be used on the descendants of <UseEntityCreationProvider />,'
+    )
   }
 
-  const { name, email, description, logoUrl, logoFile, headerUrl, headerFile } = entityCreationCtx
+  const { name, email, description, logoUrl, logoFile, headerUrl, headerFile } =
+    entityCreationCtx
 
   // GETTERS
 
   const metadataValidationError = useMemo(() => {
     const required = ['name', 'email', 'description']
     for (const req of required) {
-      if (!entityCreationCtx[req] || !entityCreationCtx[req].length) return i18n.t("errors.please_fill_in_all_the_fields")
+      if (!entityCreationCtx[req] || !entityCreationCtx[req].length) {
+        return i18n.t('errors.please_fill_in_all_the_fields')
+      }
     }
 
     if (!isValidEmail(entityCreationCtx.email)) {
-      return i18n.t("errors.please_enter_a_valid_email")
+      return i18n.t('errors.please_enter_a_valid_email')
     }
 
     const files = ['logo', 'header']
     for (const file of files) {
-      if (entityCreationCtx[file + 'File'] === null && !entityCreationCtx[file + 'Url'].length) {
-        return i18n.t("errors.please_select_an_image_for_the_header_and_the_logo")
+      if (
+        entityCreationCtx[file + 'File'] === null &&
+        !entityCreationCtx[file + 'Url'].length
+      ) {
+        return i18n.t(
+          'errors.please_select_an_image_for_the_header_and_the_logo'
+        )
       }
     }
 
@@ -85,15 +129,19 @@ export const useEntityCreation = () => {
   return { ...entityCreationCtx, metadataValidationError }
 }
 
-export const UseEntityCreationProvider = ({ children }: { children: ReactNode }) => {
+export const UseEntityCreationProvider = ({
+  children,
+}: {
+  children: ReactNode
+}) => {
   // FORM DATA
-  const [name, setName] = useState<string>("")
-  const [email, setEmail] = useState<string>("")
-  const [description, setDescription] = useState<string>("")
-  const [passphrase, setPassphrase] = useState<string>("")
-  const [logoUrl, setLogoUrl] = useState<string>("")
+  const [name, setName] = useState<string>('')
+  const [email, setEmail] = useState<string>('')
+  const [description, setDescription] = useState<string>('')
+  const [passphrase, setPassphrase] = useState<string>('')
+  const [logoUrl, setLogoUrl] = useState<string>('')
   const [logoFile, setLogoFile] = useState<File>()
-  const [headerUrl, setHeaderUrl] = useState<string>("")
+  const [headerUrl, setHeaderUrl] = useState<string>('')
   const [headerFile, setHeaderFile] = useState<File>()
   const [terms, setTerms] = useState<boolean>(false)
   const [privacy, setPrivacy] = useState<boolean>(false)
@@ -101,37 +149,10 @@ export const UseEntityCreationProvider = ({ children }: { children: ReactNode })
 
   // UI STATE
   const { wallet, setWallet } = useWallet()
-  const { dbAccounts, addDbAccount, updateAccount } = useDbAccounts()
+  const { dbAccounts, addDbAccount, updateAccount, getAccount } =
+    useDbAccounts()
   const { poolPromise } = usePool()
   const { bkPromise } = useBackend()
-
-  // Detect if there was an ongoing account creation and resume if so
-  useEffect(() => {
-    if (!wallet || !dbAccounts?.length) return
-
-    const account = dbAccounts.find(acc => acc.address.toLowerCase() == wallet.address.toLowerCase())
-    if (!account?.pending?.metadata || !account?.pending?.email) return
-
-    setEmail(account.pending.email)
-    setName(account.pending.metadata.name.default)
-    setDescription(account.pending.metadata.description.default)
-    setLogoUrl(account.pending.metadata.media.avatar)
-    setHeaderUrl(account.pending.metadata.media.header)
-    setTerms(true)
-    setPrivacy(true)
-
-    // Skip the metadata screen
-    setPageStep(EntityCreationPageSteps.CREDENTIALS)
-
-    // Bypass the wallet creation steps, since we already have one
-    const idx = creationStepFuncs.indexOf(ensureAccount)
-    if (idx < 0) return console.error("INTERNAL ERROR: ensureAccount not found")
-    forceActionStep(idx)
-
-    const str = i18n.t("warning.the_creation_of_your_entity_is_not_complete") + ". " +
-      i18n.t("warning.please_enter_your_passphrase_to_retry_it")
-    setAlertMessage(str)
-  }, [])
 
   // UTIL
 
@@ -141,102 +162,123 @@ export const UseEntityCreationProvider = ({ children }: { children: ReactNode })
       return Promise.resolve({ waitNext: false })
     }
 
-    setWallet(null)
+    const account = getAccount(wallet.address)
+    console.log('e valor del check es',!account || account.status === AccountStatus.Ready)
+    console.log(account)
+    if (!account || account.status === AccountStatus.Ready) setWallet(null)
+
     return Promise.resolve({ waitNext: true })
   }
 
-  const ensureWallet: StepperFunc = () => {
+  const ensureWallet: StepperFunc = async () => {
     if (wallet) {
       // Already OK?
-      return Promise.resolve({ waitNext: false })
+      console.log('el account ya esta ready')
+      return { waitNext: false }
     }
 
-    return poolPromise.then(pool => {
+    try {
+      const pool = await poolPromise
       const newWallet = Wallet.createRandom().connect(pool.provider)
-      setWallet(newWallet) // Note: this will not immediately update `wallet`
+      setWallet(newWallet)
 
-      return { waitNext: true } // continue when the new wallet is available on the scope
-    }).catch(err => {
-      console.error(err)
-      return { error: i18n.t("errors.your_credentials_cannot_be_created") }
-    })
+      return { waitNext: true }
+    } catch {
+      return { error: new CreateCredentialsError() }
+    }
   }
 
-  const ensureAccount: StepperFunc = () => {
-    if (dbAccounts.some(acc => acc.address == wallet.address)) {
+  const ensureAccount: StepperFunc = async () => {
+    let account = getAccount(wallet.address)
+
+    if (account && account.status === AccountStatus.Ready) {
       // Already OK?
       return Promise.resolve({ waitNext: false })
     }
 
-    let pool: GatewayPool
-    let avatar: string
-
-    return poolPromise
-      .then(gwPool => {
-        pool = gwPool
-
-        if (logoFile) return uploadFileToIpfs(logoFile, pool, wallet)
-        return logoUrl
-      })
-      .then(value => {
-        avatar = value
-
-        if (headerFile) return uploadFileToIpfs(headerFile, pool, wallet)
-        return headerUrl
-      })
-      .then(header => {
-        // Store account with temporary metadata
-        const metadata: EntityMetadata = {
-          ...JSON.parse(JSON.stringify(EntityMetadataTemplate)),
-          name: { default: name.trim() },
-          description: { default: description.trim() },
-          media: { avatar, header }
-        }
-
-        // set metadata as pending, along with the account
-        return addDbAccount({
+    try {
+      console.log('Vas a crear una nueva', account)
+      if (!account) {
+        account = {
           name,
           address: wallet.address,
-          encryptedMnemonic: Symmetric.encryptString(wallet.mnemonic.phrase, passphrase),
+          encryptedMnemonic: Symmetric.encryptString(
+            wallet.mnemonic.phrase,
+            passphrase
+          ),
           hdPath: wallet.mnemonic.path,
-          locale: "en",
-          // pending
+          locale: 'en',
+          status: AccountStatus.Wallet,
           pending: {
+            email,
             creation: true,
-            metadata: metadata,
-            email
-          }
-        })
-      })
-      .then(() => {
-        // break the paren't execution and continue when the dbAccounts hook value is updated
-        return { waitNext: true }
-      })
-      .catch(err => {
-        console.error(err)
-        return { error: i18n.t("errors.the_account_metadata_could_not_be_stored") }
-      })
+            metadata: {
+              ...JSON.parse(JSON.stringify(EntityMetadataTemplate)),
+              name: { default: name.trim() },
+              description: { default: description.trim() },
+            },
+          },
+        }
+        await addDbAccount(account)
+      }
+    } catch (error) {
+      return { error: new EntityNameAlreadyExistError() }
+    }
+
+    try {
+      let pool: GatewayPool = await poolPromise
+      let avatar: string
+      let header: string
+
+      if (logoFile) avatar = await uploadFileToIpfs(logoFile, pool, wallet)
+      if (headerFile) header = await uploadFileToIpfs(headerFile, pool, wallet)
+
+      // set metadata as pending, along with the account
+      account.status = AccountStatus.Media
+      account.pending.metadata.media = {
+        avatar,
+        header,
+      }
+
+      updateAccount(wallet.address, account)
+
+      return { waitNext: true }
+    } catch (error) {
+      console.error('Este es el catch', error)
+
+      return { error: new StoreMediaError() }
+    }
   }
 
-  const ensureEntityCreation: StepperFunc = () => {
-    const account = dbAccounts.find(account => account.address == wallet.address)
-    if (!account.pending) {
-      // Already OK?
+  const ensureEntityCreation: StepperFunc = async () => {
+    const account = getAccount(wallet.address)
+
+    let lastSuccessStatus: AccountStatus = account.status
+
+    if (account.status === AccountStatus.Ready) {
       return Promise.resolve({ waitNext: false })
     }
 
-    // 3) pending metadata => sign up and get gas
-    return ensureWalletBalance()
-      // 4) gas ready => upload metadata + register the entity
-      .then(() => ensureEntityMetadata())
-      // 5) entity => mark DB account as registered
-      .then(() => ensureNoPendingAccount())
-      .then(() => ({}))
-      .catch(err => {
-        console.error(err)
+    try {
+      // 3) pending metadata => sign up and get gas
+      await ensureWalletBalance()
+      lastSuccessStatus = AccountStatus.Balance
 
-        return { error: err.message }
-      })
+      // 4) gas ready => upload metadata + register the entity
+      await ensureEntityMetadata()
+      lastSuccessStatus = AccountStatus.Metadata
+      // 5) entity => mark DB account as registered
+      await ensureNoPendingAccount()
+      lastSuccessStatus = AccountStatus.Ready
+    } catch (error) {
+      return { error: error }
+    } finally {
+      account.status = lastSuccessStatus
+
+      updateAccount(wallet.address, account)
+    }
+
+    return {}
   }
 
   // (helper of ensureEntityCreation)
@@ -246,89 +288,118 @@ export const UseEntityCreationProvider = ({ children }: { children: ReactNode })
 
     try {
       balance = await pool.provider.getBalance(wallet.address)
-    }
-    catch (err) {
+    } catch (err) {
       console.error(err)
-      throw new Error(i18n.t("errors.cannot_connect_to_the_blockchain"))
+      throw new BlockchainConnectionError()
     }
 
     // Done: skip
     if (!balance.isZero()) return
 
     // Pending
-    const account = dbAccounts.find(acc => acc.address == wallet.address)
+    const account = getAccount(wallet.address)
 
     try {
       const bk = await bkPromise
-      await bk.sendRequest({
-        method: 'signUp',
-        entity: {
-          name: account.name,
-          email: account.pending.email
+
+      await bk.sendRequest(
+        {
+          method: 'signUp',
+          entity: {
+            name: account.name,
+            email: account.pending.email,
+          },
         },
-      }, wallet)
-    }
-    catch (err) {
-      console.error(err)
-      throw new Error(i18n.t("errors.cannot_connect_to_vocdoni"))
-    }
-
-    return waitForGas(wallet.address, wallet.provider)
-      .then(hasBalance => {
-        if (!hasBalance) throw new Error("No balance")
-      })
-      .catch(err => {
-        console.error(err)
-        throw new Error(i18n.t("errors.cannot_receive_credit_for_the_new_account"))
-      })
-  }
-
-  // (helper of ensureEntityCreation)
-  const ensureEntityMetadata = () => {
-    let pool: GatewayPool
-    const account = dbAccounts.find(acc => acc.address == wallet.address)
-
-    if (!account.pending || !account.pending.metadata) return Promise.resolve(null)
-
-    return poolPromise
-      .then(gwPool => {
-        pool = gwPool
-        return pool.getEnsPublicResolverInstance()
-      })
-      .then(instance => // Does it have metadata?
-        instance.text(ensHashAddress(wallet.address), TextRecordKeys.JSON_METADATA_CONTENT_URI)
+        wallet
       )
-      .catch(err => null) // continue now with null
-      .then(value => {
-        // Done
-        if (value) return
+    } catch (err) {
+      console.error(err)
+      throw new VocdoniConnectionError()
+    }
 
-        // Pending
-        return EntityApi.setMetadata(wallet.address, account.pending.metadata, wallet, pool)
-          .then((entityURL) => console.log("Entity URL:", entityURL))
-          .catch(err => {
-            console.error(err)
-            throw new Error(i18n.t("errors.cannot_set_the_entity_details_on_the_blockchain"))
-          })
-      })
+    let hasBalance = await waitForGas(wallet.address, wallet.provider)
+
+    if (!hasBalance) throw new InvalidAccountBalanceError()
   }
 
   // (helper of ensureEntityCreation)
-  const ensureNoPendingAccount = () => {
-    const account = dbAccounts.find(acc => acc.address == wallet.address)
+  const ensureEntityMetadata = async () => {
+    const account = getAccount(wallet.address)
 
-    return updateAccount(wallet.address, { ...account, pending: null })
-      .catch(err => {
-        console.error(err)
-        throw new Error(i18n.t("errors.cannot_complete_the_process"))
-      })
+    if (account.status === AccountStatus.Ready) return null
+
+    const pool: GatewayPool = await poolPromise
+    const instance = await pool.getEnsPublicResolverInstance()
+
+    try {
+      const entityData = await instance.text(
+        ensHashAddress(wallet.address),
+        TextRecordKeys.JSON_METADATA_CONTENT_URI
+      )
+      if (entityData) return
+
+      const entityUrl = await EntityApi.setMetadata(
+        wallet.address,
+        account.pending.metadata,
+        wallet,
+        pool
+      )
+
+      console.log('Entity URL:', entityUrl)
+    } catch (error) {
+      console.log(error)
+      throw new StoringDataOnBlockchainError()
+    }
+  }
+
+  // (helper of ensureEntityCreation)
+  const ensureNoPendingAccount = async () => {
+    const account = getAccount(wallet.address)
+
+    try {
+      await updateAccount(wallet.address, { ...account, pending: null })
+    } catch {
+      throw new UpdateDbAccountError()
+    }
+  }
+
+  const continuePendingProcessCreation = (account: Account) => {
+    if (!wallet || !dbAccounts?.length) return
+
+    if (!account?.pending?.metadata || !account?.pending?.email) return
+
+    setEmail(account.pending.email)
+    setName(account.pending.metadata.name.default)
+    setDescription(account.pending.metadata.description.default)
+    setLogoUrl(account.pending.metadata.media.avatar)
+    setHeaderUrl(account.pending.metadata.media.header)
+    setTerms(true)
+
+    forceActionStep(accountStatusToStepProcess.get(account.status))
+    doMainActionSteps()
   }
 
   // Enumerate all the steps needed to create an entity
-  const creationStepFuncs = [ensureNullWallet, ensureWallet, ensureAccount, ensureEntityCreation]
+  const creationStepFuncs = [
+    ensureNullWallet,
+    ensureWallet,
+    ensureAccount,
+    ensureEntityCreation,
+  ]
 
-  const creationStepper = useStepper<EntityCreationPageSteps>(creationStepFuncs, EntityCreationPageSteps.METADATA)
-  const { pageStep, actionStep, pleaseWait, creationError, setPageStep, forceActionStep, doMainActionSteps } = creationStepper
+  const creationStepper = useStepper<EntityCreationPageSteps>(
+    creationStepFuncs,
+    EntityCreationPageSteps.METADATA
+  )
+  const {
+    pageStep,
+    actionStep,
+    pleaseWait,
+    creationError,
+    setPageStep,
+    forceActionStep,
+    doMainActionSteps,
+  } = creationStepper
 
   // RETURN VALUES
   const value: EntityCreationContext = {
@@ -361,9 +432,10 @@ export const UseEntityCreationProvider = ({ children }: { children: ReactNode })
       setHeaderFile,
       setTerms,
       setPrivacy,
+      continuePendingProcessCreation,
       createEntity: doMainActionSteps,
-      continueEntityCreation: doMainActionSteps
-    }
+      continueEntityCreation: doMainActionSteps,
+    },
   }
 
   return (

@@ -1,6 +1,13 @@
 import { EntityMetadata, MultiLanguage } from 'dvote-js'
 
 // IndexDB types
+export enum AccountStatus {
+  Wallet,
+  Media,
+  Balance,
+  Metadata,
+  Ready
+}
 
 export type Account = {
   name: string,
@@ -9,6 +16,7 @@ export type Account = {
   locale?: string
   address: string,
   hasBackup?: boolean,
+  status?: AccountStatus,
   pending?: {
     creation: boolean,
     metadata: EntityMetadata,
@@ -33,8 +41,8 @@ export type Nullable<T> = T | null
 
 // React Hook Stepper types
 
-export type StepperFuncResult = { error?: string, waitNext?: boolean }
-export type StepperLoopFuncResult = { continueFrom: number, error?: string }
+export type StepperFuncResult = { error?: string | Error, waitNext?: boolean }
+export type StepperLoopFuncResult = { continueFrom: number, error?: string | Error }
 
 /** A function that transforms the current state into a new one and returns whether the parent hook should break and wait before the next step */
 export type StepperFunc = () => Promise<StepperFuncResult>

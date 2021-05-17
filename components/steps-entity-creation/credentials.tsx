@@ -42,8 +42,6 @@ export const FormCredentials = () => {
 
     methods.setPassphrase(passphrase)
     methods.setPageStep(EntityCreationPageSteps.CREATION)
-
-    setTimeout(() => methods.createEntity(), 10)
   }
 
   const disabledContinue = !passphrase || !passphrase2 || !ack

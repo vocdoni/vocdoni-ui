@@ -86,5 +86,9 @@
     "recover": {
         "credentials_explanation": "The first row of the spreadsheet will be used as the name of the fields that voters will be prompted for. These fields are case insensitive, blank spaces will be ignored and diacritics will be transformed into plain letters.",
         "recover_question": "Recover question {{ number }}"
+    },
+    "warning": {
+        "please_enter_your_passphrase_to_retry_it": "",
+        "the_creation_of_your_entity_is_not_complete": ""
     }
 }

@@ -7,7 +7,7 @@ import i18n from '../../i18n'
 import { Column, Grid } from '../../components/grid'
 import { PageCard } from '../../components/cards'
 import { SignInForm, SignInImport } from '../../components/signin'
-import { Account } from '../../lib/types'
+import { Account, AccountStatus } from '../../lib/types'
 import { useDbAccounts } from '../../hooks/use-db-accounts'
 import { useWallet } from '../../hooks/use-wallet'
 import { useMessageAlert } from '../../hooks/message-alert'
@@ -37,9 +37,8 @@ const SignInPage = () => {
         account.hdPath,
         passphrase
       )
-
       // Did we start creating an account that is not ready yet?
-      if (account?.pending?.creation && account.pending.metadata) {
+      if (typeof account.status !== 'undefined' && account.status !== AccountStatus.Ready) {
         router.push(CREATE_ACCOUNT_PATH)
         return
       }
