@@ -4,7 +4,7 @@ import { createContext, ReactNode, useContext, useEffect, useState } from 'react
 
 import i18n from '../i18n'
 // import { useUrlHash } from 'use-url-hash'
-import { useMessageAlert } from './message-alert'
+// import { useMessageAlert } from './message-alert'
 import { DateDiffType, localizedStrDateDiff } from '../lib/date'
 
 export interface ProcessWrapperContext {
@@ -36,7 +36,7 @@ export const useProcessWrapper = (processId: string) => {
   }
 
   const { poolPromise } = usePool()
-  const { setAlertMessage } = useMessageAlert()
+  // const { setAlertMessage } = useMessageAlert()
   const { blockHeight } = useBlockHeight()
   const { loading: loadingInfo, error: loadingInfoError, process: processInfo } = useProcess(processId)
 
@@ -52,12 +52,32 @@ export const useProcessWrapper = (processId: string) => {
 
   // Vote results
   useEffect(() => {
-    if (processId && (blockHeight % 4 === 0)) {
+    if (processId && (blockHeight % 3 === 0)) {
       updateResults()
       refreshProcessInfo(processId)
     }
-
   }, [processId, blockHeight])
+
+  useEffect(() => {
+    switch (processInfo?.parameters?.status?.value) {
+      case ProcessStatus.READY:
+        if (hasEnded) setStatusText(i18n.t("status.the_vote_has_ended"))
+        else if (hasStarted) setStatusText(i18n.t("status.the_vote_is_open_for_voting"))
+        else if (!hasStarted)
+          setStatusText(i18n.t("status.the_vote_will_start_soon"))
+        break
+      case ProcessStatus.PAUSED:
+        setStatusText(i18n.t("status.the_vote_is_paused"))
+        break
+      case ProcessStatus.CANCELED:
+        setStatusText(i18n.t("status.the_vote_is_canceled"))
+        break
+      case ProcessStatus.ENDED:
+      case ProcessStatus.RESULTS:
+        setStatusText(i18n.t("status.the_vote_has_ended"))
+        break
+    }
+  }, [processInfo?.parameters?.status?.value])
 
   // Loaders
 

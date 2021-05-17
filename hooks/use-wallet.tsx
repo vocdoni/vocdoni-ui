@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import { Wallet } from '@ethersproject/wallet'
 import { Symmetric } from 'dvote-js'
 import { CREATE_PROCESS_PATH, DASHBOARD_PATH, ACCOUNT_BACKUP_PATH, ENTITY_SIGN_IN_PATH } from '../const/routes'
-import i18n from '../i18n'
+// import i18n from '../i18n'
 import { InvalidPassphraseError } from '@lib/validators/errors/invalid-passphrase-error'
 
 const pathsRequiringAdminWallet = [
