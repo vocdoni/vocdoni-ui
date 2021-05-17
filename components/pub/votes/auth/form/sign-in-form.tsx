@@ -79,7 +79,7 @@ export const SignInForm = ({
                 positive
                 onClick={onSubmit}
                 spinner={submitEnabled && checkingCredentials}
-                disabled={submitEnabled || checkingCredentials}
+                disabled={!submitEnabled || checkingCredentials}
               >
                 {i18n.t('action.continue')}
               </Button>

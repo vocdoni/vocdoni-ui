@@ -29,6 +29,7 @@ import { entityMetadataValidator } from './metadata-validator'
 import { Label } from '@components/label'
 import { colors } from 'theme/colors'
 import { useScrollTop } from "@hooks/use-scroll-top"
+import { When } from 'react-if'
 
 export enum MetadataFields {
   Name = 'name',
@@ -215,13 +216,11 @@ export const FormMetadata = () => {
             text={i18n.t('entity.i_have_read_and_accept_the_privacy_policy')}
             href={TERMS_PATH}
           />
-          <div>
-            {getErrorMessage(MetadataFields.Terms) ? (
-              <SectionText color={colors.danger} size={TextSize.Small}>
-                {getErrorMessage(MetadataFields.Terms)}
-              </SectionText>
-            ) : null}
-          </div>
+          <When condition={getErrorMessage(MetadataFields.Terms)}>
+            <SectionText color={colors.danger} size={TextSize.Small}>
+              {getErrorMessage(MetadataFields.Terms)}
+            </SectionText>
+          </When>
         </FlexContainer>
         <FlexContainer alignItem={FlexAlignItem.Center}>
           <Checkbox
@@ -231,13 +230,11 @@ export const FormMetadata = () => {
             text={i18n.t('entity.i_have_read_and_accept_the_terms_of_service')}
             href={PRIVACY_PATH}
           />
-          <div>
-            {getErrorMessage(MetadataFields.Privacy) ? (
+          <When condition={getErrorMessage(MetadataFields.Privacy)}>
               <SectionText color={colors.danger} size={TextSize.Small}>
                 {getErrorMessage(MetadataFields.Privacy)}
               </SectionText>
-            ) : null}
-          </div>
+          </When>
         </FlexContainer>
 
       </Column>
