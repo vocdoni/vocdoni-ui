@@ -1,6 +1,7 @@
 import { ProcessStatus } from 'dvote-js';
 import { ethers, Wallet } from 'ethers'
 import i18n from '../i18n'
+import { GlobalWindowNoDefinedError } from './validators/errors/global-window-no-defined-error';
 
 export const areAllNumbers = (slice: any[]) => {
   for (let i = 0; i < slice.length; i++) {
@@ -18,9 +19,7 @@ export function limitedText(str: string, maxLength: number = 60): string {
 }
 export function throwIfNotBrowser() {
   if (typeof window == 'undefined')
-    throw new Error(
-      'The storage component should only be used on the web browser side'
-    );
+    throw new GlobalWindowNoDefinedError();
 }
 
 
