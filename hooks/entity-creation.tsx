@@ -226,7 +226,7 @@ export const UseEntityCreationProvider = ({
       let pool: GatewayPool = await poolPromise
       let avatar: string
       let header: string
-      throw new Error()
+
       if (logoFile) avatar = await uploadFileToIpfs(logoFile, pool, wallet)
       if (headerFile) header = await uploadFileToIpfs(headerFile, pool, wallet)
 
