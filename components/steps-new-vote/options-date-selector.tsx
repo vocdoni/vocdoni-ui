@@ -1,3 +1,4 @@
+import { HelpText } from '@components/common/help-text'
 import React, { useState, useEffect } from 'react'
 import { DateTimePicker } from 'react-rainbow-components'
 import styled from 'styled-components'
@@ -64,13 +65,13 @@ export const OptionDateSelector = ({
   return (
     <Grid>
       <Column>
-        <SectionTitle>{i18n.t('vote.start_date')}</SectionTitle>
+        <SectionTitle>{i18n.t('vote.start_date')}<HelpText text={i18n.t('vote.start_date_explanation')}/></SectionTitle>
         <SectionText>
           {i18n.t('vote.short_name_to_identify_the_process')}
         </SectionText>
 
         <DateSelectContainer>
-          
+
               <Radio
                 checked={startOption === RadioOptions.StartDelayed}
                 onClick={() => setStatOptions(RadioOptions.StartDelayed)}
@@ -103,7 +104,7 @@ export const OptionDateSelector = ({
       </Column>
 
       <Column>
-        <SectionTitle>{i18n.t('vote.end_date')}</SectionTitle>
+        <SectionTitle>{i18n.t('vote.end_date')}<HelpText text={i18n.t('vote.end_date_explanation')}/></SectionTitle>
         <SectionText>
           {i18n.t('vote.the_vote_will_end_at_the_given_time')}
         </SectionText>
