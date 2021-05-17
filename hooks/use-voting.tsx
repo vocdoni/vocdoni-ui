@@ -259,7 +259,7 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
   const value: VotingContext = {
     actionStep,
     pleaseWait,
-    actionError: creationError,
+    actionError: typeof creationError == "string" ? creationError : creationError?.message,
     loadingInfoError,
     invalidProcessId,
     loadingInfo,

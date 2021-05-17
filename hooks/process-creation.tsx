@@ -329,7 +329,7 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
     created: actionStep >= creationStepFuncs.length,
     actionStep: actionStep,
     pleaseWait,
-    creationError,
+    creationError: typeof creationError == "string" ? creationError : creationError?.message,
     headerFile,
     headerURL,
     startRightAway,

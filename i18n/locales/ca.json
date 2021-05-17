@@ -97,7 +97,7 @@
         "entity_details": "Detalls de l'entitat",
         "go_to_the_dashboard": "Ves a l'inici",
         "header": "Nom de l'entitat",
-        "i_have_read_and_accept_the_privacy_policy": "He llegit i accepto la Política de Privacitat",
+        "i_have_read_and_accept_the_privacy_policy_and_the_terms_of_service": "He llegit i accepto la Política de Privacitat i les Condicions de Servei",
         "i_have_read_and_accept_the_terms_of_service": "He llegit i accepto les Condicions de Servei",
         "logo": "Logo de l'entitat",
         "new_entity": "Nova Entitat",
@@ -138,7 +138,8 @@
         "the_therms_must_be_checked": "Has d'acceptar la Política de privacitat i les Condicions del servei",
         "the_vote_details_are_invalid": "Els detalls de la votació són invàlids",
         "the_vote_is_not_available_yet": "",
-        "wallet_not_available": "Compte no disponible"
+        "wallet_not_available": "Compte no disponible",
+        "the_incognito_mode_is_not_supported": "La navegació privada no està suportada"
     },
     "errors": {
         "cannot_connect_to_the_blockchain": "",
@@ -146,9 +147,9 @@
         "cannot_set_media_header": "",
         "could_not_check_the_census": "",
         "could_not_import_the_account": "Compte no importat. Torna-ho a intentar.",
-        "file_too_large": "El fitxer supera la mida màxima permesa",
         "creating_credentials": "",
         "error_storing_logo_on_ipfs": "",
+        "file_too_large": "El fitxer supera la mida màxima permesa",
         "general_error": "Error",
         "invalid_account_balance": "",
         "invalid_image_url": "L'adreça de la imatge és invàlida",
@@ -189,10 +190,8 @@
         "your_vote_could_not_be_delivered": ""
     },
     "home": {
-        "author_image_alt": "",
         "hero_subtitle": "El protocol de vot més segur i flexible per organitzar tota mena de processos de votació",
-        "hero_title": "La solució fàcil i segura que cobreix les teves necessitats de governança",
-        "the_commitment_to_vocdoni_has_been_clear_as_from_omnium_cultural_we_opted": ""
+        "hero_title": "La solució fàcil i segura que cobreix les teves necessitats de governança"
     },
     "import": {
         "account_backup_file": "Còpia de seguretat",
@@ -354,7 +353,6 @@
         "the_blockchain_network_is_congested_for_these_reason_te_transactions_could_spend_several_minutes_dont_worry_we_keep_the_data_to_follow_the_process": "",
         "the_entity_name_already_exist": "",
         "the_first_row_of_the_spreadsheet_will_be_used_as_the_name": "La primera fila del full de càlcul s'utilitzarà com a nom dels camps que se sol·licitaran els votants. No es tindran en compte els accents, els espais ni les majúscules. D'aquesta manera, algú que es digui Joan Miró podria accedir, també, introduint JOAN MIRO.",
-        "the_incognito_mode_is_incompatible": "",
         "the_vote_will_end_at_the_given_time": "La votació acabarà a l'hora predeterminada. Pots tancar-la manualment, si ho necessites",
         "this_is_the_form_that_your_community_will_need_to_fill_in_order_to_vote": "Els membres hauran de complimentar aquest formulari per accedir a la votació",
         "this_is_the_link_that_you_need_to_send_your_community_members": "Aquest és l'enllaç de votació que has de compartir amb els votants:",
@@ -362,8 +360,8 @@
         "title": "Títol",
         "upcoming_vote": "Pròxima votació",
         "upload_different_document": "Carrega un cens diferent",
-        "uploading_metadata": "Carregant la metadata",
         "upload_new_logo": "",
+        "uploading_metadata": "Carregant la metadata",
         "verify_your_vote_in_the_explorer": "Verifica el teu vot a l'explorer",
         "verifying_creation": "Verificant la creació",
         "view_link": "Veure enllaç",
@@ -375,7 +373,6 @@
         "we_are_trying_to_signing_on_vocdoni_chain_to_register_your_entity": "",
         "we_are_using_a_decentralized_secure_system": "Estem enviant tota la informació a la Blockchain. Aquesta acció pot tardar uns minuts.",
         "we_cant_upload_the_logos_on_ipfs_network_please_choose_a_new_logo_and_header": "",
-        "we_need_store_some_data_on_the_browser_to_create_the_entity_for_these_reason_is_incompatible_with_incognito_mode": "",
         "who_can_vote": "Qui pot votar",
         "yes_submit_the_vote": "Sí, envia el meu vot",
         "you_cant_enter_contact_with_entity": "Si no pots accedir, contacta amb l'entitat",

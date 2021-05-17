@@ -97,7 +97,7 @@
         "entity_details": "Entity details",
         "go_to_the_dashboard": "Go to the dashboard",
         "header": "Entity header",
-        "i_have_read_and_accept_the_privacy_policy": "I have read and accept the Privacy Policy",
+        "i_have_read_and_accept_the_privacy_policy_and_the_terms_of_service": "I have read and accept the Privacy Policy and the Terms of Service",
         "i_have_read_and_accept_the_terms_of_service": "I have read and accept the Terms of Service",
         "logo": "Entity logo",
         "new_entity": "New entity",
@@ -138,7 +138,8 @@
         "the_therms_must_be_checked": "Terms and conditions must be checked",
         "the_vote_details_are_invalid": "The vote details are invalid",
         "the_vote_is_not_available_yet": "",
-        "wallet_not_available": "Wallet not available"
+        "wallet_not_available": "Wallet not available",
+        "the_incognito_mode_is_not_supported": "The incognito mode is not supported"
     },
     "errors": {
         "cannot_connect_to_the_blockchain": "Cannot connect to the blockchain",
@@ -189,10 +190,8 @@
         "your_vote_could_not_be_delivered": ""
     },
     "home": {
-        "author_image_alt": "",
         "hero_subtitle": "The most flexible and secure voting protocol to organize any kind of voting process",
-        "hero_title": "Easy and secure solution for all your governance needs",
-        "the_commitment_to_vocdoni_has_been_clear_as_from_omnium_cultural_we_opted": ""
+        "hero_title": "Easy and secure solution for all your governance needs"
     },
     "import": {
         "account_backup_file": "Account backup file",
@@ -354,7 +353,6 @@
         "the_blockchain_network_is_congested_for_these_reason_te_transactions_could_spend_several_minutes_dont_worry_we_keep_the_data_to_follow_the_process": "The blockchain network is congested for these reason te transactions could spend several minutes dont worry we keep the data to follow the process",
         "the_entity_name_already_exist": "The entity name already exist",
         "the_first_row_of_the_spreadsheet_will_be_used_as_the_name": "The first row of the spreadsheet will be used as the name of the fields that voters will be prompted for. Accents, spaces and capital letters will not be taken into account. Therefore John Díaz can also be accessed by typing JOHN DIAZ.",
-        "the_incognito_mode_is_incompatible": "The incognito mode is incompatible",
         "the_vote_will_end_at_the_given_time": "The vote will end at the given time, but it can also be ended earlier manually, if needed",
         "this_is_the_form_that_your_community_will_need_to_fill_in_order_to_vote": "This is the form that your community will need to fill in order to vote",
         "this_is_the_link_that_you_need_to_send_your_community_members": "This is the voting process link you have to share with the voters:",
@@ -375,7 +373,6 @@
         "we_are_trying_to_signing_on_vocdoni_chain_to_register_your_entity": "We are trying to signing on vocdoni chain to register your entity",
         "we_are_using_a_decentralized_secure_system": "We are sending all the information to the blockchain. This action may take a few minutes, please be patient.",
         "we_cant_upload_the_logos_on_ipfs_network_please_choose_a_new_logo_and_header": "We can't upload the logos on ipfs network please choose a new logo and header",
-        "we_need_store_some_data_on_the_browser_to_create_the_entity_for_these_reason_is_incompatible_with_incognito_mode": "We need store some data on the browser to create the entity for these reason is incompatible with incognito mode",
         "who_can_vote": "Who can vote",
         "yes_submit_the_vote": "Yes, submit the vote",
         "you_cant_enter_contact_with_entity": "You can’t enter? Contact with the entity",

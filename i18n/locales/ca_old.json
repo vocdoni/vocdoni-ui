@@ -12,7 +12,9 @@
         "signing_transactions": "",
         "confirm_details": "",
         "enter_the_details_of_the_process": "",
-        "new_process": ""
+        "new_process": "",
+        "the_incognito_mode_is_incompatible": "",
+        "we_need_store_some_data_on_the_browser_to_create_the_entity_for_these_reason_is_incompatible_with_incognito_mode": ""
     },
     "votes": {
         "number_votes": "",
@@ -34,7 +36,7 @@
         "invalid_xls_file": "",
         "supported_formats_bak": "",
         "go_to_dashboard": "",
-        "i_have_read_and_accept_the_privacy_policy_and_the_terms_of_service": "He llegit i accepto la Política de Privacitat i les Condicions de Servei"
+        "i_have_read_and_accept_the_privacy_policy": "He llegit i accepto la Política de Privacitat"
     },
     "action": {
         "create_new_proposal": "",
@@ -59,5 +61,16 @@
     "warning": {
         "please_enter_your_passphrase_to_retry_it": "",
         "the_creation_of_your_entity_is_not_complete": ""
+    },
+    "home": {
+        "author_image_alt": "",
+        "the_commitment_to_vocdoni_has_been_clear_as_from_omnium_cultural_we_opted": ""
+    },
+    "status": {
+        "the_vote_has_ended": "",
+        "the_vote_is_canceled": "",
+        "the_vote_is_open_for_voting": "",
+        "the_vote_is_paused": "",
+        "the_vote_will_start_soon": ""
     }
 }

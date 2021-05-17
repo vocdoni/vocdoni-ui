@@ -4,7 +4,9 @@
     "create_new_proposal": "",
     "go_to_dashboard": "",
     "home": {
-        "create_my_entity": ""
+        "create_my_entity": "",
+        "author_image_alt": "",
+        "the_commitment_to_vocdoni_has_been_clear_as_from_omnium_cultural_we_opted": ""
     },
     "steps": {
         "go_back": "",
@@ -37,7 +39,9 @@
         "signing_transactions": "Signing transactions",
         "confirm_details": "Confirm details",
         "enter_the_details_of_the_process": "Enter the details of a new governance process",
-        "new_process": "New process"
+        "new_process": "New process",
+        "the_incognito_mode_is_incompatible": "The incognito mode is incompatible",
+        "we_need_store_some_data_on_the_browser_to_create_the_entity_for_these_reason_is_incompatible_with_incognito_mode": "We need store some data on the browser to create the entity for these reason is incompatible with incognito mode"
     },
     "sign_in": {
         "select_the_account_to_use_and_enterr_your_passphrase": ""
@@ -56,7 +60,7 @@
         "invalid_xls_file": "",
         "supported_formats_bak": "Supported formats backup",
         "go_to_dashboard": "Go to th",
-        "i_have_read_and_accept_the_privacy_policy_and_the_terms_of_service": "I have read and accept the Privacy Policy and the Terms of Service"
+        "i_have_read_and_accept_the_privacy_policy": "I have read and accept the Privacy Policy"
     },
     "this_is_the_form_that_your_community_will_need_to_fill_in_order_to_vote": "",
     "process": {
