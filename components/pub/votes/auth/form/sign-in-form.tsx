@@ -61,11 +61,9 @@ export const SignInForm = ({
                   />
 
                   {isLastItem && (
-                    <LinkContainer>
-                      <a href={`mailto:`}>
-                        {i18n.t('vote.you_cant_enter_contact_with_entity')}
-                      </a>
-                    </LinkContainer>
+                    <ContainerContainer>
+                      {i18n.t('vote.you_cant_enter_contact_with_entity')}
+                    </ContainerContainer>
                   )}
                 </InputContainer>
               </FlexContainer>
@@ -98,6 +96,6 @@ const InputContainer = styled.div`
   max-width: 400px;
   width: 100%;
 `
-const LinkContainer = styled.div`
+const ContainerContainer = styled.div`
   margin: -18px 0 40px;
 `

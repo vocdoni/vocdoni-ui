@@ -133,13 +133,13 @@
         "process_already_ended": "El proceso ha finalizado",
         "process_cannot_be_canceled": "El proceso no se puede cancelar",
         "retrieve_gas_time_out": "",
+        "the_incognito_mode_is_not_supported": "",
         "the_passphrase_dont_match": "La contraseña no coincide",
         "the_process_could_not_be_registered": "",
         "the_therms_must_be_checked": "Aceptar la Política de Privacidad y las Condiciones de servicio",
         "the_vote_details_are_invalid": "Los detalles de la votación son inválidos",
         "the_vote_is_not_available_yet": "",
-        "wallet_not_available": "Cuenta no disponible",
-        "the_incognito_mode_is_not_supported": ""
+        "wallet_not_available": "Cuenta no disponible"
     },
     "errors": {
         "cannot_connect_to_the_blockchain": "",
@@ -247,6 +247,13 @@
         "select_the_account_to_use_and_enter_your_passphrase": "Seleccionar una cuenta e introduce la contraseña.",
         "sign_in": "Iniciar sesión",
         "write_your_passphrase": "Introduce la contraseña"
+    },
+    "status": {
+        "the_vote_has_ended": "",
+        "the_vote_is_canceled": "",
+        "the_vote_is_open_for_voting": "",
+        "the_vote_is_paused": "",
+        "the_vote_will_start_soon": ""
     },
     "vote_detail": {
         "cancel_vote": "Cancelar la votación",
@@ -363,7 +370,7 @@
         "vote_submitted_image_alt": "Imagen cargada",
         "voted_alt": "Vota",
         "we_are_trying_to_connect_to_blockchain_to_check_your_account_balance_we_store_all_the_data_to_follow_the_process": "",
-        "we_are_trying_to_signing_on_vocdoni_chain_to_register_your_entity": "",
+        "we_are_trying_to_sign_on_the_vocdoni_blockchain_to_register_your_entity": "",
         "we_are_using_a_decentralized_secure_system": "Estamos enviando toda la información a la Blockchain. Esta acción puede tardar unos minutos. ",
         "we_cant_upload_the_logos_on_ipfs_network_please_choose_a_new_logo_and_header": "",
         "who_can_vote": "¿Quién puede votar?",

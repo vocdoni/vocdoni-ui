@@ -65,12 +65,5 @@
     "home": {
         "author_image_alt": "",
         "the_commitment_to_vocdoni_has_been_clear_as_from_omnium_cultural_we_opted": ""
-    },
-    "status": {
-        "the_vote_has_ended": "",
-        "the_vote_is_canceled": "",
-        "the_vote_is_open_for_voting": "",
-        "the_vote_is_paused": "",
-        "the_vote_will_start_soon": ""
     }
 }

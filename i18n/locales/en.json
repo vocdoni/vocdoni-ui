@@ -133,13 +133,13 @@
         "process_already_ended": "Process already ended",
         "process_cannot_be_canceled": "Process cannot be canceled",
         "retrieve_gas_time_out": "",
+        "the_incognito_mode_is_not_supported": "The incognito mode is not supported",
         "the_passphrase_dont_match": "The password does not match",
         "the_process_could_not_be_registered": "",
         "the_therms_must_be_checked": "Terms and conditions must be checked",
         "the_vote_details_are_invalid": "The vote details are invalid",
         "the_vote_is_not_available_yet": "",
-        "wallet_not_available": "Wallet not available",
-        "the_incognito_mode_is_not_supported": "The incognito mode is not supported"
+        "wallet_not_available": "Wallet not available"
     },
     "errors": {
         "cannot_connect_to_the_blockchain": "Cannot connect to the blockchain",
@@ -370,7 +370,7 @@
         "vote_submitted_image_alt": "Vote submitted image",
         "voted_alt": "Vote",
         "we_are_trying_to_connect_to_blockchain_to_check_your_account_balance_we_store_all_the_data_to_follow_the_process": "We are trying to connect to blockchain to check your account balance we store all the data to follow the process",
-        "we_are_trying_to_signing_on_vocdoni_chain_to_register_your_entity": "We are trying to signing on vocdoni chain to register your entity",
+        "we_are_trying_to_sign_on_the_vocdoni_blockchain_to_register_your_entity": "We are trying to sign on the Vocdoni blockchain to register your entity",
         "we_are_using_a_decentralized_secure_system": "We are sending all the information to the blockchain. This action may take a few minutes, please be patient.",
         "we_cant_upload_the_logos_on_ipfs_network_please_choose_a_new_logo_and_header": "We can't upload the logos on ipfs network please choose a new logo and header",
         "who_can_vote": "Who can vote",

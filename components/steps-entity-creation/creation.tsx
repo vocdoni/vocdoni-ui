@@ -130,7 +130,7 @@ export const FormCreation = () => {
             {renderErrorTemplate(
               i18n.t('vote.cannot_connect_to_the_vocdoni_chain'),
               i18n.t(
-                'vote.we_are_trying_to_signing_on_vocdoni_chain_to_register_your_entity'
+                'vote.we_are_trying_to_sign_on_the_vocdoni_blockchain_to_register_your_entity'
               ),
               i18n.t('vote.retry'),
               retryEntityCreation

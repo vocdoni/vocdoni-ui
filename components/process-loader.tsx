@@ -8,7 +8,9 @@ import { SectionText, SectionTitle, TextAlign } from './text'
 interface IProcessLoaderProps {
   title: string
   subtitle: string
+  /** The text of the steps to display */
   steps: string[]
+  /** The next step to be executed */
   currentStep: number
 }
 

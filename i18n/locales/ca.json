@@ -133,13 +133,13 @@
         "process_already_ended": "El procés ja ha finalitzat",
         "process_cannot_be_canceled": "El procés no es pot cancel·lar",
         "retrieve_gas_time_out": "",
+        "the_incognito_mode_is_not_supported": "La navegació privada no està suportada",
         "the_passphrase_dont_match": "La contrasenya no coincideix",
         "the_process_could_not_be_registered": "",
         "the_therms_must_be_checked": "Has d'acceptar la Política de privacitat i les Condicions del servei",
         "the_vote_details_are_invalid": "Els detalls de la votació són invàlids",
         "the_vote_is_not_available_yet": "",
-        "wallet_not_available": "Compte no disponible",
-        "the_incognito_mode_is_not_supported": "La navegació privada no està suportada"
+        "wallet_not_available": "Compte no disponible"
     },
     "errors": {
         "cannot_connect_to_the_blockchain": "",
@@ -370,7 +370,7 @@
         "vote_submitted_image_alt": "Imatge carregada",
         "voted_alt": "Vota",
         "we_are_trying_to_connect_to_blockchain_to_check_your_account_balance_we_store_all_the_data_to_follow_the_process": "",
-        "we_are_trying_to_signing_on_vocdoni_chain_to_register_your_entity": "",
+        "we_are_trying_to_sign_on_the_vocdoni_blockchain_to_register_your_entity": "",
         "we_are_using_a_decentralized_secure_system": "Estem enviant tota la informació a la Blockchain. Aquesta acció pot tardar uns minuts.",
         "we_cant_upload_the_logos_on_ipfs_network_please_choose_a_new_logo_and_header": "",
         "who_can_vote": "Qui pot votar",
