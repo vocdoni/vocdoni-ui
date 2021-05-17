@@ -178,7 +178,7 @@ export const UseEntityCreationProvider = ({
     try {
       const pool = await poolPromise
       const newWallet = Wallet.createRandom().connect(pool.provider)
-      setWallet(newWallet)
+      setWallet(newWallet) // Note: this will not imnediately update `wallet`
 
       return { waitNext: true }
     } catch {
@@ -226,7 +226,7 @@ export const UseEntityCreationProvider = ({
       let pool: GatewayPool = await poolPromise
       let avatar: string
       let header: string
-
+      throw new Error()
       if (logoFile) avatar = await uploadFileToIpfs(logoFile, pool, wallet)
       if (headerFile) header = await uploadFileToIpfs(headerFile, pool, wallet)
 
@@ -328,10 +328,10 @@ export const UseEntityCreationProvider = ({
 
     if (account.status === AccountStatus.Ready) return null
 
-    const pool: GatewayPool = await poolPromise
-    const instance = await pool.getEnsPublicResolverInstance()
-
     try {
+      const pool: GatewayPool = await poolPromise
+      const instance = await pool.getEnsPublicResolverInstance()
+
       const entityData = await instance.text(
         ensHashAddress(wallet.address),
         TextRecordKeys.JSON_METADATA_CONTENT_URI

@@ -47,12 +47,12 @@ const WizardSteps = () => {
     if (wallet) {
       const account = getAccount(wallet.address)
 
-      if (account && account.status !== AccountStatus.Ready) {
-        methods.setPageStep(EntityCreationPageSteps.CREATION)
-        methods.continuePendingProcessCreation(account)
-      }
+      if (!account || account.status === AccountStatus.Ready) return 
+      
+      methods.setPageStep(EntityCreationPageSteps.CREATION)
+      methods.continuePendingProcessCreation(account)
     }
-  }, [wallet])
+  }, [])
 
   return <Steps steps={stepTitles} activeIdx={pageStep} showProgress={true} />
 }

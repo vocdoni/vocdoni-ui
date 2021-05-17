@@ -38,7 +38,7 @@ const SignInPage = () => {
         passphrase
       )
       // Did we start creating an account that is not ready yet?
-      if (typeof account.status !== 'undefined' && account.status !== AccountStatus.Ready) {
+      if (account.status !== AccountStatus.Ready) {
         router.push(CREATE_ACCOUNT_PATH)
         return
       }

@@ -5,7 +5,7 @@ import { useEntityCreation } from '../../hooks/entity-creation'
 import { useMessageAlert } from '../../hooks/message-alert'
 import { Button } from '../button'
 import i18n from '../../i18n'
-import { If, Then } from 'react-if'
+import { Case, Default, If, Then, Switch } from 'react-if'
 import { EntityCreationPageSteps } from '.'
 import { ProcessLoader } from '@components/process-loader'
 import { useScrollTop } from '@hooks/use-scroll-top'
@@ -90,100 +90,93 @@ export const FormCreation = () => {
       </If>
 
       <If condition={!!creationError}>
-        <Then>
-          <If condition={creationError instanceof EntityNameAlreadyExistError}>
-            <Then>
-              {renderErrorTemplate(
-                i18n.t('vote.the_entity_name_already_exist'),
-                i18n.t('vote.please_choose_a_new_once_to_continue'),
-                i18n.t('vote.change_entity_name'),
-                uploadNewMedia
-              )}
-            </Then>
-          </If>
+        <Switch>
+          <Case
+            condition={creationError instanceof EntityNameAlreadyExistError}
+          >
+            {renderErrorTemplate(
+              i18n.t('vote.the_entity_name_already_exist'),
+              i18n.t('vote.please_choose_a_new_once_to_continue'),
+              i18n.t('vote.change_entity_name'),
+              uploadNewMedia
+            )}
+          </Case>
 
-          <If condition={creationError instanceof StoreMediaError}>
-            <Then>
-              {renderErrorTemplate(
-                i18n.t('vote.error_storing_metadata_on_ipfs'),
-                i18n.t(
-                  'vote.we_cant_upload_the_logos_on_ipfs_network_please_choose_a_new_logo_and_header'
-                ),
-                i18n.t('vote.upload_new_logo'),
-                uploadNewMedia
-              )}
-            </Then>
-          </If>
+          <Case condition={creationError instanceof StoreMediaError}>
+            {renderErrorTemplate(
+              i18n.t('vote.error_storing_metadata_on_ipfs'),
+              i18n.t(
+                'vote.we_cant_upload_the_logos_on_ipfs_network_please_choose_a_new_logo_and_header'
+              ),
+              i18n.t('vote.upload_new_logo'),
+              uploadNewMedia
+            )}
+          </Case>
 
-          <If condition={creationError instanceof BlockchainConnectionError}>
-            <Then>
-              {renderErrorTemplate(
-                i18n.t(
-                  'vote.cannot_connect_to_the_blockchain_to_check_the_account_balance'
-                ),
-                i18n.t(
-                  'vote.we_are_trying_to_connect_to_blockchain_to_check_your_account_balance_we_store_all_the_data_to_follow_the_process'
-                ),
-                i18n.t('vote.retry'),
-                retryEntityCreation
-              )}
-            </Then>
-          </If>
+          <Case condition={creationError instanceof BlockchainConnectionError}>
+            {renderErrorTemplate(
+              i18n.t(
+                'vote.cannot_connect_to_the_blockchain_to_check_the_account_balance'
+              ),
+              i18n.t(
+                'vote.we_are_trying_to_connect_to_blockchain_to_check_your_account_balance_we_store_all_the_data_to_follow_the_process'
+              ),
+              i18n.t('vote.retry'),
+              retryEntityCreation
+            )}
+          </Case>
 
-          <If condition={creationError instanceof VocdoniConnectionError}>
-            <Then>
-              {renderErrorTemplate(
-                i18n.t('vote.cannot_connect_to_the_vocdoni_chain'),
-                i18n.t(
-                  'vote.we_are_trying_to_signing_on_vocdoni_chain_to_register_your_entity'
-                ),
-                i18n.t('vote.retry'),
-                retryEntityCreation
-              )}
-            </Then>
-          </If>
+          <Case condition={creationError instanceof VocdoniConnectionError}>
+            {renderErrorTemplate(
+              i18n.t('vote.cannot_connect_to_the_vocdoni_chain'),
+              i18n.t(
+                'vote.we_are_trying_to_signing_on_vocdoni_chain_to_register_your_entity'
+              ),
+              i18n.t('vote.retry'),
+              retryEntityCreation
+            )}
+          </Case>
 
-          <If condition={creationError instanceof RetrieveGasTimeOutError}>
-            <Then>
-              {renderErrorTemplate(
-                i18n.t('vote.the_blockchain_network_is_congested'),
-                i18n.t(
-                  'vote.the_blockchain_network_is_congested_for_these_reason_te_transactions_could_spend_several_minutes_dont_worry_we_keep_the_data_to_follow_the_process'
-                ),
-                i18n.t('vote.retry'),
-                retryEntityCreation
-              )}
-            </Then>
-          </If>
+          <Case condition={creationError instanceof RetrieveGasTimeOutError}>
+            {renderErrorTemplate(
+              i18n.t('vote.the_blockchain_network_is_congested'),
+              i18n.t(
+                'vote.the_blockchain_network_is_congested_for_these_reason_te_transactions_could_spend_several_minutes_dont_worry_we_keep_the_data_to_follow_the_process'
+              ),
+              i18n.t('vote.retry'),
+              retryEntityCreation
+            )}
+          </Case>
 
-          <If condition={creationError instanceof StoringDataOnBlockchainError}>
-            <Then>
-              {renderErrorTemplate(
-                i18n.t('vote.error_creating_the_entity_on_blockchain'),
-                i18n.t(
-                  'vote.the_blockchain_network_is_congested_for_these_reason_te_transactions_could_spend_several_minutes_dont_worry_we_keep_the_data_to_follow_the_process'
-                ),
-                i18n.t('vote.retry'),
-                retryEntityCreation
-              )}
-            </Then>
-          </If>
-        </Then>
-        {/* <Then>
-          <BottomDiv>
-            <Button
-              border
-              onClick={() =>
-                methods.setPageStep(EntityCreationPageSteps.CREDENTIALS)
-              }
-            >
-              {i18n.t('action.go_back')}
-            </Button>
-            <Button border onClick={methods.continueEntityCreation}>
-              {i18n.t('action.retry')}
-            </Button>
-          </BottomDiv>
-        </Then> */}
+          <Case
+            condition={creationError instanceof StoringDataOnBlockchainError}
+          >
+            {renderErrorTemplate(
+              i18n.t('vote.error_creating_the_entity_on_blockchain'),
+              i18n.t(
+                'vote.the_blockchain_network_is_congested_for_these_reason_te_transactions_could_spend_several_minutes_dont_worry_we_keep_the_data_to_follow_the_process'
+              ),
+              i18n.t('vote.retry'),
+              retryEntityCreation
+            )}
+          </Case>
+
+          <Default>
+            <BottomDiv>
+              <Button
+                border
+                onClick={() =>
+                  methods.setPageStep(EntityCreationPageSteps.CREDENTIALS)
+                }
+              >
+                {i18n.t('action.go_back')}
+              </Button>
+              <Button border onClick={methods.continueEntityCreation}>
+                {i18n.t('action.retry')}
+              </Button>
+            </BottomDiv>
+          </Default>
+        </Switch>
       </If>
     </div>
   )
