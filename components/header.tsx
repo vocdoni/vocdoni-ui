@@ -10,6 +10,8 @@ import { Button } from './button'
 import { useWallet } from '../hooks/use-wallet'
 import { DASHBOARD_PATH, ENTITY_SIGN_IN_PATH, PRICING_PATH, ABOUT_PATH } from '../const/routes'
 import i18n from '../i18n'
+import { useDbAccounts } from '@hooks/use-db-accounts'
+import { AccountStatus } from '@lib/types'
 
 export const LINKS: HeaderLink[] = [
   {
@@ -65,10 +67,18 @@ export const LINKS: HeaderLink[] = [
 
 export const Header = () => {
   const { wallet } = useWallet()
+  const { getAccount } = useDbAccounts();
   // const [showMenu, setShowMenu] = useState(false)
   const isMobile = useIsMobile()
   const links = wallet ? LINKS.filter(link => link.logged) : LINKS.filter(link => link.guest)
+  
+  let hasReadyAccount = false;
 
+  if (wallet) {
+    const account = getAccount(wallet?.address)
+    hasReadyAccount = account && (typeof account.status === 'undefined' || account.status === AccountStatus.Ready)
+  }
+  
   return (
     <>
       {/* {isMobile && (
@@ -85,7 +95,7 @@ export const Header = () => {
       )} */}
       <HeaderContainer>
         <ListContainer>
-          <Link href={wallet ? DASHBOARD_PATH : "/"} passHref>
+          <Link href={hasReadyAccount ? DASHBOARD_PATH : "/"} passHref>
             <HomeLink target='_self'><img src="/media/logo-full.svg" alt="Vocdoni" /></HomeLink>
           </Link>
           <MenuItemsContainer>
@@ -97,7 +107,7 @@ export const Header = () => {
           </MenuItemsContainer>
         </ListContainer>
         <RightContainer>
-          <If condition={!!wallet}>
+          <If condition={!!hasReadyAccount}>
             <Then>
               <Button positive small href={DASHBOARD_PATH}>{i18n.t("links.dashboard")}</Button>
             </Then>

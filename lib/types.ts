@@ -4,6 +4,7 @@ import { EntityMetadata, MultiLanguage } from 'dvote-js'
 export enum AccountStatus {
   Wallet,
   Media,
+  BalanceRequested,
   Balance,
   Metadata,
   Ready

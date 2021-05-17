@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { PageCard } from '../../components/cards'
 
 import { EntityCreationPageStep, EntityCreationPageStepTitles } from '../../components/steps-entity-creation'
@@ -7,6 +7,10 @@ import { Steps } from '../../components/steps'
 import { MainTitle, MainDescription } from '../../components/text'
 import { useEntityCreation, UseEntityCreationProvider } from '../../hooks/entity-creation'
 import i18n from '../../i18n'
+import { useWallet } from '@hooks/use-wallet'
+import { useDbAccounts } from '@hooks/use-db-accounts'
+import { AccountStatus } from '@lib/types'
+import { EntityCreationPageSteps } from '@components/steps-entity-creation'
 
 const NewEntity = () => {
   return (
@@ -17,9 +21,11 @@ const NewEntity = () => {
             <MainTitle>{i18n.t("entity.new_entity")}</MainTitle>
             <MainDescription>{i18n.t("entity.define_your_credentials_to_protect_the_account")}</MainDescription>
           </Column>
+
           <Column span={7}>
             <WizardSteps />
           </Column>
+
           <Column span={12}>
             {/* The actual step is rendered here */}
             <EntityCreationPageStep />
@@ -32,7 +38,21 @@ const NewEntity = () => {
 
 const WizardSteps = () => {
   const stepTitles = Object.values(EntityCreationPageStepTitles)
-  const { pageStep } = useEntityCreation()
+  const { pageStep, methods } = useEntityCreation()
+
+  const { wallet } = useWallet();
+  const { getAccount } = useDbAccounts();
+  
+  useEffect(() => {
+    if (wallet) {
+      const account = getAccount(wallet.address)
+
+      if (account && account.status !== AccountStatus.Ready) {
+        methods.setPageStep(EntityCreationPageSteps.CREATION)
+        methods.continuePendingProcessCreation(account)
+      }
+    }
+  }, [wallet])
 
   return <Steps steps={stepTitles} activeIdx={pageStep} showProgress={true} />
 }

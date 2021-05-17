@@ -163,8 +163,7 @@ export const UseEntityCreationProvider = ({
     }
 
     const account = getAccount(wallet.address)
-    console.log('e valor del check es',!account || account.status === AccountStatus.Ready)
-    console.log(account)
+
     if (!account || account.status === AccountStatus.Ready) setWallet(null)
 
     return Promise.resolve({ waitNext: true })
@@ -173,7 +172,6 @@ export const UseEntityCreationProvider = ({
   const ensureWallet: StepperFunc = async () => {
     if (wallet) {
       // Already OK?
-      console.log('el account ya esta ready')
       return { waitNext: false }
     }
 
@@ -197,7 +195,6 @@ export const UseEntityCreationProvider = ({
     }
 
     try {
-      console.log('Vas a crear una nueva', account)
       if (!account) {
         account = {
           name,
@@ -240,12 +237,10 @@ export const UseEntityCreationProvider = ({
         header,
       }
 
-      updateAccount(wallet.address, account)
+      await updateAccount(wallet.address, account)
 
       return { waitNext: true }
     } catch (error) {
-      console.error('Este es el catch', error)
-
       return { error: new StoreMediaError() }
     }
   }
@@ -275,7 +270,7 @@ export const UseEntityCreationProvider = ({
     } finally {
       account.status = lastSuccessStatus
 
-      updateAccount(wallet.address, account)
+      await updateAccount(wallet.address, account)
     }
 
     return {}
@@ -299,22 +294,27 @@ export const UseEntityCreationProvider = ({
     // Pending
     const account = getAccount(wallet.address)
 
-    try {
-      const bk = await bkPromise
-
-      await bk.sendRequest(
-        {
-          method: 'signUp',
-          entity: {
-            name: account.name,
-            email: account.pending.email,
+    if (account.status === AccountStatus.Media) {
+      try {
+        const bk = await bkPromise
+  
+        await bk.sendRequest(
+          {
+            method: 'signUp',
+            entity: {
+              name: account.name,
+              email: account.pending.email,
+            },
           },
-        },
-        wallet
-      )
-    } catch (err) {
-      console.error(err)
-      throw new VocdoniConnectionError()
+          wallet
+        )
+
+        account.status = AccountStatus.BalanceRequested
+        await updateAccount(wallet.address, account)
+      } catch (err) {
+        console.error(err)
+        throw new VocdoniConnectionError()
+      }
     }
 
     let hasBalance = await waitForGas(wallet.address, wallet.provider)
