@@ -32,7 +32,7 @@
         "if_you_lose_access_to_your_passphrase_you_will_not_be_able_to_manage_your_entity_anymore": "Si perds la contrasenya, no podràs tornar a accedir a la teva entitat",
         "loading": "Carregant",
         "manage_your_community_and_schedule_new_votes": "Gestiona la teva entitat i programa votacions fàcilment",
-        "no_proposals_yet": "Encara no hi ha processos de votació!" ,  
+        "no_proposals_yet": "Encara no hi ha processos de votació!",
         "no_proposals_yet_description": "Els processos de votació que creïs apareixeran aquí",
         "process_ended": "Procés finalitzat",
         "process_paused": "Procés pausat",
@@ -65,14 +65,14 @@
         "started_n_seconds_ago": "Iniciat fa {{num}} segons",
         "started_right_now": "Acaba d'iniciar",
         "started_yesterday": "Iniciat ahir",
-        "starting_in_n_days": "Inicia en {{num}} dies",
-        "starting_in_n_hours": "Inicia en {{num}} hores",
-        "starting_in_n_minutes": "Inicia en {{num}} minuts",
-        "starting_in_n_seconds": "Inicia en {{num}} segons",
-        "starting_in_one_hour": "Inicia en una hora",
-        "starting_in_one_minute": "Inicia en un minut",
-        "starting_right_now": "Inicia ara mateix",
-        "starting_tomorrow": "Inicia demà"
+        "starting_in_n_days": "Comença d'aquí {{num}} dies",
+        "starting_in_n_hours": "Comença d'aquí {{num}} hores",
+        "starting_in_n_minutes": "Comença d'aquí {{num}} minuts",
+        "starting_in_n_seconds": "Comença d'aquí {{num}} segons",
+        "starting_in_one_hour": "Comença d'aquí una hora",
+        "starting_in_one_minute": "Comença d'aquí un minut",
+        "starting_right_now": "Comença ara mateix",
+        "starting_tomorrow": "Comença demà"
     },
     "entity": {
         "acknowledge_passphrase_implications": "Soc conscient què la pèrdua de la contrasenya pot implicar perdre l'accés a l'entitat",
@@ -128,7 +128,7 @@
         "wallet_not_available": "Compte no disponible"
     },
     "errors": {
-        "could_not_import_the_account": "Compte no importat. Torna-ho a intentar.", 
+        "could_not_import_the_account": "Compte no importat. Torna-ho a intentar.",
         "file_too_large": "El fitxer supera la mida màxima permesa",
         "general_error": "Error",
         "invalid_image_url": "L'adreça de la imatge és invàlida",
@@ -160,6 +160,7 @@
         "confirm_your_passphrase": "Introdueix la contrasenya que vas utilitzar per crear el compte",
         "i_acknowledge_passphrase_implications": "Soc conscient què la pèrdua de la contrasenya pot implicar perdre l'accés a l'entitat",
         "import_account": "Importar compte",
+        "import_an_account": "",
         "invalid_imported_file": "Fitxer de seguretat invàlid",
         "passphrase": "Contrasenya",
         "select_the_backup_file_of_your_account": "Selecciona el fitxer de seguretat del teu compte",
@@ -317,9 +318,5 @@
         "your_vote_has_been_registered": "El teu vot ha estat registrat",
         "your_vote_is_set_up": "La votació s'ha creat",
         "your_vote_process_is_being_created": "Has creat el procés de votació"
-    },
-    "votes": {
-        "show": {
-        }
     }
 }
