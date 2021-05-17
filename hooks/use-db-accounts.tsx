@@ -29,8 +29,15 @@ export const UseDbAccountsProvider = ({ children }: { children: ReactNode }) => 
 
   // Initial load
   useEffect(() => {
-    refreshAccounts()
+    loadAccounts()
   }, [])
+
+  const loadAccounts = () => {
+    return refreshAccounts()
+      .catch(err => {
+        setError(i18n.t("errors.please_ensure_no_incognito_mode"))
+      })
+  }
 
   // Force a DB load
   const refreshAccounts = () => {
@@ -38,8 +45,6 @@ export const UseDbAccountsProvider = ({ children }: { children: ReactNode }) => 
     return db.read().then(accounts => {
       setDbAccounts(accounts)
       setError(null)
-    }).catch(err => {
-      setError(i18n.t("errors.please_ensure_no_incognito_mode"))
     })
   }
 
@@ -54,7 +59,7 @@ export const UseDbAccountsProvider = ({ children }: { children: ReactNode }) => 
 
   const updateAccount = (address: string, account: Account) => {
     if (!address || !account || !account.name || !account.encryptedMnemonic) throw new Error("Invalid parameters")
-    
+
     const db = new AccountDb()
     return db.update(address, account)
       .then(() => refreshAccounts())
