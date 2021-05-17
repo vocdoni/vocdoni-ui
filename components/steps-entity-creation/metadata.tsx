@@ -1,7 +1,11 @@
 import React, { ChangeEvent, useEffect, useState } from 'react'
-import { Checkbox } from '@aragon/ui'
+import Link from 'next/link'
+
 
 import { useEntityCreation } from '../../hooks/entity-creation'
+import { PRIVACY_PATH, TERMS_PATH } from '@const/routes'
+
+import { Checkbox } from '@components/checkbox'
 import { Column, Grid } from '../grid'
 import i18n from '../../i18n'
 import { Button } from '../button'
@@ -33,6 +37,7 @@ export enum MetadataFields {
   Header = 'header',
   Logo = 'logo',
   Terms = 'terms',
+  Privacy = 'privacy',
 }
 
 export const FormMetadata = () => {
@@ -46,6 +51,7 @@ export const FormMetadata = () => {
     headerFile,
     headerUrl,
     terms,
+    privacy,
     methods,
     metadataValidationError,
   } = useEntityCreation()
@@ -68,6 +74,7 @@ export const FormMetadata = () => {
         url: logoUrl,
       },
       [MetadataFields.Terms]: terms,
+      [MetadataFields.Privacy]: privacy,
     }
 
     setMetadataErrors(entityMetadataValidator(metadata))
@@ -79,7 +86,7 @@ export const FormMetadata = () => {
     logoUrl,
     headerFile,
     headerUrl,
-    terms,
+    terms && privacy,
   ])
 
   const dirtyAllFields = () => {
@@ -201,21 +208,38 @@ export const FormMetadata = () => {
 
       <Column>
         <FlexContainer alignItem={FlexAlignItem.Center}>
-          <Checkbox id="terms-check" checked={terms} onChange={() => methods.setTerms(!terms)} />
-
-          <Label htmlFor="terms-check">
-            {i18n.t(
-              'entity.i_have_read_and_accept_the_privacy_policy_and_the_terms_of_service'
-            )}
-          </Label>
+          <Checkbox
+            id="terms-check"
+            checked={terms}
+            onChange={() => methods.setTerms(!terms)}
+            text={i18n.t('entity.i_have_read_and_accept_the_privacy_policy')}
+            href={TERMS_PATH}
+          />
+          <div>
+            {getErrorMessage(MetadataFields.Terms) ? (
+              <SectionText color={colors.danger} size={TextSize.Small}>
+                {getErrorMessage(MetadataFields.Terms)}
+              </SectionText>
+            ) : null}
+          </div>
         </FlexContainer>
-        <div>
-          {getErrorMessage(MetadataFields.Terms) ? (
-            <SectionText color={colors.danger} size={TextSize.Small}>
-              {getErrorMessage(MetadataFields.Terms)}
-            </SectionText>
-          ) : null}
-        </div>
+        <FlexContainer alignItem={FlexAlignItem.Center}>
+          <Checkbox
+            id="privacy-check"
+            checked={privacy}
+            onChange={() => methods.setPrivacy(!privacy)}
+            text={i18n.t('entity.i_have_read_and_accept_the_terms_of_service')}
+            href={PRIVACY_PATH}
+          />
+          <div>
+            {getErrorMessage(MetadataFields.Privacy) ? (
+              <SectionText color={colors.danger} size={TextSize.Small}>
+                {getErrorMessage(MetadataFields.Privacy)}
+              </SectionText>
+            ) : null}
+          </div>
+        </FlexContainer>
+
       </Column>
 
       <Column>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Checkbox } from '@aragon/ui'
+import { Checkbox } from '@components/checkbox'
 import styled from 'styled-components'
 
 import i18n from '@i18n'
@@ -95,10 +95,8 @@ export const FormCredentials = () => {
             id="accept-terms"
             checked={ack}
             onChange={(ack: boolean) => setAck(ack)}
+            text={i18n.t('entity.acknowledge_passphrase_implications')}
           />
-          <label htmlFor="accept-terms">
-            {i18n.t('entity.acknowledge_passphrase_implications')}
-          </label>
         </FlexContainer>
       </Column>
       <Column>

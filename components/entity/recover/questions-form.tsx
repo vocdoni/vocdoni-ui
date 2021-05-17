@@ -196,11 +196,9 @@ export const QuestionsFormView = ({
               id="terms-and-conditions"
               checked={ack}
               onChange={(ack: boolean) => setAck(ack)}
+              text={i18n.t('recover.i_acknowledge_passphrase_implications')}
+              labelColor={colors.lightText}
             />
-
-            <Label htmlFor="terms-and-conditions" color={colors.lightText}>
-              {i18n.t('recover.i_acknowledge_passphrase_implications')}
-            </Label>
           </FlexContainer>
         </BlockContainer>
 
