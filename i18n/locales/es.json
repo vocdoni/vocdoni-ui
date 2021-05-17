@@ -75,7 +75,7 @@
         "starting_tomorrow": "Iniciará mañana"
     },
     "entity": {
-        "acknowledge_passphrase_implications": "Soy consciente de que la pérdida de la contraseña puede implicar perder también el acceso a mi entidad"",
+        "acknowledge_passphrase_implications": "Soy consciente de que la pérdida de la contraseña puede implicar perder también el acceso a mi entidad",
         "brief_description": "Breve descripción de la entidad",
         "choose_a_passphrase": "Escoger contraseña",
         "confirming_details": "Confirmando detalles",
