@@ -63,7 +63,8 @@
         "new_process": "New process"
     },
     "votes": {
-        "number_votes": ""
+        "number_votes": "",
+        "show": {}
     },
     "results": {
         "no_available_results": ""
