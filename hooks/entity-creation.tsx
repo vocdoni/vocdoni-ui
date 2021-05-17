@@ -27,6 +27,7 @@ export interface EntityCreationContext {
   headerFile: File,
   passphrase: string,
   terms: boolean,
+  privacy: boolean,
 
   pleaseWait: boolean,
   created: boolean,
@@ -43,6 +44,7 @@ export interface EntityCreationContext {
     setLogoUrl(logoUrl: string): void,
     setPassphrase(passphrase: string): void,
     setTerms(terms: boolean): void,
+    setPrivacy(privacy: boolean): void,
     createEntity(): void
     continueEntityCreation(): void
   }
@@ -94,6 +96,7 @@ export const UseEntityCreationProvider = ({ children }: { children: ReactNode })
   const [headerUrl, setHeaderUrl] = useState<string>("")
   const [headerFile, setHeaderFile] = useState<File>()
   const [terms, setTerms] = useState<boolean>(false)
+  const [privacy, setPrivacy] = useState<boolean>(false)
   const { setAlertMessage } = useMessageAlert()
 
   // UI STATE
@@ -115,6 +118,7 @@ export const UseEntityCreationProvider = ({ children }: { children: ReactNode })
     setLogoUrl(account.pending.metadata.media.avatar)
     setHeaderUrl(account.pending.metadata.media.header)
     setTerms(true)
+    setPrivacy(true)
 
     // Skip the metadata screen
     setPageStep(EntityCreationPageSteps.CREDENTIALS)
@@ -340,6 +344,7 @@ export const UseEntityCreationProvider = ({ children }: { children: ReactNode })
     headerFile,
     passphrase,
     terms,
+    privacy,
 
     pleaseWait,
     created: actionStep >= creationStepFuncs.length,
@@ -355,6 +360,7 @@ export const UseEntityCreationProvider = ({ children }: { children: ReactNode })
       setHeaderUrl,
       setHeaderFile,
       setTerms,
+      setPrivacy,
       createEntity: doMainActionSteps,
       continueEntityCreation: doMainActionSteps
     }

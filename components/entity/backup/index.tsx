@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
+
 import {
   AccountBackup,
   WalletBackup_Recovery_QuestionEnum,
@@ -169,10 +170,9 @@ export const AccountBackupView = ({
                   checked={ack}
                   id="terms-check"
                   onChange={(ack: boolean) => setAck(ack)}
+                  text={i18n.t('backup.i_acknowledge_passphrase_implications')}
+                  labelColor={colors.lightText}
                 />
-                <Label htmlFor="terms-check" color={colors.lightText}>
-                  {i18n.t('backup.i_acknowledge_passphrase_implications')}
-                </Label>
               </FlexContainer>
             </QuestionContainer>
 

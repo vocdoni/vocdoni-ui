@@ -144,11 +144,9 @@ export const AccountImportView = ({
               id="accept-terms"
               checked={ack}
               onChange={(ack: boolean) => setAck(ack)}
+              text={i18n.t('import.i_acknowledge_passphrase_implications')}
+              labelColor={colors.lightText}
             />
-
-            <Label htmlFor="accept-terms" color={colors.lightText}>
-              {i18n.t('import.i_acknowledge_passphrase_implications')}
-            </Label>
           </FlexContainer>
         </BlockContainer>
 
