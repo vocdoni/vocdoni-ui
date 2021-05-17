@@ -70,15 +70,15 @@ export const Header = () => {
   const { getAccount } = useDbAccounts();
   // const [showMenu, setShowMenu] = useState(false)
   const isMobile = useIsMobile()
-  const links = wallet ? LINKS.filter(link => link.logged) : LINKS.filter(link => link.guest)
-  
-  let hasReadyAccount = false;
 
+  let hasReadyAccount = false
   if (wallet) {
     const account = getAccount(wallet?.address)
     hasReadyAccount = account && (typeof account.status === 'undefined' || account.status === AccountStatus.Ready)
   }
-  
+
+  const links = hasReadyAccount ? LINKS.filter(link => link.logged) : LINKS.filter(link => link.guest)
+
   return (
     <>
       {/* {isMobile && (
