@@ -27,10 +27,10 @@ const VoteAuthLogin = () => {
     setCheckingCredentials(true)
 
     methods.onLogin()
+    .then(() => setCheckingCredentials(false))
       .catch(() => {
         setCheckingCredentials(false)
       })
-    setCheckingCredentials(false)
   }
 
   const renderLoadingPage = new ViewStrategy(
@@ -78,7 +78,7 @@ const VoteAuthLogin = () => {
           entity={metadata}
           onChange={methods.setFormValue}
           onSubmit={handleSubmit}
-          submitEnabled={emptyFields}
+          submitEnabled={!emptyFields}
         />
       </div>
     )

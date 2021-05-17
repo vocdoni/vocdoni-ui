@@ -28,12 +28,12 @@ export const UseProcessWrapperContext = createContext<ProcessWrapperContext>({} 
 export const useProcessWrapper = (processId: string) => {
   // const processCtx = useContext(UseProcessWrapperContext)
   const invalidProcessId = !processId.match(/^0x[0-9a-fA-A]{64}$/)
-  const processProviderctx = useContext(UseProcessContext)
-  const {refreshProcessInfo} = processProviderctx
+  const processCtx = useContext(UseProcessContext)
+  const { refreshProcessInfo } = processCtx
 
-  // if (processCtx === null) {
-  //   throw new Error('useVoting() can only be used on the descendants of <UseProcessProvider />,')
-  // }
+  if (processCtx === null) {
+    throw new Error('useVoting() can only be used on the descendants of <UseProcessProvider />,')
+  }
 
   const { poolPromise } = usePool()
   const { setAlertMessage } = useMessageAlert()
@@ -52,9 +52,11 @@ export const useProcessWrapper = (processId: string) => {
 
   // Vote results
   useEffect(() => {
-    updateResults()
-    updateStatusText()
-    if (processId) refreshProcessInfo(processId)
+    if (processId && (blockHeight % 4 === 0)) {
+      updateResults()
+      refreshProcessInfo(processId)
+    }
+
   }, [processId, blockHeight])
 
   // Loaders
@@ -78,30 +80,6 @@ export const useProcessWrapper = (processId: string) => {
       ? localizedStrDateDiff(DateDiffType.End, endDate)
       : localizedStrDateDiff(DateDiffType.Start, startDate)
     : ''
-
-  // let statusText: string = ''
-  const updateStatusText = () => {
-    let text = statusText
-    switch (processInfo?.parameters.status.value) {
-      case ProcessStatus.READY:
-        if (hasEnded) text = i18n.t("status.the_vote_has_ended")
-        else if (hasStarted) text = i18n.t("status.the_vote_is_open_for_voting")
-        else if (!hasStarted)
-          text = i18n.t("status.the_vote_will_start_soon")
-        break
-      case ProcessStatus.PAUSED:
-        text = i18n.t("status.the_vote_is_paused")
-        break
-      case ProcessStatus.CANCELED:
-        text = i18n.t("status.the_vote_is_canceled")
-        break
-      case ProcessStatus.ENDED:
-      case ProcessStatus.RESULTS:
-        text = i18n.t("status.the_vote_has_ended")
-        break
-    }
-    setStatusText(text)
-  }
 
   // RETURN VALUES
   return {
