@@ -115,7 +115,6 @@
         "why_this_is_important": "Per què és important?",
         "your_account_is_protected_store_file_safe_place": "El teu compte està protegit, guarda aquest fitxer en un lloc segur",
         "your_company_was_created_successfully_no_you_cant_create_a_new_amg_proposal": "Compte creat amb èxit. Ara ja pots crear una votació",
-        "header_image": "Imatge de capçalera"
     },
     "error": {
         "error_updating_db_account": "",
