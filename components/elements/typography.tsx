@@ -35,7 +35,7 @@ export const Typography = ({ variant, color, margin, align, children }: ITypogra
   const TypographyElement = typographyMap.get(
     variant || TypographyVariant.Body1
   )
-  console.log(variant || TypographyVariant.Body1)
+
   return <TypographyElement color={color} margin={margin} align={align}>{children}</TypographyElement>
 }
 interface ITypographyCommon {
@@ -91,7 +91,7 @@ export const Small = styled.p<ITypographyCommon>`
 
 const typographyMap = new Map<
   TypographyVariant,
-  StyledComponent<'h1' | 'p', DefaultTheme>
+  StyledComponent<'h1' | 'p', DefaultTheme , ITypographyCommon>
 >([
   [TypographyVariant.H1, H1],
   [TypographyVariant.Body1, Body1],

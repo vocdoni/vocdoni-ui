@@ -8,7 +8,7 @@ import styled from 'styled-components'
 import { colors } from 'theme/colors'
 
 interface ISplitSection {
-  direction?: 'right' | 'left'
+  reverse?: boolean
   subtitle: string
   title: string
   textContent: string
@@ -17,7 +17,7 @@ interface ISplitSection {
 }
 
 export const SplitSection = ({
-  direction = 'right',
+  reverse = false,
   subtitle,
   title,
   textContent,
@@ -26,7 +26,7 @@ export const SplitSection = ({
 }: ISplitSection) => (
   <SectionWrapper>
     <SectionContainer>
-      <Grid>
+      <CustomGrid reverse={reverse}>
         <Column sm={12} md={6}>
           <ImageContainer>
             <img src={imageSrc} alt={imageAltText} />
@@ -57,10 +57,14 @@ export const SplitSection = ({
             </TextContainer>
           </FlexContainer>
         </Column>
-      </Grid>
+      </CustomGrid>
     </SectionContainer>
   </SectionWrapper>
 )
+
+const CustomGrid = styled(Grid)<{reverse?: boolean}>`
+  flex-direction: ${({reverse}) => reverse? 'row-reverse': 'row'}
+`
 const TextContainer = styled.div`
   max-width: 450px;
 `

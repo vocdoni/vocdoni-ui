@@ -8,21 +8,24 @@ import { Footer } from './footer'
 import { MessageAlert } from './msg-alert'
 import { LoadingAlert } from './loading-alert'
 import { Loader } from './loader'
+import { useRouter } from 'next/router'
 
 
-const LayoutContainer = styled.div`
-  padding: 110px ${({ theme }) => theme.margins.mobile.horizontal} 120px;
-  max-width: ${sizes.laptopL * 0.8}px;
+const LayoutContainer = styled.div<{isHomePage?: boolean}>`
+  ${({isHomePage, theme}) => isHomePage? 'padding: 110px 0;': `padding: 110px ${theme.margins.mobile.horizontal} 120px;`}
+  ${({isHomePage}) => isHomePage? '': `max-width: ${sizes.laptopL * 0.8}px;` }
   margin-left: auto;
   margin-right: auto;
 
   @media ${({ theme }) => theme.screenMin.tablet} {
-    padding:  110px  ${({ theme }) => theme.margins.desktop.horizontal} 120px;;
+    ${({isHomePage, theme}) => isHomePage? 'padding: 110px 0;': `padding: 110px ${theme.margins.desktop.horizontal} 120px;`}
   }
 `
 
 export const Layout = ({ children }) => {
   const { checkingNeedsSignin } = useWallet();
+  const router = useRouter();
+  const isHomePage = router.pathname === '/'
 
   return (
     <>
@@ -31,7 +34,7 @@ export const Layout = ({ children }) => {
       <Header />
 
       <Loader visible={checkingNeedsSignin} />
-      <LayoutContainer>{children}</LayoutContainer>
+      <LayoutContainer isHomePage={isHomePage}>{children}</LayoutContainer>
 
       <Footer />
     </>

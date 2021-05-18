@@ -16,7 +16,6 @@ export const HeroBanner = () => (
     <AbsoluteContent>
       <ContentContainer>
           <LeftContainer>
-
               <Title>
                 <strong>{i18n.t('home.easy_and_secure')}</strong>{' '}
                 {i18n.t('home.for_all_your_governance')}
@@ -62,6 +61,10 @@ const BannerContainer = styled.div`
   @media ${({theme})  => theme.screenMax.tablet } {
     height: 440px;
   }
+
+  @media ${({theme})  => theme.screenMax.tabletL } {
+    height: auto;
+  }
 `
 const AbsoluteContent = styled.div`
   height: 500px;
@@ -76,7 +79,7 @@ const AbsoluteContent = styled.div`
     height: 420px;
   }
 
-  @media ${({theme})  => theme.screenMax.mobileM } {
+  @media ${({theme})  => theme.screenMax.tabletL } {
     position: relative;
     margin: 0 -10px;
     height: auto;
@@ -113,6 +116,11 @@ const LeftContainer = styled.div`
   float: left;
   
   @media ${({theme})  => theme.screenMax.tabletL } {
+    width: 60%;
+    padding: 40px 0;
+  }
+
+  @media ${({theme})  => theme.screenMax.tablet } {
     width: 80%;
     padding: 40px 0;
   }
