@@ -42,15 +42,15 @@ export const addOffsetToDate = (date: Date, days = 0, hours = 0, minutes = 0): D
 export const OptionDateSelector = ({
   onChangeDate,
 }: IOptionDateSelectorProps) => {
-  const [startDate, setStartDate] = useState<Date>(addOffsetToDate(new Date()))
-  const [endDate, setEndDate] = useState<Date>(addOffsetToDate(new Date(), 7))
+  const [startDate, setStartDate] = useState<Date>(() => addOffsetToDate(new Date()))
+  const [endDate, setEndDate] = useState<Date>(() => addOffsetToDate(new Date(), 7))
   const [startOption, setStatOptions] = useState<RadioOptions>(
     RadioOptions.StartDelayed
   )
 
   useEffect(() => {
     if (startOption === RadioOptions.StartNow) {
-      setStartDate(addOffsetToDate(new Date(), 0, 0, 5))
+      setStartDate(addOffsetToDate(new Date(), 0, 0, 7))
     }
   }, [startOption])
 

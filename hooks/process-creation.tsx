@@ -76,8 +76,8 @@ export interface ProcessCreationContext {
     setHeaderFile,
     setHeaderURL,
     setStartRightAway,
-    setStartDate,
-    setEndDate,
+    setStartDate: (date: Date) => void,
+    setEndDate: (date: Date) => void,
     createProcess(): void,
     continueProcessCreation(): void,
   },
@@ -172,7 +172,7 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
     return Promise.resolve({ waitNext: true })
   }
 
-  const stepEnsureValidParams: StepperFunc = async () => {
+  const stepEnsureValidParams: StepperFunc = () => {
 
     // TODO: Do a synchronous check that the process params make sense and contain no incompatible values
 
@@ -298,7 +298,7 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
 
   useEffect(() => {
     updateDateRange()
-  }, [startDate, endDate, blockStatus])
+  }, [startDate, endDate, blockStatus?.blockNumber])
 
   const creationStepFuncs = [
     stepEnsureMedia,
@@ -404,7 +404,7 @@ const defaultCensusRoot = "0x000000000000000000000000000000000000000000000000000
 const defaultCensusUri = "ipfs://"
 
 const useProcessParameters = () => {
-  const [parameters, setParameters] = useState<ProcessContractParameters>(() => ProcessContractParameters.fromParams({
+  const [parameters] = useState<ProcessContractParameters>(() => ProcessContractParameters.fromParams({
     startBlock: 0,
     blockCount: 10000,
     censusOrigin: ProcessCensusOrigin.OFF_CHAIN_TREE,

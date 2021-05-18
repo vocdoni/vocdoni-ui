@@ -23,7 +23,7 @@ import { useScrollTop } from "@hooks/use-scroll-top"
 
 export const FormOptions = () => {
   useScrollTop()
-  const { startDate, endDate, parameters, methods,  } = useProcessCreation()
+  const { startDate, endDate, parameters, methods, } = useProcessCreation()
   const periodRef = useRef<IProcessPeriod>()
 
   const valid = () => {
@@ -31,11 +31,11 @@ export const FormOptions = () => {
   }
 
   const onSubmit = () => {
-    methods.setEndDate(
-      periodRef.current.startOption === RadioOptions.StartDelayed
-        ? periodRef.current.start
-        : addOffsetToDate(new Date(), 8)
-    )
+    if (periodRef.current.startOption === RadioOptions.StartNow) {
+      const finalStart = addOffsetToDate(new Date(), 7)
+      methods.setStartDate(finalStart)
+      periodRef.current.start = finalStart
+    }
 
     methods.createProcess()
     methods.setPageStep(ProcessCreationPageSteps.CREATION)
@@ -50,7 +50,7 @@ export const FormOptions = () => {
 
   const handleChangeAvailability = (availability: ResultsAvailability) => {
     if ((availability === ResultsAvailability.Live && parameters.envelopeType.hasEncryptedVotes) ||
-        (availability === ResultsAvailability.End && !parameters.envelopeType.hasEncryptedVotes)) {
+      (availability === ResultsAvailability.End && !parameters.envelopeType.hasEncryptedVotes)) {
       let envelopeType = ProcessEnvelopeType.ENCRYPTED_VOTES ^ parameters.envelopeType.value
       methods.setEnvelopeType(new ProcessEnvelopeType(envelopeType))
     }

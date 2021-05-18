@@ -42,7 +42,7 @@ export const ViewDetail = ({ process, results, refreshProcessInfo }: IProcessDet
   const { setAlertMessage } = useMessageAlert()
 
   const voteLink = RouterService.instance.get(VOTING_AUTH_FORM_PATH, {
-    processId: process.id,
+    processId: process?.id,
   })
   const totalVotes = results?.totalVotes || 0
 

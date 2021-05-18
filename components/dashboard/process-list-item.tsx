@@ -61,7 +61,7 @@ export const DashboardProcessListItem = ({
         }
         description={process.metadata.description.default}
         title={process.metadata.title.default}
-        processId={process.id}
+        processId={process?.id}
         entityName={accountName}
         dateText={endDate}
         status={status}
