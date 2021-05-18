@@ -5,9 +5,11 @@ const i18n = i18next.createInstance()
 
 export const supportedLanguages = ['ca', 'en', 'eo', 'es']
 
+const userLang = (typeof window !== 'undefined' && typeof window.navigator.language !== 'undefined') ? window.navigator.language.substr(0, 2).toLowerCase() : process.env.LANG
+
 i18n.init({
 	debug: process.env.NODE_ENV === 'development',
-	lng: process.env.LANG,
+	lng: userLang,
 	fallbackLng: 'en',
 	defaultNS: 'translation',
 	interpolation: {
