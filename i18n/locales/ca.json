@@ -3,23 +3,23 @@
         "browse": "Navega",
         "continue": "Continua",
         "create_my_entity": "Crea la teva entitat",
-        "go_back": "Enrere",
+        "go_back": "Retrocedeix",
         "preview_proposal": "Previsualitza",
         "retry": "Torna-ho a intentar",
-        "sign_in": "Accedeix"
+        "sign_in": "Accedeix-hi"
     },
     "backup": {
         "CHILDHOOD_NICKNAME": "Com et deien de petit?",
         "confirm_your_passphrase": "Confirma la contrasenya",
         "continue": "Continua",
         "download_credentials": "Descarrega les credencials",
-        "DRIVING_INSTRUCTOR": "Quin era el nom del teu professor d'autoescola?",
-        "FAVORITE_TEACHER": "Quin era el nom del teu professor preferit?",
-        "FIRST_KISSED": "Amb qui va ser el teu primer petó?",
-        "i_acknowledge_passphrase_implications": "Soc conscient què la pèrdua de la contrasenya pot implicar perdre l'accés a l'entitat",
+        "DRIVING_INSTRUCTOR": "Com es deia el teu professor d'autoescola?",
+        "FAVORITE_TEACHER": "Com es deia el teu professor preferit?",
+        "FIRST_KISSED": "A qui vas fer el teu primer petó?",
+        "i_acknowledge_passphrase_implications": "Accepto el fet que la pèrdua de la contrasenya comporta la impossibilitat d'accedir a la meva entitat posteriorment",
         "protect_your_account_and_export_it_in_a_safe_way": "Protegeix el compte exportant-lo i desant-lo a un lloc segur",
         "recovery_question": "Pregunta de recuperació {{ number }}",
-        "STUFFED_TOY": "Com es deia el nino de peluix?"
+        "STUFFED_TOY": "Com es deia el ninot de peluix?"
     },
     "confirm": {
         "by_canceling_a_process_you_will_unlist_it_and_drop_all_of_its_votes_and_results": "",
@@ -82,7 +82,7 @@
         "starting_tomorrow": "Comença demà"
     },
     "entity": {
-        "acknowledge_passphrase_implications": "Soc conscient què la pèrdua de la contrasenya pot implicar perdre l'accés a l'entitat",
+        "acknowledge_passphrase_implications": "Accepto el fet que la pèrdua de la contrasenya comporta la impossibilitat d'accedir a la meva entitat posteriorment",
         "brief_description": "Breu descripció de l'entitat",
         "choose_a_passphrase": "Tria una contrasenya",
         "confirming_details": "Confirmant els detalls",
@@ -226,7 +226,7 @@
         "drag_a_vocdoni_backup_file": "Arrossega aquí les credencials de Vocdoni",
         "drag_the_file_that_you_download_when_you_downloaded_your_account_backup": "Arrossega aquí la còpia de seguretat del teu compte",
         "enter_a_new_passphrase": "Introdueix una nova contrasenya",
-        "i_acknowledge_passphrase_implications": "Soc conscient què la pèrdua de la contrasenya pot implicar perdre l'accés a l'entitat",
+        "i_acknowledge_passphrase_implications": "Accepto el fet que la pèrdua de la contrasenya comporta la impossibilitat d'accedir a la meva entitat posteriorment",
         "invalid_recover_questions": "Preguntes de recuperació invàlides",
         "new_passphrase": "Nova contrasenya",
         "repeat_a_new_passphrase": "Torna a introduir la contrasenya",
