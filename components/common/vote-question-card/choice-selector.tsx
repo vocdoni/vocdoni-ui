@@ -6,12 +6,14 @@ import { Radio } from '@components/radio'
 import { Choice, Question } from '@lib/types'
 
 interface IChoiceSelectorProps {
+  questionIdx: number
   question: Question
   selectedChoice?: number
   onSelectChoice?: (choiceValue: number) => void
 }
 
 export const ChoiceSelector = ({
+  questionIdx,
   question,
   selectedChoice,
   onSelectChoice,
@@ -23,7 +25,7 @@ export const ChoiceSelector = ({
           <Radio
             onClick={() => onSelectChoice && onSelectChoice(choice.value)}
             checked={choice.value === selectedChoice}
-            name={choice.title.default}
+            name={String(questionIdx)+'_'+String(index)}
           >
             {choice.title.default}
           </Radio>
