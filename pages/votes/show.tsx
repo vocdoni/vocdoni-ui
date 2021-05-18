@@ -9,9 +9,11 @@ import { useUrlHash } from 'use-url-hash'
 import { useWallet, WalletRoles } from '@hooks/use-wallet'
 import { Redirect } from '@components/redirect'
 import { ENTITY_SIGN_IN_PATH } from '@const/routes'
+import { useScrollTop } from '@hooks/use-scroll-top'
 
 
 const VoteDetailPage = () => {
+  useScrollTop()
   const processId = useUrlHash().slice(1) // Skip "/"
   const {
     processInfo,

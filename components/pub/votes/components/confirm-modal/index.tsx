@@ -8,6 +8,7 @@ import { ViewContext, ViewStrategy } from '@lib/strategy'
 import { ModalQuestionList } from './questions-list'
 import { VoteSubmitted } from './vote-submitted'
 import { useUrlHash } from 'use-url-hash'
+import { useProcess } from '@vocdoni/react-hooks'
 
 interface IConfigModal {
   isOpen: boolean
@@ -16,7 +17,8 @@ interface IConfigModal {
 
 export const ConfirmModal = ({ isOpen, onClose }: IConfigModal) => {
   const processId = useUrlHash().slice(1) // Skip "/"
-  const { choices, processInfo, hasVoted, methods, pleaseWait, actionError } = useVoting(processId)
+  const { process: processInfo } = useProcess(processId)
+  const { choices, hasVoted, methods, pleaseWait, actionError } = useVoting(processId)
   const handleSendVote = () => {
     methods.submitVote()
   }
@@ -36,7 +38,7 @@ export const ConfirmModal = ({ isOpen, onClose }: IConfigModal) => {
 
   const renderVoteSubmitted = new ViewStrategy(
     () => hasVoted,
-    <VoteSubmitted onAccept={onClose}/>
+    <VoteSubmitted onAccept={onClose} />
   )
 
   const viewContext = new ViewContext([

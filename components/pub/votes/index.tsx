@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { useEntity, useBlockHeight } from '@vocdoni/react-hooks'
+import { useEntity, useBlockHeight, useBlockStatus, useProcess } from '@vocdoni/react-hooks'
 
 import i18n from '@i18n'
 
@@ -27,6 +27,8 @@ import { VoteStatus, getVoteStatus } from '@lib/util'
 import { Else, If, Then, When } from 'react-if'
 import { SectionText, TextAlign } from '@components/text'
 import { useUrlHash } from 'use-url-hash'
+import { VotingApi } from 'dvote-js'
+import { DateDiffType, localizedStrDateDiff } from '@lib/date'
 
 export const VotingPageView = () => {
   const processId = useUrlHash().slice(1) // Skip "/"
@@ -34,27 +36,40 @@ export const VotingPageView = () => {
     methods,
     choices,
     allQuestionsChosen,
-    processInfo,
     hasVoted,
     results,
     nullifier,
   } = useVoting(processId)
+  const { process: processInfo, error, loading } = useProcess(processId)
   const { wallet } = useWallet({ role: WalletRoles.VOTER })
   const { metadata } = useEntity(processInfo?.entity)
   const [confirmModalOpened, setConfirmModalOpened] = useState<boolean>(false)
-  // const votePageLink = `${VOTING_PATH}/${processInfo.id}`
+  // const votePageLink = `${VOTING_PATH}/${processInfo?.id?}`
 
   const readOnly = !wallet?.address
   const totalVotes = results?.totalVotes || 0
-  const { blockHeight } = useBlockHeight()
-  const voteStatus: VoteStatus = getVoteStatus(processInfo.parameters.status, processInfo.parameters.startBlock, blockHeight)
+  const { blockStatus } = useBlockStatus()
+  const blockHeight = blockStatus.blockNumber
+  const voteStatus: VoteStatus = getVoteStatus(processInfo?.parameters?.status, processInfo?.parameters?.startBlock, blockHeight)
   const explorerLink = process.env.EXPLORER_URL + '/envelope/' + nullifier
+
+  let dateDiffStr = ""
+  if (processInfo?.parameters?.startBlock && (voteStatus == VoteStatus.Active || voteStatus == VoteStatus.Paused)) {
+    if (processInfo?.parameters?.startBlock > blockHeight) {
+      const date = VotingApi.estimateDateAtBlockSync(processInfo?.parameters?.startBlock, blockStatus)
+      dateDiffStr = localizedStrDateDiff(DateDiffType.Start, date)
+    }
+    else { // starting in the past
+      const date = VotingApi.estimateDateAtBlockSync(processInfo?.parameters?.startBlock + processInfo?.parameters?.blockCount, blockStatus)
+      dateDiffStr = localizedStrDateDiff(DateDiffType.End, date)
+    }
+  }
 
   return (
     <>
       <PageCard>
         <VotePageHeader
-          processTitle={processInfo.metadata.title.default}
+          processTitle={processInfo?.metadata?.title.default}
           processImage={processInfo?.metadata?.media.header}
           entityName={metadata?.name.default}
           entityImage={metadata?.media.avatar}
@@ -63,14 +78,15 @@ export const VotingPageView = () => {
         <Grid>
           <Column lg={9} sm={12}>
             <VoteDescription
-              description={processInfo.metadata.description.default}
-              liveStream={processInfo.metadata.media.streamUri}
+              description={processInfo?.metadata?.description.default}
+              liveStream={processInfo?.metadata?.media.streamUri}
               discussionUrl={
-                processInfo.metadata.meta[MetadataFields.DiscussionLink]
+                processInfo?.metadata?.meta[MetadataFields.DiscussionLink]
               }
               attachmentUrl={
-                processInfo.metadata.meta[MetadataFields.AttachmentLink]
+                processInfo?.metadata?.meta[MetadataFields.AttachmentLink]
               }
+              timeComment={dateDiffStr}
               voteStatus={voteStatus}
             />
           </Column>
@@ -98,7 +114,7 @@ export const VotingPageView = () => {
 
         {hasVoted && <VoteRegisteredCard explorerLink={explorerLink} />}
 
-        {processInfo.metadata.questions.map(
+        {processInfo?.metadata?.questions.map(
           (question: Question, index: number) => (
             <VoteQuestionCard
               questionIdx={index}

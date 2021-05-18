@@ -19,6 +19,7 @@ interface IVotePageProps {
   attachmentUrl?: string
   discussionUrl?: string
   voteStatus: VoteStatus
+  timeComment: string
 }
 export const VoteDescription = ({
   description,
@@ -26,6 +27,7 @@ export const VoteDescription = ({
   attachmentUrl,
   discussionUrl,
   voteStatus,
+  timeComment,
 }: IVotePageProps) => {
   const pdfIcon = (
     <img src="/images/vote/pdf.svg" alt={i18n.t('vote.pdf_image_alt')} />
@@ -41,6 +43,10 @@ export const VoteDescription = ({
     <Grid>
       <Column>
         <ProcessStatusLabel status={voteStatus} />
+      </Column>
+
+      <Column>
+        <DescriptionText color={colors.lightText}>{timeComment}</DescriptionText>
       </Column>
 
       <Column>

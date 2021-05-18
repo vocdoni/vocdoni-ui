@@ -23,9 +23,10 @@ import { VoteQuestionCard } from '@components/common/vote-question-card'
 import { GeneratePdfCard } from './generate-pdf-card'
 import { useWallet, WalletRoles } from '@hooks/use-wallet'
 import { useMessageAlert } from '@hooks/message-alert'
-import { useBlockHeight, usePool } from '@vocdoni/react-hooks'
+import { useBlockStatus, usePool } from '@vocdoni/react-hooks'
 import { getVoteStatus, VoteStatus } from '@lib/util'
 import { When } from 'react-if'
+import { DateDiffType, localizedStrDateDiff } from '@lib/date'
 
 interface IProcessDetailProps {
   process: IProcessInfo
@@ -46,7 +47,8 @@ export const ViewDetail = ({ process, results, refreshProcessInfo }: IProcessDet
   })
   const totalVotes = results?.totalVotes || 0
 
-  const { blockHeight } = useBlockHeight()
+  const { blockStatus } = useBlockStatus()
+  const blockHeight = blockStatus?.blockNumber || 0
 
   const status: VoteStatus = getVoteStatus(
     process.parameters.status,
@@ -121,6 +123,18 @@ export const ViewDetail = ({ process, results, refreshProcessInfo }: IProcessDet
   // TODO handleGeneratePdfResult return not implemented an make button not clickable
   const handleGeneratePdfResult = () => { }
 
+  let dateDiffStr = ""
+  if (process?.parameters?.startBlock && (status == VoteStatus.Active || status == VoteStatus.Paused)) {
+    if (process?.parameters?.startBlock > blockHeight) {
+      const date = VotingApi.estimateDateAtBlockSync(process?.parameters?.startBlock, blockStatus)
+      dateDiffStr = localizedStrDateDiff(DateDiffType.Start, date)
+    }
+    else { // starting in the past
+      const date = VotingApi.estimateDateAtBlockSync(process?.parameters?.startBlock + process?.parameters?.blockCount, blockStatus)
+      dateDiffStr = localizedStrDateDiff(DateDiffType.End, date)
+    }
+  }
+
   return (
     <PageCard>
       <Grid>
@@ -178,7 +192,10 @@ export const ViewDetail = ({ process, results, refreshProcessInfo }: IProcessDet
           </SectionContainer>
 
           <SectionContainer>
-            <ProcessStatusLabel status={status}></ProcessStatusLabel>
+            <DateContainer>
+              <ProcessStatusLabel status={status}></ProcessStatusLabel>
+              <div>{dateDiffStr}</div>
+            </DateContainer>
           </SectionContainer>
 
           <SectionContainer>
@@ -226,4 +243,9 @@ const ButtonContainer = styled.div`
 `
 const SectionContainer = styled.div`
   margin-bottom: 16px;
+`
+const DateContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 `
