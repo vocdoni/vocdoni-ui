@@ -22,7 +22,10 @@
         "STUFFED_TOY": "Stuffed toy"
     },
     "confirm": {
+        "by_canceling_a_process_you_will_unlist_it_and_drop_all_of_its_votes_and_results": "",
+        "by_ending_a_process_no_new_votes_will_be_accepted_and_results_will_be_computed": "",
         "do_you_want_to_continue": "",
+        "do_you_want_to_continue?": "",
         "this_action_cannot_be_undone": "",
         "you_are_about_to_submit_your_vote": ""
     },
@@ -381,6 +384,7 @@
         "you_can_vote_on_this_proposal": "You can vote on this proposal",
         "you_cant_enter_contact_with_entity": "Unable to access? Please, contact with the entity",
         "your_choice": "Your choice",
+        "your_entity_is_being_registered": "",
         "your_vote_has_been_registered": "Your vote has been registered",
         "your_vote_has_been_successfully_registered": "Your vote has been successfully registered",
         "your_vote_is_set_up": "Your vote is set up",

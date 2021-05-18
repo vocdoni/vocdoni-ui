@@ -4,48 +4,6 @@ import { margins, screenMin, screenMax } from './sizes'
 
 export const FixedGlobalStyle = createGlobalStyle`
 
-@font-face {
-  font-family: 'Manrope';
-  font-style: normal;
-  font-weight: 100;
-  src: local('Manrope'), url('/fonts/manrope/static/manrope-extra-light.ttf') format('truetype');
-}
-
-@font-face {
-  font-family: 'Manrope';
-  font-style: normal;
-  font-weight: 300;
-  src: local('Manrope'), url('/fonts/manrope/static/manrope-light.ttf') format('truetype');
-}
-
-@font-face {
-  font-family: 'Manrope';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Manrope'), url('/fonts/manrope/static/manrope-regular.ttf') format('truetype');
-}
-
-@font-face {
-  font-family: 'Manrope';
-  font-style: normal;
-  font-weight: 500;
-  src: local('Manrope'), url('/fonts/manrope/static/manrope-medium.ttf') format('truetype');
-}
-
-@font-face {
-  font-family: 'Manrope';
-  font-style: normal;
-  font-weight: 600;
-  src: local('Manrope'), url('/fonts/manrope/static/manrope-semi-bold.ttf') format('truetype');
-}
-
-@font-face {
-  font-family: 'Manrope';
-  font-style: normal;
-  font-weight: 700;
-  src: local('Manrope'), url('/fonts/manrope/static/manrope-bold.ttf') format('truetype');
-}
-
 html,
 body {
   height: 100%;

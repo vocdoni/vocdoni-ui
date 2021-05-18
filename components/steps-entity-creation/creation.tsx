@@ -83,7 +83,7 @@ export const FormCreation = () => {
           <ProcessLoader
             steps={processSteps}
             currentStep={actionStep}
-            title={i18n.t('vote.your_vote_process_is_being_created')}
+            title={i18n.t('vote.your_entity_is_being_registered')}
             subtitle={i18n.t('vote.we_are_using_a_decentralized_secure_system')}
           />
         </Then>
