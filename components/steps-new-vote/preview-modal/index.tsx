@@ -52,7 +52,7 @@ export const PreviewModal = ({entityName, entityLogo, visible, onClose}: Preview
             <VoteQuestionCard
               key={index}
               question={question}
-              index={index}
+              questionIdx={index}
               hasVoted={false}
               processStatus={processStatus}
               totalVotes={0}

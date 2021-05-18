@@ -194,7 +194,7 @@ export const ViewDetail = ({ process, results, refreshProcessInfo }: IProcessDet
                 <VoteQuestionCard
                   key={index}
                   question={question}
-                  index={index}
+                  questionIdx={index}
                   hasVoted={true}
                   totalVotes={totalVotes}
                   processStatus={process?.parameters.status}
