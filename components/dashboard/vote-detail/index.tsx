@@ -25,6 +25,7 @@ import { useWallet, WalletRoles } from '@hooks/use-wallet'
 import { useMessageAlert } from '@hooks/message-alert'
 import { useBlockHeight, usePool } from '@vocdoni/react-hooks'
 import { getVoteStatus, VoteStatus } from '@lib/util'
+import { When } from 'react-if'
 
 interface IProcessDetailProps {
   process: IProcessInfo
@@ -62,13 +63,7 @@ export const ViewDetail = ({ process, results, refreshProcessInfo }: IProcessDet
       setAlertMessage(i18n.t('error.wallet_not_available'))
       return
     }
-    // TODO which states allow for canceling?
-    if (
-      process.parameters.status.isCanceled ||
-      process.parameters.status.isEnded
-    ) {
-      setAlertMessage(i18n.t('error.process_cannot_be_canceled'))
-    }
+    else if (process.parameters.status.isEnded) return
 
     return poolPromise
       .then((pool) => {
@@ -93,9 +88,7 @@ export const ViewDetail = ({ process, results, refreshProcessInfo }: IProcessDet
       setAlertMessage(i18n.t('error.wallet_not_available'))
       return
     }
-    if (process.parameters.status.isEnded) {
-      setAlertMessage(i18n.t('error.process_already_ended'))
-    }
+    if (process.parameters.status.isEnded) return
 
     return poolPromise
       .then((pool) => {
@@ -114,8 +107,10 @@ export const ViewDetail = ({ process, results, refreshProcessInfo }: IProcessDet
         setEndingVote(false)
       })
   }
+
   // TODO handleGeneratePdfResult return not implemented an make button not clickable
   const handleGeneratePdfResult = () => { }
+
   return (
     <PageCard>
       <Grid>
@@ -130,7 +125,7 @@ export const ViewDetail = ({ process, results, refreshProcessInfo }: IProcessDet
               </SectionText>
             </div>
 
-            {voteActive && (
+            <When condition={voteActive && (process.parameters.status.isReady || process.parameters.status.isPaused)}>
               <FlexContainer height="100px" alignItem={FlexAlignItem.Center}>
                 <ButtonContainer>
                   <Button
@@ -158,7 +153,7 @@ export const ViewDetail = ({ process, results, refreshProcessInfo }: IProcessDet
                   </Button>
                 </ButtonContainer>
               </FlexContainer>
-            )}
+            </When>
           </FlexContainer>
         </Column>
       </Grid>

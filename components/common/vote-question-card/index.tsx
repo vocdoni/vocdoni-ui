@@ -74,7 +74,7 @@ export const VoteQuestionCard = ({
     () => showResults && !result,
     (
       <SectionText>
-        {i18n.t('vote_question_card.no_available_results')}
+        {i18n.t('vote_question_card.no_results_available')}
       </SectionText>
     )
   )

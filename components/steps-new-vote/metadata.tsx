@@ -153,9 +153,9 @@ export const FormMetadata = () => {
       <Grid>
         <Column md={6} sm={12}>
           <InputFormGroup
-            title={i18n.t('vote.new_vote')}
-            label={i18n.t('vote.title')}
-            placeholder={i18n.t('vote.title')}
+            title={i18n.t('vote.title')}
+            label={i18n.t('vote.proposal_title')}
+            placeholder={i18n.t('vote.proposal_title')}
             value={metadata.title.default}
             id={MetadataFields.Title}
             error={getErrorMessage(MetadataFields.Title)}
@@ -166,7 +166,7 @@ export const FormMetadata = () => {
           />
 
           <FileLoaderFormGroup
-            title={i18n.t('vote.header')}
+            title={i18n.t('vote.header_image')}
             label={i18n.t('vote.optional_field')}
             onSelect={(file) => methods.setHeaderFile(file)}
             onChange={methods.setHeaderURL}

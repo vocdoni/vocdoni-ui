@@ -20,14 +20,9 @@ const VoteDetailPage = () => {
   } = useProcessWrapper(processId)
   const { wallet } = useWallet({ role: WalletRoles.ADMIN })
 
-  const renderNoUserLoggedPage = new ViewStrategy(
+  const redirectNoWallet = new ViewStrategy(
     () => !wallet?.address,
     <Redirect to={ENTITY_SIGN_IN_PATH}></Redirect>
-  )
-
-  const loadingView = new ViewStrategy(
-    () => true,
-    <Loader visible></Loader>
   )
 
   const processDetailView = new ViewStrategy(
@@ -35,8 +30,13 @@ const VoteDetailPage = () => {
     <ViewDetail process={processInfo} results={results} refreshProcessInfo={methods.refreshProcessInfo} />
   )
 
+  const loadingView = new ViewStrategy(
+    () => true,
+    <Loader visible></Loader>
+  )
+
   const viewContext = new ViewContext([
-    renderNoUserLoggedPage,
+    redirectNoWallet,
     processDetailView,
     loadingView,
   ])

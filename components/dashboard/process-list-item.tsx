@@ -49,14 +49,13 @@ export const DashboardProcessListItem = ({
         setEndDate(i18n.t('dashboard.process_paused'))
         break
     }
-
   }, [blockStatus])
 
   return (
     <VoteItemWrapper>
       <VoteListItem
         icon={
-          <ImageContainer width="30px">
+          <ImageContainer width="30px" height="30px">
             <Image src={entityLogo || FALLBACK_ACCOUNT_ICON} />
           </ImageContainer>
         }

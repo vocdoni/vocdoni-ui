@@ -94,12 +94,14 @@
         "description": "Descripción",
         "details": "Detalles",
         "email": "Correo de contacto",
+        "enter_the_name_of_the_entity": "",
         "entity_details": "Detalles de la entidad",
-        "go_to_the_dashboard": "Vuelve al inicio",
-        "header": "Nombre de la entidad",
+        "go_to_the_dashboard": "Volver al inicio",
+        "header": "",
         "i_have_read_and_accept_the_privacy_policy_and_the_terms_of_service": "He leído y acepto la Política de Privacidad y las Condiciones de Servicio",
         "i_have_read_and_accept_the_terms_of_service": "",
         "logo": "Logo de la entidad",
+        "name": "Nombre de la entidad",
         "new_entity": "Nueva Entidad",
         "passphrase": "Contraseña",
         "passphrase_image_alt": "Contraseña",
@@ -110,7 +112,8 @@
         "we_are_ready": "¡Listo!",
         "why_this_is_important": "¿Por qué es importante?",
         "your_account_is_protected_store_file_safe_place": "Ahora, tu cuenta está protegida, guarda este archivo en un lugar seguro",
-        "your_company_was_created_successfully_no_you_cant_create_a_new_amg_proposal": "Cuenta creada con éxito. Ahora, ya puedes crear una votación"
+        "your_company_was_created_successfully_no_you_cant_create_a_new_amg_proposal": "Cuenta creada con éxito. Ahora, ya puedes crear una votación",
+        "header_image": "Imagen de cabecera"
     },
     "error": {
         "error_updating_db_account": "",
@@ -130,8 +133,6 @@
         "invalid_title": "El título debe contener un mínimo de {{ length }} caracteres",
         "invalid_url": "URL inválida",
         "num_entries_could_not_be_added_to_the_census": "",
-        "process_already_ended": "El proceso ha finalizado",
-        "process_cannot_be_canceled": "El proceso no se puede cancelar",
         "retrieve_gas_time_out": "",
         "the_incognito_mode_is_not_supported": "",
         "the_passphrase_dont_match": "La contraseña no coincide",
@@ -266,7 +267,7 @@
         "vote_results": "Resultados de la votación"
     },
     "vote_question_card": {
-        "no_available_results": "Resultados no disponibles",
+        "no_results_available": "Resultados no disponibles",
         "number_votes": "{{ number }} votos",
         "question": "Pregunta {{ number }}"
     },
@@ -306,7 +307,7 @@
         "forum_link_explanation": "Puedes añadir un enlace a tu sistema de ruegos y preguntas. Este enlace puede llevar a un Fórum, a grupo de Telegram, a un correo, una web...",
         "forum_link_label": "Este campo es opcional",
         "go_back_to_home_page": "Volver a la página de inicio",
-        "header": "Nuevo proceso",
+        "header_image": "",
         "import_the_list_of_voters": "Importar la lista de votantes",
         "invalid_file_type": "Archivo inválido. Formatos compatibles: XLS, XLSX, CSV, ODT",
         "invalid_xls_file": "Formato del archivo inválido",
@@ -325,6 +326,7 @@
         "please_choose_a_new_once_to_continue": "",
         "please_wait": "Espera...",
         "plus_icon_alt": "Añade otra pregunta",
+        "proposal_title": "Proposal title",
         "question": "Pregunta {{ number }}",
         "question_image_alt": "Imagen de la pregunta",
         "questions_and_answers": "Ruegos y preguntas",

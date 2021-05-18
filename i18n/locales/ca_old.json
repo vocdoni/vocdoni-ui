@@ -14,21 +14,21 @@
         "enter_the_details_of_the_process": "",
         "new_process": "",
         "the_incognito_mode_is_incompatible": "",
-        "we_need_store_some_data_on_the_browser_to_create_the_entity_for_these_reason_is_incompatible_with_incognito_mode": ""
+        "we_need_store_some_data_on_the_browser_to_create_the_entity_for_these_reason_is_incompatible_with_incognito_mode": "",
+        "header": "Capçalera"
     },
     "votes": {
         "number_votes": "",
         "show": {}
     },
     "results": {
-        "no_available_results": ""
+        "no_results_available": ""
     },
     "vote_detail": {
         "create_new_proposal_in_only_5_minutes": "",
         "generate_pdf": ""
     },
     "entity": {
-        "name": "",
         "please_wait_creating_account": "",
         "your_account_has_been_created": "",
         "enter_the_details_of_the_entity": "",
@@ -65,5 +65,9 @@
     "home": {
         "author_image_alt": "",
         "the_commitment_to_vocdoni_has_been_clear_as_from_omnium_cultural_we_opted": ""
+    },
+    "error": {
+        "process_already_ended": "El procés ja ha finalitzat",
+        "process_cannot_be_canceled": "El procés no es pot cancel·lar"
     }
 }

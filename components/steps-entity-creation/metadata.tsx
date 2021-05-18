@@ -145,8 +145,8 @@ export const FormMetadata = () => {
 
       <Column md={6}>
         <InputFormGroup
-          label={i18n.t('entity.new_entity')}
-          placeholder={i18n.t('entity.new_entity')}
+          label={i18n.t('entity.name')}
+          placeholder={i18n.t('entity.enter_the_name_of_the_entity')}
           id={MetadataFields.Name}
           value={name}
           error={getErrorMessage(MetadataFields.Name)}

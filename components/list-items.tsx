@@ -5,7 +5,7 @@ import { Tag } from "./tag"
 import { ReactNode } from "react"
 import i18n from "../i18n"
 import { SHOW_PROCESS_PATH } from "../const/routes"
-import { FlexAlignItem, FlexContainer } from "./flex"
+import { FlexAlignItem, FlexContainer, FlexJustifyContent } from "./flex"
 import { VoteStatus } from "@lib/util"
 import { ProcessStatusLabel } from '@components/process-status-label'
 
@@ -26,7 +26,7 @@ export const VoteListItem = ({ icon, entityName, processId, title, description, 
     <a>
       <ListItemDiv>
         <TopDiv>
-          <FlexContainer alignItem={FlexAlignItem.Center}>
+          <FlexContainer alignItem={FlexAlignItem.Center} justify={FlexJustifyContent.Center}>
             {icon}<EntityName>{entityName}</EntityName>
           </FlexContainer>
           <ProcessStatusLabel status={status}></ProcessStatusLabel>
@@ -62,24 +62,27 @@ const TopDiv = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  margin-bottom: 10px;
 `
 const EntityNameDiv = styled.div``
 const EntityName = styled.h5`
   display: inline-block;
-  margin: 0 6px 10px;
+  margin: 0 6px 0px;
   font-weight: normal;
   font-size: 90%;
   color: ${props => props.theme.text};
 `
 
 const VoteListItemTitle = styled.h3`
-  margin-top: 0;
-  margin-bottom: 10px;
+  margin-top: 16px;
+  margin-bottom: 6px;
   color: ${props => props.theme.text};
   font-weight: normal;
 `
 const VoteListItemDescription = styled.p`
+  margin: 6px 0 6px;
   color: ${props => props.theme.darkLightFg};
+  font-size: 85%;
 `
 const VoteListItemDate = styled.p`
   color: ${props => props.theme.lightText};

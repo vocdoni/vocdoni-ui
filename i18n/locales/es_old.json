@@ -1,5 +1,12 @@
 {
     "votes": {
         "show": {}
+    },
+    "error": {
+        "process_already_ended": "El proceso ha finalizado",
+        "process_cannot_be_canceled": "El proceso no se puede cancelar"
+    },
+    "vote": {
+        "header": "Nuevo proceso"
     }
 }
