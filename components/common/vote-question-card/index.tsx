@@ -23,7 +23,7 @@ import { ChoiceList } from './choice-list'
 
 interface IVoteQuestionCardProps {
   question: Question
-  index: number
+  questionIdx: number
   hasVoted: boolean
   totalVotes: number
   processStatus: ProcessStatus
@@ -34,7 +34,7 @@ interface IVoteQuestionCardProps {
 
 export const VoteQuestionCard = ({
   question,
-  index,
+  questionIdx,
   hasVoted,
   totalVotes,
   processStatus,
@@ -71,6 +71,7 @@ export const VoteQuestionCard = ({
     () => !hasVoted && processStatus.value === ProcessStatus.READY,
     (
       <ChoiceSelector
+        questionIdx={questionIdx}
         question={question}
         selectedChoice={selectedChoice}
         onSelectChoice={onSelectChoice}
@@ -97,7 +98,7 @@ export const VoteQuestionCard = ({
           <Grid>
             <Column md={8} sm={12}>
               <SectionText>
-                {i18n.t('vote_question_card.question', { number: index + 1 })}
+                {i18n.t('vote_question_card.question', { number: questionIdx + 1 })}
               </SectionText>
 
               <SectionText size={TextSize.Big}>

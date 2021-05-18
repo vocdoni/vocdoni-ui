@@ -45,7 +45,7 @@ export const VotingPageView = () => {
 
   const voteStatus: VoteStatus = getVoteStatus(processInfo.parameters.status, processInfo.parameters.startBlock, blockHeight)
 
-  const explorerLink = process.env.EXPLORER_URL + '/envelope/'+nullifier
+  const explorerLink = process.env.EXPLORER_URL + '/envelope/' + nullifier
 
   return (
     <>
@@ -82,19 +82,19 @@ export const VotingPageView = () => {
           </Column>
         </Grid>
 
-        {hasVoted && <VoteRegisteredCard  explorerLink={explorerLink} />}
+        {hasVoted && <VoteRegisteredCard explorerLink={explorerLink} />}
 
         {processInfo.metadata.questions.map(
           (question: Question, index: number) => (
             <VoteQuestionCard
+              questionIdx={index}
               key={index}
               question={question}
-              index={index}
               hasVoted={hasVoted}
               totalVotes={totalVotes}
               result={results?.questions[index]}
               processStatus={processInfo?.parameters.status}
-              selectedChoice={choices ? choices[index] : 0}
+              selectedChoice={(choices.length > index) ? choices[index] : -1}
               onSelectChoice={(selectedChoice) => {
                 methods.onSelect(index, selectedChoice)
               }}

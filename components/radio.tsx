@@ -9,7 +9,7 @@ type RadioProps = {
   checked?: boolean
 }
 
-export const Radio = ({ children, onClick, name, checked }: RadioProps) => (
+export const Radio = ({ children, onClick, name, checked}: RadioProps) => (
   <RadioLabel onClick={() => onClick && onClick()}>
     {" "}
     <input
