@@ -47,7 +47,7 @@ export const PageCardHeader = styled.div<{ variant?: PageCardHeaderVariant }>`
   max-height: 240px;
   border-radius: 16px 16px 0 0;
   overflow: hidden;
-  max-height: 200px;
+  max-height: 250px;
 
   ${({ theme, variant }) =>
     PageCardHeaderVariantStyle[variant || PageCardHeaderVariant.Image](

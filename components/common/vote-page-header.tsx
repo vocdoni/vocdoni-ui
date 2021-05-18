@@ -63,6 +63,7 @@ const EntityLogoWrapper = styled.div`
   border: solid 1px ${({ theme }) => theme.white};
 
   & > img {
-    width: 100%;
+    width: 100px;
+    height: 100px;
   }
 `
