@@ -39,6 +39,7 @@ export interface VotingContext {
   // sent: boolean,
 
   methods: {
+    setProcessId: (processId: string) => void,
     onSelect: (questionIdx: number, choiceValue: number) => void,
 
     submitVote: () => Promise<void>,
@@ -48,18 +49,25 @@ export interface VotingContext {
 
 export const UseVotingContext = createContext<VotingContext>({ step: 0, methods: {} } as any)
 
-export const useVoting = () => {
+export const useVoting = (processId: string) => {
   const votingCtx = useContext(UseVotingContext)
 
   if (votingCtx === null) {
     throw new Error('useVoting() can only be used on the descendants of <UsevotingProvider />,')
   }
+  useEffect(() => {
+    if (!processId) return
+    else if (votingCtx.processId == processId) return
+
+    votingCtx.methods.setProcessId(processId)
+  }, [processId])
+
   return votingCtx
 }
 
 export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
   const { poolPromise } = usePool()
-  const processId = useUrlHash().slice(1) // Skip "/"
+  const [processId, setProcessId] = useState("")
   const invalidProcessId = !processId.match(/^0x[0-9a-fA-A]{64}$/)
   const {
     loadingInfoError,
@@ -281,6 +289,7 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
     results,
 
     methods: {
+      setProcessId,
       onSelect,
 
       submitVote: doMainActionSteps,

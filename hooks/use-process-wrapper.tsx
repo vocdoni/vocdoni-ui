@@ -34,7 +34,7 @@ export const useProcessWrapper = (processId: string) => {
   const { refreshProcessInfo } = processCtx
 
   if (processCtx === null) {
-    throw new Error('useVoting() can only be used on the descendants of <UseProcessProvider />,')
+    throw new Error('useProcessWrapper() can only be used on the descendants of <UseProcessWrapperProvider />,')
   }
 
   const { poolPromise } = usePool()
@@ -55,7 +55,7 @@ export const useProcessWrapper = (processId: string) => {
   // Vote results
   useEffect(() => {
     refreshResults()
-    refreshProcessInfo(processId)
+    if (processId) refreshProcessInfo(processId)
   }, [])
 
   useEffect(() => {

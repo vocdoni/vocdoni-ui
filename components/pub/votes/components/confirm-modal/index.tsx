@@ -7,6 +7,7 @@ import { ViewContext, ViewStrategy } from '@lib/strategy'
 
 import { ModalQuestionList } from './questions-list'
 import { VoteSubmitted } from './vote-submitted'
+import { useUrlHash } from 'use-url-hash'
 
 interface IConfigModal {
   isOpen: boolean
@@ -14,7 +15,8 @@ interface IConfigModal {
 }
 
 export const ConfirmModal = ({ isOpen, onClose }: IConfigModal) => {
-  const { choices, processInfo, hasVoted, methods, pleaseWait, actionError } = useVoting()
+  const processId = useUrlHash().slice(1) // Skip "/"
+  const { choices, processInfo, hasVoted, methods, pleaseWait, actionError } = useVoting(processId)
   const handleSendVote = () => {
     methods.submitVote()
   }

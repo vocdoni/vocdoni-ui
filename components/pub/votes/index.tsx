@@ -26,8 +26,10 @@ import { VoteRegisteredCard } from './components/vote-registered-card'
 import { VoteStatus, getVoteStatus } from '@lib/util'
 import { Else, If, Then, When } from 'react-if'
 import { SectionText, TextAlign } from '@components/text'
+import { useUrlHash } from 'use-url-hash'
 
 export const VotingPageView = () => {
+  const processId = useUrlHash().slice(1) // Skip "/"
   const {
     methods,
     choices,
@@ -36,7 +38,7 @@ export const VotingPageView = () => {
     hasVoted,
     results,
     nullifier,
-  } = useVoting()
+  } = useVoting(processId)
   const { wallet } = useWallet({ role: WalletRoles.VOTER })
   const { metadata } = useEntity(processInfo?.entity)
   const [confirmModalOpened, setConfirmModalOpened] = useState<boolean>(false)
