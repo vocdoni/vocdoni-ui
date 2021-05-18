@@ -57,7 +57,7 @@ export async function getProcessList(entityId: string, pool: GatewayPool): Promi
 
 /** Waits until the given Ethereum address has funds to operate */
 export async function waitForGas(address: string, provider: providers.Provider, retries: number = 50) {
-  const requestInterval = 2000
+  const requestInterval = 10000
   const maxMilliseconds = requestInterval * retries
 
   if (!address) throw new InvalidAddressError()
@@ -71,6 +71,6 @@ export async function waitForGas(address: string, provider: providers.Provider, 
     await new Promise(r => setTimeout(r, requestInterval)) // Wait 2s
     retries--
   }
-  
+
   throw new RetrieveGasTimeOutError(maxMilliseconds)
 }
