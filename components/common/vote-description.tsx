@@ -11,6 +11,7 @@ import { SectionText, TextSize } from '@components/text'
 import { Button, JustifyContent, LinkTarget } from '@components/button'
 import { Column, Grid } from '@components/grid'
 import { ProcessStatusLabel } from '@components/process-status-label'
+import { When } from 'react-if'
 
 interface IVotePageProps {
   description: string
@@ -46,49 +47,12 @@ export const VoteDescription = ({
         <DescriptionText color={colors.lightText}>{description}</DescriptionText>
       </Column>
 
-      <Column>
-        <LiveStreamContainer>
-        { liveStream && (
-          <div>
-          <SectionText size={TextSize.Big} color={colors.blueText}>
-            {i18n.t('vote.live_stream')}
-          </SectionText>
-
-          <LiveStreamVideoContainer>
-            <ReactPlayer url={liveStream} width="100%" />
-          </LiveStreamVideoContainer>
-          </div>
-        )}
-
+      <When condition={discussionUrl}>
+        <Column>
           <SectionText size={TextSize.Big} color={colors.blueText}>
             {i18n.t('vote.discussion')}
           </SectionText>
 
-          <SectionText color={colors.lightText}>
-            {i18n.t(
-              'vote.check_documentation_covering_the_relevant_topics_of_the_vote_and_discus'
-            )}
-          </SectionText>
-        </LiveStreamContainer>
-      </Column>
-
-      {attachmentUrl && (
-        <Column>
-          <Button
-            border
-            wide
-            icon={pdfIcon}
-            href={attachmentUrl}
-            target={LinkTarget.Blank}
-            justify={JustifyContent.Left}
-          >
-            <ButtonText>{i18n.t('vote.download_the_document')}</ButtonText>
-          </Button>
-        </Column>
-      )}
-
-      {discussionUrl && (
-        <Column>
           <Button
             border
             wide
@@ -100,7 +64,43 @@ export const VoteDescription = ({
             <ButtonText>{i18n.t('vote.questions_and_answers')}</ButtonText>
           </Button>
         </Column>
-      )}
+      </When>
+
+      <When condition={attachmentUrl}>
+        <Column>
+          <SectionText color={colors.lightText}>
+            {i18n.t(
+              'vote.check_documentation_covering_the_relevant_topics_of_the_vote_and_discus'
+            )}
+          </SectionText>
+
+          <Button
+            border
+            wide
+            icon={pdfIcon}
+            href={attachmentUrl}
+            target={LinkTarget.Blank}
+            justify={JustifyContent.Left}
+          >
+            <ButtonText>{i18n.t('vote.download_the_document')}</ButtonText>
+          </Button>
+        </Column>
+      </When>
+
+      <When condition={liveStream}>
+        <Column>
+          <LiveStreamContainer>
+            <SectionText size={TextSize.Big} color={colors.blueText}>
+              {i18n.t('vote.live_stream')}
+            </SectionText>
+
+            <LiveStreamVideoContainer>
+              <ReactPlayer url={liveStream} width="100%" />
+            </LiveStreamVideoContainer>
+          </LiveStreamContainer>
+        </Column>
+      </When>
+
     </Grid>
   )
 }
