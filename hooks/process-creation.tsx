@@ -128,7 +128,7 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
       })
       .catch(err => {
         console.error(err)
-        return Promise.reject({ error: i18n.t('errors.cannot_set_media_header') })
+        return Promise.reject(new Error(i18n.t('errors.cannot_set_media_header')))
       })
   }
 
@@ -160,7 +160,7 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
     const { censusId } = await CensusOffChainApi.addCensus(name, [wallet.publicKey], wallet, pool)
     const { censusRoot, invalidClaims } = await CensusOffChainApi.addClaimBulk(censusId, claims, false, wallet, pool)
     if (invalidClaims.length) {
-      return Promise.reject({ error: i18n.t('error.num_entries_could_not_be_added_to_the_census', { total: invalidClaims.length }) })
+      return Promise.reject(new Error(i18n.t('error.num_entries_could_not_be_added_to_the_census', { total: invalidClaims.length })))
     }
     const censusUri = await CensusOffChainApi.publishCensus(censusId, wallet, pool)
 
@@ -177,16 +177,16 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
     // TODO: Do a synchronous check that the process params make sense and contain no incompatible values
 
     if (isNaN(parameters.startBlock) || isNaN(parameters.blockCount))
-      return Promise.reject({ error: i18n.t('errors.process.invalid_start_date') })
+      return Promise.reject(new Error(i18n.t('errors.process.invalid_start_date')))
 
     if (parameters.blockCount <= 0)
-      return Promise.reject({ error: i18n.t('errors.process.the_vote_cannot_end_before_the_start') })
+      return Promise.reject(new Error(i18n.t('errors.process.the_vote_cannot_end_before_the_start')))
 
     if (!startRightAway) {
       const localStartDate = VotingApi.estimateDateAtBlockSync(parameters.startBlock, blockStatus)
 
       if (Math.abs(moment(localStartDate).diff(moment.now(), 'minute')) > 8) {
-        return Promise.reject({ error: i18n.t('errors.process.invalid_start_date') })
+        return Promise.reject(new Error(i18n.t('errors.process.invalid_start_date')))
       }
     }
 

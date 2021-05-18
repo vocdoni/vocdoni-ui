@@ -7,6 +7,7 @@
         "process_cannot_be_canceled": "El proceso no se puede cancelar"
     },
     "vote": {
-        "header": "Nuevo proceso"
+        "header": "Nuevo proceso",
+        "short_name_to_identify_the_process": "Nombre del proceso"
     }
 }

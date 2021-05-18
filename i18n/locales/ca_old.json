@@ -15,7 +15,8 @@
         "new_process": "",
         "the_incognito_mode_is_incompatible": "",
         "we_need_store_some_data_on_the_browser_to_create_the_entity_for_these_reason_is_incompatible_with_incognito_mode": "",
-        "header": "Capçalera"
+        "header": "Capçalera",
+        "short_name_to_identify_the_process": "Nom del procés"
     },
     "votes": {
         "number_votes": "",

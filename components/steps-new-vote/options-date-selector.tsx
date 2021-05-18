@@ -67,7 +67,7 @@ export const OptionDateSelector = ({
       <Column>
         <SectionTitle>{i18n.t('vote.start_date')}<HelpText text={i18n.t('vote.start_date_explanation')}/></SectionTitle>
         <SectionText>
-          {i18n.t('vote.short_name_to_identify_the_process')}
+          {i18n.t('vote.define_the_timeframe_of_the_proposal')}
         </SectionText>
 
         <DateSelectContainer>

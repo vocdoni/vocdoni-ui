@@ -41,7 +41,8 @@
         "enter_the_details_of_the_process": "Enter the details of a new governance process",
         "new_process": "New process",
         "the_incognito_mode_is_incompatible": "The incognito mode is incompatible",
-        "we_need_store_some_data_on_the_browser_to_create_the_entity_for_these_reason_is_incompatible_with_incognito_mode": "We need store some data on the browser to create the entity for these reason is incompatible with incognito mode"
+        "we_need_store_some_data_on_the_browser_to_create_the_entity_for_these_reason_is_incompatible_with_incognito_mode": "We need store some data on the browser to create the entity for these reason is incompatible with incognito mode",
+        "short_name_to_identify_the_process": "Short name to identify the process"
     },
     "sign_in": {
         "select_the_account_to_use_and_enterr_your_passphrase": ""
