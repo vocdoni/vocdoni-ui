@@ -41,7 +41,8 @@
     },
     "action": {
         "create_new_proposal": "",
-        "go_to_dashboard": ""
+        "go_to_dashboard": "",
+        "create_my_entity": "Crea la teva entitat"
     },
     "errors": {
         "internal_error_please_log_in_again": "",
@@ -65,12 +66,12 @@
         "please_enter_your_passphrase_to_retry_it": "",
         "the_creation_of_your_entity_is_not_complete": ""
     },
-    "home": {
-        "author_image_alt": "",
-        "the_commitment_to_vocdoni_has_been_clear_as_from_omnium_cultural_we_opted": ""
-    },
     "error": {
         "process_already_ended": "El procés ja ha finalitzat",
         "process_cannot_be_canceled": "El procés no es pot cancel·lar"
+    },
+    "home": {
+        "hero_subtitle": "El protocol de vot més segur i flexible per organitzar tota mena de processos de votació",
+        "hero_title": "La solució fàcil i segura que cobreix les teves necessitats de governança"
     }
 }

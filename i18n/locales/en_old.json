@@ -5,8 +5,8 @@
     "go_to_dashboard": "",
     "home": {
         "create_my_entity": "",
-        "author_image_alt": "",
-        "the_commitment_to_vocdoni_has_been_clear_as_from_omnium_cultural_we_opted": ""
+        "hero_subtitle": "The most flexible and secure voting protocol to organize any kind of voting process",
+        "hero_title": "Easy and secure solution for all your governance needs"
     },
     "steps": {
         "go_back": "",
@@ -81,7 +81,8 @@
     },
     "action": {
         "create_new_proposal": "Create new proposal",
-        "go_to_dashboard": "Go to the Dashboard"
+        "go_to_dashboard": "Go to the Dashboard",
+        "create_my_entity": "Create my entity"
     },
     "import": {
         "error_importing_account": "Error importing account",
