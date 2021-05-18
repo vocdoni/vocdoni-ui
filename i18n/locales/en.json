@@ -155,6 +155,7 @@
         "general_error": "General error",
         "invalid_account_balance": "Invalid account balance",
         "invalid_image_url": "Invalid image URL",
+        "not_a_web_browser": "Not a web browser",
         "page_not_found": "Page not found",
         "please_accept_credentials_tos": "Please accept the Terms of Service",
         "please_confirm_your_passphrase": "Please confirm your password",
@@ -174,8 +175,6 @@
         "the_account_metadata_could_not_be_stored": "The account metadata could not be stored",
         "the_backup_cannot_be_generated_please_check_your_passphrase": "The backup cannot be generated, please check your password",
         "the_contents_you_entered_may_be_incorrect": "The contents you entered may be incorrect",
-        "the_entity_name_already_exits": "",
-        "not_a_web_browser": "Not a web browser",
         "the_header_image_link_is_not_valid": "The header image link is not valid",
         "the_list_of_votes_cannot_be_loaded": "The list of votes cannot be loaded",
         "the_passphrase_does_not_match": "The password does not match",
@@ -219,6 +218,9 @@
         "docs": "Docs",
         "pricing": "Pricing",
         "support": "Support"
+    },
+    "preview": {
+        "ending_in_one_hour": "Ending in 1h"
     },
     "recover": {
         "continue": "Continue",

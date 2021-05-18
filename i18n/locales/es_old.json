@@ -9,5 +9,9 @@
     "vote": {
         "header": "Nuevo proceso",
         "short_name_to_identify_the_process": "Nombre del proceso"
+    },
+    "errors": {
+        "the_entity_name_already_exits": "",
+        "the_global_window_element_is_not_defined": ""
     }
 }

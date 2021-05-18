@@ -12,6 +12,7 @@ import { MetadataFields } from '../metadata'
 import { VoteQuestionCard } from '@components/common/vote-question-card'
 import { Question } from '@lib/types'
 import { ProcessStatus } from 'dvote-js'
+import i18n from '@i18n'
 
 interface PreviewModalProps {
   entityName: string
@@ -20,7 +21,7 @@ interface PreviewModalProps {
   onClose: () => void
 }
 
-export const PreviewModal = ({entityName, entityLogo, visible, onClose}: PreviewModalProps) => {
+export const PreviewModal = ({ entityName, entityLogo, visible, onClose }: PreviewModalProps) => {
   const { headerURL, headerFile, metadata, methods } = useProcessCreation()
   const processStatus = new ProcessStatus(ProcessStatus.READY)
   const voteStatus = VoteStatus.Active
@@ -45,6 +46,7 @@ export const PreviewModal = ({entityName, entityLogo, visible, onClose}: Preview
           liveStream={metadata.media[MetadataFields.StreamLink]}
           discussionUrl={metadata.meta[PlazaMetadataKeys.DISCUSSION_URL]}
           attachmentUrl={metadata.meta[PlazaMetadataKeys.ATTACHMENT_URI]}
+          timeComment={i18n.t("preview.ending_in_one_hour")}
         />
 
         {metadata.questions.map(
@@ -65,7 +67,7 @@ export const PreviewModal = ({entityName, entityLogo, visible, onClose}: Preview
   )
 }
 
-const ModalBackdrop = styled.div<{visible?: boolean}>`
+const ModalBackdrop = styled.div<{ visible?: boolean }>`
   position: fixed;
   background-color: rgba(0, 0, 0, 0.6);
   top: 0;
@@ -73,8 +75,8 @@ const ModalBackdrop = styled.div<{visible?: boolean}>`
   left: 0;
   right: 0;
   z-index: 100;
-  visibility: ${({visible}) => visible? 'visible': 'hidden'};
-  opacity: ${({visible}) => visible? '1': '0'};
+  visibility: ${({ visible }) => visible ? 'visible' : 'hidden'};
+  opacity: ${({ visible }) => visible ? '1' : '0'};
   transition: opacity 0.3s;
 `
 const Modal = styled(PageCard)`

@@ -156,6 +156,7 @@
         "general_error": "Error",
         "invalid_account_balance": "",
         "invalid_image_url": "La dirección de la imagen es inválida",
+        "not_a_web_browser": "",
         "page_not_found": "No se ha encontrado la página",
         "please_accept_credentials_tos": "Aceptar las Condiciones de Servicio",
         "please_confirm_your_passphrase": "Confirmar contraseña",
@@ -175,8 +176,6 @@
         "the_account_metadata_could_not_be_stored": "",
         "the_backup_cannot_be_generated_please_check_your_passphrase": "No se puede generar la copia de seguridad, comprueba la contraseña",
         "the_contents_you_entered_may_be_incorrect": "",
-        "the_entity_name_already_exits": "",
-        "the_global_window_element_is_not_defined": "",
         "the_header_image_link_is_not_valid": "",
         "the_list_of_votes_cannot_be_loaded": "",
         "the_passphrase_does_not_match": "La contraseña no coincide",
@@ -220,6 +219,9 @@
         "docs": "Documentos",
         "pricing": "Precio",
         "support": "Ayuda"
+    },
+    "preview": {
+        "ending_in_one_hour": "Acaba de aquí 1h"
     },
     "recover": {
         "continue": "Continuar",
