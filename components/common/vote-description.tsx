@@ -111,7 +111,7 @@ const DescriptionText = styled(SectionText)`
 
 const ButtonText = styled.p`
   color: ${colors.blueText};
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 500;
   margin: 0 20px;
 `

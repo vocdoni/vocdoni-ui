@@ -10,12 +10,12 @@ export class AccountDb extends Dexie {
 
   /** Provides access to a local cache DB, containing the last known list of registered token addresses */
   constructor() {
-    super('AccountDb')
+    super('VocdoniPlaza')
     throwIfNotBrowser()
 
     // For newer model versions, DO NOT REMOVE any lines => ADD new ones below.
     // See https://dexie.org/docs/Tutorial/Design for model upgrades
-    this.version(1).stores({ accounts: '&name,&address' })
+    this.version(1).stores({ accounts: '&address' })
 
     // The following line is needed if your typescript
     // is compiled using babel instead of tsc:
@@ -27,11 +27,10 @@ export class AccountDb extends Dexie {
   }
 
   write(accounts: Account[]) {
-    return this.accounts.clear()
-      .then(() => this.accounts.bulkAdd(accounts))
+    return Promise.all(accounts.map(account => this.accounts.put(account)))
   }
 
-  update(address: string, account: Account) {
-    return this.accounts.where('address').equals(address).modify(account)
+  update(account: Account) {
+    return this.accounts.put(account)
   }
 }

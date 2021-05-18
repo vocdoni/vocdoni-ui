@@ -13,17 +13,20 @@ interface ICheckboxProps {
   onChange: (value: boolean) => void
   text: string
   href?: string
+  hrefNewTab?: boolean
   labelColor?: string
 }
 
-export const Checkbox = ({ id, checked, onChange, text, href = '', labelColor = '' }: ICheckboxProps) => (
+export const Checkbox = ({ id, checked, onChange, text, href = '', labelColor = '', hrefNewTab }: ICheckboxProps) => (
   <CheckboxContainer>
     <AragonCheckbox id={id} checked={checked} onChange={onChange} />
 
     {(href) ? (
       <Label htmlFor={id} color={(labelColor) ? labelColor : 'default'}>
         <Link href={href}>
-          {text}
+          <a target={hrefNewTab ? "_blank" : "_self"}>
+            {text}
+          </a>
         </Link>
       </Label>
     ) : (

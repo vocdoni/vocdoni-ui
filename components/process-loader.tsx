@@ -54,6 +54,7 @@ export const ProcessLoader = ({
         <HeaderText align={TextAlign.Center}>{title}</HeaderText>
         <SectionText align={TextAlign.Center}>{subtitle}</SectionText>
       </LoaderHeader>
+      <br />
 
       <StepsContainer>
         <div>{steps.map(renderStep)}</div>
@@ -63,11 +64,11 @@ export const ProcessLoader = ({
 }
 
 const PleaseWaitText = styled(SectionText)`
-  font-size: 36px;
+  font-size: 16px;
 `
 
 const HeaderText = styled(SectionTitle)`
-  font-size: 36px;
+  font-size: 28px;
 `
 
 const LoaderHeader = styled.div`

@@ -7,7 +7,7 @@ export interface DbAccountsContext {
   dbAccounts: Account[],
   addDbAccount: (account: Account) => Promise<void>,
   refreshAccounts: () => Promise<void>,
-  updateAccount: (address: string, account: Account) => Promise<void>,
+  updateAccount: (account: Account) => Promise<void>,
   getAccount: (address: string) => Account
   error: string,
 }
@@ -50,18 +50,24 @@ export const UseDbAccountsProvider = ({ children }: { children: ReactNode }) => 
 
   /** Adds a new account to the local DB and refreshes the currently available list */
   const addDbAccount = (account: Account) => {
-    if (!account) Promise.reject(new Error("Empty account"))
+    if (!account) return Promise.reject(new Error("Empty account"))
+    else if (dbAccounts.some(acc => acc.name.trim().toLowerCase() == account.name.trim().toLowerCase())) {
+      return Promise.reject(new Error(i18n.t("errors.there_is_already_one_account_with_the_same_name")))
+    }
+    else if (dbAccounts.some(acc => acc.address == account.address)) {
+      return Promise.reject(new Error(i18n.t("errors.there_is_already_one_account_with_the_same_credentials")))
+    }
 
     const db = new AccountDb()
-    return db.write(dbAccounts.concat([account]))
+    return db.update(account)
       .then(() => refreshAccounts())
   }
 
-  const updateAccount = (address: string, account: Account) => {
-    if (!address || !account || !account.name || !account.encryptedMnemonic) throw new Error("Invalid parameters")
+  const updateAccount = (account: Account) => {
+    if (!account?.address || !account.name || !account.encryptedMnemonic) throw new Error("Invalid parameters")
 
     const db = new AccountDb()
-    return db.update(address, account)
+    return db.update(account)
       .then(() => refreshAccounts())
   }
 

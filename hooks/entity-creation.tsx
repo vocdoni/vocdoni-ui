@@ -146,7 +146,7 @@ export const UseEntityCreationProvider = ({
   const [headerFile, setHeaderFile] = useState<File>()
   const [terms, setTerms] = useState<boolean>(false)
   const [privacy, setPrivacy] = useState<boolean>(false)
-  const { setAlertMessage } = useMessageAlert()
+  // const { setAlertMessage } = useMessageAlert()
 
   // UI STATE
   const { wallet, setWallet } = useWallet()
@@ -214,6 +214,7 @@ export const UseEntityCreationProvider = ({
               ...JSON.parse(JSON.stringify(EntityMetadataTemplate)),
               name: { default: name.trim() },
               description: { default: description.trim() },
+              // media is set later
             },
           },
         }
@@ -221,9 +222,9 @@ export const UseEntityCreationProvider = ({
       }
     } catch (error) {
       console.log(error)
-      
+
       if (error?.message?.indexOf?.("mutation") >= 0) { // if is incognito mode throw these error
-        return { error: new InvalidIncognitoModeError()}
+        return { error: new InvalidIncognitoModeError() }
       }
 
       return { error: new EntityNameAlreadyExistError() }
@@ -244,7 +245,7 @@ export const UseEntityCreationProvider = ({
         header,
       }
 
-      await updateAccount(wallet.address, account)
+      await updateAccount(account)
 
       return { waitNext: true }
     } catch (error) {
@@ -254,6 +255,7 @@ export const UseEntityCreationProvider = ({
 
   const ensureEntityCreation: StepperFunc = async () => {
     const account = getAccount(wallet.address)
+    if (!account) throw new Error("Internal error")
 
     let lastSuccessStatus: AccountStatus = account.status
 
@@ -277,7 +279,7 @@ export const UseEntityCreationProvider = ({
     } finally {
       account.status = lastSuccessStatus
 
-      await updateAccount(wallet.address, account)
+      await updateAccount(account)
     }
 
     return {}
@@ -300,11 +302,12 @@ export const UseEntityCreationProvider = ({
 
     // Pending
     const account = getAccount(wallet.address)
+    if (!account) throw new Error("Internal error")
 
     if (account.status === AccountStatus.Media) {
       try {
         const bk = await bkPromise
-  
+
         await bk.sendRequest(
           {
             method: 'signUp',
@@ -317,14 +320,14 @@ export const UseEntityCreationProvider = ({
         )
 
         account.status = AccountStatus.BalanceRequested
-        await updateAccount(wallet.address, account)
+        await updateAccount(account)
       } catch (err) {
         console.error(err)
         throw new VocdoniConnectionError()
       }
     }
 
-    let hasBalance = await waitForGas(wallet.address, wallet.provider)
+    const hasBalance = await waitForGas(wallet.address, wallet.provider)
 
     if (!hasBalance) throw new InvalidAccountBalanceError()
   }
@@ -360,14 +363,14 @@ export const UseEntityCreationProvider = ({
   }
 
   // (helper of ensureEntityCreation)
-  const ensureNoPendingAccount = async () => {
+  const ensureNoPendingAccount = () => {
     const account = getAccount(wallet.address)
+    if (!account) throw new Error("Internal error")
 
-    try {
-      await updateAccount(wallet.address, { ...account, pending: null })
-    } catch {
-      throw new UpdateDbAccountError()
-    }
+    return updateAccount({ ...account, pending: null })
+      .catch(() => {
+        throw new UpdateDbAccountError()
+      })
   }
 
   const continuePendingProcessCreation = (account: Account) => {

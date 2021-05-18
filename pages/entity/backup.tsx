@@ -1,12 +1,8 @@
 import React, { useState } from 'react'
-
 import { ViewStrategy, ViewContext } from '@lib/strategy'
-
 import { ENTITY_SIGN_IN_PATH } from '@const/routes'
-
 import { useWallet, WalletRoles } from '@hooks/use-wallet'
 import { useDbAccounts } from '@hooks/use-db-accounts'
-
 import { Redirect } from '@components/redirect'
 import { AccountBackupView } from '@components/entity/backup'
 import { AccountBackupSuccess } from '@components/entity/backup/backup-success'
@@ -19,8 +15,8 @@ const AccountBackupPage = () => {
   const account = dbAccounts.find((acc) => acc.address == wallet?.address)
 
   const handleBackupDone = () => {
-    const newAccount = Object.assign({}, account, { hasBackup: true })
-    updateAccount(account.address, newAccount)
+    const updatedAccount = Object.assign({}, account, { hasBackup: true })
+    updateAccount(updatedAccount)
       .then(() => {
         setHasBackup(true)
       })

@@ -46,7 +46,7 @@ export const VoteNowCard = ({
     ) : (
       <div>
       <TextContainer align={TextAlign.Center}>
-        {i18n.t('vote.you_cant_vote_now_on_this_proposal')}
+        {i18n.t('vote.you_can_vote_on_this_proposal')}
       </TextContainer>
 
       <Button wide positive disabled={disabled} onClick={onVote}>
@@ -68,5 +68,5 @@ const CheckImageContainer = styled.div`
 `
 const TextContainer = styled(SectionText)`
   margin: 12px 0;
-  font-size: 20px;
+  font-size: 16px;
 `

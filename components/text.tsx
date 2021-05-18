@@ -33,13 +33,13 @@ enum DeviceSize {
 const fontsSize = {
   [DeviceSize.Mobile]: {
     [TextSize.Small]: '12px',
-    [TextSize.Regular]: '16px',
-    [TextSize.Big]: '20px',
+    [TextSize.Regular]: '14px',
+    [TextSize.Big]: '18px',
   },
   [DeviceSize.Desktop]: {
-    [TextSize.Small]: '14px',
-    [TextSize.Regular]: '18px',
-    [TextSize.Big]: '28px',
+    [TextSize.Small]: '13px',
+    [TextSize.Regular]: '16px',
+    [TextSize.Big]: '20px',
   },
 }
 
@@ -52,8 +52,8 @@ export const SectionTitle = styled.h2<{
   color?: Colors | string
 }>`
   font-weight: 500;
-  font-size: 38px;
-  line-height: 1.3em;
+  font-size: 30px;
+  line-height: 1.5em;
   color: ${({ color }) => (color ? color : colors.text)};
   text-align: ${({ align }) => (align ? align : TextAlign.Left)};
   ${({ topMargin }) => (topMargin ? '' : 'margin-top: 0;')}

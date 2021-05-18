@@ -223,6 +223,7 @@ export const FormMetadata = () => {
             onChange={() => methods.setTerms(!terms)}
             text={i18n.t('entity.i_have_read_and_accept_the_privacy_policy_and_the_terms_of_service')}
             href={TERMS_PATH}
+            hrefNewTab
           />
         </FlexContainer>
         <FlexContainer alignItem={FlexAlignItem.Center}>

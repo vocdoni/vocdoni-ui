@@ -44,7 +44,7 @@ export const Button = ({ disabled, positive, negative, color, href, target, onCl
     const getButtonText = (spinnerVariant: SpinnerProps['variant'] = 'brand'): ReactNode => (
         spinner ?
             (<SpinnerContainer>
-                <Spinner size="medium" type="arc" variant={spinnerVariant} />
+                <Spinner size="xx-small" type="arc" variant={spinnerVariant} />
             </SpinnerContainer>):
             children
     )
@@ -145,7 +145,7 @@ ${({ large, small, border }) =>
 
 const SpinnerContainer = styled.div`
     position: relative;
-    height: 20px;
+    height: 16px;
 `
 const PositiveButton = styled(BaseButton)`
 cursor: pointer;

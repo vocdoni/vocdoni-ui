@@ -23,7 +23,7 @@ export const BackupFileSelector = ({ onBackupLoad, onCleanFile }: IBackupFileSel
     const file = files[0]
 
     if (!file) {
-      onCleanFile()
+      onCleanFile?.()
       return setInvalidFileType(null)
     }
 

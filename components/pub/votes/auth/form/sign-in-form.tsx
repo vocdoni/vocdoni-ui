@@ -36,6 +36,11 @@ export const SignInForm = ({
   onSubmit,
   onChange,
 }: IFormProps) => {
+  const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
+    e.preventDefault()
+    onSubmit()
+  }
+
   return (
     <PageCard>
       <VotePageHeader
@@ -46,7 +51,7 @@ export const SignInForm = ({
       />
 
       <Fieldset disabled={checkingCredentials}>
-        <form onSubmit={onSubmit}>
+        <form onSubmit={handleSubmit}>
           {fields.map((fieldName, i) => {
             const isLastItem = i === fields.length - 1
             return (

@@ -111,7 +111,7 @@ export const QuestionsFormView = ({
       const account = dbAccounts.find((acc) => acc.address == wallet.address)
       if (account) {
         // Update account if  exists
-        await updateAccount(wallet.address, {
+        await updateAccount({
           ...account,
           hasBackup: true,
           encryptedMnemonic,

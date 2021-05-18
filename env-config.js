@@ -7,12 +7,12 @@ const COMMIT_SHA = process.env.COMMIT_SHA || 'development'
 const VOCDONI_ENVIRONMENT = process.env.VOCDONI_ENVIRONMENT || 'dev'
 let bootnodes = 'https://bootnodes.vocdoni.net/gateways.json'
 let backend = 'https://manager.vocdoni.net/api/manager'
-let explorer = 'https://explorer.vocdoni.net'
+let explorer = 'https://explorer.vote'
 
 if (VOCDONI_ENVIRONMENT !== 'prod') {
   bootnodes = bootnodes.replace('.json', `.${VOCDONI_ENVIRONMENT}.json`)
   backend = backend.replace('manager.', `manager.${VOCDONI_ENVIRONMENT}.`)
-  explorer = explorer.replace('explorer.', `explorer.${VOCDONI_ENVIRONMENT}.`)
+  explorer = `https://explorer.${VOCDONI_ENVIRONMENT}.vocdoni.net/`
 }
 
 module.exports = {
