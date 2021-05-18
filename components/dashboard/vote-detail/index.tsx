@@ -65,6 +65,11 @@ export const ViewDetail = ({ process, results, refreshProcessInfo }: IProcessDet
     }
     else if (process.parameters.status.isEnded) return
 
+    const warning = i18n.t("confirm.by_canceling_a_process_you_will_unlist_it_and_drop_all_of_its_votes_and_results") + ". " +
+      i18n.t("confirm.this_action_cannot_be_undone") + ".\n\n" +
+      i18n.t("confirm.do_you_want_to_continue?")
+    if (!confirm(warning)) return
+
     return poolPromise
       .then((pool) => {
         wallet.connect(pool.provider)
@@ -88,7 +93,12 @@ export const ViewDetail = ({ process, results, refreshProcessInfo }: IProcessDet
       setAlertMessage(i18n.t('error.wallet_not_available'))
       return
     }
-    if (process.parameters.status.isEnded) return
+    else if (process.parameters.status.isEnded) return
+
+    const warning = i18n.t("confirm.by_ending_a_process_no_new_votes_will_be_accepted_and_results_will_be_computed") + ". " +
+      i18n.t("confirm.this_action_cannot_be_undone") + ".\n\n" +
+      i18n.t("confirm.do_you_want_to_continue?")
+    if (!confirm(warning)) return
 
     return poolPromise
       .then((pool) => {

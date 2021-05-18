@@ -39,7 +39,14 @@ export const Checkbox = ({ id, checked, onChange, text, href = '', labelColor = 
 )
 
 const CheckboxContainer = styled.div`
+  display: flex;
+  align-items: center;
+
   flex-shrink: 0;
   margin-right: 4px;
   margin-top: 6px;
+
+  & > label {
+    margin-left: 6px;
+  }
 `
