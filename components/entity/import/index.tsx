@@ -27,7 +27,7 @@ import { Wallet } from 'ethers'
 import { useRouter } from 'next/router'
 import { ACCOUNT_RECOVER_PATH, DASHBOARD_PATH } from '@const/routes'
 import Link from 'next/link'
-import { InvalidPassphraseError } from '@lib/validators/errors/invalid-passphrase-error'
+import { AccountStatus } from '@lib/types'
 
 interface IAccountImportViewProps {
   onImportedAccount: () => void
@@ -84,7 +84,8 @@ export const AccountImportView = ({
         ),
         hdPath: wallet.mnemonic.path,
         locale: wallet.mnemonic.locale,
-        hasBackup: true
+        hasBackup: true,
+        status: AccountStatus.Ready
       })
 
       setWallet(wallet)
