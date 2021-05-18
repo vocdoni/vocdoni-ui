@@ -28,13 +28,13 @@ export const LINKS: HeaderLink[] = [
     logged: true,
     guest: true
   },
-  {
-    url: PRICING_PATH,
-    name: i18n.t("links.pricing"),
-    external: false,
-    logged: false,
-    guest: true
-  },
+  // {
+  //   url: PRICING_PATH,
+  //   name: i18n.t("links.pricing"),
+  //   external: false,
+  //   logged: false,
+  //   guest: true
+  // },
   {
     url: 'https://docs.vocdoni.io',
     name: i18n.t("links.docs"),

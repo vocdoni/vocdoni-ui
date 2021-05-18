@@ -10,6 +10,7 @@ import { colors } from 'theme/colors'
 
 import { Button } from '@components/button'
 import { sizes } from 'theme/sizes'
+import { CREATE_ACCOUNT_PATH } from '@const/routes'
 
 export const HeroBanner = () => (
   <BannerContainer>
@@ -23,7 +24,7 @@ export const HeroBanner = () => (
 
               <ActionContainer>
                 <ButtonContainer>
-                  <Button positive>{i18n.t('home.try_it_for_free')}</Button>
+                  <Button positive href={CREATE_ACCOUNT_PATH}>{i18n.t('home.try_it_for_free')}</Button>
                 </ButtonContainer>
 
                 <Typography
