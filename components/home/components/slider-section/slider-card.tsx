@@ -1,9 +1,10 @@
-import React, { ReactElement } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 
 import i18n from '@i18n'
 import { colors } from 'theme/colors'
-import { Card } from '@components/cards'
+
+import { PageCard } from '@components/cards'
 import { Typography, TypographyVariant } from '@components/elements/typography'
 import {
   FlexAlignItem,
@@ -31,57 +32,63 @@ export const SliderCard = ({
   authorImage,
   authorPosition,
 }: ISliderCardProps) => (
-  <Card>
-    <CardContainer>
-      <QuoteImageContainer image={backgroundImage}>
-        <img src={image} />
-      </QuoteImageContainer>
+  <CardContainer>
+    <QuoteImageContainer image={backgroundImage}>
+      <img src={image} />
+    </QuoteImageContainer>
 
-      <QuoteContainer>
-        <div>
-          <ImageContainer width="180px" justify={FlexJustifyContent.Start}>
-            <img src={logo} />
-          </ImageContainer>
+    <QuoteContainer>
+      <div>
+        <ImageContainer width="180px" justify={FlexJustifyContent.Start}>
+          <img src={logo} />
+        </ImageContainer>
 
-          <Typography color={colors.blueText} margin='1.3em 0 1.3em 0'>{quote}</Typography>
+        <Typography
+          variant={TypographyVariant.Small}
+          color={colors.blueText}
+          margin="1.3em 0 1.3em 0"
+        >
+          {quote}
+        </Typography>
 
-          <FlexContainer>
-            <AuthorImage>
-              <img src={authorImage} alt={i18n.t('home.author_image_alt')} />
-            </AuthorImage>
+        <FlexContainer>
+          <AuthorImage>
+            <img src={authorImage} alt={i18n.t('home.author_image_alt')} />
+          </AuthorImage>
 
-            <FlexContainer
-              direction={FlexDirection.Column}
-              alignItem={FlexAlignItem.Center}
-            >
-              <div>
-                <Typography
-                  variant={TypographyVariant.Body2}
-                  margin="10px 16px"
-                  color={colors.blueText}
-                >
-                  {authorName}
-                </Typography>
-                <Typography
-                  variant={TypographyVariant.Small}
-                  margin="10px 16px"
-                  color={colors.lightText}
-                >
-                  {authorPosition}
-                </Typography>
-              </div>
-            </FlexContainer>
+          <FlexContainer
+            direction={FlexDirection.Column}
+            alignItem={FlexAlignItem.Center}
+          >
+            <div>
+              <Typography
+                variant={TypographyVariant.Body2}
+                margin="10px 16px"
+                color={colors.blueText}
+              >
+                {authorName}
+              </Typography>
+              <Typography
+                variant={TypographyVariant.Small}
+                margin="10px 16px"
+                color={colors.lightText}
+              >
+                {authorPosition}
+              </Typography>
+            </div>
           </FlexContainer>
-        </div>
-      </QuoteContainer>
-    </CardContainer>
-  </Card>
+        </FlexContainer>
+      </div>
+    </QuoteContainer>
+  </CardContainer>
 )
 
-const CardContainer = styled.div`
+const CardContainer = styled(PageCard)`
+  padding: 0;
   display: flex;
+  overflow: hidden;
 
-  @media ${({theme})  => theme.screenMax.tabletL } {
+  @media ${({ theme }) => theme.screenMax.tabletL} {
     display: block;
   }
 `
@@ -90,18 +97,14 @@ const QuoteImageContainer = styled.div<{ image: string }>`
   width: 50%;
   overflow: hidden;
   padding-top: 40px;
-  margin: -12px 40px -13px -22px;
-  border-radius: 16px 0 0 14px;
   background: ${({ image }) => image};
 
   & > img {
     margin-bottom: -10px;
   }
 
-  @media ${({theme})  => theme.screenMax.tabletL } {
-    width: 100%;
-    margin: -12px -13px 20px -22px;
-    border-radius: 16px 16px 0 0;
+  @media ${({ theme }) => theme.screenMax.tabletL} {
+    width: auto;
   }
 `
 
@@ -111,8 +114,9 @@ const QuoteContainer = styled.div`
   min-height: 430px;
   display: flex;
   align-items: center;
+  margin: 30px;
 
-  @media ${({theme})  => theme.screenMax.tabletL } {
+  @media ${({ theme }) => theme.screenMax.tabletL} {
     width: 100%;
   }
 `
