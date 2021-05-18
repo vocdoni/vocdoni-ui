@@ -19,8 +19,10 @@ export interface ProcessWrapperContext {
   statusText: string,
   processId: string,
   results: DigestedProcessResults,
-  refreshProcessInfo: (processId: string) => Promise<IProcessInfo>
-
+  methods: {
+    refreshProcessInfo: (processId: string) => Promise<IProcessInfo>
+    refreshResults: () => Promise<any>
+  }
 }
 
 export const UseProcessWrapperContext = createContext<ProcessWrapperContext>({} as any)
@@ -52,8 +54,13 @@ export const useProcessWrapper = (processId: string) => {
 
   // Vote results
   useEffect(() => {
+    refreshResults()
+    refreshProcessInfo(processId)
+  }, [])
+
+  useEffect(() => {
     if (processId && (blockHeight % 3 === 0)) {
-      updateResults()
+      refreshResults()
       refreshProcessInfo(processId)
     }
   }, [processId, blockHeight])
@@ -81,8 +88,8 @@ export const useProcessWrapper = (processId: string) => {
 
   // Loaders
 
-  const updateResults = () => {
-    if (!processId || invalidProcessId) return
+  const refreshResults = () => {
+    if (!processId || invalidProcessId) return Promise.resolve()
 
     poolPromise
       .then((pool) => VotingApi.getResultsDigest(processId, pool))
@@ -112,7 +119,10 @@ export const useProcessWrapper = (processId: string) => {
     remainingTime,
     statusText,
     results,
-    refreshProcessInfo
+    methods: {
+      refreshProcessInfo,
+      refreshResults
+    }
   }
 }
 

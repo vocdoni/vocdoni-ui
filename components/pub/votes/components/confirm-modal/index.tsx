@@ -14,10 +14,8 @@ interface IConfigModal {
 }
 
 export const ConfirmModal = ({ isOpen, onClose }: IConfigModal) => {
-  const [sendingVote, setSendingVote] = useState<boolean>(false)
-  const { choices, processInfo, hasVoted, methods, actionError } = useVoting()
+  const { choices, processInfo, hasVoted, methods, pleaseWait, actionError } = useVoting()
   const handleSendVote = () => {
-    setSendingVote(true)
     methods.submitVote()
   }
 
@@ -28,7 +26,7 @@ export const ConfirmModal = ({ isOpen, onClose }: IConfigModal) => {
         questions={processInfo.metadata.questions}
         choices={choices}
         onSubmit={handleSendVote}
-        sendingVote={sendingVote}
+        sendingVote={pleaseWait}
         onClose={onClose}
       />
     )

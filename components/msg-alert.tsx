@@ -6,20 +6,21 @@ export const MessageAlert = () => {
 
   return (
     <AlertContainer visible={!!message?.length}>
-      <div>{message || ''}</div>
+      <TextContainer>{message || ''}</TextContainer>
     </AlertContainer>
   )
 }
 
 const AlertContainer = styled.div<{ visible: boolean }>`
   position: fixed;
-  z-index: 320;
+  z-index: 5010;
   top: 20px;
   right: 10px;
-  width: 280px;
-  font-size: 16px;
-  color: ${({theme}) => theme.white};
-  background-color: rgba(179, 21, 21, 0.8);
+  width: calc(min(100%, 400px));
+  font-size: 14px;
+  // color: ${({ theme }) => theme.white};
+  background-color: ${({ theme }) => theme.lightBg};
+  border: 1px solid ${({ theme }) => theme.lightBorder};
   display: flex;
   align-items: center;
   padding: 24px;
@@ -27,5 +28,12 @@ const AlertContainer = styled.div<{ visible: boolean }>`
   visibility: ${({ visible }) => (visible ? 'visible' : 'hidden')};
   opacity: ${({ visible }) => (visible ? '1' : '0')};
 
+  box-shadow: 0px 6px 6px rgba(180, 193, 228, 0.35);
+
   transition: opacity 0.1s ease-out;
+`
+
+const TextContainer = styled.p`
+margin: 0;
+max-width: 100%;
 `

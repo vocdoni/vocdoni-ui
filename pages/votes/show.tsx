@@ -16,9 +16,9 @@ const VoteDetailPage = () => {
   const {
     processInfo,
     results,
-    refreshProcessInfo,
+    methods,
   } = useProcessWrapper(processId)
-  const {wallet} = useWallet({role : WalletRoles.ADMIN})
+  const { wallet } = useWallet({ role: WalletRoles.ADMIN })
 
   const renderNoUserLoggedPage = new ViewStrategy(
     () => !wallet?.address,
@@ -32,7 +32,7 @@ const VoteDetailPage = () => {
 
   const processDetailView = new ViewStrategy(
     () => !!processInfo && !!wallet?.address,
-    <ViewDetail process={processInfo} results={results} refreshProcessInfo={refreshProcessInfo}/>
+    <ViewDetail process={processInfo} results={results} refreshProcessInfo={methods.refreshProcessInfo} />
   )
 
   const viewContext = new ViewContext([

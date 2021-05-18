@@ -70,6 +70,7 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
     remainingTime,
     statusText,
     results,
+    methods
   } = useProcessWrapper(processId)
   const { wallet } = useWallet({ role: WalletRoles.VOTER })
   const { setAlertMessage } = useMessageAlert()
@@ -165,7 +166,7 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
       i18n.t("confirm.this_action_cannot_be_undone") + ".\n\n" +
       i18n.t("confirm.do_you_want_to_continue")
     )
-    if (!confirmed) return Promise.resolve({ error: i18n.t("errors.you_canceled_the_operation") })
+    if (!confirmed) throw new Error(i18n.t("errors.you_canceled_the_operation"))
     return Promise.resolve({})
   }
 
@@ -226,9 +227,9 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
 
       // detached update
       setTimeout(() => {
-        // updateResults()
         updateEnvelopeStatus()
-      })
+        methods.refreshResults()
+      }, 100)
 
       setAlertMessage(i18n.t("vote.your_vote_has_been_successfully_registered"))
       setHasVoted(true)

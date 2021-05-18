@@ -26,7 +26,7 @@ export const QuestionResults = ({
     result?.voteResults[index].votes.toNumber()
 
   const getOptionPercentage = (index: number): number =>
-    totalVotes? (getOptionResult(index) / totalVotes) * 100: 0
+    totalVotes ? (getOptionResult(index) / totalVotes) * 100 : 0
 
   return (
     <>
@@ -36,7 +36,7 @@ export const QuestionResults = ({
             <CircularProgressbar
               styles={buildGraphStyle(getOptionPercentage(index))}
               value={getOptionPercentage(index)}
-              text={`${getOptionPercentage(index)}%`}
+              text={`${getOptionPercentage(index).toFixed(1)}%`}
             />
           </ProgressBarContainer>
           <div>
@@ -69,6 +69,10 @@ const buildGraphStyle = (percent: number) => {
 const ProgressBarContainer = styled.div`
   width: 60px;
   margin-right: 12px;
+
+  & > svg > text {
+    font-size: 24px !important;
+  }
 `
 
 const DescriptionContainer = styled(SectionText)`

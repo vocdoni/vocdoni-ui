@@ -2,12 +2,9 @@ import React from 'react'
 import i18n from '@i18n'
 import styled from 'styled-components'
 import { DigestedProcessResultItem, ProcessStatus } from 'dvote-js'
-
 import { colors } from 'theme/colors'
-
 import { ViewContext, ViewStrategy } from '@lib/strategy'
 import { Question } from '@lib/types'
-
 import { Card } from '@components/cards'
 import { SectionText, SectionTitle, TextSize } from '@components/text'
 import { Column, Grid } from '@components/grid'
@@ -24,6 +21,7 @@ import { ChoiceList } from './choice-list'
 interface IVoteQuestionCardProps {
   question: Question
   questionIdx: number
+  readOnly?: boolean
   hasVoted: boolean
   totalVotes: number
   processStatus: ProcessStatus
@@ -40,15 +38,29 @@ export const VoteQuestionCard = ({
   processStatus,
   result,
   selectedChoice,
+  readOnly,
   onSelectChoice,
 }: IVoteQuestionCardProps) => {
+
+  const questionsView = new ViewStrategy(
+    () => (!hasVoted && !readOnly) && processStatus.value === ProcessStatus.READY,
+    (
+      <ChoiceSelector
+        questionIdx={questionIdx}
+        question={question}
+        selectedChoice={selectedChoice}
+        onSelectChoice={onSelectChoice}
+      />
+    )
+  )
+
   const showResults =
     processStatus.value === ProcessStatus.ENDED ||
     processStatus.value === ProcessStatus.RESULTS ||
     hasVoted
 
   const resultsQuestionView = new ViewStrategy(
-    () => showResults && !!result && !!result.voteResults,
+    () => (showResults || readOnly) && !!result && !!result.voteResults,
     (
       <QuestionResults
         question={question}
@@ -64,18 +76,6 @@ export const VoteQuestionCard = ({
       <SectionText>
         {i18n.t('vote_question_card.no_available_results')}
       </SectionText>
-    )
-  )
-
-  const questionsView = new ViewStrategy(
-    () => !hasVoted && processStatus.value === ProcessStatus.READY,
-    (
-      <ChoiceSelector
-        questionIdx={questionIdx}
-        question={question}
-        selectedChoice={selectedChoice}
-        onSelectChoice={onSelectChoice}
-      />
     )
   )
 

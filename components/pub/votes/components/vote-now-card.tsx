@@ -1,15 +1,12 @@
 import React from 'react'
 import styled from 'styled-components'
-
 import i18n from '@i18n'
-
-import { CREATE_PROCESS_PATH } from '@const/routes'
-
 import { SectionText, TextAlign } from '@components/text'
 import { ImageContainer } from '@components/images'
-import { Button } from '@components/button'
+import { Button, LinkTarget } from '@components/button'
 import { Card } from '@components/cards'
 import { FlexJustifyContent } from '@components/flex'
+import { useIsMobile } from '@hooks/use-window-size'
 
 interface IVoteNowCardProps {
   disabled: boolean
@@ -23,8 +20,9 @@ export const VoteNowCard = ({
   hasVoted,
   explorerLink,
   onVote,
-}: IVoteNowCardProps) => (
-  <Card>
+}: IVoteNowCardProps) => {
+  const isMobile = useIsMobile()
+  return <Card>
     <ImageContainer width="80px" justify={FlexJustifyContent.Center}>
       <img src="/images/vote/vote-now.png" />
       <CheckImageContainer>
@@ -38,7 +36,7 @@ export const VoteNowCard = ({
         {i18n.t('vote.verify_your_vote_in_the_explorer')}
       </TextContainer>
 
-      <Button wide positive href={explorerLink}>
+      <Button wide small={!isMobile} positive href={explorerLink} target={LinkTarget.Blank}>
         {i18n.t('vote.view_link')}
       </Button>
       </div>
@@ -55,7 +53,7 @@ export const VoteNowCard = ({
       </div>
     )}
   </Card>
-)
+}
 
 const CheckImageContainer = styled.div`
   position: absolute;

@@ -49,6 +49,7 @@ const BannerDiv = styled.div<{ warning?: boolean }>`
 
 const BannerIcon = styled.div`
 flex: 1;
+min-width: 40px;
 
 `
 const BanerText = styled.div`
