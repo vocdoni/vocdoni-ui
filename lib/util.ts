@@ -78,13 +78,6 @@ export function waitBlockFraction(factor: number = 1) {
   )
 }
 
-/** Returns a reduces string, removing the most typical mismatch sources (case, spaces, etc) */
-export const normalizeSpreadsheetColum = (data: string): string => {
-  return data.trim().replace(/[\s]+/g, " ").toLowerCase()
-}
-
-
-
 export enum VoteStatus {
   Unknown = -1,
   Active,

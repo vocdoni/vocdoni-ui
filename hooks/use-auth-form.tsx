@@ -1,10 +1,10 @@
 import { useState } from 'react'
 import { usePool, useProcess } from '@vocdoni/react-hooks'
 import { useRouter } from 'next/router'
-import { IProcessInfo, CensusOffChainApi, CensusOffchainDigestType } from 'dvote-js'
+import { IProcessInfo, CensusOffChainApi, CensusOffchainDigestType, normalizeText } from 'dvote-js'
 import { VOTING_PATH } from '../const/routes'
 import i18n from '../i18n'
-import { digestedWalletFromString, importedRowToString, normalizeSpreadsheetColum } from '../lib/util'
+import { digestedWalletFromString, importedRowToString } from '../lib/util'
 import { useMessageAlert } from './message-alert'
 import { useUrlHash } from 'use-url-hash'
 import { useWallet, WalletRoles } from './use-wallet'
@@ -53,14 +53,11 @@ export const useAuthForm = () => {
     for (const fieldName of fieldNames) {
       if (!formValues[fieldName]) return setAlertMessage(i18n.t("errors.please_fill_in_all_the_fields"))
 
-      // TODO: normalizeSpreadsheetColum strings
-      // SEE https://github.com/vocdoni/protocol/discussions/19
-
       authFields.push(formValues[fieldName])
     }
 
     const entityId = utils.getAddress(processInfo.entity)
-    authFields = authFields.map(x => normalizeSpreadsheetColum(x))
+    authFields = authFields.map(x => normalizeText(x))
     const strPayload = importedRowToString(authFields, entityId)
     const voterWallet = digestedWalletFromString(strPayload)
     const digestedHexClaim = CensusOffChainApi.digestPublicKey(voterWallet.publicKey, CensusOffchainDigestType.RAW_PUBKEY)

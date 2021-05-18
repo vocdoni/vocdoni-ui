@@ -13,7 +13,7 @@ import {
   INewProcessParams,
   ProcessCensusOrigin,
   GatewayPool,
-  FileApi
+  normalizeText
 } from 'dvote-js'
 import { createContext, ReactNode, useContext, useEffect, useState } from 'react'
 import { ProcessCreationPageSteps } from '../components/steps-new-vote'
@@ -21,7 +21,7 @@ import { useForceUpdate } from "./use-force-update"
 import i18n from '../i18n'
 import { uploadFileToIpfs } from '../lib/file'
 import { StepperFunc, StepperFuncResult } from '../lib/types'
-import { digestedWalletFromString, importedRowToString, normalizeSpreadsheetColum } from '../lib/util'
+import { digestedWalletFromString, importedRowToString } from '../lib/util'
 import { useStepper } from './use-stepper'
 import { useWallet } from './use-wallet'
 import moment from 'moment'
@@ -148,7 +148,7 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
     // Process the CSV entries
     const claims = await Promise.all(spreadsheetData.map((row: string[]) => new Promise((resolve) => {
       setTimeout(() => {
-        row = row.map(x => normalizeSpreadsheetColum(x))
+        row = row.map(x => normalizeText(x))
         const payload = importedRowToString(row, entityId)
         const voterWallet = digestedWalletFromString(payload)
         const key = CensusOffChainApi.digestPublicKey(voterWallet.publicKey, CensusOffchainDigestType.RAW_PUBKEY)
