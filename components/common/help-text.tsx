@@ -42,7 +42,7 @@ const Container = styled.div`
 `
 
 const Tooltip = styled.div<{visible: boolean}>`
-  visibility: ${({ visible }) => visible? 'visible': 'none'};
+  visibility: ${({ visible }) => visible? 'visible': 'hidden'};
   opacity: ${({ visible }) => visible? '1': '0'};
   color: #865BFF;
   width: max-content;

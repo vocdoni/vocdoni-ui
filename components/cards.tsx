@@ -99,7 +99,7 @@ export const StatusCard = ({
 
 // Styles
 
-const CardDiv = styled.div<{ border?: boolean }>`
+export const CardDiv = styled.div<{ border?: boolean }>`
   padding: 11px 20px;
   background: ${(props) => props.theme.white};
   border: ${({ theme, border }) =>
