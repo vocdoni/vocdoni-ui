@@ -1,90 +1,28 @@
 import React from 'react'
+import styled from 'styled-components'
 import Link from 'next/link'
 import { withRouter } from 'next/router'
-import styled, { CSSProperties } from 'styled-components'
 
 // import TokenCard from '../components/token-card'
 import { Button } from '../components/button'
 import { useIsMobile } from '../hooks/use-window-size'
 import i18n from '../i18n'
 import { CREATE_ACCOUNT_PATH } from '../const/routes'
-
-const Head = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`
-
-const Title = styled.h1`
-  margin-bottom: 5px;
-  text-align: center;
-`
-
-const Subtitle = styled.h4`
-  margin-top: 5px;
-  font-size: 20px;
-  text-align: center;
-  max-width: 300px;
-  color: ${({ theme }) => theme.accent1};
-`
-
-const Row = styled.div`
-  display: flex;
-  align-items: ${({ alignItems }: CSSProperties) => alignItems};
-  justify-content: ${({ justifyContent }) => justifyContent};
-
-  @media ${({ theme }) => theme.screenMax.tablet} {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-`
-
-const LeftSection = styled.div`
-  max-width: ${({ maxWidth }: CSSProperties) => maxWidth};
-  width: ${({ width }) => width};
-
-  @media ${({ theme }) => theme.screenMax.tablet} {
-    max-width: 100%;
-  }
-`
-
-const RightSection = styled.div`
-  width: ${({ width }: CSSProperties) => width};
-  text-align: ${({ textAlign }) => textAlign};
-  max-width: ${({ maxWidth }) => maxWidth};
-
-  @media ${({ theme }) => theme.screenMax.tablet} {
-    max-width: 100%;
-  }
-`
-
-const Description = styled.h4`
-  font-size: 20px;
-  margin-bottom: 10px;
-`
-
-const ColorText = styled.span`
-  color: ${({ theme }) => theme.accent1};
-`
-
-const GreyCircle = styled.div`
-  background-color: #ccc;
-  border-radius: 50%;
-  height: 140px;
-  width: 140px;
-`
-
-const TopTokensContainer = styled.div`
-  @media ${({ theme }) => theme.screenMax.tablet} {
-    text-align: center;
-  }
-`
-
-const ClickableLink = styled.a`
-  color: ${({ theme }) => theme.accent1};
-  text-decoration: none;
-`
+import {
+  TextAlign,
+  Typography,
+  TypographyVariant,
+} from '@components/elements/typography'
+import { colors } from 'theme/colors'
+import { FlexAlignItem, FlexContainer } from '@components/flex'
+import { ImageContainer } from '@components/images'
+import { Grid, Column } from '@components/grid'
+import { FeatureSection } from '@components/home/components/feature'
+import { HeroBanner } from '@components/home/components/hero-banner'
+import { CompanyLogos } from '@components/home/components/company-logos'
+import { SliderSection } from '@components/home/components/slider-section'
+import { SplitSection } from '@components/home/components/section'
+import { CardDiv } from '@components/cards'
 
 // MAIN COMPONENT
 const IndexPage = () => {
@@ -92,85 +30,387 @@ const IndexPage = () => {
 
   return (
     <div>
-      <Head>
-        <Title>{i18n.t('home.hero_title')}</Title>
-        <Subtitle>{i18n.t('home.hero_subtitle')}</Subtitle>
-      </Head>
+      <HeroBanner />
+      <CompanyLogos />
 
-      <Row alignItems='center'>
-        <LeftSection maxWidth='60%'>
-          <Description>
-            Submit proposals for <ColorText>ERC20</ColorText> tokens
-            and vote on them using a decentralized end-to-end
-            verifiable <ColorText>layer 2</ColorText> blockchain.{' '}
-          </Description>
-          <p>
-            <small>
-              <Link
-                href='https://ethereum.org/en/developers/docs/standards/tokens/erc-20/'
-                passHref
-              >
-                <ClickableLink target='_blank'>
-                  What is an ERC20 Token?
-                </ClickableLink>
-              </Link>
-            </small>
-          </p>
-        </LeftSection>
-        {isMobile ? null : (
-          <RightSection width='100%' textAlign='right'>
-            <Button positive href={CREATE_ACCOUNT_PATH}>{i18n.t("action.create_my_entity")}</Button>
-          </RightSection>
+      <BlockContainer>
+        <Typography
+          variant={TypographyVariant.Small}
+          color={colors.textAccent1}
+        >
+          {i18n.t('home.why_vocdoni')}
+        </Typography>
+        <Grid>
+          <Column sm={12} md={7}>
+            <Typography variant={TypographyVariant.H1}>
+              {i18n.t('home.the_ultimate_solution_to_manage_your_organization')}
+            </Typography>
+          </Column>
+        </Grid>
+
+        <Grid>
+          <Column md={4} sm={12}>
+            <FeatureSection
+              title={i18n.t('home.secure_voting')}
+              subtitle={i18n.t(
+                'home.the_most_flexible_and_secure_voting_protocol_to_organize'
+              )}
+              image={
+                <ImageContainer width="40px">
+                  <img
+                    src="/images/home/features/secure.png"
+                    alt={i18n.t('home.secure_image_alt')}
+                  />
+                </ImageContainer>
+              }
+            />
+          </Column>
+
+          <Column md={4} sm={12}>
+            <FeatureSection
+              title={i18n.t('home.easy_to_organize')}
+              subtitle={i18n.t(
+                'home.organize_your_amg_or_board_meetings_and_results'
+              )}
+              image={
+                <ImageContainer width="40px">
+                  <img
+                    src="/images/home/features/easy.png"
+                    alt={i18n.t('home.easy_image_alt')}
+                  />
+                </ImageContainer>
+              }
+            />
+          </Column>
+
+          <Column md={4} sm={12}>
+            <FeatureSection
+              title={i18n.t('home.coordinate')}
+              subtitle={i18n.t(
+                'home.far_beyond_voting_vocdoni_is_a_set_off_tools'
+              )}
+              image={
+                <ImageContainer width="40px">
+                  <img
+                    src="/images/home/features/coordination.png"
+                    alt={i18n.t('home.coordinate_image_alt')}
+                  />
+                </ImageContainer>
+              }
+            />
+          </Column>
+        </Grid>
+      </BlockContainer>
+
+      <SliderSection />
+
+      <SplitSection
+        imageSrc="/images/home/section-1/computer-device.png"
+        imageAltText={i18n.t('home.computer_device_alt')}
+        subtitle={i18n.t('home.connect_with_your_social_base')}
+        title={i18n.t('home.you_only_need_one_platform')}
+        textContent={i18n.t('home.tired_of_using_a_thousand')}
+      />
+
+      <SplitSection
+        imageSrc="/images/home/section-2/tablet-census.png"
+        imageAltText={i18n.t('home.table_census_alt')}
+        subtitle={i18n.t('home.easy_manage')}
+        title={i18n.t('home.manage_your_member_base')}
+        textContent={i18n.t(
+          'home.dont_waste_time_wondering_about_how_to_identify'
         )}
-      </Row>
+      />
 
-      <br />
-      <br />
+      <SplitSection
+        imageSrc="/images/home/section-3/tablet-live.png"
+        imageAltText={i18n.t('home.table_live_alt')}
+        subtitle={i18n.t('home.bring_a_human_side')}
+        title={i18n.t('home.be_present_in_online_or_hybrid_events')}
+        textContent={i18n.t(
+          'home.easily_embed_videos_and_live_stream_from_youtube'
+        )}
+      />
 
-      <Row alignItems='center' justifyContent='space-around'>
-        <LeftSection width='150px'>
-          <GreyCircle />
-        </LeftSection>
-        <RightSection maxWidth='60%'>
-          <h2>Speak up</h2>
-          <h4>
-            Find your token on the list and vote on the decisions
-            that will make it grow. Be the first one to register it
-            if it doesn’t exist and create your first proposal.
-          </h4>
-          <p>
-            <small>
-              <Link
-                passHref
-                href='https://ethereum.org/en/developers/docs/standards/tokens/erc-20/'
-              >
-                <ClickableLink target='_blank'>
-                  Learn more
-                </ClickableLink>
-              </Link>
-            </small>
-          </p>
-        </RightSection>
-      </Row>
+      <SplitSection
+        imageSrc="/images/home/section-4/easy-share.png"
+        imageAltText={i18n.t('home.easy_share_image_alt')}
+        subtitle={i18n.t('home.as_easy_as_drag_and_drop')}
+        title={i18n.t('home.easy_share_documents')}
+        textContent={i18n.t(
+          'home.make_sure_your_members_have_access_to_the_financial_report'
+        )}
+      />
 
-      <br />
-      <br />
+      <SplitSection
+        imageSrc="/images/home/section-5/brand.png"
+        imageAltText={i18n.t('home.brand_image_alt')}
+        subtitle={i18n.t('home.your_brand_matters')}
+        title={i18n.t('home.make_your_social_base_feel_at_home')}
+        textContent={i18n.t(
+          'home.personalize_your_voting_process_with_your_corporate'
+        )}
+      />
 
-      <TopTokensContainer>
-        <h2>Top Tokens</h2>
-        <p>
-          Below is a list of some of the most relevant tokens on the
-          platform
-        </p>
-      </TopTokensContainer>
+      <BlockContainer>
+        <Grid>
+          <Column md={3} sm={12}>
+            <FeatureSection
+              title={i18n.t('home.get_instant_results')}
+              subtitle={i18n.t(
+                'home.you_and_your_social_base_will_be_able_to_se_the_results'
+              )}
+              image={
+                <ImageContainer width="36px">
+                  <img
+                    src="/images/home/features/instant.png"
+                    alt={i18n.t('home.instant_image_alt')}
+                  />
+                </ImageContainer>
+              }
+            />
+          </Column>
 
-      <br />
+          <Column md={3} sm={12}>
+            <FeatureSection
+              title={i18n.t('home.choose_the_time_frame')}
+              subtitle={i18n.t('home.you_cant_set_the_start_and_end_dates')}
+              image={
+                <ImageContainer width="36px">
+                  <img
+                    src="/images/home/features/time-frame.png"
+                    alt={i18n.t('home.time_frame_image_alt')}
+                  />
+                </ImageContainer>
+              }
+            />
+          </Column>
 
-      <Row justifyContent={'space-around'}>
-        <Button href='/examples' width={200}>Show examples</Button>
-      </Row>
+          <Column md={3} sm={12}>
+            <FeatureSection
+              title={i18n.t('home.notify_your_community')}
+              subtitle={i18n.t(
+                'home.all_you_have_to_do_is_email_entire_social_base'
+              )}
+              image={
+                <ImageContainer width="36px">
+                  <img
+                    src="/images/home/features/notify.png"
+                    alt={i18n.t('home.notify_image_alt')}
+                  />
+                </ImageContainer>
+              }
+            />
+          </Column>
+
+          <Column md={3} sm={12}>
+            <FeatureSection
+              title={i18n.t('home.all_in_one_solution')}
+              subtitle={i18n.t(
+                'home.the_voting_process_includes_all_the_requirements_for_your_voting_process'
+              )}
+              image={
+                <ImageContainer width="36px">
+                  <img
+                    src="/images/home/features/all-in-one.png"
+                    alt={i18n.t('home.all_in_one_image_alt')}
+                  />
+                </ImageContainer>
+              }
+            />
+          </Column>
+        </Grid>
+      </BlockContainer>
+
+      <BlockContainer>
+        <Grid>
+          <Column sm={12} md={6}>
+            <Typography variant={TypographyVariant.H1} color={colors.blueText}>
+              {i18n.t('home.a_cutting_edge_voting_protocol')}
+            </Typography>
+            <Typography
+              variant={TypographyVariant.Small}
+              color={colors.blueText}
+            >
+              {i18n.t(
+                'home.a_fully_anonymous_voting_system_ensuring_data_availability'
+              )}
+            </Typography>
+            <Typography
+              variant={TypographyVariant.Small}
+              color={colors.blueText}
+            >
+              {i18n.t('home.leveraging_on_decentalized_technologies')}
+            </Typography>
+            <CuttingEdgeFeaturesContainer>
+              <ImageContainer width="50px">
+                <img
+                  src="/images/home/cutting-edge/censorship.png"
+                  alt={i18n.t('home.censorship_image_alt')}
+                />
+              </ImageContainer>
+              <ImageContainer width="60px">
+                <img
+                  src="/images/home/cutting-edge/verifiable.png"
+                  alt={i18n.t('home.verifiable_image_alt')}
+                />
+              </ImageContainer>
+              <ImageContainer width="70px">
+                <img
+                  src="/images/home/cutting-edge/open-source.png"
+                  alt={i18n.t('home.open_source_image_alt')}
+                />
+              </ImageContainer>
+              <ImageContainer width="44px">
+                <img
+                  src="/images/home/cutting-edge/scalable.png"
+                  alt={i18n.t('home.scalable_image_alt')}
+                />
+              </ImageContainer>
+              <ImageContainer width="56px">
+                <img
+                  src="/images/home/cutting-edge/anonymous.png"
+                  alt={i18n.t('home.anonymous_image_alt')}
+                />
+              </ImageContainer>
+              <ImageContainer width="58px">
+                <img
+                  src="/images/home/cutting-edge/inexpensive.png"
+                  alt={i18n.t('home.inexpensive_image_alt')}
+                />
+              </ImageContainer>
+            </CuttingEdgeFeaturesContainer>
+          </Column>
+
+          <Column sm={12} md={6}>
+            <ImageContainer width="400px" alignItem={FlexAlignItem.Center}>
+              <img
+                src="/images/home/cutting-edge/edge-protocol.png"
+                alt={i18n.t('home.edge_protocol_image_alt')}
+              />
+            </ImageContainer>
+          </Column>
+        </Grid>
+      </BlockContainer>
+
+      <BlockContainer>
+        <Typography variant={TypographyVariant.H1} align={TextAlign.Center}>
+          {i18n.t('home.frequently_asked_question')}
+        </Typography>
+        <Typography align={TextAlign.Center}>
+          {i18n.t('home.have_questions_we_have_answers')}
+        </Typography>
+
+        <div>
+          <QuestionCard>
+            <Typography>{i18n.t('home.question_1')}</Typography>
+          </QuestionCard>
+
+          <QuestionCard>
+            <Typography>{i18n.t('home.question_2')}</Typography>
+          </QuestionCard>
+
+          <QuestionCard>
+            <Typography>{i18n.t('home.question_3')}</Typography>
+          </QuestionCard>
+        </div>
+      </BlockContainer>
+
+      <BlockContainer>
+        <ReadyToStartCard>
+          <Grid>
+            <Column sm={12} md={6}>
+              <ReadyTextContainer>
+                  <Typography variant={TypographyVariant.H1}>
+                    {i18n.t('home.ready_to_start')}
+                    <br />
+                    <strong>{i18n.t('home.try_vocdony_now')}</strong>
+                  </Typography>
+
+                  <Typography>
+                    {i18n.t(
+                      'home.a_full_anonymous_voting_system_ensuring_data_availability_and_anti_censorship'
+                    )}
+                  </Typography>
+
+                  <ActionsContainer>
+                    <Button positive href={CREATE_ACCOUNT_PATH}>
+                      {i18n.t('home.get_started')}
+                    </Button>
+                    <Typography
+                      variant={TypographyVariant.Small}
+                      color={colors.accent1}
+                    >
+                      {i18n.t('home.free_until_15_october')}
+                    </Typography>
+                  </ActionsContainer>
+              </ReadyTextContainer>
+  
+            </Column>
+
+            <Column sm={12} md={6}>
+              <ImageContainer width="500px">
+                <img
+                  src="/images/home/pc.png"
+                  alt={i18n.t('home.computer_with_vocdoni_alt')}
+                />
+              </ImageContainer>
+            </Column>
+          </Grid>
+        </ReadyToStartCard>
+      </BlockContainer>
     </div>
   )
 }
 
+const ReadyTextContainer = styled.div`
+
+  margin: 40px 0 40px 40px;
+`
+const ActionsContainer = styled.div`
+  display: flex;
+  align-items: center;
+  & > a {
+    margin-right: 20px;
+  }
+`
+const ReadyToStartCard = styled(CardDiv)`
+  background: linear-gradient(101.89deg, #f1ffdf 17.32%, #e1ffff 68.46%);
+`
+
+const QuestionCard = styled(CardDiv)`
+  max-width: 900px;
+  margin: 10px auto;
+  padding-right: 80px;
+  position: relative;
+
+  &::after {
+    text-align: center;
+    line-height: 40px;
+    color: #000;
+    position: absolute;
+    font-size: 30px;
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    right: 20px;
+    top: 23px;
+    background-color: #dfebf7;
+    content: '>';
+  }
+`
+
+const BlockContainer = styled.section`
+  margin: 30px 0;
+`
+
+const CuttingEdgeFeaturesContainer = styled.div`
+  margin-top: 40px;
+  display: flex;
+  align-items: start;
+
+  & > div {
+    margin-right: 20px;
+  }
+`
 export default withRouter(IndexPage)
