@@ -27,6 +27,9 @@
         "this_action_cannot_be_undone": "",
         "you_are_about_to_submit_your_vote": ""
     },
+    "copy": {
+        "the_link_has_been_copied_to_the_clipboard": "El enlace se ha copiado al portapaleles"
+    },
     "dashboard": {
         "active_votes": "Procesos activos",
         "company_logo": "Logo de la entidad",
@@ -147,6 +150,7 @@
         "cannot_connect_to_vocdoni": "",
         "cannot_set_media_header": "",
         "could_not_check_the_census": "",
+        "could_not_connect_to_the_network": "No se puede conectar a la red",
         "could_not_import_the_account": "No se ha importado la cuenta. Vuelve a intentarlo.",
         "creating_credentials": "",
         "error_storing_logo_on_ipfs": "",

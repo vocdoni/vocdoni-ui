@@ -48,10 +48,13 @@ export const useAuthForm = () => {
     setFormValues(newValue)
   }
 
-  const onLogin = async (): Promise<void> => {
+  const onLogin = (): Promise<void> => {
     let authFields: string[] = []
     for (const fieldName of fieldNames) {
-      if (!formValues[fieldName]) return setAlertMessage(i18n.t("errors.please_fill_in_all_the_fields"))
+      if (!formValues[fieldName]) {
+        setAlertMessage(i18n.t("errors.please_fill_in_all_the_fields"))
+        return Promise.resolve()
+      }
 
       authFields.push(formValues[fieldName])
     }

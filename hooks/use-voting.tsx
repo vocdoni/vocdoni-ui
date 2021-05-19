@@ -99,8 +99,8 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
 
   // Census status
   useEffect(() => {
-    updateCensusStatus()
-  }, [wallet, nullifier])
+    updateCensusStatus().catch(() => { })
+  }, [nullifier, processInfo?.parameters?.censusRoot])
 
   // Nullifier
   useEffect(() => {
@@ -116,6 +116,7 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
 
   const updateCensusStatus = async () => {
     if (!wallet?.publicKey) return
+    else if (!processInfo?.parameters?.censusRoot) return
 
     try {
       const pool = await poolPromise
@@ -133,7 +134,8 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
 
       setCensusProof(censusProof)
     } catch (err) {
-      return setAlertMessage(i18n.t("errors.could_not_check_the_census"))
+      setAlertMessage(i18n.t("errors.could_not_check_the_census"))
+      throw err
     }
   }
 

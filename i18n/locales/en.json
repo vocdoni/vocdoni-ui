@@ -27,6 +27,9 @@
         "this_action_cannot_be_undone": "This action cannot be undone",
         "you_are_about_to_submit_your_vote": "You are about to submit your vote"
     },
+    "copy": {
+        "the_link_has_been_copied_to_the_clipboard": "The link was copied to the clipboard"
+    },
     "dashboard": {
         "active_votes": "Active votes",
         "company_logo": "Entity Logo",
@@ -147,6 +150,7 @@
         "cannot_connect_to_vocdoni": "Cannot connect to Vocdoni",
         "cannot_set_media_header": "Cannot store media data",
         "could_not_check_the_census": "Could not check the census",
+        "could_not_connect_to_the_network": "Could not connect to the network",
         "could_not_import_the_account": "Account not imported. Please try again.",
         "creating_credentials": "Error creating credentials",
         "error_storing_logo_on_ipfs": "Could not upload the logo",
