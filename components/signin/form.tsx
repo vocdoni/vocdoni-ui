@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState, FormEvent, useEffect } from 'react'
+import React, { ChangeEvent, useState, FormEvent } from 'react'
 import { OptionTypeBase } from 'react-select';
 import styled from 'styled-components'
 import Link from 'next/link'
@@ -26,7 +26,6 @@ export const SignInForm = ({ accounts, disabled, onSubmit }: SignInFormProps) =>
   const { poolPromise } = usePool()
   const [passphrase, setPassphrase] = useState<string>('')
   const [account, setAccount] = useState<Account>()
-  const [selectOptions, setSelectOptions] = useState<OptionTypeBase[]>([])
   const buttonDisabled = !passphrase || !account
   const { setAlertMessage } = useMessageAlert()
   const [loading, setLoading] = useState(false)
@@ -39,15 +38,6 @@ export const SignInForm = ({ accounts, disabled, onSubmit }: SignInFormProps) =>
     }
   }
 
-  useEffect(() => {
-    const options = accounts.map((opt) => ({
-      value: opt.name,
-      label: opt.name,
-    }))
-
-    setSelectOptions(options)
-  }, [accounts])
-
   // callbacks
   const onContinue = () => {
     setLoading(true)
@@ -59,6 +49,11 @@ export const SignInForm = ({ accounts, disabled, onSubmit }: SignInFormProps) =>
         setAlertMessage(i18n.t("errors.could_not_connect_to_the_network"))
       })
   }
+
+  const selectOptions = accounts.map((opt) => ({
+    value: opt.name,
+    label: opt.name,
+  }))
 
   return (
     <Fieldset disabled={disabled}>
