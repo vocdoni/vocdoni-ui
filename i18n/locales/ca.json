@@ -372,7 +372,7 @@
     "vote": {
         "active_vote": "Procés actiu",
         "add_new_question": "Afegeix una nova pregunta",
-        "add_option": "Afegeix més opcions",
+        "add_option": "Afegeix una altra opció",
         "back_to_dashboard": "Torna a l'inici",
         "brief_description": "Descripció breu",
         "canceled_vote": "Votació cancel·lada",
