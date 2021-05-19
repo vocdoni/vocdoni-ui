@@ -8,14 +8,17 @@ import { colors } from 'theme/colors'
 import { Button } from '@components/button'
 import { FlexContainer, FlexJustifyContent } from '@components/flex'
 import { SectionText } from '@components/text'
+import { useMessageAlert } from '@hooks/message-alert'
 
 interface IDashedLink {
   link: string
 }
 
 export const DashedLink = ({ link }: IDashedLink) => {
+  const { setAlertMessage } = useMessageAlert()
   const handleCopy = () => {
     copy(link)
+    setAlertMessage(i18n.t("copy.the_link_has_been_copied_to_the_clipboard"))
   }
 
   return (

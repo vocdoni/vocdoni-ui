@@ -42,11 +42,11 @@ const VocdoniApp: FC<NextAppProps> = ({ Component, pageProps }) => {
               networkId={networkId}
               environment={environment}
             >
-              <UseBackendProvider>
-                <UseProcessProvider>
-                  <UseVotingProvider>
-                    <UseEntityProvider>
-                      <UseBlockStatusProvider>
+              <UseBlockStatusProvider>
+                <UseBackendProvider>
+                  <UseProcessProvider>
+                    <UseVotingProvider>
+                      <UseEntityProvider>
                         <UseDbAccountsProvider>
                           <FixedGlobalStyle />
                           <Head>
@@ -63,11 +63,11 @@ const VocdoniApp: FC<NextAppProps> = ({ Component, pageProps }) => {
                             {commitSHA}
                           </div>
                         </UseDbAccountsProvider>
-                      </UseBlockStatusProvider>
-                    </UseEntityProvider>
-                  </UseVotingProvider>
-                </UseProcessProvider>
-              </UseBackendProvider>
+                      </UseEntityProvider>
+                    </UseVotingProvider>
+                  </UseProcessProvider>
+                </UseBackendProvider>
+              </UseBlockStatusProvider>
             </UsePoolProvider>
           </UseLoadingAlertProvider>
         </UseMessageAlertProvider>

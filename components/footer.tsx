@@ -2,7 +2,7 @@ import React from 'react'
 import styled, { useTheme } from 'styled-components'
 import Link from 'next/link'
 import { useWallet } from '../hooks/use-wallet'
-import { ABOUT_PATH, DASHBOARD_PATH, PRICING_PATH } from '../const/routes'
+import { DASHBOARD_PATH } from '../const/routes'
 import i18n from '../i18n'
 
 export const Footer = () => {
@@ -112,7 +112,8 @@ const LINKS: HeaderLink[] = [
   //   guest: true
   // },
   {
-    url: ABOUT_PATH,
+    // url: ABOUT_PATH,
+    url: "https://vocdoni.io",
     name: i18n.t("links.about"),
     external: false,
     logged: false,

@@ -28,7 +28,7 @@ const SignInPage = () => {
   const hasAccounts = !!dbAccounts?.length
   const colSmSize = hasAccounts ? 6 : 12
 
-  const handlerSubmit = (account: Account, passphrase: string) => {
+  const handlerSubmit = (account: Account, passphrase: string): Promise<any> => {
     setVerifyingCredentials(true)
 
     try {
@@ -39,14 +39,14 @@ const SignInPage = () => {
       )
       // Did we start creating an account that is not ready yet?
       if (account.status !== AccountStatus.Ready) {
-        router.push(CREATE_ACCOUNT_PATH)
-        return
+        return router.push(CREATE_ACCOUNT_PATH)
       }
 
-      router.push(DASHBOARD_PATH)
+      return router.push(DASHBOARD_PATH)
     } catch (error) {
       setVerifyingCredentials(false)
       setAlertMessage(i18n.t('sign_in.invalid_passphrase'))
+      return Promise.resolve(null)
     }
   }
 

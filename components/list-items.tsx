@@ -22,7 +22,7 @@ type VoteListItemProps = ColumnProps & {
 }
 
 export const VoteListItem = ({ icon, entityName, processId, title, description, status, dateText }: VoteListItemProps) => (
-  <Link href={SHOW_PROCESS_PATH + "/#/" + processId}>
+  <Link href={SHOW_PROCESS_PATH + "#/" + processId}>
     <a>
       <ListItemDiv>
         <TopDiv>

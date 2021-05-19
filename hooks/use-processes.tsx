@@ -8,7 +8,7 @@ import { utils } from 'ethers'
 
 
 export const useProcessesFromAccount = (entityId: string) => {
-  entityId = (entityId) ? utils.getAddress(entityId) : entityId
+  if (entityId) entityId = utils.getAddress(entityId)
   const [processIds, setProcessIds] = useState([] as string[])
   const [loadingProcessList, setLoadingProcessList] = useState(true)
   const { setAlertMessage } = useMessageAlert()
@@ -21,9 +21,9 @@ export const useProcessesFromAccount = (entityId: string) => {
   // Effects
 
   useEffect(() => {
-    const interval = setInterval(() => updateProcessIds, 1000 * 60)
+    const interval = setInterval(() => updateProcessIds(), 1000 * 60)
     updateProcessIds()
-    entityId = (entityId) ? utils.getAddress(entityId) : entityId
+
     // Done
     return () => clearInterval(interval)
   }, [wallet, entityId])

@@ -24,8 +24,10 @@ export const Image = (props: IImageProps) => {
   )
 
   useEffect(() => {
+    let disposed = false
     if (ipfsRegex.test(props.src)) {
       poolPromise.then(async (pool) => {
+        if (disposed) return
         const fileBytes = await FileApi.fetchBytes(props.src, pool.activeGateway)
         const mimeType = getMimeType(Uint8Array.from(fileBytes))
 
@@ -34,8 +36,9 @@ export const Image = (props: IImageProps) => {
       })
     }
     else {
-      setImageSrc(props.src)
+      if (props.src != imageSrc) setImageSrc(props.src)
     }
+    () => disposed = true
   }, [props.src])
 
   return <img {...props} src={imageSrc} />

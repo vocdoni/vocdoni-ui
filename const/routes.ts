@@ -15,7 +15,7 @@ export const VOTING_AUTH_LINK_PATH = '/pub/votes/auth/link' // + processId + key
 export const VOTING_PATH = '/pub/votes' // + processId
 
 // GENERAL
-export const PRICING_PATH = '/pricing'
-export const ABOUT_PATH = '/about'
-export const TERMS_PATH = '/terms'
-export const PRIVACY_PATH = '/privacy'
+// export const PRICING_PATH = '/pricing'
+// export const ABOUT_PATH = '/about'
+export const TERMS_PATH = 'https://aragon.org/terms-and-conditions'
+export const PRIVACY_PATH = 'https://aragon.org/privacy-policy'

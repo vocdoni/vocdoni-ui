@@ -8,7 +8,7 @@ import { hexToRgbA } from '../lib/util'
 import { Else, If, Then, Unless } from 'react-if'
 import { Button } from './button'
 import { useWallet } from '../hooks/use-wallet'
-import { DASHBOARD_PATH, ENTITY_SIGN_IN_PATH, PRICING_PATH, ABOUT_PATH } from '../const/routes'
+import { DASHBOARD_PATH, ENTITY_SIGN_IN_PATH } from '../const/routes'
 import i18n from '../i18n'
 import { useDbAccounts } from '@hooks/use-db-accounts'
 import { AccountStatus } from '@lib/types'
@@ -50,7 +50,8 @@ export const LINKS: HeaderLink[] = [
   //   guest: true
   // },
   {
-    url: ABOUT_PATH,
+    // url: ABOUT_PATH,
+    url: "https://vocdoni.io",
     name: i18n.t("links.about"),
     external: false,
     logged: false,

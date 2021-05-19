@@ -255,7 +255,7 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
 
     return poolPromise
       .then(async pool => {
-        let retries = 30
+        let retries = 25
         let processList = await VotingApi.getProcessList({ entityId: wallet.address }, pool)
         const trimProcId = processId.replace(/^0x/, "")
         let start = processList.length
@@ -272,7 +272,7 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
               waitNext: true,
             }
           }
-          await new Promise(r => setTimeout(r, 4000)) // Wait 4s
+          await new Promise(r => setTimeout(r, 6100)) // Wait 6s
           retries--
         }
 
@@ -437,13 +437,15 @@ const useProcessParameters = () => {
     forceUpdate()
   }
   const setStartBlock = (startBlock: number) => {
-    if (startBlock < 0) throw new Error("Invalid blockCount")
+    if (!startBlock) return
+    else if (startBlock < 0) throw new Error("Invalid startBlock")
 
     parameters.startBlock = startBlock
     forceUpdate()
   }
   const setBlockCount = (blockCount: number) => {
-    if (blockCount < 0) throw new Error("Invalid blockCount")
+    if (!blockCount) return
+    else if (blockCount < 0) throw new Error("Invalid blockCount")
 
     parameters.blockCount = blockCount
     forceUpdate()

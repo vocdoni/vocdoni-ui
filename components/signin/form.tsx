@@ -13,24 +13,29 @@ import { Input, Select } from '../inputs'
 import { SectionTitle, SectionText } from '../text'
 import { Button } from '../button'
 import { HelpText } from '@components/common/help-text';
+import { usePool } from '@vocdoni/react-hooks';
+import { useMessageAlert } from '@hooks/message-alert';
 
 interface SignInFormProps {
   accounts: Account[]
   disabled?: boolean
-  onSubmit: (account: Account, passphrase: string) => void
+  onSubmit: (account: Account, passphrase: string) => Promise<any>
 }
 
 export const SignInForm = ({ accounts, disabled, onSubmit }: SignInFormProps) => {
+  const { poolPromise } = usePool()
   const [passphrase, setPassphrase] = useState<string>('')
   const [account, setAccount] = useState<Account>()
   const [selectOptions, setSelectOptions] = useState<OptionTypeBase[]>([])
   const buttonDisabled = !passphrase || !account
+  const { setAlertMessage } = useMessageAlert()
+  const [loading, setLoading] = useState(false)
 
   const handlerSubmit = (event: FormEvent) => {
     event.preventDefault()
 
     if (!buttonDisabled) {
-      onSubmit(account, passphrase)
+      onContinue()
     }
   }
 
@@ -42,6 +47,18 @@ export const SignInForm = ({ accounts, disabled, onSubmit }: SignInFormProps) =>
 
     setSelectOptions(options)
   }, [accounts])
+
+  // callbacks
+  const onContinue = () => {
+    setLoading(true)
+    poolPromise
+      .then(() => onSubmit(account, passphrase))
+      .then(() => setLoading(false))
+      .catch(err => {
+        setLoading(false)
+        setAlertMessage(i18n.t("errors.could_not_connect_to_the_network"))
+      })
+  }
 
   return (
     <Fieldset disabled={disabled}>
@@ -72,7 +89,7 @@ export const SignInForm = ({ accounts, disabled, onSubmit }: SignInFormProps) =>
         <FormGroup>
           <label htmlFor="passphrase">
             {i18n.t('sign_in.write_your_passphrase')}
-            <HelpText text=''/>
+            <HelpText text='' />
           </label>
           <Input
             wide
@@ -93,9 +110,10 @@ export const SignInForm = ({ accounts, disabled, onSubmit }: SignInFormProps) =>
         <ButtonContainer>
           <Button
             disabled={buttonDisabled}
+            spinner={loading}
             large
             width={210}
-            onClick={() => onSubmit(account, passphrase)}
+            onClick={() => onContinue()}
             positive
           >
             {i18n.t('sign_in.continue')}

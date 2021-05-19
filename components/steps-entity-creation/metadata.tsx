@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useEffect, useState } from 'react'
-import styled from 'styled-components'
+// import styled from 'styled-components'
 import { useEntityCreation } from '@hooks/entity-creation'
 import { PRIVACY_PATH, TERMS_PATH } from '@const/routes'
 import { Checkbox } from '@components/checkbox'
