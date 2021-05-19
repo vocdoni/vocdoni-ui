@@ -293,6 +293,11 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
     const blockCount = endBlock - startBlock
 
     paramsMethods.setStartBlock(startBlock)
+
+    if (blockCount < 0) {
+      console.error("Negative block count", blockCount, blockStatus.blockNumber)
+      return
+    }
     paramsMethods.setBlockCount(blockCount)
   }
 
