@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, ReactElement } from 'react'
 import styled from 'styled-components'
 
 import { useEntityCreation } from '../../hooks/entity-creation'
@@ -33,6 +33,7 @@ export const FormCreation = () => {
   useEffect(() => {
     methods.createEntity()
   }, [])
+
   useEffect(() => {
     const errorMessage =
       creationError instanceof Error ? creationError.message : creationError
@@ -55,7 +56,7 @@ export const FormCreation = () => {
 
   const renderErrorTemplate = (
     title: string,
-    body: string,
+    body: ReactElement,
     buttonText: string,
     callToAction: () => void
   ) => (
@@ -162,19 +163,14 @@ export const FormCreation = () => {
           </Case>
 
           <Default>
-            <BottomDiv>
-              <Button
-                border
-                onClick={() =>
-                  methods.setPageStep(EntityCreationPageSteps.CREDENTIALS)
-                }
-              >
-                {i18n.t('action.go_back')}
-              </Button>
-              <Button border onClick={methods.continueEntityCreation}>
-                {i18n.t('action.retry')}
-              </Button>
-            </BottomDiv>
+            {renderErrorTemplate(
+              i18n.t('vote.error_something_is_wrong'),
+              <div dangerouslySetInnerHTML={{ __html: i18n.t(
+                'vote.something_was_wrong_please_click_retry_to_try_again_the_entity_creation_if_fails_again_contact_with_our_support_team'
+              )}} />,
+              i18n.t('vote.retry'),
+              retryEntityCreation
+            )}
           </Default>
         </Switch>
       </If>
@@ -193,10 +189,4 @@ const ErrorContainer = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-`
-
-const BottomDiv = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
 `

@@ -197,7 +197,7 @@ color: unset;
 const SquareButtonIconContainer = styled.div`
   height: 66px;
   width: 66px;
-  margin: 36px auto 16px;
+  margin: 30px auto 16px;
 
   & > img {
     width: 100%;

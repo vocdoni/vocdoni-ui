@@ -46,6 +46,7 @@ const Tooltip = styled.div<{visible: boolean}>`
   opacity: ${({ visible }) => visible? '1': '0'};
   color: #865BFF;
   width: max-content;
+  font-size: 14px;
   max-width: 250px;
   border-radius: 6px;
   background-color: #F3F4FF;
@@ -61,6 +62,7 @@ const QuestionMark = styled.span`
   border-radius: 8px;
   height: 16px;
   width: 16px;
+  font-size: 16px;
   line-height: 16px;
   background-color: #635BFF;
   margin-left: 6px;

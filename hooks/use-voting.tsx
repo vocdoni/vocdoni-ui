@@ -243,6 +243,7 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
 
       setAlertMessage(i18n.t("vote.your_vote_has_been_successfully_registered"))
       setHasVoted(true)
+      setChoices(null)
     } catch (err) {
       console.error(err)
       return { error: i18n.t("errors.the_vote_has_not_been_registered") }
