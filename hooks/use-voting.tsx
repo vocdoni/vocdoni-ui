@@ -259,7 +259,6 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
   // Render precomputed params
 
   const allQuestionsChosen =
-    choices &&
     areAllNumbers(choices) &&
     choices.length == processInfo?.metadata?.questions?.length
   // const hasStarted = startDate && startDate.getTime() <= Date.now()
