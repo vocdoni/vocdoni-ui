@@ -52,23 +52,21 @@ const VocdoniApp: FC<NextAppProps> = ({ Component, pageProps }) => {
                     <UseVotingProvider>
                       <UseEntityProvider>
                         <UseDbAccountsProvider>
-                          <UseHelpCenterProvider>
-                            <FixedGlobalStyle />
-                            <Head>
-                              <meta
-                                name='viewport'
-                                content='width=device-width, initial-scale=1.0, max-scale=1.0'
-                              />
-                              <Helpscout />
-                              <title>{appTitle}</title>
-                            </Head>
-                            <Layout>
-                              <Component {...pageProps} />
-                            </Layout>
-                            <div id='commit-sha' style={{ display: 'none' }}>
-                              {commitSHA}
-                            </div>
-                          </UseHelpCenterProvider>
+                          <FixedGlobalStyle />
+                          <Head>
+                            <meta
+                              name='viewport'
+                              content='width=device-width, initial-scale=1.0, max-scale=1.0'
+                            />
+                            <Helpscout />
+                            <title>{appTitle}</title>
+                          </Head>
+                          <Layout>
+                            <Component {...pageProps} />
+                          </Layout>
+                          <div id='commit-sha' style={{ display: 'none' }}>
+                            {commitSHA}
+                          </div>
                         </UseDbAccountsProvider>
                       </UseEntityProvider>
                     </UseVotingProvider>
