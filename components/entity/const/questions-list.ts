@@ -68,7 +68,7 @@ export const ALL_RECOVER_QUESTIONS = [
     value: WalletBackup_Recovery_QuestionEnum.CHILD_NICKNAME,
   },
   {
-    /** NAME_FIRST_PARTNER - What is the name of your first partner? */
+    /** NAME_FIRST_PARTNER - What is the name of your first girlfriend or boyfriend? */
     label: i18n.t('backup.questions.NAME_FIRST_PARTNER'),
     value: WalletBackup_Recovery_QuestionEnum.NAME_FIRST_PARTNER,
   },
@@ -78,7 +78,7 @@ export const ALL_RECOVER_QUESTIONS = [
     value: WalletBackup_Recovery_QuestionEnum.WHERE_MEET_PARTNER,
   },
   {
-    /** MOTHER_MAIDEN_NAME - What is your mother's maiden name */
+    /** MOTHER_MAIDEN_NAME - What is your mother's maiden name? */
     label: i18n.t('backup.questions.MOTHER_MAIDEN_NAME'),
     value: WalletBackup_Recovery_QuestionEnum.MOTHER_MAIDEN_NAME,
   },
