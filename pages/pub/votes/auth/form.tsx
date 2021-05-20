@@ -8,6 +8,9 @@ import { useAuthForm } from '@hooks/use-auth-form'
 import { Loader } from '@components/loader'
 
 import { VotingErrorPage, SignInForm } from '@components/pub/votes/auth/form'
+import { LayoutVoter } from '@components/layout/voter'
+
+// NOTE: This page uses a custom Layout. See below.
 
 const VoteAuthLogin = () => {
   const [checkingCredentials, setCheckingCredentials] = useState<boolean>(false)
@@ -94,5 +97,8 @@ const VoteAuthLogin = () => {
 
   return <>{viewContext.getView()}</>
 }
+
+// Defining the custom layout to use
+VoteAuthLogin["Layout"] = LayoutVoter
 
 export default VoteAuthLogin

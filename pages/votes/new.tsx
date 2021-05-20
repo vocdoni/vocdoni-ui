@@ -10,6 +10,9 @@ import { UseProcessCreationProvider } from '../../hooks/process-creation'
 import i18n from '../../i18n'
 import { useProcessCreation } from '../../hooks/process-creation'
 import { useHelpCenter } from '@hooks/help-center'
+import { LayoutEntity } from '@components/layout/entity'
+
+// NOTE: This page uses a custom Layout. See below.
 
 const NewVote = () => {
   const { show, hide } = useHelpCenter();
@@ -46,5 +49,8 @@ const WizardSteps = () => {
 
   return <Steps steps={stepTitles} activeIdx={pageStep} showProgress={true} />
 }
+
+// Defining the custom layout to use
+NewVote["Layout"] = LayoutEntity
 
 export default NewVote

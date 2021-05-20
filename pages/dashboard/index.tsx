@@ -14,6 +14,9 @@ import { useDbAccounts } from '../../hooks/use-db-accounts'
 import { useWallet } from '../../hooks/use-wallet'
 import { useProcessesFromAccount } from '../../hooks/use-processes'
 import { useHelpCenter } from '@hooks/help-center'
+import { LayoutEntity } from '@components/layout/entity'
+
+// NOTE: This page uses a custom Layout. See below.
 
 const DashboardPage = () => {
   const [activeVotes, setActiveVotes] = useState<IProcessInfo[]>([])
@@ -113,6 +116,9 @@ const DashboardPage = () => {
     </>
   )
 }
+
+// Defining the custom layout to use
+DashboardPage["Layout"] = LayoutEntity
 
 // HELPERS
 

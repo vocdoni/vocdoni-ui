@@ -1,13 +1,13 @@
 import styled from 'styled-components'
 
-import { sizes } from '../theme/sizes'
-import { useWallet } from '../hooks/use-wallet'
+import { sizes } from '../../theme/sizes'
+import { useWallet } from '../../hooks/use-wallet'
 
-import { Header } from './header'
-import { Footer } from './footer'
-import { MessageAlert } from './msg-alert'
-import { LoadingAlert } from './loading-alert'
-import { Loader } from './loader'
+import { Header } from '../header'
+import { Footer } from '../footer'
+import { MessageAlert } from '../msg-alert'
+import { LoadingAlert } from '../loading-alert'
+import { Loader } from '../loader'
 import { useRouter } from 'next/router'
 
 
@@ -22,7 +22,7 @@ const LayoutContainer = styled.div<{isHomePage?: boolean}>`
   }
 `
 
-export const Layout = ({ children }) => {
+export const DefaultLayout = ({ children }) => {
   const { checkingNeedsSignin } = useWallet();
   const router = useRouter();
   const isHomePage = router.pathname === '/'

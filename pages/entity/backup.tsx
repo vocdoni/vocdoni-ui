@@ -6,7 +6,9 @@ import { useDbAccounts } from '@hooks/use-db-accounts'
 import { Redirect } from '@components/redirect'
 import { AccountBackupView } from '@components/entity/backup'
 import { AccountBackupSuccess } from '@components/entity/backup/backup-success'
+import { LayoutEntity } from '@components/layout/entity'
 
+// NOTE: This page uses a custom Layout. See below.
 
 const AccountBackupPage = () => {
   const [hasBackup, setHasBackup] = useState<boolean>(false)
@@ -47,5 +49,7 @@ const AccountBackupPage = () => {
   return viewContext.getView()
 }
 
+// Defining the custom layout to use
+AccountBackupPage["Layout"] = LayoutEntity
 
 export default AccountBackupPage

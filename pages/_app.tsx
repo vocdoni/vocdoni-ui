@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react'
+import React, { FC } from 'react'
 import { NextComponentType, NextPageContext } from 'next'
 import { AppInitialProps } from 'next/app'
 import Head from 'next/head'
@@ -8,8 +8,7 @@ import { EthNetworkID, VocdoniEnvironment } from 'dvote-js'
 import { ThemeProvider } from 'styled-components'
 import 'react-circular-progressbar/dist/styles.css';
 
-
-import { Layout } from '../components/layout'
+import { DefaultLayout } from '../components/layout/default'
 import { UseMessageAlertProvider } from '../hooks/message-alert'
 import { UseLoadingAlertProvider } from '../hooks/loading-alert'
 import { UseWalletContextProvider } from '../hooks/use-wallet'
@@ -33,6 +32,9 @@ const VocdoniApp: FC<NextAppProps> = ({ Component, pageProps }) => {
   const environment = process.env.VOCDONI_ENVIRONMENT as VocdoniEnvironment
   const appTitle = process.env.APP_TITLE
   const commitSHA = process.env.COMMIT_SHA
+
+  // If the current page component defined a custom layout, use it
+  const Layout: FC = Component["Layout"] ? Component["Layout"] : DefaultLayout
 
   return (
     <ThemeProvider theme={theme}>

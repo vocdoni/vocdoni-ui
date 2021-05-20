@@ -10,7 +10,9 @@ import { useWallet, WalletRoles } from '@hooks/use-wallet'
 import { Redirect } from '@components/redirect'
 import { ENTITY_SIGN_IN_PATH } from '@const/routes'
 import { useScrollTop } from '@hooks/use-scroll-top'
+import { LayoutEntity } from '@components/layout/entity'
 
+// NOTE: This page uses a custom Layout. See below.
 
 const VoteDetailPage = () => {
   useScrollTop()
@@ -45,5 +47,8 @@ const VoteDetailPage = () => {
 
   return <>{viewContext.getView()}</>
 }
+
+// Defining the custom layout to use
+VoteDetailPage["Layout"] = LayoutEntity
 
 export default VoteDetailPage
