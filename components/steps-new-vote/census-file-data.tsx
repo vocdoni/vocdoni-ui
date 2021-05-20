@@ -34,7 +34,7 @@ export const CensusFileData = ({
           </div>
         </FileDataContainer>
 
-        <Button color={ButtonColor.Positive} onClick={onChangeFile}>
+        <Button border color={ButtonColor.Positive} onClick={onChangeFile}>
           {i18n.t('vote.upload_different_document')}
         </Button>
       </FileContainer>
@@ -69,6 +69,7 @@ const ConsensusFileDataContainer = styled.div`
 
 const FileContainer = styled.div`
   display: flex;
+  align-items: center;
   justify-content: space-between;
   margin-bottom: 30px;
 `

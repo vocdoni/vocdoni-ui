@@ -121,8 +121,8 @@ const FileLoader = ({ onSelect, onChange, accept, ...props }: Props) => {
         </Then>
 
         <Else>
-          <Button negative width={BROWSE_BUTTON_WIDTH} onClick={handleCleanFile}>
-            {i18n.t('action.clean')}
+          <Button border width={BROWSE_BUTTON_WIDTH} onClick={handleCleanFile}>
+            {i18n.t('action.clean_file')}
           </Button>
         </Else>
       </If>
