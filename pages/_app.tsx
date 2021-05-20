@@ -12,7 +12,6 @@ import { DefaultLayout } from '../components/layout/default'
 import { UseMessageAlertProvider } from '../hooks/message-alert'
 import { UseLoadingAlertProvider } from '../hooks/loading-alert'
 import { UseWalletContextProvider } from '../hooks/use-wallet'
-import { UseHelpCenterProvider } from '../hooks/help-center'
 import { UseBackendProvider } from '../hooks/backend'
 
 import { FixedGlobalStyle, theme } from '../theme'
