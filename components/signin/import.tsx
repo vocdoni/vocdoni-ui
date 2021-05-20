@@ -90,8 +90,11 @@ const ButtonText = styled(SectionText)`
   font-size: 20px;
   line-height: 1.4em;
   margin-bottom: 24px;
-  white-space: nowrap;
+  text-align: center;
+  white-space: normal;
+  margin-bottom: 16px;
 `
+
 const ImportContainer = styled.div`
   min-height: 360px;
   display: flex;

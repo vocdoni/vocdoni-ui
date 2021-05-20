@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, ReactElement, useState } from 'react'
 import styled from 'styled-components'
 
 import { useEntityCreation } from '../../hooks/entity-creation'
@@ -7,8 +7,10 @@ import { Button } from '../button'
 import i18n from '../../i18n'
 import { Case, Default, If, Then, Switch } from 'react-if'
 import { EntityCreationPageSteps } from '.'
-import { ProcessLoader } from '@components/process-loader'
 import { useScrollTop } from '@hooks/use-scroll-top'
+import { useHelpCenter } from '@hooks/help-center'
+
+import { ProcessLoader } from '@components/process-loader'
 import { SectionText, SectionTitle, TextAlign } from '@components/text'
 import { colors } from 'theme/colors'
 import { BlockchainConnectionError } from '@lib/validators/errors/blockchain-connection-error'
@@ -27,12 +29,15 @@ const processSteps = [
 
 export const FormCreation = () => {
   useScrollTop()
+  const [retryAttempts, setRetryAttempts] = useState<number>(0)
+  const { open } = useHelpCenter()
   const { creationError, created, methods, actionStep } = useEntityCreation()
   const { setAlertMessage } = useMessageAlert()
 
   useEffect(() => {
     methods.createEntity()
   }, [])
+
   useEffect(() => {
     const errorMessage =
       creationError instanceof Error ? creationError.message : creationError
@@ -45,17 +50,24 @@ export const FormCreation = () => {
     }
   }, [created])
 
+  useEffect(() => {
+    if (retryAttempts === 2) {
+      open()
+    }
+  }, [retryAttempts])
+
   const uploadNewMedia = () => {
     methods.setPageStep(EntityCreationPageSteps.METADATA)
   }
 
   const retryEntityCreation = () => {
     methods.continueEntityCreation()
+    setRetryAttempts(retryAttempts + 1)
   }
 
   const renderErrorTemplate = (
     title: string,
-    body: string,
+    body: ReactElement,
     buttonText: string,
     callToAction: () => void
   ) => (
@@ -162,19 +174,14 @@ export const FormCreation = () => {
           </Case>
 
           <Default>
-            <BottomDiv>
-              <Button
-                border
-                onClick={() =>
-                  methods.setPageStep(EntityCreationPageSteps.CREDENTIALS)
-                }
-              >
-                {i18n.t('action.go_back')}
-              </Button>
-              <Button border onClick={methods.continueEntityCreation}>
-                {i18n.t('action.retry')}
-              </Button>
-            </BottomDiv>
+            {renderErrorTemplate(
+              i18n.t('vote.error_something_is_wrong'),
+              i18n.t(
+                'vote.something_was_wrong_please_click_retry_to_try_again_the_entity_creation_if_fails_again_contact_with_our_support_team'
+              ),
+              i18n.t('vote.retry'),
+              retryEntityCreation
+            )}
           </Default>
         </Switch>
       </If>
@@ -193,10 +200,4 @@ const ErrorContainer = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-`
-
-const BottomDiv = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
 `

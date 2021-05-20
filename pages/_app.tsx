@@ -12,7 +12,6 @@ import { DefaultLayout } from '../components/layout/default'
 import { UseMessageAlertProvider } from '../hooks/message-alert'
 import { UseLoadingAlertProvider } from '../hooks/loading-alert'
 import { UseWalletContextProvider } from '../hooks/use-wallet'
-import { UseHelpCenterProvider } from '../hooks/help-center'
 import { UseBackendProvider } from '../hooks/backend'
 
 import { FixedGlobalStyle, theme } from '../theme'
@@ -52,23 +51,21 @@ const VocdoniApp: FC<NextAppProps> = ({ Component, pageProps }) => {
                     <UseVotingProvider>
                       <UseEntityProvider>
                         <UseDbAccountsProvider>
-                          <UseHelpCenterProvider>
-                            <FixedGlobalStyle />
-                            <Head>
-                              <meta
-                                name='viewport'
-                                content='width=device-width, initial-scale=1.0, max-scale=1.0'
-                              />
-                              <Helpscout />
-                              <title>{appTitle}</title>
-                            </Head>
-                            <Layout>
-                              <Component {...pageProps} />
-                            </Layout>
-                            <div id='commit-sha' style={{ display: 'none' }}>
-                              {commitSHA}
-                            </div>
-                          </UseHelpCenterProvider>
+                          <FixedGlobalStyle />
+                          <Head>
+                            <meta
+                              name='viewport'
+                              content='width=device-width, initial-scale=1.0, max-scale=1.0'
+                            />
+                            <Helpscout />
+                            <title>{appTitle}</title>
+                          </Head>
+                          <Layout>
+                            <Component {...pageProps} />
+                          </Layout>
+                          <div id='commit-sha' style={{ display: 'none' }}>
+                            {commitSHA}
+                          </div>
                         </UseDbAccountsProvider>
                       </UseEntityProvider>
                     </UseVotingProvider>

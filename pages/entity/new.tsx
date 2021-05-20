@@ -9,10 +9,21 @@ import { useEntityCreation, UseEntityCreationProvider } from '../../hooks/entity
 import i18n from '../../i18n'
 import { useWallet } from '@hooks/use-wallet'
 import { useDbAccounts } from '@hooks/use-db-accounts'
+import { useHelpCenter } from '@hooks/help-center'
 import { AccountStatus } from '@lib/types'
 import { EntityCreationPageSteps } from '@components/steps-entity-creation'
 
 const NewEntity = () => {
+  const { show , hide} = useHelpCenter();
+
+  useEffect(() => {
+    show()
+
+    return () => {
+      hide()
+    }
+  }, [])
+
   return (
     <UseEntityCreationProvider>
       <PageCard>

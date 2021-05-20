@@ -49,6 +49,14 @@ const FileLoader = ({ onSelect, onChange, accept, ...props }: Props) => {
     }
   }
 
+  const handleCleanFile = (e) => {
+    inputRef.current.value = null
+    
+    setFile(null)
+    setFileUrl(null)
+    setError(null)
+  }
+
   const onFileUrlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setError(null)
     const { value } = e.target
@@ -93,9 +101,7 @@ const FileLoader = ({ onSelect, onChange, accept, ...props }: Props) => {
           <MyInput
             type='text'
             readOnly
-            style={{ cursor: "pointer" }}
             value={file?.name}
-            onClick={() => removeFile()}
             title={i18n.t("input.remove_file")}
           />
         </Else>
@@ -107,9 +113,19 @@ const FileLoader = ({ onSelect, onChange, accept, ...props }: Props) => {
         style={{ display: 'none' }}
         {...input}
       />
-      <Button positive width={BROWSE_BUTTON_WIDTH} onClick={() => inputRef.current.click()}>
-        {i18n.t('action.browse')}
-      </Button>
+      <If condition={!file}>
+        <Then>
+          <Button positive width={BROWSE_BUTTON_WIDTH} onClick={() => inputRef.current.click()}>
+            {i18n.t('action.browse')}
+          </Button>
+        </Then>
+
+        <Else>
+          <Button negative width={BROWSE_BUTTON_WIDTH} onClick={handleCleanFile}>
+            {i18n.t('action.clean_file')}
+          </Button>
+        </Else>
+      </If>
     </div>
     <If condition={error}>
       <ErrorMsg>{error}</ErrorMsg>
