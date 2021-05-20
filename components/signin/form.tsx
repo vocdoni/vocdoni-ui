@@ -1,5 +1,5 @@
-import React, { ChangeEvent, useState, FormEvent } from 'react'
-import { OptionTypeBase } from 'react-select';
+import React, { ChangeEvent, useState, FormEvent, useEffect } from 'react'
+import { OptionTypeBase } from 'react-select'
 import styled from 'styled-components'
 import Link from 'next/link'
 
@@ -12,9 +12,9 @@ import { Fieldset } from '../form'
 import { Input, Select } from '../inputs'
 import { SectionTitle, SectionText } from '../text'
 import { Button } from '../button'
-import { HelpText } from '@components/common/help-text';
-import { usePool } from '@vocdoni/react-hooks';
-import { useMessageAlert } from '@hooks/message-alert';
+import { HelpText } from '@components/common/help-text'
+import { usePool } from '@vocdoni/react-hooks'
+import { useMessageAlert } from '@hooks/message-alert'
 
 interface SignInFormProps {
   accounts: Account[]
@@ -22,10 +22,14 @@ interface SignInFormProps {
   onSubmit: (account: Account, passphrase: string) => Promise<any>
 }
 
-export const SignInForm = ({ accounts, disabled, onSubmit }: SignInFormProps) => {
+export const SignInForm = ({
+  accounts,
+  disabled,
+  onSubmit,
+}: SignInFormProps) => {
   const { poolPromise } = usePool()
   const [passphrase, setPassphrase] = useState<string>('')
-  const [account, setAccount] = useState<Account>()
+  const [account, setAccount] = useState<Account>(accounts[0])
   const buttonDisabled = !passphrase || !account
   const { setAlertMessage } = useMessageAlert()
   const [loading, setLoading] = useState(false)
@@ -44,9 +48,9 @@ export const SignInForm = ({ accounts, disabled, onSubmit }: SignInFormProps) =>
     poolPromise
       .then(() => onSubmit(account, passphrase))
       // .then(() => setLoading(false)) // after onSubmit, this will be already disposed
-      .catch(err => {
+      .catch((err) => {
         setLoading(false)
-        setAlertMessage(i18n.t("errors.could_not_connect_to_the_network"))
+        setAlertMessage(i18n.t('errors.could_not_connect_to_the_network'))
       })
   }
 
@@ -54,6 +58,7 @@ export const SignInForm = ({ accounts, disabled, onSubmit }: SignInFormProps) =>
     value: opt.name,
     label: opt.name,
   }))
+
 
   return (
     <Fieldset disabled={disabled}>
@@ -70,6 +75,10 @@ export const SignInForm = ({ accounts, disabled, onSubmit }: SignInFormProps) =>
         <label>{i18n.t('sign_in.select_the_account')}</label>
         <Select
           options={selectOptions}
+          value={{
+            value: account.name,
+            label: account.name,
+          }}
           onChange={(selectedValue: OptionTypeBase) => {
             const selectedAccount = accounts.find(
               (acc: Account) => acc.name == selectedValue.value
@@ -84,7 +93,7 @@ export const SignInForm = ({ accounts, disabled, onSubmit }: SignInFormProps) =>
         <FormGroup>
           <label htmlFor="passphrase">
             {i18n.t('sign_in.write_your_passphrase')}
-            <HelpText text='' />
+            <HelpText text="" />
           </label>
           <Input
             wide

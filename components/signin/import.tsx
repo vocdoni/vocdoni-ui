@@ -87,6 +87,7 @@ const ButtonContainer = styled.div`
 `
 const ButtonText = styled(SectionText)`
   font-weight: 500;
+  height: 56px;
   font-size: 20px;
   line-height: 1.4em;
   margin-bottom: 24px;
