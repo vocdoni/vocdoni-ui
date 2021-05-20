@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, ClickEvent } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Else, If, Then } from 'react-if'
 import styled from 'styled-components'
 
