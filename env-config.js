@@ -32,7 +32,10 @@ module.exports = {
   BOOTNODES_URL: process.env.BOOTNODES_URL || bootnodes,
   BACKEND_URL: process.env.BACKEND_URL || backend,
   BACKEND_PUB_KEY: process.env.BACKEND_PUB_KEY || '028b1d1380c37d114ac5a2b056d11cec76439664d00b076f9ace97adbe03da6fe1',
-  EXPLORER_URL: process.env.EXPLORER_URL || explorer
+  EXPLORER_URL: process.env.EXPLORER_URL || explorer,
+
+  // HELPSCOUT
+  HELPSCOUT_PROJECT_ID: '5f78b511-0d81-4f7d-b452-40f020f4445e'
 }
 
 console.log('Building the frontend with ENV:', module.exports)

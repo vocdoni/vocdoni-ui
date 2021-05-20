@@ -24,7 +24,7 @@ const DashboardPage = () => {
   const { dbAccounts } = useDbAccounts()
   const { blockHeight } = useBlockHeight()
   const { metadata: entityMetadata } = useEntity(wallet?.address)
-  const { show , hide} = useHelpCenter();
+  const { show, hide } = useHelpCenter();
 
   // TODO: use loadingProcessList and loadingProcessesDetails to wait until data is loaded
   // TODO: call useProcessesFromAccount(wallet.address) instead of below
@@ -48,11 +48,9 @@ const DashboardPage = () => {
   useEffect(() => {
     show()
 
-    return () => {
-      hide()
-    }
+    return hide
   }, [])
-  
+
   useEffect(() => {
     if (loadingProcessList) return
 

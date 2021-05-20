@@ -1,7 +1,7 @@
-import { createContext, useContext, useState } from 'react'
+import { createContext, useContext } from 'react'
 
 const show = () => {
-  window.Beacon('init', '5f78b511-0d81-4f7d-b452-40f020f4445e')
+  window.Beacon('init', process.env.HELPSCOUT_PROJECT_ID)
 }
 
 const hide = () => {

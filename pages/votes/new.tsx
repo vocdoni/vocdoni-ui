@@ -12,14 +12,12 @@ import { useProcessCreation } from '../../hooks/process-creation'
 import { useHelpCenter } from '@hooks/help-center'
 
 const NewVote = () => {
-  const { show , hide} = useHelpCenter();
+  const { show, hide } = useHelpCenter();
 
   useEffect(() => {
     show()
 
-    return () => {
-      hide()
-    }
+    return hide
   }, [])
 
   return (
@@ -46,7 +44,7 @@ const WizardSteps = () => {
   const stepTitles = Object.values(ProcessCreationPageStepTitles)
   const { pageStep } = useProcessCreation()
 
-  return <Steps steps={stepTitles} activeIdx={pageStep} showProgress={true}/>
+  return <Steps steps={stepTitles} activeIdx={pageStep} showProgress={true} />
 }
 
 export default NewVote
