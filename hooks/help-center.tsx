@@ -8,14 +8,24 @@ const hide = () => {
   window.Beacon('destroy')
 }
 
+const open = () => {
+  window.Beacon('open')
+}
+
 export function useHelpCenter() {
   return useContext(HelpCenterTextContext)
 }
 
-export const HelpCenterTextContext = createContext({show: () => {}, hide: () => {}})
+export const HelpCenterTextContext = createContext({
+  show: () => {},
+  hide: () => {},
+  open: () => {},
+})
 
 export function UseHelpCenterProvider({ children }) {
-  return <HelpCenterTextContext.Provider value={{ show, hide }}>
-    {children}
-  </HelpCenterTextContext.Provider>
+  return (
+    <HelpCenterTextContext.Provider value={{ show, hide, open }}>
+      {children}
+    </HelpCenterTextContext.Provider>
+  )
 }

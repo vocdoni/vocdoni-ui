@@ -1,4 +1,4 @@
-import React, { useEffect, ReactElement } from 'react'
+import React, { useEffect, ReactElement, useState } from 'react'
 import styled from 'styled-components'
 
 import { useEntityCreation } from '../../hooks/entity-creation'
@@ -7,8 +7,10 @@ import { Button } from '../button'
 import i18n from '../../i18n'
 import { Case, Default, If, Then, Switch } from 'react-if'
 import { EntityCreationPageSteps } from '.'
-import { ProcessLoader } from '@components/process-loader'
 import { useScrollTop } from '@hooks/use-scroll-top'
+import { useHelpCenter } from '@hooks/help-center'
+
+import { ProcessLoader } from '@components/process-loader'
 import { SectionText, SectionTitle, TextAlign } from '@components/text'
 import { colors } from 'theme/colors'
 import { BlockchainConnectionError } from '@lib/validators/errors/blockchain-connection-error'
@@ -27,6 +29,8 @@ const processSteps = [
 
 export const FormCreation = () => {
   useScrollTop()
+  const [retryAttempts, setRetryAttempts] = useState<number>(0)
+  const { open } = useHelpCenter()
   const { creationError, created, methods, actionStep } = useEntityCreation()
   const { setAlertMessage } = useMessageAlert()
 
@@ -46,12 +50,19 @@ export const FormCreation = () => {
     }
   }, [created])
 
+  useEffect(() => {
+    if (retryAttempts === 2) {
+      open()
+    }
+  }, [retryAttempts])
+
   const uploadNewMedia = () => {
     methods.setPageStep(EntityCreationPageSteps.METADATA)
   }
 
   const retryEntityCreation = () => {
     methods.continueEntityCreation()
+    setRetryAttempts(retryAttempts + 1)
   }
 
   const renderErrorTemplate = (
@@ -165,9 +176,9 @@ export const FormCreation = () => {
           <Default>
             {renderErrorTemplate(
               i18n.t('vote.error_something_is_wrong'),
-              <div dangerouslySetInnerHTML={{ __html: i18n.t(
+              i18n.t(
                 'vote.something_was_wrong_please_click_retry_to_try_again_the_entity_creation_if_fails_again_contact_with_our_support_team'
-              )}} />,
+              ),
               i18n.t('vote.retry'),
               retryEntityCreation
             )}
