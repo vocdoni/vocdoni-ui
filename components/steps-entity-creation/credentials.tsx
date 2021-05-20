@@ -56,7 +56,7 @@ export const FormCredentials = () => {
         )}
         icon={
           <img
-            width="140px"
+            width="160px"
             src="/images/entity/passphrase.png"
             alt={i18n.t('entity.passphrase_image_alt')}
           />

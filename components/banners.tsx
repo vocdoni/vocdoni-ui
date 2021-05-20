@@ -48,8 +48,7 @@ const BannerDiv = styled.div<{ warning?: boolean }>`
 `
 
 const BannerIcon = styled.div`
-flex: 1;
-min-width: 40px;
+  flex: 1;
 
 `
 const BanerText = styled.div`
@@ -72,7 +71,7 @@ const BannerMainDiv = styled.div`
   align-items: center;
 
 
-  @media ${({theme})  => theme.screenMax.mobileL } {
+  @media ${({theme})  => theme.screenMax.tablet } {
     flex-direction: column;
   }
 `

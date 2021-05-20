@@ -19,7 +19,9 @@ interface ICheckboxProps {
 
 export const Checkbox = ({ id, checked, onChange, text, href = '', labelColor = '', hrefNewTab }: ICheckboxProps) => (
   <CheckboxContainer>
-    <AragonCheckbox id={id} checked={checked} onChange={onChange} />
+    <CheckboxWrapper>
+      <AragonCheckbox id={id} checked={checked} onChange={onChange} />
+    </CheckboxWrapper>
 
     {(href) ? (
       <Label htmlFor={id} color={(labelColor) ? labelColor : 'default'}>
@@ -38,11 +40,14 @@ export const Checkbox = ({ id, checked, onChange, text, href = '', labelColor = 
   </CheckboxContainer>
 )
 
+const CheckboxWrapper = styled.div`
+  flex-shrink: 0;
+`
+
 const CheckboxContainer = styled.div`
   display: flex;
   align-items: center;
 
-  flex-shrink: 0;
   margin-right: 4px;
   margin-top: 6px;
 

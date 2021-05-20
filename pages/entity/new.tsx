@@ -28,12 +28,12 @@ const NewEntity = () => {
     <UseEntityCreationProvider>
       <PageCard>
         <Grid>
-          <Column span={5}>
+          <Column sm={12} md={5}>
             <MainTitle>{i18n.t("entity.new_entity")}</MainTitle>
             <MainDescription>{i18n.t("entity.define_your_credentials_to_protect_the_account")}</MainDescription>
           </Column>
 
-          <Column span={7}>
+          <Column sm={12} md={7}>
             <WizardSteps />
           </Column>
 
