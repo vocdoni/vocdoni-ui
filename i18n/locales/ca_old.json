@@ -73,5 +73,12 @@
     "home": {
         "hero_subtitle": "El protocol de vot més segur i flexible per organitzar tota mena de processos de votació",
         "hero_title": "La solució fàcil i segura que cobreix les teves necessitats de governança"
+    },
+    "backup": {
+        "CHILDHOOD_NICKNAME": "Com et deien de petit?",
+        "DRIVING_INSTRUCTOR": "Com es deia el teu professor d'autoescola?",
+        "FAVORITE_TEACHER": "Com es deia el teu professor preferit?",
+        "FIRST_KISSED": "A qui vas fer el teu primer petó?",
+        "STUFFED_TOY": "Com es deia el ninot de peluix?"
     }
 }

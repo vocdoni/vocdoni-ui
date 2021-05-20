@@ -1,6 +1,7 @@
 {
     "action": {
         "browse": "Browse",
+        "clear": "Clear",
         "continue": "Continue",
         "go_back": "Go back",
         "preview_proposal": "Preview",
@@ -8,17 +9,33 @@
         "sign_in": "Sign in"
     },
     "backup": {
-        "CHILDHOOD_NICKNAME": "Chilhood nickname",
         "confirm_your_passphrase": "Confirm your password",
         "continue": "Continue",
         "download_credentials": "Download credentials",
-        "DRIVING_INSTRUCTOR": "Driving instructor",
-        "FAVORITE_TEACHER": "Favorite teacher",
-        "FIRST_KISSED": "First kissed",
         "i_acknowledge_passphrase_implications": "I acknowledge that losing my password will prevent the ability to access my account in the future",
         "protect_your_account_and_export_it_in_a_safe_way": "Protect your entity's account by exporting it and storing it in a safe place",
-        "recovery_question": "Recovery question {{ number }}",
-        "STUFFED_TOY": "Stuffed toy"
+        "questions": {
+            "CHILD_NICKNAME": "What was your nickname as a child?",
+            "CHILDHOOD_SPORTS_HERO": "Who is your childhood sports hero?",
+            "CITY_OF_BIRTH": "What city were you born in?",
+            "COMPANY_FIRST_JOB": "In which company did you have your first job?",
+            "FAVORITE_BAND": "What is your favorite band?",
+            "FAVORITE_BOOK": "What is your favorite book?",
+            "FAVORITE_CHILDHOOD_FRIEND": "What is the name of your favorite childhood friend?",
+            "FAVORITE_MOVIE": "What is your favorite movie?",
+            "FAVORITE_SPORT_HIGH_SCHOOL": "What was your favorite sport in high school?",
+            "FAVORITE_TEACHER_HIGH_SCHOOL": "What was your favorite teacher in high school?",
+            "FIRST_PET": "What was the name of your first pet?",
+            "MATERNAL_GRANDMOTHER_FULL_NAME": "What is your maternal grandmother's full name?",
+            "MOTHER_MAIDEN_NAME": "What is your mother's maiden name?",
+            "NAME_FIRST_PARTNER": "What is the name of your first partner?",
+            "NAME_OLDEST_COUSIN": "What is the name of your oldest cousin?",
+            "PARENTAL_GRANDMOTHER_FULL_NAME": "What is your paternal grandmother's full name?",
+            "WHERE_FATHER_AND_MOTHER_MET": "Where did your mother and father meet?",
+            "WHERE_HIGH_SCHOOL_COLLEGE": "Where did you go to high school/college?",
+            "WHERE_MEET_PARTNER": "Where did you meet your partner?"
+        },
+        "recovery_question": "Recovery question {{ number }}"
     },
     "confirm": {
         "by_canceling_a_process_you_will_unlist_it_and_drop_all_of_its_votes_and_results": "By canceling, a process you will unlist it and drop all of its votes and results",

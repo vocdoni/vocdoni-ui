@@ -100,5 +100,12 @@
     "error": {
         "process_already_ended": "Process already ended",
         "process_cannot_be_canceled": "Process cannot be canceled"
+    },
+    "backup": {
+        "CHILDHOOD_NICKNAME": "Chilhood nickname",
+        "DRIVING_INSTRUCTOR": "Driving instructor",
+        "FAVORITE_TEACHER": "Favorite teacher",
+        "FIRST_KISSED": "First kissed",
+        "STUFFED_TOY": "Stuffed toy"
     }
 }

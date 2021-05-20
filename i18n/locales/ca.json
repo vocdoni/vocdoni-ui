@@ -1,6 +1,7 @@
 {
     "action": {
         "browse": "Navega",
+        "clear": "Neteja",
         "continue": "Continua",
         "go_back": "Retrocedeix",
         "preview_proposal": "Previsualitza",
@@ -8,17 +9,33 @@
         "sign_in": "Accedeix-hi"
     },
     "backup": {
-        "CHILDHOOD_NICKNAME": "Com et deien de petit?",
         "confirm_your_passphrase": "Confirma la contrasenya",
         "continue": "Continua",
         "download_credentials": "Descarrega les credencials",
-        "DRIVING_INSTRUCTOR": "Com es deia el teu professor d'autoescola?",
-        "FAVORITE_TEACHER": "Com es deia el teu professor preferit?",
-        "FIRST_KISSED": "A qui vas fer el teu primer petó?",
         "i_acknowledge_passphrase_implications": "Accepto el fet que la pèrdua de la contrasenya comporta la impossibilitat d'accedir a la meva entitat posteriorment",
         "protect_your_account_and_export_it_in_a_safe_way": "Protegeix el teu compte d'entitat exportant-lo i desant-lo a un lloc segur",
-        "recovery_question": "Pregunta de recuperació {{ number }}",
-        "STUFFED_TOY": "Com es deia el ninot de peluix?"
+        "questions": {
+            "CHILD_NICKNAME": "",
+            "CHILDHOOD_SPORTS_HERO": "",
+            "CITY_OF_BIRTH": "",
+            "COMPANY_FIRST_JOB": "",
+            "FAVORITE_BAND": "",
+            "FAVORITE_BOOK": "",
+            "FAVORITE_CHILDHOOD_FRIEND": "",
+            "FAVORITE_MOVIE": "",
+            "FAVORITE_SPORT_HIGH_SCHOOL": "",
+            "FAVORITE_TEACHER_HIGH_SCHOOL": "",
+            "FIRST_PET": "",
+            "MATERNAL_GRANDMOTHER_FULL_NAME": "",
+            "MOTHER_MAIDEN_NAME": "",
+            "NAME_FIRST_PARTNER": "",
+            "NAME_OLDEST_COUSIN": "",
+            "PARENTAL_GRANDMOTHER_FULL_NAME": "",
+            "WHERE_FATHER_AND_MOTHER_MET": "",
+            "WHERE_HIGH_SCHOOL_COLLEGE": "",
+            "WHERE_MEET_PARTNER": ""
+        },
+        "recovery_question": "Pregunta de recuperació {{ number }}"
     },
     "confirm": {
         "by_canceling_a_process_you_will_unlist_it_and_drop_all_of_its_votes_and_results": "Cancel·lant un procés s'eliminarà de la llista i es perdran tots els seus vots i resultats",
@@ -384,6 +401,7 @@
         "enter_the_details_of_the_proposal": "Introdueix els detalls del procés de votació",
         "entity_logo_alt": "Logo de l'entitat",
         "error_creating_the_entity_on_blockchain": "Error creant l'entitat a la cadena de blocs",
+        "error_something_is_wrong": "",
         "error_storing_metadata_on_ipfs": "Error emmagatzemant les metadades a IPFS",
         "forum_link": "Precs i preguntes",
         "forum_link_explanation": "Pots afegir un enllaç al vostre sistema de precs i preguntes. Aquest pot ser l'enllaç a un fòrum, a un grup de Telegram, una adreça de correu electrònic, una web...",
@@ -422,6 +440,7 @@
         "select_whether_results_should_be_visible_in_real_time": "Selecciona si vols que el recompte sigui en temps real o només quan hagi acabat el procés de votació",
         "set_option": "Estableix una opció",
         "settings": "Configuració",
+        "something_was_wrong_please_click_retry_to_try_again_the_entity_creation_if_fails_again_contact_with_our_support_team": "",
         "start_date": "Data d'inici",
         "start_date_explanation": "",
         "start_on_a_specific_date": "Iniciar en una data concreta",

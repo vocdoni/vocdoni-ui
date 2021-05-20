@@ -20,5 +20,12 @@
     "home": {
         "hero_subtitle": "El protocolo de voto más seguro y flexible para organizar todo tipo de procesos de votación",
         "hero_title": "La solución fácil y segura que cubre les tus necesidades de gobernanza"
+    },
+    "backup": {
+        "CHILDHOOD_NICKNAME": "¿Cómo te llamaban cuando eras pequeño?",
+        "DRIVING_INSTRUCTOR": "¿Cómo se llamaba tu profesor de autoescuela?",
+        "FAVORITE_TEACHER": "¿Cómo se llamaba tu profesor favorito?",
+        "FIRST_KISSED": "¿A quién le diste el primer beso?",
+        "STUFFED_TOY": "¿Cómo se llamaba tu peluche?"
     }
 }
