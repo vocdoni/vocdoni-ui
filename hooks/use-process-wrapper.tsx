@@ -1,6 +1,6 @@
 import { usePool, useProcess, useBlockHeight, useDateAtBlock, UseProcessContext } from '@vocdoni/react-hooks'
 import { IProcessInfo, DigestedProcessResults, ProcessStatus, VotingApi } from 'dvote-js'
-import { createContext, ReactNode, useContext, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import i18n from '../i18n'
 // import { useUrlHash } from 'use-url-hash'
@@ -25,22 +25,18 @@ export interface ProcessWrapperContext {
   }
 }
 
-export const UseProcessWrapperContext = createContext<ProcessWrapperContext>({} as any)
-
 export const useProcessWrapper = (processId: string) => {
-  // const processCtx = useContext(UseProcessWrapperContext)
-  const invalidProcessId = !processId.match(/^0x[0-9a-fA-A]{64}$/)
-  const processCtx = useContext(UseProcessContext)
-  const { refreshProcessInfo } = processCtx
-
-  if (processCtx === null) {
-    throw new Error('useProcessWrapper() can only be used on the descendants of <UseProcessWrapperProvider />,')
-  }
+  const invalidProcessId = !processId || !processId.match(/^0x[0-9a-fA-A]{64}$/)
 
   const { poolPromise } = usePool()
   // const { setAlertMessage } = useMessageAlert()
   const { blockHeight } = useBlockHeight()
-  const { loading: loadingInfo, error: loadingInfoError, process: processInfo } = useProcess(processId)
+  const {
+    loading: loadingInfo,
+    error: loadingInfoError,
+    process: processInfo,
+    refresh: refreshProcessInfo
+  } = useProcess(processId)
 
   const [results, setResults] = useState(null as DigestedProcessResults)
   const [statusText, setStatusText] = useState('')
@@ -52,18 +48,20 @@ export const useProcessWrapper = (processId: string) => {
 
   // Effects
 
-  // Vote results
   useEffect(() => {
+    if (invalidProcessId) return
+
     refreshResults()
-    if (processId) refreshProcessInfo(processId)
-  }, [])
+    refreshProcessInfo(processId)
+  }, [processId])
 
   useEffect(() => {
-    if (processId && (blockHeight % 3 === 0)) {
-      refreshResults()
-      refreshProcessInfo(processId)
-    }
-  }, [processId, blockHeight])
+    if (invalidProcessId) return
+    else if (blockHeight % 3 !== 0) return
+
+    refreshResults()
+    refreshProcessInfo(processId)
+  }, [blockHeight])
 
   useEffect(() => {
     switch (processInfo?.parameters?.status?.value) {
@@ -124,13 +122,4 @@ export const useProcessWrapper = (processId: string) => {
       refreshResults
     }
   }
-}
-
-export const UseProcessWrapperProvider = ({ processId, children }: { processId: string, children: ReactNode }) => {
-  const value = useProcessWrapper(processId)
-  return (
-    <UseProcessWrapperContext.Provider value={value}>
-      {children}
-    </UseProcessWrapperContext.Provider>
-  )
 }
