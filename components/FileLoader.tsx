@@ -51,7 +51,9 @@ const FileLoader = ({ onSelect, onChange, accept, ...props }: Props) => {
 
   const handleCleanFile = (e) => {
     inputRef.current.value = ''
-    
+
+    onChange('')
+    onSelect(null)
     setFile(null)
     setFileUrl(null)
     setError(null)
