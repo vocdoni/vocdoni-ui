@@ -31,7 +31,7 @@ const VoteAuthLogin = () => {
 
     methods.onLogin()
       // .then(() => setCheckingCredentials(false))
-      .catch(() => {
+      .finally(() => {
         setCheckingCredentials(false)
       })
   }
