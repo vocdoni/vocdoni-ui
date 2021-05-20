@@ -30,7 +30,6 @@ const VoteAuthLogin = () => {
     setCheckingCredentials(true)
 
     methods.onLogin()
-      // .then(() => setCheckingCredentials(false))
       .finally(() => {
         setCheckingCredentials(false)
       })
