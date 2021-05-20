@@ -13,12 +13,14 @@ import { Layout } from '../components/layout'
 import { UseMessageAlertProvider } from '../hooks/message-alert'
 import { UseLoadingAlertProvider } from '../hooks/loading-alert'
 import { UseWalletContextProvider } from '../hooks/use-wallet'
+import { UseHelpCenterProvider } from '../hooks/help-center'
 import { UseBackendProvider } from '../hooks/backend'
 
 import { FixedGlobalStyle, theme } from '../theme'
 import 'react-datetime/css/react-datetime.css'
 import { UseVotingProvider } from '@hooks/use-voting'
 import { UseDbAccountsProvider } from '@hooks/use-db-accounts'
+import { Helpscout } from '@components/external-dependencies/helpscout'
 
 type NextAppProps = AppInitialProps & {
   Component: NextComponentType<NextPageContext, any, any>
@@ -48,20 +50,23 @@ const VocdoniApp: FC<NextAppProps> = ({ Component, pageProps }) => {
                     <UseVotingProvider>
                       <UseEntityProvider>
                         <UseDbAccountsProvider>
-                          <FixedGlobalStyle />
-                          <Head>
-                            <meta
-                              name='viewport'
-                              content='width=device-width, initial-scale=1.0, maximum-scale=1.0'
-                            />
-                            <title>{appTitle}</title>
-                          </Head>
-                          <Layout>
-                            <Component {...pageProps} />
-                          </Layout>
-                          <div id='commit-sha' style={{ display: 'none' }}>
-                            {commitSHA}
-                          </div>
+                          <UseHelpCenterProvider>
+                            <FixedGlobalStyle />
+                            <Head>
+                              <meta
+                                name='viewport'
+                                content='width=device-width, initial-scale=1.0, max-scale=1.0'
+                              />
+                              <Helpscout />
+                              <title>{appTitle}</title>
+                            </Head>
+                            <Layout>
+                              <Component {...pageProps} />
+                            </Layout>
+                            <div id='commit-sha' style={{ display: 'none' }}>
+                              {commitSHA}
+                            </div>
+                          </UseHelpCenterProvider>
                         </UseDbAccountsProvider>
                       </UseEntityProvider>
                     </UseVotingProvider>

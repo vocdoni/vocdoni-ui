@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 // import styled from 'styled-components'
 import { PageCard } from '../../components/cards'
 
@@ -9,8 +9,19 @@ import { MainTitle, MainDescription } from '../../components/text'
 import { UseProcessCreationProvider } from '../../hooks/process-creation'
 import i18n from '../../i18n'
 import { useProcessCreation } from '../../hooks/process-creation'
+import { useHelpCenter } from '@hooks/help-center'
 
 const NewVote = () => {
+  const { show , hide} = useHelpCenter();
+
+  useEffect(() => {
+    show()
+
+    return () => {
+      hide()
+    }
+  }, [])
+
   return (
     <UseProcessCreationProvider>
       <PageCard>
