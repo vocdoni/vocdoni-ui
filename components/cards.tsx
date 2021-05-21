@@ -44,7 +44,7 @@ export const PageCard = styled.div`
 
 export const PageCardHeader = styled.div<{ variant?: PageCardHeaderVariant }>`
   margin: -32px -32px 20px;
-  max-height: 240px;
+  max-height: 340px;
   border-radius: 16px 16px 0 0;
   overflow: hidden;
   max-height: 250px;
