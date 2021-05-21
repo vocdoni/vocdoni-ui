@@ -251,7 +251,7 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
   }
 
   // Enumerate all the steps needed to create an entity
-  const creationStepFuncs = [confirmAction, ensureCensusProof, ensureVoteSubmission, ensureVoteInclusion]
+  const creationStepFuncs = [ensureCensusProof, ensureVoteSubmission, ensureVoteInclusion]
 
   const creationStepper = useStepper(creationStepFuncs, '')
   const { actionStep, pleaseWait, creationError, doMainActionSteps } = creationStepper
