@@ -185,7 +185,7 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
     if (!startRightAway) {
       const localStartDate = VotingApi.estimateDateAtBlockSync(parameters.startBlock, blockStatus)
 
-      if (Math.abs(moment(localStartDate).diff(moment.now(), 'minute')) > 8) {
+      if (Math.abs(moment(localStartDate).diff(moment.now(), 'minute')) < 7) {
         return Promise.reject(new Error(i18n.t('errors.process.invalid_start_date')))
       }
     }

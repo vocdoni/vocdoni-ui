@@ -23,7 +23,7 @@ import { useScrollTop } from "@hooks/use-scroll-top"
 
 export const FormOptions = () => {
   useScrollTop()
-  const { startDate, endDate, parameters, methods, } = useProcessCreation()
+  const { startDate, endDate, parameters, methods, startRightAway} = useProcessCreation()
   const periodRef = useRef<IProcessPeriod>()
 
   const valid = () => {
@@ -35,6 +35,9 @@ export const FormOptions = () => {
       const finalStart = addOffsetToDate(new Date(), 0, 0, 7)
       methods.setStartDate(finalStart)
       periodRef.current.start = finalStart
+      methods.setStartRightAway(true)
+    } else{
+      methods.setStartRightAway(false)
     }
 
     methods.createProcess()
