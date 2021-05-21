@@ -221,8 +221,8 @@ export const FormMetadata = () => {
             id="terms-check"
             checked={terms}
             onChange={() => methods.setTerms(!terms)}
-            text={i18n.t('entity.i_have_read_and_accept_the_privacy_policy_and_the_terms_of_service')}
-            href={TERMS_PATH}
+            text={i18n.t('entity.i_have_read_and_accept_the_privacy_policy')}
+            href={PRIVACY_PATH}
             hrefNewTab
           />
         </FlexContainer>
@@ -239,7 +239,7 @@ export const FormMetadata = () => {
             checked={privacy}
             onChange={() => methods.setPrivacy(!privacy)}
             text={i18n.t('entity.i_have_read_and_accept_the_terms_of_service')}
-            href={PRIVACY_PATH}
+            href={TERMS_PATH}
           />
           <When condition={getErrorMessage(MetadataFields.Privacy)}>
             <SectionText color={colors.danger} size={TextSize.Small}>
