@@ -1,7 +1,7 @@
 {
     "action": {
         "browse": "Browse",
-        "clear": "Clear",
+        "clean": "Clean",
         "continue": "Continue",
         "go_back": "Go back",
         "preview_proposal": "Preview",
@@ -310,6 +310,7 @@
         "blog": "Blog",
         "dashboard": "Dashboard",
         "docs": "Docs",
+        "help": "Help center",
         "pricing": "Pricing",
         "support": "Support"
     },

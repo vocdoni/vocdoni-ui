@@ -11,12 +11,18 @@ export const Footer = () => {
   const links = wallet ? LINKS.filter(link => link.logged) : LINKS.filter(link => link.guest)
 
   return <Container>
-    <Section>
+    <LogoSection>
       <Link href={wallet ? DASHBOARD_PATH : "/"} passHref>
         <HomeLink target='_self'><img src="/media/logo-full.svg" alt="Vocdoni" /></HomeLink>
       </Link>
-    </Section>
-    <Section color={theme.lightText}>
+
+    </LogoSection>
+    
+    <Link href='https://aragon.org/' passHref>
+      <AragonLink target='_blank'><img src="/images/common/powered.png" alt="Aragon" /></AragonLink>
+    </Link>
+
+    <LinksSection color={theme.lightText}>
       {links.map(({ url, name, external }, i) => (
         <div key={name}>
           <Link href={url} passHref>
@@ -25,7 +31,8 @@ export const Footer = () => {
             </ClickableText>
           </Link>
         </div>
-      ))}    </Section>
+      ))}    
+    </LinksSection>
   </Container>
 }
 
@@ -34,13 +41,13 @@ const Container = styled.div`
   bottom: 0;
   width: 100%;
   background-color: ${({ theme }) => theme.white};
-  margin-top: -103px;
-  padding: 30px 0 30px;
   font-size: 13px;
+  height: 90px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-between;
+  align-items: center;
 `
 
 const Section = styled.div`
@@ -48,6 +55,15 @@ const Section = styled.div`
   flex-wrap: wrap;
   padding: 10px 40px 0;
   color: ${({ color }) => color};
+`
+const LogoSection = styled.div`
+  margin-left: 40px;
+`
+
+const LinksSection = styled.div`
+  margin-right: 90px;
+  display: flex;
+  flex-wrap: wrap;
 `
 
 const ClickableText = styled.a`
@@ -60,9 +76,18 @@ const HomeLink = styled.a`
   cursor: pointer;
 
   & > img {
-    margin-top: -6px;
     margin-right: 20px;
     height: 35px;
+  }
+`
+
+const AragonLink = styled.a`
+  cursor: pointer;
+  margin-top: -6px;
+
+  & > img {
+    margin-right: 20px;
+    height: 45px;
   }
 `
 
@@ -100,6 +125,13 @@ const LINKS: HeaderLink[] = [
   {
     url: 'https://docs.vocdoni.io',
     name: i18n.t("links.docs"),
+    external: true,
+    logged: true,
+    guest: true
+  },
+  {
+    url: 'https://help.aragon.org/collection/54-vocdoni-user-guide',
+    name: i18n.t("links.help"),
     external: true,
     logged: true,
     guest: true

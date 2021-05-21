@@ -1,7 +1,6 @@
 {
     "action": {
         "browse": "Navegar",
-        "clear": "Limpiar",
         "clean": "Limpiar",
         "continue": "Continuar",
         "go_back": "Atrás",
@@ -311,6 +310,7 @@
         "blog": "Blog",
         "dashboard": "Inicio",
         "docs": "Documentos",
+        "help": "Ayuda",
         "pricing": "Precio",
         "support": "Ayuda"
     },

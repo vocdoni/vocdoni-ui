@@ -1,7 +1,7 @@
 {
     "action": {
         "browse": "Navega",
-        "clear": "Neteja",
+        "clean": "",
         "continue": "Continua",
         "go_back": "Retrocedeix",
         "preview_proposal": "Previsualitza",
@@ -310,6 +310,7 @@
         "blog": "Blog",
         "dashboard": "Inici",
         "docs": "Documents",
+        "help": "",
         "pricing": "Preus",
         "support": "Suport"
     },

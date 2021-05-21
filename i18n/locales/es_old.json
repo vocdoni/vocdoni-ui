@@ -15,7 +15,8 @@
         "the_global_window_element_is_not_defined": ""
     },
     "action": {
-        "create_my_entity": "Crear tu entidad"
+        "create_my_entity": "Crear tu entidad",
+        "clear": "Limpiar"
     },
     "home": {
         "hero_subtitle": "El protocolo de voto más seguro y flexible para organizar todo tipo de procesos de votación",

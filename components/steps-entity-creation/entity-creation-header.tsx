@@ -23,4 +23,5 @@ export const EntityCreationHeader = () => {
 const TitleContainer = styled(MainTitle)`
   overflow: hidden;
   text-overflow: ellipsis;
+  white-space: nowrap;
 `
