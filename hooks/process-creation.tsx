@@ -247,7 +247,7 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
       })
       .catch((error) => {
         console.error(error)
-        return { error: i18n.t('error.the_process_could_not_be_registered') }
+        return Promise.reject(new Error(i18n.t('error.the_process_could_not_be_registered')))
       })
   }
 
@@ -256,32 +256,30 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
     return poolPromise
       .then(async pool => {
         let retries = 25
-        let processList = await VotingApi.getProcessList({ entityId: wallet.address }, pool)
         const trimProcId = processId.replace(/^0x/, "")
-        let start = processList.length
         while (retries >= 0) {
-          while (!processList.some(v => v == trimProcId)) {
-            processList = await VotingApi.getProcessList({ entityId: wallet.address, from: start }, pool)
-            if (!processList.length) break
-
-            start += processList.length
-          }
-          if (processList.length && processList.some(v => v == trimProcId)) {
+          try {
+            // the following getProcessInfo throws if no process is found with this id
+            let processInfo = await VotingApi.getProcessInfo(trimProcId, pool)
+            if (typeof processInfo !== 'object') {
+              throw new Error("invalid process info")
+            }
             setPageStep(pageStep + 1)
             return {
               waitNext: true,
             }
+          } catch(err) {
+            await new Promise(r => setTimeout(r, 6100))// Wait 6s
+            retries--
           }
-          await new Promise(r => setTimeout(r, 6100)) // Wait 6s
-          retries--
         }
 
         // Nothing after timeout
-        return { error: i18n.t('error.the_vote_is_not_available_yet') }
+        return Promise.reject(new Error(i18n.t('error.the_vote_is_not_available_yet')))
       })
       .catch((error) => {
         console.error(error)
-        return { error: i18n.t('error.the_process_could_not_be_registered') }
+        return Promise.reject(new Error(i18n.t('error.the_process_could_not_be_registered')))
       })
   }
 
