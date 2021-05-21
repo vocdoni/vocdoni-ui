@@ -73,7 +73,10 @@
     },
     "home": {
         "hero_subtitle": "El protocol de vot més segur i flexible per organitzar tota mena de processos de votació",
-        "hero_title": "La solució fàcil i segura que cobreix les teves necessitats de governança"
+        "hero_title": "La solució fàcil i segura que cobreix les teves necessitats de governança",
+        "question_1": "Qüestió 1",
+        "question_2": "Qüestió 2",
+        "question_3": "Qüestió 3"
     },
     "backup": {
         "CHILDHOOD_NICKNAME": "Com et deien de petit?",

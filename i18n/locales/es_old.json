@@ -20,7 +20,10 @@
     },
     "home": {
         "hero_subtitle": "El protocolo de voto más seguro y flexible para organizar todo tipo de procesos de votación",
-        "hero_title": "La solución fácil y segura que cubre les tus necesidades de gobernanza"
+        "hero_title": "La solución fácil y segura que cubre les tus necesidades de gobernanza",
+        "question_1": "",
+        "question_2": "",
+        "question_3": ""
     },
     "backup": {
         "CHILDHOOD_NICKNAME": "¿Cómo te llamaban cuando eras pequeño?",

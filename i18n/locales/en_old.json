@@ -6,7 +6,10 @@
     "home": {
         "create_my_entity": "",
         "hero_subtitle": "The most flexible and secure voting protocol to organize any kind of voting process",
-        "hero_title": "Easy and secure solution for all your governance needs"
+        "hero_title": "Easy and secure solution for all your governance needs",
+        "question_1": "Question 1",
+        "question_2": "Question 2",
+        "question_3": "Question 3"
     },
     "steps": {
         "go_back": "",
