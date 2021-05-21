@@ -32,7 +32,7 @@ export const FormOptions = () => {
 
   const onSubmit = () => {
     if (periodRef.current.startOption === RadioOptions.StartNow) {
-      const finalStart = addOffsetToDate(new Date(), 7)
+      const finalStart = addOffsetToDate(new Date(), 0, 0, 7)
       methods.setStartDate(finalStart)
       periodRef.current.start = finalStart
     }
