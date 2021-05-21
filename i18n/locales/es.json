@@ -2,6 +2,7 @@
     "action": {
         "browse": "Navegar",
         "clear": "Limpiar",
+        "clean": "Limpiar",
         "continue": "Continuar",
         "go_back": "Atrás",
         "preview_proposal": "Previsualizar",
