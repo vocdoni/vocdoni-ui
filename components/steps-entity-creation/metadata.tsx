@@ -1,5 +1,6 @@
 import React, { ChangeEvent, useEffect, useState } from 'react'
-// import styled from 'styled-components'
+import styled from 'styled-components'
+
 import { useEntityCreation } from '@hooks/entity-creation'
 import { PRIVACY_PATH, TERMS_PATH } from '@const/routes'
 import { Checkbox } from '@components/checkbox'
@@ -26,7 +27,6 @@ import {
   FlexJustifyContent,
 } from '@components/flex'
 import { DirtyFields, ErrorFields } from '@lib/validators'
-import { Label } from '@components/label'
 
 import { AccountStatus } from '@lib/types'
 
@@ -137,15 +137,10 @@ export const FormMetadata = () => {
 
   return (
     <Grid>
-      <Column>
-        <SectionText size={TextSize.Big}>
-          {i18n.t('entity.entity_details')}
-        </SectionText>
-      </Column>
-
       <Column md={6}>
         <InputFormGroup
           label={i18n.t('entity.name')}
+          title={i18n.t('entity.entity_details')}
           placeholder={i18n.t('entity.enter_the_name_of_the_entity')}
           id={MetadataFields.Name}
           value={name}
@@ -158,20 +153,23 @@ export const FormMetadata = () => {
       </Column>
 
       <Column md={6}>
-        <InputFormGroup
-          label={i18n.t('entity.email')}
-          placeholder={i18n.t('entity.email')}
-          id={MetadataFields.Email}
-          helpText={i18n.t(
-            'entity.this_will_be_the_email_for_the_members_of_the_entity_to_contact_you'
-          )}
-          value={email}
-          error={getErrorMessage(MetadataFields.Email)}
-          onBlur={() => handleBlur(MetadataFields.Email)}
-          onChange={(event: ChangeEvent<HTMLInputElement>) =>
-            methods.setEmail(event.target.value)
-          }
-        />
+        <MarginInputFormContainer>
+
+          <InputFormGroup
+            label={i18n.t('entity.email')}
+            placeholder={i18n.t('entity.email')}
+            id={MetadataFields.Email}
+            helpText={i18n.t(
+              'entity.this_will_be_the_email_for_the_members_of_the_entity_to_contact_you'
+            )}
+            value={email}
+            error={getErrorMessage(MetadataFields.Email)}
+            onBlur={() => handleBlur(MetadataFields.Email)}
+            onChange={(event: ChangeEvent<HTMLInputElement>) =>
+              methods.setEmail(event.target.value)
+            }
+          />
+        </MarginInputFormContainer>
       </Column>
 
       <Column>
@@ -259,3 +257,11 @@ export const FormMetadata = () => {
     </Grid>
   )
 }
+
+const MarginInputFormContainer = styled.div`
+  margin-top: 40px;
+
+  @media ${({theme}) => theme.screenMax.tablet } {
+    margin-top: 10px;
+  }
+`
