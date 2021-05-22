@@ -36,8 +36,7 @@
         "invalid_file_type": "",
         "invalid_xls_file": "",
         "supported_formats_bak": "",
-        "go_to_dashboard": "",
-        "i_have_read_and_accept_the_privacy_policy": "He llegit i accepto la Política de Privacitat"
+        "go_to_dashboard": ""
     },
     "action": {
         "create_new_proposal": "",

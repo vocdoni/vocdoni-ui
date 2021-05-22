@@ -17,7 +17,7 @@ export const Footer = () => {
       </Link>
 
     </LogoSection>
-    
+
     <Link href='https://aragon.org/' passHref>
       <AragonLink target='_blank'><img src="/images/common/powered.png" alt="Aragon" /></AragonLink>
     </Link>
@@ -31,7 +31,7 @@ export const Footer = () => {
             </ClickableText>
           </Link>
         </div>
-      ))}    
+      ))}
     </LinksSection>
   </Container>
 }
@@ -136,13 +136,6 @@ const LINKS: HeaderLink[] = [
     logged: true,
     guest: true
   },
-  // {
-  //   url: 'https://discord.gg/sQCxgYs',
-  //   name: 'Discord',
-  //   external: true,
-  //   logged: false,
-  //   guest: true
-  // },
   {
     // url: ABOUT_PATH,
     url: "https://vocdoni.io",

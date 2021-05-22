@@ -42,13 +42,6 @@ export const LINKS: HeaderLink[] = [
     logged: true,
     guest: true
   },
-  // {
-  //   url: 'https://discord.gg/sQCxgYs',
-  //   name: 'Discord',
-  //   external: true,
-  //   logged: false,
-  //   guest: true
-  // },
   {
     // url: ABOUT_PATH,
     url: "https://vocdoni.io",
@@ -58,10 +51,17 @@ export const LINKS: HeaderLink[] = [
     guest: true
   },
   {
+    url: 'https://help.aragon.org/collection/54-vocdoni-user-guide',
+    name: i18n.t("links.help"),
+    external: true,
+    logged: true,
+    guest: true
+  },
+  {
     url: 'https://discord.gg/sQCxgYs',
     name: i18n.t("links.support"),
     external: true,
-    logged: true,
+    logged: false,
     guest: false
   },
 ]
@@ -129,7 +129,7 @@ const HeaderContainer = styled.div`
   position: fixed;
   top: 0;
   padding: 10px 0 10px;
-  
+
   background-color: ${({ theme }) => hexToRgbA(theme.background, 0.7)};
   backdrop-filter: blur(10px);
 
@@ -140,7 +140,7 @@ const HeaderContainer = styled.div`
   flex-wrap: wrap;
 
   font-size: 16px;
-  
+
   & a {
     font-size: 16px;
   }
