@@ -11,7 +11,7 @@
     "backup": {
         "confirm_your_passphrase": "Confirmar contraseña",
         "continue": "Continuar",
-        "download_credentials": "Descargar las credenciales",
+        "download_credentials": "Descargar credenciales",
         "i_acknowledge_passphrase_implications": "Soy consciente de que la pérdida de la contraseña puede implicar perder también el acceso a mi entidad",
         "protect_your_account_and_export_it_in_a_safe_way": "Protege tu cuenta exportándola y guardándola en un sitio seguro",
         "questions": {
@@ -38,7 +38,7 @@
         "recovery_question": "Pregunta de recuperación {{ number }}"
     },
     "confirm": {
-        "by_canceling_a_process_you_will_unlist_it_and_drop_all_of_its_votes_and_results": "",
+        "by_canceling_a_process_you_will_unlist_it_and_drop_all_of_its_votes_and_results": "Si cancelas el proceso perderás todos los votos y resultados.",
         "by_ending_a_process_no_new_votes_will_be_accepted_and_results_will_be_computed": "",
         "do_you_want_to_continue": "",
         "this_action_cannot_be_undone": "",
@@ -115,12 +115,12 @@
         "description": "Descripción",
         "details": "Detalles",
         "email": "Correo de contacto",
-        "enter_the_name_of_the_entity": "",
+        "enter_the_name_of_the_entity": "Introducir el nombre de la entidad",
         "entity_details": "Detalles de la entidad",
         "go_to_the_dashboard": "Volver al inicio",
         "header": "Cabecera",
         "i_have_read_and_accept_the_privacy_policy": "He leído y acepto la Política de Privacidad",
-        "i_have_read_and_accept_the_terms_of_service": "",
+        "i_have_read_and_accept_the_terms_of_service": "He leído y acepto los Términos del servicio",
         "logo": "Logo de la entidad",
         "name": "Nombre de la entidad",
         "new_entity": "Nueva Entidad",
@@ -128,7 +128,7 @@
         "passphrase_image_alt": "Contraseña",
         "repeat_passphrase": "Repite la contraseña",
         "signing_transactions": "Creando tu entidad localmente",
-        "this_will_be_the_email_for_the_members_of_the_entity_to_contact_you": "Los Miembros de la entidad pueden contactar a través de este correo",
+        "this_will_be_the_email_for_the_members_of_the_entity_to_contact_you": "Los miembros de la entidad pueden contactar a través de este correo",
         "validating_creation": "Sincronizando la cuenta con la Blockchain",
         "we_are_ready": "¡Listo!",
         "why_this_is_important": "¿Por qué ésto es importante?",
@@ -137,7 +137,7 @@
     },
     "error": {
         "error_updating_db_account": "",
-        "invalid_address": "",
+        "invalid_address": "Dirección inválidad",
         "invalid_answers_error": "Respuesta inválida",
         "invalid_back_up_file_error": "Copia de seguridad inválida",
         "invalid_choice_error": "Elección inválida",
@@ -156,10 +156,10 @@
         "retrieve_gas_time_out": "",
         "the_incognito_mode_is_not_supported": "",
         "the_passphrase_dont_match": "La contraseña no coincide",
-        "the_process_could_not_be_registered": "",
+        "the_process_could_not_be_registered": "El proceso no se ha podido regitrar",
         "the_therms_must_be_checked": "Aceptar la Política de Privacidad y las Condiciones de servicio",
         "the_vote_details_are_invalid": "Los detalles de la votación son inválidos",
-        "the_vote_is_not_available_yet": "",
+        "the_vote_is_not_available_yet": "Votación ",
         "wallet_not_available": "Cuenta no disponible"
     },
     "errors": {
