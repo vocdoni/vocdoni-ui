@@ -63,7 +63,7 @@
         "process_ended": "Process ended",
         "process_paused": "Process paused",
         "upcoming_votes": "Upcoming votes",
-        "vote_results": "Vote results",
+        "vote_results": "Ended votes",
         "your_account_is_unsafe": "Your entity's account is unsafe!"
     },
     "dates": {
@@ -345,7 +345,7 @@
         "select_the_account": "Select the account",
         "select_the_account_to_use_and_enter_your_passphrase": "Select the account to use and enter your password.",
         "sign_in": "Sign in",
-        "write_your_passphrase": "Enter your password"
+        "write_your_passphrase": "Password"
     },
     "status": {
         "the_vote_has_ended": "The vote has ended",
