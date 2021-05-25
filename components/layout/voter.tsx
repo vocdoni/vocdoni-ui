@@ -2,10 +2,10 @@ import styled from 'styled-components'
 
 import { sizes } from '../../theme/sizes'
 
-import { Header } from '../header'
 import { Footer } from '../footer'
 import { MessageAlert } from '../msg-alert'
 import { LoadingAlert } from '../loading-alert'
+import { VoteHeader } from './components/voter-header'
 // import { useRouter } from 'next/router'
 
 
@@ -28,7 +28,7 @@ export const LayoutVoter = ({ children }) => {
     <>
       <MessageAlert />
       <LoadingAlert />
-      <Header />
+      <VoteHeader />
 
       <LayoutContainer>{children}</LayoutContainer>
 
