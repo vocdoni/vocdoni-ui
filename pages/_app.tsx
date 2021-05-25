@@ -31,6 +31,8 @@ const VocdoniApp: FC<NextAppProps> = ({ Component, pageProps }) => {
   const environment = process.env.VOCDONI_ENVIRONMENT as VocdoniEnvironment
   const appTitle = process.env.APP_TITLE
   const commitSHA = process.env.COMMIT_SHA
+  const discoveryTimeout = Number(process.env.DISCOVERY_TIMEOUT)
+  const discoveryPoolSize = Number(process.env.DISCOVERY_POOL_SIZE)
 
   // If the current page component defined a custom layout, use it
   const Layout: FC = Component["Layout"] ? Component["Layout"] : DefaultLayout
@@ -44,6 +46,8 @@ const VocdoniApp: FC<NextAppProps> = ({ Component, pageProps }) => {
               bootnodeUri={bootnodeUri}
               networkId={networkId}
               environment={environment}
+              discoveryTimeout={discoveryTimeout}
+              minNumGateways={discoveryPoolSize}
             >
               <UseBlockStatusProvider>
                 <UseBackendProvider>
