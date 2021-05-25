@@ -190,7 +190,7 @@
             "invalid_start_date": "Data d'inici invàlida",
             "the_vote_cannot_end_before_the_start": "El procés de votació no pot finalitzar abans de l'inici"
         },
-        "something_went_wrong": "Alguna cosa ha anat malament",
+        "something_went_wrong": "Quelcom ha anat malament",
         "storing_data_on_blockchain": "Error emmagatzemant dades a la cadena de blocs",
         "the_account_metadata_could_not_be_stored": "No s'ha pogut emmagatzemar les metadades del compte de l'entitat",
         "the_backup_cannot_be_generated_please_check_your_passphrase": "No es pot generar la còpia de seguretat, comprova la contrasenya",
