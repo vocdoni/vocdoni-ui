@@ -52,13 +52,6 @@ export const entityMetadataValidator = (metadata: IEntityMetadata): ErrorFields 
         argument: metadata[MetadataFields.Logo],
         validator: fileValidator
       }
-    ],
-    [
-      MetadataFields.Terms,
-      {
-        argument: metadata[MetadataFields.Terms],
-        validator: termsValidator
-      }
     ]
   ])
 
