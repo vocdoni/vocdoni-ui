@@ -110,5 +110,9 @@
         "FAVORITE_TEACHER": "Favorite teacher",
         "FIRST_KISSED": "First kissed",
         "STUFFED_TOY": "Stuffed toy"
+    },
+    "cookies": {
+        "these_site_use_cookies_to_improve_the_experience_of_use": "",
+        "view_details": ""
     }
 }

@@ -83,5 +83,9 @@
         "FAVORITE_TEACHER": "Com es deia el teu professor preferit?",
         "FIRST_KISSED": "A qui vas fer el teu primer petó?",
         "STUFFED_TOY": "Com es deia el ninot de peluix?"
+    },
+    "cookies": {
+        "these_site_use_cookies_to_improve_the_experience_of_use": "",
+        "view_details": ""
     }
 }

@@ -44,6 +44,13 @@
         "this_action_cannot_be_undone": "Aquesta acció no es pot desfer",
         "you_are_about_to_submit_your_vote": "Estàs a punt d'enviar el teu vot"
     },
+    "cookies": {
+        "accept": "",
+        "cookies_paragraph_1": "",
+        "cookies_paragraph_2": "",
+        "more_details": "",
+        "reject": ""
+    },
     "copy": {
         "the_link_has_been_copied_to_the_clipboard": "L'enllaç s'ha copiat al porta-retalls"
     },

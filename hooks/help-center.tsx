@@ -1,8 +1,7 @@
-import { useState } from "react"
-
+import { useState } from 'react'
 
 export function useHelpCenter() {
-  const [initialized, setInitialized] =  useState<boolean>(false)
+  const [initialized, setInitialized] = useState<boolean>(false)
 
   const show = () => {
     if (!initialized) {
@@ -10,17 +9,17 @@ export function useHelpCenter() {
       setInitialized(true)
     }
   }
-  
+
   const hide = () => {
     if (initialized) {
       window.Beacon('destroy')
       setInitialized(false)
     }
   }
-  
+
   const open = () => {
     window.Beacon('open')
   }
 
-  return { show, hide, open}
+  return { show, hide, open }
 }
