@@ -339,17 +339,17 @@ const IndexPage = () => {
           </Typography>
 
           <div>
-            <a href='https://help.aragon.org/article/59-what-is-vocdoni'>
+            <a target='_blank' href='https://help.aragon.org/article/59-what-is-vocdoni'>
               <QuestionCard>
                 <Typography>{i18n.t('home.what_is_vocdoni')}</Typography>
               </QuestionCard>
             </a>
-            <a href='https://help.aragon.org/article/61-is-my-data-safe-with-vocodoni'>
+            <a target='_blank' href='https://help.aragon.org/article/61-is-my-data-safe-with-vocodoni'>
               <QuestionCard>
                 <Typography>{i18n.t('home.is_my_data_safe_with_vocdoni')}</Typography>
               </QuestionCard>
             </a>
-            <a href='https://help.aragon.org/article/62-as-an-organization-what-can-i-do-with-vocdoni'>
+            <a target='_blank' href='https://help.aragon.org/article/62-as-an-organization-what-can-i-do-with-vocdoni'>
               <QuestionCard>
                 <Typography>{i18n.t('home.as_an_organization_wat_cant_i_do_with_vocdoni')}</Typography>
               </QuestionCard>

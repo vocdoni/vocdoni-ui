@@ -17,6 +17,10 @@ export const VOTING_PATH = '/pub/votes' // + processId
 // GENERAL
 // export const PRICING_PATH = '/pricing'
 // export const ABOUT_PATH = '/about'
-export const TERMS_PATH = 'https://aragon.org/terms-and-conditions'
-export const PRIVACY_PATH = "/privacy"
+// export const TERMS_PATH = 'https://aragon.org/terms-and-conditions'
+export const TERMS_PATH = '/policy/terms'
+export const PRIVACY_PATH = "/policy/privacy"
+export const REGSITRY_PATH = "/policy/registry"
+export const DATA_POLICY_PATH = "/policy/data"
+export const COOKIES_PATH = "/policy/cookies"
 // export const PRIVACY_PATH = 'https://aragon.org/privacy-policy'
