@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 
 import { useDbAccounts } from '@hooks/use-db-accounts'
-import { useHelpCenter } from '@hooks/help-center'
 import { useWallet } from '@hooks/use-wallet'
 
 import { AccountStatus } from '@lib/types'
@@ -21,16 +20,6 @@ import { EntityCreationPageSteps } from '@components/steps-entity-creation'
 import { EntityCreationHeader } from '@components/steps-entity-creation/entity-creation-header'
 
 const NewEntity = () => {
-  const { show, hide } = useHelpCenter()
-
-  useEffect(() => {
-    show()
-
-    return () => {
-      hide()
-    }
-  }, [])
-
   return (
     <UseEntityCreationProvider>
       <PageCard>

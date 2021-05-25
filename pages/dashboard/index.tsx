@@ -13,7 +13,7 @@ import { Account } from '../../lib/types'
 import { useDbAccounts } from '../../hooks/use-db-accounts'
 import { useWallet } from '../../hooks/use-wallet'
 import { useProcessesFromAccount } from '../../hooks/use-processes'
-import { useHelpCenter } from '@hooks/help-center'
+
 import { LayoutEntity } from '@components/layout/entity'
 
 // NOTE: This page uses a custom Layout. See below.
@@ -27,7 +27,6 @@ const DashboardPage = () => {
   const { dbAccounts } = useDbAccounts()
   const { blockHeight } = useBlockHeight()
   const { metadata: entityMetadata } = useEntity(wallet?.address)
-  const { show, hide } = useHelpCenter();
 
   // TODO: use loadingProcessList and loadingProcessesDetails to wait until data is loaded
   // TODO: call useProcessesFromAccount(wallet.address) instead of below
@@ -47,12 +46,6 @@ const DashboardPage = () => {
     )
     : null
   let initialActiveItem = useRef<ProcessTypes>(ProcessTypes.ActiveVotes);
-
-  useEffect(() => {
-    show()
-
-    return hide
-  }, [])
 
   useEffect(() => {
     if (loadingProcessList) return
