@@ -18,21 +18,22 @@ export const Footer = () => {
 
     </LogoSection>
 
-    <Link href='https://aragon.org/' passHref>
-      <AragonLink target='_blank'><img src="/images/common/powered.png" alt="Aragon" /></AragonLink>
-    </Link>
 
     <LinksSection color={theme.lightText}>
       {links.map(({ url, name, external }, i) => (
-        <div key={name}>
+        <NavItem key={name}>
           <Link href={url} passHref>
             <ClickableText target={external ? '_blank' : '_self'}>
               {name}
             </ClickableText>
           </Link>
-        </div>
+        </NavItem>
       ))}
+    <Link href='https://aragon.org/' passHref>
+      <AragonLink target='_blank'><img src="/images/common/powered.svg" alt="Aragon" /></AragonLink>
+    </Link>
     </LinksSection>
+
   </Container>
 }
 
@@ -50,6 +51,10 @@ const Container = styled.div`
   align-items: center;
 `
 
+const NavItem = styled.div`
+  margin-right: 30px;
+`
+
 const Section = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -61,14 +66,13 @@ const LogoSection = styled.div`
 `
 
 const LinksSection = styled.div`
-  margin-right: 90px;
   display: flex;
   flex-wrap: wrap;
 `
 
 const ClickableText = styled.a`
-  margin-left: 40px;
   text-decoration: none;
+  line-height: 30px;
   color: ${({ theme }) => theme.lightText};
 `
 
@@ -77,17 +81,17 @@ const HomeLink = styled.a`
 
   & > img {
     margin-right: 20px;
-    height: 35px;
+    height: 54px;
   }
 `
 
 const AragonLink = styled.a`
   cursor: pointer;
-  margin-top: -6px;
+  margin-right: 70px;
 
   & > img {
     margin-right: 20px;
-    height: 45px;
+    height: 32px;
   }
 `
 
