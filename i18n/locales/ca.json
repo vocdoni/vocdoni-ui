@@ -175,7 +175,7 @@
         "general_error": "Error general",
         "invalid_account_balance": "Balanç de compte invàlid",
         "invalid_image_url": "L'adreça de la imatge és invàlida",
-        "not_a_web_browser": "",
+        "not_a_web_browser": "No és un navegador",
         "page_not_found": "No s'ha trobat la pàgina",
         "please_accept_credentials_tos": "Si et plau, accepta les Condicions de Servei",
         "please_confirm_your_passphrase": "Si et plau, confirma la contrasenya",
