@@ -3,12 +3,12 @@ import styled from 'styled-components'
 import { sizes } from '../../theme/sizes'
 import { useWallet } from '../../hooks/use-wallet'
 
-import { Header } from '../header'
 import { Footer } from '../footer'
 import { MessageAlert } from '../msg-alert'
 import { LoadingAlert } from '../loading-alert'
 import { Loader } from '../loader'
 import { useRouter } from 'next/router'
+import { EntityHeader } from './components/entity-header'
 
 
 const LayoutContainer = styled.div<{isHomePage?: boolean}>`
@@ -31,7 +31,7 @@ export const DefaultLayout = ({ children }) => {
     <>
       <MessageAlert />
       <LoadingAlert />
-      <Header />
+      <EntityHeader />
 
       <Loader visible={checkingNeedsSignin} />
       <LayoutContainer isHomePage={isHomePage}>{children}</LayoutContainer>

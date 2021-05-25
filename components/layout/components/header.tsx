@@ -1,17 +1,17 @@
-import React, { useState } from 'react'
+import React, { ReactNode, useState } from 'react'
 import styled from 'styled-components'
 import Link from 'next/link'
-// import Hamburger from 'hamburger-react'
-import { useIsMobile } from '../hooks/use-window-size'
-import { sizes } from '../theme/sizes'
-import { hexToRgbA } from '../lib/util'
 import { Else, If, Then, Unless } from 'react-if'
-import { Button } from './button'
-import { useWallet } from '../hooks/use-wallet'
-import { DASHBOARD_PATH, ENTITY_SIGN_IN_PATH } from '../const/routes'
-import i18n from '../i18n'
-import { useDbAccounts } from '@hooks/use-db-accounts'
-import { AccountStatus } from '@lib/types'
+
+import i18n from '@i18n'
+
+import { DASHBOARD_PATH } from '@const/routes'
+
+import { hexToRgbA } from '@lib/util'
+
+import { useIsMobile } from '@hooks/use-window-size'
+
+import { sizes } from '../../../theme/sizes'
 
 export const LINKS: HeaderLink[] = [
   {
@@ -66,17 +66,14 @@ export const LINKS: HeaderLink[] = [
   },
 ]
 
-export const Header = () => {
-  const { wallet } = useWallet()
-  const { getAccount } = useDbAccounts();
-  // const [showMenu, setShowMenu] = useState(false)
+interface IHeaderProps {
+  hasReadyAccount: boolean
+  children?: ReactNode
+}
+
+export const Header = ({hasReadyAccount, children}: IHeaderProps) => {
   const isMobile = useIsMobile()
 
-  let hasReadyAccount = false
-  if (wallet) {
-    const account = getAccount(wallet?.address)
-    hasReadyAccount = account && (typeof account.status === 'undefined' || account.status === AccountStatus.Ready)
-  }
 
   const links = hasReadyAccount ? LINKS.filter(link => link.logged) : LINKS.filter(link => link.guest)
 
@@ -108,14 +105,7 @@ export const Header = () => {
           </MenuItemsContainer>
         </ListContainer>
         <RightContainer>
-          <If condition={!!hasReadyAccount}>
-            <Then>
-              <Button positive small href={DASHBOARD_PATH}>{i18n.t("links.dashboard")}</Button>
-            </Then>
-            <Else>
-              <Button positive small href={ENTITY_SIGN_IN_PATH}>{i18n.t("action.sign_in")}</Button>
-            </Else>
-          </If>
+          { children }
         </RightContainer>
       </HeaderContainer>
     </>
