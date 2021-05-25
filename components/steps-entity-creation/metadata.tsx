@@ -252,7 +252,7 @@ export const FormMetadata = () => {
         <Typography>{i18n.t('entity.pending_steps')}</Typography>
 
         <PendingStepsContainer>
-          <FlexContainer alignItem={FlexAlignItem.Center}>
+          <FlexContainer alignItem={FlexAlignItem.Center}  onClick={handleOpenTermsModal}>
             <RoundedCheck size={RoundedCheckSize.Small} checked={terms} />
             <Typography variant={TypographyVariant.Small} margin="0 10px">
               {i18n.t('entity.i_have_read_and_accept_the_terms_of_service')}
@@ -261,7 +261,7 @@ export const FormMetadata = () => {
         </PendingStepsContainer>
 
         <PendingStepsContainer>
-          <FlexContainer alignItem={FlexAlignItem.Center}>
+          <FlexContainer alignItem={FlexAlignItem.Center} onClick={handleOpenPrivacyModal}>
             <RoundedCheck size={RoundedCheckSize.Small} checked={privacy} />
             <Typography variant={TypographyVariant.Small} margin="0 10px">
               {i18n.t('entity.i_have_read_and_accept_the_terms_of_service')}
@@ -296,14 +296,12 @@ export const FormMetadata = () => {
 
       <TermsModal
         visible={showTermsModal}
-        onAcceptTerms={handleAcceptTermsModal}
         onCloseTerms={handleCloseTermsModal}
       />
 
       <PrivacyModal
         visible={showPrivacyModal}
-        onAcceptPrivacy={handleAcceptPrivacyModal}
-        onClosePrivacy={handleCloseTermsModal}
+        onClosePrivacy={handleClosePrivacyModal}
       />
     </Grid>
   )

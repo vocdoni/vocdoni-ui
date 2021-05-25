@@ -10,19 +10,21 @@ import {
 } from '@components/flex'
 import { Checkbox } from '@components/checkbox'
 import { Button } from '@components/button'
+import { useEntityCreation } from '@hooks/entity-creation'
 
 interface IPrivacyModalProps {
   visible: boolean
-  onAcceptPrivacy: () => void
+  // onAcceptPrivacy: () => void
   onClosePrivacy: () => void
 }
 
 export const PrivacyModal = ({
   visible,
-  onAcceptPrivacy,
+  // onAcceptPrivacy,
   onClosePrivacy,
 }: IPrivacyModalProps) => {
-  const [privacy, setAcceptPrivacy] = useState<boolean>(false)
+  // const [privacy, setAcceptPrivacy] = useState<boolean>(false)
+  const {privacy, methods} = useEntityCreation()
   const lang = i18n.language
 
   return (
@@ -35,7 +37,7 @@ export const PrivacyModal = ({
             <Checkbox
               id="Privacy-check"
               checked={privacy}
-              onChange={() => setAcceptPrivacy(!privacy)}
+              onChange={() => methods.setPrivacy(!privacy)}
               text={i18n.t(
                 'entity.i_have_read_and_accept_the_Privacy_of_service'
               )}
@@ -46,7 +48,7 @@ export const PrivacyModal = ({
 
         <PaddedContainer>
           <FlexContainer justify={FlexJustifyContent.Center}>
-            <Button positive disabled={!privacy} onClick={onAcceptPrivacy}>
+            <Button positive disabled={!privacy} onClick={onClosePrivacy}>
               {i18n.t('entity.accept_Privacy')}
             </Button>
           </FlexContainer>
