@@ -10,19 +10,20 @@ import {
 } from '@components/flex'
 import { Checkbox } from '@components/checkbox'
 import { Button } from '@components/button'
+import { useEntityCreation } from '@hooks/entity-creation'
 
 interface ITermsModalProps {
   visible: boolean
-  onAcceptTerms: () => void
+  // onAcceptTerms: () => void
   onCloseTerms: () => void
 }
 
 export const TermsModal = ({
   visible,
-  onAcceptTerms,
+  // onAcceptTerms,
   onCloseTerms,
 }: ITermsModalProps) => {
-  const [terms, setAcceptTerms] = useState<boolean>(false)
+  const {terms, methods} = useEntityCreation()
   const lang = i18n.language
 
   return (
@@ -35,7 +36,7 @@ export const TermsModal = ({
             <Checkbox
               id="terms-check"
               checked={terms}
-              onChange={() => setAcceptTerms(!terms)}
+              onChange={() => methods.setTerms(!terms)}
               text={i18n.t(
                 'entity.i_have_read_and_accept_the_terms_of_service'
               )}
@@ -46,7 +47,7 @@ export const TermsModal = ({
 
         <PaddedContainer>
           <FlexContainer justify={FlexJustifyContent.Center}>
-            <Button positive disabled={!terms} onClick={onAcceptTerms}>
+            <Button positive disabled={!terms} onClick={onCloseTerms}>
               {i18n.t('entity.accept_terms')}
             </Button>
           </FlexContainer>
