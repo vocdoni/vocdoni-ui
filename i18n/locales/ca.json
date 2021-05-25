@@ -377,7 +377,7 @@
         "brief_description": "Descripció breu",
         "canceled_vote": "Votació cancel·lada",
         "cannot_connect_to_the_blockchain_to_check_the_account_balance": "No s'ha pogut connectar a la cadena de blocs",
-        "cannot_connect_to_the_vocdoni_chain": "No s'ha pogut connectar a la cadena de blocs",
+        "cannot_connect_to_the_vocdoni_chain": "No s'ha pogut connectar a la cadena Vocdoni",
         "census_size": "Grandària del cens: {{ size }} votants",
         "change_entity_name": "Canvia el nom de l'entitat",
         "check_documentation_covering_the_relevant_topics_of_the_vote_and_discus": "Revisa la documentació adjunta al procés de votació",
