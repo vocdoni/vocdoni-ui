@@ -453,7 +453,7 @@
         "thanks_for_participate_on_this_AGM": "Gracias por participar en este proceso, vuelve a la página principal para seguir y consultar los resultados cuando estén disponibles",
         "the_blockchain_network_is_congested": "La red de la cadena de bloques está congestionada",
         "the_blockchain_network_is_congested_for_these_reason_te_transactions_could_spend_several_minutes_dont_worry_we_keep_the_data_to_follow_the_process": "La red de la cadena de bloques está congestionada. Por esta razón las transacciones pueden tardar unos minutos. No te preocupes, nosotros las guardamos para garantizar su entrega.",
-        "the_entity_name_already_exist": "",
+        "the_entity_name_already_exist": "El nombre de entidad ya existe",
         "the_first_row_of_the_spreadsheet_will_be_used_as_the_name": "La primera fila de la hoja de cálculo se utilizará como nombre para los campos que se solicitaran a los votantes. No se tendrán en cuenta los acentos ni las mayúsculas. Así pues, alguien que se llame José Martínez, podrá acceder también introduciendo JOSE MARTINEZ",
         "the_vote_will_end_at_the_given_time": "La votación terminará a la hora predeterminada. También puedes  cerrarla manualmente, si lo necesitas.",
         "this_is_the_form_that_your_community_will_need_to_fill_in_order_to_vote": "Los miembros deberán cumplimentar este formulario para acceder a la votación",
