@@ -2,8 +2,6 @@ import React, { ChangeEvent, useEffect, useState } from 'react'
 import styled from 'styled-components'
 
 import { useEntityCreation } from '@hooks/entity-creation'
-import { PRIVACY_PATH, TERMS_PATH } from '@const/routes'
-import { Checkbox } from '@components/checkbox'
 import { Column, Grid } from '@components/grid'
 import i18n from '@i18n'
 import { Button } from '@components/button'
@@ -12,15 +10,13 @@ import { useMessageAlert } from '@hooks/message-alert'
 import { useDbAccounts } from '@hooks/use-db-accounts'
 import { useScrollTop } from '@hooks/use-scroll-top'
 import { useWallet } from '@hooks/use-wallet'
-import { When } from 'react-if'
+import { Case, Default, Switch } from 'react-if'
 
-import { colors } from 'theme/colors'
 import {
   FileLoaderFormGroup,
   InputFormGroup,
   TextareaFormGroup,
 } from '@components/form'
-import { SectionText, TextSize } from '@components/text'
 import {
   FlexAlignItem,
   FlexContainer,
@@ -33,6 +29,14 @@ import { AccountStatus } from '@lib/types'
 import { entityMetadataValidator } from './metadata-validator'
 
 import { EntityCreationPageSteps } from '.'
+import { TermsModal } from './components/terms-modal'
+import { PrivacyModal } from './components/privacy-modal'
+
+import {
+  RoundedCheck,
+  RoundedCheckSize,
+} from '@components/elements/rounded-check'
+import { Typography, TypographyVariant } from '@components/elements/typography'
 
 export enum MetadataFields {
   Name = 'name',
@@ -63,6 +67,10 @@ export const FormMetadata = () => {
   const { setAlertMessage } = useMessageAlert()
   const { dbAccounts } = useDbAccounts()
   const { wallet } = useWallet()
+
+  const [showTermsModal, setShowTermsModal] = useState<boolean>(false)
+  const [showPrivacyModal, setShowPrivacyModal] = useState<boolean>(false)
+
   useEffect(() => {
     const metadata = {
       [MetadataFields.Name]: name,
@@ -135,6 +143,34 @@ export const FormMetadata = () => {
     }
   }
 
+  const handleAcceptTermsModal = () => {
+    methods.setTerms(true)
+
+    setShowTermsModal(false)
+  }
+
+  const handleOpenTermsModal = () => {
+    setShowTermsModal(true)
+  }
+
+  const handleCloseTermsModal = () => {
+    setShowTermsModal(false)
+  }
+
+  const handleAcceptPrivacyModal = () => {
+    methods.setPrivacy(true)
+
+    setShowPrivacyModal(false)
+  }
+
+  const handleOpenPrivacyModal = () => {
+    setShowPrivacyModal(true)
+  }
+
+  const handleClosePrivacyModal = () => {
+    setShowPrivacyModal(false)
+  }
+
   return (
     <Grid>
       <Column md={6}>
@@ -154,7 +190,6 @@ export const FormMetadata = () => {
 
       <Column md={6}>
         <MarginInputFormContainer>
-
           <InputFormGroup
             label={i18n.t('entity.email')}
             placeholder={i18n.t('entity.email')}
@@ -214,54 +249,74 @@ export const FormMetadata = () => {
       </Column>
 
       <Column>
-        <FlexContainer alignItem={FlexAlignItem.Center}>
-          <Checkbox
-            id="terms-check"
-            checked={terms}
-            onChange={() => methods.setTerms(!terms)}
-            text={i18n.t('entity.i_have_read_and_accept_the_privacy_policy')}
-            href={PRIVACY_PATH}
-            hrefNewTab
-          />
-        </FlexContainer>
-        <FlexContainer alignItem={FlexAlignItem.Center}>
-          <When condition={getErrorMessage(MetadataFields.Terms)}>
-            <SectionText color={colors.danger} size={TextSize.Small}>
-              {getErrorMessage(MetadataFields.Terms)}
-            </SectionText>
-          </When>
-        </FlexContainer>
-        <FlexContainer alignItem={FlexAlignItem.Center}>
-          <Checkbox
-            id="privacy-check"
-            checked={privacy}
-            onChange={() => methods.setPrivacy(!privacy)}
-            text={i18n.t('entity.i_have_read_and_accept_the_terms_of_service')}
-            href={TERMS_PATH}
-          />
-          <When condition={getErrorMessage(MetadataFields.Privacy)}>
-            <SectionText color={colors.danger} size={TextSize.Small}>
-              {getErrorMessage(MetadataFields.Privacy)}
-            </SectionText>
-          </When>
-        </FlexContainer>
+        <Typography>{i18n.t('entity.pending_steps')}</Typography>
+
+        <PendingStepsContainer>
+          <FlexContainer alignItem={FlexAlignItem.Center}>
+            <RoundedCheck size={RoundedCheckSize.Small} checked={terms} />
+            <Typography variant={TypographyVariant.Small} margin="0 10px">
+              {i18n.t('entity.i_have_read_and_accept_the_terms_of_service')}
+            </Typography>
+          </FlexContainer>
+        </PendingStepsContainer>
+
+        <PendingStepsContainer>
+          <FlexContainer alignItem={FlexAlignItem.Center}>
+            <RoundedCheck size={RoundedCheckSize.Small} checked={privacy} />
+            <Typography variant={TypographyVariant.Small} margin="0 10px">
+              {i18n.t('entity.i_have_read_and_accept_the_terms_of_service')}
+            </Typography>
+          </FlexContainer>
+        </PendingStepsContainer>
       </Column>
 
       <Column>
         <FlexContainer justify={FlexJustifyContent.End}>
-          <Button positive onClick={onContinue}>
-            {i18n.t('action.continue')}
-          </Button>
+          <Switch>
+            <Case condition={!terms}>
+              <Button positive onClick={handleOpenTermsModal}>
+                {i18n.t('action.check_terms_and_conditions')}
+              </Button>
+            </Case>
+
+            <Case condition={!privacy}>
+              <Button positive onClick={handleOpenPrivacyModal}>
+                {i18n.t('action.check_privacy_policy')}
+              </Button>
+            </Case>
+
+            <Default>
+              <Button positive onClick={onContinue}>
+                {i18n.t('action.continue')}
+              </Button>
+            </Default>
+          </Switch>
         </FlexContainer>
       </Column>
+
+      <TermsModal
+        visible={showTermsModal}
+        onAcceptTerms={handleAcceptTermsModal}
+        onCloseTerms={handleCloseTermsModal}
+      />
+
+      <PrivacyModal
+        visible={showPrivacyModal}
+        onAcceptPrivacy={handleAcceptPrivacyModal}
+        onClosePrivacy={handleCloseTermsModal}
+      />
     </Grid>
   )
 }
 
+const PendingStepsContainer = styled.div`
+  margin-bottom: 10px;
+`
+
 const MarginInputFormContainer = styled.div`
   margin-top: 40px;
 
-  @media ${({theme}) => theme.screenMax.tablet } {
+  @media ${({ theme }) => theme.screenMax.tablet} {
     margin-top: 10px;
   }
 `
