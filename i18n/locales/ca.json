@@ -165,7 +165,7 @@
     "errors": {
         "cannot_connect_to_the_blockchain": "No es pot connectar a la cadena de blocs",
         "cannot_connect_to_vocdoni": "No es pot connectar a Vocdoni",
-        "cannot_set_media_header": "no es pot carregar la imatge a la xarxa",
+        "cannot_set_media_header": "No es pot carregar la imatge a la xarxa",
         "could_not_check_the_census": "No es pot comprovar el cens",
         "could_not_connect_to_the_network": "No es pot connectar a la xarxa",
         "could_not_import_the_account": "Compte no importat. Torna-ho a provar.",
