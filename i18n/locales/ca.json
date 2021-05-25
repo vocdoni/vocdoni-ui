@@ -440,7 +440,7 @@
         "select_whether_results_should_be_visible_in_real_time": "Selecciona si vols que el recompte sigui en temps real o només quan hagi acabat el procés de votació",
         "set_option": "Estableix una opció",
         "settings": "Configuració",
-        "something_was_wrong_please_click_retry_to_try_again_the_entity_creation_if_fails_again_contact_with_our_support_team": "",
+        "something_was_wrong_please_click_retry_to_try_again_the_entity_creation_if_fails_again_contact_with_our_support_team": "Si et plau, espera una estona i torna-ho a provar. Si el problema persisteix, posa't en contacte amb l'equip de suport.",
         "start_date": "Data d'inici",
         "start_date_explanation": "",
         "start_on_a_specific_date": "Iniciar en una data concreta",
