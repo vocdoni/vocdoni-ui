@@ -19,6 +19,7 @@ import 'react-datetime/css/react-datetime.css'
 import { UseVotingProvider } from '@hooks/use-voting'
 import { UseDbAccountsProvider } from '@hooks/use-db-accounts'
 import { Helpscout } from '@components/external-dependencies/helpscout'
+import { CookiesBanner } from '@components/common/cookies-banner'
 
 type NextAppProps = AppInitialProps & {
   Component: NextComponentType<NextPageContext, any, any>
@@ -72,6 +73,7 @@ const VocdoniApp: FC<NextAppProps> = ({ Component, pageProps }) => {
                           <div id='commit-sha' style={{ display: 'none' }}>
                             {commitSHA}
                           </div>
+                          <CookiesBanner />
                         </UseDbAccountsProvider>
                       </UseEntityProvider>
                     </UseVotingProvider>

@@ -13,16 +13,17 @@ import { Button } from '@components/button'
 
 import { DASHBOARD_PATH, ENTITY_SIGN_IN_PATH } from '@const/routes'
 import { Header } from './header'
+import { useCookies } from '@hooks/cookies'
 
 export const EntityHeader = () => {
   const { wallet } = useWallet()
   const { getAccount } = useDbAccounts()
   const { show } = useHelpCenter()
-
+  const { accepted } = useCookies()
   // const [showMenu, setShowMenu] = useState(false)
 
   useEffect(() => {
-    show()
+    if (accepted) show()
   }, [])
 
   let hasReadyAccount = false
