@@ -29,7 +29,7 @@ jobs:
     needs:
      - node-tests
     if:
-      github.ref == 'refs/heads/main' || github.ref == 'refs/heads/stage' || github.ref == 'refs/heads/release'
+      github.ref == 'refs/heads/main' || github.ref == 'refs/heads/stage' || github.ref == 'refs/heads/release-*'
     steps:
       - name: Check out the repo
         uses: actions/checkout@v2
@@ -117,11 +117,11 @@ jobs:
 
   gcs-release:
     runs-on: self-hosted
-    environment: production || staging
+    environment: production
     needs:
      - node-tests
     if:
-      github.ref == 'refs/heads/release' || github.ref == 'refs/heads/stage'
+      github.ref == 'refs/heads/release'
     steps:
       - name: Check out the repo
         uses: actions/checkout@v2
@@ -134,9 +134,7 @@ jobs:
         shell: bash
         run: |
          echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
-      # PRODUCTION RELEASE
-      - name: Install dependencies and build (release)
-        if: github.ref == 'refs/heads/release'
+      - name: Install dependencies and build
         run: |
           npm install
           npm run export
@@ -151,43 +149,12 @@ jobs:
           BACKEND_URL: "https://manager.vocdoni.net/api/manager"
           BACKEND_PUB_KEY: "03cd13285ea116b9093a47364b29ddb09eccf50aa2f0112b6084a0b10943964d4e"
 
-      - name: Set up Cloud SDK (release)
-        if: github.ref == 'refs/heads/release'
+      - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@master
         with:
           service_account_key: ${{ secrets.GCP_PRODUCTION }}
           export_default_credentials: true
 
       - name: Upload static site to GCP
-        if: github.ref == 'refs/heads/release'
         run: |
           gsutil -m cp -r build/* gs://vocdoni.app
-
-      # STAGING RELEASE
-      - name: Install dependencies and build (staging)
-        if: github.ref == 'refs/heads/stage'
-        run: |
-          npm install
-          npm run export
-        env:
-          COMMIT_SHA: ${{ steps.var.outputs.sha_short }}
-          DEVELOPMENT: "false"
-          VOCDONI_ENVIRONMENT: "stage"
-          APP_TITLE: "Vocdoni Staging"
-          ETH_NETWORK_ID: "xdai"
-          BLOCK_TIME: "12"
-          BOOTNODES_URL: "https://bootnodes.vocdoni.net/gateways.stg.priv.json"
-          BACKEND_URL: "https://manager.stg.vocdoni.net/api/manager"
-          BACKEND_PUB_KEY: "028b1d1380c37d114ac5a2b056d11cec76439664d00b076f9ace97adbe03da6fe1"
-
-      - name: Set up Cloud SDK (staging)
-        if: github.ref == 'refs/heads/stage'
-        uses: google-github-actions/setup-gcloud@master
-        with:
-          service_account_key: ${{ secrets.GCP_STAGING }}
-          export_default_credentials: true
-
-      - name: Upload static site to GCP (staging)
-        if: github.ref == 'refs/heads/stage'
-        run: |
-          gsutil -m cp -r build/* gs://stg.vocdoni.app
