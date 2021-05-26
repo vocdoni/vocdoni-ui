@@ -65,9 +65,9 @@ const RoundedCheckVariantStyle = {
   `,
 }
 
-const BaseSpinner = styled.div<{ size?: RoundedCheckSize }>`
+const BaseSpinner = styled.div<{ checkSize?: RoundedCheckSize }>`
   border-radius: 50%;
-  ${({ size }) => RoundedCheckVariantStyle[size || RoundedCheckSize.Regular]}
+  ${({ checkSize, theme }) => RoundedCheckVariantStyle[checkSize || RoundedCheckSize.Regular](theme)}
 `
 
 const Check = styled(BaseSpinner)`
