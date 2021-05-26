@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Modal } from 'react-rainbow-components'
 import i18n from '@i18n'
-import { Terms } from '@components/policy/terms/layer-1'
+import { Terms } from '@components/policy/terms/layer-2'
 import {
   FlexAlignItem,
   FlexContainer,
@@ -12,31 +12,31 @@ import { Checkbox } from '@components/checkbox'
 import { Button } from '@components/button'
 import { useEntityCreation } from '@hooks/entity-creation'
 
-interface ITermsModalProps {
+interface IEntityTermsModalProps {
   visible: boolean
-  onCloseTerms: () => void
+  onCloseEntityTerms: () => void
 }
 
-export const TermsModal = ({
+export const EntityTermsModal = ({
   visible,
-  onCloseTerms,
-}: ITermsModalProps) => {
-  const {terms, methods} = useEntityCreation()
+  onCloseEntityTerms,
+}: IEntityTermsModalProps) => {
+  const {entityTerms, methods} = useEntityCreation()
   const lang = i18n.language
 
   return (
-    <Modal onRequestClose={onCloseTerms} isOpen={visible}>
+    <Modal onRequestClose={onCloseEntityTerms} isOpen={visible}>
       <TermsContainer>
         <Terms lang={lang} />
 
         <PaddedContainer>
           <FlexContainer alignItem={FlexAlignItem.Center}>
             <Checkbox
-              id="terms-check"
-              checked={terms}
-              onChange={() => methods.setTerms(!terms)}
+              id="entity-terms-check"
+              checked={entityTerms}
+              onChange={() => methods.setEntityTerms(!entityTerms)}
               text={i18n.t(
-                'entity.i_have_read_and_accept_personal_data_newsletter'
+                'entity.i_have_read_and_accept_the_entity_terms'
               )}
               hrefNewTab
             />
@@ -45,8 +45,8 @@ export const TermsModal = ({
 
         <PaddedContainer>
           <FlexContainer justify={FlexJustifyContent.Center}>
-            <Button positive disabled={!terms} onClick={onCloseTerms}>
-              {i18n.t('entity.accept_terms')}
+            <Button positive disabled={!entityTerms} onClick={onCloseEntityTerms}>
+              {i18n.t('entity.accept_entity_terms')}
             </Button>
           </FlexContainer>
         </PaddedContainer>

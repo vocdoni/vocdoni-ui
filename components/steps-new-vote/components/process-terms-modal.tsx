@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Modal } from 'react-rainbow-components'
 import i18n from '@i18n'
-import { Terms } from '@components/policy/terms/layer-1'
+import { VoterTerms } from '@components/policy/voter-terms/layer-1'
 import {
   FlexAlignItem,
   FlexContainer,
@@ -10,33 +10,33 @@ import {
 } from '@components/flex'
 import { Checkbox } from '@components/checkbox'
 import { Button } from '@components/button'
-import { useEntityCreation } from '@hooks/entity-creation'
+import { useProcessCreation } from '@hooks/process-creation'
 
-interface ITermsModalProps {
+interface IEntityTermsModalProps {
   visible: boolean
-  onCloseTerms: () => void
+  onCloseProcessTerms: () => void
 }
 
-export const TermsModal = ({
+export const ProcessTermsModal = ({
   visible,
-  onCloseTerms,
-}: ITermsModalProps) => {
-  const {terms, methods} = useEntityCreation()
+  onCloseProcessTerms,
+}: IEntityTermsModalProps) => {
+  const {processTerms, methods} = useProcessCreation()
   const lang = i18n.language
 
   return (
-    <Modal onRequestClose={onCloseTerms} isOpen={visible}>
+    <Modal onRequestClose={onCloseProcessTerms} isOpen={visible}>
       <TermsContainer>
-        <Terms lang={lang} />
+        <VoterTerms lang={lang} />
 
         <PaddedContainer>
           <FlexContainer alignItem={FlexAlignItem.Center}>
             <Checkbox
-              id="terms-check"
-              checked={terms}
-              onChange={() => methods.setTerms(!terms)}
+              id="voter-terms-check"
+              checked={processTerms}
+              onChange={() => methods.setProcessTerms(!processTerms)}
               text={i18n.t(
-                'entity.i_have_read_and_accept_personal_data_newsletter'
+                'voter.i_have_read_and_accept_the_entity_terms'
               )}
               hrefNewTab
             />
@@ -45,8 +45,8 @@ export const TermsModal = ({
 
         <PaddedContainer>
           <FlexContainer justify={FlexJustifyContent.Center}>
-            <Button positive disabled={!terms} onClick={onCloseTerms}>
-              {i18n.t('entity.accept_terms')}
+            <Button positive disabled={!processTerms} onClick={onCloseProcessTerms}>
+              {i18n.t('voter.accept_entity_terms')}
             </Button>
           </FlexContainer>
         </PaddedContainer>

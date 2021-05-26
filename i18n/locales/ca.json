@@ -8,6 +8,7 @@
         "go_back": "Retrocedeix",
         "preview_proposal": "Previsualitza",
         "retry": "Torna-ho a intentar",
+        "review_process_terms_and_conditions": "",
         "sign_in": "Accedeix-hi"
     },
     "backup": {
@@ -110,6 +111,7 @@
         "starting_tomorrow": "Comença demà"
     },
     "entity": {
+        "accept_entity_terms": "",
         "accept_Privacy": "Estic d'accord",
         "accept_terms": "Estic d'accord",
         "acknowledge_passphrase_implications": "Accepto el fet que la pèrdua de la contrasenya comporta la impossibilitat d'accedir a la meva entitat posteriorment",
@@ -130,8 +132,10 @@
         "entity_details": "Detalls de l'entitat",
         "go_to_the_dashboard": "Ves a l'inici",
         "header": "Capçalera de l'entitat",
+        "i_have_read_and_accept_entity_terms": "",
         "i_have_read_and_accept_personal_data_newsletter": "Consiento que VOCDONI trate mis datos personales con la finalidad de tramitar mi alta en su Newsletter, y/o para recibir avisos comerciales o informativos, y de asistencia. Para más información sobre cómo lo haremos y cómo ejercer tus derechos de Protección de Datos puede consultar nuestra política de privacidad",
         "i_have_read_and_accept_personal_data_protection": "Que he sido informado de los contenidos correspondientes a la normativa en materia de protección de los datos personales, y del cumplimiento de las obligaciones que corresponden a VOCDONI en su condición de responsable del tratamiento de los datos que facilito, con la finalidad de que se preste el servicio, en virtud del artículo 13 RGPD y resto de artículos concordantes. Para más información sobre cómo lo haremos y cómo ejercer tus derechos de Protección de Datos puede consultar nuestra política de privacidad",
+        "i_have_read_and_accept_the_entity_terms": "",
         "logo": "Logo de l'entitat",
         "name": "Nom de l'entitat",
         "new_entity": "Nom de l'entitat",
@@ -500,5 +504,9 @@
         "your_vote_has_been_successfully_registered": "El teu vot ha estat registrat correctament",
         "your_vote_is_set_up": "La votació s'ha creat",
         "your_vote_process_is_being_created": "Has creat el procés de votació"
+    },
+    "voter": {
+        "accept_entity_terms": "",
+        "i_have_read_and_accept_the_entity_terms": ""
     }
 }

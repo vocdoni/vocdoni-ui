@@ -51,6 +51,7 @@ export interface EntityCreationContext {
   headerFile: File
   passphrase: string
   terms: boolean
+  entityTerms: boolean
   privacy: boolean
 
   pleaseWait: boolean
@@ -68,6 +69,7 @@ export interface EntityCreationContext {
     setLogoUrl(logoUrl: string): void
     setPassphrase(passphrase: string): void
     setTerms(terms: boolean): void
+    setEntityTerms(terms: boolean): void
     setPrivacy(privacy: boolean): void
     createEntity(): void
     continueEntityCreation(): void
@@ -145,6 +147,7 @@ export const UseEntityCreationProvider = ({
   const [headerUrl, setHeaderUrl] = useState<string>('')
   const [headerFile, setHeaderFile] = useState<File>()
   const [terms, setTerms] = useState<boolean>(false)
+  const [entityTerms, setEntityTerms] = useState<boolean>(false)
   const [privacy, setPrivacy] = useState<boolean>(false)
   // const { setAlertMessage } = useMessageAlert()
 
@@ -425,6 +428,7 @@ export const UseEntityCreationProvider = ({
     headerFile,
     passphrase,
     terms,
+    entityTerms,
     privacy,
 
     pleaseWait,
@@ -441,6 +445,7 @@ export const UseEntityCreationProvider = ({
       setHeaderUrl,
       setHeaderFile,
       setTerms,
+      setEntityTerms,
       setPrivacy,
       continuePendingProcessCreation,
       createEntity: doMainActionSteps,

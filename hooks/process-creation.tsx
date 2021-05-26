@@ -44,6 +44,7 @@ export interface ProcessCreationContext {
   startDate: Date,
   endDate: Date,
   spreadSheetReader,
+  processTerms,
   methods: {
     setPageStep: (s: ProcessCreationPageSteps) => void,
 
@@ -62,6 +63,7 @@ export interface ProcessCreationContext {
     setStartBlock: (startBlock: number) => void;
     setBlockCount: (blockCount: number) => void;
     setCensusOrigin: (censusOrigin: ProcessCensusOrigin) => void;
+    setProcessTerms: (processTerms: boolean) => void;
     // TODO:
     setCensusRoot: (censusRoot: string) => void,
     setCensusUri: (censusUri: string) => void,
@@ -103,6 +105,7 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
   const [spreadSheetReader, setSpreadSheetReader] = useState<SpreadSheetReader>()
   const [headerFile, setHeaderFile] = useState<File>()
   const [headerURL, setHeaderURL] = useState<string>('')
+  const [processTerms, setProcessTerms] = useState<boolean>(false)
   const [startRightAway, setStartRightAway] = useState<boolean>(true)
   const [startDate, setStartDate] = useState<Date>()
   const [endDate, setEndDate] = useState<Date>()
@@ -341,6 +344,7 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
     metadata,
     parameters,
     spreadSheetReader,
+    processTerms,
     methods: {
       ...metadataMethods,
       ...paramsMethods,
@@ -353,6 +357,7 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
       setPageStep,
       createProcess,
       continueProcessCreation: doMainActionSteps,
+      setProcessTerms
     }
   }
 

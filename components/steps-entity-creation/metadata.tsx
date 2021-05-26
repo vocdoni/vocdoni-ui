@@ -31,6 +31,7 @@ import { entityMetadataValidator } from './metadata-validator'
 import { EntityCreationPageSteps } from '.'
 import { TermsModal } from './components/terms-modal'
 import { PrivacyModal } from './components/privacy-modal'
+import { EntityTermsModal } from './components/entity-terms-modal'
 
 import {
   RoundedCheck,
@@ -59,6 +60,7 @@ export const FormMetadata = () => {
     headerFile,
     headerUrl,
     terms,
+    entityTerms,
     privacy,
     methods,
   } = useEntityCreation()
@@ -69,6 +71,8 @@ export const FormMetadata = () => {
   const { wallet } = useWallet()
 
   const [showTermsModal, setShowTermsModal] = useState<boolean>(false)
+  const [showEntityTermsModal, setShowEntityTermsModal] =
+    useState<boolean>(false)
   const [showPrivacyModal, setShowPrivacyModal] = useState<boolean>(false)
 
   useEffect(() => {
@@ -143,12 +147,6 @@ export const FormMetadata = () => {
     }
   }
 
-  const handleAcceptTermsModal = () => {
-    methods.setTerms(true)
-
-    setShowTermsModal(false)
-  }
-
   const handleOpenTermsModal = () => {
     setShowTermsModal(true)
   }
@@ -157,10 +155,12 @@ export const FormMetadata = () => {
     setShowTermsModal(false)
   }
 
-  const handleAcceptPrivacyModal = () => {
-    methods.setPrivacy(true)
+  const handleOpenEntityTermsModal = () => {
+    setShowEntityTermsModal(true)
+  }
 
-    setShowPrivacyModal(false)
+  const handleCloseEntityTermsModal = () => {
+    setShowEntityTermsModal(false)
   }
 
   const handleOpenPrivacyModal = () => {
@@ -252,7 +252,10 @@ export const FormMetadata = () => {
         <Typography>{i18n.t('entity.pending_steps')}</Typography>
 
         <PendingStepsContainer>
-          <FlexContainer alignItem={FlexAlignItem.Center}  onClick={handleOpenPrivacyModal}>
+          <FlexContainer
+            alignItem={FlexAlignItem.Center}
+            onClick={handleOpenPrivacyModal}
+          >
             <RoundedCheck size={RoundedCheckSize.Small} checked={privacy} />
             <Typography variant={TypographyVariant.Small} margin="0 10px">
               {i18n.t('entity.i_have_read_and_accept_personal_data_protection')}
@@ -261,10 +264,25 @@ export const FormMetadata = () => {
         </PendingStepsContainer>
 
         <PendingStepsContainer>
-          <FlexContainer alignItem={FlexAlignItem.Center} onClick={handleOpenTermsModal}>
+          <FlexContainer
+            alignItem={FlexAlignItem.Center}
+            onClick={handleOpenTermsModal}
+          >
             <RoundedCheck size={RoundedCheckSize.Small} checked={terms} />
             <Typography variant={TypographyVariant.Small} margin="0 10px">
               {i18n.t('entity.i_have_read_and_accept_personal_data_newsletter')}
+            </Typography>
+          </FlexContainer>
+        </PendingStepsContainer>
+
+        <PendingStepsContainer>
+          <FlexContainer
+            alignItem={FlexAlignItem.Center}
+            onClick={handleOpenEntityTermsModal}
+          >
+            <RoundedCheck size={RoundedCheckSize.Small} checked={entityTerms} />
+            <Typography variant={TypographyVariant.Small} margin="0 10px">
+              {i18n.t('entity.i_have_read_and_accept_entity_terms')}
             </Typography>
           </FlexContainer>
         </PendingStepsContainer>
@@ -275,6 +293,12 @@ export const FormMetadata = () => {
           <Switch>
             <Case condition={!terms}>
               <Button positive onClick={handleOpenTermsModal}>
+                {i18n.t('action.check_terms_and_conditions')}
+              </Button>
+            </Case>
+
+            <Case condition={!entityTerms}>
+              <Button positive onClick={handleOpenEntityTermsModal}>
                 {i18n.t('action.check_terms_and_conditions')}
               </Button>
             </Case>
@@ -302,6 +326,11 @@ export const FormMetadata = () => {
       <TermsModal
         visible={showTermsModal}
         onCloseTerms={handleCloseTermsModal}
+      />
+
+      <EntityTermsModal
+        visible={showEntityTermsModal}
+        onCloseEntityTerms={handleCloseEntityTermsModal}
       />
     </Grid>
   )
