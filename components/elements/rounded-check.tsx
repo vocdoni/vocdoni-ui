@@ -39,7 +39,7 @@ const RoundedCheckVariantStyle = {
   [RoundedCheckSize.Small]: (theme: DefaultTheme) => `
   width: 18px;
   height: 18px;
-
+  
   & > svg {
     width: 14px;
     margin: 3px;
@@ -67,6 +67,7 @@ const RoundedCheckVariantStyle = {
 
 const BaseSpinner = styled.div<{ checkSize?: RoundedCheckSize }>`
   border-radius: 50%;
+  flex-shrink: 0;
   ${({ checkSize, theme }) => RoundedCheckVariantStyle[checkSize || RoundedCheckSize.Regular](theme)}
 `
 

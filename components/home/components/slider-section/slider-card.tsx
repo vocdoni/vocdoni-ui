@@ -96,11 +96,14 @@ const CardContainer = styled(PageCard)`
 const QuoteImageContainer = styled.div<{ image: string }>`
   width: 50%;
   overflow: hidden;
+  position: relative;
+  min-height: 300px;
   padding-top: 40px;
   background: ${({ image }) => image};
 
   & > img {
-    margin-bottom: -10px;
+    position: absolute;
+    bottom: 0;
   }
 
   @media ${({ theme }) => theme.screenMax.tabletL} {

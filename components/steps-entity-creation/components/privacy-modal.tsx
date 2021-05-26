@@ -14,16 +14,13 @@ import { useEntityCreation } from '@hooks/entity-creation'
 
 interface IPrivacyModalProps {
   visible: boolean
-  // onAcceptPrivacy: () => void
   onClosePrivacy: () => void
 }
 
 export const PrivacyModal = ({
   visible,
-  // onAcceptPrivacy,
   onClosePrivacy,
 }: IPrivacyModalProps) => {
-  // const [privacy, setAcceptPrivacy] = useState<boolean>(false)
   const {privacy, methods} = useEntityCreation()
   const lang = i18n.language
 

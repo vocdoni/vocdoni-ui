@@ -51,6 +51,7 @@ export const HeroBanner = () => (
 
 const BannerContainer = styled.div`
   height: 530px;
+  margin-top: -50px;
   width: 100%;
   overflow: hidden;
   position: relative;
