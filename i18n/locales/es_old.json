@@ -16,7 +16,8 @@
     },
     "action": {
         "create_my_entity": "Crear tu entidad",
-        "clear": "Limpiar"
+        "clear": "Limpiar",
+        "retry": "Reintentar"
     },
     "home": {
         "hero_subtitle": "El protocolo de voto más seguro y flexible para organizar todo tipo de procesos de votación",

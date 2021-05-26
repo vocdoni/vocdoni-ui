@@ -53,7 +53,7 @@ export const FormCreation = () => {
         <SectionText align={TextAlign.Center}>{body}</SectionText>
       </TextContainer>
 
-      <FlexContainer justify={FlexJustifyContent.SpaceAround}>
+      <ButtonsContainer justify={FlexJustifyContent.SpaceAround}>
         <Button
           border
           width={200}
@@ -65,7 +65,7 @@ export const FormCreation = () => {
         <Button positive onClick={callToAction} width={200}>
           {buttonText}
         </Button>
-      </FlexContainer>
+      </ButtonsContainer>
     </ErrorContainer>
   )
 
@@ -82,9 +82,9 @@ export const FormCreation = () => {
             {renderErrorTemplate(
               i18n.t('errors.something_went_wrong'),
               i18n.t(
-                'vote.the_blockchain_network_is_congested_for_these_reason_te_transactions_could_spend_several_minutes_dont_worry_we_keep_the_data_to_follow_the_process'
+                'entity.we_found_some_problems_creating_the_process_try_again'
               ),
-              i18n.t('vote.retry'),
+              i18n.t('entity.retry'),
               methods.continueProcessCreation
             )}
           </Then>
@@ -122,6 +122,10 @@ export const FormCreation = () => {
     </Grid>
   )
 }
+
+const ButtonsContainer = styled(FlexContainer)`
+  width: 100%
+`
 
 const TextContainer = styled.div`
   margin-bottom: 30px;

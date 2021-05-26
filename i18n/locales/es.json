@@ -7,7 +7,6 @@
         "continue": "Continuar",
         "go_back": "Atrás",
         "preview_proposal": "Previsualizar",
-        "retry": "Reintentar",
         "sign_in": "Iniciar sesión"
     },
     "backup": {
@@ -139,10 +138,12 @@
         "passphrase_image_alt": "Contraseña",
         "pending_steps": "Pendiente",
         "repeat_passphrase": "Repite la contraseña",
+        "retry": "",
         "signing_transactions": "Creando tu entidad localmente",
         "this_will_be_the_email_for_the_members_of_the_entity_to_contact_you": "Los miembros de la entidad pueden contactar a través de esta dirección de correo electrónico",
         "validating_creation": "Sincronizando la cuenta con la cadena de bloques",
         "we_are_ready": "¡Listo!",
+        "we_found_some_problems_creating_the_process_try_again": "",
         "why_this_is_important": "¿Por qué ésto es importante?",
         "your_account_is_protected_store_file_safe_place": "Ahora, tu cuenta está protegida, guarda este archivo en un lugar seguro",
         "your_company_was_created_successfully_no_you_cant_create_a_new_amg_proposal": "Cuenta creada con éxito. Ahora, ya puedes crear un proceso de votación"

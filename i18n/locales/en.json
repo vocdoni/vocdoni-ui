@@ -7,7 +7,6 @@
         "continue": "Continue",
         "go_back": "Go back",
         "preview_proposal": "Preview",
-        "retry": "Retry",
         "sign_in": "Sign in"
     },
     "backup": {
@@ -139,10 +138,12 @@
         "passphrase_image_alt": "Password",
         "pending_steps": "Pending",
         "repeat_passphrase": "Repeat the password",
+        "retry": "Retry",
         "signing_transactions": "Creating your account locally",
         "this_will_be_the_email_for_the_members_of_the_entity_to_contact_you": "Members of your entity may contact you using this e-mail address",
         "validating_creation": "Syncing your account with the blockchain",
         "we_are_ready": "We’re ready!",
+        "we_found_some_problems_creating_the_process_try_again": "we found some problems creating the process try again, click retry to try again",
         "why_this_is_important": "Why this is important?",
         "your_account_is_protected_store_file_safe_place": "Your account is now protected, store this file in a safe place",
         "your_company_was_created_successfully_no_you_cant_create_a_new_amg_proposal": "Your entity was created successfully. Now you can create a voting proposal"

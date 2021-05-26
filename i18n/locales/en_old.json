@@ -88,7 +88,8 @@
         "create_new_proposal": "Create new proposal",
         "go_to_dashboard": "Go to the Dashboard",
         "create_my_entity": "Create my entity",
-        "clear": "Clear"
+        "clear": "Clear",
+        "retry": "Retry"
     },
     "import": {
         "error_importing_account": "Error importing account",

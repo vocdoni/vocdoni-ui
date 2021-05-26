@@ -45,7 +45,8 @@
         "create_new_proposal": "",
         "go_to_dashboard": "",
         "create_my_entity": "Crea la teva entitat",
-        "clear": "Neteja"
+        "clear": "Neteja",
+        "retry": "Torna-ho a intentar"
     },
     "errors": {
         "internal_error_please_log_in_again": "",

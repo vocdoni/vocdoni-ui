@@ -173,7 +173,6 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
   }
 
   const stepEnsureValidParams: StepperFunc = () => {
-
     // TODO: Do a synchronous check that the process params make sense and contain no incompatible values
 
     if (isNaN(parameters.startBlock) || isNaN(parameters.blockCount))

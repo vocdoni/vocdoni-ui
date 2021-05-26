@@ -42,7 +42,7 @@ export const addOffsetToDate = (date: Date, days = 0, hours = 0, minutes = 0): D
 export const OptionDateSelector = ({
   onChangeDate,
 }: IOptionDateSelectorProps) => {
-  const [startDate, setStartDate] = useState<Date>(() => addOffsetToDate(new Date(), 0, 0, 7))
+  const [startDate, setStartDate] = useState<Date>(() => addOffsetToDate(new Date(), 0, 0, 20))
   const [endDate, setEndDate] = useState<Date>(() => addOffsetToDate(new Date(), 7))
   const [startOption, setStatOptions] = useState<RadioOptions>(
     RadioOptions.StartDelayed
@@ -51,6 +51,8 @@ export const OptionDateSelector = ({
   useEffect(() => {
     if (startOption === RadioOptions.StartNow) {
       setStartDate(addOffsetToDate(new Date(), 0, 0, 7))
+    } else {
+      setStartDate(addOffsetToDate(new Date(), 0, 0, 20))
     }
   }, [startOption])
 
@@ -96,7 +98,7 @@ export const OptionDateSelector = ({
         <CalendarContainer>
           <DateTimePicker
             value={startDate}
-            minDate={new Date()}
+            minDate={addOffsetToDate(new Date(), 0, 0, 20)}
             onChange={(value) => setStartDate(value)}
             disabled={startOption === RadioOptions.StartNow}
           />

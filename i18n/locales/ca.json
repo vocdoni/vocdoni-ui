@@ -7,7 +7,6 @@
         "continue": "Continua",
         "go_back": "Retrocedeix",
         "preview_proposal": "Previsualitza",
-        "retry": "Torna-ho a intentar",
         "sign_in": "Accedeix-hi"
     },
     "backup": {
@@ -139,10 +138,12 @@
         "passphrase_image_alt": "Contrasenya",
         "pending_steps": "Pendent",
         "repeat_passphrase": "Repeteix la contrasenya",
+        "retry": "",
         "signing_transactions": "Creant la teva entitat localment",
         "this_will_be_the_email_for_the_members_of_the_entity_to_contact_you": "Els membres de l'entitat es poden posar en contacte amb tu utilitzant aquesta adreça de correu electrònic",
         "validating_creation": "Sincronitzant el compte amb la cadena de blocs",
         "we_are_ready": "Llest!",
+        "we_found_some_problems_creating_the_process_try_again": "",
         "why_this_is_important": "Per què això és important?",
         "your_account_is_protected_store_file_safe_place": "El teu compte ara està protegit, guarda aquest fitxer en un lloc segur",
         "your_company_was_created_successfully_no_you_cant_create_a_new_amg_proposal": "Compte creat amb èxit. Ara ja pots crear un procés de votació"
