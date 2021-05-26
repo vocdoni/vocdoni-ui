@@ -51,8 +51,7 @@ export const ViewDetail = ({ process, results, refreshProcessInfo }: IProcessDet
   const blockHeight = blockStatus?.blockNumber || 0
 
   const status: VoteStatus = getVoteStatus(
-    process.parameters.status,
-    process.parameters.startBlock,
+    process,
     blockHeight
   )
 

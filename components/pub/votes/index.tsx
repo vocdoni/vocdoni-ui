@@ -50,7 +50,7 @@ export const VotingPageView = () => {
   const totalVotes = results?.totalVotes || 0
   const { blockStatus } = useBlockStatus()
   const blockHeight = blockStatus.blockNumber
-  const voteStatus: VoteStatus = getVoteStatus(processInfo?.parameters?.status, processInfo?.parameters?.startBlock, blockHeight)
+  const voteStatus: VoteStatus = getVoteStatus(processInfo, blockHeight)
   const explorerLink = process.env.EXPLORER_URL + '/envelope/' + nullifier
 
   let dateDiffStr = ""
