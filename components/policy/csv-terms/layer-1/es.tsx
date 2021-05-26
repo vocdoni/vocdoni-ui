@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const VoterTerms1En = () => (
+export const CsvTerms1Es = () => (
   <>
     <p>voter text</p>
   </>

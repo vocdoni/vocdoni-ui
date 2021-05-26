@@ -1,24 +1,24 @@
 import React from 'react'
 import { When } from 'react-if'
 
-import { VoterTerms1Ca } from './ca'
-import { VoterTerms1En } from './en'
-import { VoterTerms1Es } from './es'
+import { CsvTerms1Ca } from './ca'
+import { CsvTerms1En } from './en'
+import { CsvTerms1Es } from './es'
 
 interface ITermsProps {
   lang: string
 }
 
-export const VoterTerms = ({ lang }: ITermsProps) => (
+export const CsvTerms = ({ lang }: ITermsProps) => (
   <>
     <When condition={!lang || lang === 'es'}>
-      <VoterTerms1Es />
+      <CsvTerms1Es />
     </When>
     <When condition={lang === 'ca'}>
-      <VoterTerms1Ca />
+      <CsvTerms1Ca />
     </When>
     <When condition={lang === 'en'}>
-      <VoterTerms1En />
+      <CsvTerms1En />
     </When>
   </>
 )

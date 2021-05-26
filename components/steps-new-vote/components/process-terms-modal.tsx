@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Modal } from 'react-rainbow-components'
 import i18n from '@i18n'
-import { VoterTerms } from '@components/policy/voter-terms/layer-1'
+import { CsvTerms } from '@components/policy/csv-terms/layer-1'
 import {
   FlexAlignItem,
   FlexContainer,
@@ -27,7 +27,7 @@ export const ProcessTermsModal = ({
   return (
     <Modal onRequestClose={onCloseProcessTerms} isOpen={visible}>
       <TermsContainer>
-        <VoterTerms lang={lang} />
+        <CsvTerms lang={lang} />
 
         <PaddedContainer>
           <FlexContainer alignItem={FlexAlignItem.Center}>
