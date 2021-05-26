@@ -2,7 +2,7 @@ import React from 'react'
 import styled, { useTheme } from 'styled-components'
 import Link from 'next/link'
 import { useWallet } from '../hooks/use-wallet'
-import { DASHBOARD_PATH } from '../const/routes'
+import { DASHBOARD_PATH, PRIVACY_PATH } from '../const/routes'
 import i18n from '../i18n'
 
 export const Footer = () => {
@@ -105,6 +105,13 @@ interface HeaderLink {
 
 
 const LINKS: HeaderLink[] = [
+  {
+    url: PRIVACY_PATH,
+    name: i18n.t("links.privacy_policy"),
+    external: true,
+    logged: true,
+    guest: true
+  },
   {
     url: DASHBOARD_PATH,
     name: i18n.t("links.dashboard"),

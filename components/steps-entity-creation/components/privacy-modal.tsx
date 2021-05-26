@@ -39,7 +39,7 @@ export const PrivacyModal = ({
               checked={privacy}
               onChange={() => methods.setPrivacy(!privacy)}
               text={i18n.t(
-                'entity.i_have_read_and_accept_the_Privacy_of_service'
+                'entity.i_have_read_and_accept_personal_data_protection'
               )}
               hrefNewTab
             />

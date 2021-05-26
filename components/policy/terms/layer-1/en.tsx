@@ -1,46 +1,69 @@
+import { DATA_POLICY_PATH } from '@const/routes'
 import React from 'react'
+import styled from 'styled-components'
 
 export const TermsLayer1En = () => (
-  <div>
-    <h1>Condiciones del servicio</h1>
-    <p>Se hace constar expresamente:</p>
+  <>
+
     <p>
-      1) Que en relación con la prestación del servicio de votación electrónica,
-      VOCDONI únicamente trata ciertos datos de contacto de las entidades, en
-      relación con los cuales adquiere la condición de responsable del
-      tratamiento.{' '}
+      In compliance with the provisions of Regulation 2016/679, of the European Parliament and of the Council, of April 27, 2016 (GDRP), Aragon Labs, as data controller, informs you that your personal data is accurate for the provision of the interested request, and that these data will be processed, as indicated in the record of the processing activities provided for in article 30 of the GDRP.
     </p>
-    <p>
-      VOCDONI no trata datos personales de los participantes en las votaciones
-      electrónicas. Dichos datos son tratados por la entidad que contrata el
-      servicio de votación electrónica con VOCDONI, motivo por el cual la
-      ENTIDAD es el responsable del tratamiento de dichos datos, y queda
-      obligado al cumplimiento de las obligaciones que pertoquen en tal
-      condición.
-    </p>
-    <p>
-      2) Que el resultado de la votación estará disponible públicamente en
-      Vochain, una blockchain pública de lectura y permisionada de escritura.
-      Por ello no es posible controlar que la lectura de las votaciones se haga
-      por todo aquel que tenga acceso a Vochain.{' '}
-    </p>
-    <p>
-      No obstante, los datos depositados se tratan de datos anonimizados, y por
-      tanto, no tienen la consideración de datos personales. De conformidad con
-      el considerando 26 del RGPD, los principios de protección de datos no
-      deben aplicarse a la información anónima, es decir información que no
-      guarda relación con una persona física identificada o identificable, ni a
-      los datos convertidos en anónimos de forma que el interesado no sea
-      identificable, o deje de serlo. Por tanto el Reglamento no afecta al
-      tratamiento de dicha información anónima, inclusive con fines estadísticos
-      o de investigación.
-    </p>
-    <p>
-      3) VOCDONI recomienda que, atendiendo a la sensibilidad de la concreta
-      votación, el conjunto de atributos requeridos a los votantes no suponga
-      una reidentificación de los mismos. En este sentido, no se permite
-      solicitar como atributo el DNI en relación con una votación que afecte a
-      datos de carácter especial.
-    </p>
-  </div>
+
+    <p>The following information is also provided <strong> (Layer 1)</strong>:</p>
+    <TableWrapper>
+      <table>
+        <tbody>
+        <tr>
+        <td colSpan={2}>Basic Information on Data Protection</td>
+        </tr>
+          <tr>
+            <td>Responsible</td>
+            <td>The personal data that is collected directly from the applicant for the voting process will be treated confidentially and will be incorporated into the corresponding treatment activity owned by Aragon Labs
+</td>
+          </tr>
+          <tr>
+            <td>Purpose</td>
+            <td> Sending information, advertising, subscription to the newsletter of news and assistance</td>
+          </tr>
+          <tr>
+            <td>Legitimation</td>
+            <td> <p>
+            The legal basis for the treatment in relation to sending information, assistance Advertising and advertising on Aragon Labs products and services is the consent referred to in article 6.1.a) GDRP, and article 7 of the GDRP.
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td>Recipients</td>
+            <td>Your personal data will not be transferred to third parties, nor will it be transferred outside the European Union</td>
+          </tr>
+          <tr>
+            <td>Rights</td>
+            <td>Access, rectify and delete data, as well as other rights, as explained in the additional information Additional</td>
+          </tr>
+          <tr>
+            <td>Additional Information (layer 2)</td>
+            <td>You can consult the additional information and detailed information on Data Protection on our website::
+            <a target="_blank" href={DATA_POLICY_PATH}>https://vocdoni.app{DATA_POLICY_PATH}</a>
+            </td>
+          </tr>
+          <tr>
+            <td>Source (provenance) of the data in the event that the personal data has not been obtained directly from you</td>
+            <td>Does not apply.</td>
+          </tr>
+        </tbody>
+      </table>
+    </TableWrapper>
+  </>
 )
+
+
+const TableWrapper = styled.div`
+  & > table > tbody > tr > td {
+    padding: 10px;
+    border: solid 3px ${({ theme }) => theme.lightBorder};
+  }
+
+  & > table > tbody > tr > td:first-child {
+    font-weight: bold;
+  }
+`

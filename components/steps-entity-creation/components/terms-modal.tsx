@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Modal } from 'react-rainbow-components'
 import i18n from '@i18n'
-import { Privacy } from '@components/policy/privacy/layer-1'
+import { Terms } from '@components/policy/terms/layer-1'
 import {
   FlexAlignItem,
   FlexContainer,
@@ -29,7 +29,7 @@ export const TermsModal = ({
   return (
     <Modal onRequestClose={onCloseTerms} isOpen={visible}>
       <TermsContainer>
-        <Privacy lang={lang} />
+        <Terms lang={lang} />
 
         <PaddedContainer>
           <FlexContainer alignItem={FlexAlignItem.Center}>
@@ -38,7 +38,7 @@ export const TermsModal = ({
               checked={terms}
               onChange={() => methods.setTerms(!terms)}
               text={i18n.t(
-                'entity.i_have_read_and_accept_the_terms_of_service'
+                'entity.i_have_read_and_accept_personal_data_newsletter'
               )}
               hrefNewTab
             />

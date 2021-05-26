@@ -63,7 +63,10 @@
         "invalid_file_type": "",
         "invalid_xls_file": "",
         "supported_formats_bak": "Supported formats backup",
-        "go_to_dashboard": "Go to th"
+        "go_to_dashboard": "Go to th",
+        "i_have_read_and_accept_the_privacy_policy": "I have read and accept the Privacy Policy",
+        "i_have_read_and_accept_the_Privacy_of_service": "",
+        "i_have_read_and_accept_the_terms_of_service": "I have read and accept the Terms of Service"
     },
     "this_is_the_form_that_your_community_will_need_to_fill_in_order_to_vote": "",
     "process": {
