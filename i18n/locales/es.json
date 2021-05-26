@@ -137,7 +137,7 @@
         "new_entity": "Nueva Entidad",
         "passphrase": "Contraseña",
         "passphrase_image_alt": "Contraseña",
-        "pending_steps": "Pendiente",
+        "pending_steps": " ",
         "repeat_passphrase": "Repite la contraseña",
         "signing_transactions": "Creando tu entidad localmente",
         "this_will_be_the_email_for_the_members_of_the_entity_to_contact_you": "Los miembros de la entidad pueden contactar a través de esta dirección de correo electrónico",

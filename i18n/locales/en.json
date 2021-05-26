@@ -137,7 +137,7 @@
         "new_entity": "Entity name",
         "passphrase": "Password",
         "passphrase_image_alt": "Password",
-        "pending_steps": "Pending",
+        "pending_steps": " ",
         "repeat_passphrase": "Repeat the password",
         "signing_transactions": "Creating your account locally",
         "this_will_be_the_email_for_the_members_of_the_entity_to_contact_you": "Members of your entity may contact you using this e-mail address",

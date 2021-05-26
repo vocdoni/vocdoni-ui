@@ -23,13 +23,13 @@ export const PrivacyLayer2En = () => (
       <p ></p>
       <p >The data controller can be reached through the following contact details: </p>
       <p ></p>
-      <p >Email: roger@aragonlabs.com</p>
+      <p >Email: privacy@aragonlabs.com</p>
       <p >Telephone: +372 54680950</p>
       <p ></p>
       <p >For any security or privacy matters, including the exercise of any data subject rights,
     the Data Protection Officer of Aragon Labs AG can be reached using the following contact details: </p>
       <p ></p>
-      <p >Roger Baig privacy@aragonlabs.com</p>
+      <p >Roger Baig dpo@aragonlabs.com</p>
       <p ></p>
       <p ></p>
 

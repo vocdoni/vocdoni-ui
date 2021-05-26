@@ -18,7 +18,7 @@ const PageView = () => {
 <p></p>
             <h4>¿Quién es el Responsable del tratamiento de sus datos?</h4>
             <p>Identidad: Aragon Labs, AG</p>
-            {/* <p>Registration number: </p> */}
+            <p>CIF:  CH-170.3.045.491-2</p>
             <p>Dir. postal: Bahnhofstrasse, 20, 6300 Zug, Switzerland</p>
             <p>Teléfono: +372 54680950</p>
             <p>Correo electrónico: privacy@aragonlabs.com</p>
@@ -84,7 +84,7 @@ const PageView = () => {
 <p></p>
             <h4>Who is responsible for the processing of your data?</h4>
             <p>Identity: Aragon Labs, AG</p>
-            {/* <p>Registration number: </p> */}
+            <p>Registration number: CH-170.3.045.491-2</p>
             <p>Postal address: Bahnhofstrasse, 20, 6300 Zug, Switzerland</p>
             <p>Telephone: +372 54680950</p>
             <p>Email: privacy@aragonlabs.com</p>
