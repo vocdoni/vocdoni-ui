@@ -1,6 +1,8 @@
 {
     "action": {
         "browse": "Navegar",
+        "check_privacy_policy": "",
+        "check_terms_and_conditions": "",
         "clean": "Limpiar",
         "continue": "Continuar",
         "go_back": "Atrás",
@@ -108,6 +110,8 @@
         "starting_tomorrow": "Empieza mañana"
     },
     "entity": {
+        "accept_Privacy": "Estoy de acuerdo",
+        "accept_terms": "Estoy de acuerdo",
         "acknowledge_passphrase_implications": "Soy consciente de que la pérdida de la contraseña implica perder también el acceso a la cuenta de mi entidad",
         "brief_description": "Breve descripción de la entidad",
         "choose_a_passphrase": "Escoger contraseña",
@@ -126,13 +130,14 @@
         "entity_details": "Detalles de la entidad",
         "go_to_the_dashboard": "Volver al inicio",
         "header": "Cabecera",
-        "i_have_read_and_accept_the_privacy_policy": "He leído y acepto la Política de Privacidad",
-        "i_have_read_and_accept_the_terms_of_service": "He leído y acepto los Términos del servicio",
+        "i_have_read_and_accept_personal_data_newsletter": "Consiento que VOCDONI trate mis datos personales con la finalidad de tramitar mi alta en su Newsletter, y/o para recibir avisos comerciales o informativos, y de asistencia. Para más información sobre cómo lo haremos y cómo ejercer tus derechos de Protección de Datos puede consultar nuestra política de privacidad",
+        "i_have_read_and_accept_personal_data_protection": "Que he sido informado de los contenidos correspondientes a la normativa en materia de protección de los datos personales, y del cumplimiento de las obligaciones que corresponden a VOCDONI en su condición de responsable del tratamiento de los datos que facilito, con la finalidad de que se preste el servicio, en virtud del artículo 13 RGPD y resto de artículos concordantes. Para más información sobre cómo lo haremos y cómo ejercer tus derechos de Protección de Datos puede consultar nuestra política de privacidad",
         "logo": "Logo de la entidad",
         "name": "Nombre de la entidad",
         "new_entity": "Nueva Entidad",
         "passphrase": "Contraseña",
         "passphrase_image_alt": "Contraseña",
+        "pending_steps": "Pendiente",
         "repeat_passphrase": "Repite la contraseña",
         "signing_transactions": "Creando tu entidad localmente",
         "this_will_be_the_email_for_the_members_of_the_entity_to_contact_you": "Los miembros de la entidad pueden contactar a través de esta dirección de correo electrónico",
@@ -319,6 +324,7 @@
         "docs": "Documentos",
         "help": "Ayuda",
         "pricing": "Precio",
+        "privacy_policy": "Política de Privacidad",
         "support": "Soporte"
     },
     "preview": {

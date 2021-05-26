@@ -1,6 +1,8 @@
 {
     "action": {
         "browse": "Browse",
+        "check_privacy_policy": "",
+        "check_terms_and_conditions": "",
         "clean": "Clean",
         "continue": "Continue",
         "go_back": "Go back",
@@ -108,6 +110,8 @@
         "starting_tomorrow": "Starting tomorrow"
     },
     "entity": {
+        "accept_Privacy": "I agree",
+        "accept_terms": "I agree",
         "acknowledge_passphrase_implications": "I acknowledge that losing my password will prevent the ability to access my account in the future",
         "brief_description": "Brief description of the entity",
         "choose_a_passphrase": "Choose a password",
@@ -126,13 +130,14 @@
         "entity_details": "Entity details",
         "go_to_the_dashboard": "Go to the dashboard",
         "header": "Entity header",
-        "i_have_read_and_accept_the_privacy_policy": "I have read and accept the Privacy Policy",
-        "i_have_read_and_accept_the_terms_of_service": "I have read and accept the Terms of Service",
+        "i_have_read_and_accept_personal_data_newsletter": "I consent to Aragon Labs treating my personal data in order to process my registration in its Newsletter, and / or to receive commercial or informative notices, and assistance. For more information on how we will do it and how to exercise your Data Protection rights, you can consult our privacy policy ",
+        "i_have_read_and_accept_personal_data_protection": "That I have been informed of the contents corresponding to the regulations on the protection of personal data, and of the fulfillment of the obligations that correspond to Aragon Labs in its capacity as responsible for the treatment of the data that I provide, with the purpose of that the service is provided, by virtue of article 13 RGPD and other concordant articles. For more information on how we will do it and how to exercise your Data Protection rights, you can consult our privacy policy",
         "logo": "Entity logo",
         "name": "Name of the entity",
         "new_entity": "Entity name",
         "passphrase": "Password",
         "passphrase_image_alt": "Password",
+        "pending_steps": "Pending",
         "repeat_passphrase": "Repeat the password",
         "signing_transactions": "Creating your account locally",
         "this_will_be_the_email_for_the_members_of_the_entity_to_contact_you": "Members of your entity may contact you using this e-mail address",
@@ -319,6 +324,7 @@
         "docs": "Docs",
         "help": "Help center",
         "pricing": "Pricing",
+        "privacy_policy": "Privacy Policy",
         "support": "Support"
     },
     "preview": {
