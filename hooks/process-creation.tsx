@@ -29,6 +29,9 @@ import { isUri } from '../lib/regex'
 import { SpreadSheetReader } from '../lib/spread-sheet-reader'
 import { utils } from 'ethers'
 
+import { InvalidStartDateError } from '@lib/validators/errors/invalid-start-date-error'
+import { NoDataAvailableError } from '@lib/validators/errors/no-data-available-error'
+
 export interface ProcessCreationContext {
   metadata: ProcessMetadata,
   parameters: ProcessContractParameters,
@@ -37,7 +40,7 @@ export interface ProcessCreationContext {
   processId: string,
   created: boolean,
   pleaseWait: boolean,
-  creationError: string,
+  creationError: Error,
   headerFile: File,
   headerURL: string,
   startRightAway: boolean,
@@ -184,8 +187,8 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
     if (!startRightAway) {
       const localStartDate = VotingApi.estimateDateAtBlockSync(parameters.startBlock, blockStatus)
 
-      if (Math.abs(moment(localStartDate).diff(moment.now(), 'minute')) < 7) {
-        return Promise.reject(new Error(i18n.t('errors.process.invalid_start_date')))
+      if (Math.abs(moment(localStartDate).diff(moment.now(), 'minute')) < 10) {
+        return Promise.reject(new InvalidStartDateError())
       }
     }
 
@@ -274,7 +277,7 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
         }
 
         // Nothing after timeout
-        return Promise.reject(new Error(i18n.t('error.the_vote_is_not_available_yet')))
+        return Promise.reject(new NoDataAvailableError())
       })
       .catch((error) => {
         console.error(error)
@@ -331,7 +334,7 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
     created: actionStep >= creationStepFuncs.length,
     actionStep: actionStep,
     pleaseWait,
-    creationError: typeof creationError == "string" ? creationError : creationError?.message,
+    creationError: typeof creationError == "string" ? new Error(creationError) : creationError,
     headerFile,
     headerURL,
     startRightAway,

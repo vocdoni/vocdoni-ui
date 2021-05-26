@@ -1,6 +1,6 @@
 import React, { ReactElement, useEffect } from 'react'
 import styled from 'styled-components'
-import { Else, If, Then, Unless, When } from 'react-if'
+import { Case, Default, Else, If, Switch, Then, Unless, When } from 'react-if'
 
 import { useMessageAlert } from '../../hooks/message-alert'
 import { useProcessCreation } from '../../hooks/process-creation'
@@ -15,6 +15,8 @@ import { useScrollTop } from '@hooks/use-scroll-top'
 import { ProcessCreationPageSteps } from '.'
 import { colors } from 'theme/colors'
 import { FlexContainer, FlexJustifyContent } from '@components/flex'
+import { NoDataAvailableError } from '@lib/validators/errors/no-data-available-error'
+import { InvalidStartDateError } from '@lib/validators/errors/invalid-start-date-error'
 // import { CREATE_PROCESS_PATH, DASHBOARD_PATH } from '../../const/routes'
 
 const processSteps = [
@@ -39,8 +41,8 @@ export const FormCreation = () => {
   const renderErrorTemplate = (
     title: string,
     body: ReactElement,
-    buttonText: string,
-    callToAction: () => void
+    buttonText?: string,
+    callToAction?: () => void
   ) => (
     <ErrorContainer>
       <TextContainer>
@@ -62,32 +64,55 @@ export const FormCreation = () => {
           {i18n.t('action.go_back')}
         </Button>
 
-        <Button positive onClick={callToAction} width={200}>
-          {buttonText}
-        </Button>
+        {!!callToAction && (
+          <Button positive onClick={callToAction} width={200}>
+            {buttonText}
+          </Button>
+        )}
       </ButtonsContainer>
     </ErrorContainer>
   )
 
   useEffect(() => {
-    setAlertMessage(creationError)
+    setAlertMessage(creationError.message)
   }, [creationError])
 
   return (
     <Grid>
       <Column>
-        <If condition={creationError}>
-          <Then>
-            {/* DISPLAY ERROR */}
-            {renderErrorTemplate(
-              i18n.t('errors.something_went_wrong'),
-              i18n.t(
-                'entity.we_found_some_problems_creating_the_process_try_again'
-              ),
-              i18n.t('entity.retry'),
-              methods.continueProcessCreation
-            )}
-          </Then>
+        <If condition={!!creationError}>
+          <Switch>
+            <Case condition={creationError instanceof NoDataAvailableError}>
+              {renderErrorTemplate(
+                i18n.t('errors.error_checking_the_data'),
+                i18n.t(
+                  'entity.the_blockchain_network_is_congested_for_these_reason_te_transactions_could_spend_several_minutes_dont_worry_we_keep_the_data_to_follow_the_process'
+                ),
+                i18n.t('entity.retry'),
+                methods.continueProcessCreation
+              )}
+            </Case>
+
+            <Case condition={creationError instanceof InvalidStartDateError}>
+              {renderErrorTemplate(
+                i18n.t('errors.invalid_start_date'),
+                i18n.t(
+                  'entity.invalid_start_date_the_start_date_must_be_at_least_20_minutes_from_now_please_update_start_date_and_create_again'
+                )
+              )}
+            </Case>
+
+            <Default>
+              {renderErrorTemplate(
+                i18n.t('errors.something_went_wrong'),
+                i18n.t(
+                  'entity.we_found_some_problems_creating_the_process_try_again'
+                ),
+                i18n.t('entity.retry'),
+                methods.continueProcessCreation
+              )}
+            </Default>
+          </Switch>
           <Else>
             {/* PLEASE WAIT */}
             <ProcessLoader
@@ -124,7 +149,7 @@ export const FormCreation = () => {
 }
 
 const ButtonsContainer = styled(FlexContainer)`
-  width: 100%
+  width: 100%;
 `
 
 const TextContainer = styled.div`
