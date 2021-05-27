@@ -6,7 +6,7 @@ export const PrivacyLayer1Es = () => (
   <>
     <p>
       En cumplimiento de lo dispuesto por el Reglamento 2016/679, del Parlamento
-      Europeo y del Consejo, de 27 de abril de 2016 (RGPD), VOCDONI, como
+      Europeo y del Consejo, de 27 de abril de 2016 (RGPD), Aragon Labs, como
       responsable del tratamiento, le informa que sus datos personales son
       precisos para la prestación del servicio contratado, y que estos datos
       serán objeto de tratamiento, conforme a lo indicado en el registro de las
@@ -24,7 +24,7 @@ export const PrivacyLayer1Es = () => (
             <td>Los datos de carácter personal que se recaban directamente del
             solicitante del proceso de votación serán tratados de forma confidencial
             y quedarán incorporados a la correspondiente actividad de tratamiento
-      titularidad de VOCDONI.</td>
+      titularidad de Aragon Labs.</td>
           </tr>
           <tr>
             <td>Finalidad</td>
@@ -35,7 +35,7 @@ export const PrivacyLayer1Es = () => (
             <td>Legitimación</td>
             <td> <p>  La debida relación con los solicitantes del servicio de votación electrónica, y la gestión comercial y de servicios.</p>
               <p>La base legal para el tratamiento de sus datos es la ejecución del contrato a que se refiere el artículo 6.1.b) RGPD.</p>
-              <p>La base legal para el mantenimiento de relaciones comerciales es el interés legítimo de VOCDONI a que se refiere el artículo 6.1.f) RGPD. </p>
+              <p>La base legal para el mantenimiento de relaciones comerciales es el interés legítimo de Aragon Labs a que se refiere el artículo 6.1.f) RGPD. </p>
           </td>
         </tr>
         <tr>
