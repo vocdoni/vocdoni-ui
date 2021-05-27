@@ -1,14 +1,14 @@
 {
     "action": {
         "browse": "Navega",
-        "check_privacy_policy": "",
-        "check_terms_and_conditions": "",
+        "check_privacy_policy": "Revisar política de privacitat",
+        "check_terms_and_conditions": "Revisar termes i condicions",
         "clean": "Neteja",
         "continue": "Continua",
         "go_back": "Retrocedeix",
         "preview_proposal": "Previsualitza",
         "retry": "Torna-ho a intentar",
-        "review_process_terms_and_conditions": "",
+        "review_process_terms_and_conditions": "Revisar termes i condicions",
         "sign_in": "Accedeix-hi"
     },
     "backup": {
@@ -111,7 +111,7 @@
         "starting_tomorrow": "Comença demà"
     },
     "entity": {
-        "accept_entity_terms": "",
+        "accept_entity_terms": "Estic d'accord",
         "accept_Privacy": "Estic d'accord",
         "accept_terms": "Estic d'accord",
         "acknowledge_passphrase_implications": "Accepto el fet que la pèrdua de la contrasenya comporta la impossibilitat d'accedir a la meva entitat posteriorment",
@@ -141,7 +141,7 @@
         "new_entity": "Nom de l'entitat",
         "passphrase": "Contrasenya",
         "passphrase_image_alt": "Contrasenya",
-        "pending_steps": " ",
+        "pending_steps": "",
         "repeat_passphrase": "Repeteix la contrasenya",
         "signing_transactions": "Creant la teva entitat localment",
         "this_will_be_the_email_for_the_members_of_the_entity_to_contact_you": "Els membres de l'entitat es poden posar en contacte amb tu utilitzant aquesta adreça de correu electrònic",
@@ -425,6 +425,7 @@
         "forum_link_label": "Aquest camp és opcional",
         "go_back_to_home_page": "Torna a la pàgina d'inici",
         "header_image": "Imatge de capçalera",
+        "i_have_read_and_accept_csv_terms": "",
         "import_the_list_of_voters": "Importa la llista de votants",
         "invalid_file_type": "Fitxer invàlid. Formats acceptats: XLS, XLSX, CSV, ODT",
         "invalid_xls_file": "Format del fitxer invàlid",
@@ -504,9 +505,5 @@
         "your_vote_has_been_successfully_registered": "El teu vot ha estat registrat correctament",
         "your_vote_is_set_up": "La votació s'ha creat",
         "your_vote_process_is_being_created": "Has creat el procés de votació"
-    },
-    "voter": {
-        "accept_entity_terms": "",
-        "i_have_read_and_accept_the_entity_terms": ""
     }
 }

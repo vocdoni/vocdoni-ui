@@ -2,7 +2,9 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Modal } from 'react-rainbow-components'
 import i18n from '@i18n'
-import { CsvTerms } from '@components/policy/csv-terms/layer-1'
+import { Terms } from '@components/policy/terms/layer-2'
+
+// import { CsvTerms } from '@components/policy/csv-terms/layer-1'
 import {
   FlexAlignItem,
   FlexContainer,
@@ -27,8 +29,8 @@ export const ProcessTermsModal = ({
   return (
     <Modal onRequestClose={onCloseProcessTerms} isOpen={visible}>
       <TermsContainer>
-        <CsvTerms lang={lang} />
-
+        {/* <CsvTerms lang={lang} /> */}
+        <Terms lang={lang} />
         <PaddedContainer>
           <FlexContainer alignItem={FlexAlignItem.Center}>
             <Checkbox
@@ -36,7 +38,7 @@ export const ProcessTermsModal = ({
               checked={processTerms}
               onChange={() => methods.setProcessTerms(!processTerms)}
               text={i18n.t(
-                'voter.i_have_read_and_accept_the_entity_terms'
+                'vote.i_have_read_and_accept_csv_terms'
               )}
               hrefNewTab
             />
@@ -46,7 +48,7 @@ export const ProcessTermsModal = ({
         <PaddedContainer>
           <FlexContainer justify={FlexJustifyContent.Center}>
             <Button positive disabled={!processTerms} onClick={onCloseProcessTerms}>
-              {i18n.t('voter.accept_entity_terms')}
+              {i18n.t('action.check_terms_and_conditions')}
             </Button>
           </FlexContainer>
         </PaddedContainer>
