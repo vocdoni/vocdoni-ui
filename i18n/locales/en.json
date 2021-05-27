@@ -425,7 +425,7 @@
         "forum_link_label": "This field is optional",
         "go_back_to_home_page": "Go back to home page",
         "header_image": "Header image",
-        "i_have_read_and_accept_csv_terms": "",
+        "i_have_read_and_accept_csv_terms": "I have read and agree to the terms and conditions of this method for organizing voting processes",
         "import_the_list_of_voters": "Import the list of voters",
         "invalid_file_type": "Invalid file type. Supported types: XLS, XLSX, CSV, ODT",
         "invalid_xls_file": "Invalid file format",
