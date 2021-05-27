@@ -12,3 +12,5 @@ export const PrivacyApp = () => {
     </PageCard >
   )
 }
+
+export default PrivacyApp
