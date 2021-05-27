@@ -8,7 +8,8 @@
     },
     "vote": {
         "header": "Nuevo proceso",
-        "short_name_to_identify_the_process": "Nombre del proceso"
+        "short_name_to_identify_the_process": "Nombre del proceso",
+        "the_process_must_begin_at_least_20_minutes_latter": ""
     },
     "errors": {
         "the_entity_name_already_exits": "",

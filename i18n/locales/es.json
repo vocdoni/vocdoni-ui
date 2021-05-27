@@ -387,6 +387,7 @@
         "question": "Pregunta {{ number }}"
     },
     "vote": {
+        "accept_terms": "Estoy de acuerdo",
         "active_vote": "Proceso activo",
         "add_new_question": "Añade una nueva pregunta",
         "add_option": "Añade más opciones",
@@ -460,9 +461,9 @@
         "settings": "Configuración",
         "something_was_wrong_please_click_retry_to_try_again_the_entity_creation_if_fails_again_contact_with_our_support_team": "Por favor, espera un rato y vuelve a intentarlo. Si el problema persiste, ponte en contacto con el equipo de soporte.",
         "start_date": "Fecha de inicio",
-        "start_date_explanation": "",
+        "start_date_explanation": "Fecha de inicio para la aceptación de votos",
         "start_on_a_specific_date": "Iniciar en una fecha concreta",
-        "start_right_away_7_minutes_from_now": "Iniciar ahora (este proceso puede tardar 7 minutos aproximadamente)",
+        "start_right_away_7_minutes_from_now": "Iniciar ahora (este proceso puede tardar 20 minutos aproximadamente)",
         "stream_link": "Enlace del video streaming",
         "stream_link_explanation": "Si quieres emitir tu proceso en vivo puedes incluir un video streaming. Puede ser, por ejemplo, un stream de youtube.",
         "stream_link_label": "Este campo es opcional",
@@ -473,6 +474,7 @@
         "the_blockchain_network_is_congested_for_these_reason_te_transactions_could_spend_several_minutes_dont_worry_we_keep_the_data_to_follow_the_process": "La red de la cadena de bloques está congestionada. Por esta razón las transacciones pueden tardar unos minutos. No te preocupes, nosotros las guardamos para garantizar su entrega.",
         "the_entity_name_already_exist": "El nombre de entidad ya existe",
         "the_first_row_of_the_spreadsheet_will_be_used_as_the_name": "La primera fila de la hoja de cálculo se utilizará como nombre para los campos que se solicitaran a los votantes. No se tendrán en cuenta los acentos ni las mayúsculas. Así pues, alguien que se llame José Martínez, podrá acceder también introduciendo JOSE MARTINEZ",
+        "the_process_must_start_at_least_20_minutes_latter": "El proceso ha de empezar al menos 20 minutos mas tarde de la hora actual",
         "the_vote_will_end_at_the_given_time": "La votación terminará a la hora predeterminada. También puedes  cerrarla manualmente, si lo necesitas.",
         "this_is_the_form_that_your_community_will_need_to_fill_in_order_to_vote": "Los miembros deberán cumplimentar este formulario para acceder a la votación",
         "this_is_the_link_that_you_need_to_send_your_community_members": "Este es el enlace de votación que deberás compartir con los votantes:",

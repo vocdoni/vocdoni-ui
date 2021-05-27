@@ -48,7 +48,7 @@ export const ProcessTermsModal = ({
         <PaddedContainer>
           <FlexContainer justify={FlexJustifyContent.Center}>
             <Button positive disabled={!processTerms} onClick={onCloseProcessTerms}>
-              {i18n.t('action.check_terms_and_conditions')}
+              {i18n.t('vote.accept_terms')}
             </Button>
           </FlexContainer>
         </PaddedContainer>

@@ -387,6 +387,7 @@
         "question": "Pregunta {{ number }}"
     },
     "vote": {
+        "accept_terms": "Estic d'accord",
         "active_vote": "Procés actiu",
         "add_new_question": "Afegeix una nova pregunta",
         "add_option": "Afegeix una altra opció",
@@ -460,7 +461,7 @@
         "settings": "Configuració",
         "something_was_wrong_please_click_retry_to_try_again_the_entity_creation_if_fails_again_contact_with_our_support_team": "Si et plau, espera una estona i torna-ho a provar. Si el problema persisteix, posa't en contacte amb l'equip de suport.",
         "start_date": "Data d'inici",
-        "start_date_explanation": "",
+        "start_date_explanation": "Data d'inici per l'acceptació de vots",
         "start_on_a_specific_date": "Iniciar en una data concreta",
         "start_right_away_7_minutes_from_now": "Iniciar ara (d'aquí a 7 minuts)",
         "stream_link": "Enllaç de la retransmissió en directe",
@@ -473,6 +474,7 @@
         "the_blockchain_network_is_congested_for_these_reason_te_transactions_could_spend_several_minutes_dont_worry_we_keep_the_data_to_follow_the_process": "La xarxa de la cadena de blocs està congestionada. Per aquesta raó les transaccions poden trigar uns quants minuts. No et preocupis, nosaltres guardem les dades per assegurar-ne el seu lliurament.",
         "the_entity_name_already_exist": "El nom d'entitat ja existeix",
         "the_first_row_of_the_spreadsheet_will_be_used_as_the_name": "La primera fila del full de càlcul s'utilitzarà com a nom dels camps de les dades que es sol·licitaran els votants. No es tindran en compte els accents, els espais ni les majúscules. D'aquesta manera, algú que es digui Joan Miró pot accedir, també, introduint JOAN MIRO.",
+        "the_process_must_start_at_least_20_minutes_latter": "El procés ha de començar almenys 20 minuts més tard de l'hora actual",
         "the_vote_will_end_at_the_given_time": "La votació acabarà a l'hora predeterminada. Pots tancar-la manualment, si ho necessites",
         "this_is_the_form_that_your_community_will_need_to_fill_in_order_to_vote": "Els membres hauran de complimentar aquest formulari per accedir a la votació",
         "this_is_the_link_that_you_need_to_send_your_community_members": "Aquest és l'enllaç de votació que has de compartir amb els votants:",
