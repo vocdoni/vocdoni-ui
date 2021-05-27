@@ -9,9 +9,7 @@ export const ALPrivacyEn = () => (
 
       <p >This document sets the privacy rules concerning the use of Aragon Labs AG (the <strong>"Aragon Labs"</strong>) sites and services, including</p>
       <ul>
-        <li>Vocdoni.app - for specification on Vocdoni.app data processing
-      policy and terms and conditions of the service please visit <a href="https://vocdoni.app">https://vocdoni.app</a>
-        </li>
+        <li>Vocdoni.app - for specification on Vocdoni.app data processing policy and terms and conditions of the service please visit <a href="https://vocdoni.app/privacy-app">https://vocdoni.app/privacy-app</a></li>
       </ul>
       <p> Collectively (the <strong>"Sites"</strong>) that the user agrees with, by using the Sites:</p>
       <p ></p>
@@ -147,9 +145,7 @@ export const ALPrivacyEn = () => (
       </ul>
       <h4>7. Contact</h4>
       <p ></p>
-      <p >further information on the collection, use, disclosure,
-      transfer or processing of personal information or the exercise of any of the rights listed above, please contact
-    Aragon by sending an email to <a href="mailto:privacy@aragonlabs.org">privacy@aragonlabs.org</a></p>
+      <p>further information on the collection, use, disclosure, transfer or processing of personal information or the exercise of any of the rights listed above, please contact Aragon Labs by sending an email to <a href="mailto:privacy@aragonlabs.org">privacy@aragonlabs.org</a></p>
     </PrivacyWrapper>
   </>
 )
