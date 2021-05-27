@@ -1,5 +1,6 @@
 import { PageCard } from "@components/cards"
-import { Privacy } from "@components/policy/privacy/layer-2";
+import { ALPrivacy } from "@components/policy/ALprivacy";
+
 import i18n from '@i18n';
 
 const PageView = () => {
@@ -7,7 +8,7 @@ const PageView = () => {
 
   return (
     <PageCard>
-      <Privacy lang={lang}/>
+      <ALPrivacy lang={lang}/>
     </PageCard >
   )
 }
