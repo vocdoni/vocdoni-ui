@@ -47,6 +47,7 @@ const Tooltip = styled.div<{visible: boolean}>`
   color: #865BFF;
   width: max-content;
   font-size: 14px;
+  line-height: 14px;
   max-width: 250px;
   border-radius: 6px;
   background-color: #F3F4FF;

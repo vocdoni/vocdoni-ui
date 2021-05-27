@@ -24,10 +24,11 @@ import { useScrollTop } from "@hooks/use-scroll-top"
 export const FormOptions = () => {
   useScrollTop()
   const { startDate, endDate, parameters, methods, startRightAway} = useProcessCreation()
+  const [invalidDate, setInvalidDate] = useState<boolean>(false)
   const periodRef = useRef<IProcessPeriod>()
 
   const valid = () => {
-    return startDate && endDate
+    return startDate && endDate && !invalidDate
   }
 
   const onSubmit = () => {
@@ -44,8 +45,9 @@ export const FormOptions = () => {
     methods.setPageStep(ProcessCreationPageSteps.CREATION)
   }
 
-  const handleChangeDate = (period: IProcessPeriod) => {
+  const handleChangeDate = (period: IProcessPeriod, invalDate: boolean) => {
     periodRef.current = period
+    setInvalidDate(invalDate)
 
     methods.setStartDate(periodRef.current.start)
     methods.setEndDate(periodRef.current.end)

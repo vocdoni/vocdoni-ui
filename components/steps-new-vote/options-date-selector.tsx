@@ -1,7 +1,9 @@
 import { HelpText } from '@components/common/help-text'
+import { Typography, TypographyVariant } from '@components/elements/typography'
 import React, { useState, useEffect } from 'react'
 import { DateTimePicker } from 'react-rainbow-components'
 import styled from 'styled-components'
+import { colors } from 'theme/colors'
 
 import i18n from '../../i18n'
 
@@ -16,7 +18,7 @@ export interface IProcessPeriod {
 }
 
 interface IOptionDateSelectorProps {
-  onChangeDate: (processDate: IProcessPeriod) => void
+  onChangeDate: (processDate: IProcessPeriod, invalidDate: boolean) => void
 }
 
 export enum RadioOptions {
@@ -24,7 +26,12 @@ export enum RadioOptions {
   StartNow = 'now',
 }
 
-export const addOffsetToDate = (date: Date, days = 0, hours = 0, minutes = 0): Date => {
+export const addOffsetToDate = (
+  date: Date,
+  days = 0,
+  hours = 0,
+  minutes = 0
+): Date => {
   if (days) {
     date.setDate(date.getDate() + days)
   }
@@ -39,72 +46,100 @@ export const addOffsetToDate = (date: Date, days = 0, hours = 0, minutes = 0): D
 
   return date
 }
+
+const MIN_DELAY_TIME = 20
+
 export const OptionDateSelector = ({
   onChangeDate,
 }: IOptionDateSelectorProps) => {
-  const [startDate, setStartDate] = useState<Date>(() => addOffsetToDate(new Date(), 0, 0, 7))
-  const [endDate, setEndDate] = useState<Date>(() => addOffsetToDate(new Date(), 7))
+  const [startDate, setStartDate] = useState<Date>(() =>
+    addOffsetToDate(new Date(), 0, 0, MIN_DELAY_TIME)
+  )
+  const [endDate, setEndDate] = useState<Date>(() =>
+    addOffsetToDate(new Date(), 7)
+  )
+  const [invalidStartDate, setInvalidStartDate] = useState<boolean>(false)
   const [startOption, setStatOptions] = useState<RadioOptions>(
     RadioOptions.StartDelayed
   )
 
   useEffect(() => {
     if (startOption === RadioOptions.StartNow) {
-      setStartDate(addOffsetToDate(new Date(), 0, 0, 7))
+      setStartDate(addOffsetToDate(new Date(), 0, 0, MIN_DELAY_TIME))
     }
   }, [startOption])
 
   useEffect(() => {
-    onChangeDate({
-      start: startDate,
-      end: endDate,
-      startOption
-    })
+    const invalidDate =
+      startDate.getTime() <
+      addOffsetToDate(new Date(), 0, 0, MIN_DELAY_TIME - 5).getTime()
+
+    setInvalidStartDate(invalidDate)
+
+    onChangeDate(
+      {
+        start: startDate,
+        end: endDate,
+        startOption,
+      },
+      invalidDate
+    )
   }, [startDate, endDate])
 
   return (
     <Grid>
       <Column>
-        <SectionTitle>{i18n.t('vote.start_date')}<HelpText text={i18n.t('vote.start_date_explanation')}/></SectionTitle>
+        <SectionTitle>
+          {i18n.t('vote.start_date')}
+          <HelpText text={i18n.t('vote.start_date_explanation')} />
+        </SectionTitle>
         <SectionText>
           {i18n.t('vote.define_the_timeframe_of_the_proposal')}
         </SectionText>
 
         <DateSelectContainer>
+          <Radio
+            checked={startOption === RadioOptions.StartDelayed}
+            onClick={() => setStatOptions(RadioOptions.StartDelayed)}
+            name={RadioOptions.StartDelayed}
+          >
+            <RadioText size={TextSize.Small}>
+              {i18n.t('vote.start_on_a_specific_date')}
+            </RadioText>
+          </Radio>
 
-              <Radio
-                checked={startOption === RadioOptions.StartDelayed}
-                onClick={() => setStatOptions(RadioOptions.StartDelayed)}
-                name={RadioOptions.StartDelayed}
-              >
-                <RadioText size={TextSize.Small}>
-                  {i18n.t('vote.start_on_a_specific_date')}
-                </RadioText>
-              </Radio>
-
-              <Radio
-                checked={startOption === RadioOptions.StartNow}
-                onClick={() => setStatOptions(RadioOptions.StartNow)}
-                name={RadioOptions.StartNow}
-              >
-                <RadioText size={TextSize.Small}>
-                  {i18n.t('vote.start_right_away_7_minutes_from_now')}
-                </RadioText>
-              </Radio>
+          <Radio
+            checked={startOption === RadioOptions.StartNow}
+            onClick={() => setStatOptions(RadioOptions.StartNow)}
+            name={RadioOptions.StartNow}
+          >
+            <RadioText size={TextSize.Small}>
+              {i18n.t('vote.start_right_away_7_minutes_from_now')}
+            </RadioText>
+          </Radio>
         </DateSelectContainer>
 
         <CalendarContainer>
           <DateTimePicker
             value={startDate}
-            minDate={new Date()}
+            error={invalidStartDate}
+            minDate={addOffsetToDate(new Date(), 0, 0, MIN_DELAY_TIME)}
             onChange={(value) => setStartDate(value)}
             disabled={startOption === RadioOptions.StartNow}
           />
+          {invalidStartDate && (
+            <Typography variant={TypographyVariant.Small} color={colors.danger}>
+              {i18n.t('vote.the_process_must_start_at_least_20_minutes_latter')}
+            </Typography>
+          )}
         </CalendarContainer>
       </Column>
 
       <Column>
-        <SectionTitle>{i18n.t('vote.end_date')}<HelpText text={i18n.t('vote.end_date_explanation')}/></SectionTitle>
+        <SectionTitle>
+          {i18n.t('vote.end_date')}
+          <HelpText text={i18n.t('vote.end_date_explanation')} />
+        </SectionTitle>
         <SectionText>
           {i18n.t('vote.the_vote_will_end_at_the_given_time')}
         </SectionText>
@@ -125,9 +160,7 @@ const RadioText = styled(SectionText)`
   white-space: nowrap;
 `
 
-
-const CalendarContainer = styled.div`
-`
+const CalendarContainer = styled.div``
 const DateSelectContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
