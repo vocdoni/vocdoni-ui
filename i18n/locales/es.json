@@ -1,14 +1,14 @@
 {
     "action": {
         "browse": "Navegar",
-        "check_privacy_policy": "",
-        "check_terms_and_conditions": "",
+        "check_privacy_policy": "Revisar política de privacidad",
+        "check_terms_and_conditions": "Revisar términos y condiciones",
         "clean": "Limpiar",
         "continue": "Continuar",
         "go_back": "Atrás",
         "preview_proposal": "Previsualizar",
         "retry": "Reintentar",
-        "review_process_terms_and_conditions": "",
+        "review_process_terms_and_conditions": "Revisar términos y condiciones",
         "sign_in": "Iniciar sesión"
     },
     "backup": {
@@ -111,7 +111,7 @@
         "starting_tomorrow": "Empieza mañana"
     },
     "entity": {
-        "accept_entity_terms": "",
+        "accept_entity_terms": "Estoy de acuerdo",
         "accept_Privacy": "Estoy de acuerdo",
         "accept_terms": "Estoy de acuerdo",
         "acknowledge_passphrase_implications": "Soy consciente de que la pérdida de la contraseña implica perder también el acceso a la cuenta de mi entidad",
@@ -425,6 +425,7 @@
         "forum_link_label": "Este campo es opcional",
         "go_back_to_home_page": "Volver a la página de inicio",
         "header_image": "Imagen de cabecera",
+        "i_have_read_and_accept_csv_terms": "",
         "import_the_list_of_voters": "Importar la lista de votantes",
         "invalid_file_type": "Archivo inválido. Formatos compatibles: XLS, XLSX, CSV, ODT",
         "invalid_xls_file": "Formato del archivo inválido",
@@ -504,9 +505,5 @@
         "your_vote_has_been_successfully_registered": "Tu voto ha sido registrado correctamente",
         "your_vote_is_set_up": "Votación creada",
         "your_vote_process_is_being_created": "Proceso de votación creado"
-    },
-    "voter": {
-        "accept_entity_terms": "",
-        "i_have_read_and_accept_the_entity_terms": ""
     }
 }

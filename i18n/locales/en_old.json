@@ -117,5 +117,12 @@
     "cookies": {
         "these_site_use_cookies_to_improve_the_experience_of_use": "",
         "view_details": ""
+    },
+    "voter": {
+        "i_have_read_and_accept_the_entity_terms": "",
+        "accept_entity_terms": "I agree"
+    },
+    "actions": {
+        "check_terms_and_conditions": ""
     }
 }

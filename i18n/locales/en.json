@@ -1,14 +1,14 @@
 {
     "action": {
         "browse": "Browse",
-        "check_privacy_policy": "",
-        "check_terms_and_conditions": "",
+        "check_privacy_policy": "Review privacy policy",
+        "check_terms_and_conditions": "Review terms and conditions",
         "clean": "Clean",
         "continue": "Continue",
         "go_back": "Go back",
         "preview_proposal": "Preview",
         "retry": "Retry",
-        "review_process_terms_and_conditions": "",
+        "review_process_terms_and_conditions": "Review terms and conditions",
         "sign_in": "Sign in"
     },
     "backup": {
@@ -111,7 +111,7 @@
         "starting_tomorrow": "Starting tomorrow"
     },
     "entity": {
-        "accept_entity_terms": "",
+        "accept_entity_terms": "I agree",
         "accept_Privacy": "I agree",
         "accept_terms": "I agree",
         "acknowledge_passphrase_implications": "I acknowledge that losing my password will prevent the ability to access my account in the future",
@@ -425,6 +425,7 @@
         "forum_link_label": "This field is optional",
         "go_back_to_home_page": "Go back to home page",
         "header_image": "Header image",
+        "i_have_read_and_accept_csv_terms": "",
         "import_the_list_of_voters": "Import the list of voters",
         "invalid_file_type": "Invalid file type. Supported types: XLS, XLSX, CSV, ODT",
         "invalid_xls_file": "Invalid file format",
@@ -504,9 +505,5 @@
         "your_vote_has_been_successfully_registered": "Your vote has been successfully registered",
         "your_vote_is_set_up": "Your vote is set up",
         "your_vote_process_is_being_created": "Your voting process is being created"
-    },
-    "voter": {
-        "accept_entity_terms": "",
-        "i_have_read_and_accept_the_entity_terms": ""
     }
 }

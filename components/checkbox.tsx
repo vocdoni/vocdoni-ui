@@ -5,8 +5,6 @@ import styled from 'styled-components'
 import { Checkbox as AragonCheckbox } from '@aragon/ui'
 import { Label } from '@components/label'
 
-import i18n from '@i18n'
-
 interface ICheckboxProps {
   id: string
   checked: boolean

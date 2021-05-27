@@ -83,7 +83,7 @@ export const FormCensus = () => {
         >
           <RoundedCheck size={RoundedCheckSize.Small} checked={processTerms} />
           <Typography variant={TypographyVariant.Small} margin="0 10px">
-            {i18n.t('entity.i_have_read_and_accept_entity_terms')}
+            {i18n.t('vote.i_have_read_and_accept_csv_terms')}
           </Typography>
         </FlexContainer>
       </Column>
