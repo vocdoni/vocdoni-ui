@@ -47,13 +47,13 @@ export const addOffsetToDate = (
   return date
 }
 
-const MIN_DELAY_TIME = 20
+const MIN_DELAY_TIME = 10
 
 export const OptionDateSelector = ({
   onChangeDate,
 }: IOptionDateSelectorProps) => {
   const [startDate, setStartDate] = useState<Date>(() =>
-    addOffsetToDate(new Date(), 0, 0, MIN_DELAY_TIME)
+    addOffsetToDate(new Date(), 0, 1)
   )
   const [endDate, setEndDate] = useState<Date>(() =>
     addOffsetToDate(new Date(), 7)
@@ -65,14 +65,14 @@ export const OptionDateSelector = ({
 
   useEffect(() => {
     if (startOption === RadioOptions.StartNow) {
-      setStartDate(addOffsetToDate(new Date(), 0, 0, MIN_DELAY_TIME))
+      setStartDate(addOffsetToDate(new Date(), 0, 0, MIN_DELAY_TIME + 1))
     }
   }, [startOption])
 
   useEffect(() => {
     const invalidDate =
       startDate.getTime() <
-      addOffsetToDate(new Date(), 0, 0, MIN_DELAY_TIME - 5).getTime()
+      addOffsetToDate(new Date(), 0, 0, MIN_DELAY_TIME - 1).getTime()
 
     setInvalidStartDate(invalidDate)
 
