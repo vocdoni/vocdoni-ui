@@ -235,8 +235,8 @@ export const UseEntityCreationProvider = ({
 
     try {
       let pool: GatewayPool = await poolPromise
-      let avatar: string
-      let header: string
+      let avatar: string = logoUrl
+      let header: string = headerUrl
 
       if (logoFile) avatar = await uploadFileToIpfs(logoFile, pool, wallet)
       if (headerFile) header = await uploadFileToIpfs(headerFile, pool, wallet)

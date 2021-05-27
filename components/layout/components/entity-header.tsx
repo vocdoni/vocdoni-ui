@@ -24,7 +24,7 @@ export const EntityHeader = () => {
 
   useEffect(() => {
     if (accepted) show()
-  }, [])
+  }, [accepted])
 
   let hasReadyAccount = false
 
