@@ -2,9 +2,9 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Modal } from 'react-rainbow-components'
 import i18n from '@i18n'
-import { Terms } from '@components/policy/terms/layer-2'
+// import { Terms } from '@components/policy/terms/layer-2'
 
-// import { CsvTerms } from '@components/policy/csv-terms/layer-1'
+import { CsvTerms } from '@components/policy/csv-terms/layer-1'
 import {
   FlexAlignItem,
   FlexContainer,
@@ -29,8 +29,8 @@ export const ProcessTermsModal = ({
   return (
     <Modal onRequestClose={onCloseProcessTerms} isOpen={visible}>
       <TermsContainer>
-        {/* <CsvTerms lang={lang} /> */}
-        <Terms lang={lang} />
+        <CsvTerms lang={lang} />
+        {/* <Terms lang={lang} /> */}
         <PaddedContainer>
           <FlexContainer alignItem={FlexAlignItem.Center}>
             <Checkbox

@@ -433,7 +433,7 @@
         "live_stream": "Streaming",
         "login_title": "Iniciar sessión",
         "login_with_your_credentials_to_access_the_process": "Iniciar sesión pera consultar los resultados de la votación",
-        "new_vote": "Nuevo voto",
+        "new_vote": "Nuevo proceso de votación",
         "no_back_to_login": "No, volver a la votación",
         "option_n": "Opción {{ number }}",
         "optional_field": "Este campo es opcional",

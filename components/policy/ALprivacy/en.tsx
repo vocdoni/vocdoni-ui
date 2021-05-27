@@ -1,3 +1,4 @@
+import { APP_PRIVACY_PATH } from '@const/routes'
 import React from 'react'
 import styled from 'styled-components'
 
@@ -9,7 +10,7 @@ export const ALPrivacyEn = () => (
 
       <p >This document sets the privacy rules concerning the use of Aragon Labs AG (the <strong>"Aragon Labs"</strong>) sites and services, including</p>
       <ul>
-        <li>Vocdoni.app - for specification on Vocdoni.app data processing policy and terms and conditions of the service please visit <a href="https://vocdoni.app/privacy-app">https://vocdoni.app/privacy-app</a></li>
+        <li>Vocdoni.app - for specification on Vocdoni.app data processing policy and terms and conditions of the service please visit <a href={APP_PRIVACY_PATH}>https://vocdoni.app{APP_PRIVACY_PATH}</a></li>
       </ul>
       <p> Collectively (the <strong>"Sites"</strong>) that the user agrees with, by using the Sites:</p>
       <p ></p>

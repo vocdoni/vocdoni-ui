@@ -433,7 +433,7 @@
         "live_stream": "Retransmissió en directe",
         "login_title": "Inicia sessió",
         "login_with_your_credentials_to_access_the_process": "Inicia sessió per consultar els resultats de la votació",
-        "new_vote": "Nou vot",
+        "new_vote": "Nou procés de votació",
         "no_back_to_login": "No, torna a la votació",
         "option_n": "Opció {{ number }}",
         "optional_field": "Aquest camp és opcional",

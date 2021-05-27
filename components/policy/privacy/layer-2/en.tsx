@@ -12,14 +12,9 @@ export const PrivacyLayer2En = () => (
       <h2>Specifications on the Vocdoni Application and Privacy Notice</h2>
       <p ></p>
       <p ></p>
-      <p> This Privacy Notice is part of the Aragon Labs AG (the "Aragon Labs")
-      Privacy Policy and regulates the specifications of the data processing framework operated under the use of the
-      Vocdoni.app, a free software initiative focused on the development of voting technology universally verifiable and
-      censorship resistant digital technology thanks to a technological design that relies on decentralized components
-    such as Ethereum, xDai, Tendermint and IIPFS. </p>
+      <p> This Privacy Notice is part of the Aragon Labs AG (the "Aragon Labs") Privacy Policy and regulates the specifications of the data processing framework operated under the use of the Vocdoni.app, a free software initiative focused on the development of voting technology universally verifiable and censorship resistant digital technology thanks to a technological design that relies on decentralized components such as Ethereum, xDAI, Tendermint and IPFS. </p>
       <p> </p>
-      <p >For the purposes of the applicable laws of Switzerland and also of the E.U.(GDPR) the Data Controller is Aragon Labs AG, a company incorporated under the laws of Switzerland, with head
-    offices at Bahnhofstrasse 20, 6300 Zug, Switzerland. </p>
+      <p >For the purposes of the applicable laws of Switzerland and also of the E.U. (GDPR) the Data Controller is Aragon Labs AG, a company incorporated under the laws of Switzerland, with head offices at Bahnhofstrasse 20, 6300 Zug, Switzerland.</p>
       <p ></p>
       <p >The data controller can be reached through the following contact details: </p>
       <p ></p>
@@ -33,7 +28,7 @@ export const PrivacyLayer2En = () => (
       <p ></p>
       <p ></p>
 
-      <h4>1. What information is collected through the use of Vocdoni.app?</h4>
+      <h4>1. What data is collected through the Vocdoni.app?</h4>
 
       <h5>1.1 Data provided directly by the users</h5>
       <p ></p>
@@ -72,34 +67,22 @@ export const PrivacyLayer2En = () => (
     Notice and Aragon Labs Privacy Policy, based on the following legitimizing bases:</p>
       <h5>2.1 Execution of the service:</h5>
       <ol type="a">
-        <li >the request made by the applicant for the voting process.</li>
-        <li >Carry out the registration and provide the requested service, as
-        well as carry out the billing and collection thereof and manage, maintain and control the contractual
-      relationship, in addition to resolving possible doubts.</li>
+        <li >Upon request made by the users and applicants for the voting process.</li>
+        <li >Upon registration and request of service, including managing, maintaining and controlling the contractual relationship with users and applicants.</li>
       </ol>
-      <p >The personal data requested for these purposes are those necessary to meet your request
-      or to formalize and manage the service provision agreement and, therefore, it is mandatory to provide and keep
-      them duly updated, since, if these data are not provided, Aragon Labs will not may adequately address your request
-    or doubts, or formalize the contractual relationship, or adequately manage the aforementioned service.</p>
-      <h5>2.2. Legitimate interests of Aragon Labs</h5>
+      <p >The personal data collected for these purposes shall be the strictly necessary to provide the service, formalize and manage the contractual relationship.</p>
+      <p></p>
+      <p>If this data is not provided, Aragon Labs may not adequately formalize the contractual relationship and provide the services, or even adequately address any questions, concerns or support requests.</p>
+
+      <h5>2.2. Communications</h5>
       <p ></p>
-      <p >In the case of applicants for the electronic voting service, Aragon Labs may carry out
-      actions or commercial and / or advertising communications, by any means, including electronic or equivalent
-      communications, related to products or services similar to those contracted, in accordance with article 21 LSSI.
-      Users can oppose this treatment based on legitimate interest, following the indications contained in the clause
-    &quot;Rights of the interested parties&quot; of this Privacy Notice.</p>
+      <p >Aragon Labs may carry out commercial and/or advertising actions, including electronic communications, related to products or services similar to those contracted and regarding electronic voting services. Users can at any time oppose to these actions, by just following the instructions mentioned in the clause "Rights of the interested parties" of this Privacy Notice below.</p>
+
+      <h5>2.3 Legal obligations</h5>
       <p ></p>
-      <p >Aragon Labs may process the contact data provided by individuals who provide services
-      in an entity to maintain the relationship with them. Only the data necessary for your professional location will
-    be processed.</p>
+      <p >Aragon Labs may also process personal data in order to execute a request of the user or applicant to exercise any data subject rights under the articles 15 to 22 of the GDPR, within a reasonable period.</p>
       <p ></p>
-      <h5>2.3 Fulfillment of a legal obligation</h5>
-      <p ></p>
-      <p >Facilitate the interested party to exercise their rights under articles 15 to 22 of the
-      GDPR and process the request received within a month in accordance with the provisions of the GDPR, and any other
-    applicable legislation on data protection.</p>
-      <p ></p>
-      <h4>3. How is the information shared?</h4>
+      <h4>3. Data Sharing</h4>
       <p >Apart from the entities identified in the Aragon Labs Privacy Policy, for the specific
     purposes of the Vocdoni.app usage, Aragon Labs may share the collected information with:</p>
       <ul >
@@ -110,22 +93,18 @@ export const PrivacyLayer2En = () => (
         located outside the European Economic Area, which implies the realization of International Data Transfers (TID).
         In these cases, Aragon Labs requires such recipients to comply with measures designed to protect personal data
       and, for this, it relies on mechanisms approved by the EU that allow such transfers.</li>
-        <li >As per legal obligations. </li>
+        <li >Fulfilment of any legal obligations and court orders. </li>
       </ul>
       <h4> 4. Data Retention</h4>
       <p >The personal data corresponding to the provision of the service will be kept as long
     as the contractual relationship is in force.</p>
       <p >The personal data corresponding to other services will be kept for the time
-      necessary to fulfill the purpose for which they are collected and to determine the possible responsibilities that
-      may arise from the purpose, in addition to the periods that result from the exercise of the corresponding claim
-      actions in the administrative and judicial channels. In all cases, once the service is finished, Aragon Labs will
-      keep the personal data blocked during the legal prescription periods. After these prescription periods have
-    elapsed, the data collected will be destroyed.</p>
+      necessary to fulfill the purpose for which they are collected.</p>
       <p ></p>
-      <h4>5. Data subjects rights</h4>
-      <p >Data subjects have the right to request confirmation as to whether Aragon Labs is
-      processing personal data and, if so, to access said data. Data subjects have also the right to request the
-    portability of personal data. </p>
+      <p>In all cases, once the service is finished, Aragon Labs will keep the personal data blocked during the legal prescription periods. After these prescription periods have elapsed, the data collected will be destroyed.</p>
+
+      <h4>5. Exercise of data privacy rights</h4>
+      <p >Data subjects have the right to directly request all information regarding their own data processing carried out by Aragon Labs, including the right to request the portability of their personal data. </p>
       <p >If any of the personal data is inaccurate or incomplete, the data subject may request
     its rectification.</p>
       <p >Data subjects have the right to object to the processing of data and / or to request
@@ -135,23 +114,15 @@ export const PrivacyLayer2En = () => (
     following cases:</p>
       <p ></p>
       <ul >
-        <li >While the challenge to the accuracy of data;</li>
-        <li >When Aragon Labs does not need your data, but the data subject
-      needs it for the exercise or defense of claims.</li>
-        <li >When the data subject has opposed the processing of data for the
-        fulfillment of a mission in the public interest or for the satisfaction of a legitimate interest, while
-      verifying if the legitimate reasons for the treatment prevails.</li>
+        <li >While the challenge to the accuracy</li>
+        <li >While exercising rights</li>
       </ul>
       <p ></p>
-      <p >In addition, at any time, data subjects can revoke the consent given.</p>
+      <p >At any time, data subjects can revoke the consent given.</p>
       <p ></p>
-      <p >For the correct exercise of rights, Aragon Labs requests that, when making your
-      request, the data subject proves the identity by means of a copy of your ID, or equivalent official document, and
-    identifies the company (or companies) to which your data is linked, if it is the case. </p>
+      <p >For the correct exercise of rights, Aragon Labs may request the presentation of a valid identification document.</p>
       <p ></p>
-      <p >If the data subject considers that Aragon Labs has not processed the personal data in
-      accordance with the applicable regulations on data protection, among other issues, a complaint can be filed to the
-    Data Protection Officer at the address above, or to the competent authority. </p>
+      <p >For any privacy matters, including the exercise of data privacy rights, the subject may contact the Aragon Labs Data Protection Officer at the address above, or to the competent authority.</p>
       <p ></p>
       <h4 >6. Updates of the privacy notice</h4>
       <p ></p>
