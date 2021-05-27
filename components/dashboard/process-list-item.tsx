@@ -13,6 +13,7 @@ import { Image } from '@components/common/image'
 import { ImageContainer } from '@components/images'
 
 import { VoteListItem } from '../list-items'
+import moment from 'moment'
 
 interface IDashboardProcessListItemProps {
   process: IProcessInfo
@@ -27,7 +28,7 @@ export const DashboardProcessListItem = ({
   status,
   entityLogo
 }: IDashboardProcessListItemProps) => {
-  const [endDate, setEndDate] = useState<string>('')
+  const [date, setDate] = useState<string>('')
   const { blockStatus } = useBlockStatus()
 
   useEffect(() => {
@@ -38,15 +39,26 @@ export const DashboardProcessListItem = ({
           blockStatus
         )
         const timeLeft = localizedStrDateDiff(DateDiffType.End, endDate)
-        setEndDate(timeLeft)
+        setDate(timeLeft)
         break
 
       case VoteStatus.Ended:
-        setEndDate(i18n.t('dashboard.process_ended'))
+        setDate(i18n.t('dashboard.process_ended'))
         break
 
       case VoteStatus.Paused:
-        setEndDate(i18n.t('dashboard.process_paused'))
+        let startDate = VotingApi.estimateDateAtBlockSync(
+          process.parameters.startBlock,
+          blockStatus
+        )
+        if (!moment(startDate).isAfter(moment.now())) {
+          setDate(i18n.t('dashboard.process_paused'))
+          break
+        }
+      case VoteStatus.Upcoming:
+        const timetoStart = localizedStrDateDiff(DateDiffType.Start, startDate)
+        setDate(timetoStart)
+        status = VoteStatus.Upcoming
         break
     }
   }, [blockStatus])
@@ -63,7 +75,7 @@ export const DashboardProcessListItem = ({
         title={process.metadata.title.default}
         processId={process?.id}
         entityName={accountName}
-        dateText={endDate}
+        dateText={date}
         status={status}
       />
     </VoteItemWrapper>

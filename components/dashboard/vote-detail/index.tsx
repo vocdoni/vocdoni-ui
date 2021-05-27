@@ -124,7 +124,7 @@ export const ViewDetail = ({ process, results, refreshProcessInfo }: IProcessDet
   const handleGeneratePdfResult = () => { }
 
   let dateDiffStr = ""
-  if (process?.parameters?.startBlock && (status == VoteStatus.Active || status == VoteStatus.Paused)) {
+  if (process?.parameters?.startBlock && (status == VoteStatus.Active || status == VoteStatus.Paused || status == VoteStatus.Upcoming)) {
     if (process?.parameters?.startBlock > blockHeight) {
       const date = VotingApi.estimateDateAtBlockSync(process?.parameters?.startBlock, blockStatus)
       dateDiffStr = localizedStrDateDiff(DateDiffType.Start, date)
