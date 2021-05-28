@@ -82,6 +82,7 @@ export interface ProcessCreationContext {
     setEndDate: (date: Date) => void,
     createProcess(): void,
     continueProcessCreation(): void,
+    checkValidCensusParameters(): boolean,
   },
 }
 
@@ -137,8 +138,7 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
 
   const stepEnsureCensusCreated: StepperFunc = async () => {
     // TODO: Is it possible that the user re-uploads the spreadsheet? How this could be checked?
-    if ((parameters.censusRoot && parameters.censusRoot != defaultCensusRoot) &&
-      (parameters.censusUri && parameters.censusUri != defaultCensusUri))
+    if (checkValidCensusParameters())
       return { waitNext: false } // next step
 
     const name = metadata.title.default + '_' + Math.floor(Date.now() / 1000)
@@ -288,6 +288,11 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
 
   // Callbacks
 
+  const checkValidCensusParameters = () : boolean => {
+    return ((parameters.censusRoot && parameters.censusRoot != defaultCensusRoot) &&
+    (parameters.censusUri && parameters.censusUri != defaultCensusUri))
+  }
+
   const updateDateRange = () => {
     const startBlock = VotingApi.estimateBlockAtDateTimeSync(startDate, blockStatus)
     const endBlock = VotingApi.estimateBlockAtDateTimeSync(endDate, blockStatus)
@@ -357,7 +362,8 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
       setPageStep,
       createProcess,
       continueProcessCreation: doMainActionSteps,
-      setProcessTerms
+      setProcessTerms,
+      checkValidCensusParameters
     }
   }
 
