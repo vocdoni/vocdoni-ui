@@ -1,6 +1,6 @@
-import React, { useRef, useState } from 'react'
+import React, { ChangeEvent, useRef, useState } from 'react'
 import styled from 'styled-components'
-import { Case, Default, Switch } from 'react-if'
+import { Case, Default, Switch, When } from 'react-if'
 
 import { useProcessCreation } from '../../hooks/process-creation'
 import i18n from '../../i18n'
@@ -21,12 +21,16 @@ import { FlexAlignItem, FlexContainer } from '@components/flex'
 import { RoundedCheck, RoundedCheckSize } from '@components/elements/rounded-check'
 import { Typography, TypographyVariant } from '@components/elements/typography'
 import { DownloadCsvTemplateCard } from './components/download-csv-template-card'
+import { InputFormGroup } from '@components/form'
 
 export const FormCensus = () => {
   const [showTermsModal, setShowTermsModal] = useState<boolean>(false)
+  const [showAdvanced, setShowAdvanced] = useState<boolean>(false)
 
   useScrollTop()
-  const { methods, spreadSheetReader, processTerms } = useProcessCreation()
+  const { methods, spreadSheetReader, processTerms, parameters } = useProcessCreation()
+
+  const continueDisabled = (!spreadSheetReader && !methods.checkValidCensusParameters())
 
   const handleOnXlsUpload = (spreadSheet: SpreadSheetReader) => {
     methods.setSpreadSheetReader(spreadSheet)
@@ -50,15 +54,17 @@ export const FormCensus = () => {
 
   return (
     <Grid>
-      <Column>
-        <SectionTitle>{i18n.t('vote.import_the_list_of_voters')}</SectionTitle>
-        <SectionText color={colors.lightText}>
-          {i18n.t('vote.drag_a_spreadsheet_containing_personal_information')}
-        </SectionText>
-      </Column>
+      <When condition={!showAdvanced}>
+        <>
+          <Column>
+            <SectionTitle>{i18n.t('vote.import_the_list_of_voters')}</SectionTitle>
+            <SectionText color={colors.lightText}>
+              {i18n.t('vote.drag_a_spreadsheet_containing_personal_information')}
+            </SectionText>
+          </Column>
 
-      <Column>
-        <CensusContainer>
+          <Column>
+          <CensusContainer>
           <DownloadCsvTemplateCardContainer>
 
           <DownloadCsvTemplateCard/>
@@ -80,7 +86,68 @@ export const FormCensus = () => {
             'vote.the_first_row_of_the_spreadsheet_will_be_used_as_the_name'
           )}
         </SectionText>
+          </Column>
+        </>
+      </When>
+
+      <When condition={showAdvanced}>
+        <>
+          <Column>
+            <SectionTitle>{i18n.t('vote.import_the_list_of_voters')}</SectionTitle>
+            <SectionText color={colors.lightText}>
+              {'Advanced options'}
+            </SectionText>
+          </Column>
+          <Column md={6} sm={12}>
+            <InputFormGroup
+              title='CensusRoot'
+              label={i18n.t('vote.stream_link_label')}
+              placeholder={i18n.t('vote.stream_link')}
+              helpText={i18n.t('vote.stream_link_explanation')}
+              // id={MetadataFields.StreamLink}
+              value={parameters.censusRoot}
+              // error={getErrorMessage(MetadataFields.StreamLink)}
+              // onBlur={() => handleBlur(MetadataFields.StreamLink)}
+              onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                methods.setCensusRoot(event.target.value)
+              }
+            />
+          </Column>
+
+
+          <Column md={6} sm={12}>
+            <InputFormGroup
+              title={'CensusURI'}
+              label={'CensusURI'}
+              placeholder={'ipfs//:'}
+              // helpText={i18n.t('vote.stream_link_explanation')}
+              // id={MetadataFields.StreamLink}
+              value={parameters.censusUri}
+              // error={getErrorMessage(MetadataFields.StreamLink)}
+              // onBlur={() => handleBlur(MetadataFields.StreamLink)}
+              onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                methods.setCensusUri(event.target.value)
+              }
+            />
+          </Column>
+        </>
+      </When>
+
+      <Column>
+        <FlexContainer
+          alignItem={FlexAlignItem.Center}
+          onClick={handleOpenTermsModal}
+        ></FlexContainer>
+      <Button
+        positive
+        onClick={() => setShowAdvanced(a => !a)}
+        // disabled={!spreadSheetReader}
+      >
+        {(!showAdvanced)? 'Show Advanced Options' : 'Hide Advanced Options'}
+      </Button>
       </Column>
+
+
       <Column>
         <FlexContainer
           alignItem={FlexAlignItem.Center}
@@ -114,7 +181,8 @@ export const FormCensus = () => {
               <Button
                 positive
                 onClick={handleContinue}
-                disabled={!spreadSheetReader}
+                //TODO handle case where both EXcel and parameters exist
+                disabled={continueDisabled}
               >
                 {i18n.t('action.continue')}
               </Button>
@@ -123,8 +191,8 @@ export const FormCensus = () => {
         </BottomDiv>
       </Column>
 
-      <ProcessTermsModal visible={showTermsModal} onCloseProcessTerms={handleCloseTermsModal}/>
-    </Grid>
+      <ProcessTermsModal visible={showTermsModal} onCloseProcessTerms={handleCloseTermsModal} />
+    </Grid >
   )
 }
 
