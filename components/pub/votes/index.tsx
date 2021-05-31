@@ -45,7 +45,6 @@ export const VotingPageView = () => {
   const { metadata } = useEntity(processInfo?.entity)
   const [confirmModalOpened, setConfirmModalOpened] = useState<boolean>(false)
   // const votePageLink = `${VOTING_PATH}/${processInfo?.id?}`
-
   const readOnly = !wallet?.address
   const totalVotes = results?.totalVotes || 0
   const { blockStatus } = useBlockStatus()
@@ -137,6 +136,7 @@ export const VotingPageView = () => {
           <SubmitButtonContainer justify={FlexJustifyContent.Center}>
             <Button
               positive
+              // color={processInfo?.metadata?.meta[MetadataFields.PrimaryColor]}
               disabled={!allQuestionsChosen || voteStatus != VoteStatus.Active}
               onClick={() => setConfirmModalOpened(true)}
             >
