@@ -23,17 +23,23 @@ import { PlazaMetadataKeys } from '@const/metadata-keys'
 import { Column, Grid } from '@components/grid'
 
 import { ProcessCreationPageSteps } from '.'
-import { QuestionGroup, QuestionFields, createEmptyOption } from './question-group'
+import {
+  QuestionGroup,
+  QuestionFields,
+  createEmptyOption,
+} from './question-group'
 import { PreviewModal } from './preview-modal'
 import { validateMetadata } from './metadata-validator'
 import {
   InvalidQuestionsError,
   QuestionError,
 } from '@lib/validators/errors/invalid-question-error'
-import { useScrollTop } from "@hooks/use-scroll-top"
+import { useScrollTop } from '@hooks/use-scroll-top'
 
 export enum MetadataFields {
   Title = 'process-title',
+  PrimaryColor = 'primaryColor',
+  SecondaryColor = 'secondaryColor',
   Description = 'process-description',
   AttachmentLink = 'attachmentUri',
   DiscussionLink = 'discussionUrl',
@@ -71,11 +77,20 @@ export const FormMetadata = () => {
 
     for (let questionIndex in metadata.questions) {
       const choices = metadata.questions[questionIndex].choices
-      newDirtyFields.set(`question-${QuestionFields.Title}-${questionIndex}`, true)
-      newDirtyFields.set(`question-${QuestionFields.Description}-${questionIndex}`, true)
+      newDirtyFields.set(
+        `question-${QuestionFields.Title}-${questionIndex}`,
+        true
+      )
+      newDirtyFields.set(
+        `question-${QuestionFields.Description}-${questionIndex}`,
+        true
+      )
 
       for (let choiceIndex in choices) {
-        newDirtyFields.set(`question-${questionIndex}-choice-${choiceIndex}`, true)
+        newDirtyFields.set(
+          `question-${questionIndex}-choice-${choiceIndex}`,
+          true
+        )
       }
     }
 
@@ -127,7 +142,7 @@ export const FormMetadata = () => {
   }
 
   // Only for arbitrary fields within process.metadata.meta[...]
-  const handleMeta = (fieldName: PlazaMetadataKeys, value: string) => {
+  const handleMeta = (fieldName: PlazaMetadataKeys | MetadataFields, value: string) => {
     methods.setMetaFields({ [fieldName]: value })
   }
 
@@ -240,6 +255,42 @@ export const FormMetadata = () => {
             onBlur={() => handleBlur(MetadataFields.StreamLink)}
             onChange={(event: ChangeEvent<HTMLInputElement>) =>
               methods.setMediaStreamURI(event.target.value)
+            }
+          />
+        </Column>
+      </Grid>
+
+      <Grid>
+        <Column md={6}>
+          <InputFormGroup
+            title={i18n.t('vote.primary_process_color')}
+            placeholder={i18n.t('vote.primary_process_color')}
+            label={i18n.t('vote.primary_color_used_on_the_voting_process')}
+            id={MetadataFields.PrimaryColor}
+            helpText={i18n.t('vote.these_color_will_be_used_to_improve_the_look_and_feel')}
+            type="color"
+            value={metadata.meta[MetadataFields.PrimaryColor]}
+            error={getErrorMessage(MetadataFields.PrimaryColor)}
+            onBlur={() => handleBlur(MetadataFields.PrimaryColor)}
+            onChange={(event: ChangeEvent<HTMLInputElement>) =>
+              handleMeta(MetadataFields.PrimaryColor, event.target.value)
+            }
+          />
+        </Column>
+
+        <Column md={6}>
+          <InputFormGroup
+            title={i18n.t('vote.secondary_process_color')}
+            placeholder={i18n.t('vote.secondary_process_color')}
+            label={i18n.t('vote.secondary_color_used_on_the_voting_process')}
+            helpText={i18n.t('vote.these_color_will_be_used_to_improve_the_look_and_feel')}
+            id={MetadataFields.SecondaryColor}
+            type="color"
+            value={metadata.meta[MetadataFields.SecondaryColor]}
+            error={getErrorMessage(MetadataFields.SecondaryColor)}
+            onBlur={() => handleBlur(MetadataFields.SecondaryColor)}
+            onChange={(event: ChangeEvent<HTMLInputElement>) =>
+              handleMeta(MetadataFields.SecondaryColor, event.target.value)
             }
           />
         </Column>

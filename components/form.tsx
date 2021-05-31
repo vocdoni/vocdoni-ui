@@ -52,44 +52,49 @@ const FormGroupVariantStyle = {
   `,
 }
 
-export const formGroupHOC = (InputField) => ({
-  title,
-  label,
-  name,
-  helpText,
-  id,
-  placeholder,
-  value,
-  type,
-  rows,
-  error,
-  onChange,
-  onBlur,
-  variant = FormGroupVariant.Regular,
-}: IInputFormGroupProps) => {
-  const inputId = id || `input-${generateRandomId()}`
+export const formGroupHOC =
+  (InputField) =>
+  ({
+    title,
+    label,
+    name,
+    helpText,
+    id,
+    placeholder,
+    value,
+    type,
+    rows,
+    error,
+    onChange,
+    onBlur,
+    variant = FormGroupVariant.Regular,
+  }: IInputFormGroupProps) => {
+    const inputId = id || `input-${generateRandomId()}`
 
-  return (
-    <FormGroup variant={variant}>
-      {title && <InputTitle>{title}</InputTitle>}
-      {label && <InputLabel htmlFor={inputId}>{label}</InputLabel>}
-      {helpText && <HelpText text={helpText} />}
-      <InputField
-        id={inputId}
-        rows={rows}
-        wide
-        placeholder={placeholder}
-        type={type}
-        name={name}
-        value={value || ''}
-        error={!!error}
-        onChange={onChange}
-        onBlur={onBlur}
-      />
-      {error && <InputError>{error}</InputError>}
-    </FormGroup>
-  )
-}
+    return (
+      <FormGroup variant={variant}>
+        {title && <InputTitle>{title}</InputTitle>}
+        {label && <InputLabel htmlFor={inputId}>{label}</InputLabel>}
+        {helpText && <HelpText text={helpText} />}
+        
+        <div>
+          <InputField
+            id={inputId}
+            rows={rows}
+            wide={type !== 'color'}
+            placeholder={placeholder}
+            type={type}
+            name={name}
+            value={value || ''}
+            error={!!error}
+            onChange={onChange}
+            onBlur={onBlur}
+          />
+          {error && <InputError>{error}</InputError>}
+        </div>
+      </FormGroup>
+    )
+  }
 
 export const InputFormGroup = formGroupHOC(Input)
 export const TextareaFormGroup = formGroupHOC(Textarea)

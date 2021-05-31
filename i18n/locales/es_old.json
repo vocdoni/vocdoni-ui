@@ -9,7 +9,8 @@
     "vote": {
         "header": "Nuevo proceso",
         "short_name_to_identify_the_process": "Nombre del proceso",
-        "the_process_must_begin_at_least_20_minutes_latter": ""
+        "the_process_must_begin_at_least_20_minutes_latter": "",
+        "color_used_to_defined_the_branding_style": ""
     },
     "errors": {
         "the_entity_name_already_exits": "",
