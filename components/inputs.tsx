@@ -8,12 +8,13 @@ import {
 
 interface IInputProps {
   wide?: boolean,
+  type?: string,
   error?: boolean
 }
 
 export type Input = typeof Input
 export const Input = styled.input<IInputProps>`
-  padding: 11px;
+  padding: ${({type}) =>  type == 'color'? '0px': '11px'};
   margin-top: 8px;
   border: 2px solid ${({theme, error}) => error? 'rgb(180 10 10 / 55%)': '#eff1f7'};
   box-shadow: ${({error}) => error? 'inset 0px 2px 3px rgba(180, 10, 10, 0.35)': 'inset 0px 2px 3px rgba(180, 193, 228, 0.35)'};
@@ -22,6 +23,7 @@ export const Input = styled.input<IInputProps>`
   outline-width: 0;
   margin-bottom: 10px;
   ${({ wide }) => (wide ? 'width: 100%;' : '')}
+  ${({type}) =>  type == 'color'? 'height: 40px': ''};
 `
 
 export type Textarea = typeof Textarea

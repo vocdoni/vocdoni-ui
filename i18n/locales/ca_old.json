@@ -17,7 +17,8 @@
         "we_need_store_some_data_on_the_browser_to_create_the_entity_for_these_reason_is_incompatible_with_incognito_mode": "",
         "header": "Capçalera",
         "short_name_to_identify_the_process": "Nom del procés",
-        "the_process_must_begin_at_least_20_minutes_latter": ""
+        "the_process_must_begin_at_least_20_minutes_latter": "",
+        "color_used_to_defined_the_branding_style": ""
     },
     "votes": {
         "number_votes": "",
