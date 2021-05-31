@@ -4,45 +4,36 @@ import { useEntity } from '@vocdoni/react-hooks'
 import i18n from '@i18n'
 
 import { ViewContext, ViewStrategy } from '@lib/strategy'
-import { useAuthKey } from '@hooks/use-auth-key'
-import { Loader } from '@components/loader'
 
+import { useAuthKey } from '@hooks/use-auth-key'
+import { useWallet, WalletRoles } from '@hooks/use-wallet'
+
+import { Loader } from '@components/loader'
 import { VotingErrorPage, SignInForm } from '@components/pub/votes/auth/form'
 import { LayoutVoter } from '@components/layout/voter'
-import { useUrlHash } from 'use-url-hash'
+import { Redirect } from '@components/redirect'
+
+import { VOTING_PATH } from '@const/routes'
 
 // NOTE: This page uses a custom Layout. See below.
 
 const VoteAuthLogin = () => {
-  const [checkingCredentials, setCheckingCredentials] = useState<boolean>(false)
   const {
     invalidKey,
     invalidProcessId,
     loadingInfo,
     loadingInfoError,
     processInfo,
-    methods,
-    key
+    processId,
+    key,
   } = useAuthKey()
+  const { wallet } = useWallet({ role: WalletRoles.VOTER })
   const { loading, error } = useEntity(processInfo?.entity)
 
-  const login = () => {
-    setCheckingCredentials(true)
-
-  methods.onLogin()
-    .finally(() => {
-      setCheckingCredentials(false)
-    })
-  return true
-  }
-
-  const renderLoadingPage = new ViewStrategy(
-    () => loadingInfo || loading || checkingCredentials,
-    <Loader visible />
-  )
+  const renderLoadingPage = new ViewStrategy(() => true, <Loader visible />)
 
   const renderVotingInvalidLink = new ViewStrategy(
-    () => (!loading && !loadingInfo) && invalidProcessId && invalidKey,
+    () => !loading && !loadingInfo && invalidProcessId && invalidKey,
     (
       <VotingErrorPage
         message={i18n.t(
@@ -58,7 +49,7 @@ const VoteAuthLogin = () => {
   )
 
   const renderVoteNotSupported = new ViewStrategy(
-    () => (!loading && !loadingInfo) && (!key),
+    () => !loading && !loadingInfo && !key,
     (
       <VotingErrorPage
         message={i18n.t(
@@ -69,24 +60,27 @@ const VoteAuthLogin = () => {
   )
 
   const renderForm = new ViewStrategy(
-    () => (login() ),
+    () => !!wallet,
     (
-      <Loader visible />
+      <>
+        <Loader visible />
+        <Redirect to={VOTING_PATH + '#/' + processId} />
+      </>
     )
   )
 
   const viewContext = new ViewContext([
-    renderLoadingPage,
     renderLoadingErrorPage,
     renderVotingInvalidLink,
     renderVoteNotSupported,
     renderForm,
+    renderLoadingPage,
   ])
 
-  return <>{viewContext.getView()}</>
+  return viewContext.getView()
 }
 
 // Defining the custom layout to use
-VoteAuthLogin["Layout"] = LayoutVoter
+VoteAuthLogin['Layout'] = LayoutVoter
 
 export default VoteAuthLogin
