@@ -2,7 +2,7 @@ import React from 'react'
 import { Loader } from '@components/loader'
 import { VotingPageView } from '@components/pub/votes'
 import { useUrlHash } from 'use-url-hash'
-import { VotingErrorPage } from '@components/pub/votes/auth/form/voting-error-page'
+import { VotingErrorPage } from '@components/pub/votes/voting-error-page'
 import { useProcess } from '@vocdoni/react-hooks'
 import { LayoutVoter } from '@components/layout/voter'
 
