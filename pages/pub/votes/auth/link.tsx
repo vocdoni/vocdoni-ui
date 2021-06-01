@@ -9,7 +9,7 @@ import { useAuthKey } from '@hooks/use-auth-key'
 import { useWallet, WalletRoles } from '@hooks/use-wallet'
 
 import { Loader } from '@components/loader'
-import { VotingErrorPage, SignInForm } from '@components/pub/votes/auth/form'
+import { VotingErrorPage } from '@components/pub/votes/voting-error-page'
 import { LayoutVoter } from '@components/layout/voter'
 import { Redirect } from '@components/redirect'
 
