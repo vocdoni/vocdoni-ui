@@ -7,7 +7,8 @@ import { ViewContext, ViewStrategy } from '@lib/strategy'
 import { useAuthForm } from '@hooks/use-auth-form'
 import { Loader } from '@components/loader'
 
-import { VotingErrorPage, SignInForm } from '@components/pub/votes/auth/form'
+import { SignInForm } from '@components/pub/votes/auth/form/sign-in-form'
+import { VotingErrorPage } from '@components/pub/votes/voting-error-page'
 import { LayoutVoter } from '@components/layout/voter'
 
 // NOTE: This page uses a custom Layout. See below.
