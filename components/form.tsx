@@ -76,7 +76,7 @@ export const formGroupHOC =
         {title && <InputTitle>{title}</InputTitle>}
         {label && <InputLabel htmlFor={inputId}>{label}</InputLabel>}
         {helpText && <HelpText text={helpText} />}
-        
+
         <div>
           <InputField
             id={inputId}
@@ -146,7 +146,7 @@ const InputError = styled.p`
   color: ${({ theme }) => theme.danger};
   position: absolute;
   margin: 0 0 0 4px;
-  bottom: -10px;
+  bottom: -6px;
 `
 
 export const FormGroup = styled.div<{ variant: FormGroupVariant }>`
