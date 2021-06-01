@@ -94,7 +94,6 @@ const VoteAuthMnemonic = () => {
 
     try {
       const wallet = getWalletFromMnemonic(mnemonic)
-      console.log('el wallet es', wallet)
       setWallet(wallet)
     } catch (error) {
       setAlertMessage(i18n.t('errors.invalid_mnemonic'))

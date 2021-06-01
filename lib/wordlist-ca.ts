@@ -12,7 +12,6 @@ function loadWords(lang: ethers.Wordlist): void {
     wordlist = words.replace(/([A-Z])/g, ' $1').toLowerCase().substring(1).split(' ');
 
     // TODO: REPLACE
-    console.log("CATALAN WORDLIST HASH IS", ethers.Wordlist.check(lang))
     // if (check(lang) !== '0x1c43b65a822b3ed27ac24304582a01af0032be8f1c8558befb47dfe9ffc10c9f') {
     //     wordlist = null;
     //     throw new Error('BIP39 Wordlist for ca (Catalan) FAILED');
@@ -20,7 +19,6 @@ function loadWords(lang: ethers.Wordlist): void {
 }
 
 class LangCa extends ethers.Wordlist {
-    locale: 'ca'
     constructor() {
         super('ca');
     }
