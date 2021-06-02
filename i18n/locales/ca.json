@@ -335,7 +335,8 @@
         "support": "Suport"
     },
     "preview": {
-        "ending_in_one_hour": "Acaba d'aquí 1h"
+        "ending_in_one_hour": "Acaba d'aquí 1h",
+        "vote": "Votar"
     },
     "recover": {
         "continue": "Continua",
