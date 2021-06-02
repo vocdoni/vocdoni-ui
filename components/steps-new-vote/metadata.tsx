@@ -38,8 +38,7 @@ import { useScrollTop } from '@hooks/use-scroll-top'
 
 export enum MetadataFields {
   Title = 'process-title',
-  PrimaryColor = 'primaryColor',
-  SecondaryColor = 'secondaryColor',
+  BrandColor = 'brandColor',
   Description = 'process-description',
   AttachmentLink = 'attachmentUri',
   DiscussionLink = 'discussionUrl',
@@ -261,36 +260,19 @@ export const FormMetadata = () => {
       </Grid>
 
       <Grid>
-        <Column md={6}>
+        <Column md={6} sm={12}>
           <InputFormGroup
-            title={i18n.t('vote.primary_process_color')}
-            placeholder={i18n.t('vote.primary_process_color')}
-            label={i18n.t('vote.primary_color_used_on_the_voting_process')}
-            id={MetadataFields.PrimaryColor}
+            title={i18n.t('vote.brand_process_color')}
+            placeholder={i18n.t('vote.brand_process_color')}
+            label={i18n.t('vote.brand_color_used_on_the_voting_process')}
+            id={MetadataFields.BrandColor}
             helpText={i18n.t('vote.these_color_will_be_used_to_improve_the_look_and_feel')}
             type="color"
-            value={metadata.meta[MetadataFields.PrimaryColor]}
-            error={getErrorMessage(MetadataFields.PrimaryColor)}
-            onBlur={() => handleBlur(MetadataFields.PrimaryColor)}
+            value={metadata.meta[MetadataFields.BrandColor]}
+            error={getErrorMessage(MetadataFields.BrandColor)}
+            onBlur={() => handleBlur(MetadataFields.BrandColor)}
             onChange={(event: ChangeEvent<HTMLInputElement>) =>
-              handleMeta(MetadataFields.PrimaryColor, event.target.value)
-            }
-          />
-        </Column>
-
-        <Column md={6}>
-          <InputFormGroup
-            title={i18n.t('vote.secondary_process_color')}
-            placeholder={i18n.t('vote.secondary_process_color')}
-            label={i18n.t('vote.secondary_color_used_on_the_voting_process')}
-            helpText={i18n.t('vote.these_color_will_be_used_to_improve_the_look_and_feel')}
-            id={MetadataFields.SecondaryColor}
-            type="color"
-            value={metadata.meta[MetadataFields.SecondaryColor]}
-            error={getErrorMessage(MetadataFields.SecondaryColor)}
-            onBlur={() => handleBlur(MetadataFields.SecondaryColor)}
-            onChange={(event: ChangeEvent<HTMLInputElement>) =>
-              handleMeta(MetadataFields.SecondaryColor, event.target.value)
+              handleMeta(MetadataFields.BrandColor, event.target.value)
             }
           />
         </Column>
