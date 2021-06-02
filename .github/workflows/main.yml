@@ -185,7 +185,7 @@ jobs:
         env:
           COMMIT_SHA: ${{ steps.var.outputs.sha_short }}
           DEVELOPMENT: "false"
-          VOCDONI_ENVIRONMENT: "stage"
+          VOCDONI_ENVIRONMENT: "stg"
           APP_TITLE: "Vocdoni Staging"
           ETH_NETWORK_ID: "xdai"
           BLOCK_TIME: "12"
