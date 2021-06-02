@@ -48,7 +48,11 @@
         "we_need_store_some_data_on_the_browser_to_create_the_entity_for_these_reason_is_incompatible_with_incognito_mode": "We need store some data on the browser to create the entity for these reason is incompatible with incognito mode",
         "short_name_to_identify_the_process": "Short name to identify the process",
         "the_process_must_begin_at_least_20_minutes_latter": "",
-        "color_used_to_defined_the_branding_style": ""
+        "color_used_to_defined_the_branding_style": "",
+        "primary_color_used_on_the_voting_process": "Second color used on the voting process",
+        "primary_process_color": "Primary color",
+        "secondary_color_used_on_the_voting_process": "Second color used on the voting process",
+        "secondary_process_color": "Secondary color"
     },
     "sign_in": {
         "select_the_account_to_use_and_enterr_your_passphrase": ""

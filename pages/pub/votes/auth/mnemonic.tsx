@@ -19,9 +19,9 @@ import { InvalidMnemonicError } from '@lib/validators/errors/invalid-mnemonic-er
 import { langCa as wordListCa } from '@lib/wordlist-ca'
 import { Redirect } from '@components/redirect'
 import { VOTING_PATH } from '@const/routes'
+import { ETH_PATH } from '@const/eth'
 
 // NOTE: This page uses a custom Layout. See below.
-
 const wordListEs = ethers.wordlists['es']
 const wordListEn = ethers.wordlists['en']
 
@@ -49,8 +49,6 @@ const VoteAuthMnemonic = () => {
   } = useProcess(processId)
   const { metadata, loading, error } = useEntity(processInfo?.entity)
 
-  const ETH_PATH = "m/44'/60'/0'/0/1"
-
   const getWalletFromWordList = (newMnemonic: string, wordlist: Wordlist, lang) => {
     const splittedMnemonic = newMnemonic
       .trim()
@@ -77,7 +75,7 @@ const VoteAuthMnemonic = () => {
       getWalletFromWordList(newMnemonic, wordListEn, 'en') ||
       getWalletFromWordList(newMnemonic, wordListEs, 'es') 
 
-    if (!wallet) {
+      if (!wallet) {
       throw new InvalidMnemonicError()
     }
 
@@ -108,6 +106,7 @@ const VoteAuthMnemonic = () => {
     try {
       getWalletFromMnemonic(mnemonic)
     } catch (error) {
+      console.log(error)
       setInvalidMnemonic(true)
     }
   }

@@ -68,7 +68,7 @@ export const SectionText = styled.p<{
   font-weight: 400;
   line-height: 1.3em;
   margin: 0 0 0.5em;
-  color: ${({ color }) => (color ? color : colors.text)};
+  color: ${({ theme, color }) => (theme[color]? theme[color]: color ? color : colors.text)};
   font-size: ${({ size }) =>
     size
       ? fontsSize[DeviceSize.Desktop][size]
@@ -82,6 +82,7 @@ export const SectionText = styled.p<{
         : fontsSize[DeviceSize.Mobile][TextSize.Regular]};
   }
 `
+
 
 export const SectionDescription = styled.span`
   color: ${({ theme }) => theme.textAccent1};
