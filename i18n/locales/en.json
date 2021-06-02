@@ -335,7 +335,8 @@
         "support": "Support"
     },
     "preview": {
-        "ending_in_one_hour": "Ending in 1h"
+        "ending_in_one_hour": "Ending in 1h",
+        "vote": "Vote"
     },
     "recover": {
         "continue": "Continue",
