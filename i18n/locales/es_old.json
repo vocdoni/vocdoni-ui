@@ -10,7 +10,11 @@
         "header": "Nuevo proceso",
         "short_name_to_identify_the_process": "Nombre del proceso",
         "the_process_must_begin_at_least_20_minutes_latter": "",
-        "color_used_to_defined_the_branding_style": ""
+        "color_used_to_defined_the_branding_style": "",
+        "primary_color_used_on_the_voting_process": "",
+        "primary_process_color": "",
+        "secondary_color_used_on_the_voting_process": "",
+        "secondary_process_color": ""
     },
     "errors": {
         "the_entity_name_already_exits": "",

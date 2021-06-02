@@ -42,7 +42,7 @@ export const VotePageHeader = ({
         
         <Column>
           <SectionTitle align={TextAlign.Center}>{processTitle}</SectionTitle>
-          <SectionText align={TextAlign.Center} color={colors.accent1}>
+          <SectionText align={TextAlign.Center} color='accent1'>
             {entityName || i18n.t('vote.login_with_your_credentials_to_access_the_process')}
           </SectionText>
         </Column>

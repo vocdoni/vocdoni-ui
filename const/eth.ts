@@ -1,0 +1,1 @@
+export const ETH_PATH = "m/44'/60'/0'/0/1"
