@@ -1,10 +1,15 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { ProcessStatus, IProcessInfo, DigestedProcessResults, VotingApi } from 'dvote-js'
+import {
+  ProcessStatus,
+  IProcessInfo,
+  DigestedProcessResults,
+  VotingApi,
+} from 'dvote-js'
 
 import i18n from '@i18n'
 import { colors } from 'theme/colors'
-import { VOTING_AUTH_FORM_PATH } from '@const/routes'
+import { VOTING_AUTH_FORM_PATH, VOTING_AUTH_LINK_PATH } from '@const/routes'
 import RouterService from '@lib/router'
 import { Question } from '@lib/types'
 
@@ -34,7 +39,11 @@ interface IProcessDetailProps {
   refreshProcessInfo: (processId: string) => Promise<IProcessInfo>
 }
 
-export const ViewDetail = ({ process, results, refreshProcessInfo }: IProcessDetailProps) => {
+export const ViewDetail = ({
+  process,
+  results,
+  refreshProcessInfo,
+}: IProcessDetailProps) => {
   const [cancelingVote, setCancelingVote] = useState<boolean>(false)
   const [endingVote, setEndingVote] = useState<boolean>(false)
   const [endedOrCanceled, setEndedOrCanceled] = useState<boolean>(false)
@@ -42,9 +51,15 @@ export const ViewDetail = ({ process, results, refreshProcessInfo }: IProcessDet
   const { wallet } = useWallet({ role: WalletRoles.ADMIN })
   const { setAlertMessage } = useMessageAlert()
 
-  const voteLink = RouterService.instance.get(VOTING_AUTH_FORM_PATH, {
-    processId: process?.id,
-  })
+  const voteLink = !process?.metadata?.meta?.formFieldTitles
+    ? RouterService.instance.get(VOTING_AUTH_LINK_PATH, {
+        processId: process.id,
+        key: 'PRIVATE_KEY',
+      })
+    : RouterService.instance.get(VOTING_AUTH_FORM_PATH, {
+        processId: process.id,
+      })
+
   const totalVotes = results?.totalVotes || 0
 
   const { blockStatus } = useBlockStatus()
@@ -57,19 +72,27 @@ export const ViewDetail = ({ process, results, refreshProcessInfo }: IProcessDet
   )
 
   const voteActive = status == VoteStatus.Active
-  const canCancelorEnd = wallet?.address && !cancelingVote && !endingVote && !endedOrCanceled &&
+  const canCancelorEnd =
+    wallet?.address &&
+    !cancelingVote &&
+    !endingVote &&
+    !endedOrCanceled &&
     (status == VoteStatus.Active || status == VoteStatus.Paused)
 
   const handleCancelVote = () => {
     if (!wallet) {
       setAlertMessage(i18n.t('error.wallet_not_available'))
       return
-    }
-    else if (process.parameters.status.isEnded) return
+    } else if (process.parameters.status.isEnded) return
 
-    const warning = i18n.t("confirm.by_canceling_a_process_you_will_unlist_it_and_drop_all_of_its_votes_and_results") + ". " +
-      i18n.t("confirm.this_action_cannot_be_undone") + ".\n\n" +
-      i18n.t("confirm.do_you_want_to_continue")
+    const warning =
+      i18n.t(
+        'confirm.by_canceling_a_process_you_will_unlist_it_and_drop_all_of_its_votes_and_results'
+      ) +
+      '. ' +
+      i18n.t('confirm.this_action_cannot_be_undone') +
+      '.\n\n' +
+      i18n.t('confirm.do_you_want_to_continue')
     if (!confirm(warning)) return
 
     return poolPromise
@@ -94,12 +117,16 @@ export const ViewDetail = ({ process, results, refreshProcessInfo }: IProcessDet
     if (!wallet) {
       setAlertMessage(i18n.t('error.wallet_not_available'))
       return
-    }
-    else if (process.parameters.status.isEnded) return
+    } else if (process.parameters.status.isEnded) return
 
-    const warning = i18n.t("confirm.by_ending_a_process_no_new_votes_will_be_accepted_and_results_will_be_computed") + ". " +
-      i18n.t("confirm.this_action_cannot_be_undone") + ".\n\n" +
-      i18n.t("confirm.do_you_want_to_continue")
+    const warning =
+      i18n.t(
+        'confirm.by_ending_a_process_no_new_votes_will_be_accepted_and_results_will_be_computed'
+      ) +
+      '. ' +
+      i18n.t('confirm.this_action_cannot_be_undone') +
+      '.\n\n' +
+      i18n.t('confirm.do_you_want_to_continue')
     if (!confirm(warning)) return
 
     return poolPromise
@@ -121,16 +148,27 @@ export const ViewDetail = ({ process, results, refreshProcessInfo }: IProcessDet
   }
 
   // TODO handleGeneratePdfResult return not implemented an make button not clickable
-  const handleGeneratePdfResult = () => { }
+  const handleGeneratePdfResult = () => {}
 
-  let dateDiffStr = ""
-  if (process?.parameters?.startBlock && (status == VoteStatus.Active || status == VoteStatus.Paused || status == VoteStatus.Upcoming)) {
+  let dateDiffStr = ''
+  if (
+    process?.parameters?.startBlock &&
+    (status == VoteStatus.Active ||
+      status == VoteStatus.Paused ||
+      status == VoteStatus.Upcoming)
+  ) {
     if (process?.parameters?.startBlock > blockHeight) {
-      const date = VotingApi.estimateDateAtBlockSync(process?.parameters?.startBlock, blockStatus)
+      const date = VotingApi.estimateDateAtBlockSync(
+        process?.parameters?.startBlock,
+        blockStatus
+      )
       dateDiffStr = localizedStrDateDiff(DateDiffType.Start, date)
-    }
-    else { // starting in the past
-      const date = VotingApi.estimateDateAtBlockSync(process?.parameters?.startBlock + process?.parameters?.blockCount, blockStatus)
+    } else {
+      // starting in the past
+      const date = VotingApi.estimateDateAtBlockSync(
+        process?.parameters?.startBlock + process?.parameters?.blockCount,
+        blockStatus
+      )
       dateDiffStr = localizedStrDateDiff(DateDiffType.End, date)
     }
   }
@@ -149,7 +187,13 @@ export const ViewDetail = ({ process, results, refreshProcessInfo }: IProcessDet
               </SectionText>
             </div>
 
-            <When condition={voteActive && (process.parameters.status.isReady || process.parameters.status.isPaused)}>
+            <When
+              condition={
+                voteActive &&
+                (process.parameters.status.isReady ||
+                  process.parameters.status.isPaused)
+              }
+            >
               <FlexContainer height="100px" alignItem={FlexAlignItem.Center}>
                 <ButtonContainer>
                   <Button
