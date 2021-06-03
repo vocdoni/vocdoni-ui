@@ -34,13 +34,18 @@ const VoteAuthMnemonic = () => {
   const [mnemonic, setMnemonic] = useState<string>(null)
   const [processId, setProcessId] = useState<string>('')
   const [mnemonicError, setMnemonicError] = useState<string>()
+  const [invalidProcessId, setInvalidProcessId] = useState<boolean>(false)
   const [validating, setValidating] = useState<boolean>(false)
 
   const urlHash = useUrlHash() // Skip /
 
   useEffect(() => {
     if (urlHash) {
-      setProcessId(urlHash.slice(1).split('/')[0])
+      const process = urlHash.slice(1).split('/')[0]
+      const invalidProcess= !process || !process.match(/^0x[0-9a-fA-A]{64}$/)
+
+      setProcessId(process)
+      setInvalidProcessId(invalidProcess)
     }
   }, [urlHash])
 
@@ -141,7 +146,7 @@ const VoteAuthMnemonic = () => {
   )
 
   const renderInvalidProcessId = new ViewStrategy(
-    () => !processId,
+    () => invalidProcessId,
     <VotingErrorPage message={i18n.t('vote.invalid_process_id_link')} />
   )
 
