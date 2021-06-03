@@ -56,7 +56,8 @@
     "errors": {
         "internal_error_please_log_in_again": "",
         "the_entity_name_already_exits": "",
-        "the_global_window_element_is_not_defined": ""
+        "the_global_window_element_is_not_defined": "",
+        "invalid_mnemonic": "Invàlid mnemonic error"
     },
     "import": {
         "error_importing_account": "",

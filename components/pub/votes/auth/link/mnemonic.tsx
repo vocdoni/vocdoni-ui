@@ -17,7 +17,7 @@ import { overrideTheme } from 'theme'
 interface IFormProps {
   mnemonic: string
   submitEnabled?: boolean
-  invalidMnemonic?: boolean
+  error?: string
   processInfo: IProcessInfo
   entity: EntityMetadata
   onChange: (mnemonic: string) => void
@@ -28,7 +28,7 @@ interface IFormProps {
 export const MnemonicForm = ({
   mnemonic,
   submitEnabled,
-  invalidMnemonic,
+  error,
   processInfo,
   entity,
   onSubmit,
@@ -66,9 +66,7 @@ export const MnemonicForm = ({
                 <InputFormGroup
                   label={'mnemonic'}
                   id={'mnemonic'}
-                  error={
-                    invalidMnemonic && i18n.t('vote.invalid_mnemonic_value')
-                  }
+                  error={error}
                   onChange={(e) => onChange(e.target.value)}
                   onBlur={onBlur}
                   value={mnemonic}

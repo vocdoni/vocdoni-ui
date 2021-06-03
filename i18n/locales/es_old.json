@@ -18,7 +18,8 @@
     },
     "errors": {
         "the_entity_name_already_exits": "",
-        "the_global_window_element_is_not_defined": ""
+        "the_global_window_element_is_not_defined": "",
+        "invalid_mnemonic": "Invalid mnemonic"
     },
     "action": {
         "create_my_entity": "Crear tu entidad",

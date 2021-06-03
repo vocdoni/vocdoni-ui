@@ -177,6 +177,7 @@
         "the_therms_must_be_checked": "Has d'acceptar la Política de privacitat i les Condicions del servei",
         "the_vote_details_are_invalid": "Els detalls de la votació són invàlids",
         "the_vote_is_not_available_yet": "El vot encara no està disponible",
+        "these_user_is_not_member_of_the_census": "Aquest usuari no és membre del cens",
         "wallet_not_available": "Compte no disponible"
     },
     "errors": {
@@ -193,7 +194,6 @@
         "invalid_account_balance": "Balanç de compte invàlid",
         "invalid_image_url": "L'adreça de la imatge és invàlida",
         "invalid_link": "",
-        "invalid_mnemonic": "Invàlid mnemonic error",
         "not_a_web_browser": "No és un navegador",
         "page_not_found": "No s'ha trobat la pàgina",
         "please_accept_credentials_tos": "Si et plau, accepta les Condicions de Servei",

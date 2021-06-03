@@ -51,7 +51,7 @@ export const useAuthKey = () => {
 
       try {
         const voterWallet = new Wallet(key)
-        console.log('El voter wallet', voterWallet)
+
         const digestedHexClaim = CensusOffChainApi.digestPublicKey(
           voterWallet.publicKey,
           CensusOffchainDigestType.RAW_PUBKEY

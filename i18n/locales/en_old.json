@@ -23,7 +23,8 @@
         "choose_passphrase_and_repeat_it": "Choose a passphrase and repeat it",
         "passphrases_do_not_match": "The passphrase does not match",
         "internal_error_please_log_in_again": "",
-        "the_entity_name_already_exits": ""
+        "the_entity_name_already_exits": "",
+        "invalid_mnemonic": "Invalid mnemonic"
     },
     "vote": {
         "vote_details": "",
