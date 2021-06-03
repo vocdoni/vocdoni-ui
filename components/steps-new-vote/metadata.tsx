@@ -35,6 +35,7 @@ import {
   QuestionError,
 } from '@lib/validators/errors/invalid-question-error'
 import { useScrollTop } from '@hooks/use-scroll-top'
+import { When } from 'react-if'
 
 export enum MetadataFields {
   Title = 'process-title',
@@ -66,6 +67,8 @@ export const FormMetadata = () => {
   const [showPreviewModal, setShowPreviewModal] = useState<boolean>(false)
   const [dirtyFields, setDirtyField] = useState<DirtyFields>(new Map())
   const [metadataErrors, setMetadataErrors] = useState<ErrorFields>(new Map())
+
+  const colorPickerEnabled = !!process.env.COLOR_PICKER || false
 
   const dirtyAllFields = () => {
     const newDirtyFields = new Map([...dirtyFields])
@@ -259,24 +262,26 @@ export const FormMetadata = () => {
         </Column>
       </Grid>
 
-      <Grid>
-        <Column md={6} sm={12}>
-          <InputFormGroup
-            title={i18n.t('vote.brand_process_color')}
-            placeholder={i18n.t('vote.brand_process_color')}
-            label={i18n.t('vote.brand_color_used_on_the_voting_process')}
-            id={MetadataFields.BrandColor}
-            helpText={i18n.t('vote.these_color_will_be_used_to_improve_the_look_and_feel')}
-            type="color"
-            value={metadata.meta[MetadataFields.BrandColor]}
-            error={getErrorMessage(MetadataFields.BrandColor)}
-            onBlur={() => handleBlur(MetadataFields.BrandColor)}
-            onChange={(event: ChangeEvent<HTMLInputElement>) =>
-              handleMeta(MetadataFields.BrandColor, event.target.value)
-            }
-          />
-        </Column>
-      </Grid>
+      <When condition={colorPickerEnabled}>
+        <Grid>
+          <Column md={6} sm={12}>
+            <InputFormGroup
+              title={i18n.t('vote.brand_process_color')}
+              placeholder={i18n.t('vote.brand_process_color')}
+              label={i18n.t('vote.brand_color_used_on_the_voting_process')}
+              id={MetadataFields.BrandColor}
+              helpText={i18n.t('vote.these_color_will_be_used_to_improve_the_look_and_feel')}
+              type="color"
+              value={metadata.meta[MetadataFields.BrandColor]}
+              error={getErrorMessage(MetadataFields.BrandColor)}
+              onBlur={() => handleBlur(MetadataFields.BrandColor)}
+              onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                handleMeta(MetadataFields.BrandColor, event.target.value)
+              }
+            />
+          </Column>
+        </Grid>
+      </When>
 
       {metadata.questions.map((question: Question, index: number) => (
         <QuestionGroup
