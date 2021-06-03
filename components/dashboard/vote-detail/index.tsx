@@ -9,7 +9,7 @@ import {
 
 import i18n from '@i18n'
 import { colors } from 'theme/colors'
-import { VOTING_AUTH_FORM_PATH, VOTING_AUTH_LINK_PATH } from '@const/routes'
+import { VOTING_AUTH_FORM_PATH, VOTING_AUTH_LINK_PATH, VOTING_AUTH_MNEMONIC_PATH } from '@const/routes'
 import RouterService from '@lib/router'
 import { Question } from '@lib/types'
 
@@ -30,7 +30,8 @@ import { useWallet, WalletRoles } from '@hooks/use-wallet'
 import { useMessageAlert } from '@hooks/message-alert'
 import { useBlockStatus, usePool } from '@vocdoni/react-hooks'
 import { getVoteStatus, VoteStatus } from '@lib/util'
-import { When } from 'react-if'
+import { Else, If, Then, When } from 'react-if'
+import { HelpText } from '@components/common/help-text'
 import { DateDiffType, localizedStrDateDiff } from '@lib/date'
 
 interface IProcessDetailProps {
@@ -51,14 +52,18 @@ export const ViewDetail = ({
   const { wallet } = useWallet({ role: WalletRoles.ADMIN })
   const { setAlertMessage } = useMessageAlert()
 
-  const voteLink = !process?.metadata?.meta?.formFieldTitles
+  const linkCensus = !process?.metadata?.meta?.formFieldTitles
+  const voteLink = linkCensus
     ? RouterService.instance.get(VOTING_AUTH_LINK_PATH, {
-        processId: process.id,
-        key: 'PRIVATE_KEY',
-      })
+      processId: process.id,
+      key: 'PRIVATE_KEY',
+    })
     : RouterService.instance.get(VOTING_AUTH_FORM_PATH, {
-        processId: process.id,
-      })
+      processId: process.id,
+    })
+  const menmonicUrl = linkCensus
+    ? RouterService.instance.get(VOTING_AUTH_MNEMONIC_PATH, { processId: process.id })
+    : ''
 
   const totalVotes = results?.totalVotes || 0
 
@@ -148,7 +153,7 @@ export const ViewDetail = ({
   }
 
   // TODO handleGeneratePdfResult return not implemented an make button not clickable
-  const handleGeneratePdfResult = () => {}
+  const handleGeneratePdfResult = () => { }
 
   let dateDiffStr = ''
   if (
@@ -229,10 +234,34 @@ export const ViewDetail = ({
       <Grid>
         <Column md={9} sm={12}>
           <SectionContainer>
-            <SectionText color={colors.blueText}>
-              {i18n.t('vote_detail.vote_link')}
-            </SectionText>
-            <DashedLink link={voteLink} />
+            <If condition={!linkCensus}>
+              <Then>
+                <SectionText color={colors.blueText}>
+                  {i18n.t('vote_detail.vote_link')}
+                </SectionText>
+                <DashedLink link={voteLink} />
+              </Then>
+              <Else>
+                <SectionText color={colors.blueText}>
+                  {i18n.t(
+                    'vote.this_is_the_link_that_you_need_to_send_your_community_members_replacing_the_corresponding_private_key'
+                  )}
+                  <HelpText text={i18n.t(
+                    'vote.this_is_the_link_that_you_need_to_send_your_community_members_replacing_the_corresponding_private_key_helper'
+                  )} />
+                </SectionText>
+                <DashedLink link={voteLink} />
+                <SectionText color={colors.blueText}>
+                  {i18n.t(
+                    'vote.this_is_the_link_that_your_community_members_can_use_to_access_via_mnemonic'
+                  )}
+                  <HelpText text={i18n.t(
+                    'vote.this_is_the_link_that_your_community_members_can_use_to_access_via_mnemonic_helper'
+                  )} />
+                </SectionText>
+                <DashedLink link={menmonicUrl} />
+              </Else>
+            </If>
           </SectionContainer>
 
           <SectionContainer>
