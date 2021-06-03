@@ -11,6 +11,7 @@ export const ACCOUNT_RECOVER_PATH = '/entity/recover'
 
 // VOTER
 export const VOTING_AUTH_FORM_PATH = '/pub/votes/auth/form/#/{processId}' // + processId
+export const VOTING_AUTH_MNEMONIC_PATH = '/pub/votes/auth/mnemonic/#/{processId}' // + processId
 export const VOTING_AUTH_LINK_PATH = '/pub/votes/auth/link/#/{processId}/{key}' // + processId + key
 export const VOTING_PATH = '/pub/votes' // + processId
 
