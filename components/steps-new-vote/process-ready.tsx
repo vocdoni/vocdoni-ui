@@ -6,21 +6,23 @@ import { colors } from '../../theme/colors'
 
 import RouterService from '@lib/router'
 
-import { DASHBOARD_PATH, VOTING_AUTH_FORM_PATH } from '@const/routes';
+import { DASHBOARD_PATH, VOTING_AUTH_FORM_PATH, VOTING_AUTH_LINK_PATH } from '@const/routes'
 
-import { useProcessCreation } from '@hooks/process-creation';
+import { useProcessCreation } from '@hooks/process-creation'
 
 import { SectionText, SectionTitle, TextAlign } from '@components/text'
 import { FlexContainer, FlexJustifyContent } from '@components/flex'
-import { DashedLink } from '@components/common/dashed-link';
+import { DashedLink } from '@components/common/dashed-link'
 import { ImageContainer } from '@components/images'
 import { Button } from '@components/button'
-import { useScrollTop } from "@hooks/use-scroll-top"
+import { useScrollTop } from '@hooks/use-scroll-top'
 
 export const ProcessReady = () => {
   useScrollTop()
-  const { processId } = useProcessCreation()
-  const voteUrl = RouterService.instance.get(VOTING_AUTH_FORM_PATH, {processId})
+  const { processId , parameters} = useProcessCreation()
+  const voteUrl = parameters.censusUri
+    ? RouterService.instance.get(VOTING_AUTH_LINK_PATH, { processId, key: 'PRIVATE_KEY' })
+    : RouterService.instance.get(VOTING_AUTH_FORM_PATH, { processId })
 
   return (
     <ProcessReadyContainer>
@@ -31,14 +33,14 @@ export const ProcessReady = () => {
       <SectionTitle align={TextAlign.Center}>
         {i18n.t('vote.your_vote_is_set_up')}
       </SectionTitle>
-      
+
       <SectionText align={TextAlign.Center}>
         {i18n.t(
           'vote.this_is_the_link_that_you_need_to_send_your_community_members'
         )}
       </SectionText>
 
-      <DashedLink link={voteUrl}/>
+      <DashedLink link={voteUrl} />
 
       <BackButtonContainer justify={FlexJustifyContent.Center}>
         <Button color={colors.textAccent1} href={DASHBOARD_PATH} border>
