@@ -25,6 +25,9 @@ import { InputFormGroup } from '@components/form'
 export const FormCensus = () => {
   const [showTermsModal, setShowTermsModal] = useState<boolean>(false)
   const [showAdvanced, setShowAdvanced] = useState<boolean>(false)
+  const [censusRootError, setCensusRootError] = useState<string>()
+  const [censusUriError, setCensusUriError] = useState<string>()
+
 
   useScrollTop()
   const { methods, spreadSheetReader, processTerms, parameters } = useProcessCreation()
@@ -51,6 +54,25 @@ export const FormCensus = () => {
     setShowTermsModal(false)
   }
 
+  const handleOnChangeCensusRoot = (event: ChangeEvent<HTMLInputElement>) => {
+    methods.setCensusRoot(event.target.value)
+
+    if (!event.target.value) {
+      setCensusRootError(i18n.t('vote.invalid_census_root'))
+    } else {
+      setCensusRootError('')
+    }
+  }
+
+  const handleOnChangeCensusUri = (event: ChangeEvent<HTMLInputElement>) => {
+    methods.setCensusUri(event.target.value)
+
+    if (!event.target.value) {
+      setCensusUriError(i18n.t('vote.invalid_census_uri'))
+    } else {
+      setCensusUriError('')
+    }
+  }
   return (
     <Grid>
       <When condition={!showAdvanced}>
@@ -92,19 +114,19 @@ export const FormCensus = () => {
               {'Advanced options'}
             </SectionText>
           </Column>
+
           <Column md={6} sm={12}>
             <InputFormGroup
               title='CensusRoot'
-              label={i18n.t('vote.stream_link_label')}
-              placeholder={i18n.t('vote.stream_link')}
+              label={i18n.t('vote.census_root_value')}
+              placeholder={i18n.t('vote.0x000')}
               helpText={i18n.t('vote.stream_link_explanation')}
+              error={censusRootError}
               // id={MetadataFields.StreamLink}
               value={parameters.censusRoot}
               // error={getErrorMessage(MetadataFields.StreamLink)}
               // onBlur={() => handleBlur(MetadataFields.StreamLink)}
-              onChange={(event: ChangeEvent<HTMLInputElement>) =>
-                methods.setCensusRoot(event.target.value)
-              }
+              onChange={handleOnChangeCensusRoot}
             />
           </Column>
 
@@ -114,14 +136,13 @@ export const FormCensus = () => {
               title={'CensusURI'}
               label={'CensusURI'}
               placeholder={'ipfs//:'}
+              error={censusUriError}
               // helpText={i18n.t('vote.stream_link_explanation')}
               // id={MetadataFields.StreamLink}
               value={parameters.censusUri}
               // error={getErrorMessage(MetadataFields.StreamLink)}
               // onBlur={() => handleBlur(MetadataFields.StreamLink)}
-              onChange={(event: ChangeEvent<HTMLInputElement>) =>
-                methods.setCensusUri(event.target.value)
-              }
+              onChange={handleOnChangeCensusUri}
             />
           </Column>
         </>

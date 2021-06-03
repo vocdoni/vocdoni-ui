@@ -391,6 +391,7 @@
         "question": "Question {{ number }}"
     },
     "vote": {
+        "0x000": "0x00000000000000000000000000000000000000",
         "accept_terms": "I agree",
         "active_vote": "Active vote",
         "add_new_question": "Add a question",
@@ -402,6 +403,7 @@
         "canceled_vote": "Vote canceled",
         "cannot_connect_to_the_blockchain_to_check_the_account_balance": "Cannot connect to the blockchain network",
         "cannot_connect_to_the_vocdoni_chain": "Cannot connect to the vocdoni chain",
+        "census_root_value": "Census root value",
         "census_size": "Census size: {{ size }} voters",
         "change_entity_name": "Change entity name",
         "check_documentation_covering_the_relevant_topics_of_the_vote_and_discus": "Check the documentation attached to this voting process",
@@ -434,6 +436,8 @@
         "header_image": "Header image",
         "i_have_read_and_accept_csv_terms": "I have read and agree to the terms and conditions of this method for organizing voting processes",
         "import_the_list_of_voters": "Import the list of voters",
+        "invalid_census_root": "Invalid census root",
+        "invalid_census_uri": "Invalid census URI",
         "invalid_file_type": "Invalid file type. Supported types: XLS, XLSX, CSV, ODT",
         "invalid_mnemonic_value": "Invalid mnemonic value",
         "invalid_process_id_link": "Invalid process id link, please review the process id on the url",
