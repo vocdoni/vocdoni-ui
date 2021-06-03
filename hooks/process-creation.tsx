@@ -471,7 +471,6 @@ const useProcessParameters = () => {
     forceUpdate()
   }
   const setCensusRoot = (censusRoot: string) => {
-    if (!censusRoot) throw new Error("Invalid censusRoot")
     if (parameters.censusRoot === censusRoot) return
 
 
@@ -479,7 +478,6 @@ const useProcessParameters = () => {
     forceUpdate()
   }
   const setCensusUri = (censusUri: string) => {
-    if (!censusUri) throw new Error("Invalid censusUri")
     if (parameters.censusUri === censusUri) return
 
 

@@ -391,6 +391,7 @@
         "question": "Pregunta {{ number }}"
     },
     "vote": {
+        "0x000": "",
         "accept_terms": "Estic d'accord",
         "active_vote": "Procés actiu",
         "add_new_question": "Afegeix una nova pregunta",
@@ -402,6 +403,7 @@
         "canceled_vote": "Votació cancel·lada",
         "cannot_connect_to_the_blockchain_to_check_the_account_balance": "No s'ha pogut connectar a la cadena de blocs",
         "cannot_connect_to_the_vocdoni_chain": "No s'ha pogut connectar a la cadena Vocdoni",
+        "census_root_value": "",
         "census_size": "Grandària del cens: {{ size }} votants",
         "change_entity_name": "Canvia el nom de l'entitat",
         "check_documentation_covering_the_relevant_topics_of_the_vote_and_discus": "Revisa la documentació adjunta al procés de votació",
@@ -437,6 +439,8 @@
         "header_image": "Imatge de capçalera",
         "i_have_read_and_accept_csv_terms": "He llegit i accepto els termes i condicions d’aquest mètode per organitzar els processos de votació",
         "import_the_list_of_voters": "Importa la llista de votants",
+        "invalid_census_root": "",
+        "invalid_census_uri": "",
         "invalid_file_type": "Fitxer invàlid. Formats acceptats: XLS, XLSX, CSV, ODT",
         "invalid_mnemonic_value": "Valor mnemonic invàlid ",
         "invalid_process_id_link": "Enllaç invàlid",

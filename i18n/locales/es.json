@@ -391,6 +391,7 @@
         "question": "Pregunta {{ number }}"
     },
     "vote": {
+        "0x000": "",
         "accept_terms": "Estoy de acuerdo",
         "active_vote": "Proceso activo",
         "add_new_question": "Añade una nueva pregunta",
@@ -402,6 +403,7 @@
         "canceled_vote": "Votación cancelada",
         "cannot_connect_to_the_blockchain_to_check_the_account_balance": "No se ha podido conectar a la cadena de bloques",
         "cannot_connect_to_the_vocdoni_chain": "No se ha podido conectar a la cadena Vocdoni",
+        "census_root_value": "",
         "census_size": "Tamaño del censo: {{ size }} votantes",
         "change_entity_name": "Cambia el nombre de la entidad",
         "check_documentation_covering_the_relevant_topics_of_the_vote_and_discus": "Revisa la documentación adjunta al proceso de votación",
@@ -437,6 +439,8 @@
         "header_image": "Imagen de cabecera",
         "i_have_read_and_accept_csv_terms": "He leído y acepto los términos y condiciones de este método para organizar los procesos de votación.",
         "import_the_list_of_voters": "Importar la lista de votantes",
+        "invalid_census_root": "",
+        "invalid_census_uri": "",
         "invalid_file_type": "Archivo inválido. Formatos compatibles: XLS, XLSX, CSV, ODT",
         "invalid_mnemonic_value": "mneumonic introducido invalido",
         "invalid_process_id_link": "El proceso id en el enlace es invalido",
