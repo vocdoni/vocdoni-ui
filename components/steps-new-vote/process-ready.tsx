@@ -19,8 +19,9 @@ import { useScrollTop } from '@hooks/use-scroll-top'
 
 export const ProcessReady = () => {
   useScrollTop()
-  const { processId , parameters} = useProcessCreation()
-  const voteUrl = parameters.censusUri
+  const { processId, spreadSheetReader} = useProcessCreation()
+
+  const voteUrl = !spreadSheetReader
     ? RouterService.instance.get(VOTING_AUTH_LINK_PATH, { processId, key: 'PRIVATE_KEY' })
     : RouterService.instance.get(VOTING_AUTH_FORM_PATH, { processId })
 
