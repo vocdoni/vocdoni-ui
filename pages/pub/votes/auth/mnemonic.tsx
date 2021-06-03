@@ -9,6 +9,7 @@ import i18n from '@i18n'
 import { ViewContext, ViewStrategy } from '@lib/strategy'
 
 import { useWallet, WalletRoles } from '@hooks/use-wallet'
+import { useAuth } from '@hooks/use-auth'
 
 import { Loader } from '@components/loader'
 import { VotingErrorPage } from '@components/pub/votes/voting-error-page'
@@ -16,6 +17,7 @@ import { LayoutVoter } from '@components/layout/voter'
 import { MnemonicForm } from '@components/pub/votes/auth/link/mnemonic'
 
 import { InvalidMnemonicError } from '@lib/validators/errors/invalid-mnemonic-error'
+import { NoCensusMemberError } from '@lib/validators/errors/no-census-member-error'
 import { langCa as wordListCa } from '@lib/wordlist-ca'
 import { Redirect } from '@components/redirect'
 import { VOTING_PATH } from '@const/routes'
@@ -31,7 +33,7 @@ const VoteAuthMnemonic = () => {
 
   const [mnemonic, setMnemonic] = useState<string>(null)
   const [processId, setProcessId] = useState<string>('')
-  const [invalidMnemonic, setInvalidMnemonic] = useState<boolean>(false)
+  const [mnemonicError, setMnemonicError] = useState<string>()
   const [validating, setValidating] = useState<boolean>(false)
 
   const urlHash = useUrlHash() // Skip /
@@ -47,9 +49,14 @@ const VoteAuthMnemonic = () => {
     error: loadingInfoError,
     process: processInfo,
   } = useProcess(processId)
+  const { checkCensusProof } = useAuth()
   const { metadata, loading, error } = useEntity(processInfo?.entity)
 
-  const getWalletFromWordList = (newMnemonic: string, wordlist: Wordlist, lang) => {
+  const getWalletFromWordList = (
+    newMnemonic: string,
+    wordlist: Wordlist,
+    lang
+  ) => {
     const splittedMnemonic = newMnemonic
       .trim()
       .split(' ')
@@ -70,12 +77,12 @@ const VoteAuthMnemonic = () => {
   }
 
   const getWalletFromMnemonic = (newMnemonic: string) => {
-    const wallet = 
+    const wallet =
       getWalletFromWordList(newMnemonic, wordListCa, 'ca') ||
       getWalletFromWordList(newMnemonic, wordListEn, 'en') ||
-      getWalletFromWordList(newMnemonic, wordListEs, 'es') 
+      getWalletFromWordList(newMnemonic, wordListEs, 'es')
 
-      if (!wallet) {
+    if (!wallet) {
       throw new InvalidMnemonicError()
     }
 
@@ -86,28 +93,37 @@ const VoteAuthMnemonic = () => {
     setMnemonic(newMnemonic)
   }
 
-  const handleOnSubmit = () => {
-    setInvalidMnemonic(false)
+  const handleOnSubmit = async () => {
     setValidating(true)
 
     try {
       const wallet = getWalletFromMnemonic(mnemonic)
+      setMnemonicError('')
+
+      await checkCensusProof(
+        processInfo.parameters.censusRoot,
+        wallet.privateKey
+      )
+
       setWallet(wallet)
     } catch (error) {
-      setAlertMessage(i18n.t('errors.invalid_mnemonic'))
-      setInvalidMnemonic(true)
+      if (error instanceof NoCensusMemberError) {
+        setMnemonicError(error.message)
+      } else {
+        setMnemonicError(i18n.t('vote.invalid_mnemonic_value'))
+      }
+
       setValidating(false)
     }
   }
 
   const handleOnBlur = () => {
-    setInvalidMnemonic(false)
+    setMnemonicError('')
 
     try {
       getWalletFromMnemonic(mnemonic)
     } catch (error) {
-      console.log(error)
-      setInvalidMnemonic(true)
+      setMnemonicError(i18n.t('vote.invalid_mnemonic_value'))
     }
   }
 
@@ -138,12 +154,12 @@ const VoteAuthMnemonic = () => {
     () => !!processInfo,
     (
       <>
-        { !!wallet && <Redirect to={VOTING_PATH + '#/' + processId} /> }
+        {!!wallet && <Redirect to={VOTING_PATH + '#/' + processId} />}
         <MnemonicForm
           mnemonic={mnemonic}
           processInfo={processInfo}
           entity={metadata}
-          invalidMnemonic={invalidMnemonic}
+          error={mnemonicError}
           onChange={handleOnChange}
           onBlur={handleOnBlur}
           onSubmit={handleOnSubmit}
@@ -152,7 +168,6 @@ const VoteAuthMnemonic = () => {
       </>
     )
   )
-
 
   const viewContext = new ViewContext([
     renderInvalidProcessId,
