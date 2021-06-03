@@ -28,6 +28,7 @@ export const FormCensus = () => {
   const [censusRootError, setCensusRootError] = useState<string>()
   const [censusUriError, setCensusUriError] = useState<string>()
 
+  const advancedCensusEnabled = !!process.env.ADVANCED_CENSUS || false
 
   useScrollTop()
   const { methods, spreadSheetReader, processTerms, parameters } = useProcessCreation()
@@ -106,7 +107,7 @@ export const FormCensus = () => {
         </>
       </When>
 
-      <When condition={showAdvanced}>
+      <When condition={showAdvanced && advancedCensusEnabled}>
         <>
           <Column>
             <SectionTitle>{i18n.t('vote.import_the_list_of_voters')}</SectionTitle>
@@ -153,13 +154,15 @@ export const FormCensus = () => {
           alignItem={FlexAlignItem.Center}
           onClick={handleOpenTermsModal}
         ></FlexContainer>
-      <Button
-        positive
-        onClick={() => setShowAdvanced(a => !a)}
-        // disabled={!spreadSheetReader}
-      >
-        {(!showAdvanced)? 'Show Advanced Options' : 'Hide Advanced Options'}
-      </Button>
+        <When condition={advancedCensusEnabled}>
+          <Button
+            positive
+            onClick={() => setShowAdvanced(a => !a)}
+          // disabled={!spreadSheetReader}
+          >
+            {(!showAdvanced) ? 'Show Advanced Options' : 'Hide Advanced Options'}
+          </Button>
+        </When>
       </Column>
 
 

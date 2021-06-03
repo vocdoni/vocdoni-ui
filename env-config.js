@@ -37,7 +37,11 @@ module.exports = {
   DISCOVERY_POOL_SIZE: process.env.DISCOVERY_POOL_SIZE || 2,// in milliseconds
 
   // HELPSCOUT
-  HELPSCOUT_PROJECT_ID: '5f78b511-0d81-4f7d-b452-40f020f4445e'
+  HELPSCOUT_PROJECT_ID: '5f78b511-0d81-4f7d-b452-40f020f4445e',
+
+  // FEATURES
+  COLOR_PICKER: 0,
+  ADVANCED_CENSUS: 0
 }
 
 console.log('Building the frontend with ENV:', module.exports)
