@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 import { WalletBackup, AccountBackup, Symmetric } from 'dvote-js'
 import { Wallet } from '@ethersproject/wallet'
-import { Spinner } from 'react-rainbow-components'
+import Spinner from 'react-rainbow-components/components/Spinner'
 import { Else, If, Then } from 'react-if'
 
 import i18n from '@i18n'

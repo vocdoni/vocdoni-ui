@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { Modal } from 'react-rainbow-components'
+import Modal  from 'react-rainbow-components/components/Modal'
 
 import { useVoting } from '@hooks/use-voting'
 import { ViewContext, ViewStrategy } from '@lib/strategy'

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { FileSelector } from 'react-rainbow-components'
+import FileSelector from 'react-rainbow-components/components/FileSelector'
 import styled from 'styled-components'
 
 import i18n from '@i18n'
