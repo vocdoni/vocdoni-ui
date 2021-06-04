@@ -1,10 +1,10 @@
 import React, { ReactNode } from "react"
-import { Spinner } from 'react-rainbow-components'
-import { SpinnerProps } from "react-rainbow-components/components/Spinner"
+import Spinner, { SpinnerProps } from 'react-rainbow-components/components/Spinner'
 import Link from "next/link"
 import styled from "styled-components"
 import { hexToRgbA } from "../lib/util"
 import { theme } from "../theme"
+import { colors } from "theme/colors"
 
 export enum ButtonColor {
     Positive = "positive",
@@ -202,4 +202,11 @@ const SquareButtonIconContainer = styled.div`
   & > img {
     width: 100%;
   }
+`
+
+export const LargeButtonText = styled.p`
+  color: ${colors.blueText};
+  font-size: 18px;
+  font-weight: 500;
+  margin: 0 20px;
 `

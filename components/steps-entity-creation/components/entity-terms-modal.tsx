@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { Modal } from 'react-rainbow-components'
+import Modal from 'react-rainbow-components/components/Modal'
 import i18n from '@i18n'
 import { Terms } from '@components/policy/terms/layer-2'
 import {
