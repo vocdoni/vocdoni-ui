@@ -196,7 +196,8 @@ jobs:
           BOOTNODES_URL: "https://bootnodes.vocdoni.net/gateways.stg.priv.json"
           BACKEND_URL: "https://manager.stg.vocdoni.net/api/manager"
           BACKEND_PUB_KEY: "028b1d1380c37d114ac5a2b056d11cec76439664d00b076f9ace97adbe03da6fe1"
-
+          COLOR_PICKER: "1"
+          ADVANCED_CENSUS: "1"
       - name: Set up Cloud SDK (staging)
         uses: google-github-actions/setup-gcloud@master
         with:
