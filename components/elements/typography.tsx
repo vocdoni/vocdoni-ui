@@ -1,5 +1,6 @@
 import React, { ReactNode } from 'react'
 import styled, { DefaultTheme, StyledComponent } from 'styled-components'
+import { colors } from 'theme/colors'
 
 export enum TypographyVariant {
   H1 = 'h1',
@@ -21,7 +22,7 @@ export enum TypographyVariant {
 export enum TextAlign {
   Left = 'left',
   Right = 'right',
-  Center = 'center'
+  Center = 'center',
 }
 
 interface ITypographyProps {
@@ -32,12 +33,22 @@ interface ITypographyProps {
   children: ReactNode
 }
 
-export const Typography = ({ variant, color, margin, align, children }: ITypographyProps) => {
+export const Typography = ({
+  variant,
+  color,
+  margin,
+  align,
+  children,
+}: ITypographyProps) => {
   const TypographyElement = typographyMap.get(
     variant || TypographyVariant.Body1
   )
 
-  return <TypographyElement color={color} margin={margin} align={align}>{children}</TypographyElement>
+  return (
+    <TypographyElement color={color} margin={margin} align={align}>
+      {children}
+    </TypographyElement>
+  )
 }
 interface ITypographyCommon {
   color?: string
@@ -50,61 +61,50 @@ export const H1 = styled.h1<ITypographyCommon>`
   font-weight: 400;
   line-height: 1em;
   margin: 6px 0;
-  text-align: ${({align}) => align? align: TextAlign.Left};
+  text-align: ${({ align }) => (align ? align : TextAlign.Left)};
   color: ${({ color, theme }) => (color ? color : theme.blueText)};
-  ${({margin}) => margin? `margin: ${margin};`: ''}
+  ${({ margin }) => (margin ? `margin: ${margin};` : '')}
 `
 export const H2 = styled.h2<ITypographyCommon>`
   font-size: 44px;
   font-weight: 400;
   line-height: 1em;
-  text-align: ${({align}) => align? align: TextAlign.Left};
+  text-align: ${({ align }) => (align ? align : TextAlign.Left)};
   color: ${({ color, theme }) => (color ? color : theme.blueText)};
-  ${({margin}) => margin? `margin: ${margin};`: ''}
+  ${({ margin }) => (margin ? `margin: ${margin};` : '')}
 `
 
-export const Body1 = styled.p<ITypographyCommon>`
+const BaseParagraphTypography = styled.p<ITypographyCommon>`
+  font-weight: 400;
+  line-height: 1.2em;
+  text-align: ${({ align }) => (align ? align : TextAlign.Left)};
+  color: ${({ color, theme }) =>
+    colors[color] ? colors[color] : color ? color : theme.blueText};
+  ${({ margin }) => (margin ? `margin: ${margin};` : '')}
+`
+export const Body1 = styled(BaseParagraphTypography)`
   font-size: 20px;
-  font-weight: 400;
-  line-height: 1.2em;
-  text-align: ${({align}) => align? align: TextAlign.Left};
-  color: ${({ color, theme }) => (color ? color : theme.blueText)};
-  ${({margin}) => margin? `margin: ${margin};`: ''}
 `
 
-export const Body2 = styled.p<ITypographyCommon>`
+export const Body2 = styled(BaseParagraphTypography)`
   font-size: 18px;
-  font-weight: 400;
-  line-height: 1.2em;
-  text-align: ${({align}) => align? align: TextAlign.Left};
-  color: ${({ color, theme }) => (color ? color : theme.blueText)};
-  ${({margin}) => margin? `margin: ${margin};`: ''}
-`
-export const ExtraSmall = styled.p<ITypographyCommon>`
-  font-size: 12px;
-  font-weight: 400;
-  line-height: 1.2em;
-  text-align: ${({align}) => align? align: TextAlign.Left};
-  color: ${({ color, theme }) => (color ? color : theme.blueText)};
-  ${({margin}) => margin? `margin: ${margin};`: ''}
 `
 
-export const Small = styled.p<ITypographyCommon>`
+export const ExtraSmall = styled(BaseParagraphTypography)`
+  font-size: 12px;
+`
+
+export const Small = styled(BaseParagraphTypography)`
   font-size: 16px;
-  font-weight: 400;
-  line-height: 1.2em;
-  text-align: ${({align}) => align? align: TextAlign.Left};
-  color: ${({ color, theme }) => (color ? color : theme.blueText)};
-  ${({margin}) => margin? `margin: ${margin};`: ''}
 `
 
 const typographyMap = new Map<
   TypographyVariant,
-  StyledComponent<'h1' | 'p', DefaultTheme , ITypographyCommon>
+  StyledComponent<'h1' | 'p', DefaultTheme, ITypographyCommon>
 >([
   [TypographyVariant.H1, H1],
   [TypographyVariant.Body1, Body1],
   [TypographyVariant.Body2, Body2],
   [TypographyVariant.Small, Small],
-  [TypographyVariant.ExtraSmall, ExtraSmall]
+  [TypographyVariant.ExtraSmall, ExtraSmall],
 ])

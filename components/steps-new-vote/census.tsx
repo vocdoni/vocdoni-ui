@@ -20,6 +20,7 @@ import { ProcessTermsModal } from './components/process-terms-modal'
 import { FlexAlignItem, FlexContainer } from '@components/flex'
 import { RoundedCheck, RoundedCheckSize } from '@components/elements/rounded-check'
 import { Typography, TypographyVariant } from '@components/elements/typography'
+import { DownloadCsvTemplateCard } from './components/download-csv-template-card'
 
 export const FormCensus = () => {
   const [showTermsModal, setShowTermsModal] = useState<boolean>(false)
@@ -58,6 +59,10 @@ export const FormCensus = () => {
 
       <Column>
         <CensusContainer>
+          <DownloadCsvTemplateCardContainer>
+
+          <DownloadCsvTemplateCard/>
+          </DownloadCsvTemplateCardContainer>
           {spreadSheetReader ? (
             <CensusFileData
               fileName={spreadSheetReader.file.name}
@@ -126,6 +131,10 @@ export const FormCensus = () => {
 const CensusContainer = styled.div<{ disabled?: boolean }>`
   opacity: ${({ disabled }) => (disabled ? '0.6' : '1')};
   pointer-events: ${({ disabled }) => (disabled ? 'none' : 'auto')};
+`
+
+const DownloadCsvTemplateCardContainer = styled.div`
+  margin-bottom: 30px;
 `
 
 const BottomDiv = styled.div`
