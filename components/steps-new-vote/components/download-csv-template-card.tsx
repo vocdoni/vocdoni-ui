@@ -3,9 +3,6 @@ import React from 'react'
 import { Card } from '@components/cards'
 import i18n from '@i18n'
 import {
-  Button,
-  JustifyContent,
-  LargeButtonText,
   LinkTarget,
 } from '@components/button'
 import { FlexContainer } from '@components/flex'
