@@ -52,6 +52,7 @@
     "xlsx": "^0.16.9"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "^10.2.3",
     "@types/date-fns": "^2.6.0",
     "@types/node": "^15.3.0",
     "@types/react": "^17.0.8",
