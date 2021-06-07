@@ -40,8 +40,8 @@ module.exports = {
   HELPSCOUT_PROJECT_ID: '5f78b511-0d81-4f7d-b452-40f020f4445e',
 
   // FEATURES
-  COLOR_PICKER: 0,
-  ADVANCED_CENSUS: 0
+  COLOR_PICKER: 1,
+  ADVANCED_CENSUS: 1
 }
 
 console.log('Building the frontend with ENV:', module.exports)
