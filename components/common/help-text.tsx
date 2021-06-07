@@ -44,6 +44,12 @@ const Container = styled.div`
 const Tooltip = styled.div<{visible: boolean}>`
   visibility: ${({ visible }) => visible? 'visible': 'hidden'};
   opacity: ${({ visible }) => visible? '1': '0'};
+  -webkit-touch-callout: none; 
+  -webkit-user-select: none; 
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none; 
+  user-select: none;
   color: #865BFF;
   width: max-content;
   font-size: 14px;
