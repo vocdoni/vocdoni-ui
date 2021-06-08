@@ -49,20 +49,24 @@ export const ModalQuestionList = ({
           )}
         </Then>
         <Else>
-          <SectionText color="#7E89AC">{i18n.t('vote.sending_vote_please_dont_close_the_browsers')}</SectionText>
+          <SectionText color="#7E89AC">
+            {i18n.t('vote.sending_vote_please_dont_close_the_browsers')}
+          </SectionText>
         </Else>
       </If>
 
       <Grid>
         <Column sm={6}>
-          <Button
-            wide
-            color={colors.accent1}
-            onClick={onClose}
-            disabled={sendingVote}
-          >
-            {i18n.t('vote.no_back_to_login')}
-          </Button>
+          <If condition={!sendingVote}>
+            <Button
+              wide
+              color={colors.accent1}
+              onClick={onClose}
+              disabled={sendingVote}
+            >
+              {i18n.t('vote.no_back_to_login')}
+            </Button>
+          </If>
         </Column>
 
         <Column sm={6}>

@@ -125,7 +125,7 @@ export const VotingPageView = () => {
           </If>
         </Grid>
 
-        {/* {hasVoted && <VoteRegisteredCard explorerLink={explorerLink} />} */}
+        {hasVoted && <TextContainer>{i18n.t('vote.you_vote_has_been_submit_successfully_the_results_will_be_available')}</TextContainer>}
 
         {processInfo?.metadata?.questions.map(
           (question: Question, index: number) => (

@@ -3,14 +3,14 @@ import translation from './locales'
 
 const i18n = i18next.createInstance()
 
-export const supportedLanguages = ['ca', 'en', 'eo', 'es']
+export const supportedLanguages = ['ca']
 
 const userLang = (typeof window !== 'undefined' && typeof window.navigator.language !== 'undefined') ? window.navigator.language.substr(0, 2).toLowerCase() : process.env.LANG
 
 i18n.init({
 	debug: process.env.NODE_ENV === 'development',
 	lng: userLang,
-	fallbackLng: 'en',
+	fallbackLng: 'ca',
 	defaultNS: 'translation',
 	interpolation: {
 		escapeValue: false,
