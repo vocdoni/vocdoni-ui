@@ -7,6 +7,7 @@ import { SectionText } from '@components/text'
 import { Grid, Column } from '@components/grid'
 import { Button } from '@components/button'
 import { Choice, Question } from '@lib/types'
+import { Else, If, Then } from 'react-if'
 
 interface IModalQuestionList {
   questions: Question[]
@@ -41,10 +42,16 @@ export const ModalQuestionList = ({
   return (
     <>
       <ModalHeader>{i18n.t('vote.confirm_your_vote')}</ModalHeader>
-
-      {questions.map((question: Question, index: number) =>
-        renderQuestion(question, question.choices[choices[index]], index)
-      )}
+      <If condition={!sendingVote}>
+        <Then>
+          {questions.map((question: Question, index: number) =>
+            renderQuestion(question, question.choices[choices[index]], index)
+          )}
+        </Then>
+        <Else>
+          <SectionText color="#7E89AC">{i18n.t('vote.sending_vote_please_dont_close_the_browsers')}</SectionText>
+        </Else>
+      </If>
 
       <Grid>
         <Column sm={6}>

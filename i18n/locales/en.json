@@ -469,6 +469,7 @@
         "retry": "Retry",
         "reveal_results_at_the_end": "Reveal results at the end",
         "select_whether_results_should_be_visible_in_real_time": "Select whether results should be visible in real time or only after the end of the voting process",
+        "sending_vote_please_dont_close_the_browsers": "We are processing your vote, this process may take few seconds. Please, do not close or refresh the page",
         "set_option": "Set option",
         "settings": "Settings",
         "something_was_wrong_please_click_retry_to_try_again_the_entity_creation_if_fails_again_contact_with_our_support_team": "Please wait a moment and try again. If the problems persist please contact with support team",

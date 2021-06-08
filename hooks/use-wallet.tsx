@@ -83,9 +83,9 @@ export function UseWalletContextProvider({ children }) {
       }
     }
 
-    window.addEventListener("beforeunload", beforeUnload)
+    // window.addEventListener("beforeunload", beforeUnload)
 
-    return () => window.removeEventListener("beforeunload", beforeUnload)
+    // return () => window.removeEventListener("beforeunload", beforeUnload)
   }, [adminWallet, voterWallet])
 
   useEffect(() => {

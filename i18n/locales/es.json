@@ -469,6 +469,7 @@
         "retry": "Inténtalo de nuevo",
         "reveal_results_at_the_end": "Resultados públicos al finalizar el proceso",
         "select_whether_results_should_be_visible_in_real_time": "Seleciconar recuento público ( en tiempo real ) o secreto (disponibles al finalizar la votación)",
+        "sending_vote_please_dont_close_the_browsers": "Estamos procesando tu voto, este proceso puede tardar unos segundos. Por favor, no cierre ni actualize la página",
         "set_option": "Establecer opción",
         "settings": "Configuración",
         "something_was_wrong_please_click_retry_to_try_again_the_entity_creation_if_fails_again_contact_with_our_support_team": "Por favor, espera un rato y vuelve a intentarlo. Si el problema persiste, ponte en contacto con el equipo de soporte.",

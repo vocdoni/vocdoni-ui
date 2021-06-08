@@ -469,6 +469,7 @@
         "retry": "Torna-ho a provar",
         "reveal_results_at_the_end": "Revela els resultats al final del procés",
         "select_whether_results_should_be_visible_in_real_time": "Selecciona si vols que el recompte sigui en temps real o només quan hagi acabat el procés de votació",
+        "sending_vote_please_dont_close_the_browsers": "Estem processant el teu vot, aquest procès pot trigar uns segons. Si us plau, no tanqui ni actualitzi la pàgina",
         "set_option": "Estableix una opció",
         "settings": "Configuració",
         "something_was_wrong_please_click_retry_to_try_again_the_entity_creation_if_fails_again_contact_with_our_support_team": "Si et plau, espera una estona i torna-ho a provar. Si el problema persisteix, posa't en contacte amb l'equip de suport.",
