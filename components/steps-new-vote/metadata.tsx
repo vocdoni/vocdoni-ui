@@ -185,6 +185,7 @@ export const FormMetadata = () => {
           <FileLoaderFormGroup
             title={i18n.t('vote.header_image')}
             label={i18n.t('vote.optional_field')}
+            maxMbSize={2}
             onSelect={(file) => methods.setHeaderFile(file)}
             onChange={methods.setHeaderURL}
             file={headerFile}

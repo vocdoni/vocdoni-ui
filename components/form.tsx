@@ -28,7 +28,8 @@ type IInputFormGroupProps = {
 type FileFormGroupProps = {
   file: File
   url: string
-  accept: string
+  accept?: string
+  maxMbSize?: number
   onChange: (value: string) => void
   onSelect: (value: File) => void
 } & BaseForGroupProps
@@ -107,6 +108,7 @@ export const FileLoaderFormGroup = ({
   accept,
   url,
   error,
+  maxMbSize,
   onChange,
   onSelect,
   variant = FormGroupVariant.Regular,
@@ -121,6 +123,7 @@ export const FileLoaderFormGroup = ({
       <FileLoader
         onSelect={onSelect}
         onChange={onChange}
+        maxMbSize={maxMbSize}
         file={file}
         url={url}
         accept={accept}
