@@ -99,7 +99,7 @@ export const VotingPageView = () => {
         />
 
         <Grid>
-          <Column lg={9} sm={12}>
+          <Column sm={12}>
             <VoteDescription
               description={processInfo?.metadata?.description.default}
               liveStream={processInfo?.metadata?.media.streamUri}
@@ -114,26 +114,14 @@ export const VotingPageView = () => {
             />
           </Column>
 
-          <If condition={!readOnly}>
+          <If condition={readOnly}>
             <Then>
-              <Column lg={3} sm={12}>
-                <VoteNowCard
-                  hasVoted={hasVoted}
-                  explorerLink={explorerLink}
-                  disabled={
-                    !allQuestionsChosen || voteStatus != VoteStatus.Active
-                  }
-                  onVote={() => setConfirmModalOpened(true)}
-                />
-              </Column>
-            </Then>
-            <Else>
-              <Card lg={3} sm={12}>
+              <Card sm={12}>
                 <TextContainer align={TextAlign.Center}>
                   {i18n.t('vote.you_are_connected_as_a_guest')}
                 </TextContainer>
               </Card>
-            </Else>
+            </Then>
           </If>
         </Grid>
 
