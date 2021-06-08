@@ -228,6 +228,7 @@ export const FormMetadata = () => {
           label={i18n.t('entity.logo')}
           onSelect={(file) => methods.setLogoFile(file)}
           onChange={methods.setLogoUrl}
+          maxMbSize={2}
           error={getErrorMessage(MetadataFields.Logo)}
           file={logoFile}
           url={logoUrl}
@@ -241,6 +242,7 @@ export const FormMetadata = () => {
           label={i18n.t('entity.header')}
           onSelect={(file) => methods.setHeaderFile(file)}
           onChange={methods.setHeaderUrl}
+          maxMbSize={2}
           error={getErrorMessage(MetadataFields.Header)}
           file={headerFile}
           url={headerUrl}

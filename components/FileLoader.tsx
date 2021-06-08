@@ -12,16 +12,18 @@ type Props = {
   accept?: string,
   file?: File,
   url?: string,
+  maxMbSize?: number,
   onSelect: (file: File) => void,
   onChange: (url: string) => void,
 }
 
-const FileLoader = ({ onSelect, onChange, accept, ...props }: Props) => {
+const FileLoader = ({ onSelect, onChange, accept, maxMbSize, ...props }: Props) => {
   const [file, setFile] = useState<File>(null)
   const [error, setError] = useState<string>(null)
   const [fileUrl, setFileUrl] = useState<string>('')
   // const [fileName, setFileName] = useState<string>('')
   const inputRef = useRef<HTMLInputElement>(null)
+  const maxSize = maxMbSize || 5
 
   useEffect(() => {
     if (props.file && props.file != file) {
@@ -36,7 +38,7 @@ const FileLoader = ({ onSelect, onChange, accept, ...props }: Props) => {
     setError(null)
     const [file] = Array.from(e.target.files)
 
-    if (file.size >= 5 * 1024 * 1024) {
+    if (file.size >= maxSize * 1024 * 1024) {
       setError(i18n.t('errors.file_too_large'))
       return
     }
