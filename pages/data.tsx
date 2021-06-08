@@ -10,7 +10,7 @@ const PageView = () => {
       <>
         <When condition={!lang || lang === 'es' || lang === 'ca'}>
         <>
-          <h2>Capa segundaria de información de Protección de Datos</h2>
+          <h2>Capa secundaria de información de Protección de Datos</h2>
           <h4>Responsable del tratamiento</h4>
           <p>Los datos de carácter personal que se pudieran recabar directamente del interesado serán tratados de forma confidencial y quedarán incorporados a la correspondiente actividad de tratamiento titularidad de Aragon Labs.</p>
           <p></p>
