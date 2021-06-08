@@ -56,32 +56,33 @@ export const ModalQuestionList = ({
       </If>
 
       <Grid>
-        <Column sm={6}>
           <If condition={!sendingVote}>
+            <Column sm={6}>
+              <Button
+                wide
+                color={colors.accent1}
+                onClick={onClose}
+                disabled={sendingVote}
+              >
+                {i18n.t('vote.no_back_to_login')}
+              </Button>
+            </Column>
+          </If>
+
+          <Column sm={sendingVote? 12: 6}>
             <Button
               wide
-              color={colors.accent1}
-              onClick={onClose}
+              positive
+              onClick={onSubmit}
               disabled={sendingVote}
+              spinner={sendingVote}
             >
-              {i18n.t('vote.no_back_to_login')}
+              {i18n.t('vote.yes_submit_the_vote')}
             </Button>
-          </If>
-        </Column>
-
-        <Column sm={6}>
-          <Button
-            wide
-            positive
-            onClick={onSubmit}
-            disabled={sendingVote}
-            spinner={sendingVote}
-          >
-            {i18n.t('vote.yes_submit_the_vote')}
-          </Button>
-        </Column>
+          </Column>
       </Grid>
     </>
+    
   )
 }
 

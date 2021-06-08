@@ -48,11 +48,11 @@
         "you_are_about_to_submit_your_vote": "Estàs a punt d'enviar el teu vot"
     },
     "cookies": {
-        "accept": "",
-        "cookies_paragraph_1": "",
-        "cookies_paragraph_2": "",
-        "more_details": "",
-        "reject": ""
+        "accept": "Acceptar",
+        "cookies_paragraph_1": "Aquest lloc web utilitza cookies per millorar la vostra experiència mentre navegueu pel lloc web. Les cookies que es classifiquen com a necessàries s’emmagatzemen al vostre navegador, ja que són essencials per al funcionament de les funcionalitats bàsiques del lloc web.",
+        "cookies_paragraph_2": "També fem servir cookies de tercers que ens ajuden a analitzar i entendre com utilitzeu aquest lloc web. Aquestes cookies s’emmagatzemaran al vostre navegador només amb el vostre consentiment. També teniu l’opció de desactivar la recepció d’aquestes cookies. Però desactivar algunes d’aquestes cookies pot afectar la vostra experiència de navegació.",
+        "more_details": "Més detalls",
+        "reject": "Rebutjar"
     },
     "copy": {
         "the_link_has_been_copied_to_the_clipboard": "L'enllaç s'ha copiat al porta-retalls"

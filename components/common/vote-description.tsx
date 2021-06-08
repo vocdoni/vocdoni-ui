@@ -55,10 +55,6 @@ export const VoteDescription = ({
 
       <When condition={discussionUrl}>
         <Column>
-          <SectionText size={TextSize.Big} color={colors.blueText}>
-            {i18n.t('vote.discussion')}
-          </SectionText>
-
           <Button
             border
             wide
@@ -74,12 +70,6 @@ export const VoteDescription = ({
 
       <When condition={attachmentUrl}>
         <Column>
-          <SectionText color={colors.lightText}>
-            {i18n.t(
-              'vote.check_documentation_covering_the_relevant_topics_of_the_vote_and_discus'
-            )}
-          </SectionText>
-
           <Button
             border
             wide
