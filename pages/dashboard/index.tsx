@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useEntity, useBlockHeight } from '@vocdoni/react-hooks'
-import { IProcessInfo } from 'dvote-js'
+import { IProcessDetails, IProcessVochainStatus, IProcessStatus, IProcessSummary } from 'dvote-js'
 
 import {
   DashboardActivitySummary,
@@ -19,9 +19,9 @@ import { LayoutEntity } from '@components/layout/entity'
 // NOTE: This page uses a custom Layout. See below.
 
 const DashboardPage = () => {
-  const [activeVotes, setActiveVotes] = useState<IProcessInfo[]>([])
-  const [upcomingVotes, setUpcomingVotes] = useState<IProcessInfo[]>([])
-  const [votesResults, setVotesResults] = useState<IProcessInfo[]>([])
+  const [activeVotes, setActiveVotes] = useState<IProcessDetails[]>([])
+  const [upcomingVotes, setUpcomingVotes] = useState<IProcessDetails[]>([])
+  const [votesResults, setVotesResults] = useState<IProcessDetails[]>([])
 
   const { wallet } = useWallet()
   const { dbAccounts } = useDbAccounts()
@@ -56,14 +56,14 @@ const DashboardPage = () => {
 
     for (let proc of processes.values()) {
       // info not loaded yet
-      if (!proc || !proc.parameters) continue
-      else if (proc.parameters?.status?.isCanceled) continue
+      if (!proc || !proc.summary) continue
+      else if (proc.summary?.status === 'CANCELED') continue
       // ignore
-      else if (proc.parameters?.startBlock > blockHeight) upcoming.push(proc)
-      else if (processEndBlock(proc) < blockHeight) results.push(proc)
+      else if (proc.summary?.startBlock > blockHeight) upcoming.push(proc)
+      else if (processEndBlock(proc.summary) < blockHeight) results.push(proc)
       else if (
-        proc.parameters?.status?.isEnded ||
-        proc.parameters?.status?.hasResults
+        proc.summary?.status === 'ENDED' ||
+        proc.summary?.status === 'RESULTS'
       ) {
         results.push(proc)
       }
@@ -115,7 +115,7 @@ DashboardPage["Layout"] = LayoutEntity
 
 // HELPERS
 
-const processEndBlock = (process: IProcessInfo) =>
-  process.parameters?.startBlock + process.parameters?.blockCount
+const processEndBlock = (process: IProcessSummary) =>
+  process?.startBlock + process?.blockCount
 
 export default DashboardPage

@@ -27,7 +27,7 @@ export const ConfirmModal = ({ isOpen, onClose }: IConfigModal) => {
     () => !hasVoted,
     (
       <ModalQuestionList
-        questions={processInfo.metadata.questions}
+        questions={processInfo?.metadata?.questions}
         choices={choices}
         onSubmit={handleSendVote}
         sendingVote={pleaseWait}

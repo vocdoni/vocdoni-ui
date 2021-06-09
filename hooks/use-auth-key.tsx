@@ -3,7 +3,7 @@ import { Wallet } from 'ethers'
 import { usePool, useProcess } from '@vocdoni/react-hooks'
 
 import {
-  IProcessInfo,
+  IProcessDetails,
   CensusOffChainApi,
   CensusOffchainDigestType,
 } from 'dvote-js'
@@ -20,7 +20,7 @@ type IAuthKey = {
   invalidProcessId?: boolean
   loadingInfo?: boolean
   loadingInfoError?: string
-  processInfo?: IProcessInfo
+  processInfo?: IProcessDetails
   processId: string
   key?: string
 }
@@ -60,7 +60,7 @@ export const useAuthKey = () => {
         const pool = await poolPromise
 
         const censusProof = await CensusOffChainApi.generateProof(
-          processInfo.parameters.censusRoot,
+          processInfo.state?.censusRoot,
           { key: digestedHexClaim },
           false,
           pool

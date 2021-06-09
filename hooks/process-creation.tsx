@@ -263,7 +263,7 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
         while (retries >= 0) {
           try {
             // the following getProcessInfo throws if no process is found with this id
-            let processInfo = await VotingApi.getProcessInfo(trimProcId, pool)
+            let processInfo = await VotingApi.getProcessState(trimProcId, pool)
             if (typeof processInfo !== 'object') {
               throw new Error("invalid process info")
             }
@@ -301,7 +301,7 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
     paramsMethods.setStartBlock(startBlock)
 
     if (blockCount < 0) {
-      console.error("Negative block count", blockCount, blockStatus.blockNumber)
+      console.error("Negative block count", blockCount, blockStatus?.blockNumber)
       return
     }
     paramsMethods.setBlockCount(blockCount)

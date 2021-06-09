@@ -1,4 +1,4 @@
-import { IProcessInfo, GatewayPool, VotingApi } from 'dvote-js'
+import { IProcessDetails, GatewayPool, VotingApi } from 'dvote-js'
 import { BigNumber, providers } from 'ethers'
 import { InvalidAddressError } from './validators/errors/invalid-address-error';
 import { InvalidEthereumProviderError } from './validators/errors/invalid-ethereum-provider-error';
@@ -10,7 +10,7 @@ import { RetrieveGasTimeOutError } from './validators/errors/retrieve-gas-time-o
 export async function getProcesses(
   entityId: string,
   pool: GatewayPool
-): Promise<IProcessInfo[]> {
+): Promise<IProcessDetails[]> {
   try {
     const list = await getProcessList(entityId, pool);
     const allProcess = list.map((processId) =>
@@ -27,18 +27,8 @@ export async function getProcesses(
   }
 }
 
-export async function getProcessInfo(processId: string, pool: GatewayPool): Promise<IProcessInfo> {
-  const [metadata, parameters] = await Promise.all([
-    VotingApi.getProcessMetadata(processId, pool),
-    VotingApi.getProcessParameters(processId, pool)
-  ])
-
-  return {
-    metadata,
-    parameters,
-    id: processId, // pass-through to have the value for links
-    entity: parameters.entityAddress.toLowerCase()
-  }
+export async function getProcessInfo(processId: string, pool: GatewayPool): Promise<IProcessDetails> {
+  return VotingApi.getProcess(processId, pool)
 }
 
 /** Returns the list of process id's */

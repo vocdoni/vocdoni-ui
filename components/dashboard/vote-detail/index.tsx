@@ -2,9 +2,10 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import {
   ProcessStatus,
-  IProcessInfo,
+  IProcessDetails,
   DigestedProcessResults,
   VotingApi,
+  IProcessState,
 } from 'dvote-js'
 
 import i18n from '@i18n'
@@ -35,9 +36,9 @@ import { HelpText } from '@components/common/help-text'
 import { DateDiffType, localizedStrDateDiff } from '@lib/date'
 
 interface IProcessDetailProps {
-  process: IProcessInfo
+  process: IProcessDetails
   results: DigestedProcessResults
-  refreshProcessInfo: (processId: string) => Promise<IProcessInfo>
+  refreshProcessInfo: (processId: string) => Promise<IProcessState>
 }
 
 export const ViewDetail = ({
@@ -71,8 +72,8 @@ export const ViewDetail = ({
   const blockHeight = blockStatus?.blockNumber || 0
 
   const status: VoteStatus = getVoteStatus(
-    process.parameters.status,
-    process.parameters.startBlock,
+    process.state?.status,
+    process.state?.startBlock,
     blockHeight
   )
 
@@ -88,7 +89,7 @@ export const ViewDetail = ({
     if (!wallet) {
       setAlertMessage(i18n.t('error.wallet_not_available'))
       return
-    } else if (process.parameters.status.isEnded) return
+    } else if (process?.state?.status === ProcessStatus.ENDED) return
 
     const warning =
       i18n.t(
@@ -122,7 +123,7 @@ export const ViewDetail = ({
     if (!wallet) {
       setAlertMessage(i18n.t('error.wallet_not_available'))
       return
-    } else if (process.parameters.status.isEnded) return
+    } else if (process?.state?.status === ProcessStatus.ENDED) return
 
     const warning =
       i18n.t(
@@ -157,21 +158,21 @@ export const ViewDetail = ({
 
   let dateDiffStr = ''
   if (
-    process?.parameters?.startBlock &&
+    process?.state?.startBlock &&
     (status == VoteStatus.Active ||
       status == VoteStatus.Paused ||
       status == VoteStatus.Upcoming)
   ) {
-    if (process?.parameters?.startBlock > blockHeight) {
+    if (process?.state?.startBlock > blockHeight) {
       const date = VotingApi.estimateDateAtBlockSync(
-        process?.parameters?.startBlock,
+        process?.state?.startBlock,
         blockStatus
       )
       dateDiffStr = localizedStrDateDiff(DateDiffType.Start, date)
     } else {
       // starting in the past
       const date = VotingApi.estimateDateAtBlockSync(
-        process?.parameters?.startBlock + process?.parameters?.blockCount,
+        process?.state?.endBlock,
         blockStatus
       )
       dateDiffStr = localizedStrDateDiff(DateDiffType.End, date)
@@ -195,8 +196,8 @@ export const ViewDetail = ({
             <When
               condition={
                 voteActive &&
-                (process.parameters.status.isReady ||
-                  process.parameters.status.isPaused)
+                (process.state?.status === ProcessStatus.READY ||
+                  process.state?.status === ProcessStatus.PAUSED)
               }
             >
               <FlexContainer height="100px" alignItem={FlexAlignItem.Center}>
@@ -292,7 +293,7 @@ export const ViewDetail = ({
                   questionIdx={index}
                   hasVoted={true}
                   totalVotes={totalVotes}
-                  processStatus={process?.parameters.status}
+                  processStatus={process?.state?.status}
                   result={results?.questions[index]}
                   selectedChoice={0}
                 />

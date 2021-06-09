@@ -25,7 +25,7 @@ const VoteAuthLogin = () => {
     processInfo,
     methods,
   } = useAuthForm()
-  const { metadata, loading, error } = useEntity(processInfo?.entity)
+  const { metadata, loading, error } = useEntity(processInfo?.state?.entityId)
 
   const handleSubmit = () => {
     setCheckingCredentials(true)

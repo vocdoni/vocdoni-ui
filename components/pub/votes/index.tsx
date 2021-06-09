@@ -32,7 +32,7 @@ import { VoteStatus, getVoteStatus } from '@lib/util'
 import { Else, If, Then, When } from 'react-if'
 import { SectionText, TextAlign } from '@components/text'
 import { useUrlHash } from 'use-url-hash'
-import { VotingApi } from 'dvote-js'
+import { VotingApi, ProcessStatus } from 'dvote-js'
 import { DateDiffType, localizedStrDateDiff } from '@lib/date'
 import { overrideTheme } from 'theme'
 
@@ -42,37 +42,36 @@ export const VotingPageView = () => {
     useVoting(processId)
   const { process: processInfo, error, loading } = useProcess(processId)
   const { wallet } = useWallet({ role: WalletRoles.VOTER })
-  const { metadata } = useEntity(processInfo?.entity)
+  const { metadata } = useEntity(processInfo?.state?.entityId)
   const [confirmModalOpened, setConfirmModalOpened] = useState<boolean>(false)
   // const votePageLink = `${VOTING_PATH}/${processInfo?.id?}`
 
   const readOnly = !wallet?.address
   const totalVotes = results?.totalVotes || 0
   const { blockStatus } = useBlockStatus()
-  const blockHeight = blockStatus.blockNumber
+  const blockHeight = blockStatus?.blockNumber
   const voteStatus: VoteStatus = getVoteStatus(
-    processInfo?.parameters?.status,
-    processInfo?.parameters?.startBlock,
+    processInfo?.state?.status,
+    processInfo?.state?.startBlock,
     blockHeight
   )
   const explorerLink = process.env.EXPLORER_URL + '/envelope/' + nullifier
 
   let dateDiffStr = ''
   if (
-    processInfo?.parameters?.startBlock &&
+    processInfo?.state?.startBlock &&
     (voteStatus == VoteStatus.Active || voteStatus == VoteStatus.Paused)
   ) {
-    if (processInfo?.parameters?.startBlock > blockHeight) {
+    if (processInfo?.state?.startBlock > blockHeight) {
       const date = VotingApi.estimateDateAtBlockSync(
-        processInfo?.parameters?.startBlock,
+        processInfo?.state?.startBlock,
         blockStatus
       )
       dateDiffStr = localizedStrDateDiff(DateDiffType.Start, date)
     } else {
       // starting in the past
       const date = VotingApi.estimateDateAtBlockSync(
-        processInfo?.parameters?.startBlock +
-          processInfo?.parameters?.blockCount,
+        processInfo?.state?.endBlock,
         blockStatus
       )
       dateDiffStr = localizedStrDateDiff(DateDiffType.End, date)
@@ -136,7 +135,7 @@ export const VotingPageView = () => {
               hasVoted={hasVoted}
               totalVotes={totalVotes}
               result={results?.questions[index]}
-              processStatus={processInfo?.parameters.status}
+              processStatus={processInfo?.state?.status}
               selectedChoice={choices.length > index ? choices[index] : -1}
               readOnly={readOnly}
               onSelectChoice={(selectedChoice) => {

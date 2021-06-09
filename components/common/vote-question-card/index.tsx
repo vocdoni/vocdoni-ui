@@ -1,7 +1,7 @@
 import React from 'react'
 import i18n from '@i18n'
 import styled from 'styled-components'
-import { DigestedProcessResultItem, ProcessStatus } from 'dvote-js'
+import { DigestedProcessResultItem, IProcessStatus, ProcessStatus } from 'dvote-js'
 import { colors } from 'theme/colors'
 import { ViewContext, ViewStrategy } from '@lib/strategy'
 import { Question } from '@lib/types'
@@ -24,7 +24,7 @@ interface IVoteQuestionCardProps {
   readOnly?: boolean
   hasVoted: boolean
   totalVotes: number
-  processStatus: ProcessStatus
+  processStatus: IProcessStatus
   result?: DigestedProcessResultItem
   selectedChoice?: number
   onSelectChoice?: (choiceValue: number) => void
@@ -43,7 +43,7 @@ export const VoteQuestionCard = ({
 }: IVoteQuestionCardProps) => {
 
   const questionsView = new ViewStrategy(
-    () => (!hasVoted && !readOnly) && processStatus.value === ProcessStatus.READY,
+    () => (!hasVoted && !readOnly) && processStatus === ProcessStatus.READY,
     (
       <ChoiceSelector
         questionIdx={questionIdx}
@@ -55,8 +55,8 @@ export const VoteQuestionCard = ({
   )
 
   const showResults =
-    processStatus.value === ProcessStatus.ENDED ||
-    processStatus.value === ProcessStatus.RESULTS ||
+    processStatus === ProcessStatus.ENDED ||
+    processStatus === ProcessStatus.RESULTS ||
     hasVoted
 
   const resultsQuestionView = new ViewStrategy(

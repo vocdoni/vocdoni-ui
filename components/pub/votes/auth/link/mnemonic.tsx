@@ -1,6 +1,6 @@
 import React from 'react'
 import styled, { ThemeProvider } from 'styled-components'
-import { IProcessInfo, EntityMetadata } from 'dvote-js'
+import { IProcessDetails, EntityMetadata } from 'dvote-js'
 
 import i18n from '@i18n'
 
@@ -18,7 +18,7 @@ interface IFormProps {
   mnemonic: string
   submitEnabled?: boolean
   error?: string
-  processInfo: IProcessInfo
+  processInfo: IProcessDetails
   entity: EntityMetadata
   onChange: (mnemonic: string) => void
   onSubmit: () => void

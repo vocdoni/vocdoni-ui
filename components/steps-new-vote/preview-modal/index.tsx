@@ -35,7 +35,7 @@ export const PreviewModal = ({
   onClose,
 }: PreviewModalProps) => {
   const { headerURL, headerFile, metadata, methods } = useProcessCreation()
-  const processStatus = new ProcessStatus(ProcessStatus.READY)
+  const processStatus = ProcessStatus.READY
   const voteStatus = VoteStatus.Active
 
   return (

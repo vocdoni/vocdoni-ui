@@ -1,5 +1,5 @@
 import { usePool, useProcess, useBlockHeight, useDateAtBlock, UseProcessContext } from '@vocdoni/react-hooks'
-import { IProcessInfo, DigestedProcessResults, ProcessStatus, VotingApi } from 'dvote-js'
+import { IProcessDetails, DigestedProcessResults, ProcessStatus, VotingApi } from 'dvote-js'
 import { useEffect, useState } from 'react'
 
 import i18n from '../i18n'
@@ -11,7 +11,7 @@ export interface ProcessWrapperContext {
   loadingInfo: boolean,
   loadingInfoError: string,
 
-  processInfo: IProcessInfo,
+  processInfo: IProcessDetails,
 
   hasStarted: boolean,
   hasEnded: boolean,
@@ -20,7 +20,7 @@ export interface ProcessWrapperContext {
   processId: string,
   results: DigestedProcessResults,
   methods: {
-    refreshProcessInfo: (processId: string) => Promise<IProcessInfo>
+    refreshProcessInfo: (processId: string) => Promise<IProcessDetails>
     refreshResults: () => Promise<any>
   }
 }
@@ -41,8 +41,8 @@ export const useProcessWrapper = (processId: string) => {
   const [results, setResults] = useState(null as DigestedProcessResults)
   const [statusText, setStatusText] = useState('')
 
-  const startBlock = processInfo?.parameters?.startBlock || 0
-  const endBlock = startBlock + (processInfo?.parameters?.blockCount || 0)
+  const startBlock = processInfo?.state?.startBlock || 0
+  const endBlock = startBlock + (processInfo?.state?.endBlock || 0)
   const { date: startDate, loading: dateLoading, error: dateError } = useDateAtBlock(startBlock)
   const { date: endDate } = useDateAtBlock(endBlock)
 
@@ -64,7 +64,7 @@ export const useProcessWrapper = (processId: string) => {
   }, [blockHeight])
 
   useEffect(() => {
-    switch (processInfo?.parameters?.status?.value) {
+    switch (processInfo?.state?.status) {
       case ProcessStatus.READY:
         if (hasEnded) setStatusText(i18n.t("status.the_vote_has_ended"))
         else if (hasStarted) setStatusText(i18n.t("status.the_vote_is_open_for_voting"))
@@ -82,7 +82,7 @@ export const useProcessWrapper = (processId: string) => {
         setStatusText(i18n.t("status.the_vote_has_ended"))
         break
     }
-  }, [processInfo?.parameters?.status?.value])
+  }, [processInfo?.state?.status])
 
   // Loaders
 
