@@ -7,14 +7,13 @@ export const ALPrivacyCa = () => (
 
     <p >This document sets the privacy rules concerning the use of Aragon Labs AG (the
     <strong>"Aragon Labs"</strong>) sites and services,
-    including
+    including:
 </p>
     <ul>
       <li>Vocdoni.app - for specification on Vocdoni.app data processing
       policy and terms and conditions of the service please visit <a href="https://vocdoni.app">https://vocdoni.app</a>
       </li>
     </ul>
-    <p> Collectively (the <strong>"Sites"</strong>) that the user agrees with, by using the Sites:</p>
     <p ></p>
     <h2 >What information is collected? </h2>
     <p ></p>

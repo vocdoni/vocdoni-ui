@@ -8,11 +8,10 @@ export const ALPrivacyEn = () => (
       <h2>Aragon Labs </h2>
       <h2>Privacy Policy </h2>
 
-      <p >This document sets the privacy rules concerning the use of Aragon Labs AG (the <strong>"Aragon Labs"</strong>) sites and services, including</p>
+      <p >This document sets the privacy rules concerning the use of Aragon Labs AG (the <strong>"Aragon Labs"</strong>) sites and services, including:</p>
       <ul>
         <li>Vocdoni.app - for specification on Vocdoni.app data processing policy and terms and conditions of the service please visit <a href={APP_PRIVACY_PATH}>https://vocdoni.app{APP_PRIVACY_PATH}</a></li>
       </ul>
-      <p> Collectively (the <strong>"Sites"</strong>) that the user agrees with, by using the Sites:</p>
       <p ></p>
       <h4 >1. What information is collected? </h4>
       <p ></p>
