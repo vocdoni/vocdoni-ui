@@ -14,7 +14,7 @@ export const Loader = ({ visible }: ILoaderProps) => {
     <AppLoader visible={visible}>
       <LoaderContainer>
         <LogoContainer>
-          <img src="/images/common/logo.svg" alt="Vocdoni Logo" />
+          <img src="/images/common/logo.png" alt="Vocdoni Logo" />
         </LogoContainer>
 
         <TextContainer>{i18n.t('dashboard.loading')}</TextContainer>
