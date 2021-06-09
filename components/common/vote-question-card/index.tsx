@@ -1,7 +1,8 @@
 import React from 'react'
 import i18n from '@i18n'
 import styled from 'styled-components'
-import { DigestedProcessResultItem, IProcessStatus, ProcessStatus } from 'dvote-js'
+import { DigestedProcessResultItem, IProcessStatus } from 'dvote-js'
+import { ProcessStatus } from '@const/process';
 import { colors } from 'theme/colors'
 import { ViewContext, ViewStrategy } from '@lib/strategy'
 import { Question } from '@lib/types'

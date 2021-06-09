@@ -23,11 +23,11 @@
   "homepage": "https://github.com/vocdoni/vocdoni-ui#readme",
   "dependencies": {
     "@aragon/ui": "^1.7.0",
-    "@vocdoni/react-hooks": "0.7.2-beta-3",
+    "@vocdoni/react-hooks": "^0.9.6",
     "bluebird": "^3.7.2",
     "copy-to-clipboard": "^3.3.1",
     "dexie": "^3.0.3",
-    "dvote-js": "1.6.2-beta-3",
+    "dvote-js": "^1.9.6",
     "ethers": "^5.0.25",
     "filesize": "^6.2.2",
     "hamburger-react": "^2.4.0",

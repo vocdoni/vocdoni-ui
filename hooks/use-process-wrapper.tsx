@@ -1,5 +1,7 @@
 import { usePool, useProcess, useBlockHeight, useDateAtBlock, UseProcessContext } from '@vocdoni/react-hooks'
-import { IProcessDetails, DigestedProcessResults, ProcessStatus, VotingApi } from 'dvote-js'
+import { IProcessDetails, DigestedProcessResults, VotingApi } from 'dvote-js'
+import { ProcessStatus } from '@const/process';
+
 import { useEffect, useState } from 'react'
 
 import i18n from '../i18n'

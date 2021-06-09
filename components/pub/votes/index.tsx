@@ -32,7 +32,7 @@ import { VoteStatus, getVoteStatus } from '@lib/util'
 import { Else, If, Then, When } from 'react-if'
 import { SectionText, TextAlign } from '@components/text'
 import { useUrlHash } from 'use-url-hash'
-import { VotingApi, ProcessStatus } from 'dvote-js'
+import { VotingApi } from 'dvote-js'
 import { DateDiffType, localizedStrDateDiff } from '@lib/date'
 import { overrideTheme } from 'theme'
 
@@ -51,8 +51,7 @@ export const VotingPageView = () => {
   const { blockStatus } = useBlockStatus()
   const blockHeight = blockStatus?.blockNumber
   const voteStatus: VoteStatus = getVoteStatus(
-    processInfo?.state?.status,
-    processInfo?.state?.startBlock,
+    processInfo,
     blockHeight
   )
   const explorerLink = process.env.EXPLORER_URL + '/envelope/' + nullifier

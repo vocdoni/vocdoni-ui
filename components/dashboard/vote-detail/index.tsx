@@ -1,16 +1,20 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import {
-  ProcessStatus,
   IProcessDetails,
   DigestedProcessResults,
   VotingApi,
   IProcessState,
 } from 'dvote-js'
+import { ProcessStatus } from '@const/process';
 
 import i18n from '@i18n'
 import { colors } from 'theme/colors'
-import { VOTING_AUTH_FORM_PATH, VOTING_AUTH_LINK_PATH, VOTING_AUTH_MNEMONIC_PATH } from '@const/routes'
+import {
+  VOTING_AUTH_FORM_PATH,
+  VOTING_AUTH_LINK_PATH,
+  VOTING_AUTH_MNEMONIC_PATH,
+} from '@const/routes'
 import RouterService from '@lib/router'
 import { Question } from '@lib/types'
 
@@ -56,14 +60,16 @@ export const ViewDetail = ({
   const linkCensus = !process?.metadata?.meta?.formFieldTitles
   const voteLink = linkCensus
     ? RouterService.instance.get(VOTING_AUTH_LINK_PATH, {
-      processId: process.id,
-      key: 'PRIVATE_KEY',
-    })
+        processId: process.id,
+        key: 'PRIVATE_KEY',
+      })
     : RouterService.instance.get(VOTING_AUTH_FORM_PATH, {
-      processId: process.id,
-    })
+        processId: process.id,
+      })
   const menmonicUrl = linkCensus
-    ? RouterService.instance.get(VOTING_AUTH_MNEMONIC_PATH, { processId: process.id })
+    ? RouterService.instance.get(VOTING_AUTH_MNEMONIC_PATH, {
+        processId: process.id,
+      })
     : ''
 
   const totalVotes = results?.totalVotes || 0
@@ -71,12 +77,7 @@ export const ViewDetail = ({
   const { blockStatus } = useBlockStatus()
   const blockHeight = blockStatus?.blockNumber || 0
 
-  const status: VoteStatus = getVoteStatus(
-    process.state?.status,
-    process.state?.startBlock,
-    blockHeight
-  )
-
+  const status: VoteStatus = getVoteStatus(process, blockHeight)
   const voteActive = status == VoteStatus.Active
   const canCancelorEnd =
     wallet?.address &&
@@ -154,7 +155,7 @@ export const ViewDetail = ({
   }
 
   // TODO handleGeneratePdfResult return not implemented an make button not clickable
-  const handleGeneratePdfResult = () => { }
+  const handleGeneratePdfResult = () => {}
 
   let dateDiffStr = ''
   if (
@@ -243,24 +244,34 @@ export const ViewDetail = ({
                 <DashedLink link={voteLink} />
               </Then>
               <Else>
-                <SectionText color={colors.blueText}>
-                  {i18n.t(
-                    'vote.this_is_the_link_that_you_need_to_send_your_community_members_replacing_the_corresponding_private_key'
-                  )}
-                  <HelpText text={i18n.t(
-                    'vote.this_is_the_link_that_you_need_to_send_your_community_members_replacing_the_corresponding_private_key_helper'
-                  )} />
-                </SectionText>
-                <DashedLink link={voteLink} />
-                <SectionText color={colors.blueText}>
-                  {i18n.t(
-                    'vote.this_is_the_link_that_your_community_members_can_use_to_access_via_mnemonic'
-                  )}
-                  <HelpText text={i18n.t(
-                    'vote.this_is_the_link_that_your_community_members_can_use_to_access_via_mnemonic_helper'
-                  )} />
-                </SectionText>
-                <DashedLink link={menmonicUrl} />
+                <SectionContainer>
+                  <SectionText color={colors.blueText}>
+                    {i18n.t(
+                      'vote.this_is_the_link_that_you_need_to_send_your_community_members_replacing_the_corresponding_private_key'
+                    )}
+                    <HelpText
+                      text={i18n.t(
+                        'vote.this_is_the_link_that_you_need_to_send_your_community_members_replacing_the_corresponding_private_key_helper'
+                      )}
+                    />
+                  </SectionText>
+
+                  <DashedLink link={voteLink} />
+                </SectionContainer>
+
+                <SectionContainer>
+                  <SectionText color={colors.blueText}>
+                    {i18n.t(
+                      'vote.this_is_the_link_that_your_community_members_can_use_to_access_via_mnemonic'
+                    )}
+                    <HelpText
+                      text={i18n.t(
+                        'vote.this_is_the_link_that_your_community_members_can_use_to_access_via_mnemonic_helper'
+                      )}
+                    />
+                  </SectionText>
+                  <DashedLink link={menmonicUrl} />
+                </SectionContainer>
               </Else>
             </If>
           </SectionContainer>

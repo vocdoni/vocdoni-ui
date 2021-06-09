@@ -53,7 +53,7 @@ const DashboardPage = () => {
     const active = []
     const results = []
     const upcoming = []
-
+    console.log(processes)
     for (let proc of processes.values()) {
       // info not loaded yet
       if (!proc || !proc.summary) continue

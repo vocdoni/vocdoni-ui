@@ -1,12 +1,11 @@
 import { usePool, useBlockHeight } from '@vocdoni/react-hooks'
-import { IProcessDetails, CensusOffChainApi, DigestedProcessResults, ProcessStatus, VotingApi, CensusOffchainDigestType } from 'dvote-js'
+import { IProcessDetails, CensusOffChainApi, DigestedProcessResults, VotingApi, CensusOffchainDigestType } from 'dvote-js'
 import { createContext, ReactNode, useContext, useEffect, useState } from 'react'
 
 import { useWallet, WalletRoles } from './use-wallet'
 import i18n from '../i18n'
 import { StepperFunc } from '../lib/types'
 import { useStepper } from './use-stepper'
-import { useUrlHash } from 'use-url-hash'
 import { useMessageAlert } from './message-alert'
 import { areAllNumbers, waitBlockFraction } from '../lib/util'
 import { useProcessWrapper } from '@hooks/use-process-wrapper'
