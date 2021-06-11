@@ -1,4 +1,4 @@
-import { ProcessStatus } from '@const/process';
+import { VochainProcessStatus as ProcessStatus } from 'dvote-js'
 import { ethers, Wallet } from 'ethers'
 import i18n from '../i18n'
 import { GlobalWindowNoDefinedError } from './validators/errors/global-window-no-defined-error';
@@ -89,7 +89,7 @@ export enum VoteStatus {
 
 export const getVoteStatus = (process, currentBlock?): VoteStatus => {
   console.log(process)
-  if (!process?.state?.startBlock) return VoteStatus.Unknown 
+  if (!process?.state?.startBlock) return VoteStatus.Unknown
 
   const processStatus =  process?.state?.status
   const startBlock = process?.state?.startBlock

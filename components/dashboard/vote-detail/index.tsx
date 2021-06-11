@@ -6,7 +6,7 @@ import {
   VotingApi,
   IProcessState,
 } from 'dvote-js'
-import { ProcessStatus } from '@const/process';
+import { VochainProcessStatus as ProcessStatus } from 'dvote-js'
 
 import i18n from '@i18n'
 import { colors } from 'theme/colors'

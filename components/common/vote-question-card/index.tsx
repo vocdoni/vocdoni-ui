@@ -1,8 +1,8 @@
 import React from 'react'
 import i18n from '@i18n'
 import styled from 'styled-components'
-import { DigestedProcessResultItem, IProcessStatus } from 'dvote-js'
-import { ProcessStatus } from '@const/process';
+import { DigestedProcessResultItem, VochainProcessStatus } from 'dvote-js'
+import { VochainProcessStatus as ProcessStatus } from 'dvote-js'
 import { colors } from 'theme/colors'
 import { ViewContext, ViewStrategy } from '@lib/strategy'
 import { Question } from '@lib/types'
@@ -25,7 +25,7 @@ interface IVoteQuestionCardProps {
   readOnly?: boolean
   hasVoted: boolean
   totalVotes: number
-  processStatus: IProcessStatus
+  processStatus: VochainProcessStatus
   result?: DigestedProcessResultItem
   selectedChoice?: number
   onSelectChoice?: (choiceValue: number) => void

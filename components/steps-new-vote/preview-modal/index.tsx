@@ -1,6 +1,6 @@
 import React from 'react'
 import styled, { ThemeProvider } from 'styled-components'
-import { ProcessStatus } from '@const/process'
+import { VochainProcessStatus as ProcessStatus } from 'dvote-js'
 
 import i18n from '@i18n'
 

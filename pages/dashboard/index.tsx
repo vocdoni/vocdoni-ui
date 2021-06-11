@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useEntity, useBlockHeight } from '@vocdoni/react-hooks'
-import { IProcessDetails, IProcessVochainStatus, IProcessStatus, IProcessSummary } from 'dvote-js'
+import { IProcessDetails, VochainProcessStatus } from 'dvote-js'
 
 import {
   DashboardActivitySummary,
@@ -57,13 +57,13 @@ const DashboardPage = () => {
     for (let proc of processes.values()) {
       // info not loaded yet
       if (!proc || !proc.summary) continue
-      else if (proc.summary?.status === 'CANCELED') continue
+      else if (proc.summary?.status === VochainProcessStatus.CANCELED) continue
       // ignore
       else if (proc.summary?.startBlock > blockHeight) upcoming.push(proc)
-      else if (processEndBlock(proc.summary) < blockHeight) results.push(proc)
+      else if (proc.summary?.endBlock < blockHeight) results.push(proc)
       else if (
-        proc.summary?.status === 'ENDED' ||
-        proc.summary?.status === 'RESULTS'
+        proc.summary?.status === VochainProcessStatus.ENDED ||
+        proc.summary?.status === VochainProcessStatus.RESULTS
       ) {
         results.push(proc)
       }
@@ -112,10 +112,5 @@ const DashboardPage = () => {
 
 // Defining the custom layout to use
 DashboardPage["Layout"] = LayoutEntity
-
-// HELPERS
-
-const processEndBlock = (process: IProcessSummary) =>
-  process?.startBlock + process?.blockCount
 
 export default DashboardPage
