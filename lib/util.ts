@@ -87,14 +87,13 @@ export enum VoteStatus {
   Upcoming,
 }
 
-export const getVoteStatus = (process, currentBlock?): VoteStatus => {
-  console.log(process)
-  if (!process?.state?.startBlock) return VoteStatus.Unknown
+export const getVoteStatus = (state, currentBlock): VoteStatus => {
+  if (state === undefined || currentBlock === undefined) return VoteStatus.Unknown
 
-  const processStatus =  process?.state?.status
-  const startBlock = process?.state?.startBlock
-  const endBlock = process?.state?.startBlock + process?.state?.blockCount
-  console.log(process?.state?.status);
+  const processStatus =  state.status
+  const startBlock = state.startBlock
+  const endBlock =state.startBlock + state.blockCount
+
   switch (processStatus) {
     case ProcessStatus.READY:
       if (startBlock == undefined || currentBlock == undefined) return VoteStatus.Unknown

@@ -5,8 +5,9 @@ import {
   DigestedProcessResults,
   VotingApi,
   IProcessState,
+  ProcessStatus as EthProcessStatus
 } from 'dvote-js'
-import { VochainProcessStatus as ProcessStatus } from 'dvote-js'
+import { VochainProcessStatus } from 'dvote-js'
 
 import i18n from '@i18n'
 import { colors } from 'theme/colors'
@@ -77,7 +78,7 @@ export const ViewDetail = ({
   const { blockStatus } = useBlockStatus()
   const blockHeight = blockStatus?.blockNumber || 0
 
-  const status: VoteStatus = getVoteStatus(process, blockHeight)
+  const status: VoteStatus = getVoteStatus(process?.state, blockHeight)
   const voteActive = status == VoteStatus.Active
   const canCancelorEnd =
     wallet?.address &&
@@ -90,7 +91,7 @@ export const ViewDetail = ({
     if (!wallet) {
       setAlertMessage(i18n.t('error.wallet_not_available'))
       return
-    } else if (process?.state?.status === ProcessStatus.ENDED) return
+    } else if (process?.state?.status === VochainProcessStatus.ENDED) return
 
     const warning =
       i18n.t(
@@ -108,7 +109,7 @@ export const ViewDetail = ({
         setCancelingVote(true)
         return VotingApi.setStatus(
           process.id,
-          ProcessStatus.CANCELED,
+          EthProcessStatus.CANCELED,
           wallet,
           pool
         )
@@ -124,7 +125,7 @@ export const ViewDetail = ({
     if (!wallet) {
       setAlertMessage(i18n.t('error.wallet_not_available'))
       return
-    } else if (process?.state?.status === ProcessStatus.ENDED) return
+    } else if (process?.state?.status === VochainProcessStatus.ENDED) return
 
     const warning =
       i18n.t(
@@ -142,7 +143,7 @@ export const ViewDetail = ({
         wallet.connect(pool.provider)
         return VotingApi.setStatus(
           process.id,
-          ProcessStatus.ENDED,
+          EthProcessStatus.ENDED,
           wallet,
           pool
         )
@@ -197,8 +198,8 @@ export const ViewDetail = ({
             <When
               condition={
                 voteActive &&
-                (process.state?.status === ProcessStatus.READY ||
-                  process.state?.status === ProcessStatus.PAUSED)
+                (process.state?.status === VochainProcessStatus.READY ||
+                  process.state?.status === VochainProcessStatus.PAUSED)
               }
             >
               <FlexContainer height="100px" alignItem={FlexAlignItem.Center}>

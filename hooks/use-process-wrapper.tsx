@@ -43,7 +43,7 @@ export const useProcessWrapper = (processId: string) => {
   const [statusText, setStatusText] = useState('')
 
   const startBlock = processInfo?.state?.startBlock || 0
-  const endBlock = startBlock + (processInfo?.state?.endBlock || 0)
+  const endBlock = processInfo?.state?.endBlock || 0
   const { date: startDate, loading: dateLoading, error: dateError } = useDateAtBlock(startBlock)
   const { date: endDate } = useDateAtBlock(endBlock)
 

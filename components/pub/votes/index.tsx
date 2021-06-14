@@ -51,7 +51,7 @@ export const VotingPageView = () => {
   const { blockStatus } = useBlockStatus()
   const blockHeight = blockStatus?.blockNumber
   const voteStatus: VoteStatus = getVoteStatus(
-    processInfo,
+    processInfo?.state,
     blockHeight
   )
   const explorerLink = process.env.EXPLORER_URL + '/envelope/' + nullifier
