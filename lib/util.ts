@@ -92,7 +92,7 @@ export const getVoteStatus = (state, currentBlock?): VoteStatus => {
 
   const processStatus =  state.status
   const startBlock = state.startBlock
-  const endBlock = state.endBlock? state.endBlock: state?.startBlock + state?.blockCount
+  const endBlock = state.endBlock
 
   switch (processStatus) {
     case ProcessStatus.READY:
