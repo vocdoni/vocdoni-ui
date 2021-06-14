@@ -15,6 +15,7 @@ import { useWallet } from '../../hooks/use-wallet'
 import { useProcessesFromAccount } from '../../hooks/use-processes'
 
 import { LayoutEntity } from '@components/layout/entity'
+import { getVoteStatus, VoteStatus } from '@lib/util'
 
 // NOTE: This page uses a custom Layout. See below.
 
@@ -38,7 +39,7 @@ const DashboardPage = () => {
   } = useProcessesFromAccount(wallet?.address)
   // NOTE: processes is a singleton map (for efficiency reasons). This means that no re-render will occur based on `processes`.
   //       Use processIds and loadingProcessList + loadingProcessesDetails instead.
-
+  console.log(processes)
   const hasDbAccountAndWallet = wallet?.address && dbAccounts.length
   const account: Account | null = hasDbAccountAndWallet
     ? dbAccounts.find(
@@ -89,24 +90,40 @@ const DashboardPage = () => {
   const results = []
   const upcoming = []
 
-  for (let proc of processes.values()) {
+  for (let proc of processes) {
     // info not loaded yet
+    const status: VoteStatus = getVoteStatus(proc?.summary, blockHeight)
+
     if (!proc || !proc.summary) continue
-    else if (proc.summary?.status === VochainProcessStatus.CANCELED) continue
+    else if (status === VoteStatus.Canceled) continue
     // ignore
-    else if (proc.summary?.startBlock > blockHeight) upcoming.push(proc)
-    else if (proc.summary?.endBlock < blockHeight) results.push(proc)
-    else if (
-      proc.summary?.status === VochainProcessStatus.ENDED ||
-      proc.summary?.status === VochainProcessStatus.RESULTS
-    ) {
-      results.push(proc)
-    }
+    else if (status === VoteStatus.Upcoming) upcoming.push(proc)
+    else if (status === VoteStatus.Ended) results.push(proc)
     // Ready or paused
     else {
       active.push(proc)
     }
   }
+
+  // for (let proc of processes.values()) {
+  //   // info not loaded yet
+  //   const status: VoteStatus = getVoteStatus(proc, blockHeight)
+  //   if (!proc || !proc.summary) continue
+  //   else if (status === VoteStatus.Canceled) continue
+  //   // ignore
+  //   else if (proc.summary?.startBlock > blockHeight) upcoming.push(proc)
+  //   else if (proc.summary?.endBlock < blockHeight) results.push(proc)
+  //   else if (
+  //     proc.summary?.status === VochainProcessStatus.ENDED ||
+  //     proc.summary?.status === VochainProcessStatus.RESULTS
+  //   ) {
+  //     results.push(proc)
+  //   }
+  //   // Ready or paused
+  //   else {
+  //     active.push(proc)
+  //   }
+  // }
 
   // initialActiveItem.current = active.length
   //   ? ProcessTypes.ActiveVotes
