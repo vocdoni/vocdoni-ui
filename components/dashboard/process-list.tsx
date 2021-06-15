@@ -73,7 +73,7 @@ export const DashboardProcessList = ({
       },
     ],
   ])
-  console.log(votesResults)
+
   const renderProcessItem = (process: IProcessesSummary) => (
     <div key={process.id}>
       {process?.summary?.endBlock}
