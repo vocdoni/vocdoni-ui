@@ -19,10 +19,6 @@ import { LayoutEntity } from '@components/layout/entity'
 // NOTE: This page uses a custom Layout. See below.
 
 const DashboardPage = () => {
-  const [activeVotes, setActiveVotes] = useState<IProcessDetails[]>([])
-  const [upcomingVotes, setUpcomingVotes] = useState<IProcessDetails[]>([])
-  const [votesResults, setVotesResults] = useState<IProcessDetails[]>([])
-
   const { wallet } = useWallet()
   const { dbAccounts } = useDbAccounts()
   const { blockHeight } = useBlockHeight()
@@ -44,44 +40,41 @@ const DashboardPage = () => {
     : null
   let initialActiveItem = useRef<ProcessTypes>(ProcessTypes.ActiveVotes);
 
+  const activeVotes = []
+  const votesResults = []
+  const upcomingVotes = []
+
+  for (let proc of processes) {
+    // info not loaded yet
+    if (!proc || !proc.summary) continue
+    else if (proc.summary?.status === VochainProcessStatus.CANCELED) continue
+    // ignore
+    else if (proc.summary?.startBlock > blockHeight) upcomingVotes.push(proc)
+    else if (proc.summary?.endBlock < blockHeight) votesResults.push(proc)
+    else if (
+      proc.summary?.status === VochainProcessStatus.ENDED ||
+      proc.summary?.status === VochainProcessStatus.RESULTS
+    ) {
+      votesResults.push(proc)
+    }
+    // Ready or paused
+    else {
+      activeVotes.push(proc)
+    }
+  }
+
   useEffect(() => {
     if (loadingProcessList) return
 
-    const active = []
-    const results = []
-    const upcoming = []
-
-    for (let proc of processes.values()) {
-      // info not loaded yet
-      if (!proc || !proc.summary) continue
-      else if (proc.summary?.status === VochainProcessStatus.CANCELED) continue
-      // ignore
-      else if (proc.summary?.startBlock > blockHeight) upcoming.push(proc)
-      else if (proc.summary?.endBlock < blockHeight) results.push(proc)
-      else if (
-        proc.summary?.status === VochainProcessStatus.ENDED ||
-        proc.summary?.status === VochainProcessStatus.RESULTS
-      ) {
-        results.push(proc)
-      }
-      // Ready or paused
-      else {
-        active.push(proc)
-      }
-    }
-
-    initialActiveItem.current = active.length
+    initialActiveItem.current = activeVotes.length
       ? ProcessTypes.ActiveVotes
-      : results.length
+      : votesResults.length
         ? ProcessTypes.VoteResults
-        : upcoming.length
+        : upcomingVotes.length
           ? ProcessTypes.UpcomingVotes
           : ProcessTypes.ActiveVotes
 
-    setActiveVotes(active)
-    setVotesResults(results)
-    setUpcomingVotes(upcoming)
-  }, [processes])
+  }, [loadingProcessList, loadingProcessesDetails])
 
   return (
     <>
