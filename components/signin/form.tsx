@@ -50,7 +50,6 @@ export const SignInForm = ({
       // .then(() => setLoading(false)) // after onSubmit, this will be already disposed
       .catch((err) => {
         setLoading(false)
-        setAlertMessage(i18n.t('errors.could_not_connect_to_the_network'))
       })
   }
 
