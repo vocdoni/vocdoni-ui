@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { HelpText } from '@components/common/help-text'
 import { Typography, TypographyVariant } from '@components/elements/typography'
-import DateTimePicker from 'react-rainbow-components/components/DatePicker'
+import DateTimePicker from 'react-rainbow-components/components/DateTimePicker'
 import styled from 'styled-components'
 import { colors } from 'theme/colors'
 
