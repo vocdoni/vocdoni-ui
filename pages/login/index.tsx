@@ -46,7 +46,7 @@ const SignInPage = () => {
     } catch (error) {
       setVerifyingCredentials(false)
       setAlertMessage(i18n.t('sign_in.invalid_passphrase'))
-      return Promise.resolve(null)
+      return Promise.reject(null)
     }
   }
 
