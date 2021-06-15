@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { useBlockStatus } from '@vocdoni/react-hooks'
-import { VotingApi, IProcessDetails } from 'dvote-js'
+import { VotingApi } from 'dvote-js'
 
 import { DateDiffType, localizedStrDateDiff } from '@lib/date'
 import { VoteStatus } from '@lib/util'
+import { IProcessesSummary } from '@lib/types'
 
 import i18n from '@i18n'
 
@@ -16,7 +17,7 @@ import { VoteListItem } from '../list-items'
 import moment from 'moment'
 
 interface IDashboardProcessListItemProps {
-  process: IProcessDetails
+  process: IProcessesSummary
   status: VoteStatus
   accountName?: string
   entityLogo?: string
@@ -35,7 +36,7 @@ export const DashboardProcessListItem = ({
     switch (status) {
       case VoteStatus.Active:
         const endDate = VotingApi.estimateDateAtBlockSync(
-          process?.state?.endBlock,
+          process?.summary?.endBlock,
           blockStatus
         )
         const timeLeft = localizedStrDateDiff(DateDiffType.End, endDate)
@@ -48,7 +49,7 @@ export const DashboardProcessListItem = ({
 
       case VoteStatus.Paused:
         let startDate = VotingApi.estimateDateAtBlockSync(
-          process?.state?.startBlock,
+          process?.summary?.startBlock,
           blockStatus
         )
         if (!moment(startDate).isAfter(moment.now())) {

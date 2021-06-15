@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useEntity, useBlockHeight } from '@vocdoni/react-hooks'
-import { IProcessDetails, VochainProcessStatus } from 'dvote-js'
+import { IProcessDetails, IProcessSummary, ProcessMetadata, VochainProcessStatus } from 'dvote-js'
 
 import {
   DashboardActivitySummary,
@@ -9,7 +9,7 @@ import {
   ProcessTypes,
 } from '../../components/dashboard'
 
-import { Account } from '../../lib/types'
+import { Account, IProcessesSummary } from '../../lib/types'
 import { useDbAccounts } from '../../hooks/use-db-accounts'
 import { useWallet } from '../../hooks/use-wallet'
 import { useProcessesFromAccount } from '../../hooks/use-processes'
@@ -39,10 +39,16 @@ const DashboardPage = () => {
     )
     : null
   let initialActiveItem = useRef<ProcessTypes>(ProcessTypes.ActiveVotes);
+  const sortEndBlock = (process1: IProcessesSummary, process2: IProcessesSummary) => {
+    return process1.summary.endBlock - process2.summary.endBlock
+  } 
+  const sortEndDescBlock = (process1: IProcessesSummary, process2: IProcessesSummary) => {
+    return process2.summary.endBlock - process1.summary.endBlock
+  } 
 
-  const activeVotes = []
-  const votesResults = []
-  const upcomingVotes = []
+  const activeVotes: IProcessesSummary[] = []
+  const votesResults: IProcessesSummary[] = []
+  const upcomingVotes: IProcessesSummary[] = []
 
   for (let proc of processes) {
     // info not loaded yet
@@ -61,6 +67,10 @@ const DashboardPage = () => {
     else {
       activeVotes.push(proc)
     }
+
+    activeVotes.sort(sortEndBlock)
+    votesResults.sort(sortEndDescBlock)
+    upcomingVotes.sort(sortEndDescBlock)
   }
 
   useEffect(() => {

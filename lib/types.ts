@@ -1,4 +1,4 @@
-import { EntityMetadata, MultiLanguage } from 'dvote-js'
+import { EntityMetadata, IProcessSummary, MultiLanguage, ProcessMetadata } from 'dvote-js'
 
 // IndexDB types
 export enum AccountStatus {
@@ -9,6 +9,7 @@ export enum AccountStatus {
   Metadata,
   Ready
 }
+
 
 export type Account = {
   name: string,
@@ -36,6 +37,13 @@ export type Question = {
 export type Choice = {
   title: MultiLanguage<string>
   value: number
+}
+
+
+export interface IProcessesSummary {
+  id: string
+  summary: IProcessSummary
+  metadata?: ProcessMetadata
 }
 
 export type Nullable<T> = T | null
