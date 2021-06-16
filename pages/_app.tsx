@@ -30,7 +30,6 @@ const VocdoniApp: FC<NextAppProps> = ({ Component, pageProps }) => {
   const bootnodeUri = process.env.BOOTNODES_URL
   const networkId = process.env.ETH_NETWORK_ID as EthNetworkID
   const environment = process.env.VOCDONI_ENVIRONMENT as VocdoniEnvironment
-  const appTitle = process.env.APP_TITLE
   const commitSHA = process.env.COMMIT_SHA
   const discoveryTimeout = Number(process.env.DISCOVERY_TIMEOUT)
   const discoveryPoolSize = Number(process.env.DISCOVERY_POOL_SIZE)
@@ -62,10 +61,10 @@ const VocdoniApp: FC<NextAppProps> = ({ Component, pageProps }) => {
                               name='viewport'
                               content='width=device-width, initial-scale=1.0, max-scale=1.0'
                             />
-                            <link rel="icon" type="image/ico" href="/images/common/favicon.ico" sizes="16x16" />
+                            <link rel="icon" type="image/png" href="/images/common/favicon.png" sizes="32x32" />
 
                             <Helpscout />
-                            <title>{appTitle}</title>
+                            <title>Òmnium Cultural</title>
                           </Head>
                           <Layout>
                             <Component {...pageProps} />
