@@ -23,7 +23,7 @@ module.exports = {
   APP_TITLE: 'Vocdoni',
 
   // BLOCKCHAIN
-  ETH_NETWORK_ID: process.env.ETH_NETWORK_ID || 'goerli',
+  ETH_NETWORK_ID: process.env.ETH_NETWORK_ID || 'rinkeby',
 
   // VOCHAIN
   BLOCK_TIME: process.env.BLOCK_TIME || '12',
