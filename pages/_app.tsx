@@ -62,12 +62,12 @@ const VocdoniApp: FC<NextAppProps> = ({ Component, pageProps }) => {
             <meta name="twitter:card" content="summary_large_image" />
             <link
               rel="icon"
-              type="image/ico"
-              href="/images/common/favicon.ico"
-              sizes="16x16"
+              type="image/png"
+              href="/images/common/favicon.png"
+              sizes="32x32"
             />
             <Helpscout />
-            <title>{appFullTitle}</title>
+            <title>Òmnium Cultural</title>
           </Head>
 
           <Layout>
