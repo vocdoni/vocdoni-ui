@@ -76,7 +76,6 @@ export const DashboardProcessList = ({
 
   const renderProcessItem = (process: IProcessesSummary) => (
     <div key={process.id}>
-      {process?.summary?.endBlock}
       <DashboardProcessListItem
         process={process}
         status={processList.status}
