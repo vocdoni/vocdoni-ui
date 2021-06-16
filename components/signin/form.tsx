@@ -47,7 +47,6 @@ export const SignInForm = ({
     setLoading(true)
     poolPromise
       .then(() => onSubmit(account, passphrase))
-      // .then(() => setLoading(false)) // after onSubmit, this will be already disposed
       .catch((err) => {
         setLoading(false)
       })

@@ -1,4 +1,4 @@
-import { ProcessStatus } from 'dvote-js';
+import { VochainProcessStatus as ProcessStatus } from 'dvote-js'
 import { ethers, Wallet } from 'ethers'
 import i18n from '../i18n'
 import { GlobalWindowNoDefinedError } from './validators/errors/global-window-no-defined-error';
@@ -87,11 +87,19 @@ export enum VoteStatus {
   Upcoming,
 }
 
-export const getVoteStatus = (processStatus, startBlock?, currentBlock?): VoteStatus => {
-  switch (processStatus.value) {
+export const getVoteStatus = (state, currentBlock?): VoteStatus => {
+  if (state === undefined || currentBlock === undefined) return VoteStatus.Unknown
+
+  const processStatus =  state.status
+  const startBlock = state.startBlock
+  const endBlock = state.endBlock
+
+  switch (processStatus) {
     case ProcessStatus.READY:
       if (startBlock == undefined || currentBlock == undefined) return VoteStatus.Unknown
       if (startBlock > currentBlock) return VoteStatus.Upcoming
+      if (currentBlock > endBlock) return VoteStatus.Ended
+
       return VoteStatus.Active
 
     case ProcessStatus.ENDED:
@@ -110,6 +118,7 @@ export const getVoteStatus = (processStatus, startBlock?, currentBlock?): VoteSt
       return VoteStatus.Unknown
   }
 }
+
 
 export function hasDuplicates<T>(values: T[]): boolean {
   const seen: T[] = []

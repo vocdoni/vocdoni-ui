@@ -28,7 +28,7 @@ const VoteAuthLogin = () => {
     key,
   } = useAuthKey()
   const { wallet } = useWallet({ role: WalletRoles.VOTER })
-  const { loading, error } = useEntity(processInfo?.entity)
+  const { loading, error } = useEntity(processInfo?.state?.entityId)
 
   const renderLoadingPage = new ViewStrategy(() => true, <Loader visible />)
 

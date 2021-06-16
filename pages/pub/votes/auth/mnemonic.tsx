@@ -55,7 +55,7 @@ const VoteAuthMnemonic = () => {
     process: processInfo,
   } = useProcess(processId)
   const { checkCensusProof } = useAuth()
-  const { metadata, loading, error } = useEntity(processInfo?.entity)
+  const { metadata, loading, error } = useEntity(processInfo?.state?.entityId)
 
   const getWalletFromWordList = (
     newMnemonic: string,
@@ -106,7 +106,7 @@ const VoteAuthMnemonic = () => {
       setMnemonicError('')
 
       await checkCensusProof(
-        processInfo.parameters.censusRoot,
+        processInfo.state?.censusRoot,
         wallet.privateKey
       )
 

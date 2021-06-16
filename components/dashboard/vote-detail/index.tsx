@@ -1,15 +1,21 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import {
-  ProcessStatus,
-  IProcessInfo,
+  IProcessDetails,
   DigestedProcessResults,
   VotingApi,
+  IProcessState,
+  ProcessStatus as EthProcessStatus
 } from 'dvote-js'
+import { VochainProcessStatus } from 'dvote-js'
 
 import i18n from '@i18n'
 import { colors } from 'theme/colors'
-import { VOTING_AUTH_FORM_PATH, VOTING_AUTH_LINK_PATH, VOTING_AUTH_MNEMONIC_PATH } from '@const/routes'
+import {
+  VOTING_AUTH_FORM_PATH,
+  VOTING_AUTH_LINK_PATH,
+  VOTING_AUTH_MNEMONIC_PATH,
+} from '@const/routes'
 import RouterService from '@lib/router'
 import { Question } from '@lib/types'
 
@@ -35,9 +41,9 @@ import { HelpText } from '@components/common/help-text'
 import { DateDiffType, localizedStrDateDiff } from '@lib/date'
 
 interface IProcessDetailProps {
-  process: IProcessInfo
+  process: IProcessDetails
   results: DigestedProcessResults
-  refreshProcessInfo: (processId: string) => Promise<IProcessInfo>
+  refreshProcessInfo: (processId: string) => Promise<IProcessState>
 }
 
 export const ViewDetail = ({
@@ -55,14 +61,16 @@ export const ViewDetail = ({
   const linkCensus = !process?.metadata?.meta?.formFieldTitles
   const voteLink = linkCensus
     ? RouterService.instance.get(VOTING_AUTH_LINK_PATH, {
-      processId: process.id,
-      key: 'PRIVATE_KEY',
-    })
+        processId: process.id,
+        key: 'PRIVATE_KEY',
+      })
     : RouterService.instance.get(VOTING_AUTH_FORM_PATH, {
-      processId: process.id,
-    })
+        processId: process.id,
+      })
   const menmonicUrl = linkCensus
-    ? RouterService.instance.get(VOTING_AUTH_MNEMONIC_PATH, { processId: process.id })
+    ? RouterService.instance.get(VOTING_AUTH_MNEMONIC_PATH, {
+        processId: process.id,
+      })
     : ''
 
   const totalVotes = results?.totalVotes || 0
@@ -70,12 +78,7 @@ export const ViewDetail = ({
   const { blockStatus } = useBlockStatus()
   const blockHeight = blockStatus?.blockNumber || 0
 
-  const status: VoteStatus = getVoteStatus(
-    process.parameters.status,
-    process.parameters.startBlock,
-    blockHeight
-  )
-
+  const status: VoteStatus = getVoteStatus(process?.state, blockHeight)
   const voteActive = status == VoteStatus.Active
   const canCancelorEnd =
     wallet?.address &&
@@ -88,7 +91,7 @@ export const ViewDetail = ({
     if (!wallet) {
       setAlertMessage(i18n.t('error.wallet_not_available'))
       return
-    } else if (process.parameters.status.isEnded) return
+    } else if (process?.state?.status === VochainProcessStatus.ENDED) return
 
     const warning =
       i18n.t(
@@ -106,7 +109,7 @@ export const ViewDetail = ({
         setCancelingVote(true)
         return VotingApi.setStatus(
           process.id,
-          ProcessStatus.CANCELED,
+          EthProcessStatus.CANCELED,
           wallet,
           pool
         )
@@ -122,7 +125,7 @@ export const ViewDetail = ({
     if (!wallet) {
       setAlertMessage(i18n.t('error.wallet_not_available'))
       return
-    } else if (process.parameters.status.isEnded) return
+    } else if (process?.state?.status === VochainProcessStatus.ENDED) return
 
     const warning =
       i18n.t(
@@ -140,7 +143,7 @@ export const ViewDetail = ({
         wallet.connect(pool.provider)
         return VotingApi.setStatus(
           process.id,
-          ProcessStatus.ENDED,
+          EthProcessStatus.ENDED,
           wallet,
           pool
         )
@@ -153,25 +156,25 @@ export const ViewDetail = ({
   }
 
   // TODO handleGeneratePdfResult return not implemented an make button not clickable
-  const handleGeneratePdfResult = () => { }
+  const handleGeneratePdfResult = () => {}
 
   let dateDiffStr = ''
   if (
-    process?.parameters?.startBlock &&
+    process?.state?.startBlock &&
     (status == VoteStatus.Active ||
       status == VoteStatus.Paused ||
       status == VoteStatus.Upcoming)
   ) {
-    if (process?.parameters?.startBlock > blockHeight) {
+    if (process?.state?.startBlock > blockHeight) {
       const date = VotingApi.estimateDateAtBlockSync(
-        process?.parameters?.startBlock,
+        process?.state?.startBlock,
         blockStatus
       )
       dateDiffStr = localizedStrDateDiff(DateDiffType.Start, date)
     } else {
       // starting in the past
       const date = VotingApi.estimateDateAtBlockSync(
-        process?.parameters?.startBlock + process?.parameters?.blockCount,
+        process?.state?.endBlock,
         blockStatus
       )
       dateDiffStr = localizedStrDateDiff(DateDiffType.End, date)
@@ -195,8 +198,8 @@ export const ViewDetail = ({
             <When
               condition={
                 voteActive &&
-                (process.parameters.status.isReady ||
-                  process.parameters.status.isPaused)
+                (process.state?.status === VochainProcessStatus.READY ||
+                  process.state?.status === VochainProcessStatus.PAUSED)
               }
             >
               <FlexContainer height="100px" alignItem={FlexAlignItem.Center}>
@@ -242,24 +245,34 @@ export const ViewDetail = ({
                 <DashedLink link={voteLink} />
               </Then>
               <Else>
-                <SectionText color={colors.blueText}>
-                  {i18n.t(
-                    'vote.this_is_the_link_that_you_need_to_send_your_community_members_replacing_the_corresponding_private_key'
-                  )}
-                  <HelpText text={i18n.t(
-                    'vote.this_is_the_link_that_you_need_to_send_your_community_members_replacing_the_corresponding_private_key_helper'
-                  )} />
-                </SectionText>
-                <DashedLink link={voteLink} />
-                <SectionText color={colors.blueText}>
-                  {i18n.t(
-                    'vote.this_is_the_link_that_your_community_members_can_use_to_access_via_mnemonic'
-                  )}
-                  <HelpText text={i18n.t(
-                    'vote.this_is_the_link_that_your_community_members_can_use_to_access_via_mnemonic_helper'
-                  )} />
-                </SectionText>
-                <DashedLink link={menmonicUrl} />
+                <SectionContainer>
+                  <SectionText color={colors.blueText}>
+                    {i18n.t(
+                      'vote.this_is_the_link_that_you_need_to_send_your_community_members_replacing_the_corresponding_private_key'
+                    )}
+                    <HelpText
+                      text={i18n.t(
+                        'vote.this_is_the_link_that_you_need_to_send_your_community_members_replacing_the_corresponding_private_key_helper'
+                      )}
+                    />
+                  </SectionText>
+
+                  <DashedLink link={voteLink} />
+                </SectionContainer>
+
+                <SectionContainer>
+                  <SectionText color={colors.blueText}>
+                    {i18n.t(
+                      'vote.this_is_the_link_that_your_community_members_can_use_to_access_via_mnemonic'
+                    )}
+                    <HelpText
+                      text={i18n.t(
+                        'vote.this_is_the_link_that_your_community_members_can_use_to_access_via_mnemonic_helper'
+                      )}
+                    />
+                  </SectionText>
+                  <DashedLink link={menmonicUrl} />
+                </SectionContainer>
               </Else>
             </If>
           </SectionContainer>
@@ -292,7 +305,7 @@ export const ViewDetail = ({
                   questionIdx={index}
                   hasVoted={true}
                   totalVotes={totalVotes}
-                  processStatus={process?.parameters.status}
+                  processStatus={process?.state?.status}
                   result={results?.questions[index]}
                   selectedChoice={0}
                 />

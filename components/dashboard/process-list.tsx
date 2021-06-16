@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { Account } from '@lib/types'
-import { IProcessInfo, EntityMetadata } from 'dvote-js';
+import { EntityMetadata } from 'dvote-js';
 
 import i18n from '../../i18n'
 import { Column, Grid } from '../grid'
 import { VoteStatus } from '@lib/util'
+import { IProcessesSummary } from '@lib/types';
 import { Skeleton } from '../skeleton'
 import { Card } from '../cards'
 
@@ -21,16 +22,16 @@ export enum ProcessTypes {
 
 export interface IProcessItem {
   label: string
-  items?: IProcessInfo[]
+  items?: IProcessesSummary[]
   status: VoteStatus
 }
 
 interface IDashboardProcessListProps {
   account: Account
   initialActiveItem: ProcessTypes
-  activeVotes: IProcessInfo[]
-  votesResults: IProcessInfo[]
-  upcomingVoting: IProcessInfo[]
+  activeVotes: IProcessesSummary[]
+  votesResults: IProcessesSummary[]
+  upcomingVoting: IProcessesSummary[]
   entityMetadata: EntityMetadata
   loading?: boolean
   skeletonItems?: number
@@ -68,11 +69,12 @@ export const DashboardProcessList = ({
       {
         label: i18n.t('dashboard.upcoming_votes'),
         items: upcomingVoting,
-        status: VoteStatus.Paused,
+        status: VoteStatus.Upcoming,
       },
     ],
   ])
-  const renderProcessItem = (process: IProcessInfo) => (
+
+  const renderProcessItem = (process: IProcessesSummary) => (
     <div key={process.id}>
       <DashboardProcessListItem
         process={process}

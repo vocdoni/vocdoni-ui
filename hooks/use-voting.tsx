@@ -1,12 +1,11 @@
 import { usePool, useBlockHeight } from '@vocdoni/react-hooks'
-import { IProcessInfo, CensusOffChainApi, DigestedProcessResults, ProcessStatus, VotingApi, CensusOffchainDigestType } from 'dvote-js'
+import { IProcessDetails, CensusOffChainApi, DigestedProcessResults, VotingApi, CensusOffchainDigestType } from 'dvote-js'
 import { createContext, ReactNode, useContext, useEffect, useState } from 'react'
 
 import { useWallet, WalletRoles } from './use-wallet'
 import i18n from '../i18n'
 import { StepperFunc } from '../lib/types'
 import { useStepper } from './use-stepper'
-import { useUrlHash } from 'use-url-hash'
 import { useMessageAlert } from './message-alert'
 import { areAllNumbers, waitBlockFraction } from '../lib/util'
 import { useProcessWrapper } from '@hooks/use-process-wrapper'
@@ -19,7 +18,7 @@ export interface VotingContext {
   loadingInfo: boolean,
   loadingInfoError: string,
 
-  processInfo: IProcessInfo,
+  processInfo: IProcessDetails,
 
   hasStarted: boolean,
   hasEnded: boolean,
@@ -100,7 +99,7 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
   // Census status
   useEffect(() => {
     updateCensusStatus().catch(() => { })
-  }, [nullifier, processInfo?.parameters?.censusRoot])
+  }, [nullifier, processInfo?.state?.censusRoot])
 
   // Nullifier
   useEffect(() => {
@@ -116,7 +115,7 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
 
   const updateCensusStatus = async () => {
     if (!wallet?.publicKey) return
-    else if (!processInfo?.parameters?.censusRoot) return
+    else if (!processInfo?.state?.censusRoot) return
 
     try {
       const pool = await poolPromise
@@ -125,7 +124,7 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
       const digestedHexClaim = CensusOffChainApi.digestPublicKey(wallet.publicKey, CensusOffchainDigestType.RAW_PUBKEY)
 
       const censusProof = await CensusOffChainApi.generateProof(
-        processInfo.parameters.censusRoot,
+        processInfo.state?.censusRoot,
         { key: digestedHexClaim },
         isDigested,
         pool
@@ -194,13 +193,13 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
       const pool = await poolPromise
 
       // Detect encryption
-      if (processInfo.parameters.envelopeType.hasEncryptedVotes) {
+      if (processInfo.state?.envelopeType.encryptedVotes) {
         const processKeys = await VotingApi.getProcessKeys(processId, pool)
-        const envelope = await VotingApi.packageSignedEnvelope({ censusOrigin: processInfo.parameters.censusOrigin, votes: choices, censusProof, processId, walletOrSigner: wallet, processKeys })
+        const envelope = await VotingApi.packageSignedEnvelope({ censusOrigin: processInfo.state?.censusOrigin, votes: choices, censusProof, processId, walletOrSigner: wallet, processKeys })
         await VotingApi.submitEnvelope(envelope, wallet, pool)
       }
       else {
-        const envelope = await VotingApi.packageSignedEnvelope({ censusOrigin: processInfo.parameters.censusOrigin, votes: choices, censusProof, processId, walletOrSigner: wallet })
+        const envelope = await VotingApi.packageSignedEnvelope({ censusOrigin: processInfo.state?.censusOrigin, votes: choices, censusProof, processId, walletOrSigner: wallet })
         await VotingApi.submitEnvelope(envelope, wallet, pool)
       }
 

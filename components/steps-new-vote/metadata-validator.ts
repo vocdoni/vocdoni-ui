@@ -15,42 +15,42 @@ export const validateMetadata = (metadata: ProcessMetadata): ErrorFields => {
     [
       MetadataFields.Title,
       {
-        argument: metadata.title.default,
+        argument: metadata?.title.default,
         validator: titleValidator,
       },
     ],
     [
       MetadataFields.Description,
       {
-        argument: metadata.description.default,
+        argument: metadata?.description.default,
         validator: descriptionValidator,
       },
     ],
     [
       MetadataFields.StreamLink,
       {
-        argument: metadata.media?.streamUri,
+        argument: metadata?.media?.streamUri,
         validator: optionalUrlValidator,
       },
     ],
     [
       MetadataFields.AttachmentLink,
       {
-        argument: metadata.meta[PlazaMetadataKeys.ATTACHMENT_URI],
+        argument: metadata?.meta[PlazaMetadataKeys.ATTACHMENT_URI],
         validator: optionalUrlValidator,
       },
     ],
     [
       MetadataFields.DiscussionLink,
       {
-        argument: metadata.meta[PlazaMetadataKeys.DISCUSSION_URL],
+        argument: metadata?.meta[PlazaMetadataKeys.DISCUSSION_URL],
         validator: optionalUrlValidator,
       },
     ],
     [
       MetadataFields.Question,
       {
-        argument: metadata.questions,
+        argument: metadata?.questions,
         validator: questionsValidator,
       },
     ],
