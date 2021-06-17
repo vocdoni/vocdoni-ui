@@ -84,9 +84,11 @@ export const SliderCard = ({
 )
 
 const CardContainer = styled(PageCard)`
+  width: 100%;
   padding: 0;
   display: flex;
   overflow: hidden;
+  white-space: break-spaces;
 
   @media ${({ theme }) => theme.screenMax.tabletL} {
     display: block;
@@ -120,7 +122,7 @@ const QuoteContainer = styled.div`
   margin: 30px;
 
   @media ${({ theme }) => theme.screenMax.tabletL} {
-    width: 100%;
+    width: auto;
   }
 `
 

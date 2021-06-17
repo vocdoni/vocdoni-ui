@@ -24,7 +24,8 @@
         "passphrases_do_not_match": "The passphrase does not match",
         "internal_error_please_log_in_again": "",
         "the_entity_name_already_exits": "",
-        "invalid_mnemonic": "Invalid mnemonic"
+        "invalid_mnemonic": "Invalid mnemonic",
+        "could_not_connect_to_the_network": "Could not connect to the network"
     },
     "vote": {
         "vote_details": "",
