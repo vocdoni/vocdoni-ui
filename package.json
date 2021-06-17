@@ -23,7 +23,7 @@
   "homepage": "https://github.com/vocdoni/vocdoni-ui#readme",
   "dependencies": {
     "@aragon/ui": "^1.7.0",
-    "@vocdoni/react-hooks": "0.9.8",
+    "@vocdoni/react-hooks": "0.9.9",
     "bluebird": "^3.7.2",
     "copy-to-clipboard": "^3.3.1",
     "dexie": "^3.0.3",

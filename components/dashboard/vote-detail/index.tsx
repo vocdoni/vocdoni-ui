@@ -23,6 +23,7 @@ import {
   FlexContainer,
   FlexJustifyContent,
   FlexAlignItem,
+  FlexWrap
 } from '@components/flex'
 import { SectionText, SectionTitle } from '@components/text'
 import { Grid, Column } from '@components/grid'
@@ -185,7 +186,7 @@ export const ViewDetail = ({
     <PageCard>
       <Grid>
         <Column>
-          <FlexContainer justify={FlexJustifyContent.SpaceBetween}>
+          <FlexContainer justify={FlexJustifyContent.SpaceBetween} wrap={FlexWrap.Wrap}>
             <div>
               <SectionTitle>{i18n.t('vote_detail.vote_details')}</SectionTitle>
               <SectionText color={colors.accent1}>
