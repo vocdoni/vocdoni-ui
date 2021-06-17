@@ -12,7 +12,7 @@ import {
   TypographyVariant,
 } from '@components/elements/typography'
 import { colors } from 'theme/colors'
-import { FlexAlignItem, FlexContainer } from '@components/flex'
+import { FlexAlignItem } from '@components/flex'
 import { ImageContainer } from '@components/images'
 import { Grid, Column } from '@components/grid'
 import { FeatureSection } from '@components/home/components/feature'
@@ -21,6 +21,8 @@ import { CompanyLogos } from '@components/home/components/company-logos'
 import { SliderSection } from '@components/home/components/slider-section'
 import { SplitSection } from '@components/home/components/section'
 import { CardDiv } from '@components/cards'
+import { EmptyProviders } from '@components/app/empty-providers'
+
 import { sizes } from 'theme/sizes'
 
 // MAIN COMPONENT
@@ -406,9 +408,12 @@ const IndexPage = () => {
   )
 }
 
+IndexPage['Providers'] = EmptyProviders
+
 const ReadyTextContainer = styled.div`
   margin: 40px 0 40px 40px;
 `
+
 const ActionsContainer = styled.div`
   display: flex;
   align-items: center;
@@ -416,6 +421,7 @@ const ActionsContainer = styled.div`
     margin-right: 20px;
   }
 `
+
 const ReadyToStartCard = styled(CardDiv)`
   background: linear-gradient(101.89deg, #f1ffdf 17.32%, #e1ffff 68.46%);
 `
@@ -442,9 +448,9 @@ const QuestionCard = styled(CardDiv)`
   }
 `
 
-const Section = styled.section<{background?: string}>`
+const Section = styled.section<{ background?: string }>`
   padding: 30px 0;
-  ${({background}) => background? `background: ${background};`: ''}
+  ${({ background }) => background ? `background: ${background};` : ''}
 `
 
 const BlockContainer = styled.div`
@@ -452,6 +458,8 @@ const BlockContainer = styled.div`
   margin: auto;
   padding: 0 15px;
 `
+
+
 const CuttingEdgeFeaturesContainer = styled.div`
   margin-top: 40px;
   display: flex;
@@ -461,4 +469,4 @@ const CuttingEdgeFeaturesContainer = styled.div`
     margin-right: 20px;
   }
 `
-export default withRouter(IndexPage)
+export default IndexPage
