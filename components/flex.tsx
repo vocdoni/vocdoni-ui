@@ -22,16 +22,23 @@ export enum FlexDirection {
   Column = 'column'
 }
 
+export enum FlexWrap {
+  Wrap = 'wrap',
+  Nowrap = 'nowrap'
+}
+
 export type FlexContainerProps = {
   justify?: FlexJustifyContent,
   alignItem?: FlexAlignItem,
   direction?: FlexDirection,
   minHeight?: string,
   height?: string,
+  wrap?: FlexWrap,
 }
 
 export const FlexContainer = styled.div<FlexContainerProps>`
   display: flex;
+  flex-wrap: ${({wrap}) => wrap? wrap: FlexWrap.Nowrap};
   flex-direction: ${({direction}) => direction? direction: FlexDirection.Row};
   justify-content: ${({justify}) => justify? justify: FlexJustifyContent.Start};
   align-items: ${({alignItem}) => alignItem? alignItem: FlexAlignItem.Start};

@@ -33,6 +33,8 @@ export const DashboardProcessListItem = ({
   const { blockStatus } = useBlockStatus()
 
   useEffect(() => {
+    let startDate
+
     switch (status) {
       case VoteStatus.Active:
         const endDate = VotingApi.estimateDateAtBlockSync(
@@ -48,16 +50,24 @@ export const DashboardProcessListItem = ({
         break
 
       case VoteStatus.Paused:
-        let startDate = VotingApi.estimateDateAtBlockSync(
+        startDate = VotingApi.estimateDateAtBlockSync(
           process?.summary?.startBlock,
           blockStatus
         )
+
         if (!moment(startDate).isAfter(moment.now())) {
           setDate(i18n.t('dashboard.process_paused'))
           break
         }
+
       case VoteStatus.Upcoming:
+        startDate = VotingApi.estimateDateAtBlockSync(
+          process?.summary?.startBlock,
+          blockStatus
+        )
+
         const timetoStart = localizedStrDateDiff(DateDiffType.Start, startDate)
+
         setDate(timetoStart)
         status = VoteStatus.Upcoming
         break

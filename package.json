@@ -23,7 +23,7 @@
   "homepage": "https://github.com/vocdoni/vocdoni-ui#readme",
   "dependencies": {
     "@aragon/ui": "^1.7.0",
-    "@vocdoni/react-hooks": "0.9.8",
+    "@vocdoni/react-hooks": "0.9.9",
     "bluebird": "^3.7.2",
     "copy-to-clipboard": "^3.3.1",
     "dexie": "^3.0.3",
@@ -34,7 +34,7 @@
     "i18next": "^20.1.0",
     "lodash": "^4.17.21",
     "moment": "^2.29.1",
-    "next": "^10.2.0",
+    "next": "^10.0.5",
     "react": "^17.0.2",
     "react-circular-progressbar": "^2.0.4",
     "react-datetime": "^3.0.4",

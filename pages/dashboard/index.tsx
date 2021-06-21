@@ -67,11 +67,11 @@ const DashboardPage = () => {
     else {
       activeVotes.push(proc)
     }
-
-    activeVotes.sort(sortEndBlock)
-    votesResults.sort(sortEndDescBlock)
-    upcomingVotes.sort(sortEndDescBlock)
   }
+  
+  activeVotes.sort(sortEndBlock)
+  votesResults.sort(sortEndDescBlock)
+  upcomingVotes.sort(sortEndDescBlock)
 
   useEffect(() => {
     if (loadingProcessList) return
