@@ -74,6 +74,7 @@ const QuestionMark = styled.span`
   background-color: #635BFF;
   margin-left: 6px;
   text-align: center;
+  opacity: 0.65;
 
   &:after {
     content: '?';

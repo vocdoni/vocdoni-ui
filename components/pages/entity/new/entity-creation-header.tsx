@@ -5,7 +5,8 @@ import styled from 'styled-components'
 import { useEntityCreation } from '@hooks/entity-creation'
 
 import { Column } from '@components/elements/grid'
-import { MainDescription, MainTitle } from '@components/elements/text'
+import { MainDescription } from '@components/elements/text'
+import { H1 } from '@components/elements/typography'
 
 export const EntityCreationHeader = () => {
   const { name } = useEntityCreation()
@@ -20,7 +21,7 @@ export const EntityCreationHeader = () => {
   )
 }
 
-const TitleContainer = styled(MainTitle)`
+const TitleContainer = styled(H1)`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

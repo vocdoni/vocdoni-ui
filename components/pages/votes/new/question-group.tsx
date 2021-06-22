@@ -11,7 +11,7 @@ import { Choice, Question } from '@lib/types'
 import { QuestionError } from '@lib/validators/errors/invalid-question-error'
 import { DirtyFields } from '@lib/validators'
 
-import { InputFormGroup, TextareaFormGroup } from '@components/blocks/form'
+import { FormGroupVariant, InputFormGroup, TextareaFormGroup } from '@components/blocks/form'
 import { Button, ButtonColor } from '@components/elements/button'
 import { SectionText, TextSize } from '@components/elements/text'
 import { Card } from '@components/elements/cards'
@@ -132,8 +132,8 @@ export const QuestionGroup = ({
           </ContentContainer>
 
           <InputFormGroup
-            label={i18n.t('vote.title')}
             placeholder={i18n.t('vote.title')}
+            variant={FormGroupVariant.Small}
             value={question.title.default}
             id={`process-question-${index}-title`}
             error={getErrorMessage(QuestionFields.Title)}
@@ -144,9 +144,9 @@ export const QuestionGroup = ({
           />
 
           <TextareaFormGroup
-            label={i18n.t('vote.description')}
             placeholder={i18n.t('vote.description')}
             rows={5}
+            variant={FormGroupVariant.Small}
             id={`process-question-${index}-description`}
             value={question.description.default}
             error={getErrorMessage(QuestionFields.Description)}
@@ -164,6 +164,7 @@ export const QuestionGroup = ({
               <FillSpaceWrapper>
                 <InputFormGroup
                   label={i18n.t('vote.option_n', { number: choiceIndex + 1 })}
+                  variant={FormGroupVariant.Small}
                   placeholder={i18n.t('vote.set_option')}
                   value={choice.title.default}
                   id={`process-vote-option-${choiceIndex}`}
