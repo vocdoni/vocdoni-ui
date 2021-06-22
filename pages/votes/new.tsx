@@ -3,10 +3,11 @@ import React from 'react'
 import { PageCard } from '@components/elements/cards'
 import { ProcessCreationPageStep, ProcessCreationPageStepTitles } from '@components/pages/votes/new'
 import { Column, Grid } from '@components/elements/grid'
+import { Typography, TypographyVariant } from '@components/elements/typography'
 import { Steps } from '@components/blocks/steps'
 import { LayoutEntity } from '@components/pages/app/layout/entity'
 
-import { MainTitle, MainDescription } from '@components/elements/text'
+import {  MainDescription } from '@components/elements/text'
 import i18n from '@i18n'
 import { UseProcessCreationProvider } from '@hooks/process-creation'
 import { useProcessCreation } from '@hooks/process-creation'
@@ -19,7 +20,7 @@ const NewVote = () => {
       <PageCard>
         <Grid>
           <Column span={6}>
-            <MainTitle>{i18n.t("vote.new_vote")}</MainTitle>
+            <Typography variant={TypographyVariant.H1}>{i18n.t("vote.new_vote")}</Typography>
             <MainDescription>{i18n.t("vote.enter_the_details_of_the_proposal")}</MainDescription>
           </Column>
           <Column span={6}>

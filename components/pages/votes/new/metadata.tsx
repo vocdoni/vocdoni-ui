@@ -171,7 +171,6 @@ export const FormMetadata = () => {
         <Column md={6} sm={12}>
           <InputFormGroup
             title={i18n.t('vote.title')}
-            label={i18n.t('vote.proposal_title')}
             placeholder={i18n.t('vote.proposal_title')}
             value={metadata.title.default}
             id={MetadataFields.Title}
@@ -198,10 +197,9 @@ export const FormMetadata = () => {
         <Column md={6} sm={12}>
           <TextareaFormGroup
             title={i18n.t('vote.description')}
-            label={i18n.t('vote.brief_description')}
             placeholder={i18n.t('vote.brief_description')}
             id={MetadataFields.Description}
-            rows={8}
+            rows={9}
             value={metadata.description.default}
             error={getErrorMessage(MetadataFields.Description)}
             onBlur={() => handleBlur(MetadataFields.Description)}

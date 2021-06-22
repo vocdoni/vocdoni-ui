@@ -43,7 +43,7 @@ export const SplitSection = ({
                 {subtitle}
               </Typography>
               <Typography
-                variant={TypographyVariant.H1}
+                variant={TypographyVariant.HeroBanner}
                 color={colors.blueText}
               >
                 {title}

@@ -3,6 +3,7 @@ import styled, { DefaultTheme, StyledComponent } from 'styled-components'
 import { colors } from 'theme/colors'
 
 export enum TypographyVariant {
+  HeroBanner = 'hero-banner',
   H1 = 'h1',
   H2 = 'h2',
   H3 = 'h3',
@@ -56,8 +57,18 @@ interface ITypographyCommon {
   margin?: string
 }
 
-export const H1 = styled.h1<ITypographyCommon>`
+export const HeroBanner = styled.h1<ITypographyCommon>`
   font-size: 40px;
+  font-weight: 400;
+  line-height: 1em;
+  margin: 6px 0;
+  text-align: ${({ align }) => (align ? align : TextAlign.Left)};
+  color: ${({ color, theme }) => (color ? color : theme.blueText)};
+  ${({ margin }) => (margin ? `margin: ${margin};` : '')}
+`
+
+export const H1 = styled.h1<ITypographyCommon>`
+  font-size: 32px;
   font-weight: 400;
   line-height: 1em;
   margin: 6px 0;
@@ -102,6 +113,7 @@ const typographyMap = new Map<
   TypographyVariant,
   StyledComponent<'h1' | 'p', DefaultTheme, ITypographyCommon>
 >([
+  [TypographyVariant.HeroBanner, HeroBanner],
   [TypographyVariant.H1, H1],
   [TypographyVariant.Body1, Body1],
   [TypographyVariant.Body2, Body2],
