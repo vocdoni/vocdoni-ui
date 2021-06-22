@@ -96,10 +96,6 @@ export const VoteDescription = ({
       <When condition={liveStream}>
         <Column>
           <LiveStreamContainer>
-            <SectionText size={TextSize.Big} color={colors.blueText}>
-              {i18n.t('vote.live_stream')}
-            </SectionText>
-
             <LiveStreamVideoContainer>
               <ReactPlayer url={liveStream} width="100%" />
             </LiveStreamVideoContainer>

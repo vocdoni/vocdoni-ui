@@ -29,11 +29,11 @@ import { ConfirmModal } from './components/confirm-modal'
 import { VoteRegisteredCard } from './components/vote-registered-card'
 import { VoteStatus, getVoteStatus } from '@lib/util'
 import { Else, If, Then, When } from 'react-if'
-import { SectionText, TextAlign } from '@components/elements/text'
 import { useUrlHash } from 'use-url-hash'
 import { VotingApi } from 'dvote-js'
 import { DateDiffType, localizedStrDateDiff } from '@lib/date'
 import { overrideTheme } from 'theme'
+import { Body1, TextAlign } from '@components/elements/typography'
 
 export const VotingPageView = () => {
   const processId = useUrlHash().slice(1) // Skip "/"
@@ -168,7 +168,6 @@ export const VotingPageView = () => {
 const SubmitButtonContainer = styled(FlexContainer)`
   margin: 30px 0 20px;
 `
-const TextContainer = styled(SectionText)`
+const TextContainer = styled(Body1)`
   margin: 12px 0;
-  font-size: 16px;
 `

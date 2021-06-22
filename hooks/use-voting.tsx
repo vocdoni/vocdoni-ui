@@ -240,7 +240,6 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
         methods.refreshResults()
       }, 100)
 
-      setAlertMessage(i18n.t("vote.your_vote_has_been_successfully_registered"))
       setHasVoted(true)
       setChoices([])
     } catch (err) {
