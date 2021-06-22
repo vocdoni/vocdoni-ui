@@ -10,7 +10,7 @@ import { IProcessesSummary } from '@lib/types'
 import i18n from '@i18n'
 
 import { FALLBACK_ACCOUNT_ICON } from '@const/account'
-import { Image } from '@components/blocks/image'
+import { Image } from '@components/elements/image'
 import { ImageContainer } from '@components/elements/images'
 
 import { VoteListItem } from '../../blocks/list-items'

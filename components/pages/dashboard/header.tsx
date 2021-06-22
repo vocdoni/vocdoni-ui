@@ -11,7 +11,7 @@ import { Banner } from '@components/blocks/banners'
 import { Button } from '@components/elements/button'
 import { Grid } from '@components/elements/grid'
 import { ImageContainer } from '@components/elements/images'
-import { Image } from '@components/blocks/image'
+import { Image } from '@components/elements/image'
 
 interface IDashboardHeaderProps {
   entity?: EntityMetadata,

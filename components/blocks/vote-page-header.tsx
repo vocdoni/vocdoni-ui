@@ -10,7 +10,7 @@ import { FALLBACK_ACCOUNT_ICON } from '@const/account'
 import { Grid , Column} from '@components/elements/grid'
 import { colors } from 'theme/colors'
 
-import { Image } from './image'
+import { Image } from '../elements/image'
 
 interface IVotePageHeader {
   processTitle: string
