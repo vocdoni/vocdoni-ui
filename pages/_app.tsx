@@ -7,14 +7,14 @@ import { Router } from 'next/router'
 import { ThemeProvider } from 'styled-components'
 import 'react-circular-progressbar/dist/styles.css';
 
-import { DefaultLayout } from '@components/layout/default'
-import { DefaultProviders } from '@components/app/default-providers'
+import { DefaultLayout } from '@components/pages/app/layout/default'
+import { DefaultProviders } from '@components/pages/app/providers/default-providers'
 
 import { FixedGlobalStyle, theme } from '../theme'
 import 'react-datetime/css/react-datetime.css'
 
-import { Helpscout } from '@components/external-dependencies/helpscout'
-import { CookiesBanner } from '@components/common/cookies-banner'
+import { Helpscout } from '@components/pages/app/external-dependencies/helpscout'
+import { CookiesBanner } from '@components/blocks/cookies-banner'
 
 type NextAppProps = AppInitialProps & {
   Component: NextComponentType<NextPageContext, any, any>

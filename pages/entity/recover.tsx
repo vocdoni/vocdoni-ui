@@ -2,9 +2,9 @@ import React, { useState } from 'react'
 import { WalletBackup } from 'dvote-js'
 import { ViewContext, ViewStrategy } from '@lib/strategy'
 
-import { QuestionsFormView } from '@components/entity/recover/questions-form'
-import { AccountRecoveryView } from '@components/entity/recover'
-import { AccountRecoveredSuccess } from '@components/entity/recover/recover-success'
+import { QuestionsFormView } from '@components/pages/entity/recover/questions-form'
+import { AccountRecoveryView } from '@components/pages/entity/recover'
+import { AccountRecoveredSuccess } from '@components/pages/entity/recover/recover-success'
 
 const RecoverPage = () => {
   const [

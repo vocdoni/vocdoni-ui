@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useEntity } from '@vocdoni/react-hooks'
 
 import i18n from '@i18n'
@@ -8,9 +8,9 @@ import { ViewContext, ViewStrategy } from '@lib/strategy'
 import { useAuthKey } from '@hooks/use-auth-key'
 import { useWallet, WalletRoles } from '@hooks/use-wallet'
 
-import { Loader } from '@components/loader'
-import { VotingErrorPage } from '@components/pub/votes/voting-error-page'
-import { LayoutVoter } from '@components/layout/voter'
+import { Loader } from '@components/blocks/loader'
+import { VotingErrorPage } from '@components/pages/pub/votes/voting-error-page'
+import { LayoutVoter } from '@components/pages/app/layout/voter'
 import { Redirect } from '@components/redirect'
 
 import { VOTING_PATH } from '@const/routes'

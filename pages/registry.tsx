@@ -1,4 +1,4 @@
-import { PageCard } from '../components/cards'
+import { PageCard } from '../components/elements/cards'
 import i18n from '@i18n'
 import { When } from 'react-if'
 import styled from 'styled-components'

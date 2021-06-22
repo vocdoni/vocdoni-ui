@@ -2,22 +2,22 @@ import React, { useEffect } from 'react'
 
 import { useDbAccounts } from '@hooks/use-db-accounts'
 import { useWallet } from '@hooks/use-wallet'
+import {
+  useEntityCreation,
+  UseEntityCreationProvider,
+} from '@hooks/entity-creation'
 
 import { AccountStatus } from '@lib/types'
 
 import {
   EntityCreationPageStep,
   EntityCreationPageStepTitles,
-} from '@components/steps-entity-creation'
-import { Column, Grid } from '@components/grid'
-import { Steps } from '@components/steps'
-import { PageCard } from '@components/cards'
-import {
-  useEntityCreation,
-  UseEntityCreationProvider,
-} from '@hooks/entity-creation'
-import { EntityCreationPageSteps } from '@components/steps-entity-creation'
-import { EntityCreationHeader } from '@components/steps-entity-creation/entity-creation-header'
+} from '@components/pages/entity/new'
+import { Column, Grid } from '@components/elements/grid'
+import { Steps } from '@components/blocks/steps'
+import { PageCard } from '@components/elements/cards'
+import { EntityCreationPageSteps } from '@components/pages/entity/new'
+import { EntityCreationHeader } from '@components/pages/entity/new/entity-creation-header'
 
 const NewEntity = () => {
   return (

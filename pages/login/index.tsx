@@ -4,15 +4,15 @@ import { useRouter } from 'next/router'
 
 import i18n from '../../i18n'
 
-import { Column, Grid } from '../../components/grid'
-import { PageCard } from '../../components/cards'
-import { SignInForm, SignInImport } from '../../components/signin'
-import { Account, AccountStatus } from '../../lib/types'
-import { useDbAccounts } from '../../hooks/use-db-accounts'
-import { useWallet } from '../../hooks/use-wallet'
-import { useMessageAlert } from '../../hooks/message-alert'
-import { useResponsive } from '../../hooks/use-window-size'
-import { CREATE_ACCOUNT_PATH, DASHBOARD_PATH } from '../../const/routes'
+import { Column, Grid } from '@components/elements/grid'
+import { PageCard } from '@components/elements/cards'
+import { SignInForm, SignInImport } from '@components/pages/login'
+import { Account, AccountStatus } from '@lib/types'
+import { useDbAccounts } from '@hooks/use-db-accounts'
+import { useWallet } from '@hooks/use-wallet'
+import { useMessageAlert } from '@hooks/message-alert'
+import { useResponsive } from '@hooks/use-window-size'
+import { CREATE_ACCOUNT_PATH, DASHBOARD_PATH } from '@const/routes'
 
 const SignInPage = () => {
   const { dbAccounts } = useDbAccounts()

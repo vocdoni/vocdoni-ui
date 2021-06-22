@@ -16,7 +16,7 @@ import {
   normalizeText
 } from 'dvote-js'
 import { createContext, ReactNode, useContext, useEffect, useState } from 'react'
-import { ProcessCreationPageSteps } from '../components/steps-new-vote'
+import { ProcessCreationPageSteps } from '@components/pages/votes/new'
 import { useForceUpdate } from "./use-force-update"
 import i18n from '../i18n'
 import { uploadFileToIpfs } from '../lib/file'
