@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 
 import { ViewStrategy, ViewContext } from '@lib/strategy'
 
-import { AccountImportView } from '@components/entity/import'
-import { AccountImportedSuccess } from '@components/entity/import/imported-success'
+import { AccountImportView } from '@components/pages/entity/import'
+import { AccountImportedSuccess } from '@components/pages/entity/import/imported-success'
 
 export const AccountImportPage = () => {
   const [hasImportedAccount, setHasImportedAccount] = useState<boolean>(false)

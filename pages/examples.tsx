@@ -3,20 +3,20 @@ import React, { createContext, ReactNode, useContext, useEffect, useState } from
 import { withRouter } from 'next/router'
 
 import styled from "styled-components"
-import { Button, SquareButton, ButtonColor } from '../components/button'
-import { Column, Grid } from '../components/grid'
-import { Card, PageCard, StatusCard } from '../components/cards'
+import { Button, SquareButton, ButtonColor } from '../components/elements/button'
+import { Column, Grid } from '../components/elements/grid'
+import { Card, PageCard, StatusCard } from '../components/elements/cards'
 import { useWallet } from '../hooks/use-wallet'
 import { Wallet } from 'ethers'
 import { useDbAccounts } from '../hooks/use-db-accounts'
 import { Symmetric } from 'dvote-js'
 import { Buffer } from "buffer/"
-import { Steps } from '../components/steps'
-import { Input, Select, Textarea } from '../components/inputs'
-import { Radio } from '../components/radio'
+import { Steps } from '../components/blocks/steps'
+import { Input, Select, Textarea } from '../components/elements/inputs'
+import { Radio } from '../components/elements/radio'
 import { colors } from '../theme/colors'
-import { Banner } from '../components/banners'
-import { VoteListItem } from '../components/list-items'
+import { Banner } from '../components/blocks/banners'
+import { VoteListItem } from '../components/blocks/list-items'
 import { VoteStatus } from "@lib/util"
 import { DASHBOARD_PATH } from '../const/routes'
 

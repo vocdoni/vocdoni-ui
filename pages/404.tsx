@@ -1,5 +1,5 @@
-import { PageCard } from "../components/cards"
-import NotFoundComponent from '../components/not-found'
+import { PageCard } from "../components/elements/cards"
+import NotFoundComponent from '../components/pages/not-found'
 
 const NotFound = () =>
     <PageCard>

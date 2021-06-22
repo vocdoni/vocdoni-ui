@@ -1,5 +1,5 @@
-import { PageCard } from "@components/cards"
-import { ALPrivacy } from "@components/policy/ALprivacy";
+import { PageCard } from "@components/elements/cards"
+import { ALPrivacy } from "@components/pages/policy/ALprivacy";
 
 import i18n from '@i18n';
 

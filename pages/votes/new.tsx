@@ -1,15 +1,15 @@
 import React from 'react'
-// import styled from 'styled-components'
-import { PageCard } from '../../components/cards'
 
-import { ProcessCreationPageStep, ProcessCreationPageStepTitles } from '../../components/steps-new-vote'
-import { Column, Grid } from '../../components/grid'
-import { Steps } from '../../components/steps'
-import { MainTitle, MainDescription } from '../../components/text'
-import { UseProcessCreationProvider } from '../../hooks/process-creation'
-import i18n from '../../i18n'
-import { useProcessCreation } from '../../hooks/process-creation'
-import { LayoutEntity } from '@components/layout/entity'
+import { PageCard } from '@components/elements/cards'
+import { ProcessCreationPageStep, ProcessCreationPageStepTitles } from '@components/pages/votes/new'
+import { Column, Grid } from '@components/elements/grid'
+import { Steps } from '@components/blocks/steps'
+import { LayoutEntity } from '@components/pages/app/layout/entity'
+
+import { MainTitle, MainDescription } from '@components/elements/text'
+import i18n from '@i18n'
+import { UseProcessCreationProvider } from '@hooks/process-creation'
+import { useProcessCreation } from '@hooks/process-creation'
 
 // NOTE: This page uses a custom Layout. See below.
 

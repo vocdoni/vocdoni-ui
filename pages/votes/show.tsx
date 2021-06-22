@@ -2,15 +2,15 @@ import React from 'react'
 
 import { ViewContext, ViewStrategy } from '@lib/strategy'
 
-import { Loader } from '@components/loader'
-import { ViewDetail } from '@components/dashboard/vote-detail'
+import { Loader } from '@components/blocks/loader'
+import { ViewDetail } from '@components/pages/dashboard/vote-detail'
 import { useProcessWrapper } from '@hooks/use-process-wrapper'
 import { useUrlHash } from 'use-url-hash'
 import { useWallet, WalletRoles } from '@hooks/use-wallet'
 import { Redirect } from '@components/redirect'
 import { ENTITY_SIGN_IN_PATH } from '@const/routes'
 import { useScrollTop } from '@hooks/use-scroll-top'
-import { LayoutEntity } from '@components/layout/entity'
+import { LayoutEntity } from '@components/pages/app/layout/entity'
 
 // NOTE: This page uses a custom Layout. See below.
 

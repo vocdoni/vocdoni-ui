@@ -1,10 +1,10 @@
 import React from 'react'
-import { Loader } from '@components/loader'
-import { VotingPageView } from '@components/pub/votes'
+import { Loader } from '@components/blocks/loader'
+import { VotingPageView } from '@components/pages/pub/votes'
 import { useUrlHash } from 'use-url-hash'
-import { VotingErrorPage } from '@components/pub/votes/voting-error-page'
+import { VotingErrorPage } from '@components/pages/pub/votes/voting-error-page'
 import { useProcess } from '@vocdoni/react-hooks'
-import { LayoutVoter } from '@components/layout/voter'
+import { LayoutVoter } from '@components/pages/app/layout/voter'
 
 // NOTE: This page uses a custom Layout. See below.
 

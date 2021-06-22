@@ -1,12 +1,16 @@
 import React, { useState } from 'react'
+
 import { ViewStrategy, ViewContext } from '@lib/strategy'
+
 import { ENTITY_SIGN_IN_PATH } from '@const/routes'
+
 import { useWallet, WalletRoles } from '@hooks/use-wallet'
 import { useDbAccounts } from '@hooks/use-db-accounts'
+
 import { Redirect } from '@components/redirect'
-import { AccountBackupView } from '@components/entity/backup'
-import { AccountBackupSuccess } from '@components/entity/backup/backup-success'
-import { LayoutEntity } from '@components/layout/entity'
+import { AccountBackupView } from '@components/pages/entity/backup'
+import { AccountBackupSuccess } from '@components/pages/entity/backup/backup-success'
+import { LayoutEntity } from '@components/pages/app/layout/entity'
 
 // NOTE: This page uses a custom Layout. See below.
 

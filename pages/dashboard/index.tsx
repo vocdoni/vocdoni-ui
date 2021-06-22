@@ -1,20 +1,20 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useEntity, useBlockHeight } from '@vocdoni/react-hooks'
-import { IProcessDetails, IProcessSummary, ProcessMetadata, VochainProcessStatus } from 'dvote-js'
+import { VochainProcessStatus } from 'dvote-js'
 
 import {
   DashboardActivitySummary,
   DashboardHeader,
   DashboardProcessList,
   ProcessTypes,
-} from '../../components/dashboard'
+} from '@components/pages/dashboard'
+import { LayoutEntity } from '@components/pages/app/layout/entity'
 
-import { Account, IProcessesSummary } from '../../lib/types'
-import { useDbAccounts } from '../../hooks/use-db-accounts'
-import { useWallet } from '../../hooks/use-wallet'
-import { useProcessesFromAccount } from '../../hooks/use-processes'
+import { Account, IProcessesSummary } from '@lib/types'
+import { useDbAccounts } from '@hooks/use-db-accounts'
+import { useWallet } from '@hooks/use-wallet'
+import { useProcessesFromAccount } from '@hooks/use-processes'
 
-import { LayoutEntity } from '@components/layout/entity'
 
 // NOTE: This page uses a custom Layout. See below.
 

@@ -5,11 +5,11 @@ import i18n from '@i18n'
 
 import { ViewContext, ViewStrategy } from '@lib/strategy'
 import { useAuthForm } from '@hooks/use-auth-form'
-import { Loader } from '@components/loader'
+import { Loader } from '@components/blocks/loader'
 
-import { SignInForm } from '@components/pub/votes/auth/form/sign-in-form'
-import { VotingErrorPage } from '@components/pub/votes/voting-error-page'
-import { LayoutVoter } from '@components/layout/voter'
+import { SignInForm } from '@components/pages/pub/votes/auth/sign-in-form'
+import { VotingErrorPage } from '@components/pages/pub/votes/voting-error-page'
+import { LayoutVoter } from '@components/pages/app/layout/voter'
 
 // NOTE: This page uses a custom Layout. See below.
 
