@@ -1,19 +1,17 @@
-import { useState } from 'react'
+let initialized = false;
 
 export function useHelpCenter() {
-  const [initialized, setInitialized] = useState<boolean>(false)
-
   const show = () => {
     if (!initialized) {
+      initialized = true
       window.Beacon('init', process.env.HELPSCOUT_PROJECT_ID)
-      setInitialized(true)
     }
   }
 
   const hide = () => {
     if (initialized) {
       window.Beacon('destroy')
-      setInitialized(false)
+      initialized = false
     }
   }
 
