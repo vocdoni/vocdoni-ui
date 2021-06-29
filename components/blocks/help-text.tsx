@@ -34,14 +34,14 @@ export const HelpText = ({text}: IQuestionProps) => {
   )
 }
 
-const Container = styled.div`
+const Container = styled.span`
   display: inline-block;
   position: relative;
   height: 16px;
   width: 16px;
 `
 
-const Tooltip = styled.div<{visible: boolean}>`
+const Tooltip = styled.span<{visible: boolean}>`
   visibility: ${({ visible }) => visible? 'visible': 'hidden'};
   opacity: ${({ visible }) => visible? '1': '0'};
   -webkit-touch-callout: none; 

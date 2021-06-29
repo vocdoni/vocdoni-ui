@@ -9,31 +9,32 @@ import { utils } from 'ethers'
 
 export const useProcessesFromAccount = (entityId: string) => {
   if (entityId) entityId = utils.getAddress(entityId)
+
   const [processIds, setProcessIds] = useState([] as string[])
   const [loadingProcessList, setLoadingProcessList] = useState(true)
   const { setAlertMessage } = useMessageAlert()
   const { wallet } = useWallet()
-  const { processes, error, loading: loadingProcessesDetails } = useProcesses(
-    processIds || []
+  const { processes, error, loading: loadingProcessesDetails, reloadProcesses } = useProcesses(
+    processIds || [],
+    false
   )
   const { poolPromise } = usePool()
 
-  // Effects
+  useEffect(() => {
+    updateProcessIds()
+  }, [wallet, entityId])
 
   useEffect(() => {
-    const interval = setInterval(() => updateProcessIds(), 1000 * 60)
-    updateProcessIds()
+    const interval = setInterval(() => reloadProcesses(), 1000 * 60)
 
     // Done
     return () => clearInterval(interval)
-  }, [wallet, entityId])
+  }, [processIds])
 
   // Loaders
-
   const updateProcessIds = () => {
     if (!entityId) return
     setLoadingProcessList(true)
-
 
     poolPromise
       .then((pool) => getProcessList(entityId, pool))

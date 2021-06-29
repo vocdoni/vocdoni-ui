@@ -286,10 +286,10 @@ export const ViewDetail = ({
           </SectionContainer>
 
           <SectionContainer>
-            <SectionText>{process.metadata.title.default}</SectionText>
+            <SectionText>{process.metadata?.title.default}</SectionText>
 
             <SectionText color={colors.lightText}>
-              {process.metadata.description.default}
+              {process.metadata?.description.default}
             </SectionText>
           </SectionContainer>
 
@@ -298,7 +298,7 @@ export const ViewDetail = ({
               {i18n.t('vote_detail.vote_results')}
             </SectionText>
 
-            {process.metadata.questions.map(
+            {process.metadata && process.metadata.questions.map(
               (question: Question, index: number) => (
                 <VoteQuestionCard
                   key={index}
