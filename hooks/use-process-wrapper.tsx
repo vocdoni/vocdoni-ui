@@ -1,11 +1,12 @@
 import { usePool, useProcess, useBlockHeight, useDateAtBlock, UseProcessContext } from '@vocdoni/react-hooks'
-import { IProcessDetails, DigestedProcessResults, VotingApi, VochainProcessStatus as ProcessStatus } from 'dvote-js'
+import { IProcessDetails, DigestedProcessResults, VotingApi, ProcessStatus, VochainProcessStatus, IProcessStatus, IProcessState } from 'dvote-js'
+import { Wallet } from '@ethersproject/wallet'
 
+import { useContext } from 'react'
 import { useEffect, useState } from 'react'
 
 import i18n from '../i18n'
-// import { useUrlHash } from 'use-url-hash'
-// import { useMessageAlert } from './message-alert'
+
 import { DateDiffType, localizedStrDateDiff } from '../lib/date'
 
 export interface ProcessWrapperContext {
@@ -28,15 +29,15 @@ export interface ProcessWrapperContext {
 
 export const useProcessWrapper = (processId: string) => {
   const invalidProcessId = !processId || !processId.match(/^0x[0-9a-fA-A]{64}$/)
-
+  const processContext = useContext(UseProcessContext)
   const { poolPromise } = usePool()
-  // const { setAlertMessage } = useMessageAlert()
   const { blockHeight } = useBlockHeight()
+
   const {
     loading: loadingInfo,
     error: loadingInfoError,
     process: processInfo,
-    refresh: refreshProcessInfo
+    refresh,
   } = useProcess(processId)
 
   const [results, setResults] = useState(null as DigestedProcessResults)
@@ -53,7 +54,7 @@ export const useProcessWrapper = (processId: string) => {
     if (invalidProcessId) return
 
     refreshResults()
-    refreshProcessInfo(processId)
+    refresh(processId)
   }, [processId])
 
   useEffect(() => {
@@ -61,30 +62,84 @@ export const useProcessWrapper = (processId: string) => {
     else if (blockHeight % 3 !== 0) return
 
     refreshResults()
-    refreshProcessInfo(processId)
+    refresh(processId)
   }, [blockHeight])
 
   useEffect(() => {
     switch (processInfo?.state?.status) {
-      case ProcessStatus.READY:
+      case VochainProcessStatus.READY:
         if (hasEnded) setStatusText(i18n.t("status.the_vote_has_ended"))
         else if (hasStarted) setStatusText(i18n.t("status.the_vote_is_open_for_voting"))
         else if (!hasStarted)
           setStatusText(i18n.t("status.the_vote_will_start_soon"))
         break
-      case ProcessStatus.PAUSED:
+      case VochainProcessStatus.PAUSED:
         setStatusText(i18n.t("status.the_vote_is_paused"))
         break
-      case ProcessStatus.CANCELED:
+      case VochainProcessStatus.CANCELED:
         setStatusText(i18n.t("status.the_vote_is_canceled"))
         break
-      case ProcessStatus.ENDED:
-      case ProcessStatus.RESULTS:
+      case VochainProcessStatus.ENDED:
+      case VochainProcessStatus.RESULTS:
         setStatusText(i18n.t("status.the_vote_has_ended"))
         break
     }
   }, [processInfo?.state?.status])
 
+  const waitUntilStatusUpdated = (processId: string, status: IProcessStatus): Promise<IProcessState> => {
+    return new Promise(async (resolve, reject) => {
+      let attempts = 10
+
+      const checkStatusAndResolve = async (): Promise<void> => {
+        const process: IProcessState = await processContext.refreshProcessState(processId)
+        --attempts
+
+        if (attempts <= 0) {
+          reject('Max attempts reached')
+          return
+        }
+
+        if (process.status !== status) {
+
+          setTimeout(checkStatusAndResolve, 10000)
+          return
+        }
+
+        resolve(process)
+      }
+
+      checkStatusAndResolve()
+    })
+  }
+
+  const updateProcessStatus = async (processToUpdate: string, status: IProcessStatus, wallet: Wallet) => {
+    const pool = await poolPromise
+
+    wallet.connect(pool.provider)
+
+    await VotingApi.setStatus(
+      processToUpdate,
+      status,
+      wallet,
+      pool
+    )
+  }
+
+  const cancelProcess = async (porcessId: string, wallet: Wallet): Promise<void> => {
+    await updateProcessStatus(porcessId, ProcessStatus.CANCELED, wallet)
+
+    await waitUntilStatusUpdated(porcessId, VochainProcessStatus.CANCELED)
+    await processContext.refreshProcessSummary(processId)
+    refresh(processId)
+  }
+
+  const pauseProcess = async (porcessId: string, wallet: Wallet): Promise<void> => {
+    await updateProcessStatus(porcessId, ProcessStatus.ENDED, wallet)
+
+    await waitUntilStatusUpdated(porcessId, VochainProcessStatus.ENDED)
+    await processContext.refreshProcessSummary(processId)
+    refresh(processId)
+  }
   // Loaders
 
   const refreshResults = () => {
@@ -119,7 +174,9 @@ export const useProcessWrapper = (processId: string) => {
     statusText,
     results,
     methods: {
-      refreshProcessInfo,
+      cancelProcess,
+      pauseProcess,
+      waitUntilStatusUpdated,
       refreshResults
     }
   }

@@ -24,6 +24,14 @@ const VoteDetailPage = () => {
   } = useProcessWrapper(processId)
   const { wallet } = useWallet({ role: WalletRoles.ADMIN })
 
+  const cancelProcess = async () => {
+    await methods.cancelProcess(processId, wallet)
+  }
+
+  const endProcess = async () => {
+    await methods.pauseProcess(processId, wallet)
+  }
+
   const redirectNoWallet = new ViewStrategy(
     () => !wallet?.address,
     <Redirect to={ENTITY_SIGN_IN_PATH}></Redirect>
@@ -31,7 +39,12 @@ const VoteDetailPage = () => {
 
   const processDetailView = new ViewStrategy(
     () => !!processInfo && !!wallet?.address,
-    <ViewDetail process={processInfo} results={results} refreshProcessInfo={methods.refreshProcessInfo} />
+    <ViewDetail 
+      process={processInfo} 
+      results={results} 
+      endProcess={endProcess} 
+      cancelProcess={cancelProcess} 
+    />
   )
 
   const loadingView = new ViewStrategy(

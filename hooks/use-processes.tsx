@@ -14,9 +14,8 @@ export const useProcessesFromAccount = (entityId: string) => {
   const [loadingProcessList, setLoadingProcessList] = useState(true)
   const { setAlertMessage } = useMessageAlert()
   const { wallet } = useWallet()
-  const { processes, error, loading: loadingProcessesDetails, reloadProcesses } = useProcesses(
-    processIds || [],
-    false
+  const { processes, error, loading: loadingProcessesDetails } = useProcesses(
+    processIds || []
   )
   const { poolPromise } = usePool()
 
@@ -24,12 +23,6 @@ export const useProcessesFromAccount = (entityId: string) => {
     updateProcessIds()
   }, [wallet, entityId])
 
-  useEffect(() => {
-    const interval = setInterval(() => reloadProcesses(), 1000 * 60)
-
-    // Done
-    return () => clearInterval(interval)
-  }, [processIds])
 
   // Loaders
   const updateProcessIds = () => {
