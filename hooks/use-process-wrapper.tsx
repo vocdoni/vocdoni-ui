@@ -93,14 +93,12 @@ export const useProcessWrapper = (processId: string) => {
       const checkStatusAndResolve = async (): Promise<void> => {
         const process: IProcessState = await processContext.refreshProcessState(processId)
         --attempts
-
         if (attempts <= 0) {
           reject('Max attempts reached')
           return
         }
 
         if (process.status !== status) {
-
           setTimeout(checkStatusAndResolve, 10000)
           return
         }
@@ -125,18 +123,23 @@ export const useProcessWrapper = (processId: string) => {
     )
   }
 
-  const cancelProcess = async (porcessId: string, wallet: Wallet): Promise<void> => {
-    await updateProcessStatus(porcessId, ProcessStatus.CANCELED, wallet)
+  const cancelProcess = async (processId: string, wallet: Wallet): Promise<void> => {
+    await updateProcessStatus(processId, ProcessStatus.CANCELED, wallet)
 
-    await waitUntilStatusUpdated(porcessId, VochainProcessStatus.CANCELED)
-    await processContext.refreshProcessSummary(processId)
-    refresh(processId)
+    await waitUntilStatusUpdated(processId, VochainProcessStatus.CANCELED)
+
+    try {
+      // Is necesary capture the exception, becaus when is canceled the process launch exception
+      await processContext.refreshProcessSummary(processId)
+    } catch {  
+      refresh(processId)
+    }
   }
 
-  const pauseProcess = async (porcessId: string, wallet: Wallet): Promise<void> => {
-    await updateProcessStatus(porcessId, ProcessStatus.ENDED, wallet)
+  const pauseProcess = async (processId: string, wallet: Wallet): Promise<void> => {
+    await updateProcessStatus(processId, ProcessStatus.ENDED, wallet)
 
-    await waitUntilStatusUpdated(porcessId, VochainProcessStatus.ENDED)
+    await waitUntilStatusUpdated(processId, VochainProcessStatus.ENDED)
     await processContext.refreshProcessSummary(processId)
     refresh(processId)
   }
