@@ -3,8 +3,10 @@ import styled, { DefaultTheme } from 'styled-components'
 import { HelpText } from './help-text'
 import FileLoader from './FileLoader'
 
-import { Input, Textarea } from '../elements/inputs'
+import { Input, ISelectOption, Select, Textarea } from '../elements/inputs'
 import { SectionTitle } from '../elements/text'
+
+
 
 type BaseForGroupProps = {
   title?: string
@@ -18,11 +20,12 @@ type BaseForGroupProps = {
 }
 
 type IInputFormGroupProps = {
-  value?: string
+  value?: string | ISelectOption
   rows?: number
   type?: string
-  onChange: (value: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
-  onBlur?: (value: string) => void
+  options?: ISelectOption[]
+  onChange: (value: ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | ISelectOption) => void
+  onBlur?: (value: string ) => void
 } & BaseForGroupProps
 
 type FileFormGroupProps = {
@@ -66,6 +69,7 @@ export const formGroupHOC =
     type,
     rows,
     error,
+    options,
     onChange,
     onBlur,
     variant = FormGroupVariant.Regular,
@@ -86,6 +90,7 @@ export const formGroupHOC =
             placeholder={placeholder}
             type={type}
             name={name}
+            options={options}
             value={value || ''}
             error={!!error}
             onChange={onChange}
@@ -99,6 +104,7 @@ export const formGroupHOC =
 
 export const InputFormGroup = formGroupHOC(Input)
 export const TextareaFormGroup = formGroupHOC(Textarea)
+export const SelectFormGroup = formGroupHOC(Select)
 
 export const FileLoaderFormGroup = ({
   title,
