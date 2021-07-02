@@ -113,12 +113,11 @@ export const useProcessWrapper = (processId: string) => {
   const updateProcessStatus = async (processToUpdate: string, status: IProcessStatus, wallet: Wallet) => {
     const pool = await poolPromise
 
-    wallet.connect(pool.provider)
 
     await VotingApi.setStatus(
       processToUpdate,
       status,
-      wallet,
+      wallet.connect(pool.provider),
       pool
     )
   }
@@ -136,7 +135,7 @@ export const useProcessWrapper = (processId: string) => {
     await updateProcessStatus(processId, ProcessStatus.ENDED, wallet)
 
     await waitUntilStatusUpdated(processId, VochainProcessStatus.ENDED)
-    
+
     processContext.invalidateRegister(CacheRegisterPrefix.Summary,  processId)
     refresh(processId)
   }
