@@ -1,4 +1,4 @@
-import { usePool, useProcess, useBlockHeight, useDateAtBlock, UseProcessContext } from '@vocdoni/react-hooks'
+import { usePool, useProcess, useBlockHeight, useDateAtBlock, UseProcessContext, CacheRegisterPrefix } from '@vocdoni/react-hooks'
 import { IProcessDetails, DigestedProcessResults, VotingApi, ProcessStatus, VochainProcessStatus, IProcessStatus, IProcessState } from 'dvote-js'
 import { Wallet } from '@ethersproject/wallet'
 
@@ -128,19 +128,16 @@ export const useProcessWrapper = (processId: string) => {
 
     await waitUntilStatusUpdated(processId, VochainProcessStatus.CANCELED)
 
-    try {
-      // Is necesary capture the exception, becaus when is canceled the process launch exception
-      await processContext.refreshProcessSummary(processId)
-    } catch {  
-      refresh(processId)
-    }
+    processContext.invalidateRegister(CacheRegisterPrefix.Summary,  processId)
+    refresh(processId)
   }
 
   const pauseProcess = async (processId: string, wallet: Wallet): Promise<void> => {
     await updateProcessStatus(processId, ProcessStatus.ENDED, wallet)
 
     await waitUntilStatusUpdated(processId, VochainProcessStatus.ENDED)
-    await processContext.refreshProcessSummary(processId)
+    
+    processContext.invalidateRegister(CacheRegisterPrefix.Summary,  processId)
     refresh(processId)
   }
   // Loaders
