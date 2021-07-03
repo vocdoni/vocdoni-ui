@@ -148,7 +148,7 @@
         "select_company": "Company",
         "select_cooperative": "Cooperative",
         "select_individual": "Individual",
-        "select_informatial_organization": "Informal organization",
+        "select_informal_organization": "Informal organization",
         "select_non_profit": "Association or Non-profit Organization",
         "select_other": "Other",
         "select_other_public": "Other public institutions",
