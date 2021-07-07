@@ -504,6 +504,7 @@
         "this_is_the_link_that_your_community_members_can_use_to_access_via_mnemonic_helper": "Este enlace se puede utilizar por votantes que ya disponen wallets associados con mnemonics",
         "this_type_of_vote_is_not_supported_on_the_current_page": "Este tipo de votación no está disponible todavía",
         "title": "Título",
+        "total_votes": "Número total de votos",
         "upcoming_vote": "Próxima votación",
         "upload_different_document": "Cargar un censo diferente",
         "upload_new_logo": "Cargar un logo nuevo",
