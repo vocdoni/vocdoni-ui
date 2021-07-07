@@ -1,5 +1,4 @@
 import xlsx, { WorkBook } from 'xlsx'
-import { digestedWalletFromString} from './util'
 
 
 export class SpreadSheetReader {
@@ -42,23 +41,11 @@ export class SpreadSheetReader {
     })
   }
 
-  // public async generateFromDataKeys(entityId: string): Promise<ProcessKey[]> {
-  //   // Maybe we need optimize these process if is hight CPU consumption, doing in some batch package
-  //   const keys: ProcessKey[] = this.data.map((row): ProcessKey => {
-  //     const srtRow = this.rowToString(row) + entityId
-
-  //     return digestedWalletFromString(srtRow).privateKey
-  //   })
-
-  //   return keys
-  // }
-
   private handleUploadPromise(): Promise<SpreadSheetReader> {
     return new Promise((resolve, reject): void => {
       this.reader.onload = (event) => {
         try {
-          const fileData = new Uint8Array(event.target.result)
-          this.workBook = xlsx.read(fileData, { type: 'array' })
+          this.workBook = xlsx.read(this.reader.result, { type: 'binary', codepage: 65001 })
           this.data = this.getSheetsData(this.workBook)
 
           this.header = this.data.splice(0, 1)[0]
@@ -69,25 +56,18 @@ export class SpreadSheetReader {
         }
       }
 
-      this.reader.readAsArrayBuffer(this.file)
+      this.reader.readAsBinaryString(this.file)
     })
   }
 
   private getSheetsData(xlsFile: WorkBook) {
     const firstSheetName = xlsFile.SheetNames[0]
-
     const worksheet = xlsFile.Sheets[firstSheetName]
     const data = xlsx.utils.sheet_to_json(worksheet, { header: 1, raw: false })
     const filteredEmptyRows = data.filter((row: Array<any>) => row.length > 0)
 
     return filteredEmptyRows
   }
-
-  // private digestData(srtRows: string[]): string[] {
-  //   const keys: string = []
-
-  //   return keys
-  // }
 
   private rowToString(row: string[]): string {
     return row.reduce(
