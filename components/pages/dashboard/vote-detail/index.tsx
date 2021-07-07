@@ -313,6 +313,11 @@ export const ViewDetail = ({
               )
             )}
           </div>
+
+          <SectionText>
+            {i18n.t('vote.total_votes')}: {totalVotes}
+          </SectionText>
+
         </Column>
 
         <Column md={3} sm={12}>

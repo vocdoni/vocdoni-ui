@@ -143,6 +143,18 @@ export const VotingPageView = () => {
           )
         )}
 
+        <If condition={totalVotes > 0}>
+          <Then>
+            <Grid>
+              <Card sm={12}>
+                <TextContainer align={TextAlign.Center}>
+                  {i18n.t('vote.total_votes')}: {totalVotes}
+                </TextContainer>
+              </Card>
+            </Grid>
+          </Then>
+        </If>
+
         <When condition={!hasVoted && !readOnly}>
           <SubmitButtonContainer justify={FlexJustifyContent.Center}>
             <Button
