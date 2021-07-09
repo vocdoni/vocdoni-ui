@@ -34,4 +34,6 @@ const CreateProposalImageContainer = styled.div`
 `
 const CreateProposalButtonContainer = styled.div`
   text-align: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
 `
