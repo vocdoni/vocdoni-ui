@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { CircularProgressbar } from 'react-circular-progressbar'
 import { DigestedProcessResultItem } from 'dvote-js'
+import { Else, If, Then } from 'react-if'
 
 import i18n from '@i18n'
 import { colors } from 'theme/colors'
@@ -16,11 +17,13 @@ interface IQuestionResultsProps {
   question: Question
   result: DigestedProcessResultItem
   totalVotes: number
+  showOnlyQuestions: boolean
 }
 export const QuestionResults = ({
   question,
   result,
   totalVotes,
+  showOnlyQuestions,
 }: IQuestionResultsProps) => {
   const getOptionResult = (index: number): number =>
     result?.voteResults[index].votes.toNumber()
@@ -33,19 +36,31 @@ export const QuestionResults = ({
       {question.choices.map((choice: Choice, index: number) => (
         <FlexContainer key={index}>
           <ProgressBarContainer>
-            <CircularProgressbar
-              styles={buildGraphStyle(getOptionPercentage(index))}
-              value={getOptionPercentage(index)}
-              text={`${getOptionPercentage(index).toFixed(1)}%`}
-            />
+            <If condition={showOnlyQuestions}>
+              <Then>
+                <CircularProgressbar
+                  styles={buildGraphStyle(getOptionPercentage(index))}
+                  value={getOptionPercentage(index)}
+                />
+              </Then>
+              <Else>
+                <CircularProgressbar
+                  styles={buildGraphStyle(getOptionPercentage(index))}
+                  value={getOptionPercentage(index)}
+                  text={`${getOptionPercentage(index).toFixed(1)}%`}
+                />
+              </Else>
+            </If>
           </ProgressBarContainer>
           <div>
             <DescriptionContainer>{choice.title.default}</DescriptionContainer>
-            <SectionText color={colors.lightText}>
-              {i18n.t('vote_question_card.number_votes', {
-                number: getOptionResult(index),
-              })}
-            </SectionText>
+            <If condition={!showOnlyQuestions}>
+              <SectionText color={colors.lightText}>
+                {i18n.t('vote_question_card.number_votes', {
+                  number: getOptionResult(index),
+                })}
+              </SectionText>
+            </If>
           </div>
         </FlexContainer>
       ))}

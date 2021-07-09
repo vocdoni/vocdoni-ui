@@ -67,6 +67,7 @@ export const VoteQuestionCard = ({
         question={question}
         result={result}
         totalVotes={totalVotes}
+        showOnlyQuestions={false}
       />
     )
   )
@@ -74,9 +75,17 @@ export const VoteQuestionCard = ({
   const noResultsAvailableView = new ViewStrategy(
     () => showResults && !result,
     (
-      <SectionText>
-        {i18n.t('vote_question_card.no_results_available')}
-      </SectionText>
+      <>
+        <QuestionResults
+          question={question}
+          result={result}
+          totalVotes={totalVotes}
+          showOnlyQuestions={true}
+        />
+        <NoResultsAvailableText>
+          {i18n.t('vote_question_card.no_results_available')}
+        </NoResultsAvailableText>
+      </>
     )
   )
 
@@ -142,4 +151,8 @@ const QuestionContainer = styled.div`
 const QuestionTitle = styled(SectionTitle)`
   font-size: 33px;
   margin-bottom: 10px;
+`
+
+const NoResultsAvailableText = styled(SectionText)`
+  padding-top: 12px;
 `
