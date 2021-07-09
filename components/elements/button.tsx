@@ -37,9 +37,11 @@ type ButtonProps = {
     target?: LinkTarget
     spinner?: boolean
     onClick?: (ev: React.MouseEvent<HTMLDivElement, MouseEvent>) => void
+    onMouseEnter?: (ev: React.MouseEvent<HTMLDivElement, MouseEvent>) => void
+    onMouseLeave?: (ev: React.MouseEvent<HTMLDivElement, MouseEvent>) => void
 }
 
-export const Button = ({ disabled, positive, negative, color, href, target, onClick, width, icon, wide, border, borderColor, justify, verticalAlign, large, small, spinner, children }: ButtonProps) => {
+export const Button = ({ disabled, positive, negative, color, href, target, onClick, onMouseEnter, onMouseLeave, width, icon, wide, border, borderColor, justify, verticalAlign, large, small, spinner, children }: ButtonProps) => {
     let component: JSX.Element
     const getButtonText = (spinnerVariant: SpinnerProps['variant'] = 'brand'): ReactNode => (
         spinner ?
@@ -50,7 +52,7 @@ export const Button = ({ disabled, positive, negative, color, href, target, onCl
     )
 
     if (disabled) {
-        return <DisabledButton wide={wide} large={large} small={small} width={width} onClick={ev => (onClick && !disabled) ? onClick(ev) : null}>
+        return <DisabledButton wide={wide} large={large} small={small} width={width} onClick={ev => (onClick && !disabled) ? onClick(ev) : null} onMouseEnter={ev => (onMouseEnter && !disabled) ? onMouseEnter(ev) : null} onMouseLeave={ev => (onMouseLeave && !disabled) ? onMouseLeave(ev) : null}>
             {icon ?
                 <ButtonContent color={theme.darkLightFg} justify={justify}>{icon}&nbsp; { getButtonText() }</ButtonContent> :
                 <ButtonContent color={theme.darkLightFg} verticalAlign={verticalAlign} justify={justify}>{ getButtonText() }</ButtonContent>
@@ -59,7 +61,7 @@ export const Button = ({ disabled, positive, negative, color, href, target, onCl
     }
 
     if (positive) {
-        component = <PositiveButton wide={wide} large={large} small={small} width={width} onClick={ev => (onClick && !disabled) ? onClick(ev) : null}>
+        component = <PositiveButton wide={wide} large={large} small={small} width={width} onClick={ev => (onClick && !disabled) ? onClick(ev) : null} onMouseEnter={ev => (onMouseEnter && !disabled) ? onMouseEnter(ev) : null} onMouseLeave={ev => (onMouseLeave && !disabled) ? onMouseLeave(ev) : null}>
             {icon ?
                 <ButtonContent color={theme.white} justify={justify}>{icon}&nbsp;{getButtonText('inverse')}</ButtonContent> :
                 <ButtonContent color={theme.white} verticalAlign={verticalAlign} justify={justify}>{getButtonText('inverse')}</ButtonContent>
@@ -67,7 +69,7 @@ export const Button = ({ disabled, positive, negative, color, href, target, onCl
         </PositiveButton>
     }
     else if (negative) {
-        component = <NegativeButton wide={wide} large={large} small={small} width={width} onClick={ev => (onClick && !disabled) ? onClick(ev) : null}>
+        component = <NegativeButton wide={wide} large={large} small={small} width={width} onClick={ev => (onClick && !disabled) ? onClick(ev) : null} onMouseEnter={ev => (onMouseEnter && !disabled) ? onMouseEnter(ev) : null} onMouseLeave={ev => (onMouseLeave && !disabled) ? onMouseLeave(ev) : null}>
             {icon ?
                 <ButtonContent color={theme.white} justify={justify}>{icon}&nbsp;{getButtonText('inverse')}</ButtonContent> :
                 <ButtonContent color={theme.white} verticalAlign={verticalAlign} justify={justify}>{getButtonText('inverse')}</ButtonContent>
@@ -75,7 +77,7 @@ export const Button = ({ disabled, positive, negative, color, href, target, onCl
         </NegativeButton>
     }
     else {
-        component = <DefaultButton wide={wide} border={border} borderColor={borderColor} large={large} small={small} width={width} onClick={ev => (onClick && !disabled) ? onClick(ev) : null}>
+        component = <DefaultButton wide={wide} border={border} borderColor={borderColor} large={large} small={small} width={width} onClick={ev => (onClick && !disabled) ? onClick(ev) : null} onMouseEnter={ev => (onMouseEnter && !disabled) ? onMouseEnter(ev) : null} onMouseLeave={ev => (onMouseLeave && !disabled) ? onMouseLeave(ev) : null}>
             {icon ?
                 <ButtonContent color={color} justify={justify}>{icon}&nbsp;{getButtonText('inverse')}</ButtonContent> :
                 <ButtonContent color={color} verticalAlign={verticalAlign} justify={justify}>{getButtonText('inverse')}</ButtonContent>

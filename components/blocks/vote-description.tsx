@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import ReactPlayer from 'react-player'
 import { VoteStatus } from '@lib/util'
@@ -29,6 +29,9 @@ export const VoteDescription = ({
   voteStatus,
   timeComment,
 }: IVotePageProps) => {
+  const [documentationButtonText, setDocumentationButtonText] = useState<string>(i18n.t('vote.access_to_the_documentation'))
+  const [questionsAndAnswersButtonText, setQuestionsAndAnswersButtonText] = useState<string>(i18n.t('vote.questions_and_answers'))
+
   const pdfIcon = (
     <img src="/images/vote/pdf.svg" alt={i18n.t('vote.pdf_image_alt')} />
   )
@@ -38,6 +41,18 @@ export const VoteDescription = ({
       alt={i18n.t('vote.question_image_alt')}
     />
   )
+  const handleQuestionsAndAnswersButtonMouseEnter = () => {
+    setQuestionsAndAnswersButtonText(i18n.t('vote.ask_questions_to_the_organizers'))
+  }
+  const handleQuestionsAndAnswersButtonMouseLeave = () => {
+    setQuestionsAndAnswersButtonText(i18n.t('vote.questions_and_answers'))
+  }
+  const handleDocumentationButtonMouseEnter = () => {
+    setDocumentationButtonText(i18n.t('vote.check_the_documentation'))
+  }
+  const handleDocumentationButtonMouseLeave = () => {
+    setDocumentationButtonText(i18n.t('vote.access_to_the_documentation'))
+  }
 
   return (
     <Grid>
@@ -53,12 +68,16 @@ export const VoteDescription = ({
         <DescriptionText color={colors.lightText}>{description}</DescriptionText>
       </Column>
 
-      <When condition={discussionUrl}>
+      <When condition={discussionUrl || attachmentUrl || liveStream}>
         <Column>
           <SectionText size={TextSize.Big} color={colors.blueText}>
-            {i18n.t('vote.discussion')}
+            {i18n.t('vote.extra_information')}
           </SectionText>
+        </Column>
+      </When>
 
+      <When condition={discussionUrl}>
+        <Column md={6} sm={12}>
           <Button
             border
             wide
@@ -66,20 +85,16 @@ export const VoteDescription = ({
             href={discussionUrl}
             target={LinkTarget.Blank}
             justify={JustifyContent.Left}
+            onMouseEnter={handleQuestionsAndAnswersButtonMouseEnter}
+            onMouseLeave={handleQuestionsAndAnswersButtonMouseLeave}
           >
-            <ButtonText>{i18n.t('vote.questions_and_answers')}</ButtonText>
+            <ButtonText>{questionsAndAnswersButtonText}</ButtonText>
           </Button>
         </Column>
       </When>
 
       <When condition={attachmentUrl}>
-        <Column>
-          <SectionText color={colors.lightText}>
-            {i18n.t(
-              'vote.check_documentation_covering_the_relevant_topics_of_the_vote_and_discus'
-            )}
-          </SectionText>
-
+        <Column md={6} sm={12}>
           <Button
             border
             wide
@@ -87,8 +102,10 @@ export const VoteDescription = ({
             href={attachmentUrl}
             target={LinkTarget.Blank}
             justify={JustifyContent.Left}
+            onMouseEnter={handleDocumentationButtonMouseEnter}
+            onMouseLeave={handleDocumentationButtonMouseLeave}
           >
-            <ButtonText>{i18n.t('vote.download_the_document')}</ButtonText>
+            <ButtonText>{documentationButtonText}</ButtonText>
           </Button>
         </Column>
       </When>
