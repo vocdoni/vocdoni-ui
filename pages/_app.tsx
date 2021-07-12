@@ -1,6 +1,9 @@
 import React, { FC } from 'react'
+import { RecoilRoot } from "recoil";
+
 import { NextComponentType, NextPageContext } from 'next'
 import { AppInitialProps } from 'next/app'
+
 import Head from 'next/head'
 import { Router } from 'next/router'
 
@@ -28,35 +31,38 @@ const VocdoniApp: FC<NextAppProps> = ({ Component, pageProps }) => {
   // If the current page component defined a custom layout, use it
   const Layout: FC = Component["Layout"] ? Component["Layout"] : DefaultLayout
   const Providers: FC = Component["Providers"] ? Component["Providers"] : DefaultProviders
-  if(!!Component["Providers"]) {
+  if (!!Component["Providers"]) {
     console.log('these no has default providers')
   }
   return (
-    <ThemeProvider theme={theme}>
-      <Providers>
-        <FixedGlobalStyle />
-        
-        <Head>
-          <meta
-            name='viewport'
-            content='width=device-width, initial-scale=1.0, max-scale=1.0'
-          />
-          <link rel="icon" type="image/ico" href="/images/common/favicon.ico" sizes="16x16" />
+    <RecoilRoot>
 
-          <Helpscout />
-          <title>{appTitle}</title>
-        </Head>
+        <ThemeProvider theme={theme}>
+          <Providers>
+            <FixedGlobalStyle />
+            <Head>
+              <meta
+                name='viewport'
+                content='width=device-width, initial-scale=1.0, max-scale=1.0'
+              />
+              <link rel="icon" type="image/ico" href="/images/common/favicon.ico" sizes="16x16" />
 
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
+              <Helpscout />
+              <title>{appTitle}</title>
+            </Head>
 
-        <div id='commit-sha' style={{ display: 'none' }}>
-          {commitSHA}
-        </div>
-        <CookiesBanner />
-      </Providers>
-    </ThemeProvider>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+
+            <div id='commit-sha' style={{ display: 'none' }}>
+              {commitSHA}
+            </div>
+            <CookiesBanner />
+          </Providers>
+        </ThemeProvider>
+
+    </RecoilRoot>
   )
 }
 

@@ -10,7 +10,7 @@ import { DASHBOARD_PATH } from '@const/routes'
 import { MenuIcon } from '@components/blocks/menu-icon'
 import { useIsMobile } from '@hooks/use-window-size'
 
-import { sizes } from '../../../../../theme/sizes'
+import { sizes } from '../../../../theme/sizes'
 import { Typography, TypographyVariant } from '@components/elements/typography'
 
 export const LINKS: HeaderLink[] = [

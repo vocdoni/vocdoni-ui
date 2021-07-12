@@ -2,6 +2,8 @@
 export const ENTITY_SIGN_IN_PATH = '/login'
 export const ENTITY_FORGOT_PASSPHRASE_PATH = '/login'
 export const DASHBOARD_PATH = '/dashboard'           // TODO: entity/dashboard
+export const PAGE_ENTITY = '/entity/#/{entityId}'
+export const EDIT_ENTITY = '/entity/edit'
 export const CREATE_ACCOUNT_PATH = '/entity/new'     // TODO: entity/new
 export const CREATE_PROCESS_PATH = '/votes/new' // TODO: entity/votes/new
 export const SHOW_PROCESS_PATH = '/votes/show' // TODO: entity/votes/show
