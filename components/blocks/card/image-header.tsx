@@ -8,28 +8,27 @@ import { PageCardHeader } from '@components/elements/cards'
 import { FALLBACK_VOTE_HEADER_IMAGE } from '@const/vote'
 import { FALLBACK_ACCOUNT_ICON } from '@const/account'
 import { Grid , Column} from '@components/elements/grid'
-import { colors } from 'theme/colors'
 
-import { Image } from '../elements/image'
+import { Image } from '../../elements/image'
 
-interface IVotePageHeader {
-  processTitle: string
-  entityName?: string
+interface ICardImageHeader {
+  title: string
+  subtitle?: string
   entityImage?: string
   processImage?: string
 }
 
-export const VotePageHeader = ({
-  processTitle,
-  entityName,
+export const CardImageHeader = ({
+  title,
+  subtitle,
   entityImage,
   processImage,
-}: IVotePageHeader) => {
+}: ICardImageHeader) => {
   const headerImageSrc = processImage || FALLBACK_VOTE_HEADER_IMAGE
   const entityImageSrc = entityImage || FALLBACK_ACCOUNT_ICON
 
   return (
-    <VotePageHeaderContainer>
+    <CardImageHeaderContainer>
       <PageCardHeader>
         <Image src={headerImageSrc} alt={i18n.t('vote.vote_process_image_alt')} />
       </PageCardHeader>
@@ -41,17 +40,20 @@ export const VotePageHeader = ({
       <Grid>
         
         <Column>
-          <SectionTitle align={TextAlign.Center}>{processTitle}</SectionTitle>
-          <SectionText align={TextAlign.Center} color='accent1'>
-            {entityName || i18n.t('vote.login_with_your_credentials_to_access_the_process')}
-          </SectionText>
+          <SectionTitle align={TextAlign.Center}>{title}</SectionTitle>
+          {
+            subtitle && (
+              <SectionText align={TextAlign.Center} color='accent1'>
+                {subtitle}
+              </SectionText>
+            )}
         </Column>
       </Grid>
-    </VotePageHeaderContainer>
+    </CardImageHeaderContainer>
   )
 }
 
-const VotePageHeaderContainer = styled.div`
+const CardImageHeaderContainer = styled.div`
 `
 
 const EntityLogoWrapper = styled.div`

@@ -13,8 +13,6 @@ import { Question } from '@lib/types'
 import { useVoting } from '@hooks/use-voting'
 import { useWallet, WalletRoles } from '@hooks/use-wallet'
 
-import { VOTING_PATH } from '@const/routes'
-
 import { Column, Grid } from '@components/elements/grid'
 import { Card, PageCard } from '@components/elements/cards'
 import { Button } from '@components/elements/button'
@@ -22,7 +20,7 @@ import { FlexContainer, FlexJustifyContent } from '@components/elements/flex'
 import { VoteQuestionCard } from '@components/blocks/vote-question-card'
 import { MetadataFields } from '@components/pages/votes/new/metadata'
 
-import { VotePageHeader } from '@components/blocks/vote-page-header'
+import { CardImageHeader } from '@components/blocks/card/image-header'
 import { VoteDescription } from '@components/blocks/vote-description'
 
 import { ConfirmModal } from './components/confirm-modal'
@@ -90,10 +88,10 @@ export const VotingPageView = () => {
       })}
     >
       <PageCard>
-        <VotePageHeader
-          processTitle={processInfo?.metadata?.title.default}
+        <CardImageHeader
+          title={processInfo?.metadata?.title.default}
           processImage={processInfo?.metadata?.media.header}
-          entityName={metadata?.name.default}
+          subtitle={metadata?.name.default}
           entityImage={metadata?.media.avatar}
         />
 

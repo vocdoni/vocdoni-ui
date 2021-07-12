@@ -10,7 +10,6 @@ import { useMessageAlert } from '@hooks/message-alert'
 
 import { Button } from '@components/elements/button'
 import { SectionText, TextSize } from '@components/elements/text'
-import { Input } from '@components/elements/inputs'
 
 import { BackupFileSelector } from '../components/backup-file-selector'
 import { AccountBackupPageCard } from '../components/page-card'
@@ -21,7 +20,6 @@ import {
 } from '@components/elements/flex'
 import { colors } from 'theme/colors'
 import { Checkbox } from '@components/elements/checkbox'
-import { Label } from '@components/elements/label'
 import { InputFormGroup } from '@components/blocks/form'
 import { Wallet } from 'ethers'
 import { useRouter } from 'next/router'

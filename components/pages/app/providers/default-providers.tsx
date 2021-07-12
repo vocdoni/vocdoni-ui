@@ -1,5 +1,4 @@
 import React, { ReactNode } from "react";
-
 import { UseEntityProvider, UsePoolProvider, UseProcessProvider, UseBlockStatusProvider } from '@vocdoni/react-hooks'
 import { EthNetworkID, VocdoniEnvironment } from 'dvote-js'
 
@@ -38,7 +37,7 @@ export const DefaultProviders = ({ children }: IDefaultProvidersProps) => {
                   <UseVotingProvider>
                     <UseEntityProvider>
                       <UseDbAccountsProvider>
-                        {children}
+                          {children}
                       </UseDbAccountsProvider>
                     </UseEntityProvider>
                   </UseVotingProvider>

@@ -5,7 +5,7 @@ import { sizes } from '../../../../theme/sizes'
 import { Footer } from '../footer'
 import { MessageAlert } from '../../../blocks/msg-alert'
 import { LoadingAlert } from '../../../blocks/loading-alert'
-import { VoteHeader } from './components/voter-header'
+import { VoteHeader } from '../header/voter'
 // import { useRouter } from 'next/router'
 
 
