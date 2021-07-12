@@ -40,6 +40,7 @@ export const DropdownItem = ({ children, href, target, disableHover, onClick }: 
 
 export const DropdownItemDivContainer = styled.div<{ hasHover?: boolean }>`
   padding: 16px 15px;
+  width: 100%;
   
   cursor: ${({ hasHover, theme }) => hasHover ? 'pointer' : 'default'};
   ${({ hasHover, theme }) => hasHover ? `&:hover { background-color: ${theme.lightBg}};` : ''}
