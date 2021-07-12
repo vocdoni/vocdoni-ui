@@ -85,6 +85,15 @@ export const H2 = styled.h2<ITypographyCommon>`
   ${({ margin }) => (margin ? `margin: ${margin};` : '')}
 `
 
+export const H3 = styled.h3<ITypographyCommon>`
+  font-size: 26px;
+  font-weight: 400;
+  line-height: 1em;
+  text-align: ${({ align }) => (align ? align : TextAlign.Left)};
+  color: ${({ color, theme }) => (color ? color : theme.blueText)};
+  ${({ margin }) => (margin ? `margin: ${margin};` : '')}
+`
+
 const BaseParagraphTypography = styled.p<ITypographyCommon>`
   font-weight: 400;
   line-height: 1.2em;
@@ -121,6 +130,7 @@ const typographyMap = new Map<
   [TypographyVariant.H1, H1],
   [TypographyVariant.H2, H2],
   [TypographyVariant.Subtitle1, Subtitle1],
+  [TypographyVariant.H3, H3],
   [TypographyVariant.Body1, Body1],
   [TypographyVariant.Body2, Body2],
   [TypographyVariant.Small, Small],

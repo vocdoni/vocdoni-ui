@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { ChangeEvent, useState } from 'react'
 import styled from 'styled-components'
 
 import { WalletBackup, AccountBackup, Symmetric } from 'dvote-js'
@@ -162,7 +162,7 @@ export const QuestionsFormView = ({
                 }
                 variant={FormGroupVariant.Small}
                 value={answers[qIdx]}
-                onChange={(e) => onSetAnswer(qIdx, e.target.value)}
+                onChange={(e: ChangeEvent<HTMLInputElement>) => onSetAnswer(qIdx, e.target.value)}
               />
             )
           })}
@@ -177,7 +177,7 @@ export const QuestionsFormView = ({
             error={passphraseError}
             variant={FormGroupVariant.Small}
             type="password"
-            onChange={(e) => setNewPassphrase(e.target.value)}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => setNewPassphrase(e.target.value)}
           />
 
           <InputFormGroup
@@ -186,7 +186,7 @@ export const QuestionsFormView = ({
             error={passphraseError}
             variant={FormGroupVariant.Small}
             type="password"
-            onChange={(e) => setRepeatPassphrase(e.target.value)}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => setRepeatPassphrase(e.target.value)}
           />
         </BlockContainer>
 

@@ -11,6 +11,16 @@
         "review_process_terms_and_conditions": "Review terms and conditions",
         "sign_in": "Sign in"
     },
+    "app": {
+        "header": {
+            "create_account_backup": "Create account backup",
+            "disconnect_account": "Disconnect account",
+            "help_and_feedback": "Help & feedback",
+            "public_page": "Public page",
+            "settings": "Setting",
+            "update_entity": "Update entity"
+        }
+    },
     "backup": {
         "confirm_your_passphrase": "Confirm your password",
         "continue": "Continue",
@@ -127,12 +137,34 @@
         "define_your_credentials_to_protect_the_account": "Define your credentials to protect your account",
         "description": "Description",
         "details": "Details",
+        "edit": {
+            "change_logo": "Change logo",
+            "contact_email": "Contact email",
+            "description": "Description",
+            "entity_details": "Entity details",
+            "entity_logo": "Entity logo",
+            "error_updating_data_on_blockchain": "Error updating data on blockchain entity",
+            "error_updating_data_on_register_server": "Error updating data on the registry service",
+            "jpg_png_gif": "(.JPG, .PNG, .GIF Max 2mb file)",
+            "name_of_the_entity": "Name of the entity",
+            "optional_introduction": "Optional introduction",
+            "save_changes": "Save changes",
+            "size_of_entity": "Size of the entity",
+            "the_details_of_your_organization": "The details of your organization",
+            "type_of_entity": "Type of entity",
+            "your_entity": "Your entity"
+        },
         "email": "Contact e-mail",
         "enter_the_name_of_the_entity": "Enter the name of the entity",
         "entity_details": "Entity details",
         "entity_size": "Entity size",
         "go_to_the_dashboard": "Go to the dashboard",
         "header": "Entity header",
+        "home": {
+            "entity_address": "Entity address",
+            "entity_description": "Entity description",
+            "view_in_explorer": "View in explorer"
+        },
         "i_have_read_and_accept_entity_terms": "I have read and accept the terms and conditions of service and Aragon Labs privacy policy",
         "i_have_read_and_accept_personal_data_newsletter": "I consent that my personal data is processed by Aragon Labs for the purpose of subscribing to the Aragon Labs Newsletter, including commercial and informative notices. For more information on Aragon Labs processes private data, as well as regarding the exercise of rights, please consult Aragon Labs privacy policy.",
         "i_have_read_and_accept_personal_data_protection": " I have been informed, for the purpose of article 13 of GDPR, of the contents of the applicable regulations on protection of personal data and the fulfilment of obligations of Aragon Labs as data controller, for the purposes of the service provided.",
@@ -234,9 +266,13 @@
         "there_is_already_one_account_with_the_same_credentials": "There is already one account with the same credentials",
         "there_is_already_one_account_with_the_same_name": "There is already one account with the same name",
         "there_is_already_one_entity_with_the_same_name": "There is already one entity with the same name",
+        "update_entity_data_error": "Update entity data error",
         "you_are_not_part_of_the_census": "You are not part of the census",
         "you_canceled_the_operation": "You canceled the operation",
         "your_vote_could_not_be_delivered": "Your vote could not be delivered"
+    },
+    "form": {
+        "edit": "Edit"
     },
     "home": {
         "a_cutting_edge_voting_protocol": "A cutting-edge voting protocol",
@@ -469,7 +505,6 @@
         "invalid_process_id_link": "Invalid process id link, please review the process id on the url",
         "invalid_xls_file": "Invalid file format",
         "login_title": "Login",
-        "login_with_your_credentials_to_access_the_process": "Login with your credentials to access the process",
         "name": "Name",
         "new_vote": "New vote",
         "no_back_to_login": "No, back to voting",

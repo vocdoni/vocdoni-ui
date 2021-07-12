@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ChangeEvent } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
 import { IProcessDetails, EntityMetadata } from 'dvote-js'
 
@@ -9,7 +9,7 @@ import { Column } from '@components/elements/grid'
 import { Button } from '@components/elements/button'
 import { PageCard } from '@components/elements/cards'
 import { FlexContainer, FlexJustifyContent } from '@components/elements/flex'
-import { VotePageHeader } from '@components/blocks/vote-page-header'
+import { CardImageHeader } from '@components/blocks/card/image-header'
 import { MetadataFields } from '@components/pages/votes/new/metadata'
 
 import { overrideTheme } from 'theme'
@@ -54,10 +54,10 @@ export const MnemonicForm =
           textAccent1B: processInfo?.metadata?.meta[MetadataFields.BrandColor],
         })}
       >
-        <VotePageHeader
-          processTitle={processInfo?.metadata?.title.default}
+        <CardImageHeader
+          title={processInfo?.metadata?.title.default}
           processImage={processInfo?.metadata?.media.header}
-          entityName={entity?.name.default}
+          subtitle={entity?.name.default}
           entityImage={entity?.media.avatar}
         />
 
@@ -69,7 +69,7 @@ export const MnemonicForm =
                   label={'mnemonic'}
                   id={'mnemonic'}
                   error={error}
-                  onChange={(e) => onChange(e.target.value)}
+                  onChange={(e: ChangeEvent<HTMLInputElement>) => onChange(e.target.value)}
                   onBlur={onBlur}
                   value={mnemonic}
                   variant={FormGroupVariant.Small}

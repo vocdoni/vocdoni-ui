@@ -9,7 +9,7 @@ import { Column } from '@components/elements/grid'
 import { Button } from '@components/elements/button'
 import { PageCard } from '@components/elements/cards'
 import { FlexContainer, FlexJustifyContent } from '@components/elements/flex'
-import { VotePageHeader } from '@components/blocks/vote-page-header'
+import { CardImageHeader } from '@components/blocks/card/image-header'
 
 interface IFieldValues {
   [field: string]: string
@@ -43,10 +43,10 @@ export const SignInForm = ({
 
   return (
     <PageCard>
-      <VotePageHeader
-        processTitle={processInfo?.metadata?.title.default}
+      <CardImageHeader
+        title={processInfo?.metadata?.title.default}
         processImage={processInfo?.metadata?.media.header}
-        entityName={entity?.name.default}
+        subtitle={entity?.name.default}
         entityImage={entity?.media.avatar}
       />
 

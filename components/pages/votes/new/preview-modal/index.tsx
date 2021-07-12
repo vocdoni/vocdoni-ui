@@ -12,7 +12,7 @@ import { Question } from '@lib/types'
 import { PlazaMetadataKeys } from '@const/metadata-keys'
 
 import { PageCard } from '@components/elements/cards'
-import { VotePageHeader } from '@components/blocks/vote-page-header'
+import { CardImageHeader } from '@components/blocks/card/image-header'
 import { VoteDescription } from '@components/blocks/vote-description'
 import { VoteQuestionCard } from '@components/blocks/vote-question-card'
 import { FlexContainer, FlexJustifyContent } from '@components/elements/flex'
@@ -55,9 +55,9 @@ export const PreviewModal = ({
         </CloseButton>
 
         <Modal>
-          <VotePageHeader
-            processTitle={metadata.title.default}
-            entityName={entityName}
+          <CardImageHeader
+            title={metadata.title.default}
+            subtitle={entityName}
             entityImage={entityLogo}
             processImage={headerURL}
           />

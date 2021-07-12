@@ -7,6 +7,8 @@ import React, {
 } from 'react'
 import { DVoteGateway } from 'dvote-js'
 import { Nullable } from '@vocdoni/react-hooks'
+import { useSetRecoilState } from 'recoil'
+import { backendState } from 'recoil/atoms/backend'
 
 interface BackendContext {
   error: Nullable<string>,
@@ -50,6 +52,7 @@ export function UseBackendProvider({
     uri: process.env.BACKEND_URL,
     publicKey: process.env.BACKEND_PUB_KEY,
   }))
+  const setBackend = useSetRecoilState(backendState)
   let bkPromise: Promise<DVoteGateway>
   let resolveBackendPromise: (bk: DVoteGateway) => any
 
@@ -58,6 +61,7 @@ export function UseBackendProvider({
     try {
       bk.init().then(() => {
         setLoading(false)
+        setBackend(bk)
         resolveBackendPromise?.(bk)
         setError(null)
         return bk
