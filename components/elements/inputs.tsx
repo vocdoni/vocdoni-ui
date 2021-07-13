@@ -12,6 +12,11 @@ interface IInputProps {
   error?: boolean
 }
 
+export interface ISelectOption {
+  label: string,
+  value: string
+}
+
 export type Input = typeof Input
 export const Input = styled.input<IInputProps>`
   padding: ${({type}) =>  type == 'color'? '0px': '11px'};

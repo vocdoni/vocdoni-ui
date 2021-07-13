@@ -21,12 +21,9 @@ import { useDbAccounts } from './use-db-accounts'
 import { useWallet } from './use-wallet'
 import { EntityCreationPageSteps } from '@components/pages/entity/new'
 import { BigNumber, Wallet } from 'ethers'
-import { isValidEmail } from '../lib/regex'
 import { uploadFileToIpfs } from '../lib/file'
-import i18n from '../i18n'
 import { Account, AccountStatus, StepperFunc } from '../lib/types'
 import { useStepper } from './use-stepper'
-import { useMessageAlert } from './message-alert'
 
 import { BlockchainConnectionError } from '@lib/validators/errors/blockchain-connection-error'
 import { VocdoniConnectionError } from '@lib/validators/errors/vocdoni-connection-error'
@@ -37,6 +34,7 @@ import { CreateCredentialsError } from '@lib/validators/errors/create-credential
 import { EntityNameAlreadyExistError } from '@lib/validators/errors/entity-name-already-exits-error'
 import { StoreMediaError } from '@lib/validators/errors/store-media-error'
 import { InvalidIncognitoModeError } from '@lib/validators/errors/invalid-incognito-mode-error'
+import { ISelectOption } from '@components/elements/inputs'
 
 export interface EntityCreationContext {
   pageStep: EntityCreationPageSteps
@@ -53,6 +51,8 @@ export interface EntityCreationContext {
   terms: boolean
   entityTerms: boolean
   privacy: boolean
+  entityType: ISelectOption
+  entitySize: ISelectOption
 
   pleaseWait: boolean
   created: boolean
@@ -71,6 +71,8 @@ export interface EntityCreationContext {
     setTerms(terms: boolean): void
     setEntityTerms(terms: boolean): void
     setPrivacy(privacy: boolean): void
+    setEntityType(entityType: ISelectOption): void
+    setEntitySize(entitySize: ISelectOption): void
     createEntity(): void
     continueEntityCreation(): void
     continuePendingProcessCreation(account: Account): void
@@ -97,39 +99,9 @@ export const useEntityCreation = () => {
     )
   }
 
-  const { name, email, description, logoUrl, logoFile, headerUrl, headerFile } =
-    entityCreationCtx
-
   // GETTERS
 
-  const metadataValidationError = useMemo(() => {
-    const required = ['name', 'email', 'description']
-    for (const req of required) {
-      if (!entityCreationCtx[req] || !entityCreationCtx[req].length) {
-        return i18n.t('errors.please_fill_in_all_the_fields')
-      }
-    }
-
-    if (!isValidEmail(entityCreationCtx.email)) {
-      return i18n.t('errors.please_enter_a_valid_email')
-    }
-
-    const files = ['logo', 'header']
-    for (const file of files) {
-      if (
-        entityCreationCtx[file + 'File'] === null &&
-        !entityCreationCtx[file + 'Url'].length
-      ) {
-        return i18n.t(
-          'errors.please_select_an_image_for_the_header_and_the_logo'
-        )
-      }
-    }
-
-    return null
-  }, [name, email, description, logoUrl, logoFile, headerUrl, headerFile])
-
-  return { ...entityCreationCtx, metadataValidationError }
+  return { ...entityCreationCtx }
 }
 
 export const UseEntityCreationProvider = ({
@@ -148,6 +120,8 @@ export const UseEntityCreationProvider = ({
   const [headerFile, setHeaderFile] = useState<File>()
   const [terms, setTerms] = useState<boolean>(false)
   const [entityTerms, setEntityTerms] = useState<boolean>(false)
+  const [entityType, setEntityType] = useState<ISelectOption>()
+  const [entitySize, setEntitySize] = useState<ISelectOption>()
   const [privacy, setPrivacy] = useState<boolean>(false)
   // const { setAlertMessage } = useMessageAlert()
 
@@ -317,6 +291,8 @@ export const UseEntityCreationProvider = ({
             entity: {
               name: account.name,
               email: account.pending.email,
+              type: entityType?.value,
+              size: entitySize?.value
             },
           },
           wallet
@@ -430,6 +406,8 @@ export const UseEntityCreationProvider = ({
     terms,
     entityTerms,
     privacy,
+    entitySize,
+    entityType,
 
     pleaseWait,
     created: actionStep >= creationStepFuncs.length,
@@ -447,6 +425,8 @@ export const UseEntityCreationProvider = ({
       setTerms,
       setEntityTerms,
       setPrivacy,
+      setEntitySize,
+      setEntityType,
       continuePendingProcessCreation,
       createEntity: doMainActionSteps,
       continueEntityCreation: doMainActionSteps,

@@ -22,7 +22,9 @@
         "primary_color_used_on_the_voting_process": "",
         "primary_process_color": "",
         "secondary_color_used_on_the_voting_process": "",
-        "secondary_process_color": ""
+        "secondary_process_color": "",
+        "live_stream": "Retransmissió en directe",
+        "your_vote_has_been_successfully_registered": "El teu vot ha estat registrat correctament"
     },
     "votes": {
         "number_votes": "",

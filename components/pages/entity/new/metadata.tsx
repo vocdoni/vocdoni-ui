@@ -17,6 +17,7 @@ import {
   FileLoaderFormGroup,
   InputFormGroup,
   TextareaFormGroup,
+  SelectFormGroup
 } from '@components/blocks/form'
 import {
   FlexAlignItem,
@@ -39,6 +40,7 @@ import {
   RoundedCheckSize,
 } from '@components/elements/rounded-check'
 import { Typography, TypographyVariant } from '@components/elements/typography'
+import { SELECT_ORGANIZATION_TYPE, SELECT_ORGANIZATION_SIZE } from '../const/organizations'
 
 export enum MetadataFields {
   Name = 'name',
@@ -48,6 +50,8 @@ export enum MetadataFields {
   Logo = 'logo',
   Terms = 'terms',
   Privacy = 'privacy',
+  EntityType = 'entity-type',
+  EntitySize = 'entity-size'
 }
 
 export const FormMetadata = () => {
@@ -63,6 +67,8 @@ export const FormMetadata = () => {
     terms,
     entityTerms,
     privacy,
+    entityType,
+    entitySize,
     methods,
   } = useEntityCreation()
   const [metadataErrors, setMetadataErrors] = useState<ErrorFields>(new Map())
@@ -173,6 +179,7 @@ export const FormMetadata = () => {
   }
 
   return (
+    
     <Grid>
       <Column md={6}>
         <InputFormGroup
@@ -207,6 +214,28 @@ export const FormMetadata = () => {
           />
         </MarginInputFormContainer>
       </Column>
+
+      <Column md={6}>
+        <SelectFormGroup
+          label={i18n.t('entity.type_of_entity')}
+          placeholder={i18n.t('entity.type_of_entity')}
+          id={MetadataFields.EntityType}
+          value={entityType}
+          options={SELECT_ORGANIZATION_TYPE}
+          onChange={methods.setEntityType}
+        />
+      </Column>      
+  
+      <Column md={6}>
+        <SelectFormGroup
+          label={i18n.t('entity.entity_size')}
+          placeholder={i18n.t('entity.entity_size')}
+          id={MetadataFields.EntityType}
+          value={entitySize}
+          options={SELECT_ORGANIZATION_SIZE}
+          onChange={methods.setEntitySize}
+        />
+      </Column>      
 
       <Column>
         <TextareaFormGroup

@@ -54,7 +54,9 @@
         "primary_color_used_on_the_voting_process": "Second color used on the voting process",
         "primary_process_color": "Primary color",
         "secondary_color_used_on_the_voting_process": "Second color used on the voting process",
-        "secondary_process_color": "Secondary color"
+        "secondary_process_color": "Secondary color",
+        "live_stream": "Live Stream",
+        "your_vote_has_been_successfully_registered": "Your vote has been successfully registered"
     },
     "sign_in": {
         "select_the_account_to_use_and_enterr_your_passphrase": ""
