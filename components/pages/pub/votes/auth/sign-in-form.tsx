@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ChangeEvent } from 'react'
 import styled from 'styled-components'
 import { IProcessDetails, EntityMetadata } from 'dvote-js'
 
@@ -60,7 +60,7 @@ export const SignInForm = ({
                   <InputFormGroup
                     label={fieldName}
                     id={fieldName}
-                    onChange={(e) => onChange(fieldName, e.target.value)}
+                    onChange={(e: ChangeEvent<HTMLInputElement>) => onChange(fieldName, e.target.value)}
                     value={values[fieldName]}
                     variant={FormGroupVariant.Small}
                   />
