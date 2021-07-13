@@ -59,8 +59,8 @@ export const EntityEditView = ({
   const [updatedData, setUpdatedData] = useState<UpdatedDataType[]>([]);
   const [name, setName] = useState(entityRegistryData?.name)
   const [email, setEmail] = useState(entityRegistryData?.email)
-  const [type, setType] = useState(entityRegistryData?.type)
-  const [size, setSize] = useState(entityRegistryData?.size)
+  const [type, setType] = useState<string>(entityRegistryData?.type)
+  const [size, setSize] = useState<number>(entityRegistryData?.size)
   const [description, setDescription] = useState(entityMetadata?.description.default)
   const [imageBase64, setImageBase64] = useState<string>()
   const [entityDataErrors, setEntityDataErrors] = useState<ErrorFields>(new Map())
@@ -186,7 +186,7 @@ export const EntityEditView = ({
               options={SELECT_ORGANIZATION_TYPE}
               onChange={(option: ISelectOption) => {
                 dirtyDataType(UpdatedDataType.EntityRegistry)
-                setType(option.value)
+                setType(option.value as string)
               }}
             />
           </Column>
@@ -199,7 +199,7 @@ export const EntityEditView = ({
               options={SELECT_ORGANIZATION_SIZE}
               onChange={(option: ISelectOption) => {
                 dirtyDataType(UpdatedDataType.EntityRegistry)
-                setSize(option.value)
+                setSize(option.value as number)
               }}
             />
           </Column>
