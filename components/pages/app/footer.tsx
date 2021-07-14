@@ -49,10 +49,20 @@ const Container = styled.div`
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
+
+  @media ${({theme}) => theme.screenMax.mobileL} {
+    height: auto;
+    position: relative;
+    margin-top: -100px;
+  }
 `
 
 const NavItem = styled.div`
   margin-right: 30px;
+
+  @media ${({theme}) => theme.screenMax.mobileL} {
+    text-align: center; 
+  }
 `
 
 const Section = styled.div`
@@ -63,11 +73,20 @@ const Section = styled.div`
 `
 const LogoSection = styled.div`
   margin-left: 40px;
+
+  @media ${({theme}) => theme.screenMax.mobileL} {
+    margin: 20px auto;
+  }
 `
 
 const LinksSection = styled.div`
   display: flex;
   flex-wrap: wrap;
+
+  @media ${({theme}) => theme.screenMax.mobileL} {
+    flex-direction: column; 
+    width: 100%;
+  }
 `
 
 const ClickableText = styled.a`
@@ -92,6 +111,10 @@ const AragonLink = styled.a`
   & > img {
     margin-right: 20px;
     height: 32px;
+  }
+
+  @media ${({theme}) => theme.screenMax.mobileL} {
+    margin: 20px auto;
   }
 `
 
