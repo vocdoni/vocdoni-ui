@@ -11,9 +11,7 @@ import { SectionText } from '@components/elements/text'
 interface IQuestionResultsProps {
   question: Question
 }
-export const QuestionNoResultsAvailable = ({
-                                  question,
-                                }: IQuestionResultsProps) => {
+export const QuestionNoResultsAvailable = ({question}: IQuestionResultsProps) => {
   return (
     <>
       {question.choices.map((choice: Choice, index: number) => (

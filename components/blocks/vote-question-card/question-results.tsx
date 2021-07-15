@@ -18,10 +18,10 @@ interface IQuestionResultsProps {
   totalVotes: number
 }
 export const QuestionResults = ({
-                                  question,
-                                  result,
-                                  totalVotes,
-                                }: IQuestionResultsProps) => {
+  question,
+  result,
+  totalVotes,
+}: IQuestionResultsProps) => {
   const getOptionResult = (index: number): number =>
     result?.voteResults[index].votes.toNumber()
 
