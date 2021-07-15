@@ -214,7 +214,7 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
         let maxValue = 0, maxCount = 0
         metadata.questions.forEach((question) => {
           if (maxValue < question.choices.length) {
-            maxValue = question.choices.length
+            maxValue = question.choices.length - 1
           }
           maxCount++
         })
