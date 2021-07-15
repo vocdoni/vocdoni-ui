@@ -16,6 +16,7 @@ import {
 } from '@components/elements/flex'
 
 import { QuestionResults } from './question-results'
+import { QuestionNoResultsAvailable } from './question-no-results-available'
 import { ChoiceSelector } from './choice-selector'
 import { ChoiceList } from './choice-list'
 
@@ -72,24 +73,21 @@ export const VoteQuestionCard = ({
   )
 
   const noResultsAvailableView = new ViewStrategy(
-    () => showResults && !result,
-    (
-      <SectionText>
-        {i18n.t('vote_question_card.no_results_available')}
-      </SectionText>
-    )
-  )
-
-  const questionListView = new ViewStrategy(
     () => true,
-    <ChoiceList question={question} />
+    (
+      <>
+        <QuestionNoResultsAvailable question={question} />
+        <NoResultsAvailableText>
+          {i18n.t('vote_question_card.no_results_available')}
+        </NoResultsAvailableText>
+      </>
+    )
   )
 
   const choiceContextView = new ViewContext([
     questionsView,
     resultsQuestionView,
     noResultsAvailableView,
-    questionListView,
   ])
 
   return (
@@ -142,4 +140,8 @@ const QuestionContainer = styled.div`
 const QuestionTitle = styled(SectionTitle)`
   font-size: 33px;
   margin-bottom: 10px;
+`
+
+const NoResultsAvailableText = styled(SectionText)`
+  padding-top: 12px;
 `
