@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import ReactPlayer from 'react-player'
 import { VoteStatus } from '@lib/util'
@@ -29,9 +29,6 @@ export const VoteDescription = ({
   voteStatus,
   timeComment,
 }: IVotePageProps) => {
-  const [documentationButtonText, setDocumentationButtonText] = useState<string>(i18n.t('vote.access_to_the_documentation'))
-  const [questionsAndAnswersButtonText, setQuestionsAndAnswersButtonText] = useState<string>(i18n.t('vote.questions_and_answers'))
-
   const pdfIcon = (
     <img src="/images/vote/pdf.svg" alt={i18n.t('vote.pdf_image_alt')} />
   )
@@ -41,18 +38,6 @@ export const VoteDescription = ({
       alt={i18n.t('vote.question_image_alt')}
     />
   )
-  const handleQuestionsAndAnswersButtonMouseEnter = () => {
-    setQuestionsAndAnswersButtonText(i18n.t('vote.ask_questions_to_the_organizers'))
-  }
-  const handleQuestionsAndAnswersButtonMouseLeave = () => {
-    setQuestionsAndAnswersButtonText(i18n.t('vote.questions_and_answers'))
-  }
-  const handleDocumentationButtonMouseEnter = () => {
-    setDocumentationButtonText(i18n.t('vote.check_the_documentation'))
-  }
-  const handleDocumentationButtonMouseLeave = () => {
-    setDocumentationButtonText(i18n.t('vote.access_to_the_documentation'))
-  }
 
   return (
     <Grid>
@@ -78,35 +63,49 @@ export const VoteDescription = ({
 
       <When condition={discussionUrl}>
         <Column md={6} sm={12}>
-          <Button
-            border
-            wide
-            icon={questionIcon}
-            href={discussionUrl}
-            target={LinkTarget.Blank}
-            justify={JustifyContent.Left}
-            onMouseEnter={handleQuestionsAndAnswersButtonMouseEnter}
-            onMouseLeave={handleQuestionsAndAnswersButtonMouseLeave}
-          >
-            <ButtonText>{questionsAndAnswersButtonText}</ButtonText>
-          </Button>
+          <HoverTextButtonBlock>
+            <Button
+              border
+              wide
+              icon={questionIcon}
+              href={discussionUrl}
+              target={LinkTarget.Blank}
+              justify={JustifyContent.Left}
+            >
+              <ButtonText>
+                <span className="button-text">
+                  {i18n.t('vote.access_to_the_documentation')}
+                </span>
+                <span className="button-text-hover">
+                  {i18n.t('vote.check_the_documentation')}
+                </span>
+              </ButtonText>
+            </Button>
+          </HoverTextButtonBlock>
         </Column>
       </When>
 
       <When condition={attachmentUrl}>
         <Column md={6} sm={12}>
-          <Button
-            border
-            wide
-            icon={pdfIcon}
-            href={attachmentUrl}
-            target={LinkTarget.Blank}
-            justify={JustifyContent.Left}
-            onMouseEnter={handleDocumentationButtonMouseEnter}
-            onMouseLeave={handleDocumentationButtonMouseLeave}
-          >
-            <ButtonText>{documentationButtonText}</ButtonText>
-          </Button>
+          <HoverTextButtonBlock>
+            <Button
+              border
+              wide
+              icon={pdfIcon}
+              href={attachmentUrl}
+              target={LinkTarget.Blank}
+              justify={JustifyContent.Left}
+            >
+              <ButtonText>
+                <span className="button-text">
+                  {i18n.t('vote.questions_and_answers')}
+                </span>
+                <span className="button-text-hover">
+                  {i18n.t('vote.ask_questions_to_the_organizers')}
+                </span>
+              </ButtonText>
+            </Button>
+          </HoverTextButtonBlock>
         </Column>
       </When>
 
@@ -134,6 +133,24 @@ const ButtonText = styled.p`
   font-weight: 500;
   margin: 0 20px;
 `
+
+const HoverTextButtonBlock = styled.p`
+  .button-text {
+    display: block;
+  }
+  .button-text-hover {
+    display: none;
+  }
+  &:hover {
+    .button-text {
+      display: none;
+    }
+    .button-text-hover {
+      display: block;
+    }
+  }
+`
+
 const LiveStreamContainer = styled.div`
   margin: 10px 0 20px 0;
 `
