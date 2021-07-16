@@ -210,10 +210,8 @@
         "please_confirm_your_passphrase": "Please confirm your password",
         "please_ensure_no_incognito_mode": "Please ensure your are not in incognito mode",
         "please_enter_a_passphrase": "Please enter a password",
-        "please_enter_a_valid_email": "Please enter a valid e-mail",
         "please_fill_in_all_the_fields": "Please fill in all the fields",
         "please_repeat_the_passphrase": "Please repeat the password",
-        "please_select_an_image_for_the_header_and_the_logo": "Please select an image for the header and one for the logo",
         "please_select_and_fill_all_recovery_questions": "Please select and fill all recovery questions",
         "process": {
             "invalid_start_date": "Invalid start date",
@@ -365,6 +363,17 @@
         "select_the_backup_file": "Select the backup file",
         "your_account_has_been_recovered_successfully": "Your account has been recovered successfully"
     },
+    "results": {
+        "pdf": {
+            "process_description": "Process description",
+            "process_title": "Process title",
+            "questions": "Summary questions:",
+            "results": "Results",
+            "these_document_is_generate_by_vocdoni_these_are_a_summary_of_the_voting_process": "These document is generate by vocdoni, here you can find the summary of the voting process. If the process is active these value can change",
+            "total_votes": "Total votes: {{ votes }}",
+            "votes": "votes: {{ votes }}"
+        }
+    },
     "sign_in": {
         "additional_entities": "Additional entities",
         "continue": "Continue",
@@ -390,7 +399,7 @@
     "vote_detail": {
         "cancel_vote": "Cancel vote",
         "end_vote": "End vote",
-        "generate_pdf_coming_soon": "Coming soon",
+        "generate_pdf": "Generate PDF",
         "generate_pdf_with_results": "Generate a PDF with results",
         "view_and_manage_the_status_of_the_process": "View and manage the status of the process",
         "vote_details": "Vote details",

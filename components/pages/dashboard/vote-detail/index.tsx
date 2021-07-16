@@ -310,7 +310,7 @@ export const ViewDetail = ({
         </Column>
 
         <Column md={3} sm={12}>
-          <GeneratePdfCard onClick={handleGeneratePdfResult} />
+          <GeneratePdfCard process={process} results={results} />
         </Column>
       </Grid>
       {/* </Loader> */}

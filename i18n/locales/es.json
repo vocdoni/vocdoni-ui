@@ -210,10 +210,8 @@
         "please_confirm_your_passphrase": "Por favor, confirma contraseña",
         "please_ensure_no_incognito_mode": "Por favor, asegurate que no utilizas navegación privada",
         "please_enter_a_passphrase": "Por favor, introduce una contraseña",
-        "please_enter_a_valid_email": "Por favor, introduce una dirección de correo electrónico válida",
         "please_fill_in_all_the_fields": "Por favor, rellena todos los campos",
         "please_repeat_the_passphrase": "Por favor, repite la contraseña",
-        "please_select_an_image_for_the_header_and_the_logo": "Por favor, selecciona una imagen para la cabecera y una para el logo",
         "please_select_and_fill_all_recovery_questions": "Por favor, selecciona y completa todas las preguntas de recuperación",
         "process": {
             "invalid_start_date": "Fecha de inicio inválida",
@@ -365,6 +363,17 @@
         "select_the_backup_file": "Seleccionar el archivo de la copia de seguridad",
         "your_account_has_been_recovered_successfully": "¡Cuenta recuperada con éxito!"
     },
+    "results": {
+        "pdf": {
+            "process_description": "",
+            "process_title": "",
+            "questions": "",
+            "results": "",
+            "these_document_is_generate_by_vocdoni_these_are_a_summary_of_the_voting_process": "",
+            "total_votes": "",
+            "votes": ""
+        }
+    },
     "sign_in": {
         "additional_entities": "Otras entidades",
         "continue": "Continuar",
@@ -390,7 +399,7 @@
     "vote_detail": {
         "cancel_vote": "Cancelar la votación",
         "end_vote": "Finalitzar la votación",
-        "generate_pdf_coming_soon": "Disponible pronto",
+        "generate_pdf": "",
         "generate_pdf_with_results": "Crear un PDF con los resultados",
         "view_and_manage_the_status_of_the_process": "Visualizar y gestionar el estado del proceso",
         "vote_details": "Detalles de la votación",

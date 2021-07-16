@@ -31,11 +31,14 @@
         "show": {}
     },
     "results": {
-        "no_results_available": ""
+        "no_results_available": "",
+        "pdf": {
+            "totalh_votes": ""
+        }
     },
     "vote_detail": {
         "create_new_proposal_in_only_5_minutes": "",
-        "generate_pdf": ""
+        "generate_pdf_coming_soon": "Disponible aviat"
     },
     "entity": {
         "please_wait_creating_account": "",
@@ -60,7 +63,9 @@
         "the_entity_name_already_exits": "",
         "the_global_window_element_is_not_defined": "",
         "invalid_mnemonic": "Invàlid mnemonic error",
-        "could_not_connect_to_the_network": "No es pot connectar a la xarxa"
+        "could_not_connect_to_the_network": "No es pot connectar a la xarxa",
+        "please_enter_a_valid_email": "Si et plau, entra una adreça de correu electrònica vàlida",
+        "please_select_an_image_for_the_header_and_the_logo": "Si et plau, selecciona una imatge per a la capçalera i una per al logo"
     },
     "import": {
         "error_importing_account": "",
