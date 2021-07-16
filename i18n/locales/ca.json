@@ -210,10 +210,8 @@
         "please_confirm_your_passphrase": "Si et plau, confirma la contrasenya",
         "please_ensure_no_incognito_mode": "Si et plau, assegura't que no fas servir navegació privada",
         "please_enter_a_passphrase": "Si et plau, introdueix una contrasenya",
-        "please_enter_a_valid_email": "Si et plau, entra una adreça de correu electrònica vàlida",
         "please_fill_in_all_the_fields": "Si et plau, omple tots els camps",
         "please_repeat_the_passphrase": "Si et plau, repeteix la contrasenya",
-        "please_select_an_image_for_the_header_and_the_logo": "Si et plau, selecciona una imatge per a la capçalera i una per al logo",
         "please_select_and_fill_all_recovery_questions": "Si et plau, selecciona i completa totes les preguntes de recuperació",
         "process": {
             "invalid_start_date": "Data d'inici invàlida",
@@ -365,6 +363,17 @@
         "select_the_backup_file": "Selecciona el fitxer de la còpia de seguretat",
         "your_account_has_been_recovered_successfully": "Compte recuperat amb èxit"
     },
+    "results": {
+        "pdf": {
+            "process_description": "",
+            "process_title": "",
+            "questions": "",
+            "results": "",
+            "these_document_is_generate_by_vocdoni_these_are_a_summary_of_the_voting_process": "",
+            "total_votes": "",
+            "votes": ""
+        }
+    },
     "sign_in": {
         "additional_entities": "Altres entitats",
         "continue": "Continua",
@@ -390,7 +399,7 @@
     "vote_detail": {
         "cancel_vote": "Cancel·la la votació",
         "end_vote": "Finalitza la votació",
-        "generate_pdf_coming_soon": "Disponible aviat",
+        "generate_pdf": "",
         "generate_pdf_with_results": "Crea un PDF amb els resultats",
         "view_and_manage_the_status_of_the_process": "Visualitza i gestiona l'estat del procés",
         "vote_details": "Detalls del procés de votació",

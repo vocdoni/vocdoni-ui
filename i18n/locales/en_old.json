@@ -25,7 +25,9 @@
         "internal_error_please_log_in_again": "",
         "the_entity_name_already_exits": "",
         "invalid_mnemonic": "Invalid mnemonic",
-        "could_not_connect_to_the_network": "Could not connect to the network"
+        "could_not_connect_to_the_network": "Could not connect to the network",
+        "please_enter_a_valid_email": "Please enter a valid e-mail",
+        "please_select_an_image_for_the_header_and_the_logo": "Please select an image for the header and one for the logo"
     },
     "vote": {
         "vote_details": "",
@@ -92,7 +94,7 @@
     },
     "vote_detail": {
         "create_new_proposal_in_only_5_minutes": "",
-        "generate_pdf": "Generate PDF"
+        "generate_pdf_coming_soon": "Coming soon"
     },
     "action": {
         "create_new_proposal": "Create new proposal",

@@ -1,0 +1,80 @@
+import { PdfGenerator } from "./pdf-generator";
+import { DigestedProcessResultItem, DigestedProcessResults, IProcessDetails } from 'dvote-js'
+import { resourceUsage } from "process";
+import RouterService from "./router";
+import { colors } from "@theme/colors";
+import i18n from "@i18n";
+import { Question, Choice } from "@lib/types";
+
+interface IResultsPdfGeneratorOptions {
+  process: IProcessDetails;
+  processResults: DigestedProcessResults;
+}
+
+export class ResultPdfGenerator extends PdfGenerator {
+  private readonly process: IProcessDetails;
+  private readonly processResults: DigestedProcessResults;
+
+  constructor({ process, processResults }: IResultsPdfGeneratorOptions) {
+    super();
+
+    this.process = process;
+    this.processResults = processResults;
+  }
+
+  private fetchImageUri(imageUrl: string): Promise<string> {
+    return fetch(imageUrl)
+      .then(response => response.blob())
+      .then(blob => new Promise((resolve, reject) => {
+        const reader = new FileReader()
+
+        reader.onloadend = () => resolve(reader.result as string)
+        reader.onerror = reject
+        reader.readAsDataURL(blob)
+      }))
+  }
+
+  private async generateHeader() {
+    const logoHeader = await this.fetchImageUri(RouterService.instance.get('/media/logo-full.png', {}))
+    this.addHeaderStroke(colors.textAccent1)
+    this.addImage(logoHeader, { width: 100, top: 30, left: 20 })
+    this.addSpace(1)
+
+  }
+
+  private async generatePdfContent() {
+    await this.generateHeader()
+    this.addText(i18n.t('results.pdf.these_document_is_generate_by_vocdoni_these_are_a_summary_of_the_voting_process'), { fontSize: 14, margin: 2})
+
+    this.addTitle(i18n.t('results.pdf.process_title'), { align: 'left', fontColor: colors.text, margin: 0.5 })
+    this.addText(this.process.metadata.title.default, { fontSize: 14, margin: 2, fontColor: colors.lighterText })
+    this.addTitle(i18n.t('results.pdf.process_description'), { align: 'left', fontColor: colors.text, margin: 0.5  })
+    this.addText(this.process.metadata.description.default, { fontSize: 14, margin: 2, fontColor: colors.lighterText  })
+
+    this.addTitle(i18n.t('results.pdf.total_votes', { votes: this.processResults.totalVotes }), { align: 'left' })
+    this.addTitle(i18n.t('results.pdf.questions'), { align: 'left', margin: 1 })
+
+    for (const question of this.processResults.questions) {
+      await this.generateQuestion(question)
+    }
+  }
+
+  private async generateQuestion(question: DigestedProcessResultItem) {
+    this.addTitle(question.title.default, { align: 'left' })
+    this.addText(i18n.t('results.pdf.results'))
+
+    for (const result of question.voteResults) {
+      this.addText(`${result.title.default}, ${i18n.t('results.pdf.votes', { votes: result.votes.toString() })}`, { fontSize: 14, margin: 0 })
+    }
+    
+    this.addSpace(2)
+  }
+
+
+  public async generatePdfUrl(): Promise<string> {
+    await this.generatePdfContent()
+
+    return this.downloadPdf()
+  }
+
+}
