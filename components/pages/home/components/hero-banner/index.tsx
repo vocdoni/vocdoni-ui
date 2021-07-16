@@ -25,7 +25,7 @@ export const HeroBanner = () => (
             </Button>
           </ButtonContainer>
 
-          <Typography variant={TypographyVariant.Small} color={colors.accent1}>
+          <Typography variant={TypographyVariant.ExtraSmall} margin='5px 0 0 0' color={colors.accent1}>
             {i18n.t('home.free_until_15_october')}
           </Typography>
         </ActionContainer>
