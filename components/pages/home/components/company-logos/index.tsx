@@ -28,16 +28,21 @@ export const CompanyLogos = () => (
 )
 
 const LogosContainer = styled.div`
-  display: flex;
   padding-top: 20px;
-  align-items: center;
+  text-align: center;
 `
 const LogoContainer = styled.div`
-  width: 20%;
+  width: 16%;
   padding: 10px 15px;
+  display: inline-block;
 
-  @media ${({theme})  => theme.screenMax.tabletL } {
-    width: 30%;
+  @media ${({theme})  => theme.screenMax.tablet } {
+    width: 40%;
+  }
+
+  @media ${({theme})  => theme.screenMax.mobileL } {
+    width: 80%;
+    padding: 20px 0;
   }
 
   & > img {
@@ -47,6 +52,7 @@ const LogoContainer = styled.div`
   }
 `
 const SmallContainer = styled(LogoContainer)`
+
   & > img {
     max-width: 100%;
     max-height: 30px !important;

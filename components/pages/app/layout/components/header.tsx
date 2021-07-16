@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from 'react'
+import React, { MouseEvent, ReactNode, useState } from 'react'
 import styled from 'styled-components'
 import Link from 'next/link'
 import { Else, If, Then, Unless } from 'react-if'
@@ -7,11 +7,11 @@ import i18n from '@i18n'
 
 import { DASHBOARD_PATH } from '@const/routes'
 
-import { hexToRgbA } from '@lib/util'
-
+import { MenuIcon } from '@components/blocks/menu-icon'
 import { useIsMobile } from '@hooks/use-window-size'
 
 import { sizes } from '../../../../../theme/sizes'
+import { Typography, TypographyVariant } from '@components/elements/typography'
 
 export const LINKS: HeaderLink[] = [
   {
@@ -71,42 +71,51 @@ interface IHeaderProps {
   children?: ReactNode
 }
 
-export const Header = ({hasReadyAccount, children}: IHeaderProps) => {
+export const Header = ({ hasReadyAccount, children }: IHeaderProps) => {
   const isMobile = useIsMobile()
-
+  const [openMobileMenu, setOpenMobileMenu] = useState(false);
 
   const links = hasReadyAccount ? LINKS.filter(link => link.logged) : LINKS.filter(link => link.guest)
 
   return (
     <>
-      {/* {isMobile && (
-        <MobileMenuContainer showMenu={showMenu}>
-          {links.map((link) => (
-            <LinkItem
-              {...link}
-              key={link.name}
-              onClick={() => setShowMenu(false)}
-            />
-          ))}
-          <Section>Vocdoni {new Date().getFullYear()}</Section>
-        </MobileMenuContainer>
-      )} */}
       <HeaderContainer>
         <ListContainer>
           <Link href={hasReadyAccount ? DASHBOARD_PATH : "/"} passHref>
             <HomeLink target='_self'><img src="/media/logo-full.svg" alt="Vocdoni" /></HomeLink>
           </Link>
+
           <MenuItemsContainer>
             <Unless condition={isMobile}>
               {links.map((link) => (
-                <LinkItem {...link} key={link.name} />
+                <LinkItem {...link} key={link.name} >{link.name}</LinkItem>
               ))}
             </Unless>
           </MenuItemsContainer>
         </ListContainer>
-        <RightContainer>
-          { children }
-        </RightContainer>
+
+        <MobileMenuContainer showMenu={openMobileMenu}>
+          {links.map((link) => (
+            <MenuItem>
+              <LinkItem
+                {...link}
+                key={link.name}
+                onClick={() => setOpenMobileMenu(false)}
+              >
+                <Typography variant={TypographyVariant.Subtitle1}>{link.name}</Typography>
+              </LinkItem>
+            </MenuItem>
+          ))}
+          <MobileMenuActionsContainer onClick={() => setOpenMobileMenu(false)}>{children}</MobileMenuActionsContainer>
+        </MobileMenuContainer>
+
+        {isMobile && <MenuIcon menuState={openMobileMenu} onClickMenu={setOpenMobileMenu} />}
+
+        {!isMobile && (
+          <RightContainer>
+            {children}
+          </RightContainer>
+        )}
       </HeaderContainer>
     </>
   )
@@ -120,7 +129,6 @@ const HeaderContainer = styled.div`
   top: 0;
   padding: 10px 0 10px;
 
-  background-color: ${({ theme }) => hexToRgbA(theme.background, 0.7)};
   backdrop-filter: blur(10px);
 
   display: flex;
@@ -151,11 +159,15 @@ const ListContainer = styled.div`
 `
 
 const RightContainer = styled.div`
-padding: 0 ${({ theme }) => theme.margins.mobile.horizontal};
+  padding: 0 ${({ theme }) => theme.margins.mobile.horizontal};
 
-@media ${({ theme }) => theme.screenMin.tablet} {
-  padding: 0 ${({ theme }) => theme.margins.desktop.horizontal};
-}
+  @media ${({ theme }) => theme.screenMin.tablet} {
+    padding: 0 ${({ theme }) => theme.margins.desktop.horizontal};
+  }
+
+  @media ${({ theme }) => theme.screenMax.mobileL} {
+    display: none;
+  }
 `
 
 const MenuItemsContainer = styled.div`
@@ -180,35 +192,53 @@ const HomeLink = styled.a`
     height: 45px;
   }
 `
+const MobileMenuActionsContainer = styled.div`
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  padding: 20px;
+  
+  & > a {
+    width: 100%;
+  }
+`
+const MobileMenuContainer = styled.div<{ showMenu: boolean, }>`
+  display: none;
+  background: linear-gradient(180deg, #f0ffde 20.98%,#e0ffff 73.1%);
+  position: fixed;
+  width: 100%;
+  top: 0;
+  overflow: hidden;
+  height: 0;
+  z-index: -1;
 
-// const MobileMenuContainer = styled.div<{ showMenu: boolean }>`
-//   position: fixed;
-//   padding: 0;
-//   margin: 0;
-//   top: -100%;
-//   left: 0;
-//   width: 100%;
-//   height: 100%;
-//   background: ${({ theme }) => theme.white};
-//   z-index: 10;
-//   margin-top: 70px;
+  @media ${({ theme }) => theme.screenMax.tablet} {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    visibility: ${({ showMenu }) => showMenu ? 'visible' : 'hidden'};
+    height: ${({ showMenu }) => showMenu ? '100vh' : '0'};;
+    top: ${({ showMenu }) => showMenu ? '0' : '-100%'};
+  
+    -webkit-transition: all  0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+  }
+`
 
-//   -webkit-transition: top 0.5s ease-in-out;
-//   -moz-transition: top 0.5s ease-in-out;
-//   -o-transition: top 0.5s ease-in-out;
-//   transition: top 0.5s ease-in-out;
+const MenuItem = styled.div`
+  color: ${({ theme }) => theme.blueText};
+`
 
-//   @media ${({ theme }) => theme.screenMin.tablet} {
-//     top: ${({ showMenu }) => (showMenu ? '0' : '-100%')};
-//   }
-// `
-
-// const Section = styled.div`
-//   display: flex;
-//   margin-top: 30px;
-//   justify-content: center;
-//   color: ${({ color }) => color};
-// `
+const Section = styled.div`
+  display: flex;
+  margin-top: 30px;
+  justify-content: center;
+  color: ${({ color }) => color};
+`
 
 interface HeaderLink {
   name: string;
@@ -218,19 +248,26 @@ interface HeaderLink {
   guest?: boolean;
 }
 
+interface ILinkItemProps {
+  url: string;
+  children: ReactNode;
+  external?: boolean;
+  onClick?: (event: MouseEvent<HTMLAnchorElement>) => void;
+}
+
 const LinkItem = ({
-  name,
   url,
   external,
   onClick,
-}: HeaderLink & React.HTMLProps<HTMLAnchorElement>) => (
+  children
+}: ILinkItemProps) => (
   <ListItem>
     <Link href={url} passHref>
       <a
         onClick={onClick}
         target={external ? '_blank' : '_self'}
       >
-        {name}
+        {children}
       </a>
     </Link>
   </ListItem>

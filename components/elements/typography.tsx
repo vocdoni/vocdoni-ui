@@ -101,6 +101,10 @@ export const Body2 = styled(BaseParagraphTypography)`
   font-size: 18px;
 `
 
+export const Subtitle1 = styled(BaseParagraphTypography)`
+  font-size: 26px;
+`
+
 export const ExtraSmall = styled(BaseParagraphTypography)`
   font-size: 12px;
 `
@@ -115,6 +119,8 @@ const typographyMap = new Map<
 >([
   [TypographyVariant.HeroBanner, HeroBanner],
   [TypographyVariant.H1, H1],
+  [TypographyVariant.H2, H2],
+  [TypographyVariant.Subtitle1, Subtitle1],
   [TypographyVariant.Body1, Body1],
   [TypographyVariant.Body2, Body2],
   [TypographyVariant.Small, Small],

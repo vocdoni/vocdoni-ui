@@ -41,12 +41,12 @@ export const EntityHeader = () => {
     <Header hasReadyAccount={hasReadyAccount}>
       <If condition={!!hasReadyAccount}>
         <Then>
-          <Button positive small href={DASHBOARD_PATH}>
+          <Button positive small href={DASHBOARD_PATH} wide>
             {i18n.t('links.dashboard')}
           </Button>
         </Then>
         <Else>
-          <Button positive small href={ENTITY_SIGN_IN_PATH}>
+          <Button positive small href={ENTITY_SIGN_IN_PATH} wide>
             {i18n.t('action.sign_in')}
           </Button>
         </Else>

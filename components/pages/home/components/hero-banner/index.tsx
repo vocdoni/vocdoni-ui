@@ -20,12 +20,12 @@ export const HeroBanner = () => (
 
         <ActionContainer>
           <ButtonContainer>
-            <Button positive href={CREATE_ACCOUNT_PATH}>
+            <Button wide positive href={CREATE_ACCOUNT_PATH}>
               {i18n.t('home.try_it_for_free')}
             </Button>
           </ButtonContainer>
 
-          <Typography variant={TypographyVariant.Small} color={colors.accent1}>
+          <Typography variant={TypographyVariant.ExtraSmall} margin='5px 0 0 0' color={colors.accent1}>
             {i18n.t('home.free_until_15_october')}
           </Typography>
         </ActionContainer>
@@ -51,13 +51,15 @@ export const HeroBanner = () => (
 
 const BannerContainer = styled.div`
   height: 530px;
-  margin-top: -50px;
+  margin-top: -98px;
+  padding-top: 40px;
   width: 100%;
   overflow: hidden;
   position: relative;
 
-  background: linear-gradient(136.49deg, #f0ffde 20.98%, #e0ffff 73.1%);
-
+  
+  background: linear-gradient(180deg, #f0ffde 20.98%,#e0ffff 73.1%,transparent 100%, transparent 100%);
+  
   @media ${({ theme }) => theme.screenMax.tablet} {
     height: auto;
   }
@@ -65,24 +67,6 @@ const BannerContainer = styled.div`
   // @media ${({ theme }) => theme.screenMax.tabletL} {
   //   height: auto;
   // }
-`
-const AbsoluteContent = styled.div`
-  height: 500px;
-  position: absolute;
-  overflow: hidden;
-  z-index: -2;
-  left: 0;
-  right: 0;
-
-  @media ${({ theme }) => theme.screenMax.tablet} {
-    height: 420px;
-  }
-
-  @media ${({ theme }) => theme.screenMax.tabletL} {
-    position: relative;
-    margin: 0 -10px;
-    height: auto;
-  }
 `
 
 const ContentContainer = styled.div`
@@ -96,6 +80,10 @@ const ContentContainer = styled.div`
 
 const ButtonContainer = styled.div`
   margin-right: 10px;
+
+  @media ${({ theme }) => theme.screenMax.mobileL} {
+    width: 100%;
+  }
 `
 const RightContainer = styled.div`
   position: absolute;
@@ -110,8 +98,14 @@ const RightContainer = styled.div`
     top: 100px;
   }
 
-  @media ${({ theme }) => theme.screenMax.mobileM} {
-    display: none;
+  @media ${({ theme }) => theme.screenMax.mobileL} {
+    top: -42px;
+    left: 18px;
+    width: 100%;
+    max-width: 360px;
+    margin: auto;
+    height: 290px;
+    position: relative;
   }
 `
 
@@ -129,7 +123,7 @@ const LeftContainer = styled.div`
     padding: 40px 0;
   }
 
-  @media ${({ theme }) => theme.screenMax.mobileM} {
+  @media ${({ theme }) => theme.screenMax.mobileL} {
     width: 100%;
     text-align: center;
   }
@@ -159,8 +153,9 @@ const ActionContainer = styled.div`
   display: flex;
   align-items: center;
 
-  @media ${({ theme }) => theme.screenMax.mobileM} {
+  @media ${({ theme }) => theme.screenMax.mobileL} {
     flex-direction: column;
+    align-items:  start;
   }
 `
 const Title = styled.h1`
@@ -170,7 +165,7 @@ const Title = styled.h1`
   font-weight: 400;
 
   @media ${({ theme }) => theme.screenMax.tablet} {
-    font-size: 40px;
+    font-size: 35px;
   }
 
   @media ${({ theme }) => theme.screenMax.mobileM} {
