@@ -28,7 +28,7 @@ export const FormOptions = () => {
   const periodRef = useRef<IProcessPeriod>()
 
   const valid = () => {
-    return startDate && endDate && !invalidDate
+    return startDate && endDate && !invalidDate && startDate < endDate
   }
 
   const onSubmit = () => {
