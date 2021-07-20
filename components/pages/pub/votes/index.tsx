@@ -58,7 +58,9 @@ export const VotingPageView = () => {
   let dateDiffStr = ''
   if (
     processInfo?.state?.startBlock &&
-    (voteStatus == VoteStatus.Active || voteStatus == VoteStatus.Paused)
+    (voteStatus == VoteStatus.Active ||
+      voteStatus == VoteStatus.Paused ||
+      voteStatus == VoteStatus.Ended)
   ) {
     if (processInfo?.state?.startBlock > blockHeight) {
       const date = VotingApi.estimateDateAtBlockSync(
