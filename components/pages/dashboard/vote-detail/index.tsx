@@ -2,31 +2,23 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { useTranslation } from 'react-i18next'
 import {
-  IProcessDetails,
   DigestedProcessResults,
+  IProcessDetails,
+  VochainProcessStatus,
   VotingApi,
   EntityMetadata,
 } from 'dvote-js'
-import { VochainProcessStatus } from 'dvote-js'
 
 import { colors } from 'theme/colors'
-import {
-  VOTING_AUTH_FORM_PATH,
-  VOTING_AUTH_LINK_PATH,
-  VOTING_AUTH_MNEMONIC_PATH,
-} from '@const/routes'
+import { VOTING_AUTH_FORM_PATH, VOTING_AUTH_LINK_PATH, VOTING_AUTH_MNEMONIC_PATH } from '@const/routes'
 import RouterService from '@lib/router'
 import { Question } from '@lib/types'
 
-import {
-  FlexContainer,
-  FlexJustifyContent,
-  FlexAlignItem,
-  FlexWrap
-} from '@components/elements/flex'
-import { SectionText, SectionTitle } from '@components/elements/text'
-import { Grid, Column } from '@components/elements/grid'
+import { FlexAlignItem, FlexContainer, FlexJustifyContent, FlexWrap } from '@components/elements/flex'
+import { SectionText, SectionTitle, TextSize } from '@components/elements/text'
+import { Column, Grid } from '@components/elements/grid'
 import { Button } from '@components/elements/button'
+import { Line } from '@components/elements/line'
 import { PageCard } from '@components/elements/cards'
 import { DashedLink } from '@components/blocks/dashed-link'
 import { ProcessStatusLabel } from '@components/blocks/process-status-label'
@@ -228,14 +220,18 @@ export const ViewDetail = ({
         </Column>
       </Grid>
 
+      <Line color={colors.lightBorder} />
+
       <Grid>
         <Column md={9} sm={12}>
           <SectionContainer>
             <If condition={!linkCensus}>
               <Then>
-                <SectionText color={colors.blueText}>
-                  {i18n.t('vote_detail.vote_link')}
-                </SectionText>
+                <SectionSpacer>
+                  <SectionText color={colors.blueText} size={TextSize.Big}>
+                    {i18n.t('vote_detail.link')}
+                  </SectionText>
+                </SectionSpacer>
                 <DashedLink link={voteLink} />
               </Then>
               <Else>
@@ -271,10 +267,16 @@ export const ViewDetail = ({
             </If>
           </SectionContainer>
 
+          <SectionSpacer>
+            <SectionText color={colors.blueText} size={TextSize.Big}>
+              {i18n.t('vote_detail.details')}
+            </SectionText>
+          </SectionSpacer>
+
           <SectionContainer>
             <DateContainer>
               <ProcessStatusLabel status={status}></ProcessStatusLabel>
-              <div>{dateDiffStr}</div>
+              <DateDiffText>{dateDiffStr}</DateDiffText>
             </DateContainer>
           </SectionContainer>
 
@@ -287,9 +289,11 @@ export const ViewDetail = ({
           </SectionContainer>
 
           <div>
-            <SectionText color={colors.blueText}>
-              {i18n.t('vote_detail.vote_results')}
-            </SectionText>
+            <SectionSpacer>
+              <SectionText color={colors.blueText} size={TextSize.Big}>
+                {i18n.t('vote_detail.results')}
+              </SectionText>
+            </SectionSpacer>
 
             {process?.metadata && process?.metadata?.questions.map(
               (question: Question, index: number) => (
@@ -333,8 +337,22 @@ const ButtonContainer = styled.div`
 const SectionContainer = styled.div`
   margin-bottom: 16px;
 `
+const SectionSpacer = styled.div`
+  margin-top: 28px;
+`
 const DateContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+`
+const TitleText = styled.div`
+  font-size: 20px;
+  font-weight: 500;
+`
+const DescriptionText = styled.div`
+  text-align: justify;
+  text-justify: inter-word;
+`
+const DateDiffText = styled.div`
+  font-style: italic;
 `

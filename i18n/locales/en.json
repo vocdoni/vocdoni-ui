@@ -460,13 +460,14 @@
     },
     "vote_detail": {
         "cancel_vote": "Cancel vote",
+        "details": "Details",
         "end_vote": "End vote",
         "generate_pdf": "Generate PDF",
         "generate_pdf_with_results": "Generate a PDF with results",
+        "link": "Link",
+        "results": "Results",
         "view_and_manage_the_status_of_the_process": "View and manage the status of the process",
-        "vote_details": "Vote details",
-        "vote_link": "Voting link",
-        "vote_results": "Vote results"
+        "vote_details": "Vote details"
     },
     "vote_question_card": {
         "no_results_available": "No results available",

@@ -460,13 +460,14 @@
     },
     "vote_detail": {
         "cancel_vote": "Cancelar la votación",
+        "details": "Detalles",
         "end_vote": "Finalitzar la votación",
         "generate_pdf": "",
         "generate_pdf_with_results": "Crear un PDF con los resultados",
+        "link": "Enlace",
+        "results": "Resultados",
         "view_and_manage_the_status_of_the_process": "Visualizar y gestionar el estado del proceso",
-        "vote_details": "Detalles de la votación",
-        "vote_link": "Enlace de la votación",
-        "vote_results": "Resultados de la votación"
+        "vote_details": "Detalles de la votación"
     },
     "vote_question_card": {
         "no_results_available": "Resultados no disponibles",

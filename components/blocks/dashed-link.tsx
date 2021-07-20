@@ -41,6 +41,7 @@ const LinkContainer = styled(FlexContainer)`
 `
 
 const LinkText = styled(SectionText)`
+  font-size: 14px;
   color: ${({ theme }) => theme.textAccent1};
   overflow: hidden;
   margin: 12px 10px 12px 0;
