@@ -12,6 +12,7 @@ import { Button, JustifyContent, LinkTarget } from '@components/elements/button'
 import { Column, Grid } from '@components/elements/grid'
 import { ProcessStatusLabel } from '@components/blocks/process-status-label'
 import { When } from 'react-if'
+import { HelpText } from '@components/blocks/help-text'
 
 interface IVotePageProps {
   description: string
@@ -63,49 +64,35 @@ export const VoteDescription = ({
 
       <When condition={discussionUrl}>
         <Column md={6} sm={12}>
-          <HoverTextButtonBlock>
-            <Button
-              border
-              wide
-              icon={questionIcon}
-              href={discussionUrl}
-              target={LinkTarget.Blank}
-              justify={JustifyContent.Left}
-            >
-              <ButtonText>
-                <span className="button-text">
-                  {i18n.t('vote.access_to_the_documentation')}
-                </span>
-                <span className="button-text-hover">
-                  {i18n.t('vote.check_the_documentation')}
-                </span>
-              </ButtonText>
-            </Button>
-          </HoverTextButtonBlock>
+          <Button
+            border
+            wide
+            icon={questionIcon}
+            href={discussionUrl}
+            target={LinkTarget.Blank}
+            justify={JustifyContent.Left}
+          >
+            <ButtonText>
+              {i18n.t('vote.access_to_the_documentation')}
+            </ButtonText>
+          </Button>
         </Column>
       </When>
 
       <When condition={attachmentUrl}>
         <Column md={6} sm={12}>
-          <HoverTextButtonBlock>
-            <Button
-              border
-              wide
-              icon={pdfIcon}
-              href={attachmentUrl}
-              target={LinkTarget.Blank}
-              justify={JustifyContent.Left}
-            >
-              <ButtonText>
-                <span className="button-text">
-                  {i18n.t('vote.questions_and_answers')}
-                </span>
-                <span className="button-text-hover">
-                  {i18n.t('vote.ask_questions_to_the_organizers')}
-                </span>
-              </ButtonText>
-            </Button>
-          </HoverTextButtonBlock>
+          <Button
+            border
+            wide
+            icon={pdfIcon}
+            href={attachmentUrl}
+            target={LinkTarget.Blank}
+            justify={JustifyContent.Left}
+          >
+            <ButtonText>
+              {i18n.t('vote.questions_and_answers')}
+            </ButtonText>
+          </Button>
         </Column>
       </When>
 
@@ -132,23 +119,6 @@ const ButtonText = styled.p`
   font-size: 18px;
   font-weight: 500;
   margin: 0 20px;
-`
-
-const HoverTextButtonBlock = styled.p`
-  .button-text {
-    display: block;
-  }
-  .button-text-hover {
-    display: none;
-  }
-  &:hover {
-    .button-text {
-      display: none;
-    }
-    .button-text-hover {
-      display: block;
-    }
-  }
 `
 
 const LiveStreamContainer = styled.div`
