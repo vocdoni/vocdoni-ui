@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { ChangeEvent, useState } from 'react'
 import styled from 'styled-components'
 
 import {
@@ -161,7 +161,7 @@ export const AccountBackupView = ({
               type="password"
               label={i18n.t('backup.confirm_your_passphrase')}
               value={passphrase}
-              onChange={(e) => setPassphrase(e.target.value)}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => setPassphrase(e.target.value)}
             />
 
             <QuestionContainer>

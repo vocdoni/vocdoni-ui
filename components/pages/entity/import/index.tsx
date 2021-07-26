@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { ChangeEvent, useState } from 'react'
 import styled from 'styled-components'
 import { AccountBackup, Symmetric, WalletBackup } from 'dvote-js'
 
@@ -124,7 +124,7 @@ export const AccountImportView = ({
             type="password"
             error={invalidPassphrase}
             value={passphrase}
-            onChange={(e) => setPassphrase(e.target.value)}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => setPassphrase(e.target.value)}
           />
 
 

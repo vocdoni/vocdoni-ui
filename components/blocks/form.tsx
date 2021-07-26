@@ -20,13 +20,19 @@ type BaseForGroupProps = {
 }
 
 type IInputFormGroupProps = {
-  value?: string | ISelectOption
+  value?: string
   rows?: number
   type?: string
-  options?: ISelectOption[]
-  onChange: (value: ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | ISelectOption) => void
-  onBlur?: (value: string ) => void
+  onChange: (value: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
+  onBlur?: (value: string) => void
 } & BaseForGroupProps
+
+type ISelectFromGroupProps = {
+  value?: ISelectOption
+  options?: ISelectOption[]
+  onChange: (value: ISelectOption) => void
+} & BaseForGroupProps
+
 
 type FileFormGroupProps = {
   file: File
@@ -56,55 +62,87 @@ const FormGroupVariantStyle = {
   `,
 }
 
-export const formGroupHOC =
-  (InputField) =>
-  ({
-    title,
-    label,
-    name,
-    helpText,
-    id,
-    placeholder,
-    value,
-    type,
-    rows,
-    error,
-    options,
-    onChange,
-    onBlur,
-    variant = FormGroupVariant.Regular,
-  }: IInputFormGroupProps) => {
-    const inputId = id || `input-${generateRandomId()}`
+export const formGroupHOC = (InputField) => ({
+  title,
+  label,
+  name,
+  helpText,
+  id,
+  placeholder,
+  value,
+  type,
+  rows,
+  error,
+  onChange,
+  onBlur,
+  variant = FormGroupVariant.Regular,
+}: IInputFormGroupProps) => {
+  const inputId = id || `input-${generateRandomId()}`
 
-    return (
-      <FormGroup variant={variant}>
-        {title && <InputTitle>{title}</InputTitle>}
-        {label && <InputLabel htmlFor={inputId}>{label}</InputLabel>}
-        {helpText && <HelpText text={helpText} />}
+  return (
+    <FormGroup variant={variant}>
+      {title && <InputTitle>{title}</InputTitle>}
+      {label && <InputLabel htmlFor={inputId}>{label}</InputLabel>}
+      {helpText && <HelpText text={helpText} />}
 
-        <div>
-          <InputField
-            id={inputId}
-            rows={rows}
-            wide={type !== 'color'}
-            placeholder={placeholder}
-            type={type}
-            name={name}
-            options={options}
-            value={value || ''}
-            error={!!error}
-            onChange={onChange}
-            onBlur={onBlur}
-          />
-          {error && <InputError>{error}</InputError>}
-        </div>
-      </FormGroup>
-    )
-  }
+      <div>
+        <InputField
+          id={inputId}
+          rows={rows}
+          wide={type !== 'color'}
+          placeholder={placeholder}
+          type={type}
+          name={name}
+          value={value || ''}
+          error={!!error}
+          onChange={onChange}
+          onBlur={onBlur}
+        />
+        {error && <InputError>{error}</InputError>}
+      </div>
+    </FormGroup>
+  )
+}
+
+export const SelectFormGroup = ({
+  title,
+  label,
+  name,
+  helpText,
+  id,
+  placeholder,
+  value,
+  error,
+  onChange,
+  variant = FormGroupVariant.Regular,
+}: ISelectFromGroupProps) => {
+  const inputId = id || `input-${generateRandomId()}`
+
+  return (
+    <FormGroup variant={variant}>
+      {title && <InputTitle>{title}</InputTitle>}
+      {label && <InputLabel htmlFor={inputId}>{label}</InputLabel>}
+      {helpText && <HelpText text={helpText} />}
+
+      <div>
+        <Select
+          id={inputId}
+          wide
+          placeholder={placeholder}
+          name={name}
+          value={value}
+          error={!!error}
+          onChange={onChange}
+        />
+        {error && <InputError>{error}</InputError>}
+      </div>
+    </FormGroup>
+  )
+}
+
 
 export const InputFormGroup = formGroupHOC(Input)
 export const TextareaFormGroup = formGroupHOC(Textarea)
-export const SelectFormGroup = formGroupHOC(Select)
 
 export const FileLoaderFormGroup = ({
   title,
