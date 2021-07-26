@@ -152,7 +152,8 @@ export const ViewDetail = ({
     process?.state?.startBlock &&
     (status == VoteStatus.Active ||
       status == VoteStatus.Paused ||
-      status == VoteStatus.Upcoming)
+      status == VoteStatus.Upcoming ||
+      status == VoteStatus.Ended)
   ) {
     if (process?.state?.startBlock > blockHeight) {
       const date = VotingApi.estimateDateAtBlockSync(
