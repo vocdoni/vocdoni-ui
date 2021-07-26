@@ -108,13 +108,14 @@ export const EntityHeader = () => {
                 color={colors.accent2}
                 border={true}
                 onClick={handleDisconnectAccount}
+                wide
               >{i18n.t('app.header.disconnect_account')}</Button>
             </DropdownItem>
           </Dropdown>
         </Then>
 
         <Else>
-          <Button positive small href={ENTITY_SIGN_IN_PATH}>
+          <Button positive small href={ENTITY_SIGN_IN_PATH} wide>
             {i18n.t('action.sign_in')}
           </Button>
         </Else>
