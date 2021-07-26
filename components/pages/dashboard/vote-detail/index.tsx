@@ -4,8 +4,6 @@ import {
   IProcessDetails,
   DigestedProcessResults,
   VotingApi,
-  IProcessState,
-  ProcessStatus as EthProcessStatus
 } from 'dvote-js'
 import { VochainProcessStatus } from 'dvote-js'
 
@@ -44,21 +42,21 @@ import { DateDiffType, localizedStrDateDiff } from '@lib/date'
 interface IProcessDetailProps {
   process: IProcessDetails
   results: DigestedProcessResults
-  refreshProcessInfo: (processId: string) => Promise<IProcessState>
+  cancelProcess: () => Promise<void>
+  endProcess: () => Promise<void>
 }
 
 export const ViewDetail = ({
   process,
   results,
-  refreshProcessInfo,
+  cancelProcess,
+  endProcess
 }: IProcessDetailProps) => {
   const [cancelingVote, setCancelingVote] = useState<boolean>(false)
   const [endingVote, setEndingVote] = useState<boolean>(false)
   const [endedOrCanceled, setEndedOrCanceled] = useState<boolean>(false)
-  const { poolPromise } = usePool()
   const { wallet } = useWallet({ role: WalletRoles.ADMIN })
   const { setAlertMessage } = useMessageAlert()
-
   const linkCensus = !process?.metadata?.meta?.formFieldTitles
   const voteLink = linkCensus
     ? RouterService.instance.get(VOTING_AUTH_LINK_PATH, {
@@ -104,20 +102,15 @@ export const ViewDetail = ({
       i18n.t('confirm.do_you_want_to_continue')
     if (!confirm(warning)) return
 
-    return poolPromise
-      .then((pool) => {
-        wallet.connect(pool.provider)
-        setCancelingVote(true)
-        return VotingApi.setStatus(
-          process.id,
-          EthProcessStatus.CANCELED,
-          wallet,
-          pool
-        )
-      })
-      .then(() => refreshProcessInfo(process.id))
+    setEndedOrCanceled(false)
+    setCancelingVote(true)
+
+    return cancelProcess()
       .then(() => {
         setEndedOrCanceled(true)
+        setCancelingVote(false)
+      }).catch(() => {
+        setAlertMessage(i18n.t('error.we_cant_check_the_new_status_process'))
         setCancelingVote(false)
       })
   }
@@ -138,20 +131,15 @@ export const ViewDetail = ({
       i18n.t('confirm.do_you_want_to_continue')
     if (!confirm(warning)) return
 
-    return poolPromise
-      .then((pool) => {
-        setEndingVote(true)
-        wallet.connect(pool.provider)
-        return VotingApi.setStatus(
-          process.id,
-          EthProcessStatus.ENDED,
-          wallet,
-          pool
-        )
-      })
-      .then(() => refreshProcessInfo(process.id))
+    setEndedOrCanceled(false)
+    setEndingVote(true)
+
+    return endProcess()
       .then(() => {
         setEndedOrCanceled(true)
+        setEndingVote(false)
+      }).catch(() => {
+        setAlertMessage(i18n.t('error.we_cant_check_the_new_status_process'))
         setEndingVote(false)
       })
   }
@@ -286,10 +274,10 @@ export const ViewDetail = ({
           </SectionContainer>
 
           <SectionContainer>
-            <SectionText>{process.metadata.title.default}</SectionText>
+            <SectionText>{process.metadata?.title.default}</SectionText>
 
             <SectionText color={colors.lightText}>
-              {process.metadata.description.default}
+              {process.metadata?.description.default}
             </SectionText>
           </SectionContainer>
 
@@ -298,7 +286,7 @@ export const ViewDetail = ({
               {i18n.t('vote_detail.vote_results')}
             </SectionText>
 
-            {process.metadata.questions.map(
+            {process.metadata && process.metadata.questions.map(
               (question: Question, index: number) => (
                 <VoteQuestionCard
                   key={index}

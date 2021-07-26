@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { useEntity, useBlockHeight } from '@vocdoni/react-hooks'
+import { useEntity, useBlockHeight, SummaryProcess } from '@vocdoni/react-hooks'
 import { VochainProcessStatus } from 'dvote-js'
 
 import {
@@ -10,10 +10,11 @@ import {
 } from '@components/pages/dashboard'
 import { LayoutEntity } from '@components/pages/app/layout/entity'
 
-import { Account, IProcessesSummary } from '@lib/types'
+import { Account } from '@lib/types'
 import { useDbAccounts } from '@hooks/use-db-accounts'
 import { useWallet } from '@hooks/use-wallet'
 import { useProcessesFromAccount } from '@hooks/use-processes'
+import { getVoteStatus, VoteStatus } from '@lib/util'
 
 
 // NOTE: This page uses a custom Layout. See below.
@@ -39,33 +40,41 @@ const DashboardPage = () => {
     )
     : null
   let initialActiveItem = useRef<ProcessTypes>(ProcessTypes.ActiveVotes);
-  const sortEndBlock = (process1: IProcessesSummary, process2: IProcessesSummary) => {
+  const sortEndBlock = (process1: SummaryProcess, process2: SummaryProcess) => {
     return process1.summary.endBlock - process2.summary.endBlock
   } 
-  const sortEndDescBlock = (process1: IProcessesSummary, process2: IProcessesSummary) => {
+  const sortEndDescBlock = (process1: SummaryProcess, process2: SummaryProcess) => {
     return process2.summary.endBlock - process1.summary.endBlock
   } 
 
-  const activeVotes: IProcessesSummary[] = []
-  const votesResults: IProcessesSummary[] = []
-  const upcomingVotes: IProcessesSummary[] = []
+  const activeVotes: SummaryProcess[] = []
+  const votesResults: SummaryProcess[] = []
+  const upcomingVotes: SummaryProcess[] = []
 
   for (let proc of processes) {
     // info not loaded yet
     if (!proc || !proc.summary) continue
-    else if (proc.summary?.status === VochainProcessStatus.CANCELED) continue
-    // ignore
-    else if (proc.summary?.startBlock > blockHeight) upcomingVotes.push(proc)
-    else if (proc.summary?.endBlock < blockHeight) votesResults.push(proc)
-    else if (
-      proc.summary?.status === VochainProcessStatus.ENDED ||
-      proc.summary?.status === VochainProcessStatus.RESULTS
-    ) {
-      votesResults.push(proc)
-    }
-    // Ready or paused
-    else {
-      activeVotes.push(proc)
+
+    const voteStatus: VoteStatus = getVoteStatus(proc.summary, blockHeight)
+
+    switch (voteStatus) {
+      case VoteStatus.Canceled:
+        continue
+        
+      case VoteStatus.Active:
+        activeVotes.push(proc)
+        break
+
+      case VoteStatus.Ended:
+        votesResults.push(proc)
+        break
+
+      case VoteStatus.Upcoming:
+        upcomingVotes.push(proc)
+        break
+
+      default:
+        break;
     }
   }
   

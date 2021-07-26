@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { useBlockStatus } from '@vocdoni/react-hooks'
+import { useBlockStatus,  SummaryProcess} from '@vocdoni/react-hooks'
 import { VotingApi } from 'dvote-js'
 
 import { DateDiffType, localizedStrDateDiff } from '@lib/date'
@@ -17,7 +17,7 @@ import { VoteListItem } from '../../blocks/list-items'
 import moment from 'moment'
 
 interface IDashboardProcessListItemProps {
-  process: IProcessesSummary
+  process: SummaryProcess
   status: VoteStatus
   accountName?: string
   entityLogo?: string

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { Account } from '@lib/types'
 import { EntityMetadata } from 'dvote-js';
+import { SummaryProcess } from '@vocdoni/react-hooks'
 
 import i18n from '../../../i18n'
 import { Column, Grid } from '../../elements/grid'
 import { VoteStatus } from '@lib/util'
-import { IProcessesSummary } from '@lib/types';
 import { Skeleton } from '../../blocks/skeleton'
 import { Card } from '../../elements/cards'
 
@@ -22,16 +22,16 @@ export enum ProcessTypes {
 
 export interface IProcessItem {
   label: string
-  items?: IProcessesSummary[]
+  items?: SummaryProcess[]
   status: VoteStatus
 }
 
 interface IDashboardProcessListProps {
   account: Account
   initialActiveItem: ProcessTypes
-  activeVotes: IProcessesSummary[]
-  votesResults: IProcessesSummary[]
-  upcomingVoting: IProcessesSummary[]
+  activeVotes: SummaryProcess[]
+  votesResults: SummaryProcess[]
+  upcomingVoting: SummaryProcess[]
   entityMetadata: EntityMetadata
   loading?: boolean
   skeletonItems?: number
@@ -74,7 +74,7 @@ export const DashboardProcessList = ({
     ],
   ])
 
-  const renderProcessItem = (process: IProcessesSummary) => (
+  const renderProcessItem = (process: SummaryProcess) => (
     <div key={process.id}>
       <DashboardProcessListItem
         process={process}
