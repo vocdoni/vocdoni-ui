@@ -48,6 +48,7 @@ const RadioLabel = styled.label`
     position: relative;
     height: 16px;
     width: 16px;
+    min-width: 16px;
     background-color: ${({ theme }) => theme.white};
     border-radius: 50%;
     margin-right: 1em;
