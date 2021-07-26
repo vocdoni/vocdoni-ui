@@ -12,6 +12,7 @@ import { Button, JustifyContent, LinkTarget } from '@components/elements/button'
 import { Column, Grid } from '@components/elements/grid'
 import { ProcessStatusLabel } from '@components/blocks/process-status-label'
 import { When } from 'react-if'
+import { HelpText } from '@components/blocks/help-text'
 
 interface IVotePageProps {
   description: string
@@ -53,12 +54,16 @@ export const VoteDescription = ({
         <DescriptionText color={colors.lightText}>{description}</DescriptionText>
       </Column>
 
-      <When condition={discussionUrl}>
+      <When condition={discussionUrl || attachmentUrl || liveStream}>
         <Column>
           <SectionText size={TextSize.Big} color={colors.blueText}>
-            {i18n.t('vote.discussion')}
+            {i18n.t('vote.extra_information')}
           </SectionText>
+        </Column>
+      </When>
 
+      <When condition={discussionUrl}>
+        <Column md={6} sm={12}>
           <Button
             border
             wide
@@ -67,19 +72,15 @@ export const VoteDescription = ({
             target={LinkTarget.Blank}
             justify={JustifyContent.Left}
           >
-            <ButtonText>{i18n.t('vote.questions_and_answers')}</ButtonText>
+            <ButtonText>
+              {i18n.t('vote.access_to_the_documentation')}
+            </ButtonText>
           </Button>
         </Column>
       </When>
 
       <When condition={attachmentUrl}>
-        <Column>
-          <SectionText color={colors.lightText}>
-            {i18n.t(
-              'vote.check_documentation_covering_the_relevant_topics_of_the_vote_and_discus'
-            )}
-          </SectionText>
-
+        <Column md={6} sm={12}>
           <Button
             border
             wide
@@ -88,7 +89,9 @@ export const VoteDescription = ({
             target={LinkTarget.Blank}
             justify={JustifyContent.Left}
           >
-            <ButtonText>{i18n.t('vote.download_the_document')}</ButtonText>
+            <ButtonText>
+              {i18n.t('vote.questions_and_answers')}
+            </ButtonText>
           </Button>
         </Column>
       </When>
@@ -117,6 +120,7 @@ const ButtonText = styled.p`
   font-weight: 500;
   margin: 0 20px;
 `
+
 const LiveStreamContainer = styled.div`
   margin: 10px 0 20px 0;
 `
