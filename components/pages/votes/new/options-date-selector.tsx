@@ -76,6 +76,10 @@ export const OptionDateSelector = ({
 
     setInvalidStartDate(invalidDate)
 
+    if(endDate < startDate) {
+      setEndDate(addOffsetToDate(new Date(startDate), 7))
+    }
+
     onChangeDate(
       {
         start: startDate,
