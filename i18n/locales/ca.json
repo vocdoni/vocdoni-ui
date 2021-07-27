@@ -189,7 +189,8 @@
         "the_vote_details_are_invalid": "Els detalls de la votació són invàlids",
         "the_vote_is_not_available_yet": "El vot encara no està disponible",
         "these_user_is_not_member_of_the_census": "Aquest usuari no és membre del cens",
-        "wallet_not_available": "Compte no disponible"
+        "wallet_not_available": "Compte no disponible",
+        "we_cant_check_the_new_status_process": ""
     },
     "errors": {
         "cannot_connect_to_the_blockchain": "No es pot connectar a la cadena de blocs",
@@ -365,11 +366,13 @@
     },
     "results": {
         "pdf": {
+            "choice": "",
             "process_description": "",
             "process_title": "",
             "questions": "",
             "results": "",
             "these_document_is_generate_by_vocdoni_these_are_a_summary_of_the_voting_process": "",
+            "title": "",
             "total_votes": "",
             "votes": ""
         }
@@ -418,7 +421,6 @@
         "active_vote": "Procés actiu",
         "add_new_question": "Afegeix una nova pregunta",
         "add_option": "Afegeix una altra opció",
-        "ask_questions_to_the_organizers": "Pregunta als organitzadors",
         "back_to_dashboard": "Torna a l'inici",
         "brand_color_used_on_the_voting_process": "",
         "brand_process_color": "",
@@ -429,7 +431,6 @@
         "census_root_value": "",
         "census_size": "Grandària del cens: {{ size }} votants",
         "change_entity_name": "Canvia el nom de l'entitat",
-        "check_the_documentation": "Consulta la documentació",
         "checking_details": "Comprovant els detalls",
         "confirm_your_vote": "Confirma el teu vot",
         "copy": "Copia",

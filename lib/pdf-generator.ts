@@ -42,7 +42,7 @@ interface IImageOptions {
 }
 
 export class PdfGenerator {
-  private pdf: PDFDocument
+  public pdf: PDFDocument
   static defaultSize = 'A4'
 
   static defaultTextStyle: ITextOptions = {
@@ -51,10 +51,31 @@ export class PdfGenerator {
 
   constructor() {
     this.pdf = new PDFDocument();
-}
+  }
 
   private addPage(page: IPageOptions): void {
     this.pdf.addPage(page)
+  }
+
+  public gotoPage(page: number): void {
+    this.pdf.goToPage(page)
+  }
+
+  public getPageCount(): number {
+    const range = this.pdf.bufferedPageRange()
+
+    return range.start + range.count
+  }
+
+  public addSeparator(color: string) {
+    this.pdf.lineWidth(2)
+
+    const lineWidth = this.pdf.page.width - (this.pdf.page.margins.left + this.pdf.page.margins.right)
+
+    this.pdf
+      .rect(this.pdf.x, this.pdf.y, lineWidth, 0)
+      .stroke(color)
+      .moveDown(1)
   }
 
   public addHeaderStroke(color: string): void {
@@ -66,12 +87,11 @@ export class PdfGenerator {
   }
 
   public addImage(image: string, options?: IImageOptions): void {
-
-    this.pdf.image(image,  options.left, options.top, options)
+    this.pdf.image(image, options.left, options.top, options)
   }
-  
+
   public addText(text: string, options: IPageOptions = PdfGenerator.defaultTextStyle): void {
-    this.pdf.fontSize(options.fontSize || 12) 
+    this.pdf.fontSize(options.fontSize || 12)
     this.pdf.fillColor(options.fontColor || 'black')
 
     this.pdf
@@ -90,7 +110,7 @@ export class PdfGenerator {
       align: 'center',
       margin: 0.8,
       ...options || {},
-    } 
+    }
 
     this.addText(title, titleDefaultOptions)
   }

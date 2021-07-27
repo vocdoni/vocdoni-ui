@@ -1,10 +1,8 @@
 import { PdfGenerator } from "./pdf-generator";
 import { DigestedProcessResultItem, DigestedProcessResults, IProcessDetails } from 'dvote-js'
-import { resourceUsage } from "process";
 import RouterService from "./router";
 import { colors } from "@theme/colors";
 import i18n from "@i18n";
-import { Question, Choice } from "@lib/types";
 
 interface IResultsPdfGeneratorOptions {
   process: IProcessDetails;
@@ -14,12 +12,14 @@ interface IResultsPdfGeneratorOptions {
 export class ResultPdfGenerator extends PdfGenerator {
   private readonly process: IProcessDetails;
   private readonly processResults: DigestedProcessResults;
-
+  private logoHeader: string;
   constructor({ process, processResults }: IResultsPdfGeneratorOptions) {
     super();
 
     this.process = process;
     this.processResults = processResults;
+
+    this.pdf.on('pageAdded', this.generateHeader.bind(this))
   }
 
   private fetchImageUri(imageUrl: string): Promise<string> {
@@ -34,16 +34,18 @@ export class ResultPdfGenerator extends PdfGenerator {
       }))
   }
 
-  private async generateHeader() {
-    const logoHeader = await this.fetchImageUri(RouterService.instance.get('/media/logo-full.png', {}))
-    this.addHeaderStroke(colors.textAccent1)
-    this.addImage(logoHeader, { width: 100, top: 30, left: 20 })
-    this.addSpace(1)
+  private  generateHeader() {
+      this.addHeaderStroke(colors.textAccent1)
+      this.addImage(this.logoHeader, { width: 100, top: 30, left: 20 })
+      this.addSpace(1)
+    // }
 
   }
 
   private async generatePdfContent() {
-    await this.generateHeader()
+    this.logoHeader = await this.fetchImageUri(RouterService.instance.get('/media/logo-full.png', {}))
+    this.generateHeader()
+
     this.addText(i18n.t('results.pdf.these_document_is_generate_by_vocdoni_these_are_a_summary_of_the_voting_process'), { fontSize: 14, margin: 2})
 
     this.addTitle(i18n.t('results.pdf.process_title'), { align: 'left', fontColor: colors.text, margin: 0.5 })
@@ -54,17 +56,19 @@ export class ResultPdfGenerator extends PdfGenerator {
     this.addTitle(i18n.t('results.pdf.total_votes', { votes: this.processResults.totalVotes }), { align: 'left' })
     this.addTitle(i18n.t('results.pdf.questions'), { align: 'left', margin: 1 })
 
+    this.addSeparator(colors.lightBorder)
+
     for (const question of this.processResults.questions) {
       await this.generateQuestion(question)
     }
   }
 
   private async generateQuestion(question: DigestedProcessResultItem) {
-    this.addTitle(question.title.default, { align: 'left' })
+    this.addTitle(`${i18n.t('results.pdf.title')}: question.title.default`, { align: 'left' })
     this.addText(i18n.t('results.pdf.results'))
 
     for (const result of question.voteResults) {
-      this.addText(`${result.title.default}, ${i18n.t('results.pdf.votes', { votes: result.votes.toString() })}`, { fontSize: 14, margin: 0 })
+      this.addText(`${i18n.t('results.pdf.choice')}: ${result.title.default}, ${i18n.t('results.pdf.votes', { votes: result.votes.toString() })}`, { fontSize: 14, margin: 0 })
     }
     
     this.addSpace(2)
