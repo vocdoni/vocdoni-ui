@@ -109,6 +109,7 @@ export const SelectFormGroup = ({
   label,
   name,
   helpText,
+  options,
   id,
   placeholder,
   value,
@@ -128,6 +129,7 @@ export const SelectFormGroup = ({
         <Select
           id={inputId}
           wide
+          options={options}
           placeholder={placeholder}
           name={name}
           value={value}

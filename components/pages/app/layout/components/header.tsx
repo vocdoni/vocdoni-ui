@@ -96,10 +96,9 @@ export const Header = ({ hasReadyAccount, children }: IHeaderProps) => {
 
         <MobileMenuContainer showMenu={openMobileMenu}>
           {links.map((link) => (
-            <MenuItem>
+            <MenuItem key={link.name}>
               <LinkItem
                 {...link}
-                key={link.name}
                 onClick={() => setOpenMobileMenu(false)}
               >
                 <Typography variant={TypographyVariant.Subtitle1}>{link.name}</Typography>
