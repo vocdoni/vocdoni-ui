@@ -16,7 +16,9 @@
         "secondary_color_used_on_the_voting_process": "",
         "secondary_process_color": "",
         "live_stream": "Streaming",
-        "your_vote_has_been_successfully_registered": "Tu voto ha sido registrado correctamente"
+        "your_vote_has_been_successfully_registered": "Tu voto ha sido registrado correctamente",
+        "ask_questions_to_the_organizers": "Pregunta a los organizadores",
+        "check_the_documentation": "Consulta la documentación"
     },
     "errors": {
         "the_entity_name_already_exits": "",

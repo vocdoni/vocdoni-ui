@@ -189,7 +189,8 @@
         "the_vote_details_are_invalid": "Los detalles de la votación son inválidos",
         "the_vote_is_not_available_yet": "El voto aún no está disponible",
         "these_user_is_not_member_of_the_census": "Este usuario no es miembro del censo.",
-        "wallet_not_available": "Cuenta no disponible"
+        "wallet_not_available": "Cuenta no disponible",
+        "we_cant_check_the_new_status_process": ""
     },
     "errors": {
         "cannot_connect_to_the_blockchain": "No se puede conectar a la cadena de bloques",
@@ -365,13 +366,15 @@
     },
     "results": {
         "pdf": {
-            "process_description": "",
-            "process_title": "",
-            "questions": "",
-            "results": "",
-            "these_document_is_generate_by_vocdoni_these_are_a_summary_of_the_voting_process": "",
-            "total_votes": "",
-            "votes": ""
+            "choice": "Respuesta",
+            "process_description": "Descripción del proceso",
+            "process_title": "Título de la votación",
+            "questions": "Resumen de respuestas:",
+            "results": "Resultados",
+            "these_document_is_generate_by_vocdoni_these_are_a_summary_of_the_voting_process": "Este documento es generado por vocdoni, aquí puedes encontrar el resumen del proceso de votación. Si el proceso está activo, estos valores pueden cambiar.",
+            "title": "Título",
+            "total_votes": "Total votos: {{ votes }}",
+            "votes": "Votos: {{ votes }}"
         }
     },
     "sign_in": {
@@ -418,7 +421,6 @@
         "active_vote": "Proceso activo",
         "add_new_question": "Añade una nueva pregunta",
         "add_option": "Añade más opciones",
-        "ask_questions_to_the_organizers": "Pregunta a los organizadores",
         "back_to_dashboard": "Vuelve al inicio",
         "brand_color_used_on_the_voting_process": "",
         "brand_process_color": "",
@@ -429,7 +431,6 @@
         "census_root_value": "",
         "census_size": "Tamaño del censo: {{ size }} votantes",
         "change_entity_name": "Cambia el nombre de la entidad",
-        "check_the_documentation": "Consulta la documentación",
         "checking_details": "Comprobando los detalles",
         "confirm_your_vote": "Confirmar tu voto",
         "copy": "Copia",
