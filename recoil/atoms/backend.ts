@@ -2,5 +2,6 @@ import { atom } from "recoil";
 
 export const backendState = atom({
   key: 'backend',
-  default: undefined
+  default: undefined,
+  dangerouslyAllowMutability: true,
 })

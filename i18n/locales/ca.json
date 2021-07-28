@@ -138,6 +138,8 @@
         "description": "Descripció",
         "details": "Detalls",
         "edit": {
+            "are_you_sure_you_want_update_your_entity_data": "",
+            "cancel": "",
             "change_logo": "",
             "contact_email": "",
             "description": "",
@@ -152,6 +154,7 @@
             "size_of_entity": "",
             "the_details_of_your_organization": "",
             "type_of_entity": "",
+            "update": "",
             "your_entity": ""
         },
         "email": "Adreça de correu electrònic de contacte",
@@ -272,7 +275,9 @@
         "your_vote_could_not_be_delivered": "El teu vot no s'ha pogut lliurar"
     },
     "form": {
-        "edit": ""
+        "input": {
+            "edit": ""
+        }
     },
     "home": {
         "a_cutting_edge_voting_protocol": "Un protocol de votació de darrera generació",

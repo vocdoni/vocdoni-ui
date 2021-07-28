@@ -4,6 +4,7 @@ import { walletState } from "recoil/atoms/wallet";
 
 export const entityRegistrySelector = selector({
   key: 'entityRegistrySelector',
+  dangerouslyAllowMutability: true,
   get: async ({get}) => {
     const wallet = get(walletState)
     const gateway = get(backendState)
