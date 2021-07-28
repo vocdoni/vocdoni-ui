@@ -4,6 +4,7 @@ import {
   IProcessDetails,
   DigestedProcessResults,
   VotingApi,
+  EntityMetadata,
 } from 'dvote-js'
 import { VochainProcessStatus } from 'dvote-js'
 
@@ -42,6 +43,7 @@ import { DateDiffType, localizedStrDateDiff } from '@lib/date'
 interface IProcessDetailProps {
   process: IProcessDetails
   results: DigestedProcessResults
+  entityMetadata: EntityMetadata
   cancelProcess: () => Promise<void>
   endProcess: () => Promise<void>
 }
@@ -49,6 +51,7 @@ interface IProcessDetailProps {
 export const ViewDetail = ({
   process,
   results,
+  entityMetadata,
   cancelProcess,
   endProcess
 }: IProcessDetailProps) => {
@@ -310,7 +313,11 @@ export const ViewDetail = ({
         </Column>
 
         <Column md={3} sm={12}>
-          <GeneratePdfCard process={process} results={results} />
+          <GeneratePdfCard 
+            process={process} 
+            results={results} 
+            entityMetadata={entityMetadata}
+          />
         </Column>
       </Grid>
       {/* </Loader> */}

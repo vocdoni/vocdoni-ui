@@ -7,16 +7,16 @@ import { ImageContainer } from '@components/elements/images'
 import { SectionText, TextAlign } from '@components/elements/text'
 import { Button } from '@components/elements/button'
 import { FlexAlignItem, FlexJustifyContent } from '@components/elements/flex'
-import { DigestedProcessResults, IProcessDetails } from 'dvote-js'
-import { useRef } from 'react'
+import { DigestedProcessResults, EntityMetadata, IProcessDetails } from 'dvote-js'
 import { ResultPdfGenerator } from '@lib/result-pdf-generator'
 
 interface IGeneratePdfCardProps {
   process: IProcessDetails
+  entityMetadata: EntityMetadata
   results: DigestedProcessResults
 }
 
-export const GeneratePdfCard = ({ process, results }: IGeneratePdfCardProps) => {
+export const GeneratePdfCard = ({ process, results, entityMetadata }: IGeneratePdfCardProps) => {
   const onClickHandler = () => {
     const resultPdfGenerator = new ResultPdfGenerator({process: process, processResults: results})
 
@@ -25,7 +25,7 @@ export const GeneratePdfCard = ({ process, results }: IGeneratePdfCardProps) => 
     resultPdfGenerator.generatePdfUrl()
       .then(pdfLink => {
         linkElement.setAttribute('href', pdfLink)
-        linkElement.setAttribute('download', `sumary.pdf`)
+        linkElement.setAttribute('download', `${entityMetadata.name.default}_${process.metadata.title.default}_${(new Date()).toISOString().split('T')[0]}.pdf`)
         linkElement.click()
       })
   }

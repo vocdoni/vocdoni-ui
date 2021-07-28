@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { ViewContext, ViewStrategy } from '@lib/strategy'
+import { useEntity } from '@vocdoni/react-hooks'
 
 import { Loader } from '@components/blocks/loader'
 import { ViewDetail } from '@components/pages/dashboard/vote-detail'
@@ -23,6 +24,7 @@ const VoteDetailPage = () => {
     methods,
   } = useProcessWrapper(processId)
   const { wallet } = useWallet({ role: WalletRoles.ADMIN })
+  const { metadata: entityMetadata } = useEntity(wallet?.address)
 
   const cancelProcess = async () => {
     await methods.cancelProcess(processId, wallet)
@@ -38,11 +40,12 @@ const VoteDetailPage = () => {
   )
 
   const processDetailView = new ViewStrategy(
-    () => !!processInfo && !!wallet?.address,
+    () => !!processInfo && !!wallet?.address && !!entityMetadata,
     <ViewDetail 
       process={processInfo} 
       results={results} 
       endProcess={endProcess} 
+      entityMetadata={entityMetadata}
       cancelProcess={cancelProcess} 
     />
   )
