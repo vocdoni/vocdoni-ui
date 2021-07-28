@@ -138,6 +138,8 @@
         "description": "Descripción",
         "details": "Detalles",
         "edit": {
+            "are_you_sure_you_want_update_your_entity_data": "Estas seguro que quieres actualizar los datos de la entidad",
+            "cancel": "Cancelar",
             "change_logo": "Cambiar logo",
             "contact_email": "Correo de contacto",
             "description": "Descripción",
@@ -152,6 +154,7 @@
             "size_of_entity": "Tamaño de la entidad",
             "the_details_of_your_organization": "Detalles de tu organización",
             "type_of_entity": "Tipo de entidad",
+            "update": "Actualizar",
             "your_entity": "Su entidad"
         },
         "email": "Dirección de correo electrónico de contacto",
@@ -272,7 +275,9 @@
         "your_vote_could_not_be_delivered": "Tu voto no ha podido ser entregado"
     },
     "form": {
-        "edit": "Editar"
+        "input": {
+            "edit": "Editar"
+        }
     },
     "home": {
         "a_cutting_edge_voting_protocol": "Un protocolo de votación de última generación",

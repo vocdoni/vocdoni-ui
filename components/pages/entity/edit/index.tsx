@@ -1,4 +1,5 @@
-import React, { ChangeEvent, useState, useRef } from 'react'
+import React, { ChangeEvent, useState, useRef, useEffect } from 'react'
+import Modal from 'react-rainbow-components/components/Modal'
 import { EntityMetadata } from 'dvote-js'
 import styled from 'styled-components'
 import i18n from '@i18n'
@@ -64,6 +65,7 @@ export const EntityEditView = ({
   const [description, setDescription] = useState(entityMetadata?.description.default)
   const [imageBase64, setImageBase64] = useState<string>()
   const [entityDataErrors, setEntityDataErrors] = useState<ErrorFields>(new Map())
+  const [showConfirmModal, setShowConfirmModal] = useState(false)
 
   const [logoFile, setLogoFile] = useState<File>()
   const [storingData, setStoringData] = useState<boolean>(false)
@@ -75,6 +77,22 @@ export const EntityEditView = ({
 
   const entityType = SELECT_ORGANIZATION_TYPE.find((option: ISelectOption) => option.value === type)
   const entitySize = SELECT_ORGANIZATION_SIZE.find((option: ISelectOption) => option.value === size)
+
+  useEffect(() => {
+    if (!checkUpdatedData()) {
+      return setUpdatedData([])
+    }
+  }, [email, name, type, size, description])
+
+  const checkUpdatedData = (): boolean => {
+    const emailUpdated = entityRegistryData?.email !== email
+    const nameUpdated = entityRegistryData?.name !== name
+    const typeUpdated = entityRegistryData?.type !== type
+    const sizeUpdated = entityRegistryData?.size !== size
+    const descriptionUpdated = entityMetadata?.description.default !== description
+
+    return emailUpdated || nameUpdated || typeUpdated || sizeUpdated || descriptionUpdated
+  }
 
   const dirtyDataType = (dataType: UpdatedDataType) => {
     if (!updatedData.includes(dataType)) {
@@ -115,8 +133,9 @@ export const EntityEditView = ({
       await storeData(entityData)
 
       setUpdatedData([])
+      setShowConfirmModal(false)
     } catch (error) {
-      if(error instanceof EntityNameAlreadyExistError) {
+      if (error instanceof EntityNameAlreadyExistError) {
         entityDataErrors.set(EntityFields.Name, error)
 
         setEntityDataErrors(entityDataErrors)
@@ -156,7 +175,7 @@ export const EntityEditView = ({
               onChange={(event: ChangeEvent<HTMLInputElement>) => {
                 dirtyDataType(UpdatedDataType.EntityRegistry)
                 dirtyDataType(UpdatedDataType.EntityMetadata)
-                setName(event.target.value )
+                setName(event.target.value)
               }}
             />
           </Column>
@@ -230,7 +249,7 @@ export const EntityEditView = ({
             <FlexContainer alignItem={FlexAlignItem.Center}>
               <ImageContainer width='50px' height='50px'>
                 {imageBase64 ? <Image src={`${imageBase64}`} /> : <Image src={entityMetadata?.media.avatar} />}
-                
+
               </ImageContainer>
               <input
                 type='file'
@@ -262,14 +281,43 @@ export const EntityEditView = ({
               <Button
                 positive
                 disabled={!updatedData.length && !storingData}
-                onClick={storeEntityData}
-                spinner={storingData}
+                onClick={() => setShowConfirmModal(true)}
                 width={200}
               >{i18n.t('entity.edit.save_changes')}</Button>
             </FlexContainer>
           </Column>
         </Grid>
       </CardBody>
+
+      <Modal
+        isOpen={showConfirmModal}
+        onRequestClose={() => setShowConfirmModal(false)}
+      >
+        <Grid>
+          <Column>
+            <Typography variant={TypographyVariant.Body2}>{i18n.t('entity.edit.are_you_sure_you_want_update_your_entity_data')}</Typography>
+          </Column>
+        </Grid>
+
+        <Grid>
+          <Column sm={6}>
+            <Button
+              negative
+              onClick={() => setShowConfirmModal(false)}
+              wide
+            >{i18n.t('entity.edit.cancel')}</Button>
+          </Column>
+
+          <Column sm={6}>
+            <Button
+              positive
+              onClick={() => storeEntityData()}
+              spinner={storingData}
+              wide
+            >{i18n.t('entity.edit.update')}</Button>
+          </Column>
+        </Grid>
+      </Modal>
     </CardDiv>
   )
 }
