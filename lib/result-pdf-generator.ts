@@ -64,7 +64,7 @@ export class ResultPdfGenerator extends PdfGenerator {
   }
 
   private async generateQuestion(question: DigestedProcessResultItem) {
-    this.addTitle(`${i18n.t('results.pdf.title')}: question.title.default`, { align: 'left' })
+    this.addTitle(`${i18n.t('results.pdf.title')}: ${question.title.default}`, { align: 'left' })
     this.addText(i18n.t('results.pdf.results'))
 
     for (const result of question.voteResults) {
