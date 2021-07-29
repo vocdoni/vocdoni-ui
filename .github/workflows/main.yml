@@ -208,6 +208,7 @@ jobs:
           COLOR_PICKER: "1"
           ADVANCED_CENSUS: "1"
           DISCOVERY_POOL_SIZE: "1"
+          SEGMENT_KEY: "Uj5XwibYOSrXeUaI82pPql5lcCpMop9F"
       - name: Set up Cloud SDK (staging)
         uses: google-github-actions/setup-gcloud@master
         with:

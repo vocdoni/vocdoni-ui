@@ -5,6 +5,7 @@ const LANG = process.env.APP_LANG || 'en'
 const DEVELOPMENT = process.env.NODE_ENV !== 'production'
 const COMMIT_SHA = process.env.COMMIT_SHA || 'development'
 const VOCDONI_ENVIRONMENT = process.env.VOCDONI_ENVIRONMENT || 'dev'
+
 let bootnodes = 'https://bootnodes.vocdoni.net/gateways.json'
 let backend = 'https://manager.vocdoni.net/api/manager'
 let explorer = 'https://explorer.vote'
@@ -38,6 +39,9 @@ module.exports = {
 
   // HELPSCOUT
   HELPSCOUT_PROJECT_ID: '5f78b511-0d81-4f7d-b452-40f020f4445e',
+
+  // SEGMENT KEY
+  SEGMENT_KEY: process.env.SEGMENT_KEY,
 
   // FEATURES
   COLOR_PICKER: 0,
