@@ -450,6 +450,12 @@
         "the_vote_is_paused": "El procés de votació està aturat",
         "the_vote_will_start_soon": "El procés de votació començarà aviat"
     },
+    "supported_langs": {
+        "catalan": "",
+        "english": "",
+        "esperanto": "",
+        "spanish": ""
+    },
     "vote_detail": {
         "cancel_vote": "Cancel·la la votació",
         "end_vote": "Finalitza la votació",

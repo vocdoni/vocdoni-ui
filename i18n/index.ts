@@ -18,7 +18,6 @@ i18n.init({
 	returnEmptyString: false,
 })
 
-
 for (const lang of supportedLanguages) {
   if (typeof translation[lang] !== 'undefined') {
       i18n.addResourceBundle(lang, 'translation', translation[lang])
