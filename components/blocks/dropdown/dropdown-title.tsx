@@ -4,11 +4,12 @@ import styled from 'styled-components'
 import { DropdownItemDivContainer } from './dropdown-item'
 
 interface DropdownTitleProps {
-  children: ReactNode
+  children: ReactNode,
+  onClick?: () => void,
 }
 
-export const DropdownTitle = ({ children }: DropdownTitleProps) => (
-  <DropdownTitleContainer>{children}</DropdownTitleContainer>
+export const DropdownTitle = ({ children, onClick }: DropdownTitleProps) => (
+  <DropdownTitleContainer onClick={onClick}>{children}</DropdownTitleContainer>
 )
 
 const DropdownTitleContainer = styled(DropdownItemDivContainer)`

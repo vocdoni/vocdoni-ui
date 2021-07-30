@@ -16,9 +16,11 @@
             "create_account_backup": "Copia de seguridad",
             "disconnect_account": "Desconectar cuentra",
             "help_and_feedback": "Centro de ayuda",
+            "language": "",
             "public_page": "Página publica",
             "settings": "Herramientas",
-            "update_entity": "Actualizar entidad"
+            "update_entity": "Actualizar entidad",
+            "user_language": ""
         }
     },
     "backup": {
@@ -439,6 +441,12 @@
         "the_vote_is_open_for_voting": "El procés de votació està obert",
         "the_vote_is_paused": "El procés de votació està aturat",
         "the_vote_will_start_soon": "El procés de votació començarà aviat"
+    },
+    "supported_langs": {
+        "catalan": "",
+        "english": "",
+        "esperanto": "",
+        "spanish": ""
     },
     "vote_detail": {
         "cancel_vote": "Cancel·la la votació",
