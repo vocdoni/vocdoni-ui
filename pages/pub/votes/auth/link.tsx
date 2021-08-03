@@ -1,7 +1,6 @@
 import React from 'react'
 import { useEntity } from '@vocdoni/react-hooks'
-
-import i18n from '@i18n'
+import { useTranslation } from 'react-i18next'
 
 import { ViewContext, ViewStrategy } from '@lib/strategy'
 
@@ -27,6 +26,7 @@ const VoteAuthLogin = () => {
     processId,
     key,
   } = useAuthKey()
+  const { i18n } = useTranslation()
   const { wallet } = useWallet({ role: WalletRoles.VOTER })
   const { loading, error } = useEntity(processInfo?.state?.entityId)
 

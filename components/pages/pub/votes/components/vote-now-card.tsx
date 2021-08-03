@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
-import i18n from '@i18n'
+import { useTranslation } from 'react-i18next'
+
 import { SectionText, TextAlign } from '@components/elements/text'
 import { ImageContainer } from '@components/elements/images'
 import { Button, LinkTarget } from '@components/elements/button'
@@ -21,6 +22,7 @@ export const VoteNowCard = ({
   explorerLink,
   onVote,
 }: IVoteNowCardProps) => {
+  const { i18n } = useTranslation()
   const isMobile = useIsMobile()
   return <Card>
     <ImageContainer width="80px" justify={FlexJustifyContent.Center}>

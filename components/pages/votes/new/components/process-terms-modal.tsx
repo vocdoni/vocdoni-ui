@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 import Modal from 'react-rainbow-components/components/Modal'
-import i18n from '@i18n'
 // import { Terms } from '@components/policy/terms/layer-2'
 
 import { CsvTerms } from '@components/pages/policy/csv-terms/layer-1'
@@ -23,6 +23,7 @@ export const ProcessTermsModal = ({
   visible,
   onCloseProcessTerms,
 }: IEntityTermsModalProps) => {
+  const { i18n } = useTranslation()
   const {processTerms, methods} = useProcessCreation()
   const lang = i18n.language
 

@@ -1,8 +1,7 @@
 import React, { ChangeEvent, useState } from 'react'
 import styled from 'styled-components'
 import { AccountBackup, Symmetric, WalletBackup } from 'dvote-js'
-
-import i18n from '@i18n'
+import { useTranslation } from 'react-i18next'
 
 import { useWallet } from '@hooks/use-wallet'
 import { useDbAccounts } from '@hooks/use-db-accounts'
@@ -34,6 +33,7 @@ interface IAccountImportViewProps {
 export const AccountImportView = ({
   onImportedAccount,
 }: IAccountImportViewProps) => {
+  const { i18n } = useTranslation()
   const [accountBackup, setAccountBackup] = useState<WalletBackup>(null)
   const [passphrase, setPassphrase] = useState<string>(null)
   const [ack, setAck] = useState(false)

@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react'
+import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
-import i18n from '../../i18n'
 
 import { SectionText, SectionTitle, TextAlign } from '../elements/text'
 
@@ -20,6 +20,8 @@ export const ProcessLoader = ({
   steps,
   currentStep,
 }: IProcessLoaderProps) => {
+  const { i18n } = useTranslation()
+
   const renderStep = (step, index) => (
     <StepContainer key={index}>
       {currentStep < index && <EmptyCheck />}

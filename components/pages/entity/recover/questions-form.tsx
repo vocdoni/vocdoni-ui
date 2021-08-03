@@ -1,12 +1,11 @@
 import React, { ChangeEvent, useState } from 'react'
 import styled from 'styled-components'
+import { useTranslation } from 'react-i18next'
 
 import { WalletBackup, AccountBackup, Symmetric } from 'dvote-js'
 import { Wallet } from '@ethersproject/wallet'
 import Spinner from 'react-rainbow-components/components/Spinner'
 import { Else, If, Then } from 'react-if'
-
-import i18n from '@i18n'
 
 import { colors } from 'theme/colors'
 
@@ -25,7 +24,6 @@ import {
   FlexJustifyContent,
 } from '@components/elements/flex'
 import { FormGroupVariant, InputFormGroup } from '@components/blocks/form'
-import { Label } from '@components/elements/label'
 import { SectionText, TextSize } from '@components/elements/text'
 import { Checkbox } from '@components/elements/checkbox'
 import { Button } from '@components/elements/button'
@@ -46,6 +44,7 @@ export const QuestionsFormView = ({
   onRestoreBackup,
   onSelectOtherBackup,
 }: IQuestionsFormViewProps) => {
+  const { i18n } = useTranslation()
   const [newPassphrase, setNewPassphrase] = useState<string>('')
   const [repeatPassphrase, setRepeatPassphrase] = useState<string>('')
 

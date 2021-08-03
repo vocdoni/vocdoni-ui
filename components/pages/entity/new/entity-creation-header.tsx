@@ -1,6 +1,6 @@
 import React from 'react'
-import i18n from '@i18n'
 import styled from 'styled-components'
+import { useTranslation } from 'react-i18next'
 
 import { useEntityCreation } from '@hooks/entity-creation'
 
@@ -9,6 +9,7 @@ import { MainDescription } from '@components/elements/text'
 import { H1 } from '@components/elements/typography'
 
 export const EntityCreationHeader = () => {
+  const { i18n } = useTranslation()
   const { name } = useEntityCreation()
 
   return (

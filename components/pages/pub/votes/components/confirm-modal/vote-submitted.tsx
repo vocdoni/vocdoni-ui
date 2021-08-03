@@ -1,26 +1,27 @@
 import React from 'react'
 import styled from 'styled-components'
+import { useTranslation } from 'react-i18next'
 
-import i18n from '@i18n'
 import { ImageContainer } from '@components/elements/images'
-import { SectionText, SectionTitle, TextAlign, TextSize } from '@components/elements/text'
+import { SectionText, TextAlign, TextSize } from '@components/elements/text'
 import { FlexContainer, FlexJustifyContent } from '@components/elements/flex'
 import { Button } from '@components/elements/button'
-import { DASHBOARD_PATH } from '@const/routes'
 import { colors } from 'theme/colors'
 
 interface IVoteSubmittedProps {
   onAccept: () => void
 }
 
-export const VoteSubmitted = ({onAccept}: IVoteSubmittedProps) => (
-  <>
-    <ImageContainer width="320px" justify={FlexJustifyContent.Center}>
-      <img
-        src="/images/vote/voted-submitted.png"
-        alt={i18n.t('vote.vote_submitted_image_alt')}
-      />
-    </ImageContainer>
+export const VoteSubmitted = ({ onAccept }: IVoteSubmittedProps) => {
+  const { i18n } = useTranslation()
+  return (
+    <>
+      <ImageContainer width="320px" justify={FlexJustifyContent.Center}>
+        <img
+          src="/images/vote/voted-submitted.png"
+          alt={i18n.t('vote.vote_submitted_image_alt')}
+        />
+      </ImageContainer>
 
       <TextContainer>
         <SectionText size={TextSize.Big} align={TextAlign.Center}>
@@ -34,8 +35,9 @@ export const VoteSubmitted = ({onAccept}: IVoteSubmittedProps) => (
       <FlexContainer justify={FlexJustifyContent.Center}>
         <Button positive onClick={onAccept}>{i18n.t('vote.go_back_to_home_page')}</Button>
       </FlexContainer>
-  </>
-)
+    </>
+  )
+}
 
 const TextContainer = styled.div`
   margin-bottom: 12px;

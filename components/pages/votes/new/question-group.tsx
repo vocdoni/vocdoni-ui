@@ -1,11 +1,10 @@
 
 
-import React, { ChangeEvent, useState } from 'react'
+import React, { ChangeEvent } from 'react'
 
 import cloneDeep from 'lodash/cloneDeep'
 import styled from 'styled-components'
-
-import i18n from '@i18n'
+import { useTranslation } from 'react-i18next'
 
 import { Choice, Question } from '@lib/types'
 import { QuestionError } from '@lib/validators/errors/invalid-question-error'
@@ -52,6 +51,7 @@ export const QuestionGroup = ({
   onUpdateQuestion,
   onDeleteQuestion,
 }: IQuestionGroupProps) => {
+  const { i18n } = useTranslation()
   const handleUpdateQuestion = (field: QuestionFields, value) => {
     const clonedQuestion: Question = cloneDeep(question)
     clonedQuestion[field]['default'] = value

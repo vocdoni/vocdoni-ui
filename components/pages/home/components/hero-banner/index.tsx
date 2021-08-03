@@ -1,53 +1,57 @@
 import React from 'react'
 import styled from 'styled-components'
+import { useTranslation } from 'react-i18next'
 
 import { Typography, TypographyVariant } from '@components/elements/typography'
-import i18n from '@i18n'
 import { colors } from 'theme/colors'
 
 import { Button } from '@components/elements/button'
 import { sizes } from 'theme/sizes'
 import { CREATE_ACCOUNT_PATH } from '@const/routes'
 
-export const HeroBanner = () => (
-  <BannerContainer>
-    <ContentContainer>
-      <LeftContainer>
-        <Title>
-          <strong>{i18n.t('home.easy_and_secure')}</strong>{' '}
-          {i18n.t('home.for_all_your_governance')}
-        </Title>
+export const HeroBanner = () => {
+  const { i18n } = useTranslation()
+  
+  return (
+    <BannerContainer>
+      <ContentContainer>
+        <LeftContainer>
+          <Title>
+            <strong>{i18n.t('home.easy_and_secure')}</strong>{' '}
+            {i18n.t('home.for_all_your_governance')}
+          </Title>
 
-        <ActionContainer>
-          <ButtonContainer>
-            <Button wide positive href={CREATE_ACCOUNT_PATH}>
-              {i18n.t('home.try_it_for_free')}
-            </Button>
-          </ButtonContainer>
+          <ActionContainer>
+            <ButtonContainer>
+              <Button wide positive href={CREATE_ACCOUNT_PATH}>
+                {i18n.t('home.try_it_for_free')}
+              </Button>
+            </ButtonContainer>
 
-          <Typography variant={TypographyVariant.ExtraSmall} margin='5px 0 0 0' color={colors.accent1}>
-            {i18n.t('home.free_until_15_october')}
-          </Typography>
-        </ActionContainer>
-      </LeftContainer>
-    </ContentContainer>
-    <RightContainer>
-      <PhoneContainer>
-        <img
-          src="/images/home/banner/phone.png"
-          alt={i18n.t('home.device_with_vocdoni_alt')}
-        />
-      </PhoneContainer>
+            <Typography variant={TypographyVariant.ExtraSmall} margin='5px 0 0 0' color={colors.accent1}>
+              {i18n.t('home.free_until_15_october')}
+            </Typography>
+          </ActionContainer>
+        </LeftContainer>
+      </ContentContainer>
+      <RightContainer>
+        <PhoneContainer>
+          <img
+            src="/images/home/banner/phone.png"
+            alt={i18n.t('home.device_with_vocdoni_alt')}
+          />
+        </PhoneContainer>
 
-      <ComputerContainer>
-        <img
-          src="/images/home/banner/pc.png"
-          alt={i18n.t('home.computer_with_vocdoni_alt')}
-        />
-      </ComputerContainer>
-    </RightContainer>
-  </BannerContainer>
-)
+        <ComputerContainer>
+          <img
+            src="/images/home/banner/pc.png"
+            alt={i18n.t('home.computer_with_vocdoni_alt')}
+          />
+        </ComputerContainer>
+      </RightContainer>
+    </BannerContainer>
+  )
+}
 
 const BannerContainer = styled.div`
   height: 530px;

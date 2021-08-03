@@ -1,10 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import i18n from '@i18n'
 import { colors } from '@theme/colors'
+import { useTranslation } from 'react-i18next'
 
-import { CREATE_PROCESS_PATH, DASHBOARD_PATH, VOTING_AUTH_FORM_PATH } from '@const/routes'
+import { CREATE_PROCESS_PATH, DASHBOARD_PATH } from '@const/routes'
 
 import { useProcessCreation } from '@hooks/process-creation'
 
@@ -15,6 +15,7 @@ import { Button } from '@components/elements/button'
 import { useScrollTop } from "@hooks/use-scroll-top"
 
 export const EntityReady = () => {
+  const { i18n } = useTranslation()
   useScrollTop()
   const { processId } = useProcessCreation()
 

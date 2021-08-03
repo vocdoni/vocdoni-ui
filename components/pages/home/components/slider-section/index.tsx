@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import i18n from '@i18n'
+import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 import { IconRight, IconLeft } from '@aragon/ui'
 
@@ -14,33 +14,35 @@ interface IQuotes {
   authorPosition: string,
   authorImage: string
 }
-const quotes: IQuotes[] = [
-  {
-    image: "/images/home/slider/slider-1.png",
-    logo: '/images/home/slider/slider-1-logo.png',
-    backgroundImage: 'linear-gradient(130.31deg, #FA9387 -3.13%, #FFC663 99.27%);',
-    content:
-      i18n.t('home.the_commitment_to_vocdoni_has_been_clear_as_from_omnium_cultural_we_opted')
-    ,
-    author: "Anna Girald",
-    authorPosition: i18n.t('home.executive_manager_at_omnium'),
-    authorImage: "/images/home/slider/slider-1-quote.png"
-  },
-  {
-    image: "/images/home/slider/slider-2.png",
-    logo: '/images/home/slider/slider-2-logo.png',
-    backgroundImage: 'linear-gradient(130.31deg, #07a474 -3.13%, #57f0c1 99.27%);',
-    content:
-      i18n.t('home.one_of_the_decisive_facts_that_let_use')
-    ,
-    author: "Ton Barnils",
-    authorPosition: i18n.t('home.ceo_center_excursionistes'),
-    authorImage: "/images/home/slider/slider-2-quote.png"
-  }
-];
 
 export const SliderSection = () => {
+  const { i18n } = useTranslation()
   const [activeItem, setActiveItem] = useState<number>(0)
+  
+  const quotes: IQuotes[] = [
+    {
+      image: "/images/home/slider/slider-1.png",
+      logo: '/images/home/slider/slider-1-logo.png',
+      backgroundImage: 'linear-gradient(130.31deg, #FA9387 -3.13%, #FFC663 99.27%);',
+      content:
+        i18n.t('home.the_commitment_to_vocdoni_has_been_clear_as_from_omnium_cultural_we_opted')
+      ,
+      author: "Anna Girald",
+      authorPosition: i18n.t('home.executive_manager_at_omnium'),
+      authorImage: "/images/home/slider/slider-1-quote.png"
+    },
+    {
+      image: "/images/home/slider/slider-2.png",
+      logo: '/images/home/slider/slider-2-logo.png',
+      backgroundImage: 'linear-gradient(130.31deg, #07a474 -3.13%, #57f0c1 99.27%);',
+      content:
+        i18n.t('home.one_of_the_decisive_facts_that_let_use')
+      ,
+      author: "Ton Barnils",
+      authorPosition: i18n.t('home.ceo_center_excursionistes'),
+      authorImage: "/images/home/slider/slider-2-quote.png"
+    }
+  ];
 
   const nextItem = () => {
     setActiveItem((activeItem + 1) % quotes.length)

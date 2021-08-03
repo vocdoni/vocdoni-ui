@@ -1,8 +1,7 @@
 import React from 'react'
 import styled, { ThemeProvider } from 'styled-components'
 import { VochainProcessStatus as ProcessStatus } from 'dvote-js'
-
-import i18n from '@i18n'
+import { useTranslation } from 'react-i18next'
 
 import { useProcessCreation } from '@hooks/process-creation'
 
@@ -34,7 +33,8 @@ export const PreviewModal = ({
   visible,
   onClose,
 }: PreviewModalProps) => {
-  const { headerURL, headerFile, metadata, methods } = useProcessCreation()
+  const { i18n } = useTranslation()
+  const { headerURL, metadata } = useProcessCreation()
   const processStatus = ProcessStatus.READY
   const voteStatus = VoteStatus.Active
 

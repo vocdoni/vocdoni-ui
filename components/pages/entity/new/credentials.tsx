@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 import { Checkbox } from '@components/elements/checkbox'
 import styled from 'styled-components'
-
-import i18n from '@i18n'
+import { useTranslation } from 'react-i18next'
 
 import { useEntityCreation } from '@hooks/entity-creation'
 import { useMessageAlert } from '@hooks/message-alert'
@@ -18,6 +17,7 @@ import { Banner } from '@components/blocks/banners'
 import { useScrollTop } from "@hooks/use-scroll-top"
 
 export const FormCredentials = () => {
+  const { i18n } = useTranslation()
   useScrollTop()
   const { setAlertMessage } = useMessageAlert()
   const { methods } = useEntityCreation()

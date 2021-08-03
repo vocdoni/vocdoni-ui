@@ -1,13 +1,15 @@
 import React from 'react'
 import styled from 'styled-components'
+import { useTranslation } from 'react-i18next'
 import { VoteStatus } from '@lib/util'
-import i18n from '@i18n'
 
 interface IProcessStatusLabelProps {
   status : VoteStatus
 }
 
 export const ProcessStatusLabel = ({status}: IProcessStatusLabelProps) => {
+  const { i18n } = useTranslation()
+
   switch (status) {
     case VoteStatus.Active:
         return <ActiveProcessStatusLabel>{i18n.t('vote.active_vote')}</ActiveProcessStatusLabel>

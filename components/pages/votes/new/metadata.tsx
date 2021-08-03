@@ -1,8 +1,8 @@
 import React, { ChangeEvent, useEffect, useState } from 'react'
 import { checkValidProcessMetadata } from 'dvote-js'
 import styled from 'styled-components'
+import { useTranslation } from 'react-i18next'
 
-import i18n from '@i18n'
 import { colors } from 'theme/colors'
 
 import { useProcessCreation } from '@hooks/process-creation'
@@ -58,6 +58,7 @@ const createEmptyQuestion = (): Question => ({
 })
 
 export const FormMetadata = () => {
+  const { i18n } = useTranslation()
   useScrollTop()
   const { headerURL, headerFile, metadata, methods } = useProcessCreation()
   const { setAlertMessage } = useMessageAlert()

@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
+import { useTranslation } from 'react-i18next'
 import Modal from 'react-rainbow-components/components/Modal'
-import i18n from '@i18n'
 import { Privacy } from '@components/pages/policy/privacy/layer-1'
 import {
   FlexAlignItem,
@@ -21,6 +21,7 @@ export const PrivacyModal = ({
   visible,
   onClosePrivacy,
 }: IPrivacyModalProps) => {
+  const { i18n } = useTranslation()
   const {privacy, methods} = useEntityCreation()
   const lang = i18n.language
 

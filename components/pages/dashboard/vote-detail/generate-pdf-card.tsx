@@ -1,6 +1,5 @@
 import React from 'react'
-
-import i18n from '@i18n'
+import { useTranslation } from 'react-i18next'
 
 import { Card } from '@components/elements/cards'
 import { ImageContainer } from '@components/elements/images'
@@ -17,6 +16,7 @@ interface IGeneratePdfCardProps {
 }
 
 export const GeneratePdfCard = ({ process, results, entityMetadata }: IGeneratePdfCardProps) => {
+  const { i18n } = useTranslation()
   const onClickHandler = () => {
     const resultPdfGenerator = new ResultPdfGenerator({process: process, processResults: results})
 

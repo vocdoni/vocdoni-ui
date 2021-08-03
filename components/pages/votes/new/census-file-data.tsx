@@ -1,10 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
-import i18n from '@i18n'
+
 
 import { InputFormGroup } from '@components/blocks/form'
 import { Button, ButtonColor } from '@components/elements/button'
 import { SectionText } from '@components/elements/text'
+import { useTranslation } from 'react-i18next'
 
 interface ICensusFileDataProps {
   fileName: string
@@ -19,6 +20,8 @@ export const CensusFileData = ({
   fileHeaders,
   onChangeFile,
 }: ICensusFileDataProps) => {
+  const { i18n } = useTranslation()
+  
   const voidImplementation = () => {}
   return (
     <ConsensusFileDataContainer>

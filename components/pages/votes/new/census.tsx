@@ -1,9 +1,9 @@
 import React, { ChangeEvent, useRef, useState } from 'react'
 import styled from 'styled-components'
 import { Case, Default, Switch, When } from 'react-if'
+import { useTranslation } from 'react-i18next'
 
 import { useProcessCreation } from '@hooks/process-creation'
-import i18n from '@i18n'
 
 import { Column, Grid } from '@components/elements/grid'
 import { Button } from '@components/elements/button'
@@ -24,6 +24,7 @@ import { DownloadCsvTemplateCard } from './components/download-csv-template-card
 import { InputFormGroup } from '@components/blocks/form'
 
 export const FormCensus = () => {
+  const { i18n } = useTranslation()
   const [showTermsModal, setShowTermsModal] = useState<boolean>(false)
   const [showAdvanced, setShowAdvanced] = useState<boolean>(false)
   const [censusRootError, setCensusRootError] = useState<string>()

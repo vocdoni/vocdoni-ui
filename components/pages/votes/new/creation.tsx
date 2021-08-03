@@ -6,24 +6,26 @@ import { useMessageAlert } from '@hooks/message-alert'
 import { useProcessCreation } from '@hooks/process-creation'
 
 import { Button } from '@components/elements/button'
-import i18n from '@i18n'
 import { Column, Grid } from '@components/elements/grid'
 import { SectionText, SectionTitle, TextAlign } from '@components/elements/text'
 import { ProcessLoader } from '@components/blocks/process-loader'
 import { useScrollTop } from "@hooks/use-scroll-top"
 
 import { ProcessCreationPageSteps } from '.'
+import { useTranslation } from 'react-i18next'
 // import { CREATE_PROCESS_PATH, DASHBOARD_PATH } from '@../../const/routes'
 
-const processSteps = [
-  i18n.t('vote.uploading_metadata'),
-  i18n.t('vote.creating_census'),
-  i18n.t('vote.checking_details'),
-  i18n.t('vote.creating_process'),
-  i18n.t('vote.verifying_creation')
-]
 
 export const FormCreation = () => {
+  const { i18n } = useTranslation()
+  const processSteps = [
+    i18n.t('vote.uploading_metadata'),
+    i18n.t('vote.creating_census'),
+    i18n.t('vote.checking_details'),
+    i18n.t('vote.creating_process'),
+    i18n.t('vote.verifying_creation')
+  ]
+
   useScrollTop()
   const {
     creationError,

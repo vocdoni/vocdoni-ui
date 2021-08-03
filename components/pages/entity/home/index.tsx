@@ -1,19 +1,19 @@
 import react from 'react'
-
-import i18n from '@i18n'
+import { EntityMetadata } from 'dvote-js'
+import { useTranslation } from 'react-i18next'
 
 import { Typography, TypographyVariant } from '@components/elements/typography'
 import { Grid, Column } from '@components/elements/grid'
 import { PageCard } from '@components/elements/cards'
 import { CardImageHeader } from '@components/blocks/card/image-header'
 
-import { EntityMetadata } from 'dvote-js'
 
 interface IEntityViewProps {
   address: string,
   metadata: EntityMetadata
 }
 export const EntityView = ({ address, metadata }: IEntityViewProps) => {
+  const { i18n } = useTranslation()
   const explorerUrl = `${process.env.EXPLORER_URL}/entity/${address}`
 
   return (
