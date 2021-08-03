@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { Else, If, Then } from 'react-if'
 import { useEntity } from '@vocdoni/react-hooks'
+import { useTranslation } from 'react-i18next';
 
 import i18n, { supportedLanguages } from '@i18n'
 
-import { useDbAccounts } from '@hooks/use-db-accounts'
 import { useWallet } from '@hooks/use-wallet'
 import { useHelpCenter } from '@hooks/help-center'
 
 
-import { Account, AccountStatus } from '@lib/types'
 import { Typography, TypographyVariant } from '@components/elements/typography'
 import Dropdown, { DropdownItem, DropdownTitle, DropdownSeparator } from '@components/blocks/dropdown'
 import { Button } from '@components/elements/button'
@@ -22,34 +21,51 @@ import { colors } from '@theme/colors'
 import RouterService from '@lib/router'
 
 import { Header } from './header'
-import { useRecoilState, useRecoilValueLoadable, useRecoilStateLoadable } from 'recoil'
+import { useRecoilStateLoadable } from 'recoil'
 import { AccountSelector } from 'recoil/selectors/account'
 import styled from 'styled-components'
 import { FlexAlignItem, FlexContainer } from '@components/elements/flex'
-
-export const supportedLanguagesLocale = {
-  ca: i18n.t('supported_langs.catalan'),
-  en: i18n.t('supported_langs.english'),
-  eo: i18n.t('supported_langs.esperanto'),
-  es: i18n.t('supported_langs.spanish')
-}
+import { Account } from '@lib/types'
+import { LanguageService } from '@lib/language-service';
 
 export const EntityHeader = () => {
-  // const [account, setAccount] = useState<Account>()
-  const [showLanguageSelector, setShowLanguageSelector] = useState<Boolean>(false)
-  const [userLanguage, setUserLanguage] = useState<string>()
   const { wallet, setWallet } = useWallet()
-  const [{ contents: account } , setAccount] = useRecoilStateLoadable(AccountSelector(wallet?.address))
+  const { i18n } = useTranslation()
+
+  const [showLanguageSelector, setShowLanguageSelector] = useState<Boolean>(false)
+  const [{ contents: account }, setAccount ] = useRecoilStateLoadable<Account>(AccountSelector(wallet?.address))
+  // const setAccount = useSetRecoilState(AccountsState)
   const { metadata: entityMetadata } = useEntity(wallet?.address)
-  console.log('The account are')
-  console.log(account)
-  const { getAccount } = useDbAccounts()
+
   const { show } = useHelpCenter()
   const { accepted } = useCookies()
 
   useEffect(() => {
+    if (accepted) show()
+  }, [accepted])
 
-  }, [])
+  const supportedLanguagesLocale = {
+    ca: i18n.t('supported_langs.catalan'),
+    en: i18n.t('supported_langs.english'),
+    eo: i18n.t('supported_langs.esperanto'),
+    es: i18n.t('supported_langs.spanish')
+  }
+
+  const handleChangeLanguage = (language: string) => {
+    const userAccount = {...account, locale: language}
+
+    i18n.changeLanguage(language)
+
+    LanguageService.setDefaultLanguage(language)
+    setShowLanguageSelector(false)
+    setAccount(userAccount)
+  }
+
+  const handleDisconnectAccount = () => {
+    setWallet(null)
+  }
+
+  const entityPublicPath = RouterService.instance.get(PAGE_ENTITY, { entityId: wallet?.address })
 
   const menuButton = (<Button>
     <ImageContainer width='25px' height='25px'>
@@ -60,37 +76,6 @@ export const EntityHeader = () => {
       {account?.name}
     </Typography>
   </Button>)
-
-  const handleDisconnectAccount = () => {
-    setWallet(null)
-  }
-
-
-  const entityPublicPath = RouterService.instance.get(PAGE_ENTITY, { entityId: wallet?.address })
-
-  useEffect(() => {
-    if (accepted) show()
-  }, [accepted])
-
-  const handleChangeLanguage = (language: string) => {
-    
-    setUserLanguage(language)
-  }
-  // useEffect(() => {
-  //   if (!wallet) return
-
-  //   const account = getAccount(wallet?.address)
-
-  //   if (
-  //     account &&
-  //     (
-  //       typeof account.status === 'undefined' ||
-  //       account.status === AccountStatus.Ready
-  //     )
-  //   ) {
-  //     setAccount(account)
-  //   }
-  // }, [])
 
   const navMenu = (
     <>
@@ -165,13 +150,13 @@ export const EntityHeader = () => {
         const langName = supportedLanguagesLocale[lang]
 
         return (
-          <>
-            <DropdownItem onClick={() => setUserLanguage(lang)} key={lang}>
+          <div  key={lang}>
+            <DropdownItem onClick={() => handleChangeLanguage(lang)}>
               <Typography variant={TypographyVariant.Small} margin='0'>{langName}</Typography>
             </DropdownItem>
 
             <DropdownSeparator />
-          </>
+          </div>
         )
       })}
 
@@ -182,7 +167,7 @@ export const EntityHeader = () => {
     <Header hasReadyAccount={!!account}>
       <If condition={!!account}>
         <Then>
-          <Dropdown toggleButton={menuButton} width='250px'>
+          <Dropdown toggleButton={menuButton}>
             {showLanguageSelector ? langSelector : navMenu}
           </Dropdown>
         </Then>

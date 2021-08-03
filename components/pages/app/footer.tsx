@@ -3,11 +3,74 @@ import styled, { useTheme } from 'styled-components'
 import Link from 'next/link'
 import { useWallet } from '../../../hooks/use-wallet'
 import { DASHBOARD_PATH, PRIVACY_PATH } from '../../../const/routes'
-import i18n from '../../../i18n'
+import { useTranslation } from 'react-i18next'
 
 export const Footer = () => {
+  const { i18n } = useTranslation()
+
   const { wallet } = useWallet()
   const theme = useTheme()
+
+  const LINKS: HeaderLink[] = [
+    {
+      url: PRIVACY_PATH,
+      name: i18n.t("links.privacy_policy"),
+      external: true,
+      logged: true,
+      guest: true
+    },
+    {
+      url: DASHBOARD_PATH,
+      name: i18n.t("links.dashboard"),
+      external: false,
+      logged: true,
+      guest: false
+    },
+    {
+      url: 'https://blog.vocdoni.io',
+      name: i18n.t("links.blog"),
+      external: true,
+      logged: true,
+      guest: true
+    },
+    // {
+    //   url: PRICING_PATH,
+    //   name: i18n.t("links.pricing"),
+    //   external: false,
+    //   logged: false,
+    //   guest: true
+    // },
+    {
+      url: 'https://docs.vocdoni.io',
+      name: i18n.t("links.docs"),
+      external: true,
+      logged: true,
+      guest: true
+    },
+    {
+      url: 'https://help.aragon.org/collection/54-vocdoni-user-guide',
+      name: i18n.t("links.help"),
+      external: true,
+      logged: true,
+      guest: true
+    },
+    {
+      // url: ABOUT_PATH,
+      url: "https://vocdoni.io",
+      name: i18n.t("links.about"),
+      external: false,
+      logged: false,
+      guest: true
+    },
+    {
+      url: 'https://discord.gg/sQCxgYs',
+      name: i18n.t("links.support"),
+      external: true,
+      logged: true,
+      guest: false
+    },
+  ]
+
   const links = wallet ? LINKS.filter(link => link.logged) : LINKS.filter(link => link.guest)
 
   return (
@@ -166,64 +229,3 @@ interface HeaderLink {
   logged?: boolean;
   guest?: boolean;
 }
-
-
-const LINKS: HeaderLink[] = [
-  {
-    url: PRIVACY_PATH,
-    name: i18n.t("links.privacy_policy"),
-    external: true,
-    logged: true,
-    guest: true
-  },
-  {
-    url: DASHBOARD_PATH,
-    name: i18n.t("links.dashboard"),
-    external: false,
-    logged: true,
-    guest: false
-  },
-  {
-    url: 'https://blog.vocdoni.io',
-    name: i18n.t("links.blog"),
-    external: true,
-    logged: true,
-    guest: true
-  },
-  // {
-  //   url: PRICING_PATH,
-  //   name: i18n.t("links.pricing"),
-  //   external: false,
-  //   logged: false,
-  //   guest: true
-  // },
-  {
-    url: 'https://docs.vocdoni.io',
-    name: i18n.t("links.docs"),
-    external: true,
-    logged: true,
-    guest: true
-  },
-  {
-    url: 'https://help.aragon.org/collection/54-vocdoni-user-guide',
-    name: i18n.t("links.help"),
-    external: true,
-    logged: true,
-    guest: true
-  },
-  {
-    // url: ABOUT_PATH,
-    url: "https://vocdoni.io",
-    name: i18n.t("links.about"),
-    external: false,
-    logged: false,
-    guest: true
-  },
-  {
-    url: 'https://discord.gg/sQCxgYs',
-    name: i18n.t("links.support"),
-    external: true,
-    logged: true,
-    guest: false
-  },
-]

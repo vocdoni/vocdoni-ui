@@ -3,7 +3,6 @@ import styled from 'styled-components'
 
 import { useEntityCreation } from '@hooks/entity-creation'
 import { useMessageAlert } from '@hooks/message-alert'
-import i18n from '@i18n'
 import { Case, Default, If, Then, Switch } from 'react-if'
 import { EntityCreationPageSteps } from '.'
 import { useScrollTop } from '@hooks/use-scroll-top'
@@ -19,16 +18,18 @@ import { StoringDataOnBlockchainError } from '@lib/validators/errors/storing-dat
 import { EntityNameAlreadyExistError } from '@lib/validators/errors/entity-name-already-exits-error'
 import { StoreMediaError } from '@lib/validators/errors/store-media-error'
 import { VocdoniConnectionError } from '@lib/validators/errors/vocdoni-connection-error'
+import { useTranslation } from 'react-i18next'
 
-const processSteps = [
-  i18n.t('entity.confirming_details'),
-  i18n.t('entity.signing_transactions'),
-  i18n.t('entity.consolidating_path'),
-  i18n.t('entity.validating_creation'),
-]
 
 export const FormCreation = () => {
   useScrollTop()
+  const { i18n } = useTranslation()
+  const processSteps = [
+    i18n.t('entity.confirming_details'),
+    i18n.t('entity.signing_transactions'),
+    i18n.t('entity.consolidating_path'),
+    i18n.t('entity.validating_creation'),
+  ]
   const [retryAttempts, setRetryAttempts] = useState<number>(0)
   const { open } = useHelpCenter()
   const { creationError, created, methods, actionStep } = useEntityCreation()

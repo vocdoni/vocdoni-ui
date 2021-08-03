@@ -1,7 +1,6 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import Modal from 'react-rainbow-components/components/Modal'
-import i18n from '@i18n'
 import { Terms } from '@components/pages/policy/terms/layer-1'
 import {
   FlexAlignItem,
@@ -11,6 +10,7 @@ import {
 import { Checkbox } from '@components/elements/checkbox'
 import { Button } from '@components/elements/button'
 import { useEntityCreation } from '@hooks/entity-creation'
+import { useTranslation } from 'react-i18next'
 
 interface ITermsModalProps {
   visible: boolean
@@ -21,6 +21,7 @@ export const TermsModal = ({
   visible,
   onCloseTerms,
 }: ITermsModalProps) => {
+  const { i18n } = useTranslation()
   const {terms, methods} = useEntityCreation()
   const lang = i18n.language
 

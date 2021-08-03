@@ -1,23 +1,27 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
-import i18n from '../../i18n'
 
 interface ILoaderProps {
   visible: boolean
 }
 
-export const Loader = ({ visible }: ILoaderProps) => (
-  <AppLoader visible={visible}>
-    <LoaderContainer>
-      <LogoContainer>
-        <img src="/images/common/logo.svg" alt="Vocdoni Logo" />
-      </LogoContainer>
+export const Loader = ({ visible }: ILoaderProps) => {
+  const { i18n } = useTranslation()
 
-      <TextContainer>{i18n.t('dashboard.loading')}</TextContainer>
-    </LoaderContainer>
-  </AppLoader>
-)
+  return (
+    <AppLoader visible={visible}>
+      <LoaderContainer>
+        <LogoContainer>
+          <img src="/images/common/logo.svg" alt="Vocdoni Logo" />
+        </LogoContainer>
+
+        <TextContainer>{i18n.t('dashboard.loading')}</TextContainer>
+      </LoaderContainer>
+    </AppLoader>
+  )
+}
 
 const LogoContainer = styled.div`
   width: 100px;

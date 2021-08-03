@@ -2,8 +2,8 @@ import React, { ChangeEvent, useState, useRef, useEffect } from 'react'
 import Modal from 'react-rainbow-components/components/Modal'
 import Router from 'next/router'
 import { EntityMetadata } from 'dvote-js'
+import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
-import i18n from '@i18n'
 
 import { IEntityRegistryState } from 'recoil/atoms/entity-registry'
 
@@ -61,6 +61,7 @@ export const EntityEditView = ({
   entityRegistryData,
   storeData,
 }: IDashboardEntityViewProps) => {
+  const { i18n } = useTranslation()
   const [updatedData, setUpdatedData] = useState<UpdatedDataType[]>([]);
   const [name, setName] = useState(entityRegistryData?.name)
   const [email, setEmail] = useState(entityRegistryData?.email)

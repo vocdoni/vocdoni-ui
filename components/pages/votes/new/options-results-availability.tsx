@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import styled from 'styled-components'
-import i18n from '@i18n'
 import { colors } from '@theme/colors'
 
 import { Button } from '@components/elements/button'
@@ -20,6 +20,7 @@ interface IOptionsResultsAvailabilityProps {
 export const OptionsResultsAvailability = ({
   onChange,
 }: IOptionsResultsAvailabilityProps) => {
+  const { i18n } = useTranslation()
   const [
     resultAvailability,
     setResultAvailability,

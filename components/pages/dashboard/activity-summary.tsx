@@ -1,6 +1,5 @@
 import React from 'react'
-
-import i18n from '../../../i18n'
+import { useTranslation } from 'react-i18next'
 
 import { StatusCard } from '../../elements/cards'
 import { Column, Grid } from '../../elements/grid'
@@ -18,6 +17,8 @@ export const DashboardActivitySummary = ({
   votesResults,
   loading,
 }: IDashboardActivitySummaryProps) => {
+  const { i18n } = useTranslation()
+  
   return (
     <Grid>
       <StatusCard

@@ -1,8 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 import copy from 'copy-to-clipboard';
+import { useTranslation } from 'react-i18next';
 
-import i18n from '@i18n'
 import { colors } from 'theme/colors'
 
 import { Button } from '@components/elements/button'
@@ -15,6 +15,8 @@ interface IDashedLink {
 }
 
 export const DashedLink = ({ link }: IDashedLink) => {
+  const { i18n } = useTranslation()
+
   const { setAlertMessage } = useMessageAlert()
   const handleCopy = () => {
     copy(link)

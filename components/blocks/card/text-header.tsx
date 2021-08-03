@@ -1,7 +1,5 @@
 import React from 'react'
 
-import i18n from '@i18n'
-
 import { Typography, TypographyVariant } from '@components/elements/typography'
 import { PageCardHeader, PageCardHeaderVariant } from '@components/elements/cards'
 

@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next'
+
 import { useEntity } from '@vocdoni/react-hooks'
 
-import i18n from '@i18n'
 
 import { ViewContext, ViewStrategy } from '@lib/strategy'
 import { useAuthForm } from '@hooks/use-auth-form'
@@ -10,10 +11,11 @@ import { Loader } from '@components/blocks/loader'
 import { SignInForm } from '@components/pages/pub/votes/auth/sign-in-form'
 import { VotingErrorPage } from '@components/pages/pub/votes/voting-error-page'
 import { LayoutVoter } from '@components/pages/app/layout/voter'
-
 // NOTE: This page uses a custom Layout. See below.
 
 const VoteAuthLogin = () => {
+  const { i18n } = useTranslation()
+
   const [checkingCredentials, setCheckingCredentials] = useState<boolean>(false)
   const {
     invalidProcessId,

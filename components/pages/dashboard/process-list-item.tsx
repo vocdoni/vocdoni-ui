@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { useBlockStatus,  SummaryProcess} from '@vocdoni/react-hooks'
 import { VotingApi } from 'dvote-js'
+import { useTranslation } from 'react-i18next'
 
 import { DateDiffType, localizedStrDateDiff } from '@lib/date'
 import { VoteStatus } from '@lib/util'
 import { IProcessesSummary } from '@lib/types'
 
-import i18n from '@i18n'
 
 import { FALLBACK_ACCOUNT_ICON } from '@const/account'
 import { Image } from '@components/elements/image'
@@ -29,6 +29,8 @@ export const DashboardProcessListItem = ({
   status,
   entityLogo
 }: IDashboardProcessListItemProps) => {
+  const { i18n } = useTranslation()
+
   const [date, setDate] = useState<string>('')
   const { blockStatus } = useBlockStatus()
 

@@ -1,8 +1,7 @@
 import React, { ChangeEvent } from 'react'
 import styled from 'styled-components'
 import { IProcessDetails, EntityMetadata } from 'dvote-js'
-
-import i18n from '@i18n'
+import { useTranslation } from 'react-i18next'
 
 import { Fieldset, FormGroupVariant, InputFormGroup } from '@components/blocks/form'
 import { Column } from '@components/elements/grid'
@@ -36,6 +35,7 @@ export const SignInForm = ({
   onSubmit,
   onChange,
 }: IFormProps) => {
+  const { i18n } = useTranslation()
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault()
     onSubmit()

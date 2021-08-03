@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useState } from 'react'
 import styled, { DefaultTheme } from 'styled-components'
-import i18n from '@i18n'
+import { useTranslation } from 'react-i18next'
 
 import { HelpText } from './help-text'
 import FileLoader from './FileLoader'
@@ -81,6 +81,8 @@ export const formGroupHOC = (InputField) => ({
   onBlur,
   variant = FormGroupVariant.Regular,
 }: IInputFormGroupProps) => {
+  const { i18n } = useTranslation()
+
   const [editEnabled, setEditEnabled] = useState(true)
   const inputId = id || `input-${generateRandomId()}`
 

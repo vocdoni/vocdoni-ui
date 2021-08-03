@@ -1,4 +1,5 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { PageCard } from '@components/elements/cards'
 import { ProcessCreationPageStep, ProcessCreationPageStepTitles } from '@components/pages/votes/new'
@@ -8,13 +9,14 @@ import { Steps } from '@components/blocks/steps'
 import { LayoutEntity } from '@components/pages/app/layout/entity'
 
 import {  MainDescription } from '@components/elements/text'
-import i18n from '@i18n'
 import { UseProcessCreationProvider } from '@hooks/process-creation'
 import { useProcessCreation } from '@hooks/process-creation'
 
 // NOTE: This page uses a custom Layout. See below.
 
 const NewVote = () => {
+  const { i18n } = useTranslation()
+
   return (
     <UseProcessCreationProvider>
       <PageCard>

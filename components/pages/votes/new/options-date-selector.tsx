@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import { HelpText } from '@components/blocks/help-text'
 import { Typography, TypographyVariant } from '@components/elements/typography'
 import DateTimePicker from 'react-rainbow-components/components/DateTimePicker'
 import styled from 'styled-components'
 import { colors } from 'theme/colors'
-
-import i18n from '@i18n'
 
 import { Column, Grid } from '@components/elements/grid'
 import { Radio } from '@components/elements/radio'
@@ -52,6 +51,7 @@ const MIN_DELAY_TIME = 10
 export const OptionDateSelector = ({
   onChangeDate,
 }: IOptionDateSelectorProps) => {
+  const { i18n } = useTranslation()
   const [startDate, setStartDate] = useState<Date>(() =>
     addOffsetToDate(new Date(), 0, 1)
   )

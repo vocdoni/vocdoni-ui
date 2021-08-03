@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
+import { useTranslation } from 'react-i18next'
 import { AccountBackup, WalletBackup } from 'dvote-js'
-
-import i18n from '@i18n'
 
 import { colors } from 'theme/colors'
 
@@ -20,6 +19,7 @@ interface IAccountRecoveryViewProps {
 }
 
 export const AccountRecoveryView = ({onUploadFile}: IAccountRecoveryViewProps) => {
+  const { i18n } = useTranslation()
   const [accountBackupBytes, setAccountBackupBytes] = useState<Uint8Array>(null)
   const [accountBackup, setAccountBackup] = useState<WalletBackup>(null)
 

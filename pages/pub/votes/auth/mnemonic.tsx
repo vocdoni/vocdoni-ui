@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useEntity, useProcess } from '@vocdoni/react-hooks'
 import { useMessageAlert } from '@hooks/message-alert'
 import { useUrlHash } from 'use-url-hash'
 import { Wallet, ethers, Wordlist } from 'ethers'
-
-import i18n from '@i18n'
 
 import { ViewContext, ViewStrategy } from '@lib/strategy'
 
@@ -28,7 +27,8 @@ const wordListEs = ethers.wordlists['es']
 const wordListEn = ethers.wordlists['en']
 
 const VoteAuthMnemonic = () => {
-  const { setAlertMessage } = useMessageAlert()
+  const { i18n } = useTranslation()
+
   const { setWallet, wallet } = useWallet({ role: WalletRoles.VOTER })
 
   const [mnemonic, setMnemonic] = useState<string>(null)

@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Else, If, Then } from 'react-if'
 import styled from 'styled-components'
 
-import i18n from '../../i18n'
 import { Button } from '../elements/button'
 import { Input } from '../elements/inputs'
 
@@ -18,6 +18,8 @@ type Props = {
 }
 
 const FileLoader = ({ onSelect, onChange, accept, maxMbSize, ...props }: Props) => {
+  const { i18n } = useTranslation()
+
   const [file, setFile] = useState<File>(null)
   const [error, setError] = useState<string>(null)
   const [fileUrl, setFileUrl] = useState<string>('')

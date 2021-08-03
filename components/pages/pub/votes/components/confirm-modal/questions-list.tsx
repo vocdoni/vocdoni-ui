@@ -1,8 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
+import { useTranslation } from 'react-i18next'
 
 import { colors } from 'theme/colors'
-import i18n from '@i18n'
 import { SectionText } from '@components/elements/text'
 import { Grid, Column } from '@components/elements/grid'
 import { Button } from '@components/elements/button'
@@ -23,6 +23,7 @@ export const ModalQuestionList = ({
   onSubmit,
   onClose,
 }: IModalQuestionList) => {
+  const { i18n } = useTranslation()
   const renderQuestion = (question: Question, choice: Choice, index) => (
     <div key={index}>
       <QuestionGroup>

@@ -1,22 +1,30 @@
+import { LanguageService } from '@lib/language-service';
 import i18next from 'i18next'
+import { initReactI18next } from "react-i18next";
 import translation from './locales'
 
 const i18n = i18next.createInstance()
 
 export const supportedLanguages = ['ca', 'en', 'eo', 'es']
 
-const userLang = (typeof window !== 'undefined' && typeof window.navigator.language !== 'undefined') ? window.navigator.language.substr(0, 2).toLowerCase() : process.env.LANG
+const userLang = LanguageService.getDefaultLanguage()
 
-i18n.init({
-	debug: process.env.NODE_ENV === 'development',
-	lng: userLang,
-	fallbackLng: 'en',
-	defaultNS: 'translation',
-	interpolation: {
-		escapeValue: false,
-	},
-	returnEmptyString: false,
-})
+i18n
+	.use(initReactI18next)
+	.init({
+		debug: process.env.NODE_ENV === 'development',
+		preload: ['en'],
+		resources: {
+			translation
+		},
+		lng: userLang,
+		fallbackLng: 'en',
+		defaultNS: 'translation',
+		interpolation: {
+			escapeValue: false,
+		},
+		returnEmptyString: false,
+	})
 
 for (const lang of supportedLanguages) {
   if (typeof translation[lang] !== 'undefined') {

@@ -1,9 +1,8 @@
 import styled from "styled-components"
 import Link from "next/link"
+import { useTranslation } from "react-i18next"
 import { ColumnProps } from "../elements/grid"
-import { Tag } from "../elements/tag"
 import { ReactNode } from "react"
-import i18n from "../../i18n"
 import { SHOW_PROCESS_PATH } from "../../const/routes"
 import { FlexAlignItem, FlexContainer, FlexJustifyContent } from "../elements/flex"
 import { VoteStatus } from "@lib/util"
@@ -21,24 +20,28 @@ type VoteListItemProps = ColumnProps & {
   dateText: string
 }
 
-export const VoteListItem = ({ icon, entityName, processId, title, description, status, dateText }: VoteListItemProps) => (
-  <Link href={SHOW_PROCESS_PATH + "#/" + processId}>
-    <a>
-      <ListItemDiv>
-        <TopDiv>
-          <FlexContainer alignItem={FlexAlignItem.Center} justify={FlexJustifyContent.Center}>
-            {icon}<EntityName>{entityName}</EntityName>
-          </FlexContainer>
-          <ProcessStatusLabel status={status}></ProcessStatusLabel>
-        </TopDiv>
+export const VoteListItem = ({ icon, entityName, processId, title, description, status, dateText }: VoteListItemProps) => {
+  const { i18n } = useTranslation()
 
-        <VoteListItemTitle>{title}</VoteListItemTitle>
-        <VoteListItemDescription><span dangerouslySetInnerHTML={{ __html: description }} /></VoteListItemDescription>
-        <VoteListItemDate>{dateText}</VoteListItemDate>
-      </ListItemDiv>
-    </a>
-  </Link>
-)
+  return (
+    <Link href={SHOW_PROCESS_PATH + "#/" + processId}>
+      <a>
+        <ListItemDiv>
+          <TopDiv>
+            <FlexContainer alignItem={FlexAlignItem.Center} justify={FlexJustifyContent.Center}>
+              {icon}<EntityName>{entityName}</EntityName>
+            </FlexContainer>
+            <ProcessStatusLabel status={status}></ProcessStatusLabel>
+          </TopDiv>
+
+          <VoteListItemTitle>{title}</VoteListItemTitle>
+          <VoteListItemDescription><span dangerouslySetInnerHTML={{ __html: description }} /></VoteListItemDescription>
+          <VoteListItemDate>{dateText}</VoteListItemDate>
+        </ListItemDiv>
+      </a>
+    </Link>
+  )
+}
 
 // Styles
 

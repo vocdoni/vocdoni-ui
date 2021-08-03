@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
+import { useTranslation } from 'react-i18next'
 import {
   IProcessDetails,
   DigestedProcessResults,
@@ -8,7 +9,6 @@ import {
 } from 'dvote-js'
 import { VochainProcessStatus } from 'dvote-js'
 
-import i18n from '@i18n'
 import { colors } from 'theme/colors'
 import {
   VOTING_AUTH_FORM_PATH,
@@ -55,6 +55,7 @@ export const ViewDetail = ({
   cancelProcess,
   endProcess
 }: IProcessDetailProps) => {
+  const { i18n } = useTranslation()
   const [cancelingVote, setCancelingVote] = useState<boolean>(false)
   const [endingVote, setEndingVote] = useState<boolean>(false)
   const [endedOrCanceled, setEndedOrCanceled] = useState<boolean>(false)

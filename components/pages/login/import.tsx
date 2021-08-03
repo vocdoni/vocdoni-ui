@@ -1,8 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 import { useRouter } from 'next/router'
+import { useTranslation } from 'react-i18next'
 
-import i18n from '../../../i18n'
 import { CREATE_ACCOUNT_PATH, ACCOUNT_IMPORT_PATH } from '../../../const/routes'
 
 import { SectionTitle, SectionText, TextAlign } from '../../elements/text'
@@ -14,6 +14,7 @@ interface SignInImportProps {
 }
 
 export const SignInImport = ({ hasAccount }: SignInImportProps) => {
+  const { i18n } = useTranslation()
   const router = useRouter()
   const title = hasAccount
     ? i18n.t('sign_in.additional_entities')

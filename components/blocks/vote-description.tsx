@@ -1,9 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
 import ReactPlayer from 'react-player'
+import { useTranslation } from 'react-i18next'
+
 import { VoteStatus } from '@lib/util'
 
-import i18n from '@i18n'
 
 import { colors } from 'theme/colors'
 
@@ -22,6 +23,7 @@ interface IVotePageProps {
   voteStatus: VoteStatus
   timeComment: string
 }
+
 export const VoteDescription = ({
   description,
   liveStream,
@@ -30,6 +32,8 @@ export const VoteDescription = ({
   voteStatus,
   timeComment,
 }: IVotePageProps) => {
+  const { i18n } = useTranslation()
+
   const pdfIcon = (
     <img src="/images/vote/pdf.svg" alt={i18n.t('vote.pdf_image_alt')} />
   )

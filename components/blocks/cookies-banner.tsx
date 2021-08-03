@@ -1,4 +1,3 @@
-import i18n from '@i18n'
 import React from 'react'
 import Link from 'next/link'
 
@@ -13,6 +12,8 @@ import { useCookies } from '@hooks/cookies'
 import { If } from 'react-if'
 
 export const CookiesBanner = () => {
+  // const { i18n } = useTranslation()
+
   const { acceptCookies, rejectCookies, accepted, hide } = useCookies()
 
   const showCookiesBanner = !accepted && !hide

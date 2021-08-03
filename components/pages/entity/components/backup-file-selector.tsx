@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import FileSelector from 'react-rainbow-components/components/FileSelector'
 import styled from 'styled-components'
 
-import i18n from '@i18n'
 
 
 const containerStyles = {
@@ -17,6 +17,7 @@ interface IBackupFileSelector {
 }
 
 export const BackupFileSelector = ({ onBackupLoad, onCleanFile }: IBackupFileSelector) => {
+  const { i18n } = useTranslation()
   const [invalidFileType, setInvalidFileType] = useState<string | null>()
 
   const handleChange = async (files: FileList) => {

@@ -1,8 +1,8 @@
 import React from 'react'
-import i18n from '@i18n'
 import styled from 'styled-components'
-import { DigestedProcessResultItem, VochainProcessStatus } from 'dvote-js'
-import { VochainProcessStatus as ProcessStatus } from 'dvote-js'
+import { DigestedProcessResultItem, VochainProcessStatus, VochainProcessStatus as ProcessStatus } from 'dvote-js'
+import { useTranslation } from 'react-i18next'
+
 import { colors } from 'theme/colors'
 import { ViewContext, ViewStrategy } from '@lib/strategy'
 import { Question } from '@lib/types'
@@ -18,7 +18,6 @@ import {
 import { QuestionResults } from './question-results'
 import { QuestionNoResultsAvailable } from './question-no-results-available'
 import { ChoiceSelector } from './choice-selector'
-import { ChoiceList } from './choice-list'
 
 interface IVoteQuestionCardProps {
   question: Question
@@ -43,6 +42,7 @@ export const VoteQuestionCard = ({
   readOnly,
   onSelectChoice,
 }: IVoteQuestionCardProps) => {
+  const { i18n } = useTranslation()
 
   const questionsView = new ViewStrategy(
     () => (!hasVoted && !readOnly) && processStatus === ProcessStatus.READY,

@@ -1,13 +1,13 @@
 import React, { ChangeEvent, useState } from 'react'
 import styled from 'styled-components'
+import { useTranslation } from 'react-i18next'
+
 
 import {
   AccountBackup,
-  WalletBackup_Recovery_QuestionEnum,
   Wallet_AuthMethod,
 } from 'dvote-js'
 
-import i18n from '@i18n'
 
 import { useMessageAlert } from '@hooks/message-alert'
 
@@ -43,6 +43,7 @@ export const AccountBackupView = ({
   account,
   onBackup,
 }: AccountBackupViewProps) => {
+  const { i18n } = useTranslation()
   const [answers, setAnswers] = useState<string[]>([])
   const [questionIndexes, setQuestionIndexes] = useState<number[]>([])
   const [ack, setAck] = useState(false)

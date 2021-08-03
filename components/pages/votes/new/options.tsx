@@ -1,8 +1,8 @@
 import React, { useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
 import { useProcessCreation } from '@hooks/process-creation'
-import i18n from '@i18n'
 
 import { Column, Grid } from '@components/elements/grid'
 import { Button } from '@components/elements/button'
@@ -22,6 +22,7 @@ import { ProcessEnvelopeType } from 'dvote-js'
 import { useScrollTop } from "@hooks/use-scroll-top"
 
 export const FormOptions = () => {
+  const { i18n } = useTranslation()
   useScrollTop()
   const { startDate, endDate, parameters, methods, startRightAway} = useProcessCreation()
   const [invalidDate, setInvalidDate] = useState<boolean>(false)

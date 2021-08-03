@@ -1,7 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-
-import i18n from '@i18n'
+import { useTranslation } from 'react-i18next'
 
 import { Grid, Column } from '@components/elements/grid'
 import { ImageContainer } from '@components/elements/images'
@@ -18,31 +17,35 @@ interface ISuccessCardProps {
   text: string
 }
 
-export const SuccessCard = ({ title, subtitle, text }: ISuccessCardProps) => (
-  <AccountBackupPageCard title={title} subtitle={subtitle}>
-    <Grid>
-      <Column>
-        <ImageContainer width="300px" justify={FlexJustifyContent.Center}>
-          <img src="/images/entity/passphrase.png" />
-        </ImageContainer>
-      </Column>
+export const SuccessCard = ({ title, subtitle, text }: ISuccessCardProps) => {
+  const { i18n } = useTranslation()
 
-      <Column>
-        <TextContainer>
-          <SectionText align={TextAlign.Center}>{text}</SectionText>
-        </TextContainer>
-      </Column>
+  return (
+    <AccountBackupPageCard title={title} subtitle={subtitle}>
+      <Grid>
+        <Column>
+          <ImageContainer width="300px" justify={FlexJustifyContent.Center}>
+            <img src="/images/entity/passphrase.png" />
+          </ImageContainer>
+        </Column>
 
-      <Column>
-        <FlexContainer justify={FlexJustifyContent.Center}>
-          <Button positive href={DASHBOARD_PATH}>
-            {i18n.t('entity.go_to_the_dashboard')}
-          </Button>
-        </FlexContainer>
-      </Column>
-    </Grid>
-  </AccountBackupPageCard>
-)
+        <Column>
+          <TextContainer>
+            <SectionText align={TextAlign.Center}>{text}</SectionText>
+          </TextContainer>
+        </Column>
+
+        <Column>
+          <FlexContainer justify={FlexJustifyContent.Center}>
+            <Button positive href={DASHBOARD_PATH}>
+              {i18n.t('entity.go_to_the_dashboard')}
+            </Button>
+          </FlexContainer>
+        </Column>
+      </Grid>
+    </AccountBackupPageCard>
+  )
+}
 
 const TextContainer = styled.div`
   max-width: 400px;
