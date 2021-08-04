@@ -59,7 +59,7 @@ const DropdownItemsContainer = styled(CardDiv)`
   position: absolute;
   border-radius: 12px;
   margin-top: 10px;
-  min-width: 100px;
+  min-width: 250px;
   overflow: hidden;
   padding: 0 !important;
   right: 0;

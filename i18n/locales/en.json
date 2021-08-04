@@ -14,7 +14,8 @@
     "app": {
         "header": {
             "create_account_backup": "Create account backup",
-            "disconnect_account": "Disconnect account",
+            "dashboard": "Dashboard",
+            "disconnect_account": "Logout",
             "help_and_feedback": "Help & feedback",
             "public_page": "Public page",
             "settings": "Setting",
@@ -49,6 +50,12 @@
             "WHERE_MEET_PARTNER": "Where did you meet your partner?"
         },
         "recovery_question": "Recovery question {{ number }}"
+    },
+    "block": {
+        "confirm_modal": {
+            "accept": "Accept",
+            "cancel": "Cancel"
+        }
     },
     "confirm": {
         "by_canceling_a_process_you_will_unlist_it_and_drop_all_of_its_votes_and_results": "By canceling, a process you will unlist it and drop all of its votes and results",
@@ -138,12 +145,15 @@
         "description": "Description",
         "details": "Details",
         "edit": {
+            "are_you_sure_you_want_exit_without_save_changes": "Are you sure you want exit without store data?",
             "are_you_sure_you_want_update_your_entity_data": "Are you sure you want update your entity data?",
             "cancel": "Cancel",
+            "change_header": "Change header",
             "change_logo": "Change logo",
             "contact_email": "Contact email",
             "description": "Description",
             "entity_details": "Entity details",
+            "entity_header": "Entity header",
             "entity_logo": "Entity logo",
             "error_updating_data_on_blockchain": "Error updating data on blockchain entity",
             "error_updating_data_on_register_server": "Error updating data on the registry service",
@@ -155,7 +165,7 @@
             "the_details_of_your_organization": "The details of your organization",
             "type_of_entity": "Type of entity",
             "update": "Update",
-            "your_entity": "Your entity"
+            "your_entity": "Edit entity"
         },
         "email": "Contact e-mail",
         "enter_the_name_of_the_entity": "Enter the name of the entity",

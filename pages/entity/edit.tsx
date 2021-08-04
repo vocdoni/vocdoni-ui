@@ -39,6 +39,7 @@ const EntityEditPage = () => {
     const oldName = account.name
 
     account.name = registryData.name
+    
     try {
       await updateAccount(account)
     } catch (error) {
@@ -62,7 +63,7 @@ const EntityEditPage = () => {
     await updateMetadata(metadata, wallet)
   }
 
-  const storeData = async ({updatedData, metadata, logoFile, registryData}: IEntityData) => {
+  const storeData = async ({updatedData, metadata, logoFile, headerFile, registryData}: IEntityData) => {
     if(updatedData.includes(UpdatedDataType.EntityRegistry)) {
       await updateEntityRegistry(registryData)
 
@@ -78,9 +79,19 @@ const EntityEditPage = () => {
       }
     }
 
+    if(updatedData.includes(UpdatedDataType.EntityHeader)) {
+      const pool = await poolPromise
+      try {
+        metadata.media.header = await uploadFileToIpfs(headerFile, pool, wallet)
+      } catch (error) {
+        throw new StoreMediaError()
+      }
+    }
+
     if(
       updatedData.includes(UpdatedDataType.EntityMetadata) ||
-      updatedData.includes(UpdatedDataType.EntityLogo)
+      updatedData.includes(UpdatedDataType.EntityLogo) || 
+      updatedData.includes(UpdatedDataType.EntityHeader)
     ) {
       try {
         await storeMetadata(metadata)

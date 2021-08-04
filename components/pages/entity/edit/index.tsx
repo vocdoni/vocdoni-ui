@@ -1,5 +1,6 @@
 import React, { ChangeEvent, useState, useRef, useEffect } from 'react'
 import Modal from 'react-rainbow-components/components/Modal'
+import Router from 'next/router'
 import { EntityMetadata } from 'dvote-js'
 import styled from 'styled-components'
 import i18n from '@i18n'
@@ -8,6 +9,7 @@ import { IEntityRegistryState } from 'recoil/atoms/entity-registry'
 
 import { Button } from '@components/elements/button'
 import { CardDiv } from '@components/elements/cards'
+import { ConfirmModal } from '@components/blocks/confirm-modal'
 import { CardTextHeader } from '@components/blocks/card/text-header'
 import { Grid, Column } from '@components/elements/grid'
 import { Typography, TypographyVariant } from '@components/elements/typography'
@@ -29,13 +31,15 @@ import { SELECT_ORGANIZATION_SIZE, SELECT_ORGANIZATION_TYPE } from '../const/org
 export enum UpdatedDataType {
   EntityRegistry = 'registry',
   EntityMetadata = 'meta',
-  EntityLogo = 'logo'
+  EntityLogo = 'logo',
+  EntityHeader = 'header'
 }
 
 export interface IEntityData {
   registryData: IEntityRegistryState,
   metadata: EntityMetadata,
   logoFile: File,
+  headerFile: File,
   updatedData: UpdatedDataType[]
 }
 
@@ -64,19 +68,40 @@ export const EntityEditView = ({
   const [size, setSize] = useState<number>(entityRegistryData?.size)
   const [description, setDescription] = useState(entityMetadata?.description.default)
   const [imageBase64, setImageBase64] = useState<string>()
+  const [headerImageBase64, setHeaderImageBase64] = useState<string>()
   const [entityDataErrors, setEntityDataErrors] = useState<ErrorFields>(new Map())
   const [showConfirmModal, setShowConfirmModal] = useState(false)
 
   const [logoFile, setLogoFile] = useState<File>()
+  const [headerFile, setHeaderFile] = useState<File>()
   const [storingData, setStoringData] = useState<boolean>(false)
+  const [showExitConfirmModal, setShowExitConfirmModal] = useState<boolean>(false)
 
   const { setAlertMessage } = useMessageAlert()
 
   const inputFileRef = useRef<HTMLInputElement>()
+  const headerInputFileRef = useRef<HTMLInputElement>()
   const fileReader = useRef<FileReader>(new FileReader())
 
   const entityType = SELECT_ORGANIZATION_TYPE.find((option: ISelectOption) => option.value === type)
   const entitySize = SELECT_ORGANIZATION_SIZE.find((option: ISelectOption) => option.value === size)
+
+  const urlPrevent = useRef('')
+  const exitWithoutChanges = useRef(false)
+
+  useEffect(() => {
+    const beforeUnload = (newRoute: string): void => {
+      if (updatedData.length && !exitWithoutChanges.current) {
+        urlPrevent.current = newRoute
+        setShowExitConfirmModal(true)
+        throw 'Prevent route change'
+      }
+    }
+
+    Router.events.on('routeChangeStart', beforeUnload)
+
+    return () => Router.events.off("routeChangeStart", beforeUnload)
+  }, [updatedData])
 
   useEffect(() => {
     if (!checkUpdatedData()) {
@@ -119,6 +144,7 @@ export const EntityEditView = ({
         }
       },
       logoFile,
+      headerFile,
       updatedData
     }
     const invalidFields = entityDataValidator(entityData);
@@ -170,7 +196,6 @@ export const EntityEditView = ({
               type='text'
               id='entity-name'
               error={entityDataErrors.get(EntityFields.Name)?.message}
-              editButton={true}
               value={name}
               onChange={(event: ChangeEvent<HTMLInputElement>) => {
                 dirtyDataType(UpdatedDataType.EntityRegistry)
@@ -186,7 +211,6 @@ export const EntityEditView = ({
               type='text'
               error={entityDataErrors.get(EntityFields.Email)?.message}
               id='entity-email'
-              editButton={true}
               value={email}
               onChange={(event: ChangeEvent<HTMLInputElement>) => {
                 dirtyDataType(UpdatedDataType.EntityRegistry)
@@ -232,7 +256,6 @@ export const EntityEditView = ({
               value={description}
               error={entityDataErrors.get(EntityFields.Description)?.message}
               id='entity-description'
-              editButton={true}
               onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
                 dirtyDataType(UpdatedDataType.EntityMetadata)
                 setDescription(event.target.value)
@@ -249,8 +272,8 @@ export const EntityEditView = ({
             <FlexContainer alignItem={FlexAlignItem.Center}>
               <ImageContainer width='50px' height='50px'>
                 {imageBase64 ? <Image src={`${imageBase64}`} /> : <Image src={entityMetadata?.media.avatar} />}
-
               </ImageContainer>
+
               <input
                 type='file'
                 ref={inputFileRef}
@@ -270,6 +293,38 @@ export const EntityEditView = ({
                   border={true}
                   onClick={() => inputFileRef && inputFileRef.current?.click()}
                 >{i18n.t('entity.edit.change_logo')}</Button>
+              </UploadButtonContainer>
+            </FlexContainer>
+          </Column>
+
+          <Column>
+            <Typography variant={TypographyVariant.H3} margin='0 0 10px'>{i18n.t('entity.edit.entity_header')}</Typography>
+            <Typography variant={TypographyVariant.Small}>{i18n.t('entity.edit.jpg_png_gif')}</Typography>
+
+            <FlexContainer alignItem={FlexAlignItem.Center}>
+              <ImageContainer width='200px' height='auto'>
+                {headerImageBase64 ? <Image src={`${headerImageBase64}`} /> : <Image src={entityMetadata?.media.header} />}
+              </ImageContainer>
+
+              <input
+                type='file'
+                ref={headerInputFileRef}
+                onChange={(event) => {
+                  const [file] = event.target.files
+                  dirtyDataType(UpdatedDataType.EntityHeader)
+                  setHeaderFile(file)
+
+                  fileReader.current.readAsDataURL(file)
+                  fileReader.current.onload = () => setHeaderImageBase64(fileReader.current.result as string)
+                }}
+                style={{ display: 'none' }}
+              />
+
+              <UploadButtonContainer>
+                <Button
+                  border={true}
+                  onClick={() => headerInputFileRef && headerInputFileRef.current?.click()}
+                >{i18n.t('entity.edit.change_header')}</Button>
               </UploadButtonContainer>
             </FlexContainer>
           </Column>
@@ -318,6 +373,16 @@ export const EntityEditView = ({
           </Column>
         </Grid>
       </Modal>
+
+      <ConfirmModal
+        isOpen={showExitConfirmModal}
+        body={i18n.t('entity.edit.are_you_sure_you_want_exit_without_save_changes')}
+        onCancel={() => setShowExitConfirmModal(false)}
+        onConfirm={() => { 
+          exitWithoutChanges.current = true
+          Router.router.push(urlPrevent.current)
+        }}
+      />
     </CardDiv>
   )
 }

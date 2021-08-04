@@ -16,7 +16,7 @@ import { Button } from '@components/elements/button'
 import { Image } from '@components/elements/image'
 import { ImageContainer } from '@components/elements/images'
 
-import { ACCOUNT_BACKUP_PATH, EDIT_ENTITY, ENTITY_SIGN_IN_PATH, PAGE_ENTITY } from '@const/routes'
+import { ACCOUNT_BACKUP_PATH, DASHBOARD_PATH, EDIT_ENTITY, ENTITY_SIGN_IN_PATH, PAGE_ENTITY } from '@const/routes'
 import { useCookies } from '@hooks/cookies'
 import { colors } from '@theme/colors'
 import RouterService from '@lib/router'
@@ -81,6 +81,12 @@ export const EntityHeader = () => {
 
             <DropdownItem href={ACCOUNT_BACKUP_PATH}>
               <Typography variant={TypographyVariant.Small} margin='0'>{i18n.t('app.header.create_account_backup')}</Typography>
+            </DropdownItem>
+
+            <DropdownSeparator />
+
+            <DropdownItem href={DASHBOARD_PATH}>
+              <Typography variant={TypographyVariant.Small} margin='0'>{i18n.t('app.header.dashboard')}</Typography>
             </DropdownItem>
 
             <DropdownSeparator />

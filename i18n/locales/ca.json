@@ -14,7 +14,8 @@
     "app": {
         "header": {
             "create_account_backup": "Copia de seguridad",
-            "disconnect_account": "Desconectar cuentra",
+            "dashboard": "Dashboard",
+            "disconnect_account": "tancar sessió",
             "help_and_feedback": "Centro de ayuda",
             "public_page": "Página publica",
             "settings": "Herramientas",
@@ -49,6 +50,12 @@
             "WHERE_MEET_PARTNER": "A on vares conèixer la teva parella?"
         },
         "recovery_question": "Pregunta de recuperació {{ number }}"
+    },
+    "block": {
+        "confirm_modal": {
+            "accept": "Acceptar",
+            "cancel": "cancel·lar"
+        }
     },
     "confirm": {
         "by_canceling_a_process_you_will_unlist_it_and_drop_all_of_its_votes_and_results": "Cancel·lant un procés s'eliminarà de la llista i es perdran tots els seus vots i resultats",
@@ -138,12 +145,15 @@
         "description": "Descripció",
         "details": "Detalls",
         "edit": {
+            "are_you_sure_you_want_exit_without_save_changes": "",
             "are_you_sure_you_want_update_your_entity_data": "",
             "cancel": "",
+            "change_header": "",
             "change_logo": "",
             "contact_email": "",
             "description": "",
             "entity_details": "",
+            "entity_header": "",
             "entity_logo": "",
             "error_updating_data_on_blockchain": "",
             "error_updating_data_on_register_server": "",
@@ -155,7 +165,7 @@
             "the_details_of_your_organization": "",
             "type_of_entity": "",
             "update": "",
-            "your_entity": ""
+            "your_entity": "Edita l'entitat"
         },
         "email": "Adreça de correu electrònic de contacte",
         "enter_the_name_of_the_entity": "Entra el nom de l'entitat",
