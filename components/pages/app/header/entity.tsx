@@ -91,6 +91,12 @@ export const EntityHeader = () => {
 
             <DropdownSeparator />
 
+            <DropdownItem href={DASHBOARD_PATH}>
+              <Typography variant={TypographyVariant.Small} margin='0'>{i18n.t('app.header.dashboard')}</Typography>
+            </DropdownItem>
+
+            <DropdownSeparator />
+
             <DropdownItem href={EDIT_ENTITY}>
               <Typography variant={TypographyVariant.Small} margin='0'>{i18n.t('app.header.update_entity')}</Typography>
             </DropdownItem>
