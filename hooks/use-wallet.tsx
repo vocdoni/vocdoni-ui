@@ -2,9 +2,11 @@ import { useState, createContext, useContext, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { Wallet } from '@ethersproject/wallet'
 import { Symmetric } from 'dvote-js'
+import { useSetRecoilState } from 'recoil'
 import { CREATE_PROCESS_PATH, DASHBOARD_PATH, ACCOUNT_BACKUP_PATH, ENTITY_SIGN_IN_PATH } from '../const/routes'
 // import i18n from '../i18n'
 import { InvalidPassphraseError } from '@lib/validators/errors/invalid-passphrase-error'
+import { walletState } from 'recoil/atoms/wallet'
 
 const pathsRequiringAdminWallet = [
   DASHBOARD_PATH,
@@ -20,6 +22,7 @@ export enum WalletRoles {
 /** Provides the currently available wallet for the admin (by default) or for the voter otherwise  */
 export const useWallet = ({ role }: { role: WalletRoles } = { role: WalletRoles.ADMIN }) => {
   const walletCtx = useContext(UseWalletContext)
+  const setWallet = useSetRecoilState(walletState)
   if (walletCtx === null) {
     throw new Error('useWallet() can only be used on the descendants of <UseWalletContextProvider />,')
   }
@@ -31,6 +34,7 @@ export const useWallet = ({ role }: { role: WalletRoles } = { role: WalletRoles.
       const mnemonic = Symmetric.decryptString(encryptedMnemonic, passphrase)
       const wallet  = Wallet.fromMnemonic(mnemonic, hdPath)
       setAdminWallet(wallet)
+      setWallet(wallet)
       return wallet
     }
     catch (err) {

@@ -18,7 +18,8 @@
         "live_stream": "Streaming",
         "your_vote_has_been_successfully_registered": "Tu voto ha sido registrado correctamente",
         "ask_questions_to_the_organizers": "Pregunta a los organizadores",
-        "check_the_documentation": "Consulta la documentación"
+        "check_the_documentation": "Consulta la documentación",
+        "login_with_your_credentials_to_access_the_process": "Iniciar sesión pera consultar los resultados de la votación"
     },
     "errors": {
         "the_entity_name_already_exits": "",
@@ -69,5 +70,8 @@
         "pdf": {
             "totalh_votes": ""
         }
+    },
+    "form": {
+        "edit": "Editar"
     }
 }

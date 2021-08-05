@@ -32,6 +32,17 @@ export const UseDbAccountsProvider = ({ children }: { children: ReactNode }) => 
     loadAccounts()
   }, [])
 
+  const validateAccountName = (account: Account) => {
+    if (!account) return Promise.reject(new Error("Empty account"))
+    else if (dbAccounts.some(acc => 
+      acc.name.trim().toLowerCase() == account.name.trim().toLowerCase() &&
+      acc.address !== account.address
+    )) {
+      return Promise.reject(new Error(i18n.t("errors.there_is_already_one_account_with_the_same_name")))
+    }
+  }
+
+  
   const loadAccounts = () => {
     return refreshAccounts()
       .catch(err => {
@@ -50,11 +61,11 @@ export const UseDbAccountsProvider = ({ children }: { children: ReactNode }) => 
 
   /** Adds a new account to the local DB and refreshes the currently available list */
   const addDbAccount = (account: Account) => {
-    if (!account) return Promise.reject(new Error("Empty account"))
-    else if (dbAccounts.some(acc => acc.name.trim().toLowerCase() == account.name.trim().toLowerCase())) {
-      return Promise.reject(new Error(i18n.t("errors.there_is_already_one_account_with_the_same_name")))
-    }
-    else if (dbAccounts.some(acc => acc.address == account.address)) {
+    const rejectedPromise = validateAccountName(account)
+
+    if (rejectedPromise) return rejectedPromise
+
+    if (dbAccounts.some(acc => acc.address == account.address)) {
       return Promise.reject(new Error(i18n.t("errors.there_is_already_one_account_with_the_same_credentials")))
     }
 
@@ -65,6 +76,10 @@ export const UseDbAccountsProvider = ({ children }: { children: ReactNode }) => 
 
   const updateAccount = (account: Account) => {
     if (!account?.address || !account.name || !account.encryptedMnemonic) throw new Error("Invalid parameters")
+    
+    const rejectedPromise = validateAccountName(account)
+
+    if (rejectedPromise) return rejectedPromise
 
     const db = new AccountDb()
     return db.update(account)

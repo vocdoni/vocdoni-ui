@@ -1,5 +1,7 @@
-import React, { ChangeEvent } from 'react'
+import React, { ChangeEvent, useState } from 'react'
 import styled, { DefaultTheme } from 'styled-components'
+import i18n from '@i18n'
+
 import { HelpText } from './help-text'
 import FileLoader from './FileLoader'
 
@@ -16,6 +18,7 @@ type BaseForGroupProps = {
   name?: string
   placeholder?: string
   error?: string
+  editButton?: boolean,
   variant?: FormGroupVariant
 }
 
@@ -73,10 +76,12 @@ export const formGroupHOC = (InputField) => ({
   type,
   rows,
   error,
+  editButton,
   onChange,
   onBlur,
   variant = FormGroupVariant.Regular,
 }: IInputFormGroupProps) => {
+  const [editEnabled, setEditEnabled] = useState(true)
   const inputId = id || `input-${generateRandomId()}`
 
   return (
@@ -86,18 +91,21 @@ export const formGroupHOC = (InputField) => ({
       {helpText && <HelpText text={helpText} />}
 
       <div>
-        <InputField
-          id={inputId}
-          rows={rows}
-          wide={type !== 'color'}
-          placeholder={placeholder}
-          type={type}
-          name={name}
-          value={value || ''}
-          error={!!error}
-          onChange={onChange}
-          onBlur={onBlur}
-        />
+        <InputContainer>
+          <InputField
+            id={inputId}
+            rows={rows}
+            wide={type !== 'color'}
+            placeholder={placeholder}
+            type={type}
+            name={name}
+            value={value || ''}
+            error={!!error}
+            onChange={onChange}
+            onBlur={onBlur}
+          />
+          { editEnabled && editButton && <EditButton onClick={() => setEditEnabled(false)}>{i18n.t('form.input.edit')}</EditButton> }
+        </InputContainer>
         {error && <InputError>{error}</InputError>}
       </div>
     </FormGroup>
@@ -178,6 +186,22 @@ export const FileLoaderFormGroup = ({
     </FormGroup>
   )
 }
+
+const InputContainer = styled.div`
+  position: relative;
+`
+
+const EditButton = styled.span`
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  line-height: 40px;
+  font-size: 16px;
+  font-weight: 500;
+  display: inline-block;
+  cursor: pointer;
+  color: ${({ theme }) => theme.accent1}
+`
 
 const InputTitle = styled(SectionTitle)`
   font-size: 26px;

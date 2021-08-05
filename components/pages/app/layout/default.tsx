@@ -8,7 +8,7 @@ import { MessageAlert } from '../../../blocks/msg-alert'
 import { LoadingAlert } from '../../../blocks/loading-alert'
 import { Loader } from '../../../blocks/loader'
 import { useRouter } from 'next/router'
-import { EntityHeader } from './components/entity-header'
+import { EntityHeader } from '../header/entity'
 
 
 const LayoutContainer = styled.div<{isHomePage?: boolean}>`
