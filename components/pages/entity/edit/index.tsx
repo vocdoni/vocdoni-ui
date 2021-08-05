@@ -181,15 +181,10 @@ export const EntityEditView = ({
     <CardDiv>
       <CardTextHeader
         title={i18n.t('entity.edit.your_entity')}
-        subtitle={i18n.t('entity.edit.the_details_of_your_organization')}
       ></CardTextHeader>
 
       <CardBody>
         <Grid>
-          <Column>
-            <Typography variant={TypographyVariant.H3} margin='0'>{i18n.t('entity.edit.entity_details')}</Typography>
-          </Column>
-
           <Column sm={12} md={6}>
             <InputFormGroup
               label={i18n.t('entity.edit.name_of_the_entity')}
