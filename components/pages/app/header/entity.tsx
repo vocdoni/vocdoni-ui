@@ -79,14 +79,14 @@ export const EntityHeader = () => {
 
             <DropdownSeparator />
 
-            <DropdownItem href={ACCOUNT_BACKUP_PATH}>
-              <Typography variant={TypographyVariant.Small} margin='0'>{i18n.t('app.header.create_account_backup')}</Typography>
+            <DropdownItem href={DASHBOARD_PATH}>
+              <Typography variant={TypographyVariant.Small} margin='0'>{i18n.t('app.header.dashboard')}</Typography>
             </DropdownItem>
 
             <DropdownSeparator />
 
-            <DropdownItem href={DASHBOARD_PATH}>
-              <Typography variant={TypographyVariant.Small} margin='0'>{i18n.t('app.header.dashboard')}</Typography>
+            <DropdownItem href={entityPublicPath}>
+              <Typography variant={TypographyVariant.Small} margin='0'>{i18n.t('app.header.public_page')}</Typography>
             </DropdownItem>
 
             <DropdownSeparator />
@@ -97,8 +97,8 @@ export const EntityHeader = () => {
 
             <DropdownSeparator />
 
-            <DropdownItem href={entityPublicPath}>
-              <Typography variant={TypographyVariant.Small} margin='0'>{i18n.t('app.header.public_page')}</Typography>
+            <DropdownItem href={ACCOUNT_BACKUP_PATH}>
+              <Typography variant={TypographyVariant.Small} margin='0'>{i18n.t('app.header.create_account_backup')}</Typography>
             </DropdownItem>
 
             <DropdownSeparator />

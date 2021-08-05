@@ -157,7 +157,7 @@
             "entity_logo": "Logo de l'entitat",
             "error_updating_data_on_blockchain": "Error guardan les dades a blockchain",
             "error_updating_data_on_register_server": "Error actualitzant les deades",
-            "jpg_png_gif": "jpg, png, gif",
+            "jpg_png_gif": "(fitxer .JPG, .PNG, .GIF de 2mb max)",
             "name_of_the_entity": "Nom de l'entitat",
             "optional_introduction": "Descripció",
             "save_changes": "Guardar canvis",
