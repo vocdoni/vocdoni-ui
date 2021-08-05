@@ -267,7 +267,7 @@ export const EntityEditView = ({
         <Grid>
           <Column>
             <Typography variant={TypographyVariant.H3} margin='0 0 10px'>{i18n.t('entity.edit.entity_logo')}</Typography>
-            <Typography variant={TypographyVariant.Small}>{i18n.t('entity.edit.jpg_png_gif')}</Typography>
+            <Typography variant={TypographyVariant.ExtraSmall}>{i18n.t('entity.edit.jpg_png_gif')}</Typography>
 
             <FlexContainer alignItem={FlexAlignItem.Center}>
               <ImageContainer width='50px' height='50px'>
@@ -299,7 +299,7 @@ export const EntityEditView = ({
 
           <Column>
             <Typography variant={TypographyVariant.H3} margin='0 0 10px'>{i18n.t('entity.edit.entity_header')}</Typography>
-            <Typography variant={TypographyVariant.Small}>{i18n.t('entity.edit.jpg_png_gif')}</Typography>
+            <Typography variant={TypographyVariant.ExtraSmall}>{i18n.t('entity.edit.jpg_png_gif')}</Typography>
 
             <FlexContainer alignItem={FlexAlignItem.Center}>
               <ImageContainer width='200px' height='auto'>

@@ -111,6 +111,7 @@ export const EntityHeader = () => {
 
             <DropdownItem disableHover={true}>
               <Button
+                small
                 color={colors.accent2}
                 border={true}
                 onClick={handleDisconnectAccount}
