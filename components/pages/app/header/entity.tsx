@@ -33,12 +33,14 @@ export const EntityHeader = () => {
   const { i18n } = useTranslation()
 
   const [showLanguageSelector, setShowLanguageSelector] = useState<Boolean>(false)
-  const [{ contents: account }, setAccount ] = useRecoilStateLoadable<Account>(AccountSelector(wallet?.address))
+  const [{ contents: account }, setAccount] = useRecoilStateLoadable<Account>(AccountSelector(wallet?.address))
   // const setAccount = useSetRecoilState(AccountsState)
   const { metadata: entityMetadata } = useEntity(wallet?.address)
 
   const { show } = useHelpCenter()
   const { accepted } = useCookies()
+
+  const [menuOpened, setMenuOpened] = useState<boolean>()
 
   useEffect(() => {
     if (accepted) show()
@@ -51,8 +53,12 @@ export const EntityHeader = () => {
     es: i18n.t('supported_langs.spanish')
   }
 
+  const handleMenuOpen = (isOpen: boolean) => {
+    setMenuOpened(isOpen)
+  }
+
   const handleChangeLanguage = (language: string) => {
-    const userAccount = {...account, locale: language}
+    const userAccount = { ...account, locale: language }
 
     i18n.changeLanguage(language)
 
@@ -68,13 +74,19 @@ export const EntityHeader = () => {
   const entityPublicPath = RouterService.instance.get(PAGE_ENTITY, { entityId: wallet?.address })
 
   const menuButton = (<Button>
-    <ImageContainer width='25px' height='25px'>
-      <Image src={entityMetadata?.media?.avatar} />
-    </ImageContainer>
+    <MenuButtonWrapper>
+      <ImageContainer width='25px' height='25px'>
+        <Image src={entityMetadata?.media?.avatar} />
+      </ImageContainer>
 
-    <Typography margin='0 0 0 10px' variant={TypographyVariant.Small}>
-      {account?.name}
-    </Typography>
+      <Typography margin='0 0 0 10px' variant={TypographyVariant.Small}>
+        {account?.name}
+      </Typography>
+
+      <ArrowContainer>
+        <DownArrow opened={menuOpened} />
+      </ArrowContainer>
+    </MenuButtonWrapper>
   </Button>)
 
   const navMenu = (
@@ -84,7 +96,7 @@ export const EntityHeader = () => {
       </DropdownTitle>
 
       <DropdownSeparator />
-      
+
       <DropdownItem href={DASHBOARD_PATH}>
         <Typography variant={TypographyVariant.Small} margin='0'>{i18n.t('app.header.dashboard')}</Typography>
       </DropdownItem>
@@ -118,6 +130,7 @@ export const EntityHeader = () => {
       <DropdownItem onClick={() => setShowLanguageSelector(true)} preventClose>
         <RelativeContainer>
           <Typography variant={TypographyVariant.Small} margin='0'>{i18n.t('app.header.user_language', { lang: supportedLanguagesLocale[account?.locale] })}</Typography>
+
           <ArrowContainer>
             <NextArrow />
           </ArrowContainer>
@@ -128,6 +141,7 @@ export const EntityHeader = () => {
 
       <DropdownItem disableHover={true}>
         <Button
+          small
           color={colors.accent2}
           border={true}
           onClick={handleDisconnectAccount}
@@ -150,7 +164,7 @@ export const EntityHeader = () => {
         const langName = supportedLanguagesLocale[lang]
 
         return (
-          <div  key={lang}>
+          <div key={lang}>
             <DropdownItem onClick={() => handleChangeLanguage(lang)}>
               <Typography variant={TypographyVariant.Small} margin='0'>{langName}</Typography>
             </DropdownItem>
@@ -167,7 +181,7 @@ export const EntityHeader = () => {
     <Header hasReadyAccount={!!account}>
       <If condition={!!account}>
         <Then>
-          <Dropdown toggleButton={menuButton}>
+          <Dropdown toggleButton={menuButton} onUpdate={handleMenuOpen}>
             {showLanguageSelector ? langSelector : navMenu}
           </Dropdown>
         </Then>
@@ -181,6 +195,12 @@ export const EntityHeader = () => {
     </Header>
   )
 }
+
+const MenuButtonWrapper = styled.div`
+  padding-right: 10px;
+  display: flex;
+  align-items: center;
+`
 
 const RelativeContainer = styled.div`
   position: relative;
@@ -196,18 +216,30 @@ const BackArrow = styled.span`
   }
 `
 
+const DownArrow = styled.div<{ opened?: boolean }>`
+  margin-top: 10px;
+  transition: transform 0.5s ease;
+  transform: ${({ opened }) => opened ? 'rotate(-90deg)' : 'rotate(90deg)'};
+  
+  &:: after {
+    font-size: 22px;
+    transform: rotate(-90deg);
+    content: '>';
+}
+`
+
 const ArrowContainer = styled.div`
   position: absolute;
-  top: 0;
-  right: 0;
+  right: 9px;
+  top: 0px;
 `
 
 const NextArrow = styled.span`
-  margin-left: 10px;
-  margin-top: -4px; 
-  font-size: 20px;
+margin-left: 10px;
+margin-top: -4px;
+font-size: 20px;
 
   &::after {
-    content: '>';
-  }
+  content: '>';
+}
 `

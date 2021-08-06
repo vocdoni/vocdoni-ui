@@ -7,13 +7,20 @@ import { DropDownContext } from './dropdown-context'
 
 interface DropdownProps {
   toggleButton: ReactNode,
+  onUpdate?: (opened: boolean ) => void,
   width?: string,
   children: ReactNode
 }
 
-export const Dropdown = ({ toggleButton, width, children }: DropdownProps) => {
+export const Dropdown = ({ toggleButton, onUpdate, width, children }: DropdownProps) => {
   const [isOpened, setIsOpened] = useState<boolean>()
 
+  useEffect(() => {
+    if (onUpdate) {
+      onUpdate(isOpened)
+    }
+  }, [isOpened])
+  
   useEffect(() => {
     document.addEventListener('click', handleDomEvent)
 
