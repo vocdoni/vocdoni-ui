@@ -235,11 +235,11 @@ const ArrowContainer = styled.div`
 `
 
 const NextArrow = styled.span`
-margin-left: 10px;
-margin-top: -4px;
-font-size: 20px;
-
-  &::after {
-  content: '>';
-}
+  margin-left: 10px;
+  margin-top: -4px;
+  font-size: 20px;
+  line-height: 20px;
+    &::after {
+    content: '>';
+  }
 `

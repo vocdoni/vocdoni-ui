@@ -451,10 +451,10 @@
         "the_vote_will_start_soon": "El procés de votació començarà aviat"
     },
     "supported_langs": {
-        "catalan": "",
-        "english": "",
-        "esperanto": "",
-        "spanish": ""
+        "catalan": "Català",
+        "english": "English",
+        "esperanto": "Esperanto",
+        "spanish": "Castellano"
     },
     "vote_detail": {
         "cancel_vote": "Cancel·la la votació",
