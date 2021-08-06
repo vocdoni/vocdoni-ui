@@ -91,7 +91,7 @@ export const EntityHeader = () => {
 
   const navMenu = (
     <>
-      <DropdownTitle onClick={() => setShowLanguageSelector(true)}>
+      <DropdownTitle>
         <Typography variant={TypographyVariant.ExtraSmall} color={colors.darkLightFg} margin='0'>{i18n.t('app.header.settings')}</Typography>
       </DropdownTitle>
 
