@@ -5,7 +5,7 @@ import translation from './locales'
 
 const i18n = i18next.createInstance()
 
-export const supportedLanguages = ['ca', 'en', 'eo', 'es']
+export const supportedLanguages = ['ca', 'es', 'en']
 
 const userLang = LanguageService.getDefaultLanguage()
 
