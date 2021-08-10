@@ -18,23 +18,7 @@ export const Footer = () => {
         </Link>
       </LogoSection>
 
-      <SocialLinksSection>
-        <SocialLinkContainer href="https://www.youtube.com/channel/UCt4ZGAb5S8KKZlkdH0P7OzA" target="_blank">
-          <img src="/images/home/footer/youtube.svg" alt="Youtube" />
-        </SocialLinkContainer>
 
-        <SocialLinkContainer href="https://discord.gg/ATF2wqrx" target="_blank">
-          <img src="/images/home/footer/discord.svg" alt="Discord" />
-        </SocialLinkContainer>
-
-        <SocialLinkContainer href="https://twitter.com/vocdoni" target="_blank">
-          <img src="/images/home/footer/twitter.svg" alt="Twitter" />
-        </SocialLinkContainer>
-
-        <SocialLinkContainer href="https://t.me/vocdoni_community" target="_blank">
-          <img src="/images/home/footer/telegram.svg" alt="telegram" />
-        </SocialLinkContainer>
-      </SocialLinksSection>
 
       <LinksSection color={theme.lightText}>
         {links.map(({ url, name, external }, i) => (
@@ -47,10 +31,28 @@ export const Footer = () => {
           </NavItem>
         ))}
 
-        <Link href='https://aragon.org/' passHref>
-          <AragonLink target='_blank'><img src="/images/common/powered.svg" alt="Aragon" /></AragonLink>
-        </Link>
+        <SocialLinksSection>
+          <SocialLinkContainer href="https://www.youtube.com/channel/UCt4ZGAb5S8KKZlkdH0P7OzA" target="_blank">
+            <img src="/images/home/footer/youtube.svg" alt="Youtube" />
+          </SocialLinkContainer>
+
+          <SocialLinkContainer href="https://discord.gg/ATF2wqrx" target="_blank">
+            <img src="/images/home/footer/discord.svg" alt="Discord" />
+          </SocialLinkContainer>
+
+          <SocialLinkContainer href="https://twitter.com/vocdoni" target="_blank">
+            <img src="/images/home/footer/twitter.svg" alt="Twitter" />
+          </SocialLinkContainer>
+
+          <SocialLinkContainer href="https://t.me/vocdoni_community" target="_blank">
+            <img src="/images/home/footer/telegram.svg" alt="telegram" />
+          </SocialLinkContainer>
+        </SocialLinksSection>
       </LinksSection>
+
+      <Link href='https://aragon.org/' passHref>
+        <AragonLink target='_blank'><img src="/images/common/powered.svg" alt="Aragon" /></AragonLink>
+      </Link>
     </Container>
   )
 }
@@ -68,7 +70,7 @@ const Container = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  @media ${({ theme }) => theme.screenMax.tabletL} {
+  @media ( max-width: 1124px ){
     height: auto;
     flex-direction: column;
     position: relative;
@@ -79,8 +81,8 @@ const Container = styled.div`
 const NavItem = styled.div`
   margin-right: 30px;
 
-  @media ${({ theme }) => theme.screenMax.tabletL} {
-    text - align: center; 
+  @media ( max-width: 1124px ){
+    text-align: center; 
   }
 `
 
@@ -106,8 +108,8 @@ const Section = styled.div`
 const LogoSection = styled.div`
   margin-left: 40px;
 
-  @media ${({ theme }) => theme.screenMax.tabletL} {
-    margin: 20px auto;
+  @media ( max-width: 1124px ){
+    margin: 20px auto 0;
   }
 `
 
@@ -152,7 +154,7 @@ const AragonLink = styled.a`
     height: 32px;
   }
 
-  @media ${({ theme }) => theme.screenMax.tabletL} {
+  @media  ( max-width: 1124px ){
     margin: 20px auto;
   }
 `
