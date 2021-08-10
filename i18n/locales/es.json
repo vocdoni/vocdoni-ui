@@ -180,8 +180,9 @@
             "entity_description": "Descripcion de la entidad",
             "view_in_explorer": "Ver en el explorador"
         },
-        "i_have_read_and_accept_entity_terms": "He leído y acepto los términos y condiciones de servicio y la política de privacidad de Aragon Labs",
-        "i_have_read_and_accept_personal_data_newsletter": "Doy mi consentimiento para que Aragon Labs procese mis datos personales con el fin de suscribirme a la Newsletter de Aragon Labs, incluidos avisos comerciales e informativos. Para más información sobre el tratamiento de datos privados de Aragon Labs, así como sobre el ejercicio de derechos, consulte la política de privacidad de Aragon Labs.",
+        "i_have_read_and_accept_entity_terms": "He leído y acepto los <0>términos y condiciones de servicio</0>, la <0>política de privacidad</0> de Aragon Labs y el <0>contenido de la normativa aplicable</0> en materia de protección de datos personales.",
+        "i_have_read_and_accept_personal_data_summary": "Doy mi consentimiento para que Aragon Labs procese mis datos personales con el fin comercial e informativo. <0>Más información</0>.",
+        "i_have_read_and_accept_personal_data_extended": "Doy mi consentimiento para que Aragon Labs procese mis datos personales con el fin de suscribirme a la Newsletter de Aragon Labs, incluidos avisos comerciales e informativos. Para más información sobre el tratamiento de datos privados de Aragon Labs, así como sobre el ejercicio de derechos, consulte la política de privacidad de Aragon Labs.",
         "i_have_read_and_accept_personal_data_protection": "He sido informado, a los efectos del artículo 13 del RGPD, del contenido de la normativa aplicable en materia de protección de datos personales y el cumplimiento de las obligaciones de Aragon Labs como responsable del tratamiento, a los efectos del servicio prestado.",
         "i_have_read_and_accept_the_entity_terms": "He leído y acepto los términos y condiciones de servicio y la política de privacidad de Aragon Labs",
         "logo": "Logo de la entidad",
