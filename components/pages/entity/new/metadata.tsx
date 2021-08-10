@@ -40,6 +40,7 @@ import {
 } from '@components/elements/rounded-check'
 import { Typography, TypographyVariant } from '@components/elements/typography'
 import { SELECT_ORGANIZATION_TYPE, SELECT_ORGANIZATION_SIZE } from '../const/organizations'
+import { PRIVACY_PATH } from '@const/routes'
 
 export enum MetadataFields {
   Name = 'name',
@@ -292,7 +293,7 @@ export const FormMetadata = () => {
                 defaults={i18n.t('entity.i_have_read_and_accept_entity_terms')}
                 components={[
                   <a onClick={handleOpenEntityTermsModal} />,
-                  <a onClick={handleOpenPrivacyModal} />,
+                  <a href={PRIVACY_PATH} target='_blank' />,
                   <a onClick={handleOpenTermsModal} />,
                 ]}
               />
@@ -306,7 +307,7 @@ export const FormMetadata = () => {
                           onClick={() => methods.setPrivacy(!privacy)} />
             <Typography variant={TypographyVariant.Small} margin="0 10px">
               <Trans
-                defaults={i18n.t('entity.i_have_read_and_accept_personal_data_summary')}
+                defaults={i18n.t('entity.i_have_read_and_accept_personal_data')}
                 components={[
                   <a onClick={handleOpenPrivacyModal} />,
                 ]}
@@ -354,6 +355,9 @@ export const FormMetadata = () => {
 
 const PendingStepsContainer = styled.div`
   margin-bottom: 10px;
+  a {
+    cursor: pointer;
+  }
 `
 
 const MarginInputFormContainer = styled.div`
