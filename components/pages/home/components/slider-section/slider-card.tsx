@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
+import { useTranslation } from 'react-i18next'
 
-import i18n from '@i18n'
 import { colors } from 'theme/colors'
 
 import { PageCard } from '@components/elements/cards'
@@ -31,57 +31,61 @@ export const SliderCard = ({
   authorName,
   authorImage,
   authorPosition,
-}: ISliderCardProps) => (
-  <CardContainer>
-    <QuoteImageContainer image={backgroundImage}>
-      <img src={image} />
-    </QuoteImageContainer>
+}: ISliderCardProps) => {
+  const { i18n } = useTranslation()
 
-    <QuoteContainer>
-      <div>
-        <ImageContainer width="180px" justify={FlexJustifyContent.Start}>
-          <img src={logo} />
-        </ImageContainer>
+  return (
+    <CardContainer>
+      <QuoteImageContainer image={backgroundImage}>
+        <img src={image} />
+      </QuoteImageContainer>
 
-        <Typography
-          variant={TypographyVariant.Small}
-          color={colors.blueText}
-          margin="1.3em 0 1.3em 0"
-        >
-          {quote}
-        </Typography>
+      <QuoteContainer>
+        <div>
+          <ImageContainer width="180px" justify={FlexJustifyContent.Start}>
+            <img src={logo} />
+          </ImageContainer>
 
-        <FlexContainer>
-          <AuthorImage>
-            <img src={authorImage} alt={i18n.t('home.author_image_alt')} />
-          </AuthorImage>
-
-          <FlexContainer
-            direction={FlexDirection.Column}
-            alignItem={FlexAlignItem.Center}
+          <Typography
+            variant={TypographyVariant.Small}
+            color={colors.blueText}
+            margin="1.3em 0 1.3em 0"
           >
-            <div>
-              <Typography
-                variant={TypographyVariant.Body2}
-                margin="10px 16px"
-                color={colors.blueText}
-              >
-                {authorName}
-              </Typography>
-              <Typography
-                variant={TypographyVariant.Small}
-                margin="10px 16px"
-                color={colors.lightText}
-              >
-                {authorPosition}
-              </Typography>
-            </div>
+            {quote}
+          </Typography>
+
+          <FlexContainer>
+            <AuthorImage>
+              <img src={authorImage} alt={i18n.t('home.author_image_alt')} />
+            </AuthorImage>
+
+            <FlexContainer
+              direction={FlexDirection.Column}
+              alignItem={FlexAlignItem.Center}
+            >
+              <div>
+                <Typography
+                  variant={TypographyVariant.Body2}
+                  margin="10px 16px"
+                  color={colors.blueText}
+                >
+                  {authorName}
+                </Typography>
+                <Typography
+                  variant={TypographyVariant.Small}
+                  margin="10px 16px"
+                  color={colors.lightText}
+                >
+                  {authorPosition}
+                </Typography>
+              </div>
+            </FlexContainer>
           </FlexContainer>
-        </FlexContainer>
-      </div>
-    </QuoteContainer>
-  </CardContainer>
-)
+        </div>
+      </QuoteContainer>
+    </CardContainer>
+  )
+}
 
 const CardContainer = styled(PageCard)`
   width: 100%;

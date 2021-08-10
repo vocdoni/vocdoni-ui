@@ -1,9 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
+import { useTranslation } from 'react-i18next'
 import { CircularProgressbar } from 'react-circular-progressbar'
 import { DigestedProcessResultItem } from 'dvote-js'
 
-import i18n from '@i18n'
 import { colors } from 'theme/colors'
 
 import { Choice, Question } from '@lib/types'
@@ -22,6 +22,8 @@ export const QuestionResults = ({
   result,
   totalVotes,
 }: IQuestionResultsProps) => {
+  const { i18n } = useTranslation()
+
   const getOptionResult = (index: number): number =>
     result?.voteResults[index].votes.toNumber()
 

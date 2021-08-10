@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
+import { useTranslation } from 'react-i18next'
 
-import i18n from '@i18n'
 import { colors } from '@theme/colors'
 
 import RouterService from '@lib/router'
@@ -20,6 +20,7 @@ import { Else, If, Then } from 'react-if'
 import { HelpText } from '@components/blocks/help-text'
 
 export const ProcessReady = () => {
+  const { i18n } = useTranslation()
   useScrollTop()
   const { processId, metadata } = useProcessCreation()
 

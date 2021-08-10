@@ -1,7 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-
-import i18n from '@i18n'
+import { useTranslation } from 'react-i18next'
 
 import { SectionText, SectionTitle, TextAlign } from '@components/elements/text'
 import { PageCardHeader } from '@components/elements/cards'
@@ -24,6 +23,8 @@ export const CardImageHeader = ({
   entityImage,
   processImage,
 }: ICardImageHeader) => {
+  const { i18n } = useTranslation()
+
   const headerImageSrc = processImage || FALLBACK_VOTE_HEADER_IMAGE
   const entityImageSrc = entityImage || FALLBACK_ACCOUNT_ICON
 

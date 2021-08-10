@@ -39,7 +39,6 @@ const EntityEditPage = () => {
     const oldName = account.name
 
     account.name = registryData.name
-    
     try {
       await updateAccount(account)
     } catch (error) {

@@ -1,9 +1,7 @@
 import React, { MouseEvent, ReactNode, useState } from 'react'
 import styled from 'styled-components'
 import Link from 'next/link'
-import { Else, If, Then, Unless } from 'react-if'
-
-import i18n from '@i18n'
+import { Unless } from 'react-if'
 
 import { DASHBOARD_PATH } from '@const/routes'
 
@@ -12,59 +10,8 @@ import { useIsMobile } from '@hooks/use-window-size'
 
 import { sizes } from '../../../../theme/sizes'
 import { Typography, TypographyVariant } from '@components/elements/typography'
+import { useTranslation } from 'react-i18next'
 
-export const LINKS: HeaderLink[] = [
-  {
-    url: DASHBOARD_PATH,
-    name: i18n.t("links.dashboard"),
-    external: false,
-    logged: true,
-    guest: false
-  },
-  {
-    url: 'https://blog.vocdoni.io',
-    name: i18n.t("links.blog"),
-    external: true,
-    logged: true,
-    guest: true
-  },
-  // {
-  //   url: PRICING_PATH,
-  //   name: i18n.t("links.pricing"),
-  //   external: false,
-  //   logged: false,
-  //   guest: true
-  // },
-  {
-    url: 'https://docs.vocdoni.io',
-    name: i18n.t("links.docs"),
-    external: true,
-    logged: true,
-    guest: true
-  },
-  {
-    // url: ABOUT_PATH,
-    url: "https://vocdoni.io",
-    name: i18n.t("links.about"),
-    external: false,
-    logged: false,
-    guest: true
-  },
-  {
-    url: 'https://help.aragon.org/collection/54-vocdoni-user-guide',
-    name: i18n.t("links.help"),
-    external: true,
-    logged: true,
-    guest: true
-  },
-  {
-    url: 'https://discord.gg/sQCxgYs',
-    name: i18n.t("links.support"),
-    external: true,
-    logged: false,
-    guest: false
-  },
-]
 
 interface IHeaderProps {
   hasReadyAccount: boolean
@@ -73,7 +20,61 @@ interface IHeaderProps {
 
 export const Header = ({ hasReadyAccount, children }: IHeaderProps) => {
   const isMobile = useIsMobile()
+  const { i18n } = useTranslation()
   const [openMobileMenu, setOpenMobileMenu] = useState(false);
+
+  const LINKS: HeaderLink[] = [
+    {
+      url: DASHBOARD_PATH,
+      name: i18n.t("links.dashboard"),
+      external: false,
+      logged: true,
+      guest: false
+    },
+    {
+      url: 'https://blog.vocdoni.io',
+      name: i18n.t("links.blog"),
+      external: true,
+      logged: true,
+      guest: true
+    },
+    // {
+    //   url: PRICING_PATH,
+    //   name: i18n.t("links.pricing"),
+    //   external: false,
+    //   logged: false,
+    //   guest: true
+    // },
+    {
+      url: 'https://docs.vocdoni.io',
+      name: i18n.t("links.docs"),
+      external: true,
+      logged: true,
+      guest: true
+    },
+    {
+      // url: ABOUT_PATH,
+      url: "https://vocdoni.io",
+      name: i18n.t("links.about"),
+      external: false,
+      logged: false,
+      guest: true
+    },
+    {
+      url: 'https://help.aragon.org/collection/54-vocdoni-user-guide',
+      name: i18n.t("links.help"),
+      external: true,
+      logged: true,
+      guest: true
+    },
+    {
+      url: 'https://discord.gg/sQCxgYs',
+      name: i18n.t("links.support"),
+      external: true,
+      logged: false,
+      guest: false
+    },
+  ]
 
   const links = hasReadyAccount ? LINKS.filter(link => link.logged) : LINKS.filter(link => link.guest)
 
@@ -88,7 +89,7 @@ export const Header = ({ hasReadyAccount, children }: IHeaderProps) => {
           <MenuItemsContainer>
             <Unless condition={isMobile}>
               {links.map((link) => (
-                <LinkItem {...link} key={link.name} >{link.name}</LinkItem>
+                <LinkItem {...link} key={link.name}>{link.name}</LinkItem>
               ))}
             </Unless>
           </MenuItemsContainer>

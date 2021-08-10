@@ -1,4 +1,4 @@
-import React, { useContext, ReactNode } from 'react'
+import React, { useContext, ReactNode, MouseEvent } from 'react'
 import Link from 'next/link'
 import styled from 'styled-components'
 
@@ -11,15 +11,17 @@ interface DropdownItemProps {
   href?: string
   target?: '_blank' | '_self' | '_parent'
   disableHover?: boolean
+  preventClose?: boolean
 }
 
 
-export const DropdownItem = ({ children, href, target, disableHover, onClick }: DropdownItemProps) => {
+export const DropdownItem = ({ children, href, target, disableHover, preventClose, onClick }: DropdownItemProps) => {
   const { onClickElement } = useContext(DropDownContext)
   
-  const handleClick = () => {
+  const handleClick = (event: MouseEvent) => {
+    // if (preventClose) event.stopPropagation()
     if (onClick) onClick()
-    if (onClickElement) onClickElement()
+    if (onClickElement && !preventClose) onClickElement()
   }
 
   return href ?
@@ -40,6 +42,7 @@ export const DropdownItem = ({ children, href, target, disableHover, onClick }: 
 
 export const DropdownItemDivContainer = styled.div<{ hasHover?: boolean }>`
   padding: 16px 15px;
+  min-width: 200px;
   
   cursor: ${({ hasHover, theme }) => hasHover ? 'pointer' : 'default'};
   ${({ hasHover, theme }) => hasHover ? `&:hover { background-color: ${theme.lightBg}};` : ''}

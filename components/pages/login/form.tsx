@@ -2,8 +2,8 @@ import React, { ChangeEvent, useState, FormEvent, useEffect } from 'react'
 import { OptionTypeBase } from 'react-select'
 import styled from 'styled-components'
 import Link from 'next/link'
+import { useTranslation } from 'react-i18next'
 
-import i18n from '../../../i18n'
 
 import { Account } from '../../../lib/types'
 import { ACCOUNT_RECOVER_PATH } from '../../../const/routes'
@@ -27,6 +27,7 @@ export const SignInForm = ({
   disabled,
   onSubmit,
 }: SignInFormProps) => {
+  const { i18n } = useTranslation()
   const { poolPromise } = usePool()
   const [passphrase, setPassphrase] = useState<string>('')
   const [account, setAccount] = useState<Account>(accounts[0])

@@ -1,10 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
-import { withRouter } from 'next/router'
+import { useTranslation } from 'react-i18next'
 
 import { Button } from '../components/elements/button'
 import { useIsMobile } from '../hooks/use-window-size'
-import i18n from '../i18n'
 import { CREATE_ACCOUNT_PATH } from '@const/routes'
 import {
   TextAlign,
@@ -27,6 +26,7 @@ import { sizes } from 'theme/sizes'
 
 // MAIN COMPONENT
 const IndexPage = () => {
+  const { i18n } = useTranslation()
   const isMobile = useIsMobile()
 
   return (

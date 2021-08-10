@@ -7,12 +7,20 @@ import { DropDownContext } from './dropdown-context'
 
 interface DropdownProps {
   toggleButton: ReactNode,
+  onUpdate?: (opened: boolean ) => void,
+  width?: string,
   children: ReactNode
 }
 
-export const Dropdown = ({ toggleButton, children }: DropdownProps) => {
+export const Dropdown = ({ toggleButton, onUpdate, width, children }: DropdownProps) => {
   const [isOpened, setIsOpened] = useState<boolean>()
 
+  useEffect(() => {
+    if (onUpdate) {
+      onUpdate(isOpened)
+    }
+  }, [isOpened])
+  
   useEffect(() => {
     document.addEventListener('click', handleDomEvent)
 
@@ -41,7 +49,7 @@ export const Dropdown = ({ toggleButton, children }: DropdownProps) => {
     </div>
 
     {isOpened && (
-      <DropdownItemsContainer>
+      <DropdownItemsContainer width={width}>
         <DropDownContext.Provider value={{ onClickElement: handleClick }}>
           {children}
         </DropDownContext.Provider>
@@ -50,13 +58,17 @@ export const Dropdown = ({ toggleButton, children }: DropdownProps) => {
   </DropdownWrapper>
 }
 
-
 const DropdownWrapper = styled.div`
   position: relative
 `
 
-const DropdownItemsContainer = styled(CardDiv)`
+const DropdownItemsContainer = styled.div<{width: string}>`
   position: absolute;
+  padding: 11px 20px;
+  width: ${({ width }) => width? width: 'auto'};
+  background: ${(props) => props.theme.white};
+  border: ${({ theme }) =>`solid 2px ${theme.lightBorder}`};
+  box-shadow: 0px 3px 3px rgba(180, 193, 228, 0.35);
   border-radius: 12px;
   margin-top: 10px;
   min-width: 250px;

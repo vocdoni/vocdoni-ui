@@ -1,6 +1,5 @@
 import React from 'react'
-
-import i18n from '@i18n'
+import { useTranslation } from 'react-i18next'
 
 import { Banner } from '@components/blocks/banners'
 import { ImageContainer } from '@components/elements/images'
@@ -11,6 +10,7 @@ interface IVoteRegisteredCardProps {
 }
 
 export const VoteRegisteredCard = ({ explorerLink }: IVoteRegisteredCardProps) => {
+  const { i18n } = useTranslation()
   return (
     <Grid>
       <Banner

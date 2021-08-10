@@ -1,7 +1,7 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { Card } from '@components/elements/cards'
-import i18n from '@i18n'
 import {
   LinkTarget,
 } from '@components/elements/button'
@@ -16,6 +16,7 @@ interface iCsvParams {
 }
 
 export const DownloadCsvTemplateCard = () => {
+  const { i18n } = useTranslation()
   const generateCsvExample = (csvParams: iCsvParams): string => {
     let binaryData = 'data:application/csv,'
 

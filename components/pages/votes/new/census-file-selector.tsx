@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import FileSelector from 'react-rainbow-components/components/FileSelector'
 import styled from 'styled-components'
+import { useTranslation } from 'react-i18next'
 
 import { SpreadSheetReader } from '@lib/spread-sheet-reader'
-import i18n from '@i18n'
 
 const containerStyles = {
   height: 385,
@@ -15,6 +15,7 @@ interface ICensusFileSelector {
 }
 
 export const CensusFileSelector = ({onXlsLoad}:ICensusFileSelector) => {
+  const { i18n } = useTranslation()
   const [invalidFileType, setInvalidFileType] = useState<string | null>()
 
   const handleChange = (files: FileList) => {

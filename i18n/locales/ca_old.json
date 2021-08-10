@@ -27,7 +27,8 @@
         "your_vote_has_been_successfully_registered": "El teu vot ha estat registrat correctament",
         "login_with_your_credentials_to_access_the_process": "Inicia sessió per consultar els resultats de la votació",
         "ask_questions_to_the_organizers": "Pregunta als organitzadors",
-        "check_the_documentation": "Consulta la documentació"
+        "check_the_documentation": "Consulta la documentació",
+        "login_with_your_credentials_to_access_the_process": "Inicia sessió per consultar els resultats de la votació"
     },
     "votes": {
         "number_votes": "",

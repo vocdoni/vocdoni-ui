@@ -1,8 +1,8 @@
 import React from 'react'
 import { EntityMetadata } from 'dvote-js'
+import { useTranslation } from 'react-i18next'
 import { If, Then } from 'react-if'
 
-import i18n from '@i18n'
 
 import { FALLBACK_ACCOUNT_ICON } from '@const/account'
 import { ACCOUNT_BACKUP_PATH, CREATE_PROCESS_PATH } from '@const/routes'
@@ -19,6 +19,8 @@ interface IDashboardHeaderProps {
 }
 
 export const DashboardHeader = ({ entity, hasBackup }: IDashboardHeaderProps) => {
+  const { i18n } = useTranslation()
+
   const createProposalButton = (
     <Button href={CREATE_PROCESS_PATH} positive>
       {i18n.t('dashboard.create_new_proposal')}

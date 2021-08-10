@@ -1,10 +1,9 @@
-
 import React, { ChangeEvent, useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
 import { useEntityCreation } from '@hooks/entity-creation'
 import { Column, Grid } from '@components/elements/grid'
-import i18n from '@i18n'
 import { Button } from '@components/elements/button'
 
 import { useMessageAlert } from '@hooks/message-alert'
@@ -55,6 +54,7 @@ export enum MetadataFields {
 }
 
 export const FormMetadata = () => {
+  const { i18n } = useTranslation()
   useScrollTop()
   const {
     name,

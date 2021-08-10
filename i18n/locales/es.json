@@ -17,9 +17,11 @@
             "dashboard": "Dashboard",
             "disconnect_account": "Cerrar session",
             "help_and_feedback": "Ayuda y feedback",
+            "language": "Idioma",
             "public_page": "Página publica",
             "settings": "Herramientas",
-            "update_entity": "Actualizar entidad"
+            "update_entity": "Actualizar entidad",
+            "user_language": "Idioma: {{ lang }}"
         }
     },
     "backup": {
@@ -449,6 +451,12 @@
         "the_vote_is_open_for_voting": "El proceso de votación está abierto",
         "the_vote_is_paused": "El proceso de votación está parado",
         "the_vote_will_start_soon": "El proceso de votación empezará pronto"
+    },
+    "supported_langs": {
+        "catalan": "Català",
+        "english": "English",
+        "esperanto": "Esperanto",
+        "spanish": "Castellano"
     },
     "vote_detail": {
         "cancel_vote": "Cancelar la votación",

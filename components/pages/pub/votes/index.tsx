@@ -1,13 +1,12 @@
 import React, { useState } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
+import { useTranslation } from 'react-i18next'
 import {
   useEntity,
   useBlockHeight,
   useBlockStatus,
   useProcess,
 } from '@vocdoni/react-hooks'
-
-import i18n from '@i18n'
 
 import { Question } from '@lib/types'
 import { useVoting } from '@hooks/use-voting'
@@ -34,6 +33,7 @@ import { overrideTheme } from 'theme'
 import { Body1, TextAlign } from '@components/elements/typography'
 
 export const VotingPageView = () => {
+  const { i18n } = useTranslation()
   const processId = useUrlHash().slice(1) // Skip "/"
   const { methods, choices, allQuestionsChosen, hasVoted, results, nullifier } =
     useVoting(processId)

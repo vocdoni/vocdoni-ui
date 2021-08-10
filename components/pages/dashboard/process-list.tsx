@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { Account } from '@lib/types'
 import { EntityMetadata } from 'dvote-js';
 import { SummaryProcess } from '@vocdoni/react-hooks'
+import { useTranslation } from 'react-i18next';
 
-import i18n from '../../../i18n'
 import { Column, Grid } from '../../elements/grid'
 import { VoteStatus } from '@lib/util'
 import { Skeleton } from '../../blocks/skeleton'
@@ -47,6 +47,8 @@ export const DashboardProcessList = ({
   loading,
   skeletonItems = 3,
 }: IDashboardProcessListProps) => {
+  const { i18n } = useTranslation()
+
   const navItems: Map<ProcessTypes, IProcessItem> = new Map([
     [
       ProcessTypes.ActiveVotes,
