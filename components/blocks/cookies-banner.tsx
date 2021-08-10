@@ -73,6 +73,10 @@ const TextContainer = styled.div`
 const ButtonsContainer = styled.div`
   min-width: 120px;
   padding: 10px;
+
+  @media ${({ theme }) => theme.screenMax.mobileM} {
+    padding: 0;
+  }
 `
 
 const SpacedContainer = styled.div`
