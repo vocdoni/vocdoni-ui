@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { Else, If, Then } from 'react-if'
 import { useEntity } from '@vocdoni/react-hooks'
 import { useTranslation } from 'react-i18next';
+import { useRecoilStateLoadable } from 'recoil'
+import styled from 'styled-components'
 
-import i18n, { supportedLanguages } from '@i18n'
+import { supportedLanguages } from '@i18n'
 
 import { useWallet } from '@hooks/use-wallet'
 import { useHelpCenter } from '@hooks/help-center'
@@ -20,13 +22,12 @@ import { useCookies } from '@hooks/cookies'
 import { colors } from '@theme/colors'
 import RouterService from '@lib/router'
 
-import { Header } from './header'
-import { useRecoilStateLoadable } from 'recoil'
-import { AccountSelector } from 'recoil/selectors/account'
-import styled from 'styled-components'
+import { AccountSelector } from '@recoil/selectors/account'
 import { FlexAlignItem, FlexContainer } from '@components/elements/flex'
 import { Account } from '@lib/types'
 import { LanguageService } from '@lib/language-service';
+
+import { Header } from './header'
 
 export const EntityHeader = () => {
   const { wallet, setWallet } = useWallet()

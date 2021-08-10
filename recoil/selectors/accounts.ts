@@ -4,10 +4,9 @@ import { selector } from "recoil"
 
 export const AccountsSelector = selector<Account[]>({
   key: "accountsSelector",
-  get: async () => {
+  get: () => {
     const db = new AccountDb()
-    const accounts = await db.read()
 
-    return accounts;
+    return db.read();
   }
 })

@@ -1,5 +1,5 @@
 import { atom } from "recoil";
-import { entityRegistrySelector } from "recoil/selectors/entity-registry";
+import { entityRegistrySelector } from "@recoil/selectors/entity-registry";
 
 export interface IEntityRegistryState {
   name: string,
