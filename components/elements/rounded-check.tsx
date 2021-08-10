@@ -11,11 +11,12 @@ export enum RoundedCheckSize {
 interface IRoundedCheckProps {
   checked?: boolean
   size?: RoundedCheckSize
+  onClick?: (ev: React.MouseEvent<HTMLDivElement, MouseEvent>) => void
 }
 
-export const RoundedCheck = ({ checked }: IRoundedCheckProps) => {
+export const RoundedCheck = ({ checked, onClick }: IRoundedCheckProps) => {
   return checked ? (
-    <Check>
+    <Check onClick={onClick} >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
@@ -31,7 +32,7 @@ export const RoundedCheck = ({ checked }: IRoundedCheckProps) => {
       </svg>
     </Check>
   ) : (
-    <EmptyCheck></EmptyCheck>
+      <EmptyCheck onClick={onClick} />
   )
 }
 

@@ -179,7 +179,7 @@ export const FormMetadata = () => {
   }
 
   return (
-    
+
     <Grid>
       <Column md={6}>
         <InputFormGroup
@@ -224,8 +224,8 @@ export const FormMetadata = () => {
           options={SELECT_ORGANIZATION_TYPE}
           onChange={methods.setEntityType}
         />
-      </Column>      
-  
+      </Column>
+
       <Column md={6}>
         <SelectFormGroup
           label={i18n.t('entity.entity_size')}
@@ -235,7 +235,7 @@ export const FormMetadata = () => {
           options={SELECT_ORGANIZATION_SIZE}
           onChange={methods.setEntitySize}
         />
-      </Column>      
+      </Column>
 
       <Column>
         <TextareaFormGroup
@@ -284,37 +284,33 @@ export const FormMetadata = () => {
         <Typography>{i18n.t('entity.pending_steps')}</Typography>
 
         <PendingStepsContainer>
-          <FlexContainer
-            alignItem={FlexAlignItem.Center}
-            onClick={handleOpenPrivacyModal}
-          >
-            <RoundedCheck size={RoundedCheckSize.Small} checked={privacy} />
+          <FlexContainer alignItem={FlexAlignItem.Center}>
+            <RoundedCheck size={RoundedCheckSize.Small} checked={terms}
+                          onClick={() => methods.setTerms(!terms)} />
             <Typography variant={TypographyVariant.Small} margin="0 10px">
-              {i18n.t('entity.i_have_read_and_accept_personal_data_protection')}
+              <Trans
+                defaults={i18n.t('entity.i_have_read_and_accept_entity_terms')}
+                components={[
+                  <a onClick={handleOpenEntityTermsModal} />,
+                  <a onClick={handleOpenPrivacyModal} />,
+                  <a onClick={handleOpenTermsModal} />,
+                ]}
+              />
             </Typography>
           </FlexContainer>
         </PendingStepsContainer>
 
         <PendingStepsContainer>
-          <FlexContainer
-            alignItem={FlexAlignItem.Center}
-            onClick={handleOpenTermsModal}
-          >
-            <RoundedCheck size={RoundedCheckSize.Small} checked={terms} />
+          <FlexContainer alignItem={FlexAlignItem.Center}>
+            <RoundedCheck size={RoundedCheckSize.Small} checked={privacy}
+                          onClick={() => methods.setPrivacy(!privacy)} />
             <Typography variant={TypographyVariant.Small} margin="0 10px">
-              {i18n.t('entity.i_have_read_and_accept_personal_data_newsletter')}
-            </Typography>
-          </FlexContainer>
-        </PendingStepsContainer>
-
-        <PendingStepsContainer>
-          <FlexContainer
-            alignItem={FlexAlignItem.Center}
-            onClick={handleOpenEntityTermsModal}
-          >
-            <RoundedCheck size={RoundedCheckSize.Small} checked={entityTerms} />
-            <Typography variant={TypographyVariant.Small} margin="0 10px">
-              {i18n.t('entity.i_have_read_and_accept_entity_terms')}
+              <Trans
+                defaults={i18n.t('entity.i_have_read_and_accept_personal_data_summary')}
+                components={[
+                  <a onClick={handleOpenPrivacyModal} />,
+                ]}
+              />
             </Typography>
           </FlexContainer>
         </PendingStepsContainer>
@@ -324,20 +320,8 @@ export const FormMetadata = () => {
         <FlexContainer justify={FlexJustifyContent.End}>
           <Switch>
             <Case condition={!terms}>
-              <Button positive onClick={handleOpenTermsModal}>
+              <Button disabled>
                 {i18n.t('action.check_terms_and_conditions')}
-              </Button>
-            </Case>
-
-            <Case condition={!entityTerms}>
-              <Button positive onClick={handleOpenEntityTermsModal}>
-                {i18n.t('action.check_terms_and_conditions')}
-              </Button>
-            </Case>
-
-            <Case condition={!privacy}>
-              <Button positive onClick={handleOpenPrivacyModal}>
-                {i18n.t('action.check_privacy_policy')}
               </Button>
             </Case>
 
