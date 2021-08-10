@@ -75,6 +75,7 @@ const BaseSpinner = styled.div<{ checkSize?: RoundedCheckSize }>`
 const Check = styled(BaseSpinner)`
   background-color: ${({ theme }) => theme.accent1};
   color: ${({ theme }) => theme.white};
+  border: 2px solid ${({ theme }) => theme.accent1};
 `
 
 const EmptyCheck = styled(BaseSpinner)`

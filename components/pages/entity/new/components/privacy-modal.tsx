@@ -31,22 +31,8 @@ export const PrivacyModal = ({
         <Privacy lang={lang} />
 
         <PaddedContainer>
-          <FlexContainer alignItem={FlexAlignItem.Center}>
-            <Checkbox
-              id="Privacy-check"
-              checked={privacy}
-              onChange={() => methods.setPrivacy(!privacy)}
-              text={i18n.t(
-                'entity.i_have_read_and_accept_personal_data_protection'
-              )}
-              hrefNewTab
-            />
-          </FlexContainer>
-        </PaddedContainer>
-
-        <PaddedContainer>
           <FlexContainer justify={FlexJustifyContent.Center}>
-            <Button positive disabled={!privacy} onClick={onClosePrivacy}>
+            <Button positive onClick={onClosePrivacy}>
               {i18n.t('entity.accept_Privacy')}
             </Button>
           </FlexContainer>
@@ -57,6 +43,7 @@ export const PrivacyModal = ({
 }
 
 const PaddedContainer = styled.div`
+  padding-top: 12px;
   margin-bottom: 20px;
 `
 
