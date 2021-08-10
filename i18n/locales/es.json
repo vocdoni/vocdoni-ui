@@ -170,7 +170,7 @@
             "entity_description": "Descripcion de la entidad",
             "view_in_explorer": "Ver en el explorador"
         },
-        "i_have_read_and_accept_entity_terms": "He leído y acepto los <0>términos y condiciones de servicio</0>, la <1>política de privacidad</1> de Aragon Labs y el <2>contenido de la normativa aplicable</2> en materia de protección de datos personales.",
+        "i_have_read_and_accept_terms": "He leído y acepto los <0>términos y condiciones de servicio</0>, la <1>política de privacidad</1> de Aragon Labs y el <2>contenido de la normativa aplicable</2> en materia de protección de datos personales.",
         "i_have_read_and_accept_personal_data": "(Opcional) Doy mi consentimiento para que Aragon Labs procese mis datos personales con el fin comercial e informativo. <0>Más información</0>.",
         "logo": "Logo de la entidad",
         "name": "Nombre de la entidad",

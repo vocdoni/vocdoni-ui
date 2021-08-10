@@ -22,7 +22,6 @@ export const PrivacyModal = ({
   onClosePrivacy,
 }: IPrivacyModalProps) => {
   const { i18n } = useTranslation()
-  const {privacy, methods} = useEntityCreation()
   const lang = i18n.language
 
   return (
