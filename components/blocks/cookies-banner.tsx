@@ -2,15 +2,10 @@ import i18n from '@i18n'
 import React from 'react'
 import Link from 'next/link'
 
-import { COOKIES_PATH, VOTING_PATH } from '@const/routes'
+import { COOKIES_PATH } from '@const/routes'
 
 import { Button } from '@components/elements/button'
 import { Typography, TypographyVariant } from '@components/elements/typography'
-import {
-  FlexAlignItem,
-  FlexContainer,
-  FlexJustifyContent,
-} from '@components/elements/flex'
 
 import styled from 'styled-components'
 import { sizes } from 'theme/sizes'
@@ -24,11 +19,8 @@ export const CookiesBanner = () => {
   return (
     <If condition={showCookiesBanner}>
       <CookiesContainer>
-        <TextContainer>
-          <FlexContainer
-            alignItem={FlexAlignItem.Center}
-            justify={FlexJustifyContent.SpaceAround}
-          >
+        <CookiesBannerContent>
+          <TextContainer>
             <SpacedContainer>
               <Typography variant={TypographyVariant.ExtraSmall}>
                 {i18n.t('cookies.cookies_paragraph_1')}
@@ -41,25 +33,35 @@ export const CookiesBanner = () => {
                 </Link>
               </Typography>
             </SpacedContainer>
+          </TextContainer>
 
+          <ButtonsContainer>
             <SpacedContainer>
-              <Button positive onClick={acceptCookies}>
+              <Button positive onClick={acceptCookies} wide>
                 {i18n.t('cookies.accept')}
               </Button>
             </SpacedContainer>
 
             <SpacedContainer>
-              <Button border onClick={rejectCookies}>
+              <Button border onClick={rejectCookies} wide>
                 {i18n.t('cookies.reject')}
               </Button>
             </SpacedContainer>
-          </FlexContainer>
-        </TextContainer>
+          </ButtonsContainer>
+        </CookiesBannerContent>
       </CookiesContainer>
     </If>
   )
 }
 
+const CookiesBannerContent = styled.div`
+  display: flex;
+  flex-direction: row;
+
+  @media ${({ theme }) => theme.screenMax.mobileM} {
+    flex-direction: column;
+  }
+`
 const TextContainer = styled.div`
   max-width: ${sizes.laptopL * 0.8}px;
   margin: auto;
@@ -68,8 +70,13 @@ const TextContainer = styled.div`
     padding-right: 10px;
   }
 `
+const ButtonsContainer = styled.div`
+  min-width: 120px;
+  padding: 10px;
+`
+
 const SpacedContainer = styled.div`
-  margin-left: 14px;
+  margin-bottom: 12px;
 `
 
 const CookiesContainer = styled.div`
@@ -78,6 +85,6 @@ const CookiesContainer = styled.div`
   right: 0;
   left: 0;
   z-index: 1;
-  padding: 10px 0;
+  padding: 10px 20px;
   background-color: ${({ theme }) => theme.white};
 `
