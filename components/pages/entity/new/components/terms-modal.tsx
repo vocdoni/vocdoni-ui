@@ -37,7 +37,7 @@ export const TermsModal = ({
               checked={terms}
               onChange={() => methods.setTerms(!terms)}
               text={i18n.t(
-                'entity.i_have_read_and_accept_personal_data_newsletter'
+                'entity.i_have_read_and_accept_personal_data_extended'
               )}
               hrefNewTab
             />

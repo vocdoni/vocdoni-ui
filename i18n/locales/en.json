@@ -180,7 +180,7 @@
             "entity_description": "Entity description",
             "view_in_explorer": "View in explorer"
         },
-        "i_have_read_and_accept_entity_terms": "I have read and accept the <0>terms and conditions of service</0>, the Aragon Labs <0>privacy policy</0> and the <0>contents of the applicable regulation</0> on the protection of personal data.",
+        "i_have_read_and_accept_entity_terms": "I have read and accept the <0>terms and conditions of service</0>, the Aragon Labs <1>privacy policy</1> and the <2>contents of the applicable regulation</2> on the protection of personal data.",
         "i_have_read_and_accept_personal_data_summary": "I consent that my personal data is processed by Aragon Labs for commercial and informative notices. <0>More info</0>.",
         "i_have_read_and_accept_personal_data_extended": "I consent that my personal data is processed by Aragon Labs for the purpose of subscribing to the Aragon Labs Newsletter, including commercial and informative notices. For more information on Aragon Labs processes private data, as well as regarding the exercise of rights, please consult Aragon Labs privacy policy.",
         "i_have_read_and_accept_personal_data_protection": " I have been informed, for the purpose of article 13 of GDPR, of the contents of the applicable regulations on protection of personal data and the fulfilment of obligations of Aragon Labs as data controller, for the purposes of the service provided.",
