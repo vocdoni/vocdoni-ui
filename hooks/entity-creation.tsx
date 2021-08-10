@@ -49,8 +49,7 @@ export interface EntityCreationContext {
   headerFile: File
   passphrase: string
   terms: boolean
-  entityTerms: boolean
-  privacy: boolean
+  consent: boolean
   entityType: ISelectOption
   entitySize: ISelectOption
 
@@ -69,8 +68,7 @@ export interface EntityCreationContext {
     setLogoUrl(logoUrl: string): void
     setPassphrase(passphrase: string): void
     setTerms(terms: boolean): void
-    setEntityTerms(terms: boolean): void
-    setPrivacy(privacy: boolean): void
+    setConsent(consent: boolean): void
     setEntityType(entityType: ISelectOption): void
     setEntitySize(entitySize: ISelectOption): void
     createEntity(): void
@@ -119,10 +117,9 @@ export const UseEntityCreationProvider = ({
   const [headerUrl, setHeaderUrl] = useState<string>('')
   const [headerFile, setHeaderFile] = useState<File>()
   const [terms, setTerms] = useState<boolean>(false)
-  const [entityTerms, setEntityTerms] = useState<boolean>(false)
   const [entityType, setEntityType] = useState<ISelectOption>()
   const [entitySize, setEntitySize] = useState<ISelectOption>()
-  const [privacy, setPrivacy] = useState<boolean>(false)
+  const [consent, setConsent] = useState<boolean>(false)
   // const { setAlertMessage } = useMessageAlert()
 
   // UI STATE
@@ -291,6 +288,7 @@ export const UseEntityCreationProvider = ({
             entity: {
               name: account.name,
               email: account.pending.email,
+              consent: consent,
               type: entityType?.value,
               size: entitySize?.value
             },
@@ -404,8 +402,7 @@ export const UseEntityCreationProvider = ({
     headerFile,
     passphrase,
     terms,
-    entityTerms,
-    privacy,
+    consent,
     entitySize,
     entityType,
 
@@ -423,8 +420,7 @@ export const UseEntityCreationProvider = ({
       setHeaderUrl,
       setHeaderFile,
       setTerms,
-      setEntityTerms,
-      setPrivacy,
+      setConsent,
       setEntitySize,
       setEntityType,
       continuePendingProcessCreation,

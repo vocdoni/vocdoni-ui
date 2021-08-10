@@ -49,7 +49,7 @@ export enum MetadataFields {
   Header = 'header',
   Logo = 'logo',
   Terms = 'terms',
-  Privacy = 'privacy',
+  Consent = 'consent',
   EntityType = 'entity-type',
   EntitySize = 'entity-size'
 }
@@ -66,8 +66,7 @@ export const FormMetadata = () => {
     headerFile,
     headerUrl,
     terms,
-    entityTerms,
-    privacy,
+    consent,
     entityType,
     entitySize,
     methods,
@@ -97,7 +96,7 @@ export const FormMetadata = () => {
         url: logoUrl,
       },
       [MetadataFields.Terms]: terms,
-      [MetadataFields.Privacy]: privacy,
+      [MetadataFields.Consent]: consent,
     }
 
     setMetadataErrors(entityMetadataValidator(metadata))
@@ -109,7 +108,7 @@ export const FormMetadata = () => {
     logoUrl,
     headerFile,
     headerUrl,
-    terms && privacy,
+    terms && consent,
   ])
 
   const dirtyAllFields = () => {
@@ -290,7 +289,7 @@ export const FormMetadata = () => {
                           onClick={() => methods.setTerms(!terms)} />
             <Typography variant={TypographyVariant.Small} margin="0 10px">
               <Trans
-                defaults={i18n.t('entity.i_have_read_and_accept_entity_terms')}
+                defaults={i18n.t('entity.i_have_read_and_accept_terms')}
                 components={[
                   <a onClick={handleOpenEntityTermsModal} />,
                   <a href={PRIVACY_PATH} target='_blank' />,
@@ -303,8 +302,8 @@ export const FormMetadata = () => {
 
         <PendingStepsContainer>
           <FlexContainer alignItem={FlexAlignItem.Center}>
-            <RoundedCheck size={RoundedCheckSize.Small} checked={privacy}
-                          onClick={() => methods.setPrivacy(!privacy)} />
+            <RoundedCheck size={RoundedCheckSize.Small} checked={consent}
+                          onClick={() => methods.setConsent(!consent)} />
             <Typography variant={TypographyVariant.Small} margin="0 10px">
               <Trans
                 defaults={i18n.t('entity.i_have_read_and_accept_personal_data')}

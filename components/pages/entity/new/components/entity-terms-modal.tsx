@@ -22,7 +22,6 @@ export const EntityTermsModal = ({
   onCloseEntityTerms,
 }: IEntityTermsModalProps) => {
   const { i18n } = useTranslation()
-  const {entityTerms, methods} = useEntityCreation()
   const lang = i18n.language
 
   return (
