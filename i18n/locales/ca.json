@@ -458,13 +458,14 @@
     },
     "vote_detail": {
         "cancel_vote": "Cancel·la la votació",
+        "details": "Detalls",
         "end_vote": "Finalitza la votació",
         "generate_pdf": "",
         "generate_pdf_with_results": "Crea un PDF amb els resultats",
+        "link": "Enllaç",
+        "results": "Resultats",
         "view_and_manage_the_status_of_the_process": "Visualitza i gestiona l'estat del procés",
-        "vote_details": "Detalls del procés de votació",
-        "vote_link": "Enllaç del procés de votació",
-        "vote_results": "Resultats del procés votació"
+        "vote_details": "Detalls del procés de votació"
     },
     "vote_question_card": {
         "no_results_available": "Resultats no estan disponibles",
