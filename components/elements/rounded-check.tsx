@@ -39,11 +39,11 @@ const RoundedCheckVariantStyle = {
   [RoundedCheckSize.Small]: (theme: DefaultTheme) => `
   width: 18px;
   height: 18px;
-  
+
   & > svg {
     width: 14px;
     margin: 3px;
-  }  
+  }
   `,
   [RoundedCheckSize.Regular]: (theme: DefaultTheme) => `
     width: 22px;
@@ -52,7 +52,7 @@ const RoundedCheckVariantStyle = {
     & > svg {
       width: 16px;
       margin: 3px;
-    }  
+    }
   `,
   [RoundedCheckSize.Big]: (theme: DefaultTheme) => `
     width: 26px;
