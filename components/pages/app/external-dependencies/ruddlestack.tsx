@@ -1,8 +1,9 @@
-import React from 'react'
-import { SEGMENT_KEY } from '@const/env'
+import React, { useEffect } from 'react'
+import { ANALYTICS_KEY } from '@const/env'
+import { useRouter } from 'next/router'
 
 declare global {
-  var analytics: {
+  var rudderanalytics: {
     load: (key: string) => void
     page: () => void
   }
@@ -10,12 +11,20 @@ declare global {
 
 
 export const Ruddlestack = () => {
-  const scriptText = 
-    `!function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on","addSourceMiddleware","addIntegrationMiddleware","setAnonymousId","addDestinationMiddleware"];analytics.factory=function(e){return function(){var t=Array.prototype.slice.call(arguments);t.unshift(e);analytics.push(t);return analytics}};for(var e=0;e<analytics.methods.length;e++){var key=analytics.methods[e];analytics[key]=analytics.factory(key)}analytics.load=function(key,e){var t=document.createElement("script");t.type="text/javascript";t.async=!0;t.src="https://cdn.segment.com/analytics.js/v1/" + key + "/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(t,n);analytics._loadOptions=e};analytics._writeKey="${SEGMENT_KEY}";analytics.SNIPPET_VERSION="4.13.2"; analytics.load("${SEGMENT_KEY}");analytics.page();console.log(analytics._writeKey)}}()`
+  const router = useRouter()
+  const scriptText = `rudderanalytics=window.rudderanalytics=[];for(var methods=["load","page","track","identify","alias","group","ready","reset","getAnonymousId","setAnonymousId"],i=0;i<methods.length;i++){var method=methods[i];rudderanalytics[method]=function(a){return function(){rudderanalytics.push([a].concat(Array.prototype.slice.call(arguments)))}}(method)}rudderanalytics.load("${ANALYTICS_KEY}","https://rudderstack.aragon.org"),rudderanalytics.page();`
+  
+  useEffect(() => {
+    const handleRouteChange = () => {
+      rudderanalytics.page()
+    }
 
+    router.events.on('routeChangeStart', handleRouteChange)
+
+    return () => router.events.off('routeChangeStart', handleRouteChange)
+  }, [])
+  
   return (
-    <>
-      <script dangerouslySetInnerHTML={{ __html: scriptText }}></script>
-    </>
+    <script dangerouslySetInnerHTML={{ __html: scriptText }}></script>
   )
 }

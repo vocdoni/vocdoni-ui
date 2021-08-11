@@ -41,7 +41,8 @@ module.exports = {
 
   // FEATURES
   COLOR_PICKER: 0,
-  ADVANCED_CENSUS: 0
+  ADVANCED_CENSUS: 0,
+  ANALYTICS_KEY:  process.env.ANALYTICS_KEY
 }
 
 console.log('Building the frontend with ENV:', module.exports)

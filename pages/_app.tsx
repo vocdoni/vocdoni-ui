@@ -13,10 +13,12 @@ import 'react-circular-progressbar/dist/styles.css';
 import { DefaultLayout } from '@components/pages/app/layout/default'
 import { DefaultProviders } from '@components/pages/app/providers/default-providers'
 
+import { ANALYTICS_KEY } from '@const/env'
 import { FixedGlobalStyle, theme } from '../theme'
 import 'react-datetime/css/react-datetime.css'
 
 import { Helpscout } from '@components/pages/app/external-dependencies/helpscout'
+import { Ruddlestack } from '@components/pages/app/external-dependencies/ruddlestack';
 import { CookiesBanner } from '@components/blocks/cookies-banner'
 
 type NextAppProps = AppInitialProps & {
@@ -31,22 +33,21 @@ const VocdoniApp: FC<NextAppProps> = ({ Component, pageProps }) => {
   // If the current page component defined a custom layout, use it
   const Layout: FC = Component["Layout"] ? Component["Layout"] : DefaultLayout
   const Providers: FC = Component["Providers"] ? Component["Providers"] : DefaultProviders
-  if (!!Component["Providers"]) {
-    console.log('these no has default providers')
-  }
+
   return (
     <RecoilRoot>
 
         <ThemeProvider theme={theme}>
           <Providers>
             <FixedGlobalStyle />
+            { ANALYTICS_KEY && <Ruddlestack />}
+
             <Head>
               <meta
                 name='viewport'
                 content='width=device-width, initial-scale=1.0, max-scale=1.0'
               />
               <link rel="icon" type="image/ico" href="/images/common/favicon.ico" sizes="16x16" />
-
               <Helpscout />
               <title>{appTitle}</title>
             </Head>
@@ -54,6 +55,7 @@ const VocdoniApp: FC<NextAppProps> = ({ Component, pageProps }) => {
             <Layout>
               <Component {...pageProps} />
             </Layout>
+            { ANALYTICS_KEY && <script src="https://cdn.rudderlabs.com/v1/rudder-analytics.min.js"></script>}
 
             <div id='commit-sha' style={{ display: 'none' }}>
               {commitSHA}
