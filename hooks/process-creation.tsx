@@ -204,9 +204,7 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
         pool = p
 
         // startBlock => now + 7 min
-        const startBlock = startRightAway ?
-          VotingApi.estimateBlockAtDateTimeSync(new Date(Date.now() + 1000 * 60 * 7), blockStatus)
-          : parameters.startBlock
+        const startBlock = startRightAway ? 1 : parameters.startBlock
 
         // ProcessContractParameters !== INewProcessParams
         // parameters.metadata = metadata
@@ -225,7 +223,7 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
 
         // Creation
         const finalParams: INewProcessParams = {
-          startBlock,
+          startBlock: startBlock,
           blockCount: parameters.blockCount,
           censusOrigin: parameters.censusOrigin,
           censusRoot: parameters.censusRoot,
