@@ -1,0 +1,1 @@
+export const ANALYTICS_KEY = process.env.ANALYTICS_KEY
