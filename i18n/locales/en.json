@@ -154,7 +154,6 @@
             "change_logo": "Change logo",
             "contact_email": "Contact email",
             "description": "Description",
-            "entity_details": "Entity details",
             "entity_header": "Entity header",
             "entity_logo": "Entity logo",
             "error_updating_data_on_blockchain": "Error updating data on blockchain entity",
@@ -164,7 +163,6 @@
             "optional_introduction": "Optional introduction",
             "save_changes": "Save changes",
             "size_of_entity": "Size of the entity",
-            "the_details_of_your_organization": "The details of your organization",
             "type_of_entity": "Type of entity",
             "update": "Update",
             "your_entity": "Edit entity"
@@ -456,6 +454,10 @@
         "english": "English",
         "esperanto": "Esperanto",
         "spanish": "Castellano"
+    },
+    "text_editor": {
+        "apply": "Apply",
+        "link": "Link"
     },
     "vote_detail": {
         "cancel_vote": "Cancel vote",
