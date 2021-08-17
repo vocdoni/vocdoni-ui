@@ -17,9 +17,11 @@
             "dashboard": "Dashboard",
             "disconnect_account": "Tancar Sessió",
             "help_and_feedback": "Centre d’ajuda",
+            "language": "",
             "public_page": "Pàgina pública",
             "settings": "Eines",
-            "update_entity": "Actualitzar l’entitat"
+            "update_entity": "Actualitzar l’entitat",
+            "user_language": ""
         }
     },
     "backup": {
@@ -152,7 +154,6 @@
             "change_logo": "Logo de l'entitat",
             "contact_email": "Adreça de contacte",
             "description": "Descripció",
-            "entity_details": "Detalls de l'entitat",
             "entity_header": "Capçalera de l'entitat",
             "entity_logo": "Logo de l'entitat",
             "error_updating_data_on_blockchain": "Error guardan les dades a blockchain",
@@ -162,7 +163,6 @@
             "optional_introduction": "Descripció",
             "save_changes": "Guardar canvis",
             "size_of_entity": "Tamany de l'entitad",
-            "the_details_of_your_organization": "Detalls de l'organització",
             "type_of_entity": "Tipus d'organització",
             "update": "Actualitzar",
             "your_entity": "Editar Entidad"
@@ -455,6 +455,10 @@
         "english": "English",
         "esperanto": "Esperanto",
         "spanish": "Castellano"
+    },
+    "text_editor": {
+        "apply": "Aplicar",
+        "link": "Enllaç"
     },
     "vote_detail": {
         "cancel_vote": "Cancel·la la votació",
