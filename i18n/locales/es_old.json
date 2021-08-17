@@ -54,7 +54,11 @@
     "entity": {
         "i_have_read_and_accept_the_privacy_policy": "He leído y acepto la Política de Privacidad",
         "i_have_read_and_accept_the_Privacy_of_service": "",
-        "i_have_read_and_accept_the_terms_of_service": "He leído y acepto los Términos del servicio"
+        "i_have_read_and_accept_the_terms_of_service": "He leído y acepto los Términos del servicio",
+        "edit": {
+            "entity_details": "Detalles de la entidad",
+            "the_details_of_your_organization": "Detalles de tu organización"
+        }
     },
     "voter": {
         "i_have_read_and_accept_the_entity_terms": "",

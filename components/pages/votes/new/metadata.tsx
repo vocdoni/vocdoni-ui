@@ -14,6 +14,7 @@ import { Question } from '@lib/types'
 import { DirtyFields, ErrorFields } from '@lib/validators'
 import {
   FileLoaderFormGroup,
+  FormGroupVariant,
   InputFormGroup,
   TextareaFormGroup,
 } from '@components/blocks/form'
@@ -36,6 +37,8 @@ import {
 } from '@lib/validators/errors/invalid-question-error'
 import { useScrollTop } from '@hooks/use-scroll-top'
 import { When } from 'react-if'
+import { Typography, TypographyVariant } from '@components/elements/typography'
+import { TextEditor } from '@components/blocks/text-editor'
 
 export enum MetadataFields {
   Title = 'process-title',
@@ -181,32 +184,18 @@ export const FormMetadata = () => {
               methods.setTitle(e.target.value)
             }
           />
+        </Column>
 
+        <Column md={6} sm={12}>
           <FileLoaderFormGroup
             title={i18n.t('vote.header_image')}
-            label={i18n.t('vote.optional_field')}
+            // label={i18n.t('vote.optional_field')}
             maxMbSize={2}
             onSelect={(file) => methods.setHeaderFile(file)}
             onChange={methods.setHeaderURL}
             file={headerFile}
             url={headerURL}
-            
             accept=".jpg,.jpeg,.png,.gif"
-          />
-        </Column>
-
-        <Column md={6} sm={12}>
-          <TextareaFormGroup
-            title={i18n.t('vote.description')}
-            placeholder={i18n.t('vote.brief_description')}
-            id={MetadataFields.Description}
-            rows={9}
-            value={metadata.description.default}
-            error={getErrorMessage(MetadataFields.Description)}
-            onBlur={() => handleBlur(MetadataFields.Description)}
-            onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
-              methods.setDescription(e.target.value)
-            }
           />
         </Column>
       </Grid>
@@ -263,6 +252,13 @@ export const FormMetadata = () => {
         </Column>
       </Grid>
 
+      <Grid>
+        <Column>
+          <Typography variant={TypographyVariant.H3}>{i18n.t('vote.description')}</Typography>
+          <TextEditor onChange={(content) => methods.setDescription(content)} markdown />
+        </Column>
+      </Grid>
+      
       <When condition={colorPickerEnabled}>
         <Grid>
           <Column md={6} sm={12}>

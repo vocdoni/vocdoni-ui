@@ -7,6 +7,14 @@ module.exports = {
   webpack: (config, { isServer }) => {
     // Fixes npm packages that depend on `fs` module
 
+    config.module.rules.push({
+      test: /\.svg$/,
+      issuer: {
+        test: /\.(js|ts)x?$/,
+      },
+      use: ['@svgr/webpack'],
+    });
+
     if (!isServer) {
       config.resolve.alias['pdfkit'] = 'pdfkit/js/pdfkit.standalone.js'
     }
