@@ -43,7 +43,11 @@ export const TextEditorMenu = ({ editor }: TextEditorMenuProps) => {
 
   const handleActionButton = (action, optionalArgs) => {
     if (editor.commands[action]) {
-      editor.commands[action].apply(this, optionalArgs)
+      editor
+        .chain()
+        .focus()[action]
+        .apply(this, optionalArgs)
+        .run()
 
       if (action === activeMenuAction) {
         setActiveMenuAction(null)
