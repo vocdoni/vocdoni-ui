@@ -7,6 +7,7 @@ import { SHOW_PROCESS_PATH } from "../../const/routes"
 import { FlexAlignItem, FlexContainer, FlexJustifyContent } from "../elements/flex"
 import { VoteStatus } from "@lib/util"
 import { ProcessStatusLabel } from '@components/blocks/process-status-label'
+import { MarkDownViewer } from "./mark-down-viewer"
 
 
 
@@ -35,7 +36,7 @@ export const VoteListItem = ({ icon, entityName, processId, title, description, 
           </TopDiv>
 
           <VoteListItemTitle>{title}</VoteListItemTitle>
-          <VoteListItemDescription><span dangerouslySetInnerHTML={{ __html: description }} /></VoteListItemDescription>
+          <VoteListItemDescription><MarkDownViewer content={description} /></VoteListItemDescription>
           <VoteListItemDate>{dateText}</VoteListItemDate>
         </ListItemDiv>
       </a>
