@@ -19,6 +19,7 @@
       },
       "header": {
             "create_account_backup": "Copia de Seguretat",
+            "custom_branding": "",
             "dashboard": "Dashboard",
             "disconnect_account": "Tancar Sessió",
             "help_and_feedback": "Centre d’ajuda",
@@ -62,6 +63,9 @@
         "confirm_modal": {
             "accept": "Acceptar",
             "cancel": "cancel·lar"
+        },
+        "image_loader": {
+            "upload_file": ""
         }
     },
     "confirm": {
@@ -139,6 +143,15 @@
         "accept_Privacy": "Close",
         "accept_terms": "Close",
         "acknowledge_passphrase_implications": "Accepto el fet que la pèrdua de la contrasenya comporta la impossibilitat d'accedir a la meva entitat posteriorment",
+        "branding": {
+            "customize_your_branding": "",
+            "customize_your_logo": "",
+            "customize_your_primary_color": "",
+            "save_changes": "",
+            "you_can_customize_the_voting_process_colors": "",
+            "you_can_customize_your_branding": "",
+            "you_can_update_the_visible_logo_on_the_voting_process": ""
+        },
         "brief_description": "Descripció breu de l'entitat",
         "choose_a_passphrase": "Tria una contrasenya",
         "confirming_details": "Confirmant els detalls",

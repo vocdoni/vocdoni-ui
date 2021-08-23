@@ -19,6 +19,7 @@
       },
       "header": {
             "create_account_backup": "Crear backup",
+            "custom_branding": "Personalizar marca",
             "dashboard": "Dashboard",
             "disconnect_account": "Cerrar session",
             "help_and_feedback": "Ayuda y feedback",
@@ -62,6 +63,9 @@
         "confirm_modal": {
             "accept": "Aceptar",
             "cancel": "Cancelar"
+        },
+        "image_loader": {
+            "upload_file": "Subir fichero"
         }
     },
     "confirm": {
@@ -138,6 +142,15 @@
         "accept_Privacy": "Close",
         "accept_terms": "Close",
         "acknowledge_passphrase_implications": "Soy consciente de que la pérdida de la contraseña implica perder también el acceso a la cuenta de mi entidad",
+        "branding": {
+            "customize_your_branding": "Personaliza tu marca",
+            "customize_your_logo": "Define tu logo",
+            "customize_your_primary_color": "Define tu color primario",
+            "save_changes": "Guardar cambios",
+            "you_can_customize_the_voting_process_colors": "",
+            "you_can_customize_your_branding": "Aquí puede personalizar cómo ven sus clientes la aplicación en el proceso de votación.",
+            "you_can_update_the_visible_logo_on_the_voting_process": "Puedes definir el logo que ven tus clientes"
+        },
         "brief_description": "Breve descripción de la entidad",
         "choose_a_passphrase": "Escoger contraseña",
         "confirming_details": "Confirmando detalles",

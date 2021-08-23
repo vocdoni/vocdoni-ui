@@ -19,6 +19,7 @@
         },
         "header": {
             "create_account_backup": "Create account backup",
+            "custom_branding": "Custom branding",
             "dashboard": "Dashboard",
             "disconnect_account": "Logout",
             "help_and_feedback": "Help & feedback",
@@ -62,6 +63,9 @@
         "confirm_modal": {
             "accept": "Accept",
             "cancel": "Cancel"
+        },
+        "image_loader": {
+            "upload_file": "Upload file"
         }
     },
     "confirm": {
@@ -138,6 +142,15 @@
         "accept_Privacy": "Close",
         "accept_terms": "Close",
         "acknowledge_passphrase_implications": "I acknowledge that losing my password will prevent the ability to access my account in the future",
+        "branding": {
+            "customize_your_branding": "Customize your branding",
+            "customize_your_logo": "Define your logo",
+            "customize_your_primary_color": "Define your primary color",
+            "save_changes": "Save changes",
+            "you_can_customize_the_voting_process_colors": "Customize the colors for the voting process",
+            "you_can_customize_your_branding": "Here you can customize how your clients see the application on the voting process",
+            "you_can_update_the_visible_logo_on_the_voting_process": "You can define the the visible logo"
+        },
         "brief_description": "Brief description of the entity",
         "choose_a_passphrase": "Choose a password",
         "confirming_details": "Confirming details",

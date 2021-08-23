@@ -36,7 +36,7 @@ const VocdoniApp: FC<NextAppProps> = ({ Component, pageProps }) => {
   // If the current page component defined a custom layout, use it
   const Layout: FC = Component["Layout"] ? Component["Layout"] : DefaultLayout
   const Providers: FC = Component["Providers"] ? Component["Providers"] : DefaultProviders
-
+  console.log(pageProps)
   return (
     <RecoilRoot>
 

@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { overrideTheme } from 'theme'
 
 import { useEntity } from '@vocdoni/react-hooks'
 
@@ -11,6 +12,9 @@ import { Loader } from '@components/blocks/loader'
 import { SignInForm } from '@components/pages/pub/votes/auth/sign-in-form'
 import { VotingErrorPage } from '@components/pages/pub/votes/voting-error-page'
 import { LayoutVoter } from '@components/pages/app/layout/voter'
+import { ThemeProvider } from 'styled-components'
+import { MetadataFields } from '@components/pages/votes/new/metadata'
+import { EntityMetadata } from 'dvote-js'
 // NOTE: This page uses a custom Layout. See below.
 
 const VoteAuthLogin = () => {
@@ -28,6 +32,8 @@ const VoteAuthLogin = () => {
     methods,
   } = useAuthForm()
   const { metadata, loading, error } = useEntity(processInfo?.state?.entityId)
+  const entityMetadata = metadata as EntityMetadata
+  const brandColor = processInfo?.metadata?.meta[MetadataFields.BrandColor] || entityMetadata?.meta[MetadataFields.BrandColor]
 
   const handleSubmit = () => {
     setCheckingCredentials(true)
@@ -97,7 +103,16 @@ const VoteAuthLogin = () => {
     renderForm,
   ])
 
-  return <>{viewContext.getView()}</>
+  return <ThemeProvider
+    theme={overrideTheme({
+      accent1: brandColor,
+      accent1B: brandColor,
+      accent2: brandColor,
+      accent2B: brandColor,
+      textAccent1: brandColor,
+      textAccent1B: brandColor,
+    })}
+  >{viewContext.getView()}</ThemeProvider>
 }
 
 // Defining the custom layout to use

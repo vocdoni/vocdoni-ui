@@ -27,7 +27,7 @@ import { VoteRegisteredCard } from './components/vote-registered-card'
 import { VoteStatus, getVoteStatus } from '@lib/util'
 import { Else, If, Then, When } from 'react-if'
 import { useUrlHash } from 'use-url-hash'
-import { VotingApi } from 'dvote-js'
+import { VotingApi, EntityMetadata } from 'dvote-js'
 import { DateDiffType, localizedStrDateDiff } from '@lib/date'
 import { overrideTheme } from 'theme'
 import { Body1, TextAlign } from '@components/elements/typography'
@@ -52,6 +52,9 @@ export const VotingPageView = () => {
     blockHeight
   )
   const explorerLink = process.env.EXPLORER_URL + '/envelope/' + nullifier
+  const entityMetadata = metadata as EntityMetadata
+  const brandColor = processInfo?.metadata?.meta[MetadataFields.BrandColor] || entityMetadata?.meta[MetadataFields.BrandColor]
+  console.log(entityMetadata)
 
   let dateDiffStr = ''
   if (
@@ -79,12 +82,12 @@ export const VotingPageView = () => {
   return (
     <ThemeProvider
       theme={overrideTheme({
-        accent1: processInfo?.metadata?.meta[MetadataFields.BrandColor],
-        accent1B: processInfo?.metadata?.meta[MetadataFields.BrandColor],
-        accent2: processInfo?.metadata?.meta[MetadataFields.BrandColor],
-        accent2B: processInfo?.metadata?.meta[MetadataFields.BrandColor],
-        textAccent1: processInfo?.metadata?.meta[MetadataFields.BrandColor],
-        textAccent1B: processInfo?.metadata?.meta[MetadataFields.BrandColor],
+        accent1: brandColor,
+        accent1B: brandColor,
+        accent2: brandColor,
+        accent2B: brandColor,
+        textAccent1: brandColor,
+        textAccent1B: brandColor,
       })}
     >
       <PageCard>
