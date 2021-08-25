@@ -108,7 +108,7 @@ export const FormMetadata = () => {
     logoUrl,
     headerFile,
     headerUrl,
-    terms && consent,
+    terms,
   ])
 
   const dirtyAllFields = () => {
