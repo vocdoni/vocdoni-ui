@@ -13,6 +13,13 @@ export const Footer = () => {
 
   const LINKS: HeaderLink[] = [
     {
+      url: 'https://tally.so/r/w8dqxw',
+      name: i18n.t("links.requests_and_bugs"),
+      external: true,
+      logged: true,
+      guest: true
+    },
+    {
       url: PRIVACY_PATH,
       name: i18n.t("links.privacy_policy"),
       external: true,
@@ -145,7 +152,7 @@ const NavItem = styled.div`
   margin-right: 30px;
 
   @media ( max-width: 1124px ){
-    text-align: center; 
+    text-align: center;
   }
 `
 
@@ -155,7 +162,7 @@ const SocialLinksSection = styled.div`
 `
 const SocialLinkContainer = styled.a`
   margin: 0 6px;
-  
+
   & > img {
     max-width: 20px;
     max-height: 20px;
