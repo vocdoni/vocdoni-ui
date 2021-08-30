@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import styled, { ThemeProvider } from 'styled-components'
+import React, { useState, useContext , useEffect} from 'react'
+import styled, { useTheme } from 'styled-components'
 import { useTranslation } from 'react-i18next'
 import {
   useEntity,
@@ -31,10 +31,15 @@ import { VotingApi, EntityMetadata } from 'dvote-js'
 import { DateDiffType, localizedStrDateDiff } from '@lib/date'
 import { overrideTheme } from 'theme'
 import { Body1, TextAlign } from '@components/elements/typography'
+import { UseThemeContext } from '@hooks/useTheme'
 
 export const VotingPageView = () => {
   const { i18n } = useTranslation()
   const processId = useUrlHash().slice(1) // Skip "/"
+  const theme = useTheme()
+
+  const { setAppTheme } = useContext(UseThemeContext);
+
   const { methods, choices, allQuestionsChosen, hasVoted, results, nullifier } =
     useVoting(processId)
   const { process: processInfo, error, loading } = useProcess(processId)
@@ -53,8 +58,24 @@ export const VotingPageView = () => {
   )
   const explorerLink = process.env.EXPLORER_URL + '/envelope/' + nullifier
   const entityMetadata = metadata as EntityMetadata
-  const brandColor = processInfo?.metadata?.meta[MetadataFields.BrandColor] || entityMetadata?.meta[MetadataFields.BrandColor]
-  console.log(entityMetadata)
+
+  useEffect(() => {
+    if (processInfo?.metadata?.meta[MetadataFields.BrandColor] || entityMetadata?.meta[MetadataFields.BrandColor]) {
+      const brandColor = processInfo?.metadata?.meta[MetadataFields.BrandColor] || entityMetadata?.meta[MetadataFields.BrandColor]
+
+      const newTheme = overrideTheme({
+        accent1: brandColor,
+        accent1B: brandColor,
+        accent2: brandColor,
+        accent2B: brandColor,
+        textAccent1: brandColor,
+        textAccent1B: brandColor,
+        customLogo: entityMetadata.media.logo
+      })
+
+      setAppTheme(newTheme)
+    }
+  }, [processInfo, entityMetadata])
 
   let dateDiffStr = ''
   if (
@@ -80,16 +101,7 @@ export const VotingPageView = () => {
   }
 
   return (
-    <ThemeProvider
-      theme={overrideTheme({
-        accent1: brandColor,
-        accent1B: brandColor,
-        accent2: brandColor,
-        accent2B: brandColor,
-        textAccent1: brandColor,
-        textAccent1B: brandColor,
-      })}
-    >
+    <>
       <PageCard>
         <CardImageHeader
           title={processInfo?.metadata?.title.default}
@@ -176,7 +188,7 @@ export const VotingPageView = () => {
         isOpen={confirmModalOpened}
         onClose={() => setConfirmModalOpened(false)}
       />
-    </ThemeProvider>
+    </>
   )
 }
 

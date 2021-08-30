@@ -37,7 +37,7 @@ export const DefaultProviders = ({ children }: IDefaultProvidersProps) => {
                   <UseVotingProvider>
                     <UseEntityProvider>
                       <UseDbAccountsProvider>
-                          {children}
+                        {children}
                       </UseDbAccountsProvider>
                     </UseEntityProvider>
                   </UseVotingProvider>

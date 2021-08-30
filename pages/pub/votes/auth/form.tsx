@@ -1,20 +1,20 @@
-import React, { useState } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { overrideTheme } from 'theme'
+import { EntityMetadata } from 'dvote-js'
 
 import { useEntity } from '@vocdoni/react-hooks'
 
 
 import { ViewContext, ViewStrategy } from '@lib/strategy'
 import { useAuthForm } from '@hooks/use-auth-form'
-import { Loader } from '@components/blocks/loader'
+import { UseThemeContext } from '@hooks/useTheme'
 
+import { Loader } from '@components/blocks/loader'
 import { SignInForm } from '@components/pages/pub/votes/auth/sign-in-form'
 import { VotingErrorPage } from '@components/pages/pub/votes/voting-error-page'
 import { LayoutVoter } from '@components/pages/app/layout/voter'
-import { ThemeProvider } from 'styled-components'
 import { MetadataFields } from '@components/pages/votes/new/metadata'
-import { EntityMetadata } from 'dvote-js'
 // NOTE: This page uses a custom Layout. See below.
 
 const VoteAuthLogin = () => {
@@ -32,8 +32,27 @@ const VoteAuthLogin = () => {
     methods,
   } = useAuthForm()
   const { metadata, loading, error } = useEntity(processInfo?.state?.entityId)
+  const { setAppTheme } = useContext(UseThemeContext);
+
   const entityMetadata = metadata as EntityMetadata
-  const brandColor = processInfo?.metadata?.meta[MetadataFields.BrandColor] || entityMetadata?.meta[MetadataFields.BrandColor]
+
+  useEffect(() => {
+    if (processInfo?.metadata?.meta[MetadataFields.BrandColor] || entityMetadata?.meta[MetadataFields.BrandColor]) {
+      const brandColor = processInfo?.metadata?.meta[MetadataFields.BrandColor] || entityMetadata?.meta[MetadataFields.BrandColor]
+
+      const newTheme = overrideTheme({
+        accent1: brandColor,
+        accent1B: brandColor,
+        accent2: brandColor,
+        accent2B: brandColor,
+        textAccent1: brandColor,
+        textAccent1B: brandColor,
+        customLogo: entityMetadata.media.logo
+      })
+
+      setAppTheme(newTheme)
+    }
+  }, [processInfo, entityMetadata])
 
   const handleSubmit = () => {
     setCheckingCredentials(true)
@@ -103,16 +122,7 @@ const VoteAuthLogin = () => {
     renderForm,
   ])
 
-  return <ThemeProvider
-    theme={overrideTheme({
-      accent1: brandColor,
-      accent1B: brandColor,
-      accent2: brandColor,
-      accent2B: brandColor,
-      textAccent1: brandColor,
-      textAccent1B: brandColor,
-    })}
-  >{viewContext.getView()}</ThemeProvider>
+  return viewContext.getView()
 }
 
 // Defining the custom layout to use

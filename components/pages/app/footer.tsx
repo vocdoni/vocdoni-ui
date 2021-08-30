@@ -1,15 +1,17 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import styled, { useTheme } from 'styled-components'
 import Link from 'next/link'
 import { useWallet } from '../../../hooks/use-wallet'
 import { DASHBOARD_PATH, PRIVACY_PATH } from '../../../const/routes'
 import { useTranslation } from 'react-i18next'
+import { Image } from '@components/elements/image'
+import { UseThemeContext } from '@hooks/useTheme'
 
 export const Footer = () => {
   const { i18n } = useTranslation()
 
   const { wallet } = useWallet()
-  const theme = useTheme()
+  const { theme } = useContext(UseThemeContext)
 
   const LINKS: HeaderLink[] = [
     {
@@ -69,7 +71,12 @@ export const Footer = () => {
     <Container>
       <LogoSection>
         <Link href={wallet ? DASHBOARD_PATH : "/"} passHref>
-          <HomeLink target='_self'><img src="/media/logo-full.svg" alt="Vocdoni" /></HomeLink>
+          <HomeLink target='_self'>
+            {theme.customLogo ?
+              <Image src={theme.customLogo} /> :
+              <img src="/media/logo-full.svg" alt="Vocdoni" />
+            }
+          </HomeLink>
         </Link>
       </LogoSection>
 
@@ -105,9 +112,11 @@ export const Footer = () => {
         </SocialLinksSection>
       </LinksSection>
 
-      <Link href='https://aragon.org/' passHref>
-        <AragonLink target='_blank'><img src="/images/common/powered.svg" alt="Aragon" /></AragonLink>
-      </Link>
+      {!theme.customLogo && 
+        <Link href='https://aragon.org/' passHref>
+          <AragonLink target='_blank'><img src="/images/common/powered.svg" alt="Aragon" /></AragonLink>
+        </Link>
+      }
     </Container>
   )
 }
