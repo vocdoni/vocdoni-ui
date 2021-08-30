@@ -22,7 +22,6 @@ export const EntityTermsModal = ({
   onCloseEntityTerms,
 }: IEntityTermsModalProps) => {
   const { i18n } = useTranslation()
-  const {entityTerms, methods} = useEntityCreation()
   const lang = i18n.language
 
   return (
@@ -31,22 +30,8 @@ export const EntityTermsModal = ({
         <Terms lang={lang} />
 
         <PaddedContainer>
-          <FlexContainer alignItem={FlexAlignItem.Center}>
-            <Checkbox
-              id="entity-terms-check"
-              checked={entityTerms}
-              onChange={() => methods.setEntityTerms(!entityTerms)}
-              text={i18n.t(
-                'entity.i_have_read_and_accept_the_entity_terms'
-              )}
-              hrefNewTab
-            />
-          </FlexContainer>
-        </PaddedContainer>
-
-        <PaddedContainer>
           <FlexContainer justify={FlexJustifyContent.Center}>
-            <Button positive disabled={!entityTerms} onClick={onCloseEntityTerms}>
+            <Button positive onClick={onCloseEntityTerms}>
               {i18n.t('entity.accept_entity_terms')}
             </Button>
           </FlexContainer>

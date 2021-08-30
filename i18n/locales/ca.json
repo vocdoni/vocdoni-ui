@@ -178,10 +178,8 @@
             "entity_description": "Descripció de l'entitat",
             "view_in_explorer": "Veure en el navegador"
         },
-        "i_have_read_and_accept_entity_terms": "He llegit i accepto els termes i condicions del servei i la política de privadesa d'Aragon Labs",
-        "i_have_read_and_accept_personal_data_newsletter": "Accepto que les meves dades personals siguin processades per Aragon Labs amb la finalitat de subscriure’s al butlletí d’Aragon Labs, inclosos els avisos comercials i informatius. Per obtenir més informació sobre els processos de dades privades d'Aragon Labs, així com sobre l'exercici dels drets, consulteu la política de privadesa d'Aragon Labs.",
-        "i_have_read_and_accept_personal_data_protection": "M’han informat, als efectes de l’article 13 del GDPR, del contingut de la normativa aplicable sobre protecció de dades de caràcter personal i el compliment de les obligacions d’Aragon Labs com a responsable del tractament, a efectes del servei prestat.",
-        "i_have_read_and_accept_the_entity_terms": "He llegit i accepto els termes i condicions del servei i la política de privadesa d'Aragon Labs",
+        "i_have_read_and_accept_terms": "He llegit i accepto els <0>termes i condicions del servei</0>, la <1>política de privadesa</1> d'Aragon Labs i el <2>contingut de la normativa aplicable</2> sobre protecció de dades de caràcter personal.",
+        "i_have_read_and_accept_personal_data": "(Opcional) Accepto que les meves dades personals siguin processades per Aragon Labs amb finalitat comercial i informativa. <0>Més informació</0>.",
         "logo": "Logo de l'entitat",
         "name": "Nom de l'entitat",
         "new_entity": "Nom de l'entitat",

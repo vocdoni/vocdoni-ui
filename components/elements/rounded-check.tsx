@@ -11,11 +11,12 @@ export enum RoundedCheckSize {
 interface IRoundedCheckProps {
   checked?: boolean
   size?: RoundedCheckSize
+  onClick?: (ev: React.MouseEvent<HTMLDivElement, MouseEvent>) => void
 }
 
-export const RoundedCheck = ({ checked }: IRoundedCheckProps) => {
+export const RoundedCheck = ({ checked, onClick }: IRoundedCheckProps) => {
   return checked ? (
-    <Check>
+    <Check onClick={onClick} >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
@@ -31,7 +32,7 @@ export const RoundedCheck = ({ checked }: IRoundedCheckProps) => {
       </svg>
     </Check>
   ) : (
-    <EmptyCheck></EmptyCheck>
+      <EmptyCheck onClick={onClick} />
   )
 }
 
@@ -39,11 +40,11 @@ const RoundedCheckVariantStyle = {
   [RoundedCheckSize.Small]: (theme: DefaultTheme) => `
   width: 18px;
   height: 18px;
-  
+
   & > svg {
     width: 14px;
     margin: 3px;
-  }  
+  }
   `,
   [RoundedCheckSize.Regular]: (theme: DefaultTheme) => `
     width: 22px;
@@ -52,7 +53,7 @@ const RoundedCheckVariantStyle = {
     & > svg {
       width: 16px;
       margin: 3px;
-    }  
+    }
   `,
   [RoundedCheckSize.Big]: (theme: DefaultTheme) => `
     width: 26px;
@@ -74,6 +75,7 @@ const BaseSpinner = styled.div<{ checkSize?: RoundedCheckSize }>`
 const Check = styled(BaseSpinner)`
   background-color: ${({ theme }) => theme.accent1};
   color: ${({ theme }) => theme.white};
+  border: 2px solid ${({ theme }) => theme.accent1};
 `
 
 const EmptyCheck = styled(BaseSpinner)`

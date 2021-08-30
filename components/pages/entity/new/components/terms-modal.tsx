@@ -22,7 +22,6 @@ export const TermsModal = ({
   onCloseTerms,
 }: ITermsModalProps) => {
   const { i18n } = useTranslation()
-  const {terms, methods} = useEntityCreation()
   const lang = i18n.language
 
   return (
@@ -31,22 +30,8 @@ export const TermsModal = ({
         <Terms lang={lang} />
 
         <PaddedContainer>
-          <FlexContainer alignItem={FlexAlignItem.Center}>
-            <Checkbox
-              id="terms-check"
-              checked={terms}
-              onChange={() => methods.setTerms(!terms)}
-              text={i18n.t(
-                'entity.i_have_read_and_accept_personal_data_newsletter'
-              )}
-              hrefNewTab
-            />
-          </FlexContainer>
-        </PaddedContainer>
-
-        <PaddedContainer>
           <FlexContainer justify={FlexJustifyContent.Center}>
-            <Button positive disabled={!terms} onClick={onCloseTerms}>
+            <Button positive onClick={onCloseTerms}>
               {i18n.t('entity.accept_terms')}
             </Button>
           </FlexContainer>
@@ -57,6 +42,7 @@ export const TermsModal = ({
 }
 
 const PaddedContainer = styled.div`
+  padding-top: 12px;
   margin-bottom: 20px;
 `
 
