@@ -27,13 +27,6 @@ export const Footer = () => {
       guest: true
     },
     {
-      url: DASHBOARD_PATH,
-      name: i18n.t("links.dashboard"),
-      external: false,
-      logged: true,
-      guest: false
-    },
-    {
       url: 'https://blog.vocdoni.io',
       name: i18n.t("links.blog"),
       external: true,
@@ -59,14 +52,6 @@ export const Footer = () => {
       name: i18n.t("links.help"),
       external: true,
       logged: true,
-      guest: true
-    },
-    {
-      // url: ABOUT_PATH,
-      url: "https://vocdoni.io",
-      name: i18n.t("links.about"),
-      external: false,
-      logged: false,
       guest: true
     },
     {
