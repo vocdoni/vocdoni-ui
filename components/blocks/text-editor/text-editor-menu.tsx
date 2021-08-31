@@ -86,6 +86,8 @@ export const TextEditorMenu = ({ editor }: TextEditorMenuProps) => {
         target: '_blank',
       })
       .run()
+      
+      setShowLinkMenu(false)
   }
 
   return (
