@@ -31,6 +31,7 @@ import { getVoteStatus, VoteStatus } from '@lib/util'
 import { Else, If, Then, When } from 'react-if'
 import { HelpText } from '@components/blocks/help-text'
 import { DateDiffType, localizedStrDateDiff } from '@lib/date'
+import { MarkDownViewer } from '@components/blocks/mark-down-viewer'
 
 interface IProcessDetailProps {
   process: ProcessDetails
@@ -282,10 +283,7 @@ export const ViewDetail = ({
 
           <SectionContainer>
             <SectionText>{process?.metadata?.title.default}</SectionText>
-
-            <SectionText color={colors.lightText}>
-              {process?.metadata?.description.default}
-            </SectionText>
+            <MarkDownViewer content={process?.metadata?.description.default} />
           </SectionContainer>
 
           <div>
