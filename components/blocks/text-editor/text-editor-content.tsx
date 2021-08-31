@@ -32,5 +32,18 @@ const TextEditorContentWrapper = styled.div`
       padding-left: 20px;
       margin-left: 0px;
     }
+
+    & h1,
+    & h2 {
+      font-weight: 500;
+    }
+
+    & h1 {
+      font-size: 28px;
+    }
+
+    & h2 {
+      font-size: 20px;
+    } 
   }
 `

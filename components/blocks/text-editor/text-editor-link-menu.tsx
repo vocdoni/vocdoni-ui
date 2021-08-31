@@ -1,4 +1,4 @@
-import React from "react"
+import React, {KeyboardEvent} from "react"
 import { useTranslation } from "react-i18next"
 import styled from "styled-components"
 import Close from "remixicon/icons/System/close-line.svg"
@@ -17,6 +17,12 @@ interface ITextEditorContentProps {
 
 export const TextEditorLinkMenu = ({ value, onChange, onApply, onClose }: ITextEditorContentProps) => {
   const { i18n } = useTranslation()
+  const handleChange = (event: KeyboardEvent) => {
+    if (event.key === "Enter") {
+      onApply(value)
+    }
+  }
+  
 
   return (
     <LinkMenuWrapper>
@@ -26,7 +32,11 @@ export const TextEditorLinkMenu = ({ value, onChange, onApply, onClose }: ITextE
       </CloseButton>
 
       <InputWrapper>
-        <Input value={value} onChange={(event) => onChange(event.target.value)} />
+        <Input 
+          value={value} 
+          onKeyPress={handleChange} 
+          onChange={(event) => onChange(event.target.value)}
+        />
         <Button positive onClick={() => onApply(value)}>{i18n.t('text_editor.apply')}</Button>
       </InputWrapper>
     </LinkMenuWrapper>
