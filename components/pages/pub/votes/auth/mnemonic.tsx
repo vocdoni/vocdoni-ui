@@ -1,7 +1,9 @@
-import React, { ChangeEvent } from 'react'
-import styled, { ThemeProvider } from 'styled-components'
+import React, { ChangeEvent, useEffect } from 'react'
+import styled from 'styled-components'
 import { useTranslation } from 'react-i18next'
 import { ProcessDetails, EntityMetadata } from 'dvote-js'
+import { useEntity } from '@vocdoni/react-hooks'
+
 
 import { Fieldset, FormGroupVariant, InputFormGroup } from '@components/blocks/form'
 import { Column } from '@components/elements/grid'
@@ -9,9 +11,9 @@ import { Button } from '@components/elements/button'
 import { PageCard } from '@components/elements/cards'
 import { FlexContainer, FlexJustifyContent } from '@components/elements/flex'
 import { CardImageHeader } from '@components/blocks/card/image-header'
+import { useTheme } from '@hooks/use-theme'
 import { MetadataFields } from '@components/pages/votes/new/metadata'
 
-import { overrideTheme } from 'theme'
 
 interface IFormProps {
   mnemonic: string
@@ -25,80 +27,89 @@ interface IFormProps {
 }
 
 export const MnemonicForm = ({
-    mnemonic,
-    submitEnabled,
-    error,
-    processInfo,
-    entity,
-    onSubmit,
-    onChange,
-    onBlur,
-  }: IFormProps) => {
-    const { i18n } = useTranslation()
+  mnemonic,
+  submitEnabled,
+  error,
+  processInfo,
+  entity,
+  onSubmit,
+  onChange,
+  onBlur,
+}: IFormProps) => {
+  const { i18n } = useTranslation()
+  const { updateAppTheme } = useTheme()
+  const { metadata} = useEntity(processInfo?.state?.entityId)
+  const entityMetadata = metadata as EntityMetadata
 
-    const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
-      e.preventDefault()
-      onSubmit()
+
+  useEffect(() => {
+    if (processInfo?.metadata?.meta[MetadataFields.BrandColor] || entityMetadata?.meta[MetadataFields.BrandColor]) {
+      const brandColor = processInfo?.metadata?.meta[MetadataFields.BrandColor] || entityMetadata?.meta[MetadataFields.BrandColor]
+
+      updateAppTheme({
+        accent1: brandColor,
+        accent1B: brandColor,
+        accent2: brandColor,
+        accent2B: brandColor,
+        textAccent1: brandColor,
+        textAccent1B: brandColor,
+        customLogo: entityMetadata.media.logo
+      })
     }
-
-    return (
-      <PageCard>
-        <ThemeProvider
-          theme={overrideTheme({
-            accent1: processInfo?.metadata?.meta[MetadataFields.BrandColor],
-            accent1B: processInfo?.metadata?.meta[MetadataFields.BrandColor],
-            accent2: processInfo?.metadata?.meta[MetadataFields.BrandColor],
-            accent2B: processInfo?.metadata?.meta[MetadataFields.BrandColor],
-            textAccent1: processInfo?.metadata?.meta[MetadataFields.BrandColor],
-            textAccent1B: processInfo?.metadata?.meta[MetadataFields.BrandColor],
-          })}
-        >
-          <CardImageHeader
-            title={processInfo?.metadata?.title.default}
-            processImage={processInfo?.metadata?.media.header}
-            subtitle={entity?.name.default}
-            entityImage={entity?.media.avatar}
-          />
-
-          <Fieldset>
-            <form onSubmit={handleSubmit}>
-              <FlexContainer justify={FlexJustifyContent.Center} key={0}>
-                <InputContainer>
-                  <InputFormGroup
-                    label={'mnemonic'}
-                    id={'mnemonic'}
-                    error={error}
-                    onChange={(e: ChangeEvent<HTMLInputElement>) => onChange(e.target.value)}
-                    onBlur={onBlur}
-                    value={mnemonic}
-                    variant={FormGroupVariant.Small}
-                  />{' '}
-                  <EntityContactContainer>
-                    {i18n.t('vote.you_cant_enter_contact_with_entity')}
-                  </EntityContactContainer>
-                </InputContainer>
-              </FlexContainer>
-
-              <HiddenButton type="submit"></HiddenButton>
-              <FlexContainer justify={FlexJustifyContent.Center}>
-                <Column lg={3} md={4} sm={12}>
-                  <Button
-                    wide
-                    positive
-                    onClick={onSubmit}
-                    spinner={!submitEnabled}
-                    disabled={!submitEnabled}
-                  >
-                    {i18n.t('action.continue')}
-                  </Button>
-                </Column>
-              </FlexContainer>
-            </form>
-          </Fieldset>
-        </ThemeProvider>
-      </PageCard>
-    )
+  }, [processInfo, entityMetadata])
+  
+  const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
+    e.preventDefault()
+    onSubmit()
   }
+
+  return (
+    <PageCard>
+      <CardImageHeader
+        title={processInfo?.metadata?.title.default}
+        processImage={processInfo?.metadata?.media.header}
+        subtitle={entity?.name.default}
+        entityImage={entity?.media.avatar}
+      />
+
+      <Fieldset>
+        <form onSubmit={handleSubmit}>
+          <FlexContainer justify={FlexJustifyContent.Center} key={0}>
+            <InputContainer>
+              <InputFormGroup
+                label={'mnemonic'}
+                id={'mnemonic'}
+                error={error}
+                onChange={(e: ChangeEvent<HTMLInputElement>) => onChange(e.target.value)}
+                onBlur={onBlur}
+                value={mnemonic}
+                variant={FormGroupVariant.Small}
+              />{' '}
+              <EntityContactContainer>
+                {i18n.t('vote.you_cant_enter_contact_with_entity')}
+              </EntityContactContainer>
+            </InputContainer>
+          </FlexContainer>
+
+          <HiddenButton type="submit"></HiddenButton>
+          <FlexContainer justify={FlexJustifyContent.Center}>
+            <Column lg={3} md={4} sm={12}>
+              <Button
+                wide
+                positive
+                onClick={onSubmit}
+                spinner={!submitEnabled}
+                disabled={!submitEnabled}
+              >
+                {i18n.t('action.continue')}
+              </Button>
+            </Column>
+          </FlexContainer>
+        </form>
+      </Fieldset>
+    </PageCard>
+  )
+}
 const HiddenButton = styled.button`
   visibility: hidden;
 `

@@ -8,7 +8,7 @@ import { useEntity } from '@vocdoni/react-hooks'
 
 import { ViewContext, ViewStrategy } from '@lib/strategy'
 import { useAuthForm } from '@hooks/use-auth-form'
-import { UseThemeContext } from '@hooks/useTheme'
+import { useTheme } from '@hooks/use-theme'
 
 import { Loader } from '@components/blocks/loader'
 import { SignInForm } from '@components/pages/pub/votes/auth/sign-in-form'
@@ -32,7 +32,7 @@ const VoteAuthLogin = () => {
     methods,
   } = useAuthForm()
   const { metadata, loading, error } = useEntity(processInfo?.state?.entityId)
-  const { setAppTheme } = useContext(UseThemeContext);
+  const { updateAppTheme } = useTheme();
 
   const entityMetadata = metadata as EntityMetadata
 
@@ -40,7 +40,7 @@ const VoteAuthLogin = () => {
     if (processInfo?.metadata?.meta[MetadataFields.BrandColor] || entityMetadata?.meta[MetadataFields.BrandColor]) {
       const brandColor = processInfo?.metadata?.meta[MetadataFields.BrandColor] || entityMetadata?.meta[MetadataFields.BrandColor]
 
-      const newTheme = overrideTheme({
+      updateAppTheme({
         accent1: brandColor,
         accent1B: brandColor,
         accent2: brandColor,
@@ -49,8 +49,6 @@ const VoteAuthLogin = () => {
         textAccent1B: brandColor,
         customLogo: entityMetadata.media.logo
       })
-
-      setAppTheme(newTheme)
     }
   }, [processInfo, entityMetadata])
 

@@ -10,7 +10,7 @@ import { Router } from 'next/router'
 import 'react-circular-progressbar/dist/styles.css'
 import 'react-datetime/css/react-datetime.css'
 
-import { UseThemeContextProvider } from '@hooks/useTheme'
+import { ThemeContextProvider } from '@hooks/use-theme';
 
 import { ANALYTICS_KEY } from '@const/env'
 import { FixedGlobalStyle, theme } from '../theme'
@@ -41,7 +41,7 @@ const VocdoniApp: FC<NextAppProps> = ({ Component, pageProps }) => {
   console.log(pageProps)
   return (
     <RecoilRoot>
-      <UseThemeContextProvider>
+      <ThemeContextProvider>
         <Providers>
           <FixedGlobalStyle />
           {ANALYTICS_KEY && <Ruddlestack />}
@@ -82,7 +82,7 @@ const VocdoniApp: FC<NextAppProps> = ({ Component, pageProps }) => {
           </div>
           <CookiesBanner />
         </Providers>
-      </UseThemeContextProvider>
+      </ThemeContextProvider>
     </RecoilRoot>
   )
 }

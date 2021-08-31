@@ -1,5 +1,5 @@
 import React, { useState, useContext , useEffect} from 'react'
-import styled, { useTheme } from 'styled-components'
+import styled from 'styled-components'
 import { useTranslation } from 'react-i18next'
 import {
   useEntity,
@@ -9,6 +9,8 @@ import {
 } from '@vocdoni/react-hooks'
 
 import { Question } from '@lib/types'
+
+import { useTheme } from '@hooks/use-theme'
 import { useVoting } from '@hooks/use-voting'
 import { useWallet, WalletRoles } from '@hooks/use-wallet'
 
@@ -29,16 +31,12 @@ import { Else, If, Then, When } from 'react-if'
 import { useUrlHash } from 'use-url-hash'
 import { VotingApi, EntityMetadata } from 'dvote-js'
 import { DateDiffType, localizedStrDateDiff } from '@lib/date'
-import { overrideTheme } from 'theme'
 import { Body1, TextAlign } from '@components/elements/typography'
-import { UseThemeContext } from '@hooks/useTheme'
 
 export const VotingPageView = () => {
   const { i18n } = useTranslation()
   const processId = useUrlHash().slice(1) // Skip "/"
-  const theme = useTheme()
-
-  const { setAppTheme } = useContext(UseThemeContext);
+  const { updateAppTheme } = useTheme();
 
   const { methods, choices, allQuestionsChosen, hasVoted, results, nullifier } =
     useVoting(processId)
@@ -63,7 +61,7 @@ export const VotingPageView = () => {
     if (processInfo?.metadata?.meta[MetadataFields.BrandColor] || entityMetadata?.meta[MetadataFields.BrandColor]) {
       const brandColor = processInfo?.metadata?.meta[MetadataFields.BrandColor] || entityMetadata?.meta[MetadataFields.BrandColor]
 
-      const newTheme = overrideTheme({
+      updateAppTheme({
         accent1: brandColor,
         accent1B: brandColor,
         accent2: brandColor,
@@ -72,8 +70,6 @@ export const VotingPageView = () => {
         textAccent1B: brandColor,
         customLogo: entityMetadata.media.logo
       })
-
-      setAppTheme(newTheme)
     }
   }, [processInfo, entityMetadata])
 
