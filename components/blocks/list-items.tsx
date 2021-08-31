@@ -36,7 +36,6 @@ export const VoteListItem = ({ icon, entityName, processId, title, description, 
           </TopDiv>
 
           <VoteListItemTitle>{title}</VoteListItemTitle>
-          <VoteListItemDescription><MarkDownViewer content={description} /></VoteListItemDescription>
           <VoteListItemDate>{dateText}</VoteListItemDate>
         </ListItemDiv>
       </a>
