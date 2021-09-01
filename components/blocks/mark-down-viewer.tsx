@@ -17,8 +17,8 @@ export const MarkDownViewer = ({ content }) => {
 
   useEffect(() => {
     if (wrapperRef.current) {
-      wrapperRef.current.addEventListener('click', handleClickEvent)
-      return () => wrapperRef.current.removeEventListener('click', handleClickEvent)
+      wrapperRef.current?.addEventListener('click', handleClickEvent)
+      return () => wrapperRef.current?.removeEventListener('click', handleClickEvent)
     }
   }, [])
 
