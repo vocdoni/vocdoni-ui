@@ -52,13 +52,11 @@ export const VoteDescription = ({
       </Column>
 
       <Column>
-        <DescriptionText color={colors.lightText}>{timeComment}</DescriptionText>
+        {timeComment}
       </Column>
 
       <Column>
-        <DescriptionText color={colors.lightText}>
           <MarkDownViewer content={description} />
-        </DescriptionText>
       </Column>
 
       <When condition={discussionUrl || attachmentUrl || liveStream}>
@@ -116,10 +114,6 @@ export const VoteDescription = ({
     </Grid>
   )
 }
-
-const DescriptionText = styled(SectionText)`
-  white-space: pre-line;
-`
 
 const ButtonText = styled.p`
   color: ${colors.blueText};
