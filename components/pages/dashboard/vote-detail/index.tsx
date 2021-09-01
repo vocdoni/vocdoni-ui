@@ -282,7 +282,7 @@ export const ViewDetail = ({
           </SectionContainer>
 
           <SectionContainer>
-            <SectionText>{process?.metadata?.title.default}</SectionText>
+            <TitleText>{process?.metadata?.title.default}</TitleText>
             <MarkDownViewer content={process?.metadata?.description.default} />
           </SectionContainer>
 
@@ -345,7 +345,7 @@ const DateContainer = styled.div`
 `
 const TitleText = styled.div`
   font-size: 20px;
-  font-weight: 500;
+  font-weight: 600;
 `
 const DescriptionText = styled.div`
   text-align: justify;
