@@ -1,17 +1,17 @@
 import React, { useContext } from 'react'
-import styled, { useTheme } from 'styled-components'
+import styled from 'styled-components'
 import Link from 'next/link'
 import { useWallet } from '../../../hooks/use-wallet'
 import { DASHBOARD_PATH, PRIVACY_PATH } from '../../../const/routes'
 import { useTranslation } from 'react-i18next'
 import { Image } from '@components/elements/image'
-import { UseThemeContext } from '@hooks/useTheme'
+import { useTheme } from '@hooks/use-theme'
 
 export const Footer = () => {
   const { i18n } = useTranslation()
 
   const { wallet } = useWallet()
-  const { theme } = useContext(UseThemeContext)
+  const { theme } = useTheme()
 
   const LINKS: HeaderLink[] = [
     {
