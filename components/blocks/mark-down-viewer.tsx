@@ -14,13 +14,12 @@ export const MarkDownViewer = ({ content }) => {
       window.open(event.target.href, '_blank')
     }
   }
-  
+
   useEffect(() => {
     if (wrapperRef.current) {
       wrapperRef.current.addEventListener('click', handleClickEvent)
+      return () => wrapperRef.current.removeEventListener('click', handleClickEvent)
     }
-
-    return () => wrapperRef.current.removeEventListener('click', handleClickEvent)
   }, [])
 
   return (<MarkdownWrapper dangerouslySetInnerHTML={{ __html: html }} ref={wrapperRef}></MarkdownWrapper>)
