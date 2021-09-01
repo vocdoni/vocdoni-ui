@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useEntity, useBlockHeight, SummaryProcess } from '@vocdoni/react-hooks'
-import { VochainProcessStatus } from 'dvote-js'
 
 import {
   DashboardActivitySummary,

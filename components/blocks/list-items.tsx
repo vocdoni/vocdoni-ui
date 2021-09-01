@@ -13,19 +13,19 @@ import { MarkDownViewer } from "./mark-down-viewer"
 
 type VoteListItemProps = ColumnProps & {
   icon: ReactNode,
+  link: string,
   entityName: string,
-  processId: string,
   title: string,
   description: string,
   status: VoteStatus,
   dateText: string
 }
 
-export const VoteListItem = ({ icon, entityName, processId, title, description, status, dateText }: VoteListItemProps) => {
+export const VoteListItem = ({ icon, entityName, link, title, description, status, dateText }: VoteListItemProps) => {
   const { i18n } = useTranslation()
 
   return (
-    <Link href={SHOW_PROCESS_PATH + "#/" + processId}>
+    <Link href={link || ''}>
       <a>
         <ListItemDiv>
           <TopDiv>
