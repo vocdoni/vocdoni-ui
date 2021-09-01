@@ -13,6 +13,7 @@ import { DashboardCreateProposalCard } from './create-proposal-card'
 import { EmptyProposalCard } from './empty-proposal-card'
 import { DashboardProcessListNav } from './process-list-nav'
 import { DashboardProcessListItem } from './process-list-item'
+import { SHOW_PROCESS_PATH } from '@const/routes';
 
 export enum ProcessTypes {
   ActiveVotes = 'activeVotes',
@@ -83,6 +84,7 @@ export const DashboardProcessList = ({
         status={processList.status}
         accountName={account?.name}
         entityLogo={entityMetadata?.media?.avatar}
+        link={ SHOW_PROCESS_PATH + "#/" + process.id }      
       />
     </div>
   )
