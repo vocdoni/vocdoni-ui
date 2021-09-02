@@ -33,14 +33,16 @@ export const EntityBrandingView = ({metadata, onSave}: IEntityBrandingViewProps)
   const [logoFile, setLogoFile] = useState<File>(null)
   const [dataUpdated, setDataUpdated] = useState<boolean>(false)
   const [primaryColor, setPrimaryColor] = useState<ColorPickerValue>({
-    hex: metadata?.meta[PlazaMetadataKeys.BRAND_COLOR]
+    hex: metadata && metadata.meta? metadata?.meta[PlazaMetadataKeys.BRAND_COLOR]: '0xfff'
   })
 
   useEffect(() => {
-    setPrimaryColor({
-      hex: metadata?.meta[PlazaMetadataKeys.BRAND_COLOR]
-    })
-  }, [metadata?.meta[PlazaMetadataKeys.BRAND_COLOR]])
+    if (metadata && metadata.meta && metadata.meta[PlazaMetadataKeys.BRAND_COLOR]) {
+      setPrimaryColor({
+        hex: metadata?.meta[PlazaMetadataKeys.BRAND_COLOR]
+      })
+    }
+  }, [metadata])
 
   const handleChangeColor = (color: ColorPickerValue) => {
     setDataUpdated(true)
