@@ -1,7 +1,6 @@
 {
     "action": {
         "browse": "Navega",
-        "check_privacy_policy": "Revisar política de privacitat",
         "check_terms_and_conditions": "Revisar termes i condicions",
         "clean": "Neteja",
         "continue": "Continua",
@@ -144,6 +143,7 @@
         "accept_terms": "Close",
         "acknowledge_passphrase_implications": "Accepto el fet que la pèrdua de la contrasenya comporta la impossibilitat d'accedir a la meva entitat posteriorment",
         "branding": {
+            "branding_updated_successfully": "",
             "customize_your_branding": "",
             "customize_your_logo": "",
             "customize_your_primary_color": "",
@@ -196,8 +196,8 @@
             "entity_description": "Descripció de l'entitat",
             "view_in_explorer": "Veure en el navegador"
         },
+        "i_have_read_and_accept_personal_data": "(Opcional) Accepto que les meves dades personals siguin processades per Aragon Labs amb finalitat comercial i informativa. <0>Més informació</0>.",
         "i_have_read_and_accept_terms": "He llegit i accepto els <0>termes i condicions del servei</0>, la <1>política de privadesa</1> d'Aragon Labs i el <2>contingut de la normativa aplicable</2> sobre protecció de dades de caràcter personal.",
-        "i_have_read_and_accept_personal_data": "Accepto rebre actualitzacions esporàdiques sobre noves característiques i informació rellevant sobre el projecte. <0>Més informació</0>.",
         "logo": "Logo de l'entitat",
         "name": "Nom de l'entitat",
         "new_entity": "Nom de l'entitat",

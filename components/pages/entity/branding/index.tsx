@@ -86,14 +86,14 @@ export const EntityBrandingView = ({metadata, onSave}: IEntityBrandingViewProps)
               color={colors.lightText}
             >{i18n.t('entity.branding.you_can_customize_the_voting_process_colors')}</Typography>
 
-            <div>
+            <ColorPickerContainer>
               <ColorPicker 
                 variant='default' 
                 value={primaryColor} 
                 onChange={handleChangeColor} 
                 defaultColors={[]} 
               />
-            </div>
+            </ColorPickerContainer>
           </Column>
 
           <Column md={6} sm={12}>
@@ -124,6 +124,8 @@ export const EntityBrandingView = ({metadata, onSave}: IEntityBrandingViewProps)
   )
 }
 
-const ColorPickerWrapper = styled.div`
-  padding-bottom: 20px;
+const ColorPickerContainer = styled.div`
+  &  .sc-hORach {
+    border: 0px;
+  }
 `

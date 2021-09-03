@@ -14,12 +14,17 @@ import { EntityMetadata } from 'dvote-js';
 import { StoreMediaError } from '@lib/validators/errors/store-media-error';
 import { StoringDataOnBlockchainError } from '@lib/validators/errors/storing-data-on-blockchain-error';
 import { PlazaMetadataKeys } from '@const/metadata-keys';
+import { useMessageAlert } from '@hooks/message-alert';
+import { useTranslation } from 'react-i18next';
 
 const BrandingEntityPage = () => {
   const wallet = useRecoilValue(walletState)
   const { metadata, loading, updateMetadata } = useEntity(wallet?.address)
-  const entityMetadata: EntityMetadata  = metadata;
+  const {setAlertMessage } = useMessageAlert()
+  const { i18n } = useTranslation()
   const { pool } = usePool()
+
+  const entityMetadata: EntityMetadata  = metadata;
 
   const handleSaveBranding = async (branding) => {
     if (branding.logo) {
@@ -37,6 +42,7 @@ const BrandingEntityPage = () => {
 
     try {
       await updateMetadata(metadata, wallet)
+      setAlertMessage(i18n.t('entity.branding.branding_updated_successfully'))
     } catch (error) {
       throw new StoringDataOnBlockchainError()
     }

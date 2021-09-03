@@ -1,0 +1,127 @@
+{
+    "vote": {
+        "consolidating_path": "",
+        "login": "",
+        "optional_introduction": "",
+        "participate_description": "",
+        "participate_title": "",
+        "send_vote": "",
+        "the_link_you_have_followed_is_not_valid": "",
+        "voting": "",
+        "number_votes": "",
+        "signing_transactions": "",
+        "confirm_details": "",
+        "enter_the_details_of_the_process": "",
+        "new_process": "",
+        "the_incognito_mode_is_incompatible": "",
+        "we_need_store_some_data_on_the_browser_to_create_the_entity_for_these_reason_is_incompatible_with_incognito_mode": "",
+        "header": "Capçalera",
+        "short_name_to_identify_the_process": "Nom del procés",
+        "the_process_must_begin_at_least_20_minutes_latter": "",
+        "color_used_to_defined_the_branding_style": "",
+        "primary_color_used_on_the_voting_process": "",
+        "primary_process_color": "",
+        "secondary_color_used_on_the_voting_process": "",
+        "secondary_process_color": "",
+        "live_stream": "Retransmissió en directe",
+        "your_vote_has_been_successfully_registered": "El teu vot ha estat registrat correctament",
+        "login_with_your_credentials_to_access_the_process": "Inicia sessió per consultar els resultats de la votació",
+        "ask_questions_to_the_organizers": "Pregunta als organitzadors",
+        "check_the_documentation": "Consulta la documentació"
+    },
+    "votes": {
+        "number_votes": "",
+        "show": {}
+    },
+    "results": {
+        "no_results_available": "",
+        "pdf": {
+            "totalh_votes": ""
+        }
+    },
+    "vote_detail": {
+        "create_new_proposal_in_only_5_minutes": "",
+        "generate_pdf_coming_soon": "Disponible aviat"
+    },
+    "entity": {
+        "please_wait_creating_account": "",
+        "your_account_has_been_created": "",
+        "enter_the_details_of_the_entity": "",
+        "invalid_file_type": "",
+        "invalid_xls_file": "",
+        "supported_formats_bak": "",
+        "go_to_dashboard": "",
+        "i_have_read_and_accept_the_privacy_policy": "He llegit i accepto la Política de Privacitat",
+        "i_have_read_and_accept_the_Privacy_of_service": "",
+        "i_have_read_and_accept_the_terms_of_service": "He llegit i accepto les Condicions de Servei",
+        "edit": {
+            "entity_details": "Detalls de l'entitat",
+            "the_details_of_your_organization": "Detalls de l'organització"
+        }
+    },
+    "action": {
+        "create_new_proposal": "",
+        "go_to_dashboard": "",
+        "create_my_entity": "Crea la teva entitat",
+        "clear": "Neteja",
+        "check_privacy_policy": "Revisar política de privacitat"
+    },
+    "errors": {
+        "internal_error_please_log_in_again": "",
+        "the_entity_name_already_exits": "",
+        "the_global_window_element_is_not_defined": "",
+        "invalid_mnemonic": "Invàlid mnemonic error",
+        "could_not_connect_to_the_network": "No es pot connectar a la xarxa",
+        "please_enter_a_valid_email": "Si et plau, entra una adreça de correu electrònica vàlida",
+        "please_select_an_image_for_the_header_and_the_logo": "Si et plau, selecciona una imatge per a la capçalera i una per al logo"
+    },
+    "import": {
+        "error_importing_account": "",
+        "credentials_explanation": "",
+        "drag_a_vocdoni_backup_file": ""
+    },
+    "recover": {
+        "credentials_explanation": "",
+        "select_the_backup_file_of_your_account": "",
+        "recover_question": ""
+    },
+    "dashboard": {
+        "lorem_ipsum": ""
+    },
+    "warning": {
+        "please_enter_your_passphrase_to_retry_it": "",
+        "the_creation_of_your_entity_is_not_complete": ""
+    },
+    "error": {
+        "process_already_ended": "El procés ja ha finalitzat",
+        "process_cannot_be_canceled": "El procés no es pot cancel·lar"
+    },
+    "home": {
+        "hero_subtitle": "El protocol de vot més segur i flexible per organitzar tota mena de processos de votació",
+        "hero_title": "La solució fàcil i segura que cobreix les teves necessitats de governança",
+        "question_1": "Qüestió 1",
+        "question_2": "Qüestió 2",
+        "question_3": "Qüestió 3"
+    },
+    "backup": {
+        "CHILDHOOD_NICKNAME": "Com et deien de petit?",
+        "DRIVING_INSTRUCTOR": "Com es deia el teu professor d'autoescola?",
+        "FAVORITE_TEACHER": "Com es deia el teu professor preferit?",
+        "FIRST_KISSED": "A qui vas fer el teu primer petó?",
+        "STUFFED_TOY": "Com es deia el ninot de peluix?"
+    },
+    "cookies": {
+        "these_site_use_cookies_to_improve_the_experience_of_use": "",
+        "view_details": ""
+    },
+    "voter": {
+        "i_have_read_and_accept_the_entity_terms": "",
+        "accept_entity_terms": "Estic d'accord"
+    },
+    "actions": {
+        "check_terms_and_conditions": ""
+    },
+    "form": {
+        "edit": ""
+    }
+}

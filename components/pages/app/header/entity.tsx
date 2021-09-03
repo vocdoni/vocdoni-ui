@@ -124,18 +124,6 @@ export const EntityHeader = () => {
 
       <DropdownSeparator />
 
-      <DropdownItem href={ACCOUNT_BACKUP_PATH}>
-        <Typography variant={TypographyVariant.Small} margin='0'>{i18n.t('app.header.create_account_backup')}</Typography>
-      </DropdownItem>
-
-      <DropdownSeparator />
-
-      <DropdownItem href='https://help.aragon.org/collection/54-vocdoni-user-guide' target='_blank'>
-        <Typography variant={TypographyVariant.Small} margin='0'>{i18n.t('app.header.help_and_feedback')}</Typography>
-      </DropdownItem>
-
-      <DropdownSeparator />
-
       {featureState == 'hasValue' && features?.includes(Features.CustomBranding) &&
         (
           <>
@@ -147,6 +135,18 @@ export const EntityHeader = () => {
           </>
         )
       }
+
+      <DropdownItem href={ACCOUNT_BACKUP_PATH}>
+        <Typography variant={TypographyVariant.Small} margin='0'>{i18n.t('app.header.create_account_backup')}</Typography>
+      </DropdownItem>
+
+      <DropdownSeparator />
+
+      <DropdownItem href='https://help.aragon.org/collection/54-vocdoni-user-guide' target='_blank'>
+        <Typography variant={TypographyVariant.Small} margin='0'>{i18n.t('app.header.help_and_feedback')}</Typography>
+      </DropdownItem>
+
+      <DropdownSeparator />
 
       <DropdownItem onClick={() => setShowLanguageSelector(true)} preventClose>
         <RelativeContainer>
