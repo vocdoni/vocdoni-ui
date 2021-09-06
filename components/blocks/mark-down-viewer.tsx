@@ -1,13 +1,21 @@
 import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import MarkDownIt from 'markdown-it'
-import { wrap } from 'module'
+import { Md2PdfkitParser } from '@lib/md-2-pdkit-parser'
 
 export const MarkDownViewer = ({ content }) => {
   const wrapperRef = React.useRef(null)
   const md = new MarkDownIt()
   const html = md.render(content || '')
 
+  useEffect(() => {
+
+    if(content) {
+      const parser = new Md2PdfkitParser(content)
+      console.log(parser.getPdfkitOperations())
+    }
+  }, [content])
+  
   const handleClickEvent = (event) => {
     if (event.target.tagName === 'A') {
       event.preventDefault()

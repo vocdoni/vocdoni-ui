@@ -1,5 +1,6 @@
 import PDFDocument from 'pdfkit';
 import blobStream from 'blob-stream';
+import { Md2PdfkitParser, PdfkitOpt, PdfkitOptStack } from './md-2-pdkit-parser';
 
 interface IPageOptions {
   size?: string;
@@ -88,6 +89,18 @@ export class PdfGenerator {
 
   public addImage(image: string, options?: IImageOptions): void {
     this.pdf.image(image, options.left, options.top, options)
+  }
+
+  public addMdText(text: string, options: IPageOptions = PdfGenerator.defaultTextStyle): void {
+    const md2PdfKitParser = new Md2PdfkitParser(text, options)
+
+    const pdfOpts = md2PdfKitParser.getPdfkitOperations()
+    console.log('the pdf ots are', pdfOpts)
+    pdfOpts.forEach((pdfStackOpt: PdfkitOptStack) => {
+      pdfStackOpt.stack.forEach((pdfOpt: PdfkitOpt) => {
+        this.pdf[pdfOpt.type]?.apply(this.pdf, pdfOpt.args)
+      })
+    });
   }
 
   public addText(text: string, options: IPageOptions = PdfGenerator.defaultTextStyle): void {
