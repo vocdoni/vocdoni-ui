@@ -60,7 +60,7 @@ const CookiesBannerContent = styled.div`
   display: flex;
   flex-direction: row;
 
-  @media ${({ theme }) => theme.screenMax.mobileM} {
+  @media ${({ theme }) => theme.screenMax.mobileL} {
     flex-direction: column;
   }
 `
