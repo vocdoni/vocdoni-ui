@@ -1,6 +1,6 @@
 import PDFDocument from 'pdfkit';
 import blobStream from 'blob-stream';
-import { Md2PdfkitParser, PdfkitOpt, PdfkitOptStack } from './md-2-pdkit-parser';
+import { Md2PdfkitParser, PdfkitOpt, PdfkitOptStack } from './md-2-pdfkit-parser';
 
 interface IPageOptions {
   size?: string;
