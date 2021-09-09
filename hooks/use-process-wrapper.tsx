@@ -1,5 +1,5 @@
 import { usePool, useProcess, useBlockHeight, useDateAtBlock, UseProcessContext, CacheRegisterPrefix } from '@vocdoni/react-hooks'
-import { IProcessDetails, DigestedProcessResults, VotingApi, ProcessStatus, VochainProcessStatus, IProcessStatus, IProcessState } from 'dvote-js'
+import { ProcessDetails, DigestedProcessResults, VotingApi, ProcessStatus, VochainProcessStatus, IProcessStatus, ProcessState } from 'dvote-js'
 import { Wallet } from '@ethersproject/wallet'
 
 import { useContext } from 'react'
@@ -13,7 +13,7 @@ export interface ProcessWrapperContext {
   loadingInfo: boolean,
   loadingInfoError: string,
 
-  processInfo: IProcessDetails,
+  processInfo: ProcessDetails,
 
   hasStarted: boolean,
   hasEnded: boolean,
@@ -22,7 +22,7 @@ export interface ProcessWrapperContext {
   processId: string,
   results: DigestedProcessResults,
   methods: {
-    refreshProcessInfo: (processId: string) => Promise<IProcessDetails>
+    refreshProcessInfo: (processId: string) => Promise<ProcessDetails>
     refreshResults: () => Promise<any>
   }
 }
@@ -86,12 +86,12 @@ export const useProcessWrapper = (processId: string) => {
     }
   }, [processInfo?.state?.status])
 
-  const waitUntilStatusUpdated = (processId: string, status: IProcessStatus): Promise<IProcessState> => {
+  const waitUntilStatusUpdated = (processId: string, status: IProcessStatus): Promise<ProcessState> => {
     return new Promise(async (resolve, reject) => {
       let attempts = 10
 
       const checkStatusAndResolve = async (): Promise<void> => {
-        const process: IProcessState = await processContext.refreshProcessState(processId)
+        const process: ProcessState = await processContext.refreshProcessState(processId)
         --attempts
         if (attempts <= 0) {
           reject('Max attempts reached')

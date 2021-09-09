@@ -1,4 +1,4 @@
-import { EntityMetadata, IProcessSummary, MultiLanguage, ProcessMetadata } from 'dvote-js'
+import { EntityMetadata, ProcessSummary, MultiLanguage, ProcessMetadata } from 'dvote-js'
 
 // IndexDB types
 export enum AccountStatus {
@@ -42,7 +42,7 @@ export type Choice = {
 
 export interface IProcessesSummary {
   id: string
-  summary: IProcessSummary
+  summary: ProcessSummary
   metadata?: ProcessMetadata
 }
 

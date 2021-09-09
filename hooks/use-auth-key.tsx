@@ -3,9 +3,10 @@ import { Wallet } from 'ethers'
 import { usePool, useProcess } from '@vocdoni/react-hooks'
 
 import {
-  IProcessDetails,
+  ProcessDetails,
   CensusOffChainApi,
-  CensusOffchainDigestType,
+  CensusOffChain,
+
 } from 'dvote-js'
 
 import i18n from '../i18n'
@@ -20,7 +21,7 @@ type IAuthKey = {
   invalidProcessId?: boolean
   loadingInfo?: boolean
   loadingInfoError?: string
-  processInfo?: IProcessDetails
+  processInfo?: ProcessDetails
   processId: string
   key?: string
 }
@@ -52,9 +53,8 @@ export const useAuthKey = () => {
       try {
         const voterWallet = new Wallet(key)
 
-        const digestedHexClaim = CensusOffChainApi.digestPublicKey(
-          voterWallet.publicKey,
-          CensusOffchainDigestType.RAW_PUBKEY
+        const digestedHexClaim = CensusOffChain.Public.encodePublicKey(
+          voterWallet.publicKey
         )
 
         const pool = await poolPromise

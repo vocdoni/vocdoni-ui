@@ -1,16 +1,16 @@
 import { PdfGenerator } from "./pdf-generator";
-import { DigestedProcessResultItem, DigestedProcessResults, IProcessDetails } from 'dvote-js'
+import { DigestedProcessResultItem, DigestedProcessResults, ProcessDetails } from 'dvote-js'
 import RouterService from "./router";
 import { colors } from "@theme/colors";
 import i18n from "@i18n";
 
 interface IResultsPdfGeneratorOptions {
-  process: IProcessDetails;
+  process: ProcessDetails;
   processResults: DigestedProcessResults;
 }
 
 export class ResultPdfGenerator extends PdfGenerator {
-  private readonly process: IProcessDetails;
+  private readonly process: ProcessDetails;
   private readonly processResults: DigestedProcessResults;
   private logoHeader: string;
   constructor({ process, processResults }: IResultsPdfGeneratorOptions) {

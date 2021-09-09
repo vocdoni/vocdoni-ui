@@ -2,7 +2,7 @@
 import { useBlockAtDate, useBlockStatus, usePool } from '@vocdoni/react-hooks'
 import {
   CensusOffChainApi,
-  CensusOffchainDigestType,
+  CensusOffChain,
   ProcessContractParameters,
   ProcessEnvelopeType,
   ProcessMetadata,
@@ -154,7 +154,7 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
         row = row.map(x => normalizeText(x))
         const payload = importedRowToString(row, entityId)
         const voterWallet = digestedWalletFromString(payload)
-        const key = CensusOffChainApi.digestPublicKey(voterWallet.publicKey, CensusOffchainDigestType.RAW_PUBKEY)
+        const key = CensusOffChain.Public.encodePublicKey(voterWallet.publicKey)
         resolve({ key })
       }, 50)
     }))) as { key: string, value?: string }[]

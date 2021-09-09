@@ -6,11 +6,11 @@ import { ImageContainer } from '@components/elements/images'
 import { SectionText, TextAlign } from '@components/elements/text'
 import { Button } from '@components/elements/button'
 import { FlexAlignItem, FlexJustifyContent } from '@components/elements/flex'
-import { DigestedProcessResults, EntityMetadata, IProcessDetails } from 'dvote-js'
+import { DigestedProcessResults, EntityMetadata, ProcessDetails } from 'dvote-js'
 import { ResultPdfGenerator } from '@lib/result-pdf-generator'
 
 interface IGeneratePdfCardProps {
-  process: IProcessDetails
+  process: ProcessDetails
   entityMetadata: EntityMetadata
   results: DigestedProcessResults
 }

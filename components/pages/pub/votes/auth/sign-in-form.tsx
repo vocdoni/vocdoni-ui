@@ -1,6 +1,6 @@
 import React, { ChangeEvent } from 'react'
 import styled from 'styled-components'
-import { IProcessDetails, EntityMetadata } from 'dvote-js'
+import { ProcessDetails, EntityMetadata } from 'dvote-js'
 import { useTranslation } from 'react-i18next'
 
 import { Fieldset, FormGroupVariant, InputFormGroup } from '@components/blocks/form'
@@ -19,7 +19,7 @@ interface IFormProps {
   values: IFieldValues
   submitEnabled?: boolean
   checkingCredentials?: boolean
-  processInfo: IProcessDetails
+  processInfo: ProcessDetails
   entity: EntityMetadata
   onChange: (field: string, value) => void
   onSubmit: () => void
