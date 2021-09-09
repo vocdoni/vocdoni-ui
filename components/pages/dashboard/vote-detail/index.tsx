@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { useTranslation } from 'react-i18next'
 import {
   DigestedProcessResults,
-  IProcessDetails,
+  ProcessDetails,
   VochainProcessStatus,
   VotingApi,
   EntityMetadata,
@@ -33,7 +33,7 @@ import { HelpText } from '@components/blocks/help-text'
 import { DateDiffType, localizedStrDateDiff } from '@lib/date'
 
 interface IProcessDetailProps {
-  process: IProcessDetails
+  process: ProcessDetails
   results: DigestedProcessResults
   entityMetadata: EntityMetadata
   cancelProcess: () => Promise<void>

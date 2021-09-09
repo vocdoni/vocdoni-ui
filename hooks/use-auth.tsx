@@ -1,7 +1,7 @@
 import { Wallet } from "@ethersproject/wallet"
 import { NoCensusMemberError } from "@lib/validators/errors/no-census-member-error"
 import { usePool } from "@vocdoni/react-hooks"
-import { CensusOffChainApi, CensusOffchainDigestType } from "dvote-js"
+import { CensusOffChain, CensusOffChainApi } from "dvote-js"
 
 interface IUseAuth {
   checkCensusProof: (censusRoot: string, key: string) => void
@@ -14,9 +14,8 @@ export const useAuth = (): IUseAuth => {
     try {
       const voterWallet = new Wallet(key)
   
-      const digestedHexClaim = CensusOffChainApi.digestPublicKey(
-        voterWallet.publicKey,
-        CensusOffchainDigestType.RAW_PUBKEY
+      const digestedHexClaim = CensusOffChain.Public.encodePublicKey(
+        voterWallet.publicKey
       )
   
       const pool = await poolPromise
