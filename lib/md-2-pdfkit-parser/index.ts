@@ -15,8 +15,6 @@ export class Md2PdfkitParser {
   };
 
   public getPdfkitOperations(): PdfkitOptStack[] {
-    console.log(this.parsedMd)
-
     if (!this.pdfkitOperations) {
       this.pdfkitOperations = this.parse(this.parsedMd)
     }
@@ -84,14 +82,14 @@ export class Md2PdfkitParser {
         break
 
       case MdTypes.Order_list_open:
-        stackOpt =  new PdfkitOrderedListOpt(token.content, {})
+        stackOpt = new PdfkitOrderedListOpt(token.content, {})
         break
       case MdTypes.Order_list_close:
         if (openStack instanceof PdfkitOrderedListOpt) openStack.opened = false
         break
 
       case MdTypes.Bullet_list_open:
-        stackOpt =  new PdfkitBulletListOpt(token.content, {})
+        stackOpt = new PdfkitBulletListOpt(token.content, {})
         break
       case MdTypes.Bullet_list_close:
         if (openStack instanceof PdfkitBulletListOpt) openStack.opened = false
@@ -113,6 +111,7 @@ export class Md2PdfkitParser {
 
     md.forEach(token => {
       const pdfkitOpt = this.parseToken(token, pdfkitOperations.slice(-1)[0])
+      
       if (pdfkitOpt) {
         pdfkitOperations.push(pdfkitOpt)
       }

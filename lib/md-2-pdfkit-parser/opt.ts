@@ -19,6 +19,10 @@ export enum MdTypes {
   Blockquote_close = "blockquote_close",
 }
 
+const defaultTextOptions = {
+  lineGap: 10,
+}
+
 export type PdfKitOpt = 'text' | 'moveDown' | 'fontSize' | 'list' | 'font'
 
 export enum PdfKitFontType {
@@ -130,6 +134,17 @@ export class PdfKitListOpt extends PdfkitOptStack {
   public text(text: string) {
     this.stack[1].args[0].push(text)
   }
+
+  set opened(value: boolean) {
+    this._opened = value
+
+    this.push('moveDown', [0.5])
+  }
+
+  get opened() {
+    return this._opened
+  }
+
 }
 
 export class PdfkitOrderedListOpt extends PdfKitListOpt {
@@ -149,12 +164,15 @@ export class PdfkitTextOpt extends PdfkitOptStack {
 
   constructor(text: string, textOptions?: any) {
     super()
+    textOptions = textOptions? {...textOptions, ...defaultTextOptions} : defaultTextOptions
 
     this.push('fontSize', [textOptions.fontSize])
     this.push('text', [text, textOptions])
   }
 
   public text(text: string, textOptions?: any) {
+    textOptions = textOptions? {...textOptions, ...defaultTextOptions} : defaultTextOptions
+
     this.push('text', [text, {...textOptions, continued: true}])
   }
 }
@@ -164,7 +182,7 @@ export class PdfKitH1Opt extends PdfkitTextOpt {
     super(text,
       {
         fontSize: 18,
-        fontWeight: 500
+        fontWeight: 500,
       }
     )
   }
@@ -186,7 +204,7 @@ export class PdfKitParagraphOpt extends PdfkitTextOpt {
     super(text,
       {
         fontSize: 12,
-        fontWeight: 300
+        fontWeight: 300,
       }
     )
   }

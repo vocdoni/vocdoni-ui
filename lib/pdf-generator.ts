@@ -19,6 +19,7 @@ interface IPageOptions {
   fontStyle?: string;
   fontWeight?: string;
   fontVariant?: string;
+  lineGap?: number;
 }
 
 interface ITextOptions {
@@ -95,7 +96,7 @@ export class PdfGenerator {
     const md2PdfKitParser = new Md2PdfkitParser(text, options)
 
     const pdfOpts = md2PdfKitParser.getPdfkitOperations()
-    console.log('the pdf ots are', pdfOpts)
+
     pdfOpts.forEach((pdfStackOpt: PdfkitOptStack) => {
       pdfStackOpt.stack.forEach((pdfOpt: PdfkitOpt) => {
         this.pdf[pdfOpt.type]?.apply(this.pdf, pdfOpt.args)
@@ -117,6 +118,10 @@ export class PdfGenerator {
     this.pdf.moveDown(space)
   }
 
+  public margin(margin: number) {
+    // this.pdf.spaceLeft(margin)
+  }
+
   public addTitle(title: string, options?: ITextOptions): void {
     const titleDefaultOptions = {
       fontSize: 18,
@@ -128,6 +133,17 @@ export class PdfGenerator {
     this.addText(title, titleDefaultOptions)
   }
 
+  public addSubTitle(title: string, options?: ITextOptions): void {
+    const titleDefaultOptions = {
+      fontSize: 16,
+      align: 'center',
+      margin: 0.8,
+      ...options || {},
+    }
+
+    this.addText(title, titleDefaultOptions)
+  }
+  
   public generatePage() {
     this.addPage({
       size: PdfGenerator.defaultSize,
