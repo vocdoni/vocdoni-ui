@@ -91,7 +91,7 @@ export const Footer = () => {
             <img src="/images/home/footer/youtube.svg" alt="Youtube" />
           </SocialLinkContainer>
 
-          <SocialLinkContainer href="https://discord.gg/8p8NSD4e2n" target="_blank">
+          <SocialLinkContainer href="https://discord.gg/ATF2wqrx" target="_blank">
             <img src="/images/home/footer/discord.svg" alt="Discord" />
           </SocialLinkContainer>
 
