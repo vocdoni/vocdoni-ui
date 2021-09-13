@@ -79,5 +79,9 @@ const ProgressBarContainer = styled.div`
 `
 
 const DescriptionContainer = styled(SectionText)`
-  font-size: 24px;
+  font-size: 18px;
+
+  @media ${({ theme }) => theme.screenMax.mobileL} {
+    font-size: 14px;
+  }
 `

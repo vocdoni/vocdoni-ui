@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 
 import { COOKIES_PATH } from '@const/routes'
 
-import { Button } from '@components/elements/button'
+import { BaseButton, Button } from '@components/elements/button'
 import { Typography, TypographyVariant } from '@components/elements/typography'
 
 import styled from 'styled-components'
@@ -25,11 +25,7 @@ export const CookiesBanner = () => {
           <TextContainer>
             <SpacedContainer>
               <Typography variant={TypographyVariant.ExtraSmall}>
-                {i18n.t('cookies.cookies_paragraph_1')}
-              </Typography>
-
-              <Typography variant={TypographyVariant.ExtraSmall}>
-                {i18n.t('cookies.cookies_paragraph_2')}{' '}
+                {i18n.t('cookies.cookies_paragraph_1')}{ ' ' }
                 <Link href={COOKIES_PATH}>
                   {i18n.t('cookies.more_details')}
                 </Link>
@@ -71,13 +67,21 @@ const TextContainer = styled.div`
   & > div > div {
     padding-right: 10px;
   }
+
+  @media ${({ theme }) => theme.screenMax.mobileL} {
+    p, a{
+      font-size: 10px;
+    }
+  }
 `
 const ButtonsContainer = styled.div`
   min-width: 120px;
   padding: 10px;
 
-  @media ${({ theme }) => theme.screenMax.mobileM} {
-    padding: 0;
+  @media ${({ theme }) => theme.screenMax.mobileL} {
+    ${ BaseButton } {
+      padding: 4px !important;
+    }
   }
 `
 
