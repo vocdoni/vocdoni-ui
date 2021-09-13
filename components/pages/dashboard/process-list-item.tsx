@@ -21,13 +21,15 @@ interface IDashboardProcessListItemProps {
   status: VoteStatus
   accountName?: string
   entityLogo?: string
+  link?: string
 }
 
 export const DashboardProcessListItem = ({
   process,
   accountName,
   status,
-  entityLogo
+  entityLogo,
+  link
 }: IDashboardProcessListItemProps) => {
   const { i18n } = useTranslation()
 
@@ -84,9 +86,9 @@ export const DashboardProcessListItem = ({
             <Image src={entityLogo || FALLBACK_ACCOUNT_ICON} />
           </ImageContainer>
         }
+        link={link}
         description={process?.metadata?.description.default}
         title={process?.metadata?.title.default}
-        processId={process?.id}
         entityName={accountName}
         dateText={date}
         status={status}
