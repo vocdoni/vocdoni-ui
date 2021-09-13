@@ -13,7 +13,8 @@ import { Button, JustifyContent, LinkTarget } from '@components/elements/button'
 import { Column, Grid } from '@components/elements/grid'
 import { ProcessStatusLabel } from '@components/blocks/process-status-label'
 import { When } from 'react-if'
-import { HelpText } from '@components/blocks/help-text'
+
+import { MarkDownViewer } from './mark-down-viewer'
 
 interface IVotePageProps {
   description: string
@@ -51,11 +52,11 @@ export const VoteDescription = ({
       </Column>
 
       <Column>
-        <DescriptionText color={colors.lightText}>{timeComment}</DescriptionText>
+        {timeComment}
       </Column>
 
       <Column>
-        <DescriptionText color={colors.lightText}>{description}</DescriptionText>
+          <MarkDownViewer content={description} />
       </Column>
 
       <When condition={discussionUrl || attachmentUrl || liveStream}>
@@ -113,10 +114,6 @@ export const VoteDescription = ({
     </Grid>
   )
 }
-
-const DescriptionText = styled(SectionText)`
-  white-space: pre-line;
-`
 
 const ButtonText = styled.p`
   color: ${colors.blueText};
