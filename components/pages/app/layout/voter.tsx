@@ -16,7 +16,7 @@ const LayoutContainer = styled.div`
   margin-right: auto;
 
   @media ${({ theme }) => theme.screenMin.tablet} {
-    ${({ theme }) => `padding: 110px ${theme.margins.desktop.horizontal} 120px;`}
+    ${({ theme }) => `padding: 20px ${theme.margins.desktop.horizontal} 120px;`}
   }
 `
 
