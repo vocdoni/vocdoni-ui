@@ -8,7 +8,7 @@ import { colors } from 'theme/colors'
 
 import { Choice, Question } from '@lib/types'
 
-import { FlexContainer } from '@components/elements/flex'
+import { FlexAlignItem, FlexContainer } from '@components/elements/flex'
 import { SectionText } from '@components/elements/text'
 
 
@@ -33,7 +33,7 @@ export const QuestionResults = ({
   return (
     <>
       {question.choices.map((choice: Choice, index: number) => (
-        <FlexContainer key={index}>
+        <FlexContainer key={index} alignItem={FlexAlignItem.Center}>
           <ProgressBarContainer>
             <CircularProgressbar
               styles={buildGraphStyle(getOptionPercentage(index))}
@@ -41,14 +41,15 @@ export const QuestionResults = ({
               text={`${getOptionPercentage(index).toFixed(1)}%`}
             />
           </ProgressBarContainer>
-          <div>
+
+          <ResultsContainer>
             <DescriptionContainer>{choice.title.default}</DescriptionContainer>
             <SectionText color={colors.lightText}>
               {i18n.t('vote_question_card.number_votes', {
                 number: getOptionResult(index),
               })}
             </SectionText>
-          </div>
+          </ResultsContainer>
         </FlexContainer>
       ))}
     </>
@@ -68,10 +69,17 @@ const buildGraphStyle = (percent: number) => {
   }
 }
 
+const ResultsContainer = styled.div`
+  p {
+    margin-bottom: 2px;
+  }
+`
+
 const ProgressBarContainer = styled.div`
   width: 60px;
   min-width: 60px;
   margin-right: 12px;
+  margin-bottom: 4px;
 
   & > svg > text {
     font-size: 24px !important;
@@ -80,7 +88,6 @@ const ProgressBarContainer = styled.div`
 
 const DescriptionContainer = styled(SectionText)`
   font-size: 18px;
-
   @media ${({ theme }) => theme.screenMax.mobileL} {
     font-size: 14px;
   }
