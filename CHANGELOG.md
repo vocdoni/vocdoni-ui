@@ -1,5 +1,20 @@
 # CHANGELOG
 
+### v1.2.2
+- [VPLZ-175] Fixes max value voting process creation
+- [VPLZ-214] Adds support for downloading process as PDF
+- [VPLZ-197] Adds entity edit page and entity public page
+- [DVOT-27] Fixes different sizes in the documentation button
+- [DVOT-12] Adds social icons
+- [DVOT-28] Improves Cookie Banner for mobile
+- [DVOT-13] Adds language selector for header/footer
+- [DVOT-3] Sets startBlock=1 if "start right away" checkbox selected (gateways autostart)
+- [VPLZ-217] Improves voting detail page look
+- [DVOT-80] Various UI fixes:
+  - Adds mobile styles fixes
+  - Fixes padding size for desktop device
+  - Improves results page style
+
 ### v1.2.1
 
 - [VPLZ-221] Prevent voting process with `start_date` > `end_date`
