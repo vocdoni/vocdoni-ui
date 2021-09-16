@@ -130,9 +130,9 @@
         "starting_tomorrow": "Comença demà"
     },
     "entity": {
-        "accept_entity_terms": "Estic d'accord",
-        "accept_Privacy": "Estic d'accord",
-        "accept_terms": "Estic d'accord",
+        "accept_entity_terms": "Close",
+        "accept_Privacy": "Close",
+        "accept_terms": "Close",
         "acknowledge_passphrase_implications": "Accepto el fet que la pèrdua de la contrasenya comporta la impossibilitat d'accedir a la meva entitat posteriorment",
         "brief_description": "Descripció breu de l'entitat",
         "choose_a_passphrase": "Tria una contrasenya",
@@ -530,7 +530,6 @@
         "invalid_process_id_link": "Enllaç invàlid",
         "invalid_xls_file": "Format del fitxer invàlid",
         "login_title": "Inicia sessió",
-        "login_with_your_credentials_to_access_the_process": "Inicia sessió per consultar els resultats de la votació",
         "name": "Name",
         "new_vote": "Nou procés de votació",
         "no_back_to_login": "No, torna a la votació",
