@@ -20,7 +20,7 @@
             "language": "Language",
             "public_page": "Public page",
             "settings": "Setting",
-            "update_entity": "Update entity",
+            "update_entity": "Actualizar entidad",
             "user_language": "Language: {{ lang }}"
         }
     },
@@ -55,8 +55,8 @@
     },
     "block": {
         "confirm_modal": {
-            "accept": "Accept",
-            "cancel": "Cancel"
+            "accept": "Aceptar",
+            "cancel": "Cancelar"
         }
     },
     "confirm": {
