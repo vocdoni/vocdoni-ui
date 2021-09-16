@@ -130,9 +130,9 @@
         "starting_tomorrow": "Empieza mañana"
     },
     "entity": {
-        "accept_entity_terms": "Estoy de acuerdo",
-        "accept_Privacy": "Estoy de acuerdo",
-        "accept_terms": "Estoy de acuerdo",
+        "accept_entity_terms": "Close",
+        "accept_Privacy": "Close",
+        "accept_terms": "Close",
         "acknowledge_passphrase_implications": "Soy consciente de que la pérdida de la contraseña implica perder también el acceso a la cuenta de mi entidad",
         "brief_description": "Breve descripción de la entidad",
         "choose_a_passphrase": "Escoger contraseña",
