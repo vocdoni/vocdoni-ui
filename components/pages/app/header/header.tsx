@@ -160,6 +160,8 @@ const ListContainer = styled.div`
 
 const RightContainer = styled.div`
   padding: 0 ${({ theme }) => theme.margins.mobile.horizontal};
+  display: flex;
+  align-items: center;
 
   @media ${({ theme }) => theme.screenMin.tablet} {
     padding: 0 ${({ theme }) => theme.margins.desktop.horizontal};
@@ -167,6 +169,10 @@ const RightContainer = styled.div`
 
   @media ${({ theme }) => theme.screenMax.mobileL} {
     display: none;
+  }
+
+  & > * {
+    margin-right: 10px;
   }
 `
 

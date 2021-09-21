@@ -425,9 +425,30 @@
         "requests_and_bugs": "Feature Request & Bugs",
         "support": "Support"
     },
+    "payment": {
+        "city": "City",
+        "country": "Country",
+        "name": "Name",
+        "street": "Street",
+        "zip_code": "Zip code"
+    },
     "preview": {
         "ending_in_one_hour": "Ending in 1h",
         "vote": "Vote"
+    },
+    "products": {
+        "plans": {
+            "basic": {
+                "button": "Buy now",
+                "description": "This is the basic description",
+                "title": "Basic product"
+            },
+            "standard": {
+                "button": "Buy now",
+                "description": "This is the standard description",
+                "title": "Standard product"
+            }
+        }
     },
     "recover": {
         "continue": "Continue",

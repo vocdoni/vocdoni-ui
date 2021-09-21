@@ -53,6 +53,7 @@ module.exports = {
 
   input: [
     'lib/**/*.{ts,tsx}',
+    'const/**/*.{ts,tsx}',
     'hooks/**/*.{ts,tsx}',
     'pages/**/*.{ts,tsx}',
     'components/**/*.{ts,tsx}',

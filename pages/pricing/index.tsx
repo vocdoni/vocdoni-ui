@@ -1,72 +1,57 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
+import { useRecoilValueLoadable, useRecoilValue } from "recoil"
 
-import { Table, TableHeader, TableRow, TableCell, Text } from '@aragon/ui'
-import { Typography, TypographyVariant } from "@components/elements/typography"
-import { useTranslation } from "react-i18next"
-import { Column, Grid } from "@components/elements/grid"
-import { BoxPlan } from "@components/pages/pricing/box-plan"
-import RouterService from "@lib/router"
-import { PAYMENT_PAGE } from "@const/routes"
 
-interface IPricingPlan {
-  title: string
-  price: string
-  description: string
-  buttonText: string
-  license: string
-  buttonLink: string,
-  buttonPositive: boolean,
-  features: string[]
-}
+import { Product } from "models/Product"
+import { ViewContext, ViewStrategy } from "@lib/strategy"
+
+import { Loader } from "@components/blocks/loader"
+import { PricingView } from "@components/pages/pricing"
+import { Redirect } from "@components/redirect"
+
+import { productsState } from "@recoil/atoms/products"
+import { walletState } from "@recoil/atoms/wallet"
+
+import { ENTITY_SIGN_IN_PATH } from '@const/routes';
 
 const PricingPage = () => {
-  const { i18n } = useTranslation()
+  const [redirectUrl, setRedirectUrl] = useState(null)
+  const {contents: products, state: productsStatus} = useRecoilValueLoadable<Product[]>(productsState)
+  const wallet = useRecoilValue(walletState)
+  console.log('el wallet es', wallet)
+  useEffect(() => {
+    if(!wallet) {
+      setRedirectUrl(ENTITY_SIGN_IN_PATH)
+    }
+  }, [wallet])
 
-  const pricingPlans: IPricingPlan[] = [
-    {
-      title: i18n.t('pricing.plans.basic.title'),
-      price: i18n.t('pricing.plans.basic.price'),
-      description: i18n.t('pricing.plans.basic.description'),
-      license: "basic",
-      buttonText: i18n.t('pricing.plans.basic.button'),
-      buttonLink: RouterService.instance.get(PAYMENT_PAGE, {license: 'basic'}),
-      buttonPositive: false,
-      features: [
-        "1-to-1 support",
-        "1-to-1 support",
-        "1-to-1 support",
-        "1-to-1 support",
-        "1-to-1 support",
-      ]
-    },
-    {
-      title: i18n.t('pricing.plans.standard.title'),
-      price: i18n.t('pricing.plans.standard.price'),
-      description: i18n.t('pricing.plans.standard.description'),
-      license: "standard",
-      buttonText: i18n.t('pricing.plans.standard.button'),
-      buttonLink: RouterService.instance.get(PAYMENT_PAGE, {license: 'standard'}),
-      buttonPositive: true,
-      features: [
-        "1-to-1 support",
-        "1-to-1 support",
-        "1-to-1 support",
-        "1-to-1 support",
-        "1-to-1 support",
-      ]
-    },
-  ]
-  return <div>
-    <Typography variant={TypographyVariant.H1}>{"pricing.title"}}</Typography>
+  const redirectView = new ViewStrategy(
+    () => redirectUrl,
+    <>
+      <Loader visible />
+      <Redirect to={redirectUrl}/>
+    </>
+  )
 
-    <Grid>
-      { pricingPlans.map(plan => (
-        <Column md={6} sm={12}>
-          <BoxPlan {...plan}/>
-        </Column>
-      )}
-    </Grid>
-  </div>
+
+  const pricingView = new ViewStrategy(
+    () => productsStatus === 'hasValue',
+    <PricingView products={products} />
+  )
+
+  const loaderView = new ViewStrategy(
+    () => true,
+    <Loader visible />
+  )
+  
+  const viewContext = new ViewContext([
+    redirectView,
+    pricingView,
+    loaderView
+  ])
+  return (
+    viewContext.getView()
+  )
 }
 
 export default PricingPage

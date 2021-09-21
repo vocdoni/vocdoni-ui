@@ -425,9 +425,30 @@
         "requests_and_bugs": "Solicituds i Errors",
         "support": "Suport"
     },
+    "payment": {
+        "city": "",
+        "country": "",
+        "name": "",
+        "street": "",
+        "zip_code": ""
+    },
     "preview": {
         "ending_in_one_hour": "Acaba d'aquí 1h",
         "vote": "Votar"
+    },
+    "products": {
+        "plans": {
+            "basic": {
+                "button": "",
+                "description": "",
+                "title": ""
+            },
+            "standard": {
+                "button": "",
+                "description": "",
+                "title": ""
+            }
+        }
     },
     "recover": {
         "continue": "Continua",

@@ -26,7 +26,8 @@
       "@const/*": ["const/*"] ,
       "@lib/*": ["lib/*"],
       "@theme/*": ["theme/*"],
-      "@i18n": ["i18n/index.ts"]
+      "@i18n": ["i18n/index.ts"],
+      "@models/*": ["models/*"]
     },
   },
   "exclude": [
