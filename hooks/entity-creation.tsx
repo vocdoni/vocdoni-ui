@@ -6,6 +6,7 @@ import {
   useState,
 } from 'react'
 import { usePool } from '@vocdoni/react-hooks'
+import { useRecoilStateLoadable } from 'recoil'
 import {
   ensHashAddress,
   EntityApi,
@@ -36,6 +37,7 @@ import { StoreMediaError } from '@lib/validators/errors/store-media-error'
 import { InvalidIncognitoModeError } from '@lib/validators/errors/invalid-incognito-mode-error'
 import { ISelectOption } from '@components/elements/inputs'
 import { ruddlestackTrackEntityCreated } from '@components/pages/app/external-dependencies/ruddlestack'
+import { AccountsState } from '@recoil/atoms/accounts'
 
 export interface EntityCreationContext {
   pageStep: EntityCreationPageSteps
@@ -127,6 +129,7 @@ export const UseEntityCreationProvider = ({
   const { wallet, setWallet } = useWallet()
   const { dbAccounts, addDbAccount, updateAccount, getAccount } =
     useDbAccounts()
+  const [{contents: accounts}, setAccounts] = useRecoilStateLoadable<Account[]>(AccountsState)
   const { poolPromise } = usePool()
   const { bkPromise } = useBackend()
 
@@ -257,6 +260,7 @@ export const UseEntityCreationProvider = ({
       account.status = lastSuccessStatus
 
       await updateAccount(account)
+      setAccounts([...accounts, account])
     }
 
     return {}

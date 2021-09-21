@@ -21,7 +21,6 @@ export enum WalletRoles {
 /** Provides the currently available wallet for the admin (by default) or for the voter otherwise  */
 export const useWallet = ({ role }: { role: WalletRoles } = { role: WalletRoles.ADMIN }) => {
   const walletCtx = useContext(UseWalletContext)
-  const setWallet = useSetRecoilState(walletState)
   if (walletCtx === null) {
     throw new Error('useWallet() can only be used on the descendants of <UseWalletContextProvider />,')
   }
@@ -33,7 +32,7 @@ export const useWallet = ({ role }: { role: WalletRoles } = { role: WalletRoles.
       const mnemonic = Symmetric.decryptString(encryptedMnemonic, passphrase)
       const wallet  = Wallet.fromMnemonic(mnemonic, hdPath)
       setAdminWallet(wallet)
-      setWallet(wallet)
+
       return wallet
     }
     catch (err) {
@@ -70,6 +69,8 @@ const UseWalletContext = createContext<{
 export function UseWalletContextProvider({ children }) {
   const [adminWallet, setAdminWallet] = useState<Wallet>(null)
   const [voterWallet, setVoterWallet] = useState<Wallet>(null)
+  const setRecoilWallet = useSetRecoilState(walletState)
+
   const router = useRouter()
   const [checkingNeedsSignin, setCheckingNeedsSignin] = useState<boolean>(
     () => pathRequiresAdminSignin(router.pathname, adminWallet)
@@ -77,6 +78,8 @@ export function UseWalletContextProvider({ children }) {
 
   // Prevent accidental logout
   useEffect(() => {
+    setRecoilWallet(adminWallet || voterWallet)
+
     const beforeUnload = (e: BeforeUnloadEvent): void => {
       if (adminWallet || voterWallet) {
         // Cancel the event
