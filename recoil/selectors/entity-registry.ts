@@ -1,4 +1,4 @@
-import { selector, atom } from "recoil";
+import { selector } from "recoil";
 import { backendState } from "recoil/atoms/backend";
 import { walletState } from "recoil/atoms/wallet";
 
@@ -13,6 +13,9 @@ export const entityRegistrySelector = selector({
       method: 'getEntity'
     }, wallet)      
 
-    return entityRegistry.entity
+    // Remember remove me
+    const subs = 'sub_1JbpLhDiJcunaZwgHXsPJS8s'
+    const entity = {...entityRegistry.entity, subscriptionId: undefined}
+    return entity
   },
 })

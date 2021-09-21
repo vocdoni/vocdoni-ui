@@ -17,7 +17,7 @@ import { Button } from '@components/elements/button'
 import { Image } from '@components/elements/image'
 import { ImageContainer } from '@components/elements/images'
 
-import { ACCOUNT_BACKUP_PATH, ACCOUNT_BRANDING, DASHBOARD_PATH, EDIT_ENTITY, ENTITY_SIGN_IN_PATH, PAGE_ENTITY } from '@const/routes'
+import { ACCOUNT_BACKUP_PATH, ACCOUNT_BRANDING, DASHBOARD_PATH, EDIT_ENTITY, ENTITY_SIGN_IN_PATH, PAGE_ENTITY, PRICING_PAGE } from '@const/routes'
 import { useCookies } from '@hooks/cookies'
 import { colors } from '@theme/colors'
 import RouterService from '@lib/router'
@@ -25,7 +25,9 @@ import RouterService from '@lib/router'
 import { AccountSelector } from '@recoil/selectors/account'
 import { accountFeaturesSelector } from '@recoil/selectors/account-features';
 
-import { FlexAlignItem, FlexContainer } from '@components/elements/flex'
+import { entityRegistryState, IEntityRegistryState } from '@recoil/atoms/entity-registry'
+
+import { FlexAlignItem, FlexContainer, FlexJustifyContent } from '@components/elements/flex'
 import { Account } from '@lib/types'
 import { LanguageService } from '@lib/language-service';
 
@@ -44,6 +46,7 @@ export const EntityHeader = () => {
   const [{ contents: account }, setAccount] = useRecoilStateLoadable<Account>(AccountSelector(wallet?.address))
   const { contents: features, state: featureState } = useRecoilValueLoadable(accountFeaturesSelector(wallet?.address))
 
+  const { contents: entityRegistryData } = useRecoilValueLoadable<IEntityRegistryState>(entityRegistryState)
   const { metadata: entityMetadata } = useEntity(wallet?.address)
 
   const { show } = useHelpCenter()
@@ -149,13 +152,13 @@ export const EntityHeader = () => {
       <DropdownSeparator />
 
       <DropdownItem onClick={() => setShowLanguageSelector(true)} preventClose>
-        <RelativeContainer>
+        <FlexContainer justify={FlexJustifyContent.SpaceBetween}>
           <Typography variant={TypographyVariant.Small} margin='0'>{i18n.t('app.header.user_language', { lang: supportedLanguagesLocale[account?.locale] })}</Typography>
 
           <ArrowContainer>
             <NextArrow />
           </ArrowContainer>
-        </RelativeContainer>
+        </FlexContainer>
       </DropdownItem>
 
       <DropdownSeparator />
@@ -202,6 +205,7 @@ export const EntityHeader = () => {
     <Header hasReadyAccount={!!account}>
       <If condition={!!account}>
         <Then>
+          {entityRegistryData.subscriptionId && <Button positive href={PRICING_PAGE}>{i18n.t('app.header.upgrade')}</Button>}
           <Dropdown toggleButton={menuButton} onUpdate={handleMenuOpen}>
             {showLanguageSelector ? langSelector : navMenu}
           </Dropdown>
@@ -218,13 +222,9 @@ export const EntityHeader = () => {
 }
 
 const MenuButtonWrapper = styled.div`
-  padding-right: 10px;
   display: flex;
   align-items: center;
-`
-
-const RelativeContainer = styled.div`
-  position: relative;
+  height: 25px;
 `
 
 const BackArrow = styled.span`
@@ -238,9 +238,9 @@ const BackArrow = styled.span`
 `
 
 const DownArrow = styled.div<{ opened?: boolean }>`
-  margin-top: 10px;
   transition: transform 0.5s ease;
   transform: ${({ opened }) => opened ? 'rotate(-90deg)' : 'rotate(90deg)'};
+  font-family: 'manrope';
 
   &:: after {
     font-size: 22px;
@@ -250,9 +250,10 @@ const DownArrow = styled.div<{ opened?: boolean }>`
 `
 
 const ArrowContainer = styled.div`
-  position: absolute;
-  right: 9px;
-  top: 0px;
+  // position: absolute;
+  // right: 9px;
+  // top: 0px;
+  margin-left: 10px;
 `
 
 const NextArrow = styled.span`

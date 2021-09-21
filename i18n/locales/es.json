@@ -407,14 +407,35 @@
         "dashboard": "Inicio",
         "docs": "Documentos",
         "help": "Ayuda",
-        "requests_and_bugs": "Solicitudes y Errores",
         "pricing": "Precio",
         "privacy_policy": "Política de Privacidad",
+        "requests_and_bugs": "Solicitudes y Errores",
         "support": "Soporte"
+    },
+    "payment": {
+        "city": "",
+        "country": "",
+        "name": "",
+        "street": "",
+        "zip_code": ""
     },
     "preview": {
         "ending_in_one_hour": "Acaba de aquí 1h",
         "vote": "Votar"
+    },
+    "products": {
+        "plans": {
+            "basic": {
+                "button": "",
+                "description": "",
+                "title": ""
+            },
+            "standard": {
+                "button": "",
+                "description": "",
+                "title": ""
+            }
+        }
     },
     "recover": {
         "continue": "Continuar",

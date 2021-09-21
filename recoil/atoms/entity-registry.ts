@@ -5,7 +5,9 @@ export interface IEntityRegistryState {
   name: string,
   email: string,
   type: string,
-  size: number
+  size: number,
+  subscriptionId?: string,
+  customerId?: string
 }
 
 export const entityRegistryState = atom({

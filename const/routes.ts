@@ -27,5 +27,7 @@ export const APP_PRIVACY_PATH = "/app-privacy"
 export const REGSITRY_PATH = "/registry"
 export const DATA_POLICY_PATH = "/data"
 export const COOKIES_PATH = "/cookies"
-export const PAYMENT_PAGE = "/payment/{license}"
+export const PRICING_PAGE = "/pricing"
+export const PAYMENT_PAGE = "/payment?product_id={productId}&price_id={priceId}&quantity={quantity}"
+export const PAYMENT_SUCCESS_PAGE = '/payment/success'
 // export const PRIVACY_PATH = 'https://aragon.org/privacy-policy'

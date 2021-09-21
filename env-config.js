@@ -42,7 +42,10 @@ module.exports = {
   // FEATURES
   COLOR_PICKER: 0,
   ADVANCED_CENSUS: 0,
-  ANALYTICS_KEY:  process.env.ANALYTICS_KEY
+  ANALYTICS_KEY:  process.env.ANALYTICS_KEY,
+  STRIPE_PLANS_KEY: process.env.STRIPE_PLANS_KEY || 'rk_test_51JLUnQDiJcunaZwg8oSu9bO0pVLhW1v2PuO6SL54KSrjYsFwGNvyA2lWPOfUieEE5ycviXntWOj60gHjdVWJek5J00wDBNu0P8',
+  STRIPE_PUB_KEY: process.env.STRIPE_PUB_KEY || 'pk_test_51JLUnQDiJcunaZwgx2KQLX9oPOI5vjEFvO62DPQg8axN32Oy5G2WOtXx6Fsa89umzaidVhm4ieHaaaGbXrA27YpK00pjVxH6Nw'
 }
+
 
 console.log('Building the frontend with ENV:', module.exports)

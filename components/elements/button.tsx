@@ -36,10 +36,11 @@ type ButtonProps = {
     href?: string
     target?: LinkTarget
     spinner?: boolean
+    type?: 'submit' | 'reset' | 'button'
     onClick?: (ev: React.MouseEvent<HTMLDivElement, MouseEvent>) => void
 }
 
-export const Button = ({ disabled, positive, negative, color, href, target, onClick, width, icon, wide, border, borderColor, justify, verticalAlign, large, small, spinner, children }: ButtonProps) => {
+export const Button = ({ disabled, positive, negative, color, href, target, onClick, width, icon, wide, border, borderColor, justify, verticalAlign, large, small, spinner, type, children }: ButtonProps) => {
     let component: JSX.Element
     const getButtonText = (spinnerVariant: SpinnerProps['variant'] = 'brand'): ReactNode => (
         spinner ?
@@ -59,7 +60,7 @@ export const Button = ({ disabled, positive, negative, color, href, target, onCl
     }
 
     if (positive) {
-        component = <PositiveButton wide={wide} large={large} small={small} width={width} onClick={ev => (onClick && !disabled) ? onClick(ev) : null}>
+        component = <PositiveButton wide={wide} large={large} small={small} width={width} type={type} onClick={ev => (onClick && !disabled) ? onClick(ev) : null}>
             {icon ?
                 <ButtonContent color={theme.white} justify={justify}>{icon}&nbsp;{getButtonText('inverse')}</ButtonContent> :
                 <ButtonContent color={theme.white} verticalAlign={verticalAlign} justify={justify}>{getButtonText('inverse')}</ButtonContent>
@@ -67,7 +68,7 @@ export const Button = ({ disabled, positive, negative, color, href, target, onCl
         </PositiveButton>
     }
     else if (negative) {
-        component = <NegativeButton wide={wide} large={large} small={small} width={width} onClick={ev => (onClick && !disabled) ? onClick(ev) : null}>
+        component = <NegativeButton wide={wide} large={large} small={small} width={width} type={type} onClick={ev => (onClick && !disabled) ? onClick(ev) : null}>
             {icon ?
                 <ButtonContent color={theme.white} justify={justify}>{icon}&nbsp;{getButtonText('inverse')}</ButtonContent> :
                 <ButtonContent color={theme.white} verticalAlign={verticalAlign} justify={justify}>{getButtonText('inverse')}</ButtonContent>
@@ -75,7 +76,7 @@ export const Button = ({ disabled, positive, negative, color, href, target, onCl
         </NegativeButton>
     }
     else {
-        component = <DefaultButton wide={wide} border={border} borderColor={borderColor} large={large} small={small} width={width} onClick={ev => (onClick && !disabled) ? onClick(ev) : null}>
+        component = <DefaultButton wide={wide} border={border} borderColor={borderColor} large={large} small={small} width={width}  type={type} onClick={ev => (onClick && !disabled) ? onClick(ev) : null}>
             {icon ?
                 <ButtonContent color={color} justify={justify}>{icon}&nbsp;{getButtonText('inverse')}</ButtonContent> :
                 <ButtonContent color={color} verticalAlign={verticalAlign} justify={justify}>{getButtonText('inverse')}</ButtonContent>
@@ -98,16 +99,17 @@ export const SquareButton = ({ icon, children, width, disabled, onClick }: Butto
     </Button>
 )
 
-export const BaseButton = styled.div<{ wide?: boolean, large?: boolean, small?: boolean, width?: number, border?: boolean, borderColor?: ButtonColor | string }>`
-${props => props.wide ? "" : "display: inline-block;"}
+export const BaseButton = styled.button<{ wide?: boolean, large?: boolean, small?: boolean, width?: number, border?: boolean, borderColor?: ButtonColor | string }>`
+${props => props.wide ? "display: block;" : "display: inline-block;"}
 ${props => props.width != undefined ? "width: " + props.width + "px;" : ""}
+${props => props.wide ? "width: 100%;" : ""}
 ${props => props.large ? "padding: 13px 25px;" :
         props.small ? "padding: 8px 15px;" :
             "padding: 11px 20px;"}
 
 ${props => props.large ? "font-size: 125%;" :
         props.small ? "font-size: 85%;" : ""}
-
+    border: none;
     background: ${props => props.theme.lightBg};
     box-shadow: 0px 6px 6px rgba(180, 193, 228, 0.35);
     border-radius: 8px;
@@ -120,11 +122,11 @@ ${props => props.large ? "font-size: 125%;" :
     }
 `
 
-const DisabledButton = styled(BaseButton)`
+export const DisabledButton = styled(BaseButton)`
 cursor: no-drop;
 `
 
-const DefaultButton = styled(BaseButton)`
+export const DefaultButton = styled(BaseButton)`
 cursor: pointer;
 ${({ border, borderColor, theme }) => border ? "border: 2px solid " + (borderColor? borderColor: theme.lightBorder)+ ";" : ""}
 background: ${props => props.theme.white};
@@ -147,7 +149,7 @@ const SpinnerContainer = styled.div`
     position: relative;
     height: 16px;
 `
-const PositiveButton = styled(BaseButton)`
+export const PositiveButton = styled(BaseButton)`
 cursor: pointer;
 
 background: linear-gradient(106.26deg, ${props => hexToRgbA(props.theme.accent1B)} 5.73%, ${props => hexToRgbA(props.theme.accent1)} 93.83%);
@@ -160,7 +162,7 @@ background: linear-gradient(106.26deg, ${props => hexToRgbA(props.theme.accent1B
 }
 `
 
-const NegativeButton = styled(BaseButton)`
+export const NegativeButton = styled(BaseButton)`
 cursor: pointer;
 
 background: linear-gradient(106.26deg, ${props => hexToRgbA(props.theme.accent2B)} 5.73%, ${props => hexToRgbA(props.theme.accent2)} 93.83%);
@@ -181,6 +183,7 @@ export enum JustifyContent {
 
 const ButtonContent = styled.div<{ color?: ButtonProps["color"], justify?: JustifyContent, verticalAlign?: boolean}>`
 display: flex;
+line-height: 20px;
 flex-direction: ${({verticalAlign}) => verticalAlign? 'column': 'row'};
 justify-content: ${({justify}) => justify? justify: JustifyContent.Center};
 align-items: center;
