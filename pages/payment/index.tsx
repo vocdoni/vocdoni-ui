@@ -13,7 +13,7 @@ import { Loader } from '@components/blocks/loader';
 import { PaymentView } from '@components/pages/payment';
 import { Redirect } from '@components/redirect';
 
-import { subscriptionSelector } from '@recoil/selectors/subscription';
+import { createNewSubscriptionSelector } from '@recoil/selectors/create-subscription';
 import { Subscription } from '@recoil/atoms/subscription'
 import { productSelector } from '@recoil/selectors/product';
 import { paymentIntentState } from '@recoil/atoms/payment-intent';
@@ -32,7 +32,7 @@ export default function PaymentPage() {
 
   const wallet = useRecoilState(walletState)
   const { contents: product, state: productState } = useRecoilValueLoadable<Product>(productSelector(productId))
-  const { contents: subscription, state: subscriptionState } = useRecoilValueLoadable<Subscription>(subscriptionSelector({priceId, quantity}))
+  const { contents: subscription, state: subscriptionState } = useRecoilValueLoadable<Subscription>(createNewSubscriptionSelector({priceId, quantity}))
   const [paymentIntent, setPaymentIntent] = useRecoilState(paymentIntentState)
 
   const handlePaymentSubmit = async (intent: PaymentIntent) => {
