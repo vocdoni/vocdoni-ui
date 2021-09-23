@@ -1,11 +1,6 @@
 import { atom } from 'recoil';
-import { subscriptionSelector } from '@recoil/selectors/subscription';
+import { Subscription } from '@models/Subscription'
 
-export type Subscription = {
-  subscriptionId: string;
-  clientSecret: string;
-  amount: number;
-}
 
 export const subscriptionState = atom<Subscription>({
   key: 'subscriptionState',
