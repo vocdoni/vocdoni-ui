@@ -2,7 +2,7 @@ import {
   createContext,
   ReactNode,
   useContext,
-  useMemo,
+  useRef,
   useState,
 } from 'react'
 import { usePool } from '@vocdoni/react-hooks'
@@ -124,7 +124,7 @@ export const UseEntityCreationProvider = ({
   const [entitySize, setEntitySize] = useState<ISelectOption>()
   const [consent, setConsent] = useState<boolean>(false)
   // const { setAlertMessage } = useMessageAlert()
-
+  const walletRef = useRef<Wallet>()
   // UI STATE
   const { wallet, setWallet } = useWallet()
   const { dbAccounts, addDbAccount, updateAccount, getAccount } =
@@ -151,13 +151,14 @@ export const UseEntityCreationProvider = ({
   const ensureWallet: StepperFunc = async () => {
     if (wallet) {
       // Already OK?
+      walletRef.current = wallet
       return { waitNext: false }
     }
 
     try {
       const pool = await poolPromise
-      const newWallet = Wallet.createRandom().connect(pool.provider)
-      setWallet(newWallet) // Note: this will not imnediately update `wallet`
+      walletRef.current = Wallet.createRandom().connect(pool.provider)
+      // setWallet(newWallet) // Note: this will not imnediately update `wallet`
 
       return { waitNext: true }
     } catch {
@@ -166,7 +167,7 @@ export const UseEntityCreationProvider = ({
   }
 
   const ensureAccount: StepperFunc = async () => {
-    let account = getAccount(wallet.address)
+    let account = getAccount(walletRef.current.address)
 
     if (account && account.status === AccountStatus.Ready) {
       // Already OK?
@@ -177,12 +178,12 @@ export const UseEntityCreationProvider = ({
       if (!account) {
         account = {
           name,
-          address: wallet.address,
+          address: walletRef.current.address,
           encryptedMnemonic: Symmetric.encryptString(
-            wallet.mnemonic.phrase,
+            walletRef.current.mnemonic.phrase,
             passphrase
           ),
-          hdPath: wallet.mnemonic.path,
+          hdPath: walletRef.current.mnemonic.path,
           locale: 'en',
           status: AccountStatus.Wallet,
           pending: {
@@ -213,8 +214,8 @@ export const UseEntityCreationProvider = ({
       let avatar: string = logoUrl
       let header: string = headerUrl
 
-      if (logoFile) avatar = await uploadFileToIpfs(logoFile, pool, wallet)
-      if (headerFile) header = await uploadFileToIpfs(headerFile, pool, wallet)
+      if (logoFile) avatar = await uploadFileToIpfs(logoFile, pool, walletRef.current)
+      if (headerFile) header = await uploadFileToIpfs(headerFile, pool, walletRef.current)
 
       // set metadata as pending, along with the account
       account.status = AccountStatus.Media
@@ -232,7 +233,7 @@ export const UseEntityCreationProvider = ({
   }
 
   const ensureEntityCreation: StepperFunc = async () => {
-    const account = getAccount(wallet.address)
+    const account = getAccount(walletRef.current.address)
     if (!account) throw new Error("Internal error")
 
     let lastSuccessStatus: AccountStatus = account.status
@@ -261,6 +262,7 @@ export const UseEntityCreationProvider = ({
 
       await updateAccount(account)
       setAccounts([...accounts, account])
+      setWallet(walletRef.current)
     }
 
     return {}
@@ -272,7 +274,7 @@ export const UseEntityCreationProvider = ({
     const pool = await poolPromise
 
     try {
-      balance = await pool.provider.getBalance(wallet.address)
+      balance = await pool.provider.getBalance(walletRef.current.address)
     } catch (err) {
       console.error(err)
       throw new BlockchainConnectionError()
@@ -282,7 +284,7 @@ export const UseEntityCreationProvider = ({
     if (!balance.isZero()) return
 
     // Pending
-    const account = getAccount(wallet.address)
+    const account = getAccount(walletRef.current.address)
     if (!account) throw new Error("Internal error")
 
     if (account.status === AccountStatus.Media) {
@@ -300,7 +302,7 @@ export const UseEntityCreationProvider = ({
               size: entitySize?.value
             },
           },
-          wallet
+          walletRef.current
         )
 
         account.status = AccountStatus.BalanceRequested
@@ -311,14 +313,14 @@ export const UseEntityCreationProvider = ({
       }
     }
 
-    const hasBalance = await waitForGas(wallet.address, wallet.provider)
+    const hasBalance = await waitForGas(walletRef.current.address, walletRef.current.provider)
 
     if (!hasBalance) throw new InvalidAccountBalanceError()
   }
 
   // (helper of ensureEntityCreation)
   const ensureEntityMetadata = async () => {
-    const account = getAccount(wallet.address)
+    const account = getAccount(walletRef.current.address)
 
     if (account.status === AccountStatus.Ready) return null
 
@@ -327,15 +329,15 @@ export const UseEntityCreationProvider = ({
       const instance = await pool.getEnsPublicResolverInstance()
 
       const entityData = await instance.text(
-        ensHashAddress(wallet.address),
+        ensHashAddress(walletRef.current.address),
         TextRecordKeys.JSON_METADATA_CONTENT_URI
       )
       if (entityData) return
 
       const entityUrl = await EntityApi.setMetadata(
-        wallet.address,
+        walletRef.current.address,
         account.pending.metadata,
-        wallet,
+        walletRef.current,
         pool
       )
 
@@ -348,7 +350,7 @@ export const UseEntityCreationProvider = ({
 
   // (helper of ensureEntityCreation)
   const ensureNoPendingAccount = () => {
-    const account = getAccount(wallet.address)
+    const account = getAccount(walletRef.current.address)
     if (!account) throw new Error("Internal error")
 
     return updateAccount({ ...account, pending: null })
@@ -358,7 +360,7 @@ export const UseEntityCreationProvider = ({
   }
 
   const continuePendingProcessCreation = (account: Account) => {
-    if (!wallet || !dbAccounts?.length) return
+    if (!walletRef.current || !dbAccounts?.length) return
 
     if (!account?.pending?.metadata || !account?.pending?.email) return
 
