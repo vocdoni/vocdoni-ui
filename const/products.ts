@@ -1,6 +1,9 @@
 import i18n from '@i18n';
 
+import { STRIPE_ORGANIZATION_PRODUCT_ID, STRIPE_COMMUNITY_PRODUCT_ID } from '@const/stripe';
+
 export interface IProductDescription {
+  id?: string
   title: string
   description: string
   productType: string
@@ -26,6 +29,7 @@ export const vocdoniProducts: IProductDescription[] = [
     ]
   },
   {
+    id: STRIPE_COMMUNITY_PRODUCT_ID,
     title: i18n.t('products.plans.community.title'),
     description: i18n.t('products.plans.community.description'),
     name: "Vocdoni Premium",
@@ -40,6 +44,7 @@ export const vocdoniProducts: IProductDescription[] = [
     ]
   },
   {
+    id: STRIPE_ORGANIZATION_PRODUCT_ID,
     title: i18n.t('products.plans.organization.title'),
     description: i18n.t('products.plans.organization.description'),
     name: "Vocdoni Premium",

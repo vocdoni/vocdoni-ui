@@ -11,6 +11,8 @@ export const ACCOUNT_BACKUP_PATH = '/entity/backup'
 export const ACCOUNT_IMPORT_PATH = '/entity/import'
 export const ACCOUNT_RECOVER_PATH = '/entity/recover'
 export const ACCOUNT_BRANDING = '/entity/branding'
+export const SUBSCRIPTION_PAGE = '/entity/subscription'
+
 // VOTER
 export const VOTING_AUTH_FORM_PATH = '/pub/votes/auth/form/#/{processId}' // + processId
 export const VOTING_AUTH_MNEMONIC_PATH = '/pub/votes/auth/mnemonic/#/{processId}' // + processId

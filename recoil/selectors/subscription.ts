@@ -1,6 +1,11 @@
 import { selectorFamily } from "recoil";
+
 import { Subscription } from "@models/Subscription"
+
+import { NoSubscriptionFoundError } from "@lib/validators/errors/no-subscription-found";
+
 import { MockSubscriptionData } from "@recoil/mocks/subscription";
+
 import { productSelector } from "./product";
 
 export interface IStripeSubscriptionItem {
@@ -41,8 +46,11 @@ export const subscriptionSelector = selectorFamily<Subscription, string>({
   get: (subscriptionId: string) => async ({get}) => {
     if (subscriptionId) {
       const subscription = Subscription.fromStripeData(MockSubscriptionData)
+      subscription.product = await get(productSelector(subscription.productId))
 
       return subscription
     }
+
+    throw new NoSubscriptionFoundError()
   }
 })
