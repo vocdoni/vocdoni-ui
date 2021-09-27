@@ -7,6 +7,7 @@ export class Subscription {
   public clientSecret: string;
   public amount: number;
   public productId : string;
+  public product: Product;
 
   public static fromStripeData = (stripeData: IStripeSubscription): Subscription => {
     const subscription = new Subscription();
@@ -15,7 +16,7 @@ export class Subscription {
     subscription.status = stripeData.status;
     subscription.amount = stripeData.latest_invoice.amount_paid + stripeData.latest_invoice.amount_remaining;
     subscription.clientSecret = stripeData.latest_invoice.payment_intent.client_secret;
-    subscription.productId = stripeData.items.data[0].product;
+    subscription.productId = stripeData.items.data[0].price.product;
 
     return subscription;
   }

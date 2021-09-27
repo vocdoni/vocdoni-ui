@@ -80,7 +80,7 @@ export const productsSelector = selector<Product[]>({
       const { data: jsonPricesResponse }: IStripePriceJSON = await pricesResponse.json()
       const parsedProducts = vocdoniProducts.map((vocdoniProduct) => {
         const stripeProduct = jsonProductsResponse.find(
-          (stripeProduct) => vocdoniProduct.productType === stripeProduct.metadata.product_type
+          (stripeProduct) => vocdoniProduct.id === stripeProduct.id
         )
         const stripeProductPrices = jsonPricesResponse.filter(
           (stripeProductPrices) => stripeProduct && stripeProduct.id === stripeProductPrices.product

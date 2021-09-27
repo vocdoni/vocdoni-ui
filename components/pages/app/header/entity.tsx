@@ -17,15 +17,18 @@ import { Button } from '@components/elements/button'
 import { Image } from '@components/elements/image'
 import { ImageContainer } from '@components/elements/images'
 
-import { ACCOUNT_BACKUP_PATH, ACCOUNT_BRANDING, DASHBOARD_PATH, EDIT_ENTITY, ENTITY_SIGN_IN_PATH, PAGE_ENTITY, PRICING_PAGE } from '@const/routes'
+import { ACCOUNT_BACKUP_PATH, ACCOUNT_BRANDING, DASHBOARD_PATH, EDIT_ENTITY, ENTITY_SIGN_IN_PATH, PAGE_ENTITY, SUBSCRIPTION_PAGE } from '@const/routes'
 import { useCookies } from '@hooks/cookies'
 import { colors } from '@theme/colors'
 import RouterService from '@lib/router'
+
+import { Subscription } from '@models/Subscription'
 
 import { AccountSelector } from '@recoil/selectors/account'
 import { accountFeaturesSelector } from '@recoil/selectors/account-features';
 
 import { entityRegistryState, IEntityRegistryState } from '@recoil/atoms/entity-registry'
+import { subscriptionSelector } from '@recoil/selectors/subscription'
 
 import { FlexAlignItem, FlexContainer, FlexJustifyContent } from '@components/elements/flex'
 import { Account } from '@lib/types'
@@ -47,6 +50,7 @@ export const EntityHeader = () => {
   const { contents: features, state: featureState } = useRecoilValueLoadable(accountFeaturesSelector(wallet?.address))
 
   const { contents: entityRegistryData } = useRecoilValueLoadable<IEntityRegistryState>(entityRegistryState)
+  const { contents: entitySubscriptionData, state: entitySubscriptionState } = useRecoilValueLoadable<Subscription>(subscriptionSelector(entityRegistryData.subscriptionId))
   const { metadata: entityMetadata } = useEntity(wallet?.address)
 
   const { show } = useHelpCenter()
@@ -138,6 +142,15 @@ export const EntityHeader = () => {
           </>
         )
       }
+      {entitySubscriptionData && (
+        <>
+          <DropdownItem href={SUBSCRIPTION_PAGE}>
+            <Typography variant={TypographyVariant.Small} margin='0'>{i18n.t('app.header.subscription')}</Typography>
+          </DropdownItem>
+
+          <DropdownSeparator />
+        </>
+      )}
 
       <DropdownItem href={ACCOUNT_BACKUP_PATH}>
         <Typography variant={TypographyVariant.Small} margin='0'>{i18n.t('app.header.create_account_backup')}</Typography>
@@ -197,7 +210,6 @@ export const EntityHeader = () => {
           </div>
         )
       })}
-
     </>
   )
 
@@ -205,7 +217,7 @@ export const EntityHeader = () => {
     <Header hasReadyAccount={!!account}>
       <If condition={!!account}>
         <Then>
-          {entityRegistryData.subscriptionId && <Button positive href={PRICING_PAGE}>{i18n.t('app.header.upgrade')}</Button>}
+          {entitySubscriptionData && <SubscriptionTag>{entitySubscriptionData.product?.title}</SubscriptionTag>}
           <Dropdown toggleButton={menuButton} onUpdate={handleMenuOpen}>
             {showLanguageSelector ? langSelector : navMenu}
           </Dropdown>
@@ -220,6 +232,19 @@ export const EntityHeader = () => {
     </Header>
   )
 }
+
+const SubscriptionTag = styled.div`
+  background-color: ${colors.accent1};
+  border-radius: 4px;
+  color: ${colors.white};
+  font-size: 10px;
+  font-weight: bold;
+  height: 20px;
+  line-height: 20px;
+  margin-right: 10px;
+  padding: 0 5px;
+  text-align: center;
+`
 
 const MenuButtonWrapper = styled.div`
   display: flex;
