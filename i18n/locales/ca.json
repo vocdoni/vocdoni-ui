@@ -13,15 +13,15 @@
     },
     "app": {
         "header": {
-            "create_account_backup": "Copia de Seguretat",
+            "create_account_backup": "Create account backup",
             "dashboard": "Dashboard",
-            "disconnect_account": "Tancar Sessió",
-            "help_and_feedback": "Centre d’ajuda",
-            "language": "",
+            "disconnect_account": "Logout",
+            "help_and_feedback": "Help & feedback",
+            "language": "Idioma",
             "public_page": "Pàgina pública",
-            "settings": "Eines",
-            "update_entity": "Actualitzar l’entitat",
-            "user_language": ""
+            "settings": "Setting",
+            "update_entity": "Update entity",
+            "user_language": "Language: {{ lang }}"
         }
     },
     "backup": {
@@ -55,8 +55,8 @@
     },
     "block": {
         "confirm_modal": {
-            "accept": "Acceptar",
-            "cancel": "cancel·lar"
+            "accept": "Accept",
+            "cancel": "Cancel"
         }
     },
     "confirm": {
@@ -67,11 +67,11 @@
         "you_are_about_to_submit_your_vote": "Estàs a punt d'enviar el teu vot"
     },
     "cookies": {
-        "accept": "",
-        "cookies_paragraph_1": "",
-        "cookies_paragraph_2": "",
-        "more_details": "",
-        "reject": ""
+        "accept": "Accept",
+        "cookies_paragraph_1": "This website uses cookies to improve your experience while browsing the website. The cookies that are classified as necessary are stored in your browser, as they are essential for the functioning of the basic functionalities of the website.",
+        "cookies_paragraph_2": "We also use third-party cookies that help us analyze and understand how you use this website. These cookies will be stored in your browser only with your consent. You also have the option to opt out of receiving these cookies. But opting out of some of these cookies may affect your browsing experience.",
+        "more_details": "More details",
+        "reject": "Reject"
     },
     "copy": {
         "the_link_has_been_copied_to_the_clipboard": "L'enllaç s'ha copiat al porta-retalls"
@@ -130,9 +130,9 @@
         "starting_tomorrow": "Comença demà"
     },
     "entity": {
-        "accept_entity_terms": "Estic d'accord",
-        "accept_Privacy": "Estic d'accord",
-        "accept_terms": "Estic d'accord",
+        "accept_entity_terms": "Close",
+        "accept_Privacy": "Close",
+        "accept_terms": "Close",
         "acknowledge_passphrase_implications": "Accepto el fet que la pèrdua de la contrasenya comporta la impossibilitat d'accedir a la meva entitat posteriorment",
         "brief_description": "Descripció breu de l'entitat",
         "choose_a_passphrase": "Tria una contrasenya",
@@ -147,25 +147,25 @@
         "description": "Descripció",
         "details": "Detalls",
         "edit": {
-            "are_you_sure_you_want_exit_without_save_changes": "Estàs segur que vols sortir sense guardar dades?",
-            "are_you_sure_you_want_update_your_entity_data": "Estàs segur que vols actualitzar les dades de l'entitat",
-            "cancel": "Cancel·lar",
-            "change_header": "Cambiar capçalera",
-            "change_logo": "Logo de l'entitat",
-            "contact_email": "Adreça de contacte",
-            "description": "Descripció",
-            "entity_header": "Capçalera de l'entitat",
-            "entity_logo": "Logo de l'entitat",
-            "error_updating_data_on_blockchain": "Error guardan les dades a blockchain",
-            "error_updating_data_on_register_server": "Error actualitzant les deades",
-            "jpg_png_gif": "(fitxer .JPG, .PNG, .GIF de 2mb max)",
-            "name_of_the_entity": "Nom de l'entitat",
-            "optional_introduction": "Descripció",
-            "save_changes": "Guardar canvis",
-            "size_of_entity": "Tamany de l'entitad",
-            "type_of_entity": "Tipus d'organització",
-            "update": "Actualitzar",
-            "your_entity": "Editar Entidad"
+            "are_you_sure_you_want_exit_without_save_changes": "Are you sure you want exit without store data?",
+            "are_you_sure_you_want_update_your_entity_data": "Are you sure you want update your entity data?",
+            "cancel": "Cancel",
+            "change_header": "Change header",
+            "change_logo": "Change logo",
+            "contact_email": "Contact email",
+            "description": "Description",
+            "entity_header": "Entity header",
+            "entity_logo": "Entity logo",
+            "error_updating_data_on_blockchain": "Error updating data on blockchain entity",
+            "error_updating_data_on_register_server": "Error updating data on the registry service",
+            "jpg_png_gif": "(.JPG, .PNG, .GIF Max 2mb file)",
+            "name_of_the_entity": "Name of the entity",
+            "optional_introduction": "Optional introduction",
+            "save_changes": "Save changes",
+            "size_of_entity": "Size of the entity",
+            "type_of_entity": "Type of entity",
+            "update": "Update",
+            "your_entity": "Edit entity"
         },
         "email": "Adreça de correu electrònic de contacte",
         "enter_the_name_of_the_entity": "Entra el nom de l'entitat",
@@ -174,18 +174,18 @@
         "go_to_the_dashboard": "Ves a l'inici",
         "header": "Capçalera de l'entitat",
         "home": {
-            "entity_address": "Adreça de l'entitad",
-            "entity_description": "Descripció de l'entitat",
-            "view_in_explorer": "Veure en el navegador"
+            "entity_address": "Entity address",
+            "entity_description": "Entity description",
+            "view_in_explorer": "View in explorer"
         },
-        "i_have_read_and_accept_terms": "He llegit i accepto els <0>termes i condicions del servei</0>, la <1>política de privadesa</1> d'Aragon Labs i el <2>contingut de la normativa aplicable</2> sobre protecció de dades de caràcter personal.",
-        "i_have_read_and_accept_personal_data": "Accepto rebre actualitzacions esporàdiques sobre noves característiques i informació rellevant sobre el projecte. <0>Més informació</0>.",
+        "i_have_read_and_accept_terms": "I have read and accept the <0>terms and conditions of service</0>, the Aragon Labs <1>privacy policy</1> and the <2>contents of the applicable regulation</2> on the protection of personal data.",
+        "i_have_read_and_accept_personal_data": "I agree to receive sporadic updates about new features and relevant information about the project. <0>More info</0>.",
         "logo": "Logo de l'entitat",
         "name": "Nom de l'entitat",
         "new_entity": "Nom de l'entitat",
         "passphrase": "Contrasenya",
         "passphrase_image_alt": "Contrasenya",
-        "pending_steps": "",
+        "pending_steps": " ",
         "repeat_passphrase": "Repeteix la contrasenya",
         "select_city_council": "Ajuntament",
         "select_company": "Empresa",
@@ -247,7 +247,7 @@
         "general_error": "Error general",
         "invalid_account_balance": "Balanç de compte invàlid",
         "invalid_image_url": "L'adreça de la imatge és invàlida",
-        "invalid_link": "",
+        "invalid_link": "You are following and invalid link",
         "not_a_web_browser": "No és un navegador",
         "page_not_found": "No s'ha trobat la pàgina",
         "please_accept_credentials_tos": "Si et plau, accepta les Condicions de Servei",
@@ -277,14 +277,14 @@
         "there_is_already_one_account_with_the_same_credentials": "Ja hi ha un altre compte amb aquestes credencials",
         "there_is_already_one_account_with_the_same_name": "Ja hi ha un altre compte amb aquest mateix nom",
         "there_is_already_one_entity_with_the_same_name": "Ja hi ha un altre compte amb aquest mateix nom",
-        "update_entity_data_error": "",
+        "update_entity_data_error": "Update entity data error",
         "you_are_not_part_of_the_census": "No formes part del cens",
         "you_canceled_the_operation": "Has cancel·lat l'operació",
         "your_vote_could_not_be_delivered": "El teu vot no s'ha pogut lliurar"
     },
     "form": {
         "input": {
-            "edit": ""
+            "edit": "Edit"
         }
     },
     "home": {
@@ -303,7 +303,7 @@
         "bring_a_human_side": "Porta una cara humana",
         "cec_logo_alt": "Logo CEC",
         "censorship_image_alt": "Censura",
-        "ceo_center_excursionistes": "",
+        "ceo_center_excursionistes": "CEO of Centre Excursionista de Catalunya",
         "choose_the_time_frame": "Tria el període de temps",
         "computer_device_alt": "Ordinador",
         "computer_with_vocdoni_alt": "Ordinador amb Vocdoni",
@@ -339,7 +339,7 @@
         "notify_image_alt": "Notifica",
         "notify_your_community": "Notifica a la teva comunitat",
         "omnium_logo_alt": "Logo Òmnium",
-        "one_of_the_decisive_facts_that_let_use": "",
+        "one_of_the_decisive_facts_that_let_use": "One of the decisive facts that led us to choose Vocdoni was that its platform guaranteed the participation and vote of all our members, with security, reliability and transparency in the whole process, including access and participation in the Annual General Meeting.",
         "open_source_image_alt": "Programari lliure",
         "organize_your_amg_or_board_meetings_and_results": "Organitza les teves assemblees o juntes amb la confiança que els resultats són totalment legals i la privacitat dels usuaris és respectada. Som respectuosos amb la normativa RGPD!",
         "personalize_your_voting_process_with_your_corporate": "Personalitza el teu procés de votació amb el color corporatiu, el logo i d'altres imatges",
@@ -390,7 +390,7 @@
         "dashboard": "Inici",
         "docs": "Documents",
         "help": "Ajuda",
-        "requests_and_bugs": "Solicituds i Errors",
+        "requests_and_bugs": "Feature Request & Bugs",
         "pricing": "Preus",
         "privacy_policy": "Política de privacitat",
         "support": "Suport"
@@ -416,15 +416,15 @@
     },
     "results": {
         "pdf": {
-            "choice": "",
-            "process_description": "",
-            "process_title": "",
-            "questions": "",
-            "results": "",
-            "these_document_is_generate_by_vocdoni_these_are_a_summary_of_the_voting_process": "",
-            "title": "",
-            "total_votes": "",
-            "votes": ""
+            "choice": "Choice",
+            "process_description": "Process description",
+            "process_title": "Process title",
+            "questions": "Summary questions:",
+            "results": "Results",
+            "these_document_is_generate_by_vocdoni_these_are_a_summary_of_the_voting_process": "These document is generated by Vocdoni, here you can find the summary of the voting process results. If the process is still active the results are subject to change.",
+            "title": "Title",
+            "total_votes": "Total votes: {{ votes }}",
+            "votes": "votes: {{ votes }}"
         }
     },
     "sign_in": {
@@ -456,17 +456,17 @@
         "spanish": "Castellano"
     },
     "text_editor": {
-        "apply": "Aplicar",
-        "link": "Enllaç"
+        "apply": "Apply",
+        "link": "Link"
     },
     "vote_detail": {
         "cancel_vote": "Cancel·la la votació",
-        "details": "Detalls",
+        "details": "Details",
         "end_vote": "Finalitza la votació",
-        "generate_pdf": "",
+        "generate_pdf": "Generate PDF",
         "generate_pdf_with_results": "Crea un PDF amb els resultats",
-        "link": "Enllaç",
-        "results": "Resultats",
+        "link": "Link",
+        "results": "Results",
         "view_and_manage_the_status_of_the_process": "Visualitza i gestiona l'estat del procés",
         "vote_details": "Detalls del procés de votació"
     },
@@ -476,20 +476,20 @@
         "question": "Pregunta {{ number }}"
     },
     "vote": {
-        "0x000": "",
+        "0x000": "0x00000000000000000000000000000000000000",
         "accept_terms": "Estic d'accord",
         "access_to_the_documentation": "Accedeix a la documentació",
         "active_vote": "Procés actiu",
         "add_new_question": "Afegeix una nova pregunta",
         "add_option": "Afegeix una altra opció",
         "back_to_dashboard": "Torna a l'inici",
-        "brand_color_used_on_the_voting_process": "",
-        "brand_process_color": "",
+        "brand_color_used_on_the_voting_process": "Brand color used on the voting process",
+        "brand_process_color": "Brand color",
         "brief_description": "Descripció breu",
         "canceled_vote": "Votació cancel·lada",
         "cannot_connect_to_the_blockchain_to_check_the_account_balance": "No s'ha pogut connectar a la cadena de blocs",
         "cannot_connect_to_the_vocdoni_chain": "No s'ha pogut connectar a la cadena Vocdoni",
-        "census_root_value": "",
+        "census_root_value": "Census root value",
         "census_size": "Grandària del cens: {{ size }} votants",
         "change_entity_name": "Canvia el nom de l'entitat",
         "checking_details": "Comprovant els detalls",
@@ -503,10 +503,10 @@
         "delete_question": "Elimina aquesta pregunta",
         "description": "Descripció",
         "details": "Detalls",
-        "download_icon_alt": "",
-        "download_template": "",
+        "download_icon_alt": "Download icon",
+        "download_template": "Download template",
         "drag_a_spreadsheet_containing_personal_information": "Arrossega aquí el full de càlcul amb les credencials d'accés dels votants d'aquest procés",
-        "email": "",
+        "email": "Email",
         "end_date": "Data de finalització",
         "end_date_explanation": "Data límit per l'acceptació de vots",
         "ended_vote": "Votació finalitzada",
@@ -523,14 +523,14 @@
         "header_image": "Imatge de capçalera",
         "i_have_read_and_accept_csv_terms": "He llegit i accepto els termes i condicions d’aquest mètode per organitzar els processos de votació",
         "import_the_list_of_voters": "Importa la llista de votants",
-        "invalid_census_root": "",
-        "invalid_census_uri": "",
+        "invalid_census_root": "Invalid census root",
+        "invalid_census_uri": "Invalid census URI",
         "invalid_file_type": "Fitxer invàlid. Formats acceptats: XLS, XLSX, CSV, ODT",
         "invalid_mnemonic_value": "Valor mnemonic invàlid ",
         "invalid_process_id_link": "Enllaç invàlid",
         "invalid_xls_file": "Format del fitxer invàlid",
         "login_title": "Inicia sessió",
-        "name": "",
+        "name": "Name",
         "new_vote": "Nou procés de votació",
         "no_back_to_login": "No, torna a la votació",
         "option_n": "Opció {{ number }}",
@@ -567,7 +567,7 @@
         "stream_link_label": "Aquest camp és opcional",
         "submit_my_vote": "Envia el meu vot",
         "supported_formats_csv_xls_and_ods": "Formats compatibles: CSV, XLSX and ODS",
-        "surname": "",
+        "surname": "Surname",
         "thanks_for_participate_on_this_AGM": "Gràcies per participar en aquest procés, torna a la pàgina principal per a seguir i consultar els resultats quan estiguin disponibles",
         "the_blockchain_network_is_congested": "La xarxa de la cadena de blocs està congestionada",
         "the_blockchain_network_is_congested_for_these_reason_te_transactions_could_spend_several_minutes_dont_worry_we_keep_the_data_to_follow_the_process": "La xarxa de la cadena de blocs està congestionada. Per aquesta raó les transaccions poden trigar uns quants minuts. No et preocupis, nosaltres guardem les dades per assegurar-ne el seu lliurament.",
@@ -575,8 +575,8 @@
         "the_first_row_of_the_spreadsheet_will_be_used_as_the_name": "La primera fila del full de càlcul s'utilitzarà com a nom dels camps de les dades que es sol·licitaran els votants. No es tindran en compte els accents, els espais ni les majúscules. D'aquesta manera, algú que es digui Joan Miró pot accedir, també, introduint JOAN MIRO.",
         "the_process_must_start_at_least_20_minutes_latter": "El procés ha de començar almenys 10 minuts més tard de l'hora actual",
         "the_vote_will_end_at_the_given_time": "La votació acabarà a l'hora predeterminada. Pots tancar-la manualment, si ho necessites",
-        "these_color_will_be_used_to_improve_the_look_and_feel": "",
-        "this_is_a_template_file_that_you_can_use_to_create_census": "",
+        "these_color_will_be_used_to_improve_the_look_and_feel": "These color will be used to improve the look and feel of the voting process",
+        "this_is_a_template_file_that_you_can_use_to_create_census": "This is a template file that you can use to create your census. You can modify it or user one that you have already created.",
         "this_is_the_form_that_your_community_will_need_to_fill_in_order_to_vote": "Els membres hauran de complimentar aquest formulari per accedir a la votació",
         "this_is_the_link_that_you_need_to_send_your_community_members": "Aquest és l'enllaç de votació que has de compartir amb els votants:",
         "this_is_the_link_that_you_need_to_send_your_community_members_replacing_the_corresponding_private_key": "Aquest és l'enllaç de votació que hauràs de compartir amb els votants, per a cada votant has d'afegir la seva clau privada corresponent:",
