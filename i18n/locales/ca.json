@@ -17,8 +17,8 @@
             "dashboard": "Dashboard",
             "disconnect_account": "Logout",
             "help_and_feedback": "Help & feedback",
-            "language": "Language",
-            "public_page": "Public page",
+            "language": "Idioma",
+            "public_page": "Pàgina pública",
             "settings": "Setting",
             "update_entity": "Update entity",
             "user_language": "Language: {{ lang }}"
