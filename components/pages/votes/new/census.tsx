@@ -22,6 +22,7 @@ import { RoundedCheck, RoundedCheckSize } from '@components/elements/rounded-che
 import { Typography, TypographyVariant } from '@components/elements/typography'
 import { DownloadCsvTemplateCard } from './components/download-csv-template-card'
 import { InputFormGroup } from '@components/blocks/form'
+import { ruddlestackTrackProcessCreationWizardButtonClicked } from '@components/pages/app/external-dependencies/ruddlestack'
 
 export const FormCensus = () => {
   const { i18n } = useTranslation()
@@ -46,6 +47,7 @@ export const FormCensus = () => {
   }
 
   const handleContinue = () => {
+    ruddlestackTrackProcessCreationWizardButtonClicked(ProcessCreationPageSteps.SETTINGS)
     methods.setPageStep(ProcessCreationPageSteps.SETTINGS)
   }
 

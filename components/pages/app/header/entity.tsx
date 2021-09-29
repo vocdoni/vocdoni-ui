@@ -28,6 +28,9 @@ import { Account } from '@lib/types'
 import { LanguageService } from '@lib/language-service';
 
 import { Header } from './header'
+import {
+  ruddlestackTrackSignInButtonClicked,
+} from '@components/pages/app/external-dependencies/ruddlestack'
 
 export const EntityHeader = () => {
   const { wallet, setWallet } = useWallet()
@@ -188,7 +191,7 @@ export const EntityHeader = () => {
         </Then>
 
         <Else>
-          <Button positive small href={ENTITY_SIGN_IN_PATH} wide>
+          <Button positive small href={ENTITY_SIGN_IN_PATH} wide onClick={ruddlestackTrackSignInButtonClicked}>
             {i18n.t('action.sign_in')}
           </Button>
         </Else>
@@ -221,7 +224,7 @@ const DownArrow = styled.div<{ opened?: boolean }>`
   margin-top: 10px;
   transition: transform 0.5s ease;
   transform: ${({ opened }) => opened ? 'rotate(-90deg)' : 'rotate(90deg)'};
-  
+
   &:: after {
     font-size: 22px;
     transform: rotate(-90deg);

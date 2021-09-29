@@ -15,12 +15,13 @@ import { FlexAlignItem, FlexContainer } from '@components/elements/flex'
 import { EntityCreationPageSteps } from '.'
 import { Banner } from '@components/blocks/banners'
 import { useScrollTop } from "@hooks/use-scroll-top"
+import { ruddlestackTrackEntityCreationWizardButtonClicked } from '@components/pages/app/external-dependencies/ruddlestack'
 
 export const FormCredentials = () => {
   const { i18n } = useTranslation()
   useScrollTop()
   const { setAlertMessage } = useMessageAlert()
-  const { methods } = useEntityCreation()
+  const { name, entityType, entitySize, methods } = useEntityCreation()
   const [passphrase, setPassphrase] = useState('')
   const [passphrase2, setPassphrase2] = useState('')
   const [ack, setAck] = useState(false)
@@ -41,6 +42,7 @@ export const FormCredentials = () => {
     // OK
 
     methods.setPassphrase(passphrase)
+    ruddlestackTrackEntityCreationWizardButtonClicked(2, name, entityType?.value, entitySize?.value)
     methods.setPageStep(EntityCreationPageSteps.CREATION)
   }
 

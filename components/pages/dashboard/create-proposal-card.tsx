@@ -8,10 +8,17 @@ import { Button } from '../../elements/button'
 
 import { Card } from '../../elements/cards'
 import { SectionText, TextAlign } from '../../elements/text'
+import { ruddlestackTrackProcessCreationButtonClicked } from '@components/pages/app/external-dependencies/ruddlestack'
+import { useWallet } from '@hooks/use-wallet'
 
 export const DashboardCreateProposalCard = () => {
+  const { wallet } = useWallet()
   const { i18n } = useTranslation()
-  
+
+  const handleRuddlestackEvent = () => {
+    ruddlestackTrackProcessCreationButtonClicked(wallet?.address)
+  }
+
   return (
     <Card md={4} sm={12}>
       <CreateProposalImageContainer>
@@ -23,7 +30,7 @@ export const DashboardCreateProposalCard = () => {
       </SectionText>
 
       <CreateProposalButtonContainer>
-        <Button href={CREATE_PROCESS_PATH} positive>
+        <Button href={CREATE_PROCESS_PATH} positive onClick={handleRuddlestackEvent}>
           {i18n.t('dashboard.create_proposal')}
         </Button>
       </CreateProposalButtonContainer>
