@@ -20,6 +20,7 @@ import 'react-datetime/css/react-datetime.css'
 import { Helpscout } from '@components/pages/app/external-dependencies/helpscout'
 import { Ruddlestack } from '@components/pages/app/external-dependencies/ruddlestack';
 import { CookiesBanner } from '@components/blocks/cookies-banner'
+import { useTranslation } from 'react-i18next'
 
 type NextAppProps = AppInitialProps & {
   Component: NextComponentType<NextPageContext, any, any>
@@ -27,7 +28,13 @@ type NextAppProps = AppInitialProps & {
 }
 
 const VocdoniApp: FC<NextAppProps> = ({ Component, pageProps }) => {
-  const appTitle = process.env.APP_TITLE
+  const { i18n } = useTranslation()
+  const appName = process.env.APP_TITLE
+  const appTitle = i18n.t('app.meta.title')
+  const appFullTitle = appName + " - " + appTitle
+  const appDescription = i18n.t('app.meta.description')
+  const appKeywords = i18n.t('app.meta.keywords')
+  const appImage = "/images/home/section-1/computer-device.png"
   const commitSHA = process.env.COMMIT_SHA
 
   // If the current page component defined a custom layout, use it
@@ -44,12 +51,36 @@ const VocdoniApp: FC<NextAppProps> = ({ Component, pageProps }) => {
 
             <Head>
               <meta
+                name='description'
+                content={appDescription}
+              />
+              <meta
+                name='keywords'
+                content={appKeywords}
+              />
+              <meta
                 name='viewport'
                 content='width=device-width, initial-scale=1.0, max-scale=1.0'
               />
+              <meta
+                property='og:title'
+                content={appTitle}
+              />
+              <meta
+                property='og:description'
+                content={appDescription}
+              />
+              <meta
+                property='og:image'
+                content={appImage}
+              />
+              <meta
+                name='twitter:card'
+                content='summary_large_image'
+              />
               <link rel="icon" type="image/ico" href="/images/common/favicon.ico" sizes="16x16" />
               <Helpscout />
-              <title>{appTitle}</title>
+              <title>{appFullTitle}</title>
             </Head>
 
             <Layout>

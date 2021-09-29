@@ -12,7 +12,12 @@
         "sign_in": "Iniciar sesión"
     },
     "app": {
-        "header": {
+      "meta": {
+            "title": "La solución fácil y segura para todas sus necesidades de gobierno",
+            "description": "Vocdoni es un sistema de votación seguro, privado y universalmente verificable para cualquier organización.",
+            "keywords": "Voto por cadena de bloques, voto móvil, verificación universal, voto como servicio, gobernanza descentralizada, voto anónimo, centrado en la privacidad, voto electrónico seguro, voto digital a prueba de manipulaciones, soberanía de datos, gobernanza resistente, herramientas de gobernanza/coordinación"
+      },
+      "header": {
             "create_account_backup": "Crear backup",
             "dashboard": "Dashboard",
             "disconnect_account": "Cerrar session",

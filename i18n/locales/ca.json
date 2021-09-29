@@ -12,7 +12,12 @@
         "sign_in": "Accedeix-hi"
     },
     "app": {
-        "header": {
+      "meta": {
+            "title": "La solució fàcil i segura per a totes les seves necessitats de govern",
+            "description": "Vocdoni és un sistema de votació segur, privat i universalment verificable per a qualsevol organització.",
+            "keywords": "Vot per cadena de blocs, vot mòbil, verificació universal, vot com a servei, governança descentralitzada, vot anònim, centrat en la privacitat, vot electrònic segur, vot digital a prova de manipulacions, sobirania de dades, governança resistent, eines de governança / coordinació"
+      },
+      "header": {
             "create_account_backup": "Copia de Seguretat",
             "dashboard": "Dashboard",
             "disconnect_account": "Tancar Sessió",
