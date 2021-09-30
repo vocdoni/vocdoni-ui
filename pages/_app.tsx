@@ -29,11 +29,7 @@ type NextAppProps = AppInitialProps & {
 
 const VocdoniApp: FC<NextAppProps> = ({ Component, pageProps }) => {
   const { i18n } = useTranslation()
-  const appName = process.env.APP_TITLE
-  const appTitle = i18n.t('app.meta.title')
-  const appFullTitle = appName + " - " + appTitle
-  const appDescription = i18n.t('app.meta.description')
-  const appKeywords = i18n.t('app.meta.keywords')
+  const appFullTitle = process.env.APP_TITLE + " - " + i18n.t('app.meta.title')
   const appImage = "/images/home/section-1/computer-device.png"
   const commitSHA = process.env.COMMIT_SHA
 
@@ -52,11 +48,11 @@ const VocdoniApp: FC<NextAppProps> = ({ Component, pageProps }) => {
             <Head>
               <meta
                 name='description'
-                content={appDescription}
+                content={i18n.t('app.meta.description')}
               />
               <meta
                 name='keywords'
-                content={appKeywords}
+                content={i18n.t('app.meta.keywords')}
               />
               <meta
                 name='viewport'
@@ -64,11 +60,11 @@ const VocdoniApp: FC<NextAppProps> = ({ Component, pageProps }) => {
               />
               <meta
                 property='og:title'
-                content={appTitle}
+                content={i18n.t('app.meta.title')}
               />
               <meta
                 property='og:description'
-                content={appDescription}
+                content={i18n.t('app.meta.description')}
               />
               <meta
                 property='og:image'
