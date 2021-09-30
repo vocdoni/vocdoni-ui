@@ -20,6 +20,7 @@ import {
 } from './options-results-availability'
 import { ProcessEnvelopeType } from 'dvote-js'
 import { useScrollTop } from "@hooks/use-scroll-top"
+import { ruddlestackTrackProcessCreationWizardButtonClicked } from '@components/pages/app/external-dependencies/ruddlestack'
 
 export const FormOptions = () => {
   const { i18n } = useTranslation()
@@ -43,6 +44,7 @@ export const FormOptions = () => {
     }
 
     methods.createProcess()
+    ruddlestackTrackProcessCreationWizardButtonClicked(ProcessCreationPageSteps.CREATION)
     methods.setPageStep(ProcessCreationPageSteps.CREATION)
   }
 

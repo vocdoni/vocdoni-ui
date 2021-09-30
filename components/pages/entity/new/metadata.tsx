@@ -41,6 +41,7 @@ import {
 import { Typography, TypographyVariant } from '@components/elements/typography'
 import { SELECT_ORGANIZATION_TYPE, SELECT_ORGANIZATION_SIZE } from '../const/organizations'
 import { PRIVACY_PATH } from '@const/routes'
+import { ruddlestackTrackEntityCreationWizardButtonClicked } from '@components/pages/app/external-dependencies/ruddlestack'
 
 export enum MetadataFields {
   Name = 'name',
@@ -147,6 +148,8 @@ export const FormMetadata = () => {
       if (wallet) {
         destinationPage = EntityCreationPageSteps.CREATION
       }
+
+      ruddlestackTrackEntityCreationWizardButtonClicked(destinationPage, name, entityType?.value, entitySize?.value)
 
       methods.setPageStep(destinationPage)
     } else {

@@ -35,6 +35,7 @@ import { EntityNameAlreadyExistError } from '@lib/validators/errors/entity-name-
 import { StoreMediaError } from '@lib/validators/errors/store-media-error'
 import { InvalidIncognitoModeError } from '@lib/validators/errors/invalid-incognito-mode-error'
 import { ISelectOption } from '@components/elements/inputs'
+import { ruddlestackTrackEntityCreated } from '@components/pages/app/external-dependencies/ruddlestack'
 
 export interface EntityCreationContext {
   pageStep: EntityCreationPageSteps
@@ -248,6 +249,8 @@ export const UseEntityCreationProvider = ({
       // 5) entity => mark DB account as registered
       await ensureNoPendingAccount()
       lastSuccessStatus = AccountStatus.Ready
+
+      ruddlestackTrackEntityCreated(wallet.address)
     } catch (error) {
       return { error: error }
     } finally {

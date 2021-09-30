@@ -8,10 +8,13 @@ import { colors } from 'theme/colors'
 import { Button } from '@components/elements/button'
 import { sizes } from 'theme/sizes'
 import { CREATE_ACCOUNT_PATH } from '@const/routes'
+import {
+  ruddlestackTrackCreationButtonClicked,
+} from '@components/pages/app/external-dependencies/ruddlestack'
 
 export const HeroBanner = () => {
   const { i18n } = useTranslation()
-  
+
   return (
     <BannerContainer>
       <ContentContainer>
@@ -23,7 +26,7 @@ export const HeroBanner = () => {
 
           <ActionContainer>
             <ButtonContainer>
-              <Button wide positive href={CREATE_ACCOUNT_PATH}>
+              <Button wide positive href={CREATE_ACCOUNT_PATH} onClick={ruddlestackTrackCreationButtonClicked}>
                 {i18n.t('home.try_it_for_free')}
               </Button>
             </ButtonContainer>
@@ -61,9 +64,9 @@ const BannerContainer = styled.div`
   overflow: hidden;
   position: relative;
 
-  
+
   background: linear-gradient(180deg, #f0ffde 20.98%,#e0ffff 73.1%,transparent 100%, transparent 100%);
-  
+
   @media ${({ theme }) => theme.screenMax.tablet} {
     height: auto;
   }

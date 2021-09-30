@@ -28,6 +28,7 @@ import moment from 'moment'
 import { isUri } from '../lib/regex'
 import { SpreadSheetReader } from '../lib/spread-sheet-reader'
 import { utils } from 'ethers'
+import { ruddlestackTrackProcessCreated } from '@components/pages/app/external-dependencies/ruddlestack'
 
 export interface ProcessCreationContext {
   metadata: ProcessMetadata,
@@ -241,6 +242,7 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
         return VotingApi.newProcess(finalParams, wallet, pool)
       }).then(processId => {
         setProcessId(processId)
+        ruddlestackTrackProcessCreated(wallet?.address, metadata?.title?.default, processId)
         console.log("process created with id: ", processId)
         return {
           waitNext: true,

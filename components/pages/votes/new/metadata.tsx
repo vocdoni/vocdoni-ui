@@ -39,6 +39,7 @@ import { useScrollTop } from '@hooks/use-scroll-top'
 import { When } from 'react-if'
 import { Typography, TypographyVariant } from '@components/elements/typography'
 import { TextEditor } from '@components/blocks/text-editor'
+import { ruddlestackTrackProcessCreationWizardButtonClicked } from '@components/pages/app/external-dependencies/ruddlestack'
 
 export enum MetadataFields {
   Title = 'process-title',
@@ -118,7 +119,7 @@ export const FormMetadata = () => {
       try {
         const validatedMeta = checkValidProcessMetadata(metadata)
         methods.setRawMetadata(validatedMeta)
-
+        ruddlestackTrackProcessCreationWizardButtonClicked(ProcessCreationPageSteps.CENSUS)
         methods.setPageStep(ProcessCreationPageSteps.CENSUS)
       } catch (error) {
         setAlertMessage(i18n.t('error.the_vote_details_are_invalid'))
@@ -258,7 +259,7 @@ export const FormMetadata = () => {
           <TextEditor onChange={(content) => methods.setDescription(content)} markdown />
         </Column>
       </Grid>
-      
+
       <When condition={colorPickerEnabled}>
         <Grid>
           <Column md={6} sm={12}>
