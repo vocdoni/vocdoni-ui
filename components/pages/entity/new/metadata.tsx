@@ -149,7 +149,7 @@ export const FormMetadata = () => {
         destinationPage = EntityCreationPageSteps.CREATION
       }
 
-      ruddlestackTrackEntityCreationWizardButtonClicked(1, name, entityType?.value, entitySize?.value)
+      ruddlestackTrackEntityCreationWizardButtonClicked(destinationPage, name, entityType?.value, entitySize?.value)
 
       methods.setPageStep(destinationPage)
     } else {

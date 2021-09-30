@@ -42,7 +42,7 @@ export const FormCredentials = () => {
     // OK
 
     methods.setPassphrase(passphrase)
-    ruddlestackTrackEntityCreationWizardButtonClicked(2, name, entityType?.value, entitySize?.value)
+    ruddlestackTrackEntityCreationWizardButtonClicked(EntityCreationPageSteps.CREATION, name, entityType?.value, entitySize?.value)
     methods.setPageStep(EntityCreationPageSteps.CREATION)
   }
 

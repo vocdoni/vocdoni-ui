@@ -242,7 +242,7 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
         return VotingApi.newProcess(finalParams, wallet, pool)
       }).then(processId => {
         setProcessId(processId)
-        ruddlestackTrackProcessCreated(utils.getAddress(wallet.address), metadata?.title?.default, processId)
+        ruddlestackTrackProcessCreated(wallet?.address, metadata?.title?.default, processId)
         console.log("process created with id: ", processId)
         return {
           waitNext: true,
