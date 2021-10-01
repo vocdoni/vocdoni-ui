@@ -10,6 +10,11 @@ declare global {
   }
 }
 
+const trackEvent = (event, data?) => {
+  if(typeof rudderanalytics !== 'undefined') {
+    rudderanalytics.track(event, data);
+  }
+}
 
 export const Ruddlestack = () => {
   const router = useRouter()
@@ -31,58 +36,29 @@ export const Ruddlestack = () => {
 }
 
 export const ruddlestackTrackCreationButtonClicked = () => {
-  rudderanalytics.track(
-    "entityCreation_button_clicked",
-  );
+  trackEvent("entityCreation_button_clicked")
 }
 
 export const ruddlestackTrackSignInButtonClicked = () => {
-  rudderanalytics.track(
-    "login_button_clicked",
-  );
+  trackEvent("login_button_clicked")
 }
 
 export const ruddlestackTrackEntityCreationWizardButtonClicked = (step, name, type, size) => {
-  rudderanalytics.track(
-    "entityCreationWizard_button_clicked",
-    {
-      step, name, type, size
-    }
-  );
+  trackEvent("entityCreationWizard_button_clicked", {step, name, type, size});
 }
 
 export const ruddlestackTrackEntityCreated = (address) => {
-  rudderanalytics.track(
-    "entity_created",
-    {
-      address
-    }
-  );
+  trackEvent("entity_created", {address});
 }
 
 export const ruddlestackTrackProcessCreationButtonClicked = (entity) => {
-  rudderanalytics.track(
-    "processCreation_button_clicked",
-    {
-      entity
-    }
-  );
+  trackEvent("processCreation_button_clicked", {entity});
 }
 
 export const ruddlestackTrackProcessCreationWizardButtonClicked = (step) => {
-  rudderanalytics.track(
-    "processCreationWizard_button_clicked",
-    {
-      step
-    }
-  );
+  trackEvent("processCreationWizard_button_clicked", {step});
 }
 
 export const ruddlestackTrackProcessCreated = (entity, title, id) => {
-  rudderanalytics.track(
-    "process_created",
-    {
-      entity, title, id
-    }
-  );
+  trackEvent("process_created", {entity, title, id});
 }
