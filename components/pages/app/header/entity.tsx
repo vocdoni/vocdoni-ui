@@ -217,7 +217,7 @@ export const EntityHeader = () => {
     <Header hasReadyAccount={!!account}>
       <If condition={!!account}>
         <Then>
-          {entitySubscriptionData && <SubscriptionTag>{entitySubscriptionData.product?.title}</SubscriptionTag>}
+          {entitySubscriptionData?.product && <SubscriptionTag>{entitySubscriptionData.product?.title}</SubscriptionTag>}
           <Dropdown toggleButton={menuButton} onUpdate={handleMenuOpen}>
             {showLanguageSelector ? langSelector : navMenu}
           </Dropdown>

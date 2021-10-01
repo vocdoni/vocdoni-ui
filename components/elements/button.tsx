@@ -178,7 +178,9 @@ background: linear-gradient(106.26deg, ${props => hexToRgbA(props.theme.accent2B
 export enum JustifyContent {
     Left = 'left',
     Right = 'right',
-    Center = 'center'
+    Center = 'center',
+    SpaceBetween = 'space-between',
+    SpaceEvenly = 'space-evenly',
 }
 
 const ButtonContent = styled.div<{ color?: ButtonProps["color"], justify?: JustifyContent, verticalAlign?: boolean}>`

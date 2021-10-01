@@ -2,9 +2,11 @@ import styled, { DefaultTheme } from 'styled-components'
 import Link from 'next/link'
 import { Column, ColumnProps } from './grid'
 import { Skeleton } from '../blocks/skeleton'
+import { SyntheticEvent } from 'react'
 
 type CardProps = ColumnProps & {
   border?: boolean
+  onClick?: (event: SyntheticEvent<HTMLDivElement>) => void
 }
 
 type StatusCardProps = ColumnProps & {
@@ -35,7 +37,6 @@ const PageCardHeaderVariantStyle = {
 `,
 }
 
-
 export const PageCard = styled.div`
   background-color: ${({ theme }) => theme.white};
   padding: 32px;
@@ -49,27 +50,18 @@ export const PageCardHeader = styled.div<{ variant?: PageCardHeaderVariant }>`
   overflow: hidden;
   max-height: 250px;
 
-  ${({ theme, variant }) =>
-    PageCardHeaderVariantStyle[variant || PageCardHeaderVariant.Image](
-      theme,
-    )}
+  ${({ theme, variant }) => PageCardHeaderVariantStyle[variant || PageCardHeaderVariant.Image](theme)}
 `
 
 export const Card = ({ span, sm, md, lg, xl, border, ...props }: CardProps) => (
   <Column {...{ span, sm, md, lg, xl }}>
-    <CardDiv border>{props.children}</CardDiv>
+    <CardDiv border>
+      {props.children}
+    </CardDiv>
   </Column>
 )
 
-export const StatusCard = ({
-  span,
-  sm,
-  md,
-  lg,
-  xl,
-  skeleton,
-  ...props
-}: StatusCardProps) => (
+export const StatusCard = ({ span, sm, md, lg, xl, skeleton, ...props }: StatusCardProps) => (
   <Column {...{ span, sm, md, lg, xl }}>
     <CardDiv>
       {skeleton ? (
@@ -98,12 +90,16 @@ export const StatusCard = ({
 )
 
 // Styles
+export enum CardDivSize {
+  Small = '11px 10px',
+  Medium = '11px 20px',
+  Large = '40px 80px',
+}
 
-export const CardDiv = styled.div<{ border?: boolean }>`
-  padding: 11px 20px;
+export const CardDiv = styled.div<{ border?: boolean; size?: CardDivSize }>`
+  padding: ${({ size }) => (size ? size : CardDivSize.Medium)};
   background: ${(props) => props.theme.white};
-  border: ${({ theme, border }) =>
-    border ? `solid 2px ${theme.lightBorder}` : 'none'};
+  border: ${({ theme, border }) => (border ? `solid 2px ${theme.lightBorder}` : 'none')};
   box-shadow: 0px 3px 3px rgba(180, 193, 228, 0.35);
   border-radius: 16px;
 `

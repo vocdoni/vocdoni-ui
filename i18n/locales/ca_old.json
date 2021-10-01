@@ -4,5 +4,41 @@
     },
     "vote": {
         "brief_description": "Descripció breu"
+    },
+    "products": {
+        "plans": {
+            "basic": {
+                "button": ""
+            },
+            "standard": {
+                "button": "",
+                "description": "",
+                "title": ""
+            }
+        }
+    },
+    "components": {
+        "pricing": {
+            "choose": ""
+        }
+    },
+    "pricing": {
+        "table_features": {
+            "quadratic": "",
+            "real_time": "",
+            "features": {
+                "abstain_from_answers": "",
+                "anonymous": "",
+                "real_time_qa": "",
+                "save_process_as_draft": "",
+                "steaming": "",
+                "test_voting_process": "",
+                "video_conference": "",
+                "voting": ""
+            },
+            "payments": {
+                "payment_fee": ""
+            }
+        }
     }
 }

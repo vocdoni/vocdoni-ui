@@ -1,9 +1,27 @@
-import { IProductDescription } from '@const/products'
-import { IStripeProduct, IStripePrice } from '@recoil/selectors/products'
+import { IProductFeatures } from '@const/products'
+import { IStripeProduct, IStripePrice, IStripeTier } from '@recoil/selectors/products'
 
 type ProductQuantities = {
   label: string,
   value: number,
+}
+
+export class Tier {
+  public flatAmount: number
+  public uintAmount: number
+  public upTo: number
+
+  constructor(){}
+
+  static tierFromStripe(stripeProduct: IStripeTier): Tier {
+    const tier = new Tier()
+
+    tier.flatAmount = stripeProduct.flat_amount
+    tier.uintAmount = stripeProduct.unit_amount
+    tier.upTo = stripeProduct.up_to
+    
+    return tier
+  }
 }
 
 export class Price {
@@ -14,30 +32,27 @@ export class Price {
   public currency: string
   public type: "recurring" | "one_time"
   public active: boolean
-  public quantities: ProductQuantities[] = [
-    {
-      label: "0-250",
-      value: 250,
-    }, {
-      label: "250-500",
-      value: 500,
-    }, {
-      label: "500-1000",
-      value: 1000,
-    }
-  ]
+  public tiers: Tier[]
   public range: boolean = false
 
-  constructor(
-    price: IStripePrice,
-  ) {
-    this.id = price.id
-    this.billingScheme = price.billing_scheme
-    this.unitAmount = price.unit_amount
-    this.nickname = price.nickname
-    this.currency = price.currency
-    this.type = price.type
-    this.active = price.active
+  constructor() {}
+
+  static priceFromStripe(
+    stripePrice: IStripePrice,
+  ): Price {
+    const price = new Price()
+
+    price.id = stripePrice.id
+    price.billingScheme = stripePrice.billing_scheme
+    price.unitAmount = stripePrice.unit_amount
+    price.nickname = stripePrice.nickname
+    price.currency = stripePrice.currency
+    price.type = stripePrice.type
+    price.active = stripePrice.active  
+
+    price.tiers = stripePrice.tiers.map(tier => Tier.tierFromStripe(tier))
+
+    return price
   }
 }
 
@@ -47,30 +62,55 @@ export class Product {
   public name: string
   public description: string
   public images: string[]
-  public features: string[]
+  // public features: string[]
   public prices: Price[]
+  public votingPerYear: number
+  public pricePerVoter: number
   public freePlan: boolean
+  public features: IProductFeatures
 
-  constructor(
-    stripeProduct: IStripeProduct,
-    stripePrices: IStripePrice[],
-    productDescription: IProductDescription,
+  constructor() {}
 
-  ) {
-    if ( stripeProduct ) {
-      this.id = stripeProduct.id
-      this.name = stripeProduct.name
-      this.images = stripeProduct.images
-    }
-    
-    this.title = productDescription.title
-    this.description = productDescription.description
-    this.features = productDescription.features
-    this.freePlan = productDescription.freePlan
-    this.prices = stripePrices.map(price => new Price(price))
+  get priceEuro(): string {
+    return this.lastTier ? (this.lastTier.flatAmount / 100).toFixed(2) : '0'
+  }
+
+  get pricePerVoterEuro(): string {
+    return this.lastTier ? (this.lastTier.uintAmount / 100).toFixed(2) : '0'
+  }
+
+
+  get lastTier () {
+  
+    return this.prices[0].tiers? this.prices[0].tiers.find(tier => !tier.upTo): undefined
   }
 
   public getPrice(): Price {
     return this.prices[0]
+  }
+
+
+  
+  static productFromStripe(
+    stripeProduct: IStripeProduct,
+    stripePrices: IStripePrice[],
+    features: IProductFeatures
+  ): Product {
+    const product = new Product()
+
+    if (stripeProduct) {
+      product.id = stripeProduct.id
+      product.name = stripeProduct.name
+      product.images = stripeProduct.images
+    }
+
+    product.title = features.title
+    product.description = features.description
+    product.votingPerYear = features.votingPerYear
+    product.features = features
+    product.freePlan = features.freePlan
+    product.prices = stripePrices.map(price => Price.priceFromStripe(price))
+
+    return product
   }
 }

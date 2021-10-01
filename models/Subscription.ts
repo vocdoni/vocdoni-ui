@@ -6,6 +6,8 @@ export class Subscription {
   public status: "active" | "past_due" | "unpaid" | "canceled" | "incomplete" | "incomplete_expired" | "trialing" | string;
   public clientSecret: string;
   public amount: number;
+  public startDate: Date;
+  public endDate: Date;
   public productId : string;
   public product: Product;
 
@@ -17,6 +19,8 @@ export class Subscription {
     subscription.amount = stripeData.latest_invoice.amount_paid + stripeData.latest_invoice.amount_remaining;
     subscription.clientSecret = stripeData.latest_invoice.payment_intent.client_secret;
     subscription.productId = stripeData.items.data[0].price.product;
+    subscription.startDate = new Date(stripeData.current_period_start);
+    subscription.endDate = new Date(stripeData.current_period_end);
 
     return subscription;
   }

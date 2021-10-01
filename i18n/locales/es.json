@@ -25,6 +25,7 @@
             "language": "Idioma",
             "public_page": "Página publica",
             "settings": "Herramientas",
+            "subscription": "",
             "update_entity": "Actualizar entidad",
             "user_language": "Idioma: {{ lang }}"
         }
@@ -65,6 +66,11 @@
         },
         "image_loader": {
             "upload_file": "Subir fichero"
+        }
+    },
+    "box_plan": {
+        "pricing": {
+            "choose": ""
         }
     },
     "confirm": {
@@ -240,6 +246,7 @@
         "invalid_question_title": "El título debe contener un mínimo de {{ length }} caracteres",
         "invalid_title": "El título debe contener un mínimo de {{ length }} caracteres",
         "invalid_url": "URL inválida",
+        "no_subscription_found": "",
         "num_entries_could_not_be_added_to_the_census": "{{num}} entradas no han podido ser añadidas al censo",
         "retrieve_gas_time_out": "No se ha podido determinar el coste de la transacción",
         "the_incognito_mode_is_not_supported": "La navegación privada no está soportada",
@@ -415,6 +422,10 @@
     "payment": {
         "city": "",
         "country": "",
+        "header": {
+            "description": "",
+            "title": ""
+        },
         "name": "",
         "street": "",
         "zip_code": ""
@@ -423,15 +434,101 @@
         "ending_in_one_hour": "Acaba de aquí 1h",
         "vote": "Votar"
     },
+    "pricing": {
+        "body": {
+            "ask_a_question": "",
+            "faq": "",
+            "need_help_or_want_to_discuss_a_personalized_plan": "",
+            "show_all_features": ""
+        },
+        "checking_card": {
+            "volume": ""
+        },
+        "steps": {
+            "checkout": "",
+            "select_plan": ""
+        },
+        "table_features": {
+            "abstain_from_answers": "",
+            "accept_payment": "",
+            "advanced_analytics": "",
+            "agm": "",
+            "anonymous": "",
+            "basic_analytics": "",
+            "branding": "",
+            "census_management": "",
+            "communications": "",
+            "crm": "",
+            "custom_colors": "",
+            "custom_logo": "",
+            "custom_subdomain": "",
+            "digital_certificate": "",
+            "donation_button": "",
+            "download_pdf": "",
+            "end_to_end_verifiability": "",
+            "insights_and_metrics": "",
+            "integrations": "",
+            "live_chat": "",
+            "mail_chimp": "",
+            "managed_process": "",
+            "multiple_answers": "",
+            "news_feed": "",
+            "payment_fee": "",
+            "payments": "",
+            "priority_support": "",
+            "quadratic_voting": "",
+            "question_by_question": "",
+            "real_time_qa": "",
+            "real_time_voting": "",
+            "remove_vocdoni_branding": "",
+            "results_integrity_securely_by_blockchain": "",
+            "save_process_as_draft": "",
+            "segmentation": "",
+            "simple_process": "",
+            "steaming": "",
+            "step_by_step_voting": "",
+            "support": "",
+            "tagging": "",
+            "tamper_proof_voting": "",
+            "test_voting_process": "",
+            "upload_csv_census": "",
+            "user_mailing": "",
+            "video_conference": "",
+            "voting": "",
+            "voting_calendar": "",
+            "voting_results": "",
+            "zappier": ""
+        },
+        "table_plan": {
+            "added_cost_per_voter": "",
+            "administrators": "",
+            "base_price": "",
+            "contact_us": "",
+            "current_plan": "",
+            "custom": "",
+            "custom_plan_for_over_100000_members": "",
+            "do_you_have_more_than_100000_members": "",
+            "features": "",
+            "get_in_touch_with_our_team_to_discus": "",
+            "hide_all_features": "",
+            "number_of_features": "",
+            "plan": "",
+            "try_for_free": "",
+            "unlimited": "",
+            "voting_process_per_year": ""
+        }
+    },
     "products": {
         "plans": {
             "basic": {
-                "button": "",
                 "description": "",
                 "title": ""
             },
-            "standard": {
-                "button": "",
+            "community": {
+                "description": "",
+                "title": ""
+            },
+            "organization": {
                 "description": "",
                 "title": ""
             }
@@ -486,6 +583,18 @@
         "the_vote_is_open_for_voting": "El proceso de votación está abierto",
         "the_vote_is_paused": "El proceso de votación está parado",
         "the_vote_will_start_soon": "El proceso de votación empezará pronto"
+    },
+    "subscription": {
+        "body": {
+            "license": "",
+            "license_period": "",
+            "more_plans": "",
+            "price": "",
+            "upgrade": ""
+        },
+        "header": {
+            "title": ""
+        }
     },
     "supported_langs": {
         "catalan": "Català",

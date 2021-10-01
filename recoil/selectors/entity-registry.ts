@@ -15,7 +15,7 @@ export const entityRegistrySelector = selector({
 
     // Remember remove me
     const subs = 'sub_1JbpLhDiJcunaZwgHXsPJS8s'
-    const entity = {...entityRegistry.entity, subscriptionId: undefined}
+    const entity = {...entityRegistry.entity, subscriptionId: 'asdfasdfsaf'}
     return entity
   },
 })
