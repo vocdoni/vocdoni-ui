@@ -10,6 +10,9 @@ declare global {
   }
 }
 
+const checkRuddlestack = () => {
+  return typeof rudderanalytics !== 'undefined'
+}
 
 export const Ruddlestack = () => {
   const router = useRouter()
@@ -31,58 +34,43 @@ export const Ruddlestack = () => {
 }
 
 export const ruddlestackTrackCreationButtonClicked = () => {
-  rudderanalytics.track(
-    "entityCreation_button_clicked",
-  );
+  if(checkRuddlestack()) {
+    rudderanalytics.track("entityCreation_button_clicked");
+  }
 }
 
 export const ruddlestackTrackSignInButtonClicked = () => {
-  rudderanalytics.track(
-    "login_button_clicked",
-  );
+  if(checkRuddlestack()) {
+    rudderanalytics.track("login_button_clicked");
+  }
 }
 
 export const ruddlestackTrackEntityCreationWizardButtonClicked = (step, name, type, size) => {
-  rudderanalytics.track(
-    "entityCreationWizard_button_clicked",
-    {
-      step, name, type, size
-    }
-  );
+  if(checkRuddlestack()) {
+    rudderanalytics.track("entityCreationWizard_button_clicked", {step, name, type, size});
+  }
 }
 
 export const ruddlestackTrackEntityCreated = (address) => {
-  rudderanalytics.track(
-    "entity_created",
-    {
-      address
-    }
-  );
+  if(checkRuddlestack()) {
+    rudderanalytics.track("entity_created", {address});
+  }
 }
 
 export const ruddlestackTrackProcessCreationButtonClicked = (entity) => {
-  rudderanalytics.track(
-    "processCreation_button_clicked",
-    {
-      entity
-    }
-  );
+  if(checkRuddlestack()) {
+    rudderanalytics.track("processCreation_button_clicked", {entity});
+  }
 }
 
 export const ruddlestackTrackProcessCreationWizardButtonClicked = (step) => {
-  rudderanalytics.track(
-    "processCreationWizard_button_clicked",
-    {
-      step
-    }
-  );
+  if(checkRuddlestack()) {
+    rudderanalytics.track("processCreationWizard_button_clicked", {step});
+  }
 }
 
 export const ruddlestackTrackProcessCreated = (entity, title, id) => {
-  rudderanalytics.track(
-    "process_created",
-    {
-      entity, title, id
-    }
-  );
+  if(checkRuddlestack()) {
+    rudderanalytics.track("process_created", {entity, title, id});
+  }
 }
