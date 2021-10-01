@@ -24,7 +24,8 @@
             "help_and_feedback": "Help & feedback",
             "language": "Language",
             "public_page": "Public page",
-            "settings": "Settings",
+            "settings": "Setting",
+            "subscription": "Subscription",
             "update_entity": "Update entity",
             "user_language": "Language: {{ lang }}"
         },
@@ -70,6 +71,11 @@
         },
         "image_loader": {
             "upload_file": "Upload file"
+        }
+    },
+    "box_plan": {
+        "pricing": {
+            "choose": "Choose"
         }
     },
     "confirm": {
@@ -252,6 +258,7 @@
         "invalid_title": "The title must contain at least {{ length }} characters",
         "invalid_url": "Invalid URL",
         "invalid_weighted_row_length": "Invalid weight on lines {{invalidRows}} of the document. Correct these errors & upload the document again.",
+        "no_subscription_found": "Not subscription found",
         "num_entries_could_not_be_added_to_the_census": "{{num}} entries could not be added to the census",
         "retrieve_gas_time_out": "Could not determine the transaction price",
         "the_incognito_mode_is_not_supported": "The incognito mode is not supported",
@@ -428,6 +435,10 @@
     "payment": {
         "city": "City",
         "country": "Country",
+        "header": {
+            "description": "Try a paid plan for free for 14 days. Cancel at any time.",
+            "title": "Unlimited voting processes, unlimited census size with the lowest cost."
+        },
         "name": "Name",
         "street": "Street",
         "zip_code": "Zip code"
@@ -436,17 +447,103 @@
         "ending_in_one_hour": "Ending in 1h",
         "vote": "Vote"
     },
+    "pricing": {
+        "body": {
+            "ask_a_question": "Ask a Question",
+            "faq": "F.A.Q.",
+            "need_help_or_want_to_discuss_a_personalized_plan": "Need help or want to discuss a personalized plan?",
+            "show_all_features": "Show all features"
+        },
+        "checking_card": {
+            "volume": "Volume"
+        },
+        "steps": {
+            "checkout": "Checkout",
+            "select_plan": "Select a plan"
+        },
+        "table_features": {
+            "abstain_from_answers": "Abstain from answers *",
+            "accept_payment": "Accept payments *",
+            "advanced_analytics": "Advanced Analytics / Metrics *",
+            "agm": "AGM",
+            "anonymous": "Anonymous voting *",
+            "basic_analytics": "Basic Analytics / Metrics *",
+            "branding": "Branding",
+            "census_management": "Census Management",
+            "communications": "Communications",
+            "crm": "CRMs *",
+            "custom_colors": "Custom Colors",
+            "custom_logo": "Download PDF",
+            "custom_subdomain": "Custom subdomain *",
+            "digital_certificate": "Digital Certificate *",
+            "donation_button": "Donation button *",
+            "download_pdf": "Download PDF",
+            "end_to_end_verifiability": "End-to-end Verifiability",
+            "insights_and_metrics": "Insights & Metrics",
+            "integrations": "Integrations",
+            "live_chat": "Live Chat",
+            "mail_chimp": "Mailchimp *",
+            "managed_process": "Managed Process",
+            "multiple_answers": "Multiple answers*",
+            "news_feed": "News feed *",
+            "payment_fee": "Payment fee *",
+            "payments": "Payments",
+            "priority_support": "Priority Support",
+            "quadratic_voting": "Quadratic Voting *",
+            "question_by_question": "Question-by-question *",
+            "real_time_qa": "Real-time Q&A *",
+            "real_time_voting": "Question-by-question *",
+            "remove_vocdoni_branding": "Remove Vocdoni branding",
+            "results_integrity_securely_by_blockchain": "Results Integrity secured by blockchain",
+            "save_process_as_draft": "Save process as a draft *",
+            "segmentation": "Segmentation *",
+            "simple_process": "Simple process",
+            "steaming": "Streaming *",
+            "step_by_step_voting": "Step-by-step voting *",
+            "support": "Support",
+            "tagging": "Tagging *",
+            "tamper_proof_voting": "Tamper-proof voting",
+            "test_voting_process": "Test Voting processes *",
+            "upload_csv_census": "Upload CSV census",
+            "user_mailing": "User mailing *",
+            "video_conference": "Videconference *",
+            "voting": "Voting",
+            "voting_calendar": "Voting calendar *",
+            "voting_results": "Voting Results",
+            "zappier": "Zappier *"
+        },
+        "table_plan": {
+            "added_cost_per_voter": "Added Cost per Voter / year",
+            "administrators": "Added Cost per Voter / year",
+            "base_price": "Base price / year",
+            "contact_us": "Contact us",
+            "current_plan": "Current plan",
+            "custom": "Custom",
+            "custom_plan_for_over_100000_members": "Custom plan for over 10,000 members",
+            "do_you_have_more_than_100000_members": "Do you have more than 10,000 members or need specific features?",
+            "features": "Features",
+            "get_in_touch_with_our_team_to_discus": "Get in touch with our team to discuss a personalized plan.",
+            "hide_all_features": "Hide all features",
+            "number_of_features": "+{{number_of_features}} features",
+            "plan": "Plan",
+            "try_for_free": "Try for free",
+            "unlimited": "Unlimited",
+            "voting_process_per_year": "Voting processes / year"
+        }
+    },
     "products": {
         "plans": {
             "basic": {
-                "button": "Buy now",
                 "description": "This is the basic description",
                 "title": "Basic product"
             },
-            "standard": {
-                "button": "Buy now",
-                "description": "This is the standard description",
-                "title": "Standard product"
+            "community": {
+                "description": "Community description",
+                "title": "Community"
+            },
+            "organization": {
+                "description": "Organization description",
+                "title": "Organization"
             }
         }
     },
@@ -502,6 +599,18 @@
     },
     "success": {
         "passphrase_match": "Passphrase match!"
+    },
+    "subscription": {
+        "body": {
+            "license": "Product name: {{licence}}",
+            "license_period": "Subscription start {{start_date}} ends {{end_date}}",
+            "more_plans": "",
+            "price": "Price: {{price}}€",
+            "upgrade": ""
+        },
+        "header": {
+            "title": "Subscription"
+        }
     },
     "supported_langs": {
         "catalan": "Català",

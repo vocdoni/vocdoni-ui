@@ -18,7 +18,7 @@ const PricingPage = () => {
   const [redirectUrl, setRedirectUrl] = useState(null)
   const {contents: products, state: productsStatus} = useRecoilValueLoadable<Product[]>(productsState)
   const wallet = useRecoilValue(walletState)
-  console.log('el wallet es', wallet)
+
   useEffect(() => {
     if(!wallet) {
       setRedirectUrl(ENTITY_SIGN_IN_PATH)
@@ -45,7 +45,7 @@ const PricingPage = () => {
   )
   
   const viewContext = new ViewContext([
-    redirectView,
+    // redirectView,
     pricingView,
     loaderView
   ])

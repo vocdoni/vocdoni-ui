@@ -1,6 +1,6 @@
 import { selector } from 'recoil'
 
-import { vocdoniProducts } from '@const/products'
+import { productsFeatures } from '@const/products'
 import { STRIPE_PLANS_KEY } from '@const/env'
 import { GET_PRODUCTS_URL, GET_PRICES_URL } from '@const/stripe'
 import { Product } from 'models/Product'
@@ -28,6 +28,14 @@ interface IStripeResponseJSON {
   data: IStripeProduct[]
 }
 
+export interface IStripeTier {
+  "flat_amount": number,
+  "flat_amount_decimal": string,
+  "unit_amount": number,
+  "unit_amount_decimal": string,
+  "up_to": number
+}
+
 export interface IStripePrice {
   "id": string,
   "object": "price",
@@ -46,6 +54,7 @@ export interface IStripePrice {
     "interval_count": number,
     "usage_type": "licensed" | "metered"
   },
+  "tiers": IStripeTier[],
   "tax_behavior": "unspecified",
   "tiers_mode": null,
   "transform_quantity": null,
@@ -65,12 +74,12 @@ export const productsSelector = selector<Product[]>({
       const productsResponse = await fetch(GET_PRODUCTS_URL, {
         method: 'GET',
         headers: {
-          'Authorization': `Bearer ${STRIPE_PLANS_KEY}`
-        }
+          'Authorization': `Bearer ${STRIPE_PLANS_KEY}`,
+        },
       })
       const { data: jsonProductsResponse }: IStripeResponseJSON = await productsResponse.json()
 
-      const pricesResponse = await fetch(GET_PRICES_URL, {
+      const pricesResponse = await fetch(`${GET_PRICES_URL}?expand[]=data.tiers`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${STRIPE_PLANS_KEY}`
@@ -78,18 +87,19 @@ export const productsSelector = selector<Product[]>({
       })
 
       const { data: jsonPricesResponse }: IStripePriceJSON = await pricesResponse.json()
-      const parsedProducts = vocdoniProducts.map((vocdoniProduct) => {
+      console.log('The price are', jsonPricesResponse)
+      const parsedProducts = productsFeatures.map((productFeatures) => {
         const stripeProduct = jsonProductsResponse.find(
-          (stripeProduct) => vocdoniProduct.id === stripeProduct.id
+          (stripeProduct) => productFeatures.id === stripeProduct.id
         )
-        const stripeProductPrices = jsonPricesResponse.filter(
+        const stripeProductPrices = jsonPricesResponse?.filter(
           (stripeProductPrices) => stripeProduct && stripeProduct.id === stripeProductPrices.product
         )
 
-        return new Product(
+        return Product.productFromStripe(
           stripeProduct,
           stripeProductPrices,
-          vocdoniProduct
+          productFeatures
         )
       })
 

@@ -31,7 +31,7 @@ const DashboardPage = () => {
   } = useProcessesFromAccount(wallet?.address)
   // NOTE: processes is a singleton map (for efficiency reasons). This means that no re-render will occur based on `processes`.
   //       Use processIds and loadingProcessList + loadingProcessesDetails instead.
-
+  console.log(processes)
   const hasDbAccountAndWallet = wallet?.address && dbAccounts.length
   const account: Account | null = hasDbAccountAndWallet
     ? dbAccounts.find(

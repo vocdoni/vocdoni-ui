@@ -32,7 +32,7 @@ export const BoxPlan = ({ product, onSelectProduct }: IBoxPlanProps) => {
         positive
         wide
       >
-        {i18n.t('components.pricing.choose')}
+        {i18n.t('box_plan.pricing.choose')}
       </Button>}
 
       <FeatureList>

@@ -302,7 +302,7 @@ export const MockSubscriptionData = {
         "total_count": 0,
         "url": "/v1/charges?payment_intent=pi_3JbpLhDiJcunaZwg0VDDtHh7"
       },
-      "client_secret": "pi_3JbpLhDiJcunaZwg0VDDtHh7_secret_d4urWBzAMPp5PJsDbUEWsHwJS",
+      "client_secret": "pi_3JeddgDiJcunaZwg2xFeT7F0_secret_Q1Yj6RATY3x40JYDHtcPhc5j7",
       "confirmation_method": "automatic",
       "created": 1632155289,
       "currency": "eur",
