@@ -1,10 +1,9 @@
 import { selectorFamily } from "recoil";
 
-import { AccountsState } from "recoil/atoms/accounts";
+import { AccountsState } from "@recoil/atoms/accounts";
 
 import { Account, AccountStatus } from "@lib/types";
 import { AccountDb } from '@lib/storage'
-import i18n from "@i18n";
 
 export const AccountSelector = selectorFamily<Account, string>({
   key: "accountSelector",
@@ -12,7 +11,6 @@ export const AccountSelector = selectorFamily<Account, string>({
     if (!address) return
     
     const accounts = get(AccountsState)
-
     const account = accounts.find(a => a.address === address && a.status === AccountStatus.Ready)
 
     return account
