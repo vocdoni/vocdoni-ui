@@ -44,11 +44,11 @@ const Container = styled.span`
 const Tooltip = styled.span<{visible: boolean}>`
   visibility: ${({ visible }) => visible? 'visible': 'hidden'};
   opacity: ${({ visible }) => visible? '1': '0'};
-  -webkit-touch-callout: none; 
-  -webkit-user-select: none; 
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
   -khtml-user-select: none;
   -moz-user-select: none;
-  -ms-user-select: none; 
+  -ms-user-select: none;
   user-select: none;
   color: #865BFF;
   width: max-content;
@@ -62,6 +62,7 @@ const Tooltip = styled.span<{visible: boolean}>`
   padding: 8px;
   top: 0;
   left: 26px;
+  z-index: 1;
 `
 
 const QuestionMark = styled.span`
