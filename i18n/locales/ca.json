@@ -449,13 +449,20 @@
     },
     "pricing": {
         "body": {
-            "ask_a_question": "",
+            "contact_us": "",
             "faq": "",
             "need_help_or_want_to_discuss_a_personalized_plan": "",
             "show_all_features": ""
         },
         "checking_card": {
-            "volume": ""
+            "adjust_membership_tier_to_get_the_best_value": "",
+            "calculate_total_cost_of_your_plan": "",
+            "change_membership": "",
+            "max": "",
+            "members_in_your_plan": "",
+            "this_plan_has_members": "pricing.checking_card.this_plan_has_members",
+            "volume": "",
+            "you_can_add_more_up_100000_members_by": ""
         },
         "steps": {
             "checkout": "",

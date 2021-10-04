@@ -1,95 +1,64 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { Trans, useTranslation } from 'react-i18next'
+import Close from 'remixicon/icons/System/close-line.svg'
 
-import { Button } from '@components/elements/button'
-import { Card } from '@components/elements/cards'
-import { Price, Product } from '@models/Product'
-import { Column, Grid } from '@components/elements/grid'
+import { useTranslation } from 'react-i18next'
 
-import RouterService from '@lib/router'
-import { PAYMENT_PAGE } from '@const/routes'
+import { Grid, Column } from '@components/elements/grid'
+
+import { Product } from '@models/Product'
+
+import { AmountSelector } from './amount-selector'
+import { FlexAlignItem, FlexContainer, FlexJustifyContent } from '@components/elements/flex'
 import { Typography, TypographyVariant } from '@components/elements/typography'
-import { FlexAlignItem, FlexContainer } from '@components/elements/flex'
-import { FormGroupVariant, InputFormGroup } from '@components/blocks/form'
-import { ProgressBar } from '@components/elements/progress-bar'
 
 interface ICheckingCardProps {
   product: Product
+  onClose: () => void
 }
 
-export const CheckingCard = ({ product }: ICheckingCardProps) => {
+export const CheckingCard = ({ product, onClose }: ICheckingCardProps) => {
   const { i18n } = useTranslation()
   const [members, setMembers] = useState(1000)
-  const lastTier = product.lastTier
+  const handleChangeQuantity = () => {}
 
   return (
-    <>
+    <CheckingCardContainer>
       <CardHr />
-      <CheckingCardContainer>
-
-        <Typography variant={TypographyVariant.Body2}>
-          <Trans
-            defaults="pricing.checking_card.calculate_total_cost_of_your_plan"
-            values={{ members }}
-            components={[<strong />]}
-          />
-        </Typography>
-        <Typography variant={TypographyVariant.Small}>
-          {i18n.t('pricing.checking_card.calculate_total_cost_of_your_plan', {
-            votePrice: product.price.unitAmount,
-          })}
-        </Typography>
-
-        <FlexContainer alignItem={FlexAlignItem.Center}>
-          <InputContainer>
-            <InputFormGroup
-              type="number"
-              label={i18n.t('pricing.checking_card.change_membership')}
-              value={members.toFixed(0)}
-              variant={FormGroupVariant.Small}
-              onChange={(e) => setMembers(parseInt(e.target.value))}
-            />
-          </InputContainer>
-
-          <ButtonContainer>
-            {product.price.tiers.map((tier, index) => (
-              <Button
-                key={index}
-                positive
-                href={RouterService.instance.get(PAYMENT_PAGE, {
-                  productId: product.id,
-                  priceId: product.price.id,
-                  quantity: tier.upTo ? tier.upTo.toFixed() : '1000',
-                })}>{`${i18n.t('pricing.checking_card.volume')}: ${tier.upTo}`}</Button>
-            ))}
-          </ButtonContainer>
+      <CheckingCardWrapper>
+        <FlexContainer justify={FlexJustifyContent.SpaceBetween} alignItem={FlexAlignItem.Center}>
+          <Typography variant={TypographyVariant.H3}>{i18n.t('pricing.checking_card.calculate_total_cost_of_your_plan')}</Typography>
+          <CloseButton onClick={onClose}>
+            <Close  width="30px"/>
+          </CloseButton>
         </FlexContainer>
 
-        <ProgressBarContainer>
-          <ProgressBar value={members} max={product.lastTier.upTo} />
-        </ProgressBarContainer>
-      </CheckingCardContainer>
-    </>
+        <Grid>
+          <Column sm={12} md={7}>
+            <AmountSelector product={product} onChange={handleChangeQuantity} />
+          </Column>
+        </Grid>
+      </CheckingCardWrapper>
+    </CheckingCardContainer>
   )
 }
+
 const CardHr = styled.hr`
   position: absolute;
+  width: 100%;
+  border-top: solid 2px ${({theme}) => theme.lightBorder}
 `
 
 const CheckingCardContainer = styled.div`
+  margin-top: -26px;
+`
+
+const CloseButton = styled.div`
+  height: 40px;
+  width: 40px;
+  cursor: pointer;
+`
+
+const CheckingCardWrapper = styled.div`
   padding: 20px 0;
-`
-
-const ProgressBarContainer = styled.div``
-const InputContainer = styled.div`
-  max-width: 172px;
-`
-const ButtonContainer = styled.div`
-  display: inline-block;
-  margin-left: 10px;
-
-  button {
-    margin-right: 10px;
-  }
 `

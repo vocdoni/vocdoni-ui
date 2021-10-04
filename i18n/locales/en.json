@@ -449,13 +449,20 @@
     },
     "pricing": {
         "body": {
-            "ask_a_question": "Ask a Question",
+            "contact_us": "Contact us",
             "faq": "F.A.Q.",
             "need_help_or_want_to_discuss_a_personalized_plan": "Need help or want to discuss a personalized plan?",
             "show_all_features": "Show all features"
         },
         "checking_card": {
-            "volume": "Volume"
+            "adjust_membership_tier_to_get_the_best_value": "Adjust membership tier to get the best value:",
+            "calculate_total_cost_of_your_plan": "Calculate Total Cost of your Plan",
+            "change_membership": "Change membership:",
+            "max": "max. {{max}}",
+            "members_in_your_plan": "Members in your plan",
+            "this_plan_has_members": "This plan has <0>{{members}} base members.</0>",
+            "volume": "Volume",
+            "you_can_add_more_up_100000_members_by": "You can add more up to {{maxVoter}} members with an Added Cost of €{{votePrice}} per Voter:"
         },
         "steps": {
             "checkout": "Checkout",

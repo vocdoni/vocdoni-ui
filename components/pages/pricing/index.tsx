@@ -49,6 +49,10 @@ export const PricingView = ({ products }: IPricingProps) => {
     }
   }
 
+  const handleCheckingCard = () => {
+    setSelectedProduct(null)
+  }
+  
   useEffect(() => {
     window.addEventListener('scroll', handleScroll)
 
@@ -113,7 +117,7 @@ export const PricingView = ({ products }: IPricingProps) => {
         />
       </TableProductsContainer>
 
-      {selectedProduct && <CheckingCard product={selectedProduct} />}
+      {selectedProduct && <CheckingCard product={selectedProduct} onClose={handleCheckingCard}/>}
 
       <TableFeaturesContainer showTable={showFeatures}>
         <TableFeatures products={products} />

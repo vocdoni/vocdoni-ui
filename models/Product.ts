@@ -2,6 +2,7 @@ import { IProductFeatures } from '@const/products'
 import { IStripeProduct, IStripePrice } from '@recoil/selectors/products'
 
 import { Price } from '@models/Price'
+import { Tier } from '@models/Tier'
 
 type ProductQuantities = {
   label: string
@@ -20,6 +21,7 @@ export class Product {
   public pricePerVoter: number
   public freePlan: boolean
   public features: IProductFeatures
+  public maxVoters: number = 10000
 
   constructor() {}
 
@@ -31,8 +33,8 @@ export class Product {
     return this.lastTier ? (this.lastTier.uintAmount / 100).toFixed(2) : '0'
   }
 
-  get lastTier() {
-    return this.prices[0].tiers ? this.prices[0].tiers.find((tier) => !tier.lastTier) : undefined
+  get lastTier(): Tier {
+    return this.prices[0].tiers ? this.prices[0].tiers.find((tier) => tier.lastTier) : undefined
   }
 
   get price(): Price {
