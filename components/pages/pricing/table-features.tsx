@@ -34,7 +34,7 @@ const FeatureRow = ({ products, feature, featureTitle }: IFeatureRowProps) => (
     </td>
 
     {products.map((product) => (
-      <FeatureCell key={product.id} product={product} feature={feature} />
+      <FeatureCell key={feature + product.id} product={product} feature={feature} />
     ))}
     <td></td>
   </tr>
@@ -60,8 +60,13 @@ const TableFeature = ({ products, groupTitle, features }: ITableFeatureProps) =>
     </thead>
 
     <tbody>
-      {features.map((feature) => (
-        <FeatureRow products={products} feature={feature.codeName} featureTitle={feature.title} />
+      {features.map((feature, index) => (
+        <FeatureRow
+          key={feature.codeName + index}
+          products={products}
+          feature={feature.codeName}
+          featureTitle={feature.title}
+        />
       ))}
     </tbody>
   </FeatureTable>
@@ -158,98 +163,98 @@ export const TableFeatures = ({ products }: ITableFeaturesProps) => {
   const censusFeatures = [
     {
       codeName: FeatureName.CensusUploadCSV,
-      title: i18n.t('pricing.table_features.upload_csv_census')
+      title: i18n.t('pricing.table_features.upload_csv_census'),
     },
     {
       codeName: FeatureName.CensusTagging,
-      title: i18n.t('pricing.table_features.tagging')
+      title: i18n.t('pricing.table_features.tagging'),
     },
     {
       codeName: FeatureName.CensusSegmentation,
-      title: i18n.t('pricing.table_features.segmentation')
-    }
+      title: i18n.t('pricing.table_features.segmentation'),
+    },
   ]
 
   const insightsFeatures = [
     {
       codeName: FeatureName.InsightsVotingResults,
-      title: i18n.t('pricing.table_features.voting_results')
+      title: i18n.t('pricing.table_features.voting_results'),
     },
     {
       codeName: FeatureName.InsightsBasicAnalytics,
-      title: i18n.t('pricing.table_features.basic_analytics')
+      title: i18n.t('pricing.table_features.basic_analytics'),
     },
     {
       codeName: FeatureName.InsightsAdvancedAnalytics,
-      title: i18n.t('pricing.table_features.advanced_analytics')
+      title: i18n.t('pricing.table_features.advanced_analytics'),
     },
     {
       codeName: FeatureName.InsightsDownloadPDF,
-      title: i18n.t('pricing.table_features.download_pdf')
-    }
+      title: i18n.t('pricing.table_features.download_pdf'),
+    },
   ]
 
   const brandingFeatures = [
     {
       codeName: FeatureName.BrandingCustomLogo,
-      title: i18n.t('pricing.table_features.custom_logo')
+      title: i18n.t('pricing.table_features.custom_logo'),
     },
     {
       codeName: FeatureName.BrandingRemoveVocdoniBranding,
-      title: i18n.t('pricing.table_features.remove_vocdoni_branding')
+      title: i18n.t('pricing.table_features.remove_vocdoni_branding'),
     },
     {
       codeName: FeatureName.BrandingCustomColors,
-      title: i18n.t('pricing.table_features.custom_colors')
+      title: i18n.t('pricing.table_features.custom_colors'),
     },
     {
       codeName: FeatureName.BrandingCustomSubdomain,
-      title: i18n.t('pricing.table_features.custom_subdomain')
-    }
+      title: i18n.t('pricing.table_features.custom_subdomain'),
+    },
   ]
 
   const communicationsFeatures = [
     {
       codeName: FeatureName.CommunicationsVotingCalendar,
-      title: i18n.t('pricing.table_features.voting_calendar')
+      title: i18n.t('pricing.table_features.voting_calendar'),
     },
     {
       codeName: FeatureName.CommunicationMewsFeed,
-      title: i18n.t('pricing.table_features.news_feed')
+      title: i18n.t('pricing.table_features.news_feed'),
     },
     {
       codeName: FeatureName.CommunicationsVotingEmail,
-      title: i18n.t('pricing.table_features.user_mailing')
+      title: i18n.t('pricing.table_features.user_mailing'),
     },
   ]
 
   const integrationsFeatures = [
     {
       codeName: FeatureName.IntegrationsZappier,
-      title: i18n.t('pricing.table_features.zappier')
+      title: i18n.t('pricing.table_features.zappier'),
     },
     {
       codeName: FeatureName.IntegrationsMamilchimp,
-      title: i18n.t('pricing.table_features.mail_chimp')
+      title: i18n.t('pricing.table_features.mail_chimp'),
     },
     {
       codeName: FeatureName.IntegrationsCRM,
-      title: i18n.t('pricing.table_features.crm')
+      title: i18n.t('pricing.table_features.crm'),
     },
   ]
 
   const supportFeatures = [
     {
       codeName: FeatureName.SupportLiveChat,
-      title: i18n.t('pricing.table_features.live_chat')
+      title: i18n.t('pricing.table_features.live_chat'),
     },
     {
       codeName: FeatureName.SupportPrioritySupport,
-      title: i18n.t('pricing.table_features.priority_support')
+      title: i18n.t('pricing.table_features.priority_support'),
     },
     {
       codeName: FeatureName.SupportManagedProcess,
-      title: i18n.t('pricing.table_features.managed_process')
+      title: i18n.t('pricing.table_features.managed_process'),
     },
   ]
 
@@ -277,8 +282,8 @@ export const TableFeatures = ({ products }: ITableFeaturesProps) => {
         </thead>
 
         <tbody>
-          {paymentsFeatures.map((feature) => (
-            <FeatureRow products={products} feature={feature.codeName} featureTitle={feature.title} />
+          {paymentsFeatures.map((feature, index) => (
+            <FeatureRow key={index} products={products} feature={feature.codeName} featureTitle={feature.title} />
           ))}
           <tr>
             <CheckCell>{i18n.t('pricing.table_features.payment_fee')}</CheckCell>
@@ -290,7 +295,7 @@ export const TableFeatures = ({ products }: ITableFeaturesProps) => {
           </tr>
         </tbody>
       </FeatureTable>
-          
+
       <hr />
 
       <TableFeature
