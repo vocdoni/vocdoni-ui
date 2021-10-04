@@ -1,5 +1,5 @@
 import { usePool, useProcess, useBlockHeight, useDateAtBlock, UseProcessContext, CacheRegisterPrefix } from '@vocdoni/react-hooks'
-import { ProcessDetails, DigestedProcessResults, VotingApi, ProcessStatus, VochainProcessStatus, IProcessStatus, ProcessState } from 'dvote-js'
+import { ProcessDetails, ProcessResultsSingleChoice, VotingApi, ProcessStatus, VochainProcessStatus, IProcessStatus, ProcessState, Voting } from 'dvote-js'
 import { Wallet } from '@ethersproject/wallet'
 
 import { useContext } from 'react'
@@ -20,7 +20,7 @@ export interface ProcessWrapperContext {
   remainingTime: string,
   statusText: string,
   processId: string,
-  results: DigestedProcessResults,
+  results: ProcessResultsSingleChoice,
   methods: {
     refreshProcessInfo: (processId: string) => Promise<ProcessDetails>
     refreshResults: () => Promise<any>
@@ -40,7 +40,7 @@ export const useProcessWrapper = (processId: string) => {
     refresh,
   } = useProcess(processId)
 
-  const [results, setResults] = useState(null as DigestedProcessResults)
+  const [results, setResults] = useState(null as ProcessResultsSingleChoice)
   const [statusText, setStatusText] = useState('')
 
   const startBlock = processInfo?.state?.startBlock || 0
@@ -145,7 +145,11 @@ export const useProcessWrapper = (processId: string) => {
     if (!processId || invalidProcessId) return Promise.resolve()
 
     poolPromise
-      .then((pool) => VotingApi.getResultsDigest(processId, pool))
+      .then((pool) => Promise.all([
+        VotingApi.getResults(processId, pool),
+        VotingApi.getProcessMetadata(processId, pool),
+      ]))
+      .then(([results, metadata]) =>  Voting.digestSingleChoiceResults(results, metadata))
       .then((results) => setResults(results))
       .catch((err) => console.error(err))
   }

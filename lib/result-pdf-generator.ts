@@ -1,17 +1,17 @@
 import { PdfGenerator } from "./pdf-generator";
-import { DigestedProcessResultItem, DigestedProcessResults, ProcessDetails } from 'dvote-js'
+import { ProcessResultsSingleChoice, SingleChoiceQuestionResults, ProcessDetails } from 'dvote-js'
 import RouterService from "./router";
 import { colors } from "@theme/colors";
 import i18n from "@i18n";
 
 interface IResultsPdfGeneratorOptions {
   process: ProcessDetails;
-  processResults: DigestedProcessResults;
+  processResults: ProcessResultsSingleChoice;
 }
 
 export class ResultPdfGenerator extends PdfGenerator {
   private readonly process: ProcessDetails;
-  private readonly processResults: DigestedProcessResults;
+  private readonly processResults: ProcessResultsSingleChoice;
   private logoHeader: string;
   constructor({ process, processResults }: IResultsPdfGeneratorOptions) {
     super();
@@ -63,7 +63,7 @@ export class ResultPdfGenerator extends PdfGenerator {
     }
   }
 
-  private async generateQuestion(question: DigestedProcessResultItem) {
+  private async generateQuestion(question: SingleChoiceQuestionResults) {
     this.addTitle(`${i18n.t('results.pdf.title')}: ${question.title.default}`, { align: 'left' })
     this.addText(i18n.t('results.pdf.results'))
 

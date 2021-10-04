@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { DigestedProcessResultItem, VochainProcessStatus, VochainProcessStatus as ProcessStatus } from 'dvote-js'
+import { SingleChoiceQuestionResults, VochainProcessStatus, VochainProcessStatus as ProcessStatus } from 'dvote-js'
 import { useTranslation } from 'react-i18next'
 
 import { colors } from 'theme/colors'
@@ -26,7 +26,7 @@ interface IVoteQuestionCardProps {
   hasVoted: boolean
   totalVotes: number
   processStatus: VochainProcessStatus
-  result?: DigestedProcessResultItem
+  result?: SingleChoiceQuestionResults
   selectedChoice?: number
   onSelectChoice?: (choiceValue: number) => void
 }
@@ -62,7 +62,7 @@ export const VoteQuestionCard = ({
     hasVoted
 
   const resultsQuestionView = new ViewStrategy(
-    () => (showResults || readOnly) && !!result && !!result.voteResults,
+    () => (showResults || readOnly) && !!result && typeof totalVotes !== 'undefined',
     (
       <QuestionResults
         question={question}

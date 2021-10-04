@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { useTranslation } from 'react-i18next'
 import {
-  DigestedProcessResults,
+  ProcessResultsSingleChoice,
   ProcessDetails,
   VochainProcessStatus,
   VotingApi,
@@ -35,7 +35,7 @@ import { MarkDownViewer } from '@components/blocks/mark-down-viewer'
 
 interface IProcessDetailProps {
   process: ProcessDetails
-  results: DigestedProcessResults
+  results: ProcessResultsSingleChoice
   entityMetadata: EntityMetadata
   cancelProcess: () => Promise<void>
   endProcess: () => Promise<void>
