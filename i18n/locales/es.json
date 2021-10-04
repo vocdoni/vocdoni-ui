@@ -11,12 +11,7 @@
         "sign_in": "Iniciar sesión"
     },
     "app": {
-      "meta": {
-            "title": "La solución fácil y segura para todas sus necesidades de gobierno",
-            "description": "Vocdoni es un sistema de votación seguro, privado y universalmente verificable para cualquier organización.",
-            "keywords": "Voto por cadena de bloques, voto móvil, verificación universal, voto como servicio, gobernanza descentralizada, voto anónimo, centrado en la privacidad, voto electrónico seguro, voto digital a prueba de manipulaciones, soberanía de datos, gobernanza resistente, herramientas de gobernanza/coordinación"
-      },
-      "header": {
+        "header": {
             "create_account_backup": "Crear backup",
             "custom_branding": "Personalizar marca",
             "dashboard": "Dashboard",
@@ -28,6 +23,11 @@
             "subscription": "",
             "update_entity": "Actualizar entidad",
             "user_language": "Idioma: {{ lang }}"
+        },
+        "meta": {
+            "description": "Vocdoni es un sistema de votación seguro, privado y universalmente verificable para cualquier organización.",
+            "keywords": "Voto por cadena de bloques, voto móvil, verificación universal, voto como servicio, gobernanza descentralizada, voto anónimo, centrado en la privacidad, voto electrónico seguro, voto digital a prueba de manipulaciones, soberanía de datos, gobernanza resistente, herramientas de gobernanza/coordinación",
+            "title": "La solución fácil y segura para todas sus necesidades de gobierno"
         }
     },
     "backup": {
@@ -436,13 +436,20 @@
     },
     "pricing": {
         "body": {
-            "ask_a_question": "",
+            "contact_us": "",
             "faq": "",
             "need_help_or_want_to_discuss_a_personalized_plan": "",
             "show_all_features": ""
         },
         "checking_card": {
-            "volume": ""
+            "adjust_membership_tier_to_get_the_best_value": "",
+            "calculate_total_cost_of_your_plan": "",
+            "change_membership": "",
+            "max": "",
+            "members_in_your_plan": "",
+            "this_plan_has_members": "pricing.checking_card.this_plan_has_members",
+            "volume": "",
+            "you_can_add_more_up_100000_members_by": ""
         },
         "steps": {
             "checkout": "",

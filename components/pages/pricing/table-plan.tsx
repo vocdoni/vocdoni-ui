@@ -185,6 +185,7 @@ export const TablePlan = ({
                     number_of_features: product.features?.list?.length,
                   })}
                 </Typography>
+                {product.name === selectedProduct?.name && <ActiveCellMarker />}
               </FeatureCelValue>
             ))}
           </tr>
@@ -298,9 +299,19 @@ const ProductsTable = styled.table`
 
   tr:last-child td {
     border-radius: 0 0 8px 8px;
+    position: relative;
   }
 `
 
+const ActiveCellMarker = styled.span`
+  border-top: solid 10px ${({ theme }) => theme.darkLightFg};
+  border-left: solid 10px transparent;
+  border-bottom: solid 10px transparent;
+  border-right: solid 10px transparent;
+  position: absolute;
+  margin-left: -10px;
+  bottom: -20px;
+`
 const TableHeader = styled.thead`
   @media ${({ theme }) => theme.screenMax.mobileM} {
     display: none;
@@ -311,7 +322,7 @@ const HeaderCel = styled.th<{ active?: boolean }>`
   background-color: ${({ active, theme }) => (active ? theme.darkLightFg : 'transparent')};
   border-radius: 8px 8px 0 0;
   text-align: center;
-
+  
   & > p {
     color: ${({ active, theme }) => (active ? theme.white : theme.blueText)} !important;
   }

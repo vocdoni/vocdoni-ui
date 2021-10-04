@@ -39,6 +39,9 @@
             "payments": {
                 "payment_fee": ""
             }
+        },
+        "body": {
+            "ask_a_question": ""
         }
     }
 }
