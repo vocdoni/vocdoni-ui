@@ -76,7 +76,6 @@ export const PricingView = ({ products }: IPricingProps) => {
     setShowFeatures(!showFeatures)
   }
 
-
   return (
     <div>
       <Grid>
@@ -114,11 +113,7 @@ export const PricingView = ({ products }: IPricingProps) => {
         />
       </TableProductsContainer>
 
-      <Grid>
-        <Column md={6} sm={12}>
-          {selectedProduct && <CheckingCard product={selectedProduct} />}
-        </Column>
-      </Grid>
+      {selectedProduct && <CheckingCard product={selectedProduct} />}
 
       <TableFeaturesContainer showTable={showFeatures}>
         <TableFeatures products={products} />
@@ -162,9 +157,7 @@ export const PricingView = ({ products }: IPricingProps) => {
   )
 }
 
-
 const TableProductsContainer = styled.div`
-
   padding-top: 60px;
   padding-bottom: 30px;
 `

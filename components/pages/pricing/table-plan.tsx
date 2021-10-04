@@ -41,7 +41,7 @@ export const TablePlan = ({
               <Typography variant={TypographyVariant.Body1}>{i18n.t('pricing.table_plan.plan')}</Typography>
             </th>
             {products.map((product) => (
-              <HeaderCel key={product.id} active={product.name === selectedProduct?.name}>
+              <HeaderCel key={'rol-1-' + product.id} active={product.name === selectedProduct?.name}>
                 <Typography variant={TypographyVariant.Body1} align={TextAlign.Center}>
                   {product.title}
                 </Typography>
@@ -64,7 +64,7 @@ export const TablePlan = ({
 
             {products.map((product) => (
               <FeatureCelValue
-                key={product.id}
+                key={'rol-2-' + product.id}
                 active={product.name === selectedProduct?.name}
                 data-label={`${product.title} ${i18n.t('pricing.table_plan.base_price')}`}>
                 <Typography variant={TypographyVariant.Body3} align={TextAlign.Center}>
@@ -89,7 +89,7 @@ export const TablePlan = ({
 
             {products.map((product) => (
               <FeatureCelValue
-                key={product.id}
+                key={'rol-3-' + product.id}
                 active={product.name === selectedProduct?.name}
                 data-label={i18n.t('pricing.table_plan.added_cost_per_voter')}>
                 <Typography variant={TypographyVariant.Body2} align={TextAlign.Center}>
@@ -103,7 +103,7 @@ export const TablePlan = ({
             <FeatureCell></FeatureCell>
             {products.map((product) => (
               <FeatureCelValue
-                key={product.id}
+                key={'rol-4-' + product.id}
                 active={product.name === selectedProduct?.name}
                 data-label={i18n.t('pricing.table_plan.base_price')}>
                 <PlanButtonContainer>
@@ -136,7 +136,7 @@ export const TablePlan = ({
 
             {products.map((product) => (
               <FeatureCelValue
-                key={product.id}
+                key={'rol-4-' + product.id}
                 active={product.name === selectedProduct?.name}
                 data-label={i18n.t('pricing.table_plan.voting_process_per_year')}>
                 <Typography variant={TypographyVariant.Body2} align={TextAlign.Center}>
@@ -154,7 +154,7 @@ export const TablePlan = ({
             </FeatureCell>
             {products.map((product) => (
               <FeatureCelValue
-                key={product.id}
+                key={'rol-5-' + product.id}
                 active={product.name === selectedProduct?.name}
                 data-label={i18n.t('pricing.table_plan.administrators')}>
                 <Typography variant={TypographyVariant.Body2} align={TextAlign.Center}>
@@ -177,7 +177,7 @@ export const TablePlan = ({
 
             {products.map((product) => (
               <FeatureCelValue
-                key={product.id}
+                key={'rol-6-' + product.id}
                 active={product.name === selectedProduct?.name}
                 data-label={i18n.t('pricing.table_plan.features')}>
                 <Typography variant={TypographyVariant.Body2} align={TextAlign.Center}>
@@ -201,7 +201,7 @@ export const TablePlan = ({
                 </th>
 
                 {products.map((product) => (
-                  <HeaderCel key={product.id}>
+                  <HeaderCel key={'rol-7-' + product.id}>
                     <Typography variant={TypographyVariant.Body1} align={TextAlign.Center}>
                       {product.title}
                     </Typography>
@@ -221,7 +221,7 @@ export const TablePlan = ({
 
                 {products.map((product) => (
                   <FeatureCelValue
-                    key={product.id}
+                    key={'rol-8-' + product.id}
                     data-label={`${product.title} ${i18n.t('pricing.table_plan.base_price')}`}>
                     <Typography variant={TypographyVariant.Body3} align={TextAlign.Center}>
                       € {!product.freePlan ? product.priceEuro : '0.00'}
@@ -245,7 +245,7 @@ export const TablePlan = ({
                 </FeatureCell>
 
                 {products.map((product) => (
-                  <FeatureCelValue key={product.id} data-label={i18n.t('pricing.table_plan.base_price')}>
+                  <FeatureCelValue key={'rol-9-' + product.id} data-label={i18n.t('pricing.table_plan.base_price')}>
                     <PlanButtonContainer>
                       {product.freePlan ? (
                         <Button positive small wide disabled>
@@ -259,12 +259,14 @@ export const TablePlan = ({
                     </PlanButtonContainer>
                   </FeatureCelValue>
                 ))}
-                <PlanButtonContainer>
-                  <Button wide small onClick={onContactSales} justify={JustifyContent.SpaceEvenly}>
-                    {i18n.t('pricing.table_plan.contact_us')}
-                    <RightArrow width="20px" />
-                  </Button>
-                </PlanButtonContainer>
+                <FeatureCelValue>
+                  <PlanButtonContainer>
+                    <Button wide small onClick={onContactSales} justify={JustifyContent.SpaceEvenly}>
+                      {i18n.t('pricing.table_plan.contact_us')}
+                      <RightArrow width="20px" />
+                    </Button>
+                  </PlanButtonContainer>
+                </FeatureCelValue>
               </tr>
             </tbody>
           </SummarizeProductsTable>
