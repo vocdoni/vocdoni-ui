@@ -1,28 +1,37 @@
 import React, { useEffect } from 'react'
 import { ANALYTICS_KEY } from '@const/env'
 import { useRouter } from 'next/router'
+import { useCookies } from '@hooks/cookies'
 
 declare global {
   var rudderanalytics: {
     load: (key: string) => void
     page: () => void
     track: (event: string, properties?: object, callback?: Function) => void
+    isTrackable: boolean
   }
 }
 
 const trackEvent = (event, data?) => {
-  if(typeof rudderanalytics !== 'undefined') {
+  if(typeof rudderanalytics !== 'undefined' && rudderanalytics.isTrackable) {
     rudderanalytics.track(event, data);
   }
 }
 
 export const Ruddlestack = () => {
   const router = useRouter()
+  const { accepted } = useCookies()
   const scriptText = `rudderanalytics=window.rudderanalytics=[];for(var methods=["load","page","track","identify","alias","group","ready","reset","getAnonymousId","setAnonymousId"],i=0;i<methods.length;i++){var method=methods[i];rudderanalytics[method]=function(a){return function(){rudderanalytics.push([a].concat(Array.prototype.slice.call(arguments)))}}(method)}rudderanalytics.load("${ANALYTICS_KEY}","https://rudderstack.aragon.org"),rudderanalytics.page();`
+
+  if(typeof rudderanalytics !== 'undefined') {
+    rudderanalytics.isTrackable = accepted
+  }
 
   useEffect(() => {
     const handleRouteChange = () => {
-      rudderanalytics.page()
+      if(typeof rudderanalytics !== 'undefined' && rudderanalytics.isTrackable) {
+        rudderanalytics.page()
+      }
     }
 
     router.events.on('routeChangeStart', handleRouteChange)
