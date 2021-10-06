@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { useTranslation } from 'react-i18next'
 import { CircularProgressbar } from 'react-circular-progressbar'
-import { DigestedProcessResultItem } from 'dvote-js'
+import { SingleChoiceQuestionResults } from 'dvote-js'
 
 import { colors } from 'theme/colors'
 
@@ -14,7 +14,7 @@ import { SectionText } from '@components/elements/text'
 
 interface IQuestionResultsProps {
   question: Question
-  result: DigestedProcessResultItem
+  result: SingleChoiceQuestionResults
   totalVotes: number
 }
 export const QuestionResults = ({

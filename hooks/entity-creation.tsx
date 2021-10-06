@@ -254,7 +254,7 @@ export const UseEntityCreationProvider = ({
       await ensureNoPendingAccount()
       lastSuccessStatus = AccountStatus.Ready
 
-      ruddlestackTrackEntityCreated(wallet.address)
+      ruddlestackTrackEntityCreated(walletRef.current.address)
     } catch (error) {
       return { error: error }
     } finally {
