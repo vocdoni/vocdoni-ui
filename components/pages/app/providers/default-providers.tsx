@@ -29,7 +29,7 @@ export const DefaultProviders = ({ children }: IDefaultProvidersProps) => {
             networkId={networkId}
             environment={environment}
             discoveryTimeout={discoveryTimeout}
-            minNumGateways={1}
+            minNumGateways={discoveryPoolSize}
           >
             <UseBlockStatusProvider>
               <UseBackendProvider>
