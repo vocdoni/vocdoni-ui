@@ -11,7 +11,7 @@ import { TextAlign, Typography, TypographyVariant } from '@components/elements/t
 import { Column, Grid } from '@components/elements/grid'
 import { Steps } from '@components/blocks/steps'
 import { Card } from '@components/elements/cards'
-import { Button } from '@components/elements/button'
+import { Button, JustifyContent } from '@components/elements/button'
 import { FlexAlignItem, FlexContainer, FlexJustifyContent } from '@components/elements/flex'
 import { colors } from '@theme/colors'
 
@@ -31,7 +31,6 @@ export const PricingView = ({ products }: IPricingProps) => {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
   const [showFeatures, setShowFeatures] = useState<boolean>(false)
   const [summarizePlans, setSummarizePlans] = useState<boolean>(false)
-  const [featuresHeight, setFeaturesHeight] = useState<string>('0px')
 
   const tablePlanRef = useRef<HTMLDivElement>()
 
@@ -61,11 +60,6 @@ export const PricingView = ({ products }: IPricingProps) => {
     }
   }, [])
 
-  useEffect(() => {
-    if (!summarizePlans) {
-      setFeaturesHeight(tablePlanRef.current.getBoundingClientRect().height + 'px')
-    }
-  }, [summarizePlans])
 
   const handleSelectProduct = (product: Product) => {
     setSelectedProduct(product)
@@ -105,7 +99,6 @@ export const PricingView = ({ products }: IPricingProps) => {
         </StepperContainer>
       </Grid>
 
-      {/* <TableProductsShadow height={featuresHeight} /> */}
       <TableProductsContainer ref={tablePlanRef}>
         <TablePlan
           products={products}
@@ -117,7 +110,7 @@ export const PricingView = ({ products }: IPricingProps) => {
         />
       </TableProductsContainer>
 
-      {selectedProduct && <CheckingCard product={selectedProduct} onClose={handleCheckingCard}/>}
+      <CheckingCard visible={!!selectedProduct} product={selectedProduct} onClose={handleCheckingCard}/>
 
       <TableFeaturesContainer showTable={showFeatures}>
         <TableFeatures products={products} />
@@ -148,9 +141,9 @@ export const PricingView = ({ products }: IPricingProps) => {
               </ButtonContainer>
 
               <ButtonContainer>
-                <Button>
+                <Button justify={JustifyContent.SpaceEvenly}>
                   {i18n.t('pricing.body.contact_us')}
-                  <RightArrow />
+                  <RightArrow width='20px'/>
                 </Button>
               </ButtonContainer>
             </div>

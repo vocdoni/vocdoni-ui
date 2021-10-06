@@ -441,14 +441,24 @@
             "need_help_or_want_to_discuss_a_personalized_plan": "",
             "show_all_features": ""
         },
+        "checking_card_summary": {
+            "base_price": "",
+            "cancel_subscription_at_any_time": "",
+            "euro": "",
+            "members_ship": "",
+            "total_cost_per_year": "",
+            "total_exp_tax": "",
+            "try_for_free": "",
+            "try_this_plan_for_free_for_14_days": ""
+        },
         "checking_card": {
             "adjust_membership_tier_to_get_the_best_value": "",
             "calculate_total_cost_of_your_plan": "",
             "change_membership": "",
             "max": "",
             "members_in_your_plan": "",
+            "min": "",
             "this_plan_has_members": "pricing.checking_card.this_plan_has_members",
-            "volume": "",
             "you_can_add_more_up_100000_members_by": ""
         },
         "steps": {

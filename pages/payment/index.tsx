@@ -1,26 +1,23 @@
-import React, {useEffect, useState} from 'react'
-import { useRouter } from 'next/router';
+import React, { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 import { useRecoilValueLoadable, useRecoilState } from 'recoil'
-import { PaymentIntent } from '@stripe/stripe-js';
+import { PaymentIntent } from '@stripe/stripe-js'
 
+import { Product } from '@models/Product'
 
+import { ViewContext, ViewStrategy } from '@lib/strategy'
 
-import { Product } from '@models/Product';
+import { Loader } from '@components/blocks/loader'
+import { PaymentView } from '@components/pages/payment'
+import { Redirect } from '@components/redirect'
 
-import { ViewContext, ViewStrategy } from '@lib/strategy';
-
-import { Loader } from '@components/blocks/loader';
-import { PaymentView } from '@components/pages/payment';
-import { Redirect } from '@components/redirect';
-
-import { createNewSubscriptionSelector } from '@recoil/selectors/create-subscription';
+import { createNewSubscriptionSelector } from '@recoil/selectors/create-subscription'
 import { Subscription } from '@recoil/atoms/subscription'
-import { productSelector } from '@recoil/selectors/product';
-import { paymentIntentState } from '@recoil/atoms/payment-intent';
+import { productSelector } from '@recoil/selectors/product'
+import { paymentIntentState } from '@recoil/atoms/payment-intent'
 
-import { ENTITY_SIGN_IN_PATH, PAYMENT_SUCCESS_PAGE } from '@const/routes';
-import { walletState } from '@recoil/atoms/wallet';
-
+import { ENTITY_SIGN_IN_PATH, PAYMENT_SUCCESS_PAGE } from '@const/routes'
+import { walletState } from '@recoil/atoms/wallet'
 
 export default function PaymentPage() {
   const { query } = useRouter()
@@ -32,7 +29,9 @@ export default function PaymentPage() {
 
   const wallet = useRecoilState(walletState)
   const { contents: product, state: productState } = useRecoilValueLoadable<Product>(productSelector(productId))
-  const { contents: subscription, state: subscriptionState } = useRecoilValueLoadable<Subscription>(createNewSubscriptionSelector({priceId, quantity}))
+  const { contents: subscription, state: subscriptionState } = useRecoilValueLoadable<Subscription>(
+    createNewSubscriptionSelector({ priceId, quantity })
+  )
   const [paymentIntent, setPaymentIntent] = useRecoilState(paymentIntentState)
 
   const handlePaymentSubmit = async (intent: PaymentIntent) => {
@@ -41,39 +40,21 @@ export default function PaymentPage() {
   }
 
   useEffect(() => {
-    if(!wallet) {
+    if (!wallet) {
       setRedirectUrl(ENTITY_SIGN_IN_PATH)
     }
   }, [wallet])
 
-  const redirectView = new ViewStrategy(
-    () => redirectUrl,
-    <Redirect to={redirectUrl}/>
-  )
+  const redirectView = new ViewStrategy(() => redirectUrl, <Redirect to={redirectUrl} />)
 
   const paymentView = new ViewStrategy(
-    () => 
-      productState === 'hasValue' && 
-      subscriptionState === 'hasValue' && 
-      product && product.features,
-    <PaymentView 
-      product={product} 
-      onPaymentSubmit={handlePaymentSubmit} 
-      subscription={subscription}
-    />
+    () => productState === 'hasValue' && subscriptionState === 'hasValue' && product && product.features,
+    <PaymentView product={product} onPaymentSubmit={handlePaymentSubmit} subscription={subscription} />
   )
 
-  const loadingView = new ViewStrategy(
-    () => true,
-    <Loader visible/>
-  )
+  const loadingView = new ViewStrategy(() => true, <Loader visible />)
 
-  const viewContext = new ViewContext([
-    redirectView,
-    paymentView,
-    loadingView,
-  ])
-  
+  const viewContext = new ViewContext([redirectView, paymentView, loadingView])
+
   return viewContext.getView()
 }
-

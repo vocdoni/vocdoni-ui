@@ -15,6 +15,10 @@ export class Price {
 
   constructor() {}
 
+  get payingTiers(): Tier[] {
+    return this.tiers ? this.tiers.slice(1) : []
+  }
+
   static priceFromStripe(stripePrice: IStripePrice): Price {
     const price = new Price()
 
@@ -26,21 +30,28 @@ export class Price {
     price.type = stripePrice.type
     price.active = stripePrice.active
 
-    let lastTier: IStripeTier = null
+    const orderedTiers = stripePrice.tiers.sort((a, b) => (a.up_to ? a.up_to - b.up_to : 1))
+    price.tiers = []
 
-    price.tiers = stripePrice.tiers.map((stripeTier) => {
+    for (let stripeTier of orderedTiers) {
       const tier = Tier.tierFromStripe(stripeTier)
-      
-      if (!stripeTier.up_to) {
-        console.log('El last tier', lastTier)
-        tier.upTo = lastTier.up_to * 2
-        tier.lastTier = true
-      } else if (!lastTier || stripeTier.up_to > lastTier.up_to) {
-        lastTier = stripeTier
+      const [prevTier] = price.tiers.slice(-1)
+
+      if (!prevTier) {
+        tier.fromTo = 0
+      } else {
+        tier.fromTo = prevTier.upTo
       }
 
-      return tier
-    })
+      if (!stripeTier.up_to) {
+        tier.fromTo = prevTier.upTo * 2
+        tier.upTo = prevTier.upTo * 4
+
+        tier.lastTier = true
+      }
+
+      price.tiers.push(tier)
+    }
 
     return price
   }

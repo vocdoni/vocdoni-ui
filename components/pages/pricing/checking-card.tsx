@@ -12,45 +12,66 @@ import { AmountSelector } from './amount-selector'
 import { FlexAlignItem, FlexContainer, FlexJustifyContent } from '@components/elements/flex'
 import { Typography, TypographyVariant } from '@components/elements/typography'
 
+import { CheckingCardSummary } from './checking-card-summary'
+
 interface ICheckingCardProps {
+  visible: boolean
   product: Product
   onClose: () => void
 }
 
-export const CheckingCard = ({ product, onClose }: ICheckingCardProps) => {
+export const CheckingCard = ({ product, visible, onClose }: ICheckingCardProps) => {
   const { i18n } = useTranslation()
-  const [members, setMembers] = useState(1000)
-  const handleChangeQuantity = () => {}
+  const [voters, setVoters] = useState(0)
+
+  const handleChangeQuantity = (selectedVoters) => {
+    setVoters(selectedVoters)
+  }
 
   return (
-    <CheckingCardContainer>
-      <CardHr />
+    <CheckingCardContainer visible={visible}>
+      <CardHr visible={visible}/>
       <CheckingCardWrapper>
         <FlexContainer justify={FlexJustifyContent.SpaceBetween} alignItem={FlexAlignItem.Center}>
-          <Typography variant={TypographyVariant.H3}>{i18n.t('pricing.checking_card.calculate_total_cost_of_your_plan')}</Typography>
+          <Typography variant={TypographyVariant.H3}>
+            {i18n.t('pricing.checking_card.calculate_total_cost_of_your_plan')}
+          </Typography>
           <CloseButton onClick={onClose}>
-            <Close  width="30px"/>
+            <Close width="30px" />
           </CloseButton>
         </FlexContainer>
 
         <Grid>
           <Column sm={12} md={7}>
-            <AmountSelector product={product} onChange={handleChangeQuantity} />
+            {product && <AmountSelector product={product} voters={voters} onChange={handleChangeQuantity} />}
+          </Column>
+
+          <Column sm={12} md={5}>
+            {product && <CheckingCardSummary product={product} voters={voters} />}
           </Column>
         </Grid>
       </CheckingCardWrapper>
+
+      <CardHr visible={visible}/>
     </CheckingCardContainer>
   )
 }
 
-const CardHr = styled.hr`
+const CardHr = styled.hr<{visible: boolean}>`
   position: absolute;
   width: 100%;
-  border-top: solid 2px ${({theme}) => theme.lightBorder}
+  border-top: solid 2px ${({ theme }) => theme.lightBorder};
+  margin-left: -40px;
+  display: ${({ visible }) => (visible ? 'visible' : 'none')};
 `
 
-const CheckingCardContainer = styled.div`
+const CheckingCardContainer = styled.div<{ visible: boolean }>`
   margin-top: -26px;
+  margin-bottom: 30px;
+  overflow: hidden;
+  transition: all 0.3s ease-in-out;
+
+  max-height: ${({ visible }) => (visible ? '900px' : '0px')};
 `
 
 const CloseButton = styled.div`
