@@ -4,6 +4,7 @@ export class Tier {
   public flatAmount: number
   public uintAmount: number
   public upTo: number
+  public fromTo: number
   public lastTier: boolean
 
   constructor(){}

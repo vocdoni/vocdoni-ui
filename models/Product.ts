@@ -41,6 +41,24 @@ export class Product {
     return this.prices[0]
   }
 
+  getExtraVotersPrice(quantity: number): number {
+    let totalCost = 0
+    let remainingQuantity = quantity
+
+    for (let tier of this.price.tiers) {
+      if (remainingQuantity > tier.upTo) {
+        totalCost += tier.upTo * tier.uintAmount
+        remainingQuantity -= tier.upTo
+      } else {
+        totalCost += tier.uintAmount * remainingQuantity
+        break
+      }
+    }
+    console.log(totalCost)
+
+    return totalCost
+  }
+
   static productFromStripe(
     stripeProduct: IStripeProduct,
     stripePrices: IStripePrice[],

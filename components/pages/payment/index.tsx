@@ -30,7 +30,7 @@ export const PaymentView = ({ product, subscription, onPaymentSubmit }: IPayment
       </Column>
       <Grid>
         <Column md={6} sm={12}>
-          {product && product.features && <PaymentBox product={product} subscription={subscription}/>}
+          {/* {product && product.features && <PaymentBox product={product} subscription={subscription}/>} */}
         </Column>
 
         <Column md={6} sm={12}>

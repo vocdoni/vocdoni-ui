@@ -87,7 +87,7 @@ export const productsSelector = selector<Product[]>({
       })
 
       const { data: jsonPricesResponse }: IStripePriceJSON = await pricesResponse.json()
-      console.log('The price are', jsonPricesResponse)
+
       const parsedProducts = productsFeatures.map((productFeatures) => {
         const stripeProduct = jsonProductsResponse.find(
           (stripeProduct) => productFeatures.id === stripeProduct.id

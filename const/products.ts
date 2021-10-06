@@ -57,6 +57,7 @@ export enum FeatureName {
   SupportManagedProcess = 'support-managed-process',
   SupportDedicatedAgentSupport = 'support-dedicated-agent-support',
 }
+
 export const UNLIMITED = -1
 
 export const productsFeatures: IProductFeatures[] = [

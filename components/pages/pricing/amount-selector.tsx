@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 
 import { Trans, useTranslation } from 'react-i18next'
@@ -9,32 +9,37 @@ import { ProgressBar } from '@components/elements/progress-bar'
 import { Typography, TypographyVariant } from '@components/elements/typography'
 import { FlexAlignItem, FlexContainer, FlexJustifyContent } from '@components/elements/flex'
 
-import RouterService from '@lib/router'
-import { PAYMENT_PAGE } from '@const/routes'
 
 import { Product } from '@models/Product'
 
 interface IAmountSelectorProps {
-  product: Product
+  product: Product,
+  voters: number,
   onChange: (amount: number) => void
 }
-export const AmountSelector = ({ product, onChange }: IAmountSelectorProps) => {
+
+export const AmountSelector = ({ product, voters, onChange }: IAmountSelectorProps) => {
   const { i18n } = useTranslation()
-  const [members, setMembers] = useState(1000)
+  const [selectedTier, setSelectedTier] = useState(product.price.payingTiers[0])
+
+  useEffect(() => {
+    setSelectedTier(product.price.payingTiers[0])
+    onChange(product.price.payingTiers[0].fromTo)
+  }, [product])
 
   return (
     <>
       <Typography variant={TypographyVariant.Body2}>
         <Trans
           defaults="pricing.checking_card.this_plan_has_members"
-          values={{ members }}
+          values={{ members: selectedTier.fromTo }}
           components={[<strong />]}
         />
       </Typography>
       <Typography variant={TypographyVariant.Small}>
         {i18n.t('pricing.checking_card.you_can_add_more_up_100000_members_by', {
           votePrice: product.pricePerVoterEuro,
-          maxVoter: product.maxVoter,
+          maxVoter: product.maxVoters,
         })}
       </Typography>
 
@@ -44,7 +49,14 @@ export const AmountSelector = ({ product, onChange }: IAmountSelectorProps) => {
             {i18n.t('pricing.checking_card.change_membership')}
           </Typography>
 
-          <Input type="number" value={members.toFixed(0)} onChange={(e) => setMembers(parseInt(e.target.value))} />
+          <Input
+            type="number"
+            wide
+            min={selectedTier.fromTo}
+            max={selectedTier.upTo}
+            value={voters}
+            onChange={(e) => onChange(parseInt(e.target.value))}
+          />
         </InputContainer>
 
         <ButtonSection>
@@ -53,34 +65,49 @@ export const AmountSelector = ({ product, onChange }: IAmountSelectorProps) => {
           </Typography>
 
           <ButtonContainer>
-            {product.price.tiers.map((tier, index) => (
+            {product.price.payingTiers.map((tier, index) => (
               <Button
                 key={index}
-                positive
-                href={RouterService.instance.get(PAYMENT_PAGE, {
-                  productId: product.id,
-                  priceId: product.price.id,
-                  quantity: tier.upTo ? tier.upTo.toFixed() : '1000',
-                })}>{`${i18n.t('pricing.checking_card.volume')}: ${tier.upTo}`}</Button>
+                positive={tier === selectedTier}
+                onClick={() => {
+                  onChange(tier.fromTo)
+                  setSelectedTier(tier)
+                }}
+                // href={RouterService.instance.get(PAYMENT_PAGE, {
+                //   productId: product.id,
+                //   priceId: product.price.id,
+                //   quantity: tier.upTo ? tier.upTo.toFixed() : '1000',
+                // })
+                // }
+              >{`${tier.fromTo} - ${tier.upTo}`}</Button>
             ))}
           </ButtonContainer>
         </ButtonSection>
       </AmountSelectorContainer>
 
       <ProgressBarContainer>
+        <Typography variant={TypographyVariant.Body2}>
+          {i18n.t('pricing.checking_card.members_in_your_plan')}
+        </Typography>
         <FlexContainer justify={FlexJustifyContent.SpaceBetween}>
           <Typography variant={TypographyVariant.Body2}>
-            {i18n.t('pricing.checking_card.members_in_your_plan')}
+            {i18n.t('pricing.checking_card.min', { min: selectedTier.fromTo })}
           </Typography>
+
           <Typography variant={TypographyVariant.Body2}>
-            {i18n.t('pricing.checking_card.max', { max: product.maxVoter })}
+            {i18n.t('pricing.checking_card.max', { max: selectedTier.upTo })}
           </Typography>
         </FlexContainer>
-        <ProgressBar value={members} max={product.lastTier.upTo} />
+
+        <ProgressBar value={voters} min={selectedTier.fromTo} max={selectedTier.upTo} />
       </ProgressBarContainer>
     </>
   )
 }
+
+const AmountContainer = styled.div`
+  width: 120px;
+`
 
 const AmountSelectorContainer = styled.div`
   padding: 20px 0;
@@ -94,7 +121,9 @@ const ProgressBarContainer = styled.div`
 
 const InputContainer = styled.div`
   max-width: 172px;
+  margin-right: 10px;
 `
+
 const ButtonSection = styled.div`
   margin-left: 20px;
 `
