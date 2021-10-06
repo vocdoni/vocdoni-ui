@@ -13,7 +13,7 @@ enum CookiesStatus {
 export function useCookies() {
   const [accepted, setAccepted] = useState<boolean>(false)
   const [hide, setHide] = useState<boolean>(false)
-  
+
   const { show } = useHelpCenter()
   const router = useRouter()
 
@@ -27,6 +27,9 @@ export function useCookies() {
 
   const acceptCookies = () => {
     if (!router.pathname.includes(VOTING_PATH)) show()
+
+    rudderanalytics.isTrackable = true
+    rudderanalytics.page()
 
     setAccepted(true)
     setHide(true)
