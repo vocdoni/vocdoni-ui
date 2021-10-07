@@ -10,13 +10,13 @@ import { VoteHeader } from '../header/voter'
 
 
 const LayoutContainer = styled.div`
-  ${({ theme }) => `padding: 110px ${theme.margins.mobile.horizontal} 120px;`}
+  ${({ theme }) => `padding: 20px ${theme.margins.mobile.horizontal} 120px;`}
   max-width: ${sizes.laptopL * 0.8}px;
   margin-left: auto;
   margin-right: auto;
 
   @media ${({ theme }) => theme.screenMin.tablet} {
-    ${({ theme }) => `padding: 110px ${theme.margins.desktop.horizontal} 120px;`}
+    ${({ theme }) => `padding: 20px ${theme.margins.desktop.horizontal} 120px;`}
   }
 `
 

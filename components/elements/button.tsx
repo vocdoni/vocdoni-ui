@@ -98,7 +98,7 @@ export const SquareButton = ({ icon, children, width, disabled, onClick }: Butto
     </Button>
 )
 
-const BaseButton = styled.div<{ wide?: boolean, large?: boolean, small?: boolean, width?: number, border?: boolean, borderColor?: ButtonColor | string }>`
+export const BaseButton = styled.div<{ wide?: boolean, large?: boolean, small?: boolean, width?: number, border?: boolean, borderColor?: ButtonColor | string }>`
 ${props => props.wide ? "" : "display: inline-block;"}
 ${props => props.width != undefined ? "width: " + props.width + "px;" : ""}
 ${props => props.large ? "padding: 13px 25px;" :
