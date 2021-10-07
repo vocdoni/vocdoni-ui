@@ -1,5 +1,6 @@
 import PDFDocument from 'pdfkit';
 import blobStream from 'blob-stream';
+import { Md2PdfkitParser, PdfkitOpt, PdfkitOptStack } from './md-2-pdfkit-parser';
 
 interface IPageOptions {
   size?: string;
@@ -18,6 +19,7 @@ interface IPageOptions {
   fontStyle?: string;
   fontWeight?: string;
   fontVariant?: string;
+  lineGap?: number;
 }
 
 interface ITextOptions {
@@ -90,6 +92,18 @@ export class PdfGenerator {
     this.pdf.image(image, options.left, options.top, options)
   }
 
+  public addMdText(text: string, options: IPageOptions = PdfGenerator.defaultTextStyle): void {
+    const md2PdfKitParser = new Md2PdfkitParser(text, options)
+
+    const pdfOpts = md2PdfKitParser.getPdfkitOperations()
+
+    pdfOpts.forEach((pdfStackOpt: PdfkitOptStack) => {
+      pdfStackOpt.stack.forEach((pdfOpt: PdfkitOpt) => {
+        this.pdf[pdfOpt.type]?.apply(this.pdf, pdfOpt.args)
+      })
+    });
+  }
+
   public addText(text: string, options: IPageOptions = PdfGenerator.defaultTextStyle): void {
     this.pdf.fontSize(options.fontSize || 12)
     this.pdf.fillColor(options.fontColor || 'black')
@@ -104,6 +118,10 @@ export class PdfGenerator {
     this.pdf.moveDown(space)
   }
 
+  public margin(margin: number) {
+    // this.pdf.spaceLeft(margin)
+  }
+
   public addTitle(title: string, options?: ITextOptions): void {
     const titleDefaultOptions = {
       fontSize: 18,
@@ -115,6 +133,17 @@ export class PdfGenerator {
     this.addText(title, titleDefaultOptions)
   }
 
+  public addSubTitle(title: string, options?: ITextOptions): void {
+    const titleDefaultOptions = {
+      fontSize: 16,
+      align: 'center',
+      margin: 0.8,
+      ...options || {},
+    }
+
+    this.addText(title, titleDefaultOptions)
+  }
+  
   public generatePage() {
     this.addPage({
       size: PdfGenerator.defaultSize,

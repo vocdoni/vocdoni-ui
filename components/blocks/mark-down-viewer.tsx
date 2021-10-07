@@ -1,13 +1,12 @@
 import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import MarkDownIt from 'markdown-it'
-import { wrap } from 'module'
 
 export const MarkDownViewer = ({ content }) => {
   const wrapperRef = React.useRef(null)
   const md = new MarkDownIt()
   const html = md.render(content || '')
-
+  
   const handleClickEvent = (event) => {
     if (event.target.tagName === 'A') {
       event.preventDefault()

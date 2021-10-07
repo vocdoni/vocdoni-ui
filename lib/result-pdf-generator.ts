@@ -50,10 +50,10 @@ export class ResultPdfGenerator extends PdfGenerator {
 
     this.addTitle(i18n.t('results.pdf.process_title'), { align: 'left', fontColor: colors.text, margin: 0.5 })
     this.addText(this.process.metadata.title.default, { fontSize: 14, margin: 2, fontColor: colors.lighterText })
-    this.addTitle(i18n.t('results.pdf.process_description'), { align: 'left', fontColor: colors.text, margin: 0.5  })
-    this.addText(this.process.metadata.description.default, { fontSize: 14, margin: 2, fontColor: colors.lighterText  })
-
-    this.addTitle(i18n.t('results.pdf.total_votes', { votes: this.processResults.totalVotes }), { align: 'left' })
+    this.addTitle(i18n.t('results.pdf.process_description'), { width: 400, align: 'left', fontColor: colors.text, margin: 0.5  })
+    this.addMdText(this.process.metadata.description.default)
+    this.addSpace(1)
+    this.addSubTitle(i18n.t('results.pdf.total_votes', { votes: this.processResults.totalVotes }), { align: 'left' })
     this.addTitle(i18n.t('results.pdf.questions'), { align: 'left', margin: 1 })
 
     this.addSeparator(colors.lightBorder)
