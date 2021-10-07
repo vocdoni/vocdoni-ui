@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Else, If, Then } from 'react-if'
 import { useEntity } from '@vocdoni/react-hooks'
 import { useTranslation } from 'react-i18next';
-import { useRecoilStateLoadable } from 'recoil'
+import { useRecoilStateLoadable, useRecoilValueLoadable } from 'recoil'
 import styled from 'styled-components'
 
 import { supportedLanguages } from '@i18n'
@@ -17,12 +17,14 @@ import { Button } from '@components/elements/button'
 import { Image } from '@components/elements/image'
 import { ImageContainer } from '@components/elements/images'
 
-import { ACCOUNT_BACKUP_PATH, DASHBOARD_PATH, EDIT_ENTITY, ENTITY_SIGN_IN_PATH, PAGE_ENTITY } from '@const/routes'
+import { ACCOUNT_BACKUP_PATH, ACCOUNT_BRANDING, DASHBOARD_PATH, EDIT_ENTITY, ENTITY_SIGN_IN_PATH, PAGE_ENTITY } from '@const/routes'
 import { useCookies } from '@hooks/cookies'
 import { colors } from '@theme/colors'
 import RouterService from '@lib/router'
 
 import { AccountSelector } from '@recoil/selectors/account'
+import { accountFeaturesSelector } from '@recoil/selectors/account-features';
+
 import { FlexAlignItem, FlexContainer } from '@components/elements/flex'
 import { Account } from '@lib/types'
 import { LanguageService } from '@lib/language-service';
@@ -31,6 +33,8 @@ import { Header } from './header'
 import {
   ruddlestackTrackSignInButtonClicked,
 } from '@components/pages/app/external-dependencies/ruddlestack'
+import { Features } from '@recoil/atoms/account-features';
+import { FALLBACK_ACCOUNT_ICON } from '@const/account';
 
 export const EntityHeader = () => {
   const { wallet, setWallet } = useWallet()
@@ -38,7 +42,8 @@ export const EntityHeader = () => {
 
   const [showLanguageSelector, setShowLanguageSelector] = useState<Boolean>(false)
   const [{ contents: account }, setAccount] = useRecoilStateLoadable<Account>(AccountSelector(wallet?.address))
-  // const setAccount = useSetRecoilState(AccountsState)
+  const { contents: features, state: featureState } = useRecoilValueLoadable(accountFeaturesSelector(wallet?.address))
+
   const { metadata: entityMetadata } = useEntity(wallet?.address)
 
   const { show } = useHelpCenter()
@@ -80,7 +85,7 @@ export const EntityHeader = () => {
   const menuButton = (<Button>
     <MenuButtonWrapper>
       <ImageContainer width='25px' height='25px'>
-        <Image src={entityMetadata?.media?.avatar} />
+        <Image src={entityMetadata?.media?.avatar || FALLBACK_ACCOUNT_ICON } />
       </ImageContainer>
 
       <Typography margin='0 0 0 10px' variant={TypographyVariant.Small}>
@@ -118,6 +123,18 @@ export const EntityHeader = () => {
       </DropdownItem>
 
       <DropdownSeparator />
+
+      {featureState == 'hasValue' && features?.includes(Features.CustomBranding) &&
+        (
+          <>
+            <DropdownItem href={ACCOUNT_BRANDING}>
+              <Typography variant={TypographyVariant.Small} margin='0'>{i18n.t('app.header.custom_branding')}</Typography>
+            </DropdownItem>
+
+            <DropdownSeparator />
+          </>
+        )
+      }
 
       <DropdownItem href={ACCOUNT_BACKUP_PATH}>
         <Typography variant={TypographyVariant.Small} margin='0'>{i18n.t('app.header.create_account_backup')}</Typography>

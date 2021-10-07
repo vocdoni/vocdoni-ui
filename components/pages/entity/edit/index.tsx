@@ -10,7 +10,7 @@ import { IEntityRegistryState } from 'recoil/atoms/entity-registry'
 import { Button } from '@components/elements/button'
 import { CardDiv } from '@components/elements/cards'
 import { ConfirmModal } from '@components/blocks/confirm-modal'
-import { CardTextHeader } from '@components/blocks/card/text-header'
+import { CardBody, CardTextHeader } from '@components/blocks/card'
 import { Grid, Column } from '@components/elements/grid'
 import { Typography, TypographyVariant } from '@components/elements/typography'
 import { InputFormGroup, SelectFormGroup, TextareaFormGroup, FileLoaderFormGroup } from '@components/blocks/form'
@@ -383,9 +383,7 @@ export const EntityEditView = ({
   )
 }
 
-const CardBody = styled.div`
-  padding: 0 20px 20px;
-`
+
 const UploadButtonContainer = styled.div`
   padding-left: 20px;
 `

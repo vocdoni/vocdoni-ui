@@ -23,8 +23,6 @@ import { EntityNameAlreadyExistError } from '@lib/validators/errors/entity-name-
 import { StoreMediaError } from '@lib/validators/errors/store-media-error'
 import { StoringDataOnBlockchainError } from '@lib/validators/errors/storing-data-on-blockchain-error'
 
-
-
 const EntityEditPage = () => {
   const { wallet } = useWallet()
   const { metadata, loading, updateMetadata } = useEntity(wallet?.address)
@@ -39,6 +37,7 @@ const EntityEditPage = () => {
     const oldName = account.name
 
     account.name = registryData.name
+    
     try {
       await updateAccount(account)
     } catch (error) {

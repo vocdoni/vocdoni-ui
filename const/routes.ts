@@ -10,7 +10,7 @@ export const SHOW_PROCESS_PATH = '/votes/show' // TODO: entity/votes/show
 export const ACCOUNT_BACKUP_PATH = '/entity/backup'
 export const ACCOUNT_IMPORT_PATH = '/entity/import'
 export const ACCOUNT_RECOVER_PATH = '/entity/recover'
-
+export const ACCOUNT_BRANDING = '/entity/branding'
 // VOTER
 export const VOTING_AUTH_FORM_PATH = '/pub/votes/auth/form/#/{processId}' // + processId
 export const VOTING_AUTH_MNEMONIC_PATH = '/pub/votes/auth/mnemonic/#/{processId}' // + processId

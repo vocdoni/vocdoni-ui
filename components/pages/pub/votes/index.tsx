@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import styled, { ThemeProvider } from 'styled-components'
+import React, { useState, useContext , useEffect} from 'react'
+import styled from 'styled-components'
 import { useTranslation } from 'react-i18next'
 import {
   useEntity,
@@ -9,6 +9,8 @@ import {
 } from '@vocdoni/react-hooks'
 
 import { Question } from '@lib/types'
+
+import { useTheme } from '@hooks/use-theme'
 import { useVoting } from '@hooks/use-voting'
 import { useWallet, WalletRoles } from '@hooks/use-wallet'
 
@@ -27,14 +29,15 @@ import { VoteRegisteredCard } from './components/vote-registered-card'
 import { VoteStatus, getVoteStatus } from '@lib/util'
 import { Else, If, Then, When } from 'react-if'
 import { useUrlHash } from 'use-url-hash'
-import { VotingApi } from 'dvote-js'
+import { VotingApi, EntityMetadata } from 'dvote-js'
 import { DateDiffType, localizedStrDateDiff } from '@lib/date'
-import { overrideTheme } from 'theme'
 import { Body1, TextAlign } from '@components/elements/typography'
 
 export const VotingPageView = () => {
   const { i18n } = useTranslation()
   const processId = useUrlHash().slice(1) // Skip "/"
+  const { updateAppTheme } = useTheme();
+
   const { methods, choices, allQuestionsChosen, hasVoted, results, nullifier } =
     useVoting(processId)
   const { process: processInfo, error, loading } = useProcess(processId)
@@ -52,6 +55,23 @@ export const VotingPageView = () => {
     blockHeight
   )
   const explorerLink = process.env.EXPLORER_URL + '/envelope/' + nullifier
+  const entityMetadata = metadata as EntityMetadata
+
+  useEffect(() => {
+    if (processInfo?.metadata?.meta[MetadataFields.BrandColor] || entityMetadata?.meta[MetadataFields.BrandColor]) {
+      const brandColor = processInfo?.metadata?.meta[MetadataFields.BrandColor] || entityMetadata?.meta[MetadataFields.BrandColor]
+
+      updateAppTheme({
+        accent1: brandColor,
+        accent1B: brandColor,
+        accent2: brandColor,
+        accent2B: brandColor,
+        textAccent1: brandColor,
+        textAccent1B: brandColor,
+        customLogo: entityMetadata.media.logo
+      })
+    }
+  }, [processInfo, entityMetadata])
 
   let dateDiffStr = ''
   if (
@@ -77,16 +97,7 @@ export const VotingPageView = () => {
   }
 
   return (
-    <ThemeProvider
-      theme={overrideTheme({
-        accent1: processInfo?.metadata?.meta[MetadataFields.BrandColor],
-        accent1B: processInfo?.metadata?.meta[MetadataFields.BrandColor],
-        accent2: processInfo?.metadata?.meta[MetadataFields.BrandColor],
-        accent2B: processInfo?.metadata?.meta[MetadataFields.BrandColor],
-        textAccent1: processInfo?.metadata?.meta[MetadataFields.BrandColor],
-        textAccent1B: processInfo?.metadata?.meta[MetadataFields.BrandColor],
-      })}
-    >
+    <>
       <PageCard>
         <CardImageHeader
           title={processInfo?.metadata?.title.default}
@@ -173,7 +184,7 @@ export const VotingPageView = () => {
         isOpen={confirmModalOpened}
         onClose={() => setConfirmModalOpened(false)}
       />
-    </ThemeProvider>
+    </>
   )
 }
 

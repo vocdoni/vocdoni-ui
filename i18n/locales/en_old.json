@@ -1,0 +1,11 @@
+{
+    "entity": {
+        "edit": {
+            "entity_details": "Entity details",
+            "the_details_of_your_organization": "The details of your organization"
+        }
+    },
+    "action": {
+        "check_privacy_policy": "Review privacy policy"
+    }
+}

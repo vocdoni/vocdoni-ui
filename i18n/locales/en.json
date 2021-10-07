@@ -1,7 +1,6 @@
 {
     "action": {
         "browse": "Browse",
-        "check_privacy_policy": "Review privacy policy",
         "check_terms_and_conditions": "Review terms and conditions",
         "clean": "Clean",
         "continue": "Continue",
@@ -19,6 +18,7 @@
         },
         "header": {
             "create_account_backup": "Create account backup",
+            "custom_branding": "Custom branding",
             "dashboard": "Dashboard",
             "disconnect_account": "Logout",
             "help_and_feedback": "Help & feedback",
@@ -62,6 +62,9 @@
         "confirm_modal": {
             "accept": "Accept",
             "cancel": "Cancel"
+        },
+        "image_loader": {
+            "upload_file": "Upload file"
         }
     },
     "confirm": {
@@ -138,6 +141,16 @@
         "accept_Privacy": "Close",
         "accept_terms": "Close",
         "acknowledge_passphrase_implications": "I acknowledge that losing my password will prevent the ability to access my account in the future",
+        "branding": {
+            "branding_updated_successfully": "Branding updated successfully",
+            "customize_your_branding": "Customize your branding",
+            "customize_your_logo": "Define your logo",
+            "customize_your_primary_color": "Define your primary color",
+            "save_changes": "Save changes",
+            "you_can_customize_the_voting_process_colors": "Customize the colors for the voting process",
+            "you_can_customize_your_branding": "Here you can customize how your clients see the application on the voting process",
+            "you_can_update_the_visible_logo_on_the_voting_process": "You can define the the visible logo"
+        },
         "brief_description": "Brief description of the entity",
         "choose_a_passphrase": "Choose a password",
         "confirming_details": "Confirming details",
@@ -182,8 +195,8 @@
             "entity_description": "Entity description",
             "view_in_explorer": "View in explorer"
         },
+        "i_have_read_and_accept_personal_data": "(Optional) I consent that my personal data is processed by Aragon Labs for commercial and informative notices. <0>More info</0>.",
         "i_have_read_and_accept_terms": "I have read and accept the <0>terms and conditions of service</0>, the Aragon Labs <1>privacy policy</1> and the <2>contents of the applicable regulation</2> on the protection of personal data.",
-        "i_have_read_and_accept_personal_data": "I agree to receive sporadic updates about new features and relevant information about the project. <0>More info</0>.",
         "logo": "Entity logo",
         "name": "Name of the entity",
         "new_entity": "Entity name",

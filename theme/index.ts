@@ -6,12 +6,13 @@ import { colors } from './colors'
 export * from './global'
 
 interface IOverrideTheme {
-  accent1: string
-  accent1B: string
-  accent2: string
-  accent2B: string
-  textAccent1: string
-  textAccent1B: string
+  accent1?: string
+  accent1B?: string
+  accent2?: string
+  accent2B?: string
+  textAccent1?: string
+  textAccent1B?: string
+  customLogo?: string
 }
 
 export const overrideTheme = (customTheme: IOverrideTheme): DefaultTheme => {
