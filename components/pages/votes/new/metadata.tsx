@@ -39,7 +39,7 @@ import { useScrollTop } from '@hooks/use-scroll-top'
 import { When } from 'react-if'
 import { Typography, TypographyVariant } from '@components/elements/typography'
 import { TextEditor } from '@components/blocks/text-editor'
-import { ruddlestackTrackProcessCreationWizardButtonClicked } from '@components/pages/app/external-dependencies/ruddlestack'
+import { TrackEvents, useRudderStack } from '@hooks/rudderstack'
 
 export enum MetadataFields {
   Title = 'process-title',
@@ -68,6 +68,7 @@ export const FormMetadata = () => {
   const { setAlertMessage } = useMessageAlert()
   const { wallet } = useWallet()
   const { metadata: entityMetadata } = useEntity(wallet?.address)
+  const { trackEvent } = useRudderStack()
 
   const [showPreviewModal, setShowPreviewModal] = useState<boolean>(false)
   const [dirtyFields, setDirtyField] = useState<DirtyFields>(new Map())
@@ -119,7 +120,7 @@ export const FormMetadata = () => {
       try {
         const validatedMeta = checkValidProcessMetadata(metadata)
         methods.setRawMetadata(validatedMeta)
-        ruddlestackTrackProcessCreationWizardButtonClicked(ProcessCreationPageSteps.CENSUS)
+        trackEvent(TrackEvents.PROCESS_CREATION_WIZARD_BUTTON_CLICKED, { step: ProcessCreationPageSteps.CENSUS })
         methods.setPageStep(ProcessCreationPageSteps.CENSUS)
       } catch (error) {
         setAlertMessage(i18n.t('error.the_vote_details_are_invalid'))

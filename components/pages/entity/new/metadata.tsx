@@ -41,7 +41,7 @@ import {
 import { Typography, TypographyVariant } from '@components/elements/typography'
 import { SELECT_ORGANIZATION_TYPE, SELECT_ORGANIZATION_SIZE } from '../const/organizations'
 import { PRIVACY_PATH } from '@const/routes'
-import { ruddlestackTrackEntityCreationWizardButtonClicked } from '@components/pages/app/external-dependencies/ruddlestack'
+import { TrackEvents, useRudderStack } from '@hooks/rudderstack'
 
 export enum MetadataFields {
   Name = 'name',
@@ -77,6 +77,7 @@ export const FormMetadata = () => {
   const { setAlertMessage } = useMessageAlert()
   const { dbAccounts } = useDbAccounts()
   const { wallet } = useWallet()
+  const { trackEvent } = useRudderStack()
 
   const [showTermsModal, setShowTermsModal] = useState<boolean>(false)
   const [showEntityTermsModal, setShowEntityTermsModal] =
@@ -149,7 +150,12 @@ export const FormMetadata = () => {
         destinationPage = EntityCreationPageSteps.CREATION
       }
 
-      ruddlestackTrackEntityCreationWizardButtonClicked(destinationPage, name, entityType?.value, entitySize?.value)
+      trackEvent(TrackEvents.ENTITY_CREATION_WIZARD_BUTTON_CLICKED, {
+        step: destinationPage,
+        name: name,
+        type: entityType?.value,
+        size: entitySize?.value
+      })
 
       methods.setPageStep(destinationPage)
     } else {

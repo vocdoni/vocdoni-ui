@@ -36,8 +36,8 @@ import { EntityNameAlreadyExistError } from '@lib/validators/errors/entity-name-
 import { StoreMediaError } from '@lib/validators/errors/store-media-error'
 import { InvalidIncognitoModeError } from '@lib/validators/errors/invalid-incognito-mode-error'
 import { ISelectOption } from '@components/elements/inputs'
-import { ruddlestackTrackEntityCreated } from '@components/pages/app/external-dependencies/ruddlestack'
 import { AccountsState } from '@recoil/atoms/accounts'
+import { TrackEvents, useRudderStack } from '@hooks/rudderstack'
 
 export interface EntityCreationContext {
   pageStep: EntityCreationPageSteps
@@ -132,6 +132,7 @@ export const UseEntityCreationProvider = ({
   const [{contents: accounts}, setAccounts] = useRecoilStateLoadable<Account[]>(AccountsState)
   const { poolPromise } = usePool()
   const { bkPromise } = useBackend()
+  const { trackEvent } = useRudderStack()
 
   // UTIL
 
@@ -254,7 +255,7 @@ export const UseEntityCreationProvider = ({
       await ensureNoPendingAccount()
       lastSuccessStatus = AccountStatus.Ready
 
-      ruddlestackTrackEntityCreated(walletRef.current.address)
+      trackEvent(TrackEvents.ENTITY_CREATED, { address: walletRef.current.address })
     } catch (error) {
       return { error: error }
     } finally {

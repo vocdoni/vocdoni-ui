@@ -8,6 +8,7 @@ import { UseWalletContextProvider } from '@hooks/use-wallet'
 import { UseBackendProvider } from '@hooks/backend'
 import { UseVotingProvider } from '@hooks/use-voting'
 import { UseDbAccountsProvider } from '@hooks/use-db-accounts'
+import { UseRudderStackProvider } from '@hooks/rudderstack'
 
 interface IDefaultProvidersProps {
   children: ReactNode
@@ -22,31 +23,33 @@ export const DefaultProviders = ({ children }: IDefaultProvidersProps) => {
 
   return (
     <UseWalletContextProvider>
-      <UseMessageAlertProvider>
-        <UseLoadingAlertProvider>
-          <UsePoolProvider
-            bootnodeUri={bootnodeUri}
-            networkId={networkId}
-            environment={environment}
-            discoveryTimeout={discoveryTimeout}
-            minNumGateways={discoveryPoolSize}
-          >
-            <UseBlockStatusProvider>
-              <UseBackendProvider>
-                <UseProcessProvider>
-                  <UseVotingProvider>
-                    <UseEntityProvider>
-                      <UseDbAccountsProvider>
+      <UseRudderStackProvider>
+        <UseMessageAlertProvider>
+          <UseLoadingAlertProvider>
+            <UsePoolProvider
+              bootnodeUri={bootnodeUri}
+              networkId={networkId}
+              environment={environment}
+              discoveryTimeout={discoveryTimeout}
+              minNumGateways={discoveryPoolSize}
+            >
+              <UseBlockStatusProvider>
+                <UseBackendProvider>
+                  <UseProcessProvider>
+                    <UseVotingProvider>
+                      <UseEntityProvider>
+                        <UseDbAccountsProvider>
                         {children}
-                      </UseDbAccountsProvider>
-                    </UseEntityProvider>
-                  </UseVotingProvider>
-                </UseProcessProvider>
-              </UseBackendProvider>
-            </UseBlockStatusProvider>
-          </UsePoolProvider>
-        </UseLoadingAlertProvider>
-      </UseMessageAlertProvider>
+                        </UseDbAccountsProvider>
+                      </UseEntityProvider>
+                    </UseVotingProvider>
+                  </UseProcessProvider>
+                </UseBackendProvider>
+              </UseBlockStatusProvider>
+            </UsePoolProvider>
+          </UseLoadingAlertProvider>
+        </UseMessageAlertProvider>
+      </UseRudderStackProvider>
     </UseWalletContextProvider>
   )
 }

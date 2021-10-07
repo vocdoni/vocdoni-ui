@@ -8,12 +8,11 @@ import { colors } from 'theme/colors'
 import { Button } from '@components/elements/button'
 import { sizes } from 'theme/sizes'
 import { CREATE_ACCOUNT_PATH } from '@const/routes'
-import {
-  ruddlestackTrackCreationButtonClicked,
-} from '@components/pages/app/external-dependencies/ruddlestack'
+import { TrackEvents, useRudderStack } from '@hooks/rudderstack'
 
 export const HeroBanner = () => {
   const { i18n } = useTranslation()
+  const { trackEvent } = useRudderStack()
 
   return (
     <BannerContainer>
@@ -26,7 +25,7 @@ export const HeroBanner = () => {
 
           <ActionContainer>
             <ButtonContainer>
-              <Button wide positive href={CREATE_ACCOUNT_PATH} onClick={ruddlestackTrackCreationButtonClicked}>
+              <Button wide positive href={CREATE_ACCOUNT_PATH} onClick={() => trackEvent(TrackEvents.ENTITY_CREATION_BUTTON_CLICKED)}>
                 {i18n.t('home.try_it_for_free')}
               </Button>
             </ButtonContainer>

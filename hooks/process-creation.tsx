@@ -28,7 +28,7 @@ import moment from 'moment'
 import { isUri } from '../lib/regex'
 import { SpreadSheetReader } from '../lib/spread-sheet-reader'
 import { utils } from 'ethers'
-import { ruddlestackTrackProcessCreated } from '@components/pages/app/external-dependencies/ruddlestack'
+import { TrackEvents, useRudderStack } from '@hooks/rudderstack'
 
 export interface ProcessCreationContext {
   metadata: ProcessMetadata,
@@ -114,6 +114,7 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
   const { wallet } = useWallet()
   const { blockStatus } = useBlockStatus()
   const { pool, poolPromise } = usePool()
+  const { trackEvent } = useRudderStack()
 
   // STEPPER OPERATIONS
 
@@ -242,7 +243,11 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
         return VotingApi.newProcess(finalParams, wallet, pool)
       }).then(processId => {
         setProcessId(processId)
-        ruddlestackTrackProcessCreated(wallet?.address, metadata?.title?.default, processId)
+        trackEvent(TrackEvents.PROCESS_CREATED, {
+          entity: wallet.address,
+          title: metadata?.title?.default,
+          id: processId
+        })
         console.log("process created with id: ", processId)
         return {
           waitNext: true,

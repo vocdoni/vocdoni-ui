@@ -13,17 +13,18 @@ import { FlexContainer, FlexJustifyContent } from '@components/elements/flex'
 import { ImageContainer } from '@components/elements/images'
 import { Button } from '@components/elements/button'
 import { useScrollTop } from "@hooks/use-scroll-top"
-import { ruddlestackTrackProcessCreationButtonClicked } from '@components/pages/app/external-dependencies/ruddlestack'
 import { useWallet } from '@hooks/use-wallet'
+import { TrackEvents, useRudderStack } from '@hooks/rudderstack'
 
 export const EntityReady = () => {
   const { wallet } = useWallet()
   const { i18n } = useTranslation()
   useScrollTop()
   const { processId } = useProcessCreation()
+  const { trackEvent } = useRudderStack()
 
   const handleRuddlestackEvent = () => {
-    ruddlestackTrackProcessCreationButtonClicked(wallet?.address)
+    trackEvent(TrackEvents.PROCESS_CREATION_BUTTON_CLICKED, { entity: wallet?.address })
   }
 
   return (

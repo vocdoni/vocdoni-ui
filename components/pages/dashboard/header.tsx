@@ -12,8 +12,8 @@ import { Button } from '@components/elements/button'
 import { Grid } from '@components/elements/grid'
 import { ImageContainer } from '@components/elements/images'
 import { Image } from '@components/elements/image'
-import { ruddlestackTrackProcessCreationButtonClicked } from '@components/pages/app/external-dependencies/ruddlestack'
 import { useWallet } from '@hooks/use-wallet'
+import { TrackEvents, useRudderStack } from '@hooks/rudderstack'
 
 interface IDashboardHeaderProps {
   entity?: EntityMetadata,
@@ -23,9 +23,10 @@ interface IDashboardHeaderProps {
 export const DashboardHeader = ({ entity, hasBackup }: IDashboardHeaderProps) => {
   const { wallet } = useWallet()
   const { i18n } = useTranslation()
+  const { trackEvent } = useRudderStack()
 
   const handleRuddlestackEvent = () => {
-    ruddlestackTrackProcessCreationButtonClicked(wallet?.address)
+    trackEvent(TrackEvents.PROCESS_CREATION_BUTTON_CLICKED, { entity: wallet?.address })
   }
 
   const createProposalButton = (

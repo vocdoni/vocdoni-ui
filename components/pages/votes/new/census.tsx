@@ -22,7 +22,7 @@ import { RoundedCheck, RoundedCheckSize } from '@components/elements/rounded-che
 import { Typography, TypographyVariant } from '@components/elements/typography'
 import { DownloadCsvTemplateCard } from './components/download-csv-template-card'
 import { InputFormGroup } from '@components/blocks/form'
-import { ruddlestackTrackProcessCreationWizardButtonClicked } from '@components/pages/app/external-dependencies/ruddlestack'
+import { TrackEvents, useRudderStack } from '@hooks/rudderstack'
 
 export const FormCensus = () => {
   const { i18n } = useTranslation()
@@ -35,6 +35,7 @@ export const FormCensus = () => {
 
   useScrollTop()
   const { methods, spreadSheetReader, processTerms, parameters } = useProcessCreation()
+  const { trackEvent } = useRudderStack()
 
   const continueDisabled = (!spreadSheetReader && !methods.checkValidCensusParameters())
 
@@ -47,7 +48,7 @@ export const FormCensus = () => {
   }
 
   const handleContinue = () => {
-    ruddlestackTrackProcessCreationWizardButtonClicked(ProcessCreationPageSteps.SETTINGS)
+    trackEvent(TrackEvents.PROCESS_CREATION_WIZARD_BUTTON_CLICKED, { step: ProcessCreationPageSteps.SETTINGS })
     methods.setPageStep(ProcessCreationPageSteps.SETTINGS)
   }
 
