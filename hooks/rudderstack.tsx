@@ -1,5 +1,6 @@
-import { createContext, useContext, useState } from 'react'
+import { createContext, useContext, useEffect } from 'react'
 import { useCookies } from '@hooks/cookies'
+import { useRouter } from 'next/router'
 
 export enum TrackEvents {
   LOGIN_BUTTON_CLICKED = 'login_button_clicked',
@@ -22,16 +23,21 @@ export function useRudderStack() {
 
 export function UseRudderStackProvider({ children }) {
   const { accepted } = useCookies()
+  const router = useRouter()
+
+  useEffect(() => {
+    router.events.on('routeChangeStart', trackPage)
+
+    return () => router.events.off('routeChangeStart', trackPage)
+  }, [accepted])
 
   const trackEvent = (event: string, data?: object) => {
-    console.log("trackEvent", accepted, event, data)
     if(typeof rudderanalytics !== 'undefined' && accepted) {
       rudderanalytics.track(event, data);
     }
   }
 
   const trackPage = () => {
-    console.log("trackPage", accepted)
     if(typeof rudderanalytics !== 'undefined' && accepted) {
       rudderanalytics.page()
     }
