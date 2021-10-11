@@ -14,9 +14,10 @@ import { PAYMENT_PAGE } from '@const/routes'
 interface ICheckingCardSummaryProps {
   product: Product
   voters: number
+  onClickCheckout: () => void
 }
 
-export const CheckingCardSummary = ({ product, voters }: ICheckingCardSummaryProps) => {
+export const CheckingCardSummary = ({ product, onClickCheckout, voters }: ICheckingCardSummaryProps) => {
   const { i18n } = useTranslation()
   const totalPrice = ((product.getExtraVotersPrice(voters) + product.lastTier.flatAmount) / 100).toFixed(2)
 
@@ -57,14 +58,7 @@ export const CheckingCardSummary = ({ product, voters }: ICheckingCardSummaryPro
       </Typography>
 
       <div>
-        <Button
-          positive
-          wide
-          href={RouterService.instance.get(PAYMENT_PAGE, {
-            productId: product.id,
-            priceId: product.price.id,
-            quantity: voters.toString(),
-          })}>
+        <Button positive wide onClick={onClickCheckout}>
           {i18n.t('pricing.checking_card_summary.try_for_free')}
         </Button>
       </div>

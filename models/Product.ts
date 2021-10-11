@@ -4,11 +4,6 @@ import { IStripeProduct, IStripePrice } from '@recoil/selectors/products'
 import { Price } from '@models/Price'
 import { Tier } from '@models/Tier'
 
-type ProductQuantities = {
-  label: string
-  value: number
-}
-
 export class Product {
   public id: string
   public title: string
@@ -54,7 +49,6 @@ export class Product {
         break
       }
     }
-    console.log(totalCost)
 
     return totalCost
   }

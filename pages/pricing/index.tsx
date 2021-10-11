@@ -1,57 +1,102 @@
-import React, { useState, useEffect } from "react"
-import { useRecoilValueLoadable, useRecoilValue } from "recoil"
+import React, { useState, useRef } from 'react'
+import { useRecoilValueLoadable, useRecoilValue } from 'recoil'
 
+import { Product } from 'models/Product'
+import { ViewContext, ViewStrategy } from '@lib/strategy'
 
-import { Product } from "models/Product"
-import { ViewContext, ViewStrategy } from "@lib/strategy"
+import { Loader } from '@components/blocks/loader'
+import { PricingView } from '@components/pages/pricing'
+import { SignInModal } from '@components/pages/pricing/sign-in-modal'
 
-import { Loader } from "@components/blocks/loader"
-import { PricingView } from "@components/pages/pricing"
-import { Redirect } from "@components/redirect"
+import { Redirect } from '@components/redirect'
 
-import { productsState } from "@recoil/atoms/products"
-import { walletState } from "@recoil/atoms/wallet"
+import { productsState } from '@recoil/atoms/products'
+import { walletState } from '@recoil/atoms/wallet'
 
-import { ENTITY_SIGN_IN_PATH } from '@const/routes';
+import { CREATE_ACCOUNT_PATH, PAYMENT_PAGE } from '@const/routes'
+import RouterService from '@lib/router'
 
 const PricingPage = () => {
   const [redirectUrl, setRedirectUrl] = useState(null)
-  const {contents: products, state: productsStatus} = useRecoilValueLoadable<Product[]>(productsState)
+  const [showSignInModal, setShowSignInModal] = useState<boolean>(false)
+  const { contents: products, state: productsStatus } = useRecoilValueLoadable<Product[]>(productsState)
   const wallet = useRecoilValue(walletState)
 
-  useEffect(() => {
-    if(!wallet) {
-      setRedirectUrl(ENTITY_SIGN_IN_PATH)
+  const selectedProductId = useRef<string>(null)
+  const selectedPriceId = useRef<string>(null)
+  const selectedQuantity = useRef<number>(null)
+
+  const handleCheckout = (product: Product, voters: number) => {
+    if (wallet) {
+      setRedirectUrl(
+        RouterService.instance.get(PAYMENT_PAGE, {
+          productId: product.id,
+          priceId: product.price.id,
+          quantity: voters.toString(),
+        })
+      )
+    } else {
+      selectedProductId.current = product.id
+      selectedPriceId.current = product.price.id
+      selectedQuantity.current = voters
+
+      setShowSignInModal(true)
     }
-  }, [wallet])
+  }
+
+  const handleLogIn = () => {
+    console.log('Handlin log in from out')
+    setRedirectUrl(
+      RouterService.instance.get(PAYMENT_PAGE, {
+        productId: selectedProductId.current,
+        priceId: selectedPriceId.current,
+        quantity: selectedQuantity.current.toString(),
+      })
+    )
+  }
+  const handleSingUp = () => {
+    setRedirectUrl(
+      RouterService.instance.get(CREATE_ACCOUNT_PATH, {
+        "callback_url": encodeURIComponent(
+          RouterService.instance.get(PAYMENT_PAGE, {
+            productId: selectedProductId.current,
+            priceId: selectedPriceId.current,
+            quantity: selectedQuantity.current.toString(),
+          })
+        ),
+      })
+    )
+  }
 
   const redirectView = new ViewStrategy(
     () => redirectUrl,
-    <>
-      <Loader visible />
-      <Redirect to={redirectUrl}/>
-    </>
+    (
+      <>
+        <Loader visible />
+        <Redirect to={redirectUrl} />
+      </>
+    )
   )
-
 
   const pricingView = new ViewStrategy(
     () => productsStatus === 'hasValue',
-    <PricingView products={products} />
+    (
+      <>
+        <PricingView products={products} onCheckout={handleCheckout} />
+        <SignInModal
+          isOpen={showSignInModal}
+          onLogIn={handleLogIn}
+          onClose={() => setShowSignInModal(false)}
+          onSignUp={handleSingUp}
+        />
+      </>
+    )
   )
 
-  const loaderView = new ViewStrategy(
-    () => true,
-    <Loader visible />
-  )
-  
-  const viewContext = new ViewContext([
-    // redirectView,
-    pricingView,
-    loaderView
-  ])
-  return (
-    viewContext.getView()
-  )
+  const loaderView = new ViewStrategy(() => true, <Loader visible />)
+
+  const viewContext = new ViewContext([redirectView, pricingView, loaderView])
+  return viewContext.getView()
 }
 
 export default PricingPage

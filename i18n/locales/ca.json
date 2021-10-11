@@ -83,7 +83,6 @@
     "cookies": {
         "accept": "Accept",
         "cookies_paragraph_1": "This website uses cookies to improve your experience while browsing the website. The cookies that are classified as necessary are stored in your browser, as they are essential for the functioning of the basic functionalities of the website.",
-        "cookies_paragraph_2": "We also use third-party cookies that help us analyze and understand how you use this website. These cookies will be stored in your browser only with your consent. You also have the option to opt out of receiving these cookies. But opting out of some of these cookies may affect your browsing experience.",
         "more_details": "More details",
         "reject": "Reject"
     },
@@ -462,6 +461,12 @@
             "this_plan_has_members": "pricing.checking_card.this_plan_has_members",
             "you_can_add_more_up_100000_members_by": ""
         },
+        "sign_in_modal": {
+            "before_you_can_proceed_to_checkout_please_sign_in_to_account": "",
+            "dont_have_an_account_yet": "",
+            "login": "",
+            "sign_in_to_continue": ""
+        },
         "steps": {
             "checkout": "",
             "select_plan": ""
@@ -650,7 +655,6 @@
         "back_to_dashboard": "Torna a l'inici",
         "brand_color_used_on_the_voting_process": "Brand color used on the voting process",
         "brand_process_color": "Brand color",
-        "brief_description": "Descripció breu",
         "canceled_vote": "Votació cancel·lada",
         "cannot_connect_to_the_blockchain_to_check_the_account_balance": "No s'ha pogut connectar a la cadena de blocs",
         "cannot_connect_to_the_vocdoni_chain": "No s'ha pogut connectar a la cadena Vocdoni",

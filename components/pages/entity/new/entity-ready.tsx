@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 
 import { colors } from '@theme/colors'
@@ -15,16 +15,24 @@ import { Button } from '@components/elements/button'
 import { useScrollTop } from "@hooks/use-scroll-top"
 import { ruddlestackTrackProcessCreationButtonClicked } from '@components/pages/app/external-dependencies/ruddlestack'
 import { useWallet } from '@hooks/use-wallet'
+import { useRouter } from 'next/router'
+import { route } from 'next/dist/next-server/server/router'
 
 export const EntityReady = () => {
   const { wallet } = useWallet()
   const { i18n } = useTranslation()
+  const { query, push } = useRouter()
   useScrollTop()
-  const { processId } = useProcessCreation()
 
   const handleRuddlestackEvent = () => {
     ruddlestackTrackProcessCreationButtonClicked(wallet?.address)
   }
+
+  useEffect(() => {
+    if(query.callback_url) {
+      push(decodeURIComponent(query.callback_url as string))
+    }
+  }, [query])
 
   return (
     <ProcessReadyContainer>

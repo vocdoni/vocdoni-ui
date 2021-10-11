@@ -461,6 +461,12 @@
             "this_plan_has_members": "pricing.checking_card.this_plan_has_members",
             "you_can_add_more_up_100000_members_by": ""
         },
+        "sign_in_modal": {
+            "before_you_can_proceed_to_checkout_please_sign_in_to_account": "",
+            "dont_have_an_account_yet": "",
+            "login": "",
+            "sign_in_to_continue": ""
+        },
         "steps": {
             "checkout": "",
             "select_plan": ""
@@ -649,7 +655,6 @@
         "back_to_dashboard": "Vuelve al inicio",
         "brand_color_used_on_the_voting_process": "Brand color used on the voting process",
         "brand_process_color": "Brand color",
-        "brief_description": "Breve descripción",
         "canceled_vote": "Votación cancelada",
         "cannot_connect_to_the_blockchain_to_check_the_account_balance": "No se ha podido conectar a la cadena de bloques",
         "cannot_connect_to_the_vocdoni_chain": "No se ha podido conectar a la cadena Vocdoni",

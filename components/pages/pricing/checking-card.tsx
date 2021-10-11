@@ -17,12 +17,14 @@ import { CheckingCardSummary } from './checking-card-summary'
 interface ICheckingCardProps {
   visible: boolean
   product: Product
+  onCheckout: (product: Product, voters: number) => void
   onClose: () => void
 }
 
-export const CheckingCard = ({ product, visible, onClose }: ICheckingCardProps) => {
+export const CheckingCard = ({ product, visible, onCheckout, onClose }: ICheckingCardProps) => {
   const { i18n } = useTranslation()
   const [voters, setVoters] = useState(0)
+  const [showSignInModal, setShowSignInModal] = useState<boolean>(false)
 
   const handleChangeQuantity = (selectedVoters) => {
     setVoters(selectedVoters)
@@ -47,7 +49,7 @@ export const CheckingCard = ({ product, visible, onClose }: ICheckingCardProps) 
           </Column>
 
           <Column sm={12} md={5}>
-            {product && <CheckingCardSummary product={product} voters={voters} />}
+            {product && <CheckingCardSummary product={product} voters={voters} onClickCheckout={() => onCheckout(product, voters)}/>}
           </Column>
         </Grid>
       </CheckingCardWrapper>
