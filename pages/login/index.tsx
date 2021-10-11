@@ -6,12 +6,15 @@ import i18n from '../../i18n'
 
 import { Column, Grid } from '@components/elements/grid'
 import { PageCard } from '@components/elements/cards'
-import { SignInForm, SignInImport } from '@components/pages/login'
+import { SignInImport } from '@components/pages/login'
+import { SignInForm } from '@components/blocks/sign-in-form'
+
 import { Account, AccountStatus } from '@lib/types'
 import { useDbAccounts } from '@hooks/use-db-accounts'
 import { useWallet } from '@hooks/use-wallet'
 import { useResponsive } from '@hooks/use-window-size'
 import { CREATE_ACCOUNT_PATH, DASHBOARD_PATH } from '@const/routes'
+import { SectionText, SectionTitle } from '@components/elements/text'
 
 const SignInPage = () => {
   const { dbAccounts } = useDbAccounts()
@@ -20,9 +23,7 @@ const SignInPage = () => {
   const [loginError, setLoginError] = useState<string | null>(null)
   const router = useRouter()
 
-  const [verifyingCredentials, setVerifyingCredentials] = useState<boolean>(
-    false
-  )
+  const [verifyingCredentials, setVerifyingCredentials] = useState<boolean>(false)
 
   const hasAccounts = !!dbAccounts?.length
   const colSmSize = hasAccounts ? 6 : 12
@@ -31,11 +32,7 @@ const SignInPage = () => {
     setVerifyingCredentials(true)
     setLoginError(null)
     try {
-      restoreEncryptedWallet(
-        account.encryptedMnemonic,
-        account.hdPath,
-        passphrase
-      )
+      restoreEncryptedWallet(account.encryptedMnemonic, account.hdPath, passphrase)
       // Did we start creating an account that is not ready yet?
       if (account.status !== AccountStatus.Ready) {
         return router.push(CREATE_ACCOUNT_PATH)
@@ -54,6 +51,11 @@ const SignInPage = () => {
       <Grid>
         {hasAccounts ? (
           <Column lg={colSmSize}>
+            <HeaderSection>
+              <SectionTitle>{i18n.t('sign_in.sign_in')}</SectionTitle>
+              <SectionText>{i18n.t('sign_in.select_the_account_to_use_and_enter_your_passphrase')}</SectionText>
+            </HeaderSection>
+
             <SignInForm
               accounts={dbAccounts}
               error={loginError}
@@ -72,6 +74,10 @@ const SignInPage = () => {
     </PageCard>
   )
 }
+
+const HeaderSection = styled.div`
+  padding-bottom: 22px;
+`
 
 const LoginDivider = styled.div`
   margin: 15px;

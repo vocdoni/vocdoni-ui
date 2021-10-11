@@ -10,6 +10,7 @@ export enum TypographyVariant {
   H4 = 'h4',
   H5 = 'h5',
   H6 = 'h6',
+  Link = 'link',
   BannerTitle = 'banner',
   Subtitle1 = 'subtitle',
   Subtitle2 = 'subtitle2',
@@ -30,6 +31,8 @@ export enum TextAlign {
 
 interface ITypographyProps {
   variant?: TypographyVariant
+  onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void
+  href?: string
   align?: TextAlign
   margin?: string
   color?: string
@@ -41,6 +44,7 @@ export const Typography = ({
   color,
   margin,
   align,
+  onClick,
   children,
 }: ITypographyProps) => {
   const TypographyElement = typographyMap.get(
@@ -48,7 +52,7 @@ export const Typography = ({
   )
 
   return (
-    <TypographyElement color={color} margin={margin} align={align}>
+    <TypographyElement color={color} margin={margin} align={align} onClick={onClick}>
       {children}
     </TypographyElement>
   )
@@ -106,6 +110,17 @@ export const H4 = styled.h4<ITypographyCommon>`
   ${({ margin }) => (margin ? `margin: ${margin};` : '')}
 `
 
+export const Link = styled.a<ITypographyCommon>`
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1em;
+  text-decoration: underline;
+  cursor: pointer;
+  text-align: ${({ align }) => (align ? align : TextAlign.Left)};
+  color: ${({ color, theme }) => (color ? color : theme.blueText)};
+  ${({ margin }) => (margin ? `margin: ${margin};` : '')}
+`
+
 const BaseParagraphTypography = styled.p<ITypographyCommon>`
   font-weight: 400;
   line-height: 1.2em;
@@ -118,6 +133,7 @@ const BaseParagraphTypography = styled.p<ITypographyCommon>`
     font-weight: 600;
   }
 `
+
 export const Body1 = styled(BaseParagraphTypography)`
   font-size: 20px;
 `
@@ -156,6 +172,7 @@ const typographyMap = new Map<
   [TypographyVariant.Subtitle1, Subtitle1],
   [TypographyVariant.H3, H3],
   [TypographyVariant.H4, H4],
+  [TypographyVariant.Link, Link],
   [TypographyVariant.Body1, Body1],
   [TypographyVariant.Body2, Body2],
   [TypographyVariant.Body3, Body3],

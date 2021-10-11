@@ -2,17 +2,15 @@ import React, { ChangeEvent, useState, FormEvent, useEffect } from 'react'
 import { OptionTypeBase } from 'react-select'
 import styled from 'styled-components'
 import Link from 'next/link'
+import { usePool } from '@vocdoni/react-hooks'
 import { useTranslation } from 'react-i18next'
 
+import { Account } from '@lib/types'
+import { ACCOUNT_RECOVER_PATH } from '@const/routes'
 
-import { Account } from '../../../lib/types'
-import { ACCOUNT_RECOVER_PATH } from '../../../const/routes'
-
-import { Fieldset, InputFormGroup } from '../../blocks/form'
-import { Input, Select } from '../../elements/inputs'
-import { SectionTitle, SectionText } from '../../elements/text'
-import { Button } from '../../elements/button'
-import { usePool } from '@vocdoni/react-hooks'
+import { Select } from '@components/elements/inputs'
+import { Button } from '@components/elements/button'
+import { Fieldset, InputFormGroup } from '@components/blocks/form'
 
 interface SignInFormProps {
   accounts: Account[]
@@ -58,18 +56,8 @@ export const SignInForm = ({
     label: opt.name,
   }))
 
-
   return (
     <Fieldset disabled={disabled}>
-      <HeaderSection>
-        <SectionTitle>{i18n.t('sign_in.sign_in')}</SectionTitle>
-        <SectionText>
-          {i18n.t(
-            'sign_in.select_the_account_to_use_and_enter_your_passphrase'
-          )}
-        </SectionText>
-      </HeaderSection>
-
       <FormGroup>
         <label>{i18n.t('sign_in.select_the_account')}</label>
         <Select
@@ -79,9 +67,7 @@ export const SignInForm = ({
             label: account.name,
           }}
           onChange={(selectedValue: OptionTypeBase) => {
-            const selectedAccount = accounts.find(
-              (acc: Account) => acc.name == selectedValue.value
-            )
+            const selectedAccount = accounts.find((acc: Account) => acc.name == selectedValue.value)
 
             setAccount(selectedAccount)
           }}
@@ -101,19 +87,10 @@ export const SignInForm = ({
           />
         </FormGroup>
 
-        <Link href={ACCOUNT_RECOVER_PATH}>
-          {i18n.t('sign_in.forgot_your_password_restore_from_a_backup')}
-        </Link>
+        <Link href={ACCOUNT_RECOVER_PATH}>{i18n.t('sign_in.forgot_your_password_restore_from_a_backup')}</Link>
 
         <ButtonContainer>
-          <Button
-            disabled={buttonDisabled}
-            spinner={loading}
-            large
-            width={210}
-            onClick={() => onContinue()}
-            positive
-          >
+          <Button disabled={buttonDisabled} spinner={loading} large width={210} onClick={() => onContinue()} positive>
             {i18n.t('sign_in.continue')}
           </Button>
         </ButtonContainer>
@@ -121,10 +98,6 @@ export const SignInForm = ({
     </Fieldset>
   )
 }
-
-const HeaderSection = styled.div`
-  padding-bottom: 22px;
-`
 
 const FormGroup = styled.div`
   padding-bottom: 18px;

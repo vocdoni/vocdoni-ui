@@ -474,6 +474,12 @@
             "this_plan_has_members": "This plan has <0>{{members}} base members.</0>",
             "you_can_add_more_up_100000_members_by": "You can add more up to {{maxVoter}} members with an Added Cost of €{{votePrice}} per Voter:"
         },
+        "sign_in_modal": {
+            "before_you_can_proceed_to_checkout_please_sign_in_to_account": "Before you can proceed to checkout, please sign in to your account",
+            "dont_have_an_account_yet": "Don’t have an account yet?",
+            "login": "Login",
+            "sign_in_to_continue": "Sign in to continue"
+        },
         "steps": {
             "checkout": "Checkout",
             "select_plan": "Select a plan"

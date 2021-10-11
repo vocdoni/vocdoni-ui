@@ -23,11 +23,12 @@ import { TablePlan } from './table-plan'
 
 interface IPricingProps {
   products: Product[]
+  onCheckout: (selectedProduct: Product, quantity: number) => void
 }
 
 const HEADER_HEIGHT = 80
 
-export const PricingView = ({ products }: IPricingProps) => {
+export const PricingView = ({ products, onCheckout }: IPricingProps) => {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
   const [showFeatures, setShowFeatures] = useState<boolean>(false)
   const [summarizePlans, setSummarizePlans] = useState<boolean>(false)
@@ -39,6 +40,8 @@ export const PricingView = ({ products }: IPricingProps) => {
   const helpCenter = useHelpCenter()
 
   const handleScroll = (event) => {
+    if (!tablePlanRef.current) return 
+    
     const tableYOffset = tablePlanRef.current.getBoundingClientRect().y
 
     if (tableYOffset < -tablePlanRef.current.offsetHeight + HEADER_HEIGHT) {
@@ -48,10 +51,7 @@ export const PricingView = ({ products }: IPricingProps) => {
     }
   }
 
-  const handleCheckingCard = () => {
-    setSelectedProduct(null)
-  }
-  
+
   useEffect(() => {
     window.addEventListener('scroll', handleScroll)
 
@@ -59,7 +59,6 @@ export const PricingView = ({ products }: IPricingProps) => {
       window.removeEventListener('scroll', handleScroll)
     }
   }, [])
-
 
   const handleSelectProduct = (product: Product) => {
     setSelectedProduct(product)
@@ -110,7 +109,12 @@ export const PricingView = ({ products }: IPricingProps) => {
         />
       </TableProductsContainer>
 
-      <CheckingCard visible={!!selectedProduct} product={selectedProduct} onClose={handleCheckingCard}/>
+      <CheckingCard
+        visible={!!selectedProduct}
+        product={selectedProduct}
+        onClose={() => setSelectedProduct(null)}
+        onCheckout={onCheckout}
+      />
 
       <TableFeaturesContainer showTable={showFeatures}>
         <TableFeatures products={products} />
@@ -143,13 +147,14 @@ export const PricingView = ({ products }: IPricingProps) => {
               <ButtonContainer>
                 <Button justify={JustifyContent.SpaceEvenly}>
                   {i18n.t('pricing.body.contact_us')}
-                  <RightArrow width='20px'/>
+                  <RightArrow width="20px" />
                 </Button>
               </ButtonContainer>
             </div>
           </FlexContainer>
         </Card>
       </Grid>
+
     </div>
   )
 }
