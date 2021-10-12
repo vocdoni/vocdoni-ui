@@ -42,6 +42,8 @@ import { Typography, TypographyVariant } from '@components/elements/typography'
 import { SELECT_ORGANIZATION_TYPE, SELECT_ORGANIZATION_SIZE } from '../const/organizations'
 import { PRIVACY_PATH } from '@const/routes'
 import { TrackEvents, useRudderStack } from '@hooks/rudderstack'
+import { ruddlestackTrackEntityCreationWizardButtonClicked } from '@components/pages/app/external-dependencies/ruddlestack'
+import { OnPagePrivacy } from '@components/pages/policy/privacy/onpage-layer-1'
 
 export enum MetadataFields {
   Name = 'name',
@@ -57,6 +59,7 @@ export enum MetadataFields {
 
 export const FormMetadata = () => {
   const { i18n } = useTranslation()
+  const lang = i18n.language
   useScrollTop()
   const {
     name,
@@ -290,7 +293,8 @@ export const FormMetadata = () => {
       </Column>
 
       <Column>
-        <Typography>{i18n.t('entity.pending_steps')}</Typography>
+        <Typography variant={TypographyVariant.Small}>{i18n.t('entity.terms_and_conditions')}</Typography>
+        <OnPagePrivacy lang={lang} />
 
         <PendingStepsContainer>
           <FlexContainer alignItem={FlexAlignItem.Center}>
