@@ -195,6 +195,7 @@
             "entity_description": "Entity description",
             "view_in_explorer": "View in explorer"
         },
+        "terms_and_conditions": "Terms & Conditions",
         "i_have_read_and_accept_personal_data": "(Optional) I consent that my personal data is processed by Aragon Labs for commercial and informative notices. <0>More info</0>.",
         "i_have_read_and_accept_terms": "I have read and accept the <0>terms and conditions of service</0>, the Aragon Labs <1>privacy policy</1> and the <2>contents of the applicable regulation</2> on the protection of personal data.",
         "logo": "Entity logo",
