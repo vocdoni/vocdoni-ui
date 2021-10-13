@@ -4,6 +4,7 @@ import { useRecoilValueLoadable, useRecoilState } from 'recoil'
 import { PaymentIntent } from '@stripe/stripe-js'
 
 import { Product } from '@models/Product'
+import { Subscription } from '@models/Subscription'
 
 import { ViewContext, ViewStrategy } from '@lib/strategy'
 
@@ -12,12 +13,11 @@ import { PaymentView } from '@components/pages/payment'
 import { Redirect } from '@components/redirect'
 
 import { createNewSubscriptionSelector } from '@recoil/selectors/create-subscription'
-import { Subscription } from '@recoil/atoms/subscription'
 import { productSelector } from '@recoil/selectors/product'
 import { paymentIntentState } from '@recoil/atoms/payment-intent'
+import { walletState } from '@recoil/atoms/wallet'
 
 import { ENTITY_SIGN_IN_PATH, PAYMENT_SUCCESS_PAGE } from '@const/routes'
-import { walletState } from '@recoil/atoms/wallet'
 
 export default function PaymentPage() {
   const { query } = useRouter()

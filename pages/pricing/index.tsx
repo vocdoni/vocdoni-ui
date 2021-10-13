@@ -45,7 +45,6 @@ const PricingPage = () => {
   }
 
   const handleLogIn = () => {
-    console.log('Handlin log in from out')
     setRedirectUrl(
       RouterService.instance.get(PAYMENT_PAGE, {
         productId: selectedProductId.current,

@@ -13,6 +13,7 @@ import { Button, JustifyContent } from '@components/elements/button'
 import { Container } from '@components/elements/container'
 
 import { UNLIMITED } from '@const/products'
+import { colors } from '@theme/colors'
 
 interface ITablePlanProps {
   products: Product[]
@@ -42,7 +43,7 @@ export const TablePlan = ({
               <Typography variant={TypographyVariant.Body1}>{i18n.t('pricing.table_plan.plan')}</Typography>
             </th>
             {products.map((product) => (
-              <HeaderCel key={'rol-1-' + product.id} active={selectedProduct && product.name === selectedProduct?.name}>
+              <HeaderCel key={'row-1-' + product.id} active={selectedProduct && product.name === selectedProduct?.name}>
                 <Typography variant={TypographyVariant.Body1} align={TextAlign.Center}>
                   {product.title}
                 </Typography>
@@ -65,12 +66,18 @@ export const TablePlan = ({
 
             {products.map((product) => (
               <FeatureCelValue
-                key={'rol-2-' + product.id}
+                key={'row-2-' + product.id}
                 active={selectedProduct && product.name === selectedProduct?.name}
                 data-label={`${product.title} ${i18n.t('pricing.table_plan.base_price')}`}>
-                <Typography variant={TypographyVariant.Body3} align={TextAlign.Center}>
+                <Typography variant={TypographyVariant.Body3} align={TextAlign.Center} margin="0px">
                   € {!product.freePlan ? product.priceEuro : '0.00'}
                 </Typography>
+
+                {product.features.baseMembers != UNLIMITED && (
+                  <Typography variant={TypographyVariant.ExtraSmall} align={TextAlign.Center}>
+                    {i18n.t('pricing.table_plan.members_included', { members: product.features.baseMembers })}
+                  </Typography>
+                )}
               </FeatureCelValue>
             ))}
 
@@ -90,11 +97,15 @@ export const TablePlan = ({
 
             {products.map((product) => (
               <FeatureCelValue
-                key={'rol-3-' + product.id}
+                key={'row-3-' + product.id}
                 active={selectedProduct && product.name === selectedProduct?.name}
                 data-label={i18n.t('pricing.table_plan.added_cost_per_voter')}>
-                <Typography variant={TypographyVariant.Body2} align={TextAlign.Center}>
+                <Typography variant={TypographyVariant.Body2} align={TextAlign.Center} margin="0px">
                   {!product.freePlan ? `€ ${product.pricePerVoterEuro}` : '-'}
+                </Typography>
+
+                <Typography variant={TypographyVariant.ExtraSmall} align={TextAlign.Center}>
+                  {i18n.t('pricing.table_plan.based_on_100_members')}
                 </Typography>
               </FeatureCelValue>
             ))}
@@ -104,7 +115,7 @@ export const TablePlan = ({
             <FeatureCell></FeatureCell>
             {products.map((product) => (
               <FeatureCelValue
-                key={'rol-4-' + product.id}
+                key={'row-4-' + product.id}
                 active={selectedProduct && product.name === selectedProduct?.name}
                 data-label={i18n.t('pricing.table_plan.base_price')}>
                 <PlanButtonContainer>
@@ -121,7 +132,7 @@ export const TablePlan = ({
               </FeatureCelValue>
             ))}
 
-            <CustomPlanCell rowSpan={2}>
+            <CustomPlanCell rowSpan={3}>
               <Typography variant={TypographyVariant.Small} align={TextAlign.Center}>
                 {i18n.t('pricing.table_plan.get_in_touch_with_our_team_to_discus')}
               </Typography>
@@ -137,7 +148,7 @@ export const TablePlan = ({
 
             {products.map((product) => (
               <FeatureCelValue
-                key={'rol-4-' + product.id}
+                key={'row-4-' + product.id}
                 active={selectedProduct && product.name === selectedProduct?.name}
                 data-label={i18n.t('pricing.table_plan.voting_process_per_year')}>
                 <Typography variant={TypographyVariant.Body2} align={TextAlign.Center}>
@@ -151,11 +162,30 @@ export const TablePlan = ({
 
           <tr>
             <FeatureCell>
+              <Typography variant={TypographyVariant.Small}>{i18n.t('pricing.table_plan.question_process')}</Typography>
+            </FeatureCell>
+
+            {products.map((product) => (
+              <FeatureCelValue
+                key={'row-5-' + product.id}
+                active={selectedProduct && product.name === selectedProduct?.name}
+                data-label={i18n.t('pricing.table_plan.voting_process_per_year')}>
+                <Typography variant={TypographyVariant.Body2} align={TextAlign.Center}>
+                  {product.features.processes === UNLIMITED
+                    ? i18n.t('pricing.table_plan.unlimited')
+                    : product.features.processes}
+                </Typography>
+              </FeatureCelValue>
+            ))}
+          </tr>
+
+          <tr>
+            <FeatureCell>
               <Typography variant={TypographyVariant.Small}>{i18n.t('pricing.table_plan.administrators')}</Typography>
             </FeatureCell>
             {products.map((product) => (
               <FeatureCelValue
-                key={'rol-5-' + product.id}
+                key={'row-6-' + product.id}
                 active={selectedProduct && product.name === selectedProduct?.name}
                 data-label={i18n.t('pricing.table_plan.administrators')}>
                 <Typography variant={TypographyVariant.Body2} align={TextAlign.Center}>
@@ -180,10 +210,10 @@ export const TablePlan = ({
 
             {products.map((product) => (
               <FeatureCelValue
-                key={'rol-6-' + product.id}
+                key={'row-7-' + product.id}
                 active={selectedProduct && product.name === selectedProduct?.name}
                 data-label={i18n.t('pricing.table_plan.features')}>
-                <Typography variant={TypographyVariant.Body2} align={TextAlign.Center}>
+                <Typography variant={TypographyVariant.Small} align={TextAlign.Center} color={colors.lightText}>
                   {i18n.t('pricing.table_plan.number_of_features', {
                     number_of_features: product.features?.list?.length,
                   })}
@@ -205,7 +235,7 @@ export const TablePlan = ({
                 </th>
 
                 {products.map((product) => (
-                  <HeaderCel key={'rol-7-' + product.id}>
+                  <HeaderCel key={'row-8-' + product.id}>
                     <Typography variant={TypographyVariant.Body1} align={TextAlign.Center}>
                       {product.title}
                     </Typography>
@@ -225,7 +255,7 @@ export const TablePlan = ({
 
                 {products.map((product) => (
                   <FeatureCelValue
-                    key={'rol-8-' + product.id}
+                    key={'row-9-' + product.id}
                     data-label={`${product.title} ${i18n.t('pricing.table_plan.base_price')}`}>
                     <Typography variant={TypographyVariant.Body3} align={TextAlign.Center}>
                       € {!product.freePlan ? product.priceEuro : '0.00'}
@@ -234,7 +264,7 @@ export const TablePlan = ({
                 ))}
 
                 <FeatureCelValue>
-                  <Typography variant={TypographyVariant.Small} align={TextAlign.Center}>
+                  <Typography variant={TypographyVariant.ExtraSmall} align={TextAlign.Center}>
                     {i18n.t('pricing.table_plan.custom_plan_for_over_100000_members')}
                   </Typography>
                 </FeatureCelValue>
@@ -249,7 +279,7 @@ export const TablePlan = ({
                 </FeatureCell>
 
                 {products.map((product) => (
-                  <FeatureCelValue key={'rol-9-' + product.id} data-label={i18n.t('pricing.table_plan.base_price')}>
+                  <FeatureCelValue key={'row-10-' + product.id} data-label={i18n.t('pricing.table_plan.base_price')}>
                     <PlanButtonContainer>
                       {product.freePlan ? (
                         <Button positive small wide disabled>
@@ -327,7 +357,7 @@ const HeaderCel = styled.th<{ active?: boolean }>`
   text-align: center;
 
   & > p {
-    color: ${({ active, theme }) => (active ? theme.white : theme.blueText)} !important;
+    ${({ active, theme }) => (active ? `color: ${theme.white} !important;` : '')}
   }
 `
 
@@ -336,7 +366,7 @@ const FeatureCelValue = styled.td<{ active?: boolean }>`
   background-color: ${({ active, theme }) => (active ? theme.darkLightFg : 'transparent')};
 
   & > p {
-    color: ${({ active, theme }) => (active ? theme.white : theme.blueText)} !important;
+    ${({ active, theme }) => (active ? `color: ${theme.white} !important;` : '')}
   }
   @media ${({ theme }) => theme.screenMax.mobileM} {
     display: block;

@@ -46,19 +46,13 @@ export const SignInModal = ({ isOpen, onLogIn, onSignUp, onClose }: ISignInModal
 
   const handlerSubmit = (account: Account, passphrase: string): Promise<any> => {
     setVerifyingCredentials(true)
-    console.log('todo ha ido bien vas a hacer log in')
 
     try {
-      console.log('justo antes')
-
       restoreEncryptedWallet(account.encryptedMnemonic, account.hdPath, passphrase)
       // Did we start creating an account that is not ready yet?
-      console.log('todo ha ido bien vas a hacer log in')
-
 
       onLogIn()
     } catch (error) {
-      console.log('error', error)
       setVerifyingCredentials(false)
       setAlertMessage(i18n.t('sign_in.invalid_passphrase'))
       return Promise.reject(null)

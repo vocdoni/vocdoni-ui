@@ -21,11 +21,11 @@ export class Product {
   constructor() {}
 
   get priceEuro(): string {
-    return this.lastTier ? (this.lastTier.flatAmount / 100).toFixed(2) : '0'
+    return this.lastTier ? Product.getPriceInEuro(this.lastTier.flatAmount, 0) : '0'
   }
 
   get pricePerVoterEuro(): string {
-    return this.lastTier ? (this.lastTier.uintAmount / 100).toFixed(2) : '0'
+    return this.lastTier ? Product.getPriceInEuro(this.lastTier.uintAmount, 2) : '0'
   }
 
   get lastTier(): Tier {
@@ -36,7 +36,7 @@ export class Product {
     return this.prices[0]
   }
 
-  getExtraVotersPrice(quantity: number): number {
+  public getExtraVotersPrice(quantity: number): number {
     let totalCost = 0
     let remainingQuantity = quantity
 
@@ -51,6 +51,10 @@ export class Product {
     }
 
     return totalCost
+  }
+
+  static getPriceInEuro(amount: number, decimals: number): string {
+    return (amount / 100).toFixed(decimals).replace(/\B(?=(\d{3})+(?!\d))/g, ',')
   }
 
   static productFromStripe(
