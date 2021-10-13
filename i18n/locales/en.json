@@ -439,6 +439,10 @@
             "description": "Try a paid plan for free for 14 days. Cancel at any time.",
             "title": "Unlimited voting processes, unlimited census size with the lowest cost."
         },
+        "index": {
+            "back": "",
+            "checkout": ""
+        },
         "name": "Name",
         "street": "Street",
         "zip_code": "Zip code"
@@ -452,7 +456,8 @@
             "contact_us": "Contact us",
             "faq": "F.A.Q.",
             "need_help_or_want_to_discuss_a_personalized_plan": "Need help or want to discuss a personalized plan?",
-            "show_all_features": "Show all features"
+            "show_all_features": "Show all features",
+            "show_less_feature": "Show less features"
         },
         "checking_card_summary": {
             "base_price": "Base Price",
@@ -468,7 +473,7 @@
             "adjust_membership_tier_to_get_the_best_value": "Adjust membership tier to get the best value:",
             "calculate_total_cost_of_your_plan": "Calculate Total Cost of your Plan",
             "change_membership": "Change membership:",
-            "max": "max. {{max}}",
+            "max": "Max. {{max}}",
             "members_in_your_plan": "Members in your plan",
             "min": "Min. {{min}}",
             "this_plan_has_members": "This plan has <0>{{members}} base members.</0>",
@@ -502,6 +507,7 @@
             "donation_button": "Donation button *",
             "download_pdf": "Download PDF",
             "end_to_end_verifiability": "End-to-end Verifiability",
+            "features_coming_soon": "* Features coming soon",
             "insights_and_metrics": "Insights & Metrics",
             "integrations": "Integrations",
             "live_chat": "Live Chat",
@@ -536,9 +542,10 @@
             "zappier": "Zappier *"
         },
         "table_plan": {
-            "added_cost_per_voter": "Added Cost per Voter / year",
-            "administrators": "Added Cost per Voter / year",
-            "base_price": "Base price / year",
+            "added_cost_per_voter": "Added Cost per Voter",
+            "administrators": "Number of Administrators",
+            "base_price": "Base price",
+            "based_on_100_members": "per 100 members",
             "contact_us": "Contact us",
             "current_plan": "Current plan",
             "custom": "Custom",
@@ -547,8 +554,10 @@
             "features": "Features",
             "get_in_touch_with_our_team_to_discus": "Get in touch with our team to discuss a personalized plan.",
             "hide_all_features": "Hide all features",
+            "members_included": "{{members}} members included",
             "number_of_features": "+{{number_of_features}} features",
-            "plan": "Plan",
+            "plan": "Yearly plan",
+            "question_process": "Questions / process",
             "try_for_free": "Try for free",
             "unlimited": "Unlimited",
             "voting_process_per_year": "Voting processes / year"
@@ -558,7 +567,7 @@
         "plans": {
             "basic": {
                 "description": "This is the basic description",
-                "title": "Basic product"
+                "title": "Free"
             },
             "community": {
                 "description": "Community description",

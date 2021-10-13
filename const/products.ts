@@ -11,6 +11,7 @@ export interface IProductFeatures {
   votingPerYear: number
   processes: number
   administrators: number,
+  baseMembers: number,
   freePlan: boolean
   list: FeatureName[]
 }
@@ -70,6 +71,7 @@ export const productsFeatures: IProductFeatures[] = [
     freePlan: true,
     processes: 5,
     administrators: 1,
+    baseMembers: UNLIMITED,
     list: [
       FeatureName.VotingSimpleProcess,
       FeatureName.VotingMultipleAnswers,
@@ -98,6 +100,7 @@ export const productsFeatures: IProductFeatures[] = [
     votingPerYear: UNLIMITED,
     processes: UNLIMITED,
     administrators: 5,
+    baseMembers: 250,
     freePlan: false,
     list: [
       FeatureName.VotingSimpleProcess,
@@ -146,6 +149,7 @@ export const productsFeatures: IProductFeatures[] = [
     votingPerYear: UNLIMITED,
     processes: UNLIMITED,
     administrators: 2,
+    baseMembers: 1000,
     freePlan: false,
     list: [
       FeatureName.VotingSimpleProcess,

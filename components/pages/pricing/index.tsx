@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react'
 import styled from 'styled-components'
 import Question from 'remixicon/icons/System/question-line.svg'
 import AddCircle from 'remixicon/icons/System/add-circle-line.svg'
+import LessCircle from 'remixicon/icons/System/indeterminate-circle-line.svg'
 import RightArrow from 'remixicon/icons/System/arrow-right-line.svg'
 import { useTranslation } from 'react-i18next'
 
@@ -41,7 +42,7 @@ export const PricingView = ({ products, onCheckout }: IPricingProps) => {
 
   const handleScroll = (event) => {
     if (!tablePlanRef.current) return 
-    
+
     const tableYOffset = tablePlanRef.current.getBoundingClientRect().y
 
     if (tableYOffset < -tablePlanRef.current.offsetHeight + HEADER_HEIGHT) {
@@ -122,9 +123,10 @@ export const PricingView = ({ products, onCheckout }: IPricingProps) => {
 
       <div>
         <Button wide onClick={handleToggleShowFeatures}>
-          <AddCircle width="25px" fill={colors.blueText} />
+          { showFeatures? <LessCircle width="25px" fill={colors.blueText} />: <AddCircle width="25px" fill={colors.blueText} />}
+          
           <Typography variant={TypographyVariant.Body1} align={TextAlign.Center} margin="0 0 0 10px">
-            {i18n.t('pricing.body.show_all_features')}
+            { showFeatures? i18n.t('pricing.body.show_less_feature'): i18n.t('pricing.body.show_all_features') }
           </Typography>
         </Button>
       </div>

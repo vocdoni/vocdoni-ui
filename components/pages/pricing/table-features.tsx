@@ -343,6 +343,9 @@ export const TableFeatures = ({ products }: ITableFeaturesProps) => {
         groupTitle={i18n.t('pricing.table_features.support')}
         features={supportFeatures}
       />
+      <Typography variant={TypographyVariant.Small} color={colors.lightText}>
+        {i18n.t('pricing.table_features.features_coming_soon')}
+      </Typography>
     </>
   )
 }

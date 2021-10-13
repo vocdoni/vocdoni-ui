@@ -439,6 +439,10 @@
             "description": "",
             "title": ""
         },
+        "index": {
+            "back": "",
+            "checkout": ""
+        },
         "name": "",
         "street": "",
         "zip_code": ""
@@ -452,7 +456,8 @@
             "contact_us": "",
             "faq": "",
             "need_help_or_want_to_discuss_a_personalized_plan": "",
-            "show_all_features": ""
+            "show_all_features": "",
+            "show_less_feature": ""
         },
         "checking_card_summary": {
             "base_price": "",
@@ -502,6 +507,7 @@
             "donation_button": "",
             "download_pdf": "",
             "end_to_end_verifiability": "",
+            "features_coming_soon": "",
             "insights_and_metrics": "",
             "integrations": "",
             "live_chat": "",
@@ -539,6 +545,7 @@
             "added_cost_per_voter": "",
             "administrators": "",
             "base_price": "",
+            "based_on_100_members": "",
             "contact_us": "",
             "current_plan": "",
             "custom": "",
@@ -547,8 +554,10 @@
             "features": "",
             "get_in_touch_with_our_team_to_discus": "",
             "hide_all_features": "",
+            "members_included": "",
             "number_of_features": "",
             "plan": "",
+            "question_process": "",
             "try_for_free": "",
             "unlimited": "",
             "voting_process_per_year": ""
