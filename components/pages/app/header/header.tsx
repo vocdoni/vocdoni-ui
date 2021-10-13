@@ -68,7 +68,7 @@ export const Header = ({ hasReadyAccount, children }: IHeaderProps) => {
       guest: true
     },
     {
-      url: 'https://discord.gg/sQCxgYs',
+      url: 'https://discord.gg/8p8NSD4e2n',
       name: i18n.t("links.support"),
       external: true,
       logged: false,
