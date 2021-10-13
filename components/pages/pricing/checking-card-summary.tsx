@@ -8,9 +8,6 @@ import { Button } from '@components/elements/button'
 import { FlexContainer, FlexJustifyContent } from '@components/elements/flex'
 import { Typography, TypographyVariant } from '@components/elements/typography'
 
-import RouterService from '@lib/router'
-import { PAYMENT_PAGE } from '@const/routes'
-
 interface ICheckingCardSummaryProps {
   product: Product
   voters: number
@@ -19,7 +16,7 @@ interface ICheckingCardSummaryProps {
 
 export const CheckingCardSummary = ({ product, onClickCheckout, voters }: ICheckingCardSummaryProps) => {
   const { i18n } = useTranslation()
-  const totalPrice = ((product.getExtraVotersPrice(voters) + product.lastTier.flatAmount) / 100).toFixed(2)
+  const totalPrice = Product.getPriceInEuro((product.getExtraVotersPrice(voters) + product.lastTier.flatAmount), 2)
 
   return (
     <Card>
