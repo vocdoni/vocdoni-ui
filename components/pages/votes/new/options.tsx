@@ -20,7 +20,7 @@ import {
 } from './options-results-availability'
 import { ProcessEnvelopeType } from 'dvote-js'
 import { useScrollTop } from "@hooks/use-scroll-top"
-import { ruddlestackTrackProcessCreationWizardButtonClicked } from '@components/pages/app/external-dependencies/ruddlestack'
+import { TrackEvents, useRudderStack } from '@hooks/rudderstack'
 
 export const FormOptions = () => {
   const { i18n } = useTranslation()
@@ -28,6 +28,7 @@ export const FormOptions = () => {
   const { startDate, endDate, parameters, methods, startRightAway} = useProcessCreation()
   const [invalidDate, setInvalidDate] = useState<boolean>(false)
   const periodRef = useRef<IProcessPeriod>()
+  const { trackEvent } = useRudderStack()
 
   const valid = () => {
     return startDate && endDate && !invalidDate && startDate < endDate
@@ -44,7 +45,7 @@ export const FormOptions = () => {
     }
 
     methods.createProcess()
-    ruddlestackTrackProcessCreationWizardButtonClicked(ProcessCreationPageSteps.CREATION)
+    trackEvent(TrackEvents.PROCESS_CREATION_WIZARD_BUTTON_CLICKED, { step: ProcessCreationPageSteps.CREATION })
     methods.setPageStep(ProcessCreationPageSteps.CREATION)
   }
 

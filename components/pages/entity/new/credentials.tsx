@@ -15,7 +15,7 @@ import { FlexAlignItem, FlexContainer } from '@components/elements/flex'
 import { EntityCreationPageSteps } from '.'
 import { Banner } from '@components/blocks/banners'
 import { useScrollTop } from "@hooks/use-scroll-top"
-import { ruddlestackTrackEntityCreationWizardButtonClicked } from '@components/pages/app/external-dependencies/ruddlestack'
+import { TrackEvents, useRudderStack } from '@hooks/rudderstack'
 
 export const FormCredentials = () => {
   const { i18n } = useTranslation()
@@ -25,6 +25,7 @@ export const FormCredentials = () => {
   const [passphrase, setPassphrase] = useState('')
   const [passphrase2, setPassphrase2] = useState('')
   const [ack, setAck] = useState(false)
+  const { trackEvent } = useRudderStack()
 
   const onValidate = () => {
     if (!passphrase)
@@ -42,7 +43,12 @@ export const FormCredentials = () => {
     // OK
 
     methods.setPassphrase(passphrase)
-    ruddlestackTrackEntityCreationWizardButtonClicked(EntityCreationPageSteps.CREATION, name, entityType?.value, entitySize?.value)
+    trackEvent(TrackEvents.ENTITY_CREATION_WIZARD_BUTTON_CLICKED, {
+      step: EntityCreationPageSteps.CREATION,
+      name: name,
+      type: entityType?.value,
+      size: entitySize?.value
+    })
     methods.setPageStep(EntityCreationPageSteps.CREATION)
   }
 

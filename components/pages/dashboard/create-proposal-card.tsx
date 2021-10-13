@@ -8,15 +8,16 @@ import { Button } from '../../elements/button'
 
 import { Card } from '../../elements/cards'
 import { SectionText, TextAlign } from '../../elements/text'
-import { ruddlestackTrackProcessCreationButtonClicked } from '@components/pages/app/external-dependencies/ruddlestack'
 import { useWallet } from '@hooks/use-wallet'
+import { TrackEvents, useRudderStack } from '@hooks/rudderstack'
 
 export const DashboardCreateProposalCard = () => {
   const { wallet } = useWallet()
   const { i18n } = useTranslation()
+  const { trackEvent } = useRudderStack()
 
   const handleRuddlestackEvent = () => {
-    ruddlestackTrackProcessCreationButtonClicked(wallet?.address)
+    trackEvent(TrackEvents.PROCESS_CREATION_BUTTON_CLICKED, { entity: wallet?.address })
   }
 
   return (

@@ -30,9 +30,7 @@ import { Account } from '@lib/types'
 import { LanguageService } from '@lib/language-service';
 
 import { Header } from './header'
-import {
-  ruddlestackTrackSignInButtonClicked,
-} from '@components/pages/app/external-dependencies/ruddlestack'
+import { TrackEvents, useRudderStack } from '@hooks/rudderstack'
 import { Features } from '@recoil/atoms/account-features';
 import { FALLBACK_ACCOUNT_ICON } from '@const/account';
 
@@ -48,6 +46,7 @@ export const EntityHeader = () => {
 
   const { show } = useHelpCenter()
   const { accepted } = useCookies()
+  const { trackEvent } = useRudderStack()
 
   const [menuOpened, setMenuOpened] = useState<boolean>()
 
@@ -208,7 +207,7 @@ export const EntityHeader = () => {
         </Then>
 
         <Else>
-          <Button positive small href={ENTITY_SIGN_IN_PATH} wide onClick={ruddlestackTrackSignInButtonClicked}>
+          <Button positive small href={ENTITY_SIGN_IN_PATH} wide onClick={() => trackEvent(TrackEvents.LOGIN_BUTTON_CLICKED)}>
             {i18n.t('action.sign_in')}
           </Button>
         </Else>
