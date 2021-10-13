@@ -620,12 +620,16 @@
         "body": {
             "license": "",
             "license_period": "",
+            "manage_your_subscription": "",
             "more_plans": "",
             "price": "",
             "upgrade": ""
         },
         "header": {
             "title": ""
+        },
+        "index": {
+            "manage_subscription": ""
         }
     },
     "supported_langs": {

@@ -620,12 +620,16 @@
         "body": {
             "license": "Product name: {{licence}}",
             "license_period": "Subscription start {{start_date}} ends {{end_date}}",
-            "more_plans": "",
+            "manage_your_subscription": "Manage your subscription",
+            "more_plans": "More plans",
             "price": "Price: {{price}}€",
-            "upgrade": ""
+            "upgrade": "Upgrade"
         },
         "header": {
             "title": "Subscription"
+        },
+        "index": {
+            "manage_subscription": "Manage subscription"
         }
     },
     "supported_langs": {
