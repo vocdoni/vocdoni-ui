@@ -457,7 +457,7 @@
             "try_this_plan_for_free_for_14_days": "Try this plan for free for 14 days."
         },
         "checking_card": {
-            "adjust_membership_tier_to_get_the_best_value": "Adjust membership tier to get the best value:",
+            "added_cost": "Added Costs",
             "calculate_total_cost_of_your_plan": "Calculate Total Cost of your Plan",
             "change_membership": "Change membership:",
             "max": "Max. {{max}}",

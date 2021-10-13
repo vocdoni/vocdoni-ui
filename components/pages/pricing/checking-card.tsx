@@ -24,7 +24,6 @@ interface ICheckingCardProps {
 export const CheckingCard = ({ product, visible, onCheckout, onClose }: ICheckingCardProps) => {
   const { i18n } = useTranslation()
   const [voters, setVoters] = useState(0)
-  const [showSignInModal, setShowSignInModal] = useState<boolean>(false)
 
   const handleChangeQuantity = (selectedVoters) => {
     setVoters(selectedVoters)
