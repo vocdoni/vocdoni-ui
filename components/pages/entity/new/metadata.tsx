@@ -42,7 +42,6 @@ import { Typography, TypographyVariant } from '@components/elements/typography'
 import { SELECT_ORGANIZATION_TYPE, SELECT_ORGANIZATION_SIZE } from '../const/organizations'
 import { PRIVACY_PATH } from '@const/routes'
 import { TrackEvents, useRudderStack } from '@hooks/rudderstack'
-import { ruddlestackTrackEntityCreationWizardButtonClicked } from '@components/pages/app/external-dependencies/ruddlestack'
 import { OnPagePrivacy } from '@components/pages/policy/privacy/onpage-layer-1'
 
 export enum MetadataFields {
