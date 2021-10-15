@@ -234,6 +234,9 @@
         "invalid_answers_error": "Respuesta inválida",
         "invalid_back_up_file_error": "Copia de seguridad inválida",
         "invalid_choice_error": "Elección inválida",
+        "invalid_city_error": "",
+        "invalid_company_name": "",
+        "invalid_country_error": "",
         "invalid_description": "La descripción debe contener un mínimo de {{ length }} caracteres",
         "invalid_email_address": "Dirección de correo electrónico inválida",
         "invalid_entity_name": "El nombre de la entidad debe tener un mínimo de {{ length }} caracteres",
@@ -242,8 +245,10 @@
         "invalid_mnemonic_error": "Invalido mnemonic error",
         "invalid_passphrase_error": "Contraseña inválida",
         "invalid_passphrase_format_error": "La contraseña debe contener un mínimo de {{ length }} caracteres",
+        "invalid_postal_code": "",
         "invalid_question_error": "Pregunta inválida",
         "invalid_question_title": "El título debe contener un mínimo de {{ length }} caracteres",
+        "invalid_tax_id": "",
         "invalid_title": "El título debe contener un mínimo de {{ length }} caracteres",
         "invalid_url": "URL inválida",
         "no_subscription_found": "",
@@ -420,8 +425,6 @@
         "support": "Soporte"
     },
     "payment": {
-        "city": "",
-        "country": "",
         "header": {
             "description": "",
             "title": ""
@@ -430,9 +433,35 @@
             "back": "",
             "checkout": ""
         },
-        "name": "",
-        "street": "",
-        "zip_code": ""
+        "payment_detail": {
+            "added_cost_extra_members": "",
+            "base_price": "",
+            "billed_yearly": "",
+            "community_plan": "",
+            "plan_details": "",
+            "questions_year": "",
+            "unlimited": "",
+            "voting_processes": ""
+        },
+        "payment_form": {
+            "city": "",
+            "country": "",
+            "insert_personal_or_company_name": "",
+            "insert_tax_number": "",
+            "name": "",
+            "skip": "",
+            "street": "",
+            "tax_number": "",
+            "zip_code": ""
+        },
+        "payment_terms_and_conditions": {
+            "terms_and_conditions": "",
+            "terms_and_conditions_1": "",
+            "terms_and_conditions_2": "",
+            "terms_and_conditions_3": "",
+            "terms_and_conditions_4": "",
+            "terms_and_conditions_5": ""
+        }
     },
     "preview": {
         "ending_in_one_hour": "Acaba de aquí 1h",
