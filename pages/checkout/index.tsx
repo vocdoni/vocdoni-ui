@@ -49,7 +49,14 @@ export default function PaymentPage() {
 
   const paymentView = new ViewStrategy(
     () => productState === 'hasValue' && subscriptionState === 'hasValue' && product && product.features,
-    <PaymentView product={product} onPaymentSubmit={handlePaymentSubmit} subscription={subscription} />
+    (
+      <PaymentView
+        product={product}
+        quantity={quantity}
+        onPaymentSubmit={handlePaymentSubmit}
+        subscription={subscription}
+      />
+    )
   )
 
   const loadingView = new ViewStrategy(() => true, <Loader visible />)

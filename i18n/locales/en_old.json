@@ -1,0 +1,9 @@
+{
+    "payment": {
+        "city": "City",
+        "country": "Country",
+        "name": "Name",
+        "street": "Street",
+        "zip_code": "Zip code"
+    }
+}

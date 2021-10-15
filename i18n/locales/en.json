@@ -244,6 +244,9 @@
         "invalid_answers_error": "Invalid answers",
         "invalid_back_up_file_error": "Invalid backup file",
         "invalid_choice_error": "Invalid choice",
+        "invalid_city_error": "Invalid city",
+        "invalid_company_name": "Invalid company name",
+        "invalid_country_error": "Invalid country",
         "invalid_description": "The description must contain at least {{ length }} characters",
         "invalid_email_address": "Invalid e-mail address",
         "invalid_entity_name": "The entity name must contain at least {{ length }} characters",
@@ -252,9 +255,11 @@
         "invalid_mnemonic_error": "Invalid mnemonic value",
         "invalid_passphrase_error": "Invalid password",
         "invalid_passphrase_format_error": "The password must contain at least {{ length }} characters",
+        "invalid_postal_code": "Invalid postal code",
         "invalid_question_error": "Invalid question",
         "invalid_question_title": "The title must contain at least {{ length }} characters",
         "invalid_row_length": "Please correct lines {{invalidRows}} of the document. Correct these errors & upload the document again.",
+        "invalid_tax_id": "Invalid tax id",
         "invalid_title": "The title must contain at least {{ length }} characters",
         "invalid_url": "Invalid URL",
         "invalid_weighted_row_length": "Invalid weight on lines {{invalidRows}} of the document. Correct these errors & upload the document again.",
@@ -433,8 +438,6 @@
         "support": "Support"
     },
     "payment": {
-        "city": "City",
-        "country": "Country",
         "header": {
             "description": "Try a paid plan for free for 14 days. Cancel at any time.",
             "title": "Unlimited voting processes, unlimited census size with the lowest cost."
@@ -443,9 +446,35 @@
             "back": "",
             "checkout": ""
         },
-        "name": "Name",
-        "street": "Street",
-        "zip_code": "Zip code"
+        "payment_detail": {
+            "added_cost_extra_members": "Added cost extra members",
+            "base_price": "Base price",
+            "billed_yearly": "Billed yearly",
+            "community_plan": "",
+            "plan_details": "Plan details",
+            "questions_year": "Questions / year",
+            "unlimited": "Unlimited",
+            "voting_processes": "Voting processes / year"
+        },
+        "payment_form": {
+            "city": "City",
+            "country": "Country",
+            "insert_personal_or_company_name": "Insert personal or company name",
+            "insert_tax_number": "Insert tax number",
+            "name": "Name",
+            "skip": "Skip",
+            "street": "Address",
+            "tax_number": "TAX number",
+            "zip_code": "Zip code"
+        },
+        "payment_terms_and_conditions": {
+            "terms_and_conditions": "Terms & Conditions",
+            "terms_and_conditions_1": "The total price of the plan will only be charged after the 14 day trial period. Your can cancel at any trial period ends.",
+            "terms_and_conditions_2": "Your plan is billed yearly and will renew automatically on Sept 17, 2023.",
+            "terms_and_conditions_3": "You can upgrade your plan or maximum members of your plan at any moment, by contacting us.",
+            "terms_and_conditions_4": "Your can cancel your plan at any time before the renewal period, without losing access to your current plan.",
+            "terms_and_conditions_5": "The subscription of this plan is comprised by the <0>Terms & Conditions</0> of your entity account."
+        }
     },
     "preview": {
         "ending_in_one_hour": "Ending in 1h",
