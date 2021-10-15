@@ -43,8 +43,8 @@ export const MnemonicForm = ({
 
 
   useEffect(() => {
-    if (processInfo?.metadata?.meta[MetadataFields.BrandColor] || entityMetadata?.meta[MetadataFields.BrandColor]) {
-      const brandColor = processInfo?.metadata?.meta[MetadataFields.BrandColor] || entityMetadata?.meta[MetadataFields.BrandColor]
+    if (processInfo?.metadata?.meta?.[MetadataFields.BrandColor] || entityMetadata?.meta?.[MetadataFields.BrandColor]) {
+      const brandColor = processInfo?.metadata?.meta?.[MetadataFields.BrandColor] || entityMetadata?.meta?.[MetadataFields.BrandColor]
 
       updateAppTheme({
         accent1: brandColor,
@@ -53,7 +53,7 @@ export const MnemonicForm = ({
         accent2B: brandColor,
         textAccent1: brandColor,
         textAccent1B: brandColor,
-        customLogo: entityMetadata.media.logo
+        customLogo: entityMetadata.media?.logo
       })
     }
   }, [processInfo, entityMetadata])
