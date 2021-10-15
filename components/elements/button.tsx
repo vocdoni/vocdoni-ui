@@ -163,7 +163,7 @@ background: linear-gradient(106.26deg, ${props => hexToRgbA(props.theme.accent1B
 const NegativeButton = styled(BaseButton)`
 cursor: pointer;
 
-background: linear-gradient(106.26deg, ${props => hexToRgbA(props.theme.accent2B)} 5.73%, ${props => hexToRgbA(props.theme.accent2)} 93.83%);
+background: linear-gradient(106.26deg, ${props => hexToRgbA(props.theme.accent2B)} 5.73%, ${props => hexToRgbA(props.theme.accent2)} 93.83%) !important;
 
 &:hover {
     background: linear-gradient(106.26deg, ${props => hexToRgbA(props.theme.accent2B, 0.9)} 5.73%, ${props => hexToRgbA(props.theme.accent2, 0.9)} 93.83%);
