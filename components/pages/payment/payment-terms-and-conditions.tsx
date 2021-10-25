@@ -1,8 +1,13 @@
+import React from 'react'
+import styled from 'styled-components'
+import Link from 'next/dist/client/link'
+import { Trans, useTranslation } from 'react-i18next'
+
 import { Card } from '@components/elements/cards'
 import { Typography, TypographyVariant } from '@components/elements/typography'
-import React from 'react'
+import { colors } from '@theme/colors'
 
-import { useTranslation } from 'react-i18next'
+import { TERMS_PATH } from '@const/routes'
 
 export const PaymentTermsAndConditions = () => {
   const { i18n } = useTranslation()
@@ -13,33 +18,40 @@ export const PaymentTermsAndConditions = () => {
         {i18n.t('payment.payment_terms_and_conditions.terms_and_conditions')}
       </Typography>
 
-      <ul>
+      <TermsAndConditionsList>
         <li>
-          <Typography variant={TypographyVariant.Body2}>
+          <Typography variant={TypographyVariant.ExtraSmall} color={colors.blueText}>
             {i18n.t('payment.payment_terms_and_conditions.terms_and_conditions_1')}
           </Typography>
         </li>
         <li>
-          <Typography variant={TypographyVariant.Body2}>
+          <Typography variant={TypographyVariant.ExtraSmall} color={colors.blueText}>
             {i18n.t('payment.payment_terms_and_conditions.terms_and_conditions_2')}
           </Typography>
         </li>
         <li>
-          <Typography variant={TypographyVariant.Body2}>
+          <Typography variant={TypographyVariant.ExtraSmall} color={colors.blueText}>
             {i18n.t('payment.payment_terms_and_conditions.terms_and_conditions_3')}
           </Typography>
         </li>
         <li>
-          <Typography variant={TypographyVariant.Body2}>
+          <Typography variant={TypographyVariant.ExtraSmall} color={colors.blueText}>
             {i18n.t('payment.payment_terms_and_conditions.terms_and_conditions_4')}
           </Typography>
         </li>
         <li>
-          <Typography variant={TypographyVariant.Body2}>
-            {i18n.t('payment.payment_terms_and_conditions.terms_and_conditions_5')}
+          <Typography variant={TypographyVariant.ExtraSmall} color={colors.blueText}>
+            <Trans
+              defaults={i18n.t('payment.payment_terms_and_conditions.terms_and_conditions_5')}
+              components={[<Link href={TERMS_PATH}/>]}
+            />
           </Typography>
         </li>
-      </ul>
+      </TermsAndConditionsList>
     </Card>
   )
 }
+
+const TermsAndConditionsList = styled.ul`
+  margin-left: 0;
+`

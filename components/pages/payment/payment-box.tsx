@@ -4,7 +4,7 @@ import styled from "styled-components"
 import { Card } from "@components/elements/cards"
 import { Typography, TypographyVariant, TextAlign } from "@components/elements/typography"
 import { Product } from "@models/Product"
-import { Subscription } from "@recoil/atoms/subscription"
+import { Subscription } from "@models/Subscription"
 
 interface IPaymentBoxProps {
   product: Product

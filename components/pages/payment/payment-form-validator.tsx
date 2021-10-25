@@ -1,4 +1,4 @@
-import { Validation } from '@lib/validators'
+import { Validation, validateFields } from '@lib/validators'
 import { entityNameValidator } from '@lib/validators/entity-name-validator'
 import { taxIdValidator } from '@lib/validators/tax-id-validator'
 import { countryValidator } from '@lib/validators/country-validator'
@@ -6,10 +6,10 @@ import { cityValidator } from '@lib/validators/city-validator'
 
 
 
-import { PaymentFormField, IBillingDetails } from './payment-form'
+import { PaymentFormField, IBillingData } from './payment-form-invoice-data'
 import { postalCodeValidator } from '@lib/validators/postal-code-validator'
 
-export const validatePaymentForm = (billingDetails: IBillingDetails) => {
+export const validatePaymentForm = (billingDetails: IBillingData) => {
   const formValidation: Map<PaymentFormField, Validation> = new Map([
     [
       PaymentFormField.name,
@@ -47,4 +47,6 @@ export const validatePaymentForm = (billingDetails: IBillingDetails) => {
       },
     ],
   ])
+
+  return validateFields(formValidation)
 }

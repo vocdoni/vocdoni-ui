@@ -22,12 +22,12 @@ export const PaymentDetail = ({ product, quantity }: IPaymentDetailProps) => {
         {i18n.t('payment.payment_detail.plan_details')}
       </Typography>
 
-      <FlexContainer justify={FlexJustifyContent.SpaceEvenly}>
+      <FlexContainer justify={FlexJustifyContent.SpaceBetween}>
         <Typography variant={TypographyVariant.Body2}>{i18n.t('payment.payment_detail.community_plan')}</Typography>
         <Typography variant={TypographyVariant.Body2}>{i18n.t('payment.payment_detail.billed_yearly')}</Typography>
       </FlexContainer>
 
-      <FlexContainer justify={FlexJustifyContent.SpaceEvenly}>
+      <FlexContainer justify={FlexJustifyContent.SpaceBetween}>
         <Typography variant={TypographyVariant.Small}>{i18n.t('payment.payment_detail.voting_processes')}</Typography>
         <Typography variant={TypographyVariant.Small}>
           {product && product.features.votingPerYear == UNLIMITED
@@ -36,7 +36,7 @@ export const PaymentDetail = ({ product, quantity }: IPaymentDetailProps) => {
         </Typography>
       </FlexContainer>
 
-      <FlexContainer justify={FlexJustifyContent.SpaceEvenly}>
+      <FlexContainer justify={FlexJustifyContent.SpaceBetween}>
         <Typography variant={TypographyVariant.Small}>{i18n.t('payment.payment_detail.questions_year')}</Typography>
         <Typography variant={TypographyVariant.Small}>
           {product && product.features.processes == UNLIMITED
@@ -45,14 +45,14 @@ export const PaymentDetail = ({ product, quantity }: IPaymentDetailProps) => {
         </Typography>
       </FlexContainer>
 
-      <FlexContainer justify={FlexJustifyContent.SpaceEvenly}>
+      <FlexContainer justify={FlexJustifyContent.SpaceBetween}>
         <Typography variant={TypographyVariant.Small}>{i18n.t('payment.payment_detail.base_price')}</Typography>
         <Typography variant={TypographyVariant.Small}>
-          EUR {Product.getPriceInEuro(product.price.unitAmount, 0)}
+          EUR { product.priceEuro }
         </Typography>
       </FlexContainer>
 
-      <FlexContainer justify={FlexJustifyContent.SpaceEvenly}>
+      <FlexContainer justify={FlexJustifyContent.SpaceBetween}>
         <Typography variant={TypographyVariant.Small}>{i18n.t('payment.payment_detail.added_cost_extra_members')}</Typography>
         <Typography variant={TypographyVariant.Small}>
           EUR {Product.getPriceInEuro(product.getExtraVotersPrice(quantity), 2)}

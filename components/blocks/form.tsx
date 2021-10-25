@@ -47,8 +47,7 @@ type FileFormGroupProps = {
 
 const RANDOM_LENGTH = 10
 
-const generateRandomId = () =>
-  (Math.random() * Math.pow(10, RANDOM_LENGTH)).toFixed(0)
+const generateRandomId = () => (Math.random() * Math.pow(10, RANDOM_LENGTH)).toFixed(0)
 
 export enum FormGroupVariant {
   Small = 'small',
@@ -142,7 +141,13 @@ export const SelectFormGroup = ({
   onChange,
   variant = FormGroupVariant.Regular,
 }: ISelectFromGroupProps) => {
+  const [isTouched, setIsTouched] = useState(false)
   const inputId = id || `input-${generateRandomId()}`
+
+  const handleChange = (value: ISelectOption) => {
+    setIsTouched(true)
+    onChange(value)
+  }
 
   return (
     <FormGroup variant={variant}>
@@ -158,8 +163,8 @@ export const SelectFormGroup = ({
           placeholder={placeholder}
           name={name}
           value={value}
-          error={!!error}
-          onChange={onChange}
+          error={isTouched && !!error}
+          onChange={handleChange}
         />
         {info && <InputFeedback>{info}</InputFeedback>}
         {success && <InputFeedbackSuccess>{success}</InputFeedbackSuccess>}
@@ -257,8 +262,7 @@ const InputFeedbackSuccess = styled(InputFeedback)`
 
 export const FormGroup = styled.div<{ variant: FormGroupVariant }>`
   position: relative;
-  ${({ theme, variant }) =>
-    FormGroupVariantStyle[variant || FormGroupVariant.Small](theme)}
+  ${({ theme, variant }) => FormGroupVariantStyle[variant || FormGroupVariant.Small](theme)}
 `
 
 export const Fieldset = styled.fieldset`

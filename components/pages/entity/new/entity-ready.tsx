@@ -18,7 +18,7 @@ import { TrackEvents, useRudderStack } from '@hooks/rudderstack'
 import { useRouter } from 'next/router'
 import { route } from 'next/dist/next-server/server/router'
 
-export const EntityReady = () => {
+export const EntityReady = () => {          
   const { wallet } = useWallet()
   const { i18n } = useTranslation()
   const { query, push } = useRouter()

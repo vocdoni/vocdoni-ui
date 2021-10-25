@@ -36,6 +36,14 @@ export class Product {
     return this.prices[0]
   }
 
+  public getTotalPrice(members: number): number {
+    let total = this.lastTier ? this.lastTier.flatAmount : 0
+
+    total += this.getExtraVotersPrice(members)
+
+    return total
+  }
+
   public getExtraVotersPrice(quantity: number): number {
     let totalCost = 0
     let remainingQuantity = quantity
