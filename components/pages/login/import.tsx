@@ -8,6 +8,7 @@ import { CREATE_ACCOUNT_PATH, ACCOUNT_IMPORT_PATH } from '../../../const/routes'
 import { SectionTitle, SectionText, TextAlign } from '../../elements/text'
 import { Column, Grid } from '../../elements/grid'
 import { SquareButton } from '../../elements/button'
+import { TrackEvents, useRudderStack } from '@hooks/rudderstack'
 
 interface SignInImportProps {
   hasAccount: boolean
@@ -15,12 +16,14 @@ interface SignInImportProps {
 
 export const SignInImport = ({ hasAccount }: SignInImportProps) => {
   const { i18n } = useTranslation()
+  const { trackEvent } = useRudderStack()
   const router = useRouter()
   const title = hasAccount
     ? i18n.t('sign_in.additional_entities')
     : i18n.t('sign_in.import_an_account_or_create_a_new_entity')
 
   const gotToCreateEntity = () => {
+    trackEvent(TrackEvents.ENTITY_CREATION_BUTTON_CLICKED)
     router.push(CREATE_ACCOUNT_PATH)
   }
 
