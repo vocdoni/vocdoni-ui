@@ -386,7 +386,7 @@ const IndexPage = () => {
                       variant={TypographyVariant.Small}
                       color={colors.accent1}
                     >
-                      {i18n.t('home.free_until_15_october')}
+                      {i18n.t('home.free_until_end_2021')}
                     </Typography>
                   </ActionsContainer>
                 </ReadyTextContainer>
