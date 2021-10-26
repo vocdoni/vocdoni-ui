@@ -197,7 +197,7 @@
             "view_in_explorer": "Veure en el navegador"
         },
         "personal_data_protection_information": "Informació de Protecció de Dades Personals",
-        "i_have_read_and_accept_personal_data": "(Optional) Dono el meu consentiment exprés per a la gestió comercial i de serveis. <0>Més informació</0>",
+        "i_have_read_and_accept_personal_data": "(Optional) Dono el meu consentiment exprés per a la gestió comercial i de serveis.",
         "i_have_read_and_accept_terms": "He llegit i accepto la \"Informació de protecció de dades personals\", i la Política de Privacitat de Aragon Labs",
         "logo": "Logo de l'entitat",
         "name": "Nom de l'entitat",
