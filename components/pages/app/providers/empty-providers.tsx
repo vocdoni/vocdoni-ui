@@ -1,3 +1,4 @@
+import { UseRudderStackProvider } from "@hooks/rudderstack";
 import React, { ReactNode } from "react";
 
 interface IEmptyProvidersProps {
@@ -5,7 +6,7 @@ interface IEmptyProvidersProps {
 }
 
 export const EmptyProviders = ({ children }: IEmptyProvidersProps) => (
-  <>
+  <UseRudderStackProvider>
     {children}
-  </>
+  </UseRudderStackProvider>
 )
