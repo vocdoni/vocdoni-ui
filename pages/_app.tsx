@@ -30,7 +30,7 @@ type NextAppProps = AppInitialProps & {
 const VocdoniApp: FC<NextAppProps> = ({ Component, pageProps }) => {
   const { i18n } = useTranslation()
   const appFullTitle = process.env.APP_TITLE + ' - ' + i18n.t('app.meta.title')
-  const appImage = '/images/home/section-1/computer-device.png'
+  const appImage = 'https://vocdoni.app/images/home/section-1/computer-device.png'
   const commitSHA = process.env.COMMIT_SHA
 
   // If the current page component defined a custom layout, use it
