@@ -2,8 +2,8 @@ import React, { useRef, useState } from 'react'
 import styled from 'styled-components'
 import { useTranslation } from 'react-i18next'
 import { loadStripe } from '@stripe/stripe-js'
-
 import { Elements } from '@stripe/react-stripe-js'
+
 import { STRIPE_PUB_KEY } from '@const/env'
 
 import LeftArrow from 'remixicon/icons/System/arrow-left-line.svg'
@@ -62,6 +62,7 @@ export const PaymentView = ({ product, subscription, quantity, onPaymentSubmit }
     billingData.current = data
     setPaymentStep(PaymentFormStep.PaymentData)
   }
+
 
   const handlePaymentSubmit = (paymentIntent: PaymentIntent) => {
     onPaymentSubmit(paymentIntent)

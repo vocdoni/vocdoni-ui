@@ -456,6 +456,14 @@
             "unlimited": "",
             "voting_processes": ""
         },
+        "payment_form_checkout": {
+            "added_cost_extra_members": "",
+            "back": "",
+            "base_price": "",
+            "excluding_tax": "",
+            "insert_your_card_details": "",
+            "subtotal": ""
+        },
         "payment_form": {
             "city": "",
             "continue": "",
@@ -874,6 +882,11 @@
             "finish_voting": "Finalizar votación",
             "next_question": "Siguiente pregunta",
             "question": "Pregunta {{questionIndex}}/{{totalQuestions}}"
+        }
+    },
+    "payment_form": {
+        "payment_form_checkout": {
+            "base_price": ""
         }
     }
 }

@@ -43,7 +43,7 @@ export const PaymentTermsAndConditions = () => {
           <Typography variant={TypographyVariant.ExtraSmall} color={colors.blueText}>
             <Trans
               defaults={i18n.t('payment.payment_terms_and_conditions.terms_and_conditions_5')}
-              components={[<Link href={TERMS_PATH}/>]}
+              components={[<a href={TERMS_PATH} target='_blank'/>]}
             />
           </Typography>
         </li>
@@ -53,5 +53,5 @@ export const PaymentTermsAndConditions = () => {
 }
 
 const TermsAndConditionsList = styled.ul`
-  margin-left: 0;
+  padding-left: 16px;
 `

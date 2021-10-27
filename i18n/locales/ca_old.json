@@ -4,6 +4,11 @@
         "country": "",
         "name": "",
         "street": "",
-        "zip_code": ""
+        "zip_code": "",
+        "payment_detail": {
+            "excluding_tax": "",
+            "insert_your_card_details": "",
+            "subtotal": ""
+        }
     }
 }

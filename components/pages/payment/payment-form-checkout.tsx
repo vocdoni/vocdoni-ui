@@ -1,18 +1,20 @@
 import React, { useState } from 'react'
 import { PaymentIntent } from '@stripe/stripe-js'
 import { useElements, useStripe, PaymentElement } from '@stripe/react-stripe-js'
+import styled from 'styled-components'
 
-
-import { FlexContainer, FlexJustifyContent } from '@components/elements/flex'
+import { FlexAlignItem, FlexContainer, FlexJustifyContent } from '@components/elements/flex'
 import { Typography, TypographyVariant } from '@components/elements/typography'
 import { useTranslation } from 'react-i18next'
 import { Product } from '@models/Product'
-import { Subscription } from '@models/Subscription'
 import { Button } from '@components/elements/button'
 import { IBillingData } from './payment-form-invoice-data'
+import RouterService from '@lib/router'
+import { PAYMENT_SUCCESS_PAGE } from '@const/routes'
+import { Spinner } from '@components/elements/spinner'
 
 interface IPaymentFormCheckoutProps {
-  onSubmit: (intent: PaymentIntent) => void
+  onSubmit: (intent: any) => void
   onBack: () => void
   product: Product
   billingData: IBillingData
@@ -29,9 +31,9 @@ export const PaymentFormCheckout = ({
   const { i18n } = useTranslation()
   const [paymentError, setPaymentError] = useState<string>(null)
   const [checkingPayment, setCheckingPayment] = useState<boolean>(false)
+  const [componentMounted, setComponentMounted] = useState<boolean>(false)
   const stripe = useStripe()
   const elements = useElements()
-
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -39,20 +41,19 @@ export const PaymentFormCheckout = ({
     setCheckingPayment(true)
 
     try {
-      let { error, paymentIntent } = await stripe.confirmPayment({
+      let result = await stripe.confirmPayment({
         elements,
-        // payment_method: {
-        //   card: cardElement,
-        //   billing_details: billingData,
-        // },
+        confirmParams: {
+          return_url: RouterService.instance.get(PAYMENT_SUCCESS_PAGE, {}),
+        },
       })
 
-      if (error) {
-        setPaymentError(error.message)
+      if (result.error) {
+        setPaymentError(result.error.message)
         return
       }
-      console.log('El pago esta bien', paymentIntent)
-      onSubmit(paymentIntent)
+      console.log('El pago esta bien', result)
+      onSubmit(result)
     } finally {
       setCheckingPayment(false)
     }
@@ -63,7 +64,7 @@ export const PaymentFormCheckout = ({
       <div>
         <FlexContainer justify={FlexJustifyContent.SpaceBetween}>
           <Typography variant={TypographyVariant.ExtraSmall}>
-            {i18n.t('payment_form.payment_form_checkout.base_price')}
+            {i18n.t('payment.payment_form_checkout.base_price')}
           </Typography>
 
           <Typography variant={TypographyVariant.ExtraSmall}>EUR {product.priceEuro}</Typography>
@@ -71,7 +72,7 @@ export const PaymentFormCheckout = ({
 
         <FlexContainer justify={FlexJustifyContent.SpaceBetween}>
           <Typography variant={TypographyVariant.ExtraSmall}>
-            {i18n.t('payment.payment_detail.added_cost_extra_members')}
+            {i18n.t('payment.payment_form_checkout.added_cost_extra_members')}
           </Typography>
           <Typography variant={TypographyVariant.ExtraSmall}>
             EUR {Product.getPriceInEuro(product.getExtraVotersPrice(quantity), 2)}
@@ -80,9 +81,9 @@ export const PaymentFormCheckout = ({
 
         <FlexContainer justify={FlexJustifyContent.SpaceBetween}>
           <FlexContainer>
-            <Typography variant={TypographyVariant.Small}>{i18n.t('payment.payment_detail.subtotal')}</Typography>
+            <Typography variant={TypographyVariant.Small}>{i18n.t('payment.payment_form_checkout.subtotal')}</Typography>
             <Typography variant={TypographyVariant.ExtraSmall}>
-              ({i18n.t('payment.payment_detail.excluding_tax')})
+              ({i18n.t('payment.payment_form_checkout.excluding_tax')})
             </Typography>
           </FlexContainer>
           <Typography variant={TypographyVariant.Small}>
@@ -93,10 +94,13 @@ export const PaymentFormCheckout = ({
 
       <div>
         <Typography variant={TypographyVariant.Body2}>
-          {i18n.t('payment.payment_detail.insert_your_card_details')}
+          {i18n.t('payment.payment_form_checkout.insert_your_card_details')}
         </Typography>
 
-          <PaymentElement />
+        <PaymentElementContainer>
+          {!componentMounted && <PaymentElementLoader><FlexContainer justify={FlexJustifyContent.Center} alignItem={FlexAlignItem.Center}><Spinner size="40px"/></FlexContainer></PaymentElementLoader>}
+          <PaymentElement onReady={() => setComponentMounted(true)} />
+        </PaymentElementContainer>
       </div>
 
       <FlexContainer justify={FlexJustifyContent.SpaceBetween}>
@@ -105,3 +109,17 @@ export const PaymentFormCheckout = ({
     </form>
   )
 }
+
+const PaymentElementContainer = styled.div`
+  min-height: 300px;
+  margin-bottom: 20px;
+  position: relative;
+`
+
+const PaymentElementLoader = styled.div`
+position: absolute;
+  min-height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`

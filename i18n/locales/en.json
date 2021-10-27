@@ -443,18 +443,26 @@
             "title": "Unlimited voting processes, unlimited census size with the lowest cost."
         },
         "index": {
-            "back": "",
-            "checkout": ""
+            "back": "Back",
+            "checkout": "Checkout"
         },
         "payment_detail": {
             "added_cost_extra_members": "Added cost extra members",
             "base_price": "Base price",
             "billed_yearly": "Billed yearly",
-            "community_plan": "",
+            "community_plan": "Community plan",
             "plan_details": "Plan details",
             "questions_year": "Questions / year",
             "unlimited": "Unlimited",
             "voting_processes": "Voting processes / year"
+        },
+        "payment_form_checkout": {
+            "added_cost_extra_members": "Added cost extra members",
+            "back": "Back",
+            "base_price": "Base price",
+            "excluding_tax": "Excluding tax",
+            "insert_your_card_details": "Insert your card details",
+            "subtotal": "Subtotal"
         },
         "payment_form": {
             "city": "City",
@@ -874,6 +882,11 @@
             "finish_voting": "Finish voting",
             "next_question": "Next question",
             "question": "Question {{questionIndex}}/{{totalQuestions}}"
+        }
+    },
+    "payment_form": {
+        "payment_form_checkout": {
+            "base_price": ""
         }
     }
 }
