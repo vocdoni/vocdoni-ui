@@ -1,11 +1,11 @@
 import styled from 'styled-components'
 
 import { sizes } from '../../../../theme/sizes'
-
-import { Footer } from '../footer'
 import { MessageAlert } from '../../../blocks/msg-alert'
 import { LoadingAlert } from '../../../blocks/loading-alert'
+
 import { VoteHeader } from '../header/voter'
+import { VoterFooter } from '../footer/voter'
 // import { useRouter } from 'next/router'
 
 
@@ -32,7 +32,7 @@ export const LayoutVoter = ({ children }) => {
 
       <LayoutContainer>{children}</LayoutContainer>
 
-      <Footer />
+      <VoterFooter />
     </>
   )
 }

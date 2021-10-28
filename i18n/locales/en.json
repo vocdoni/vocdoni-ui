@@ -11,10 +11,8 @@
         "sign_in": "Sign in"
     },
     "app": {
-        "meta": {
-            "title": "Easy and secure solution for all your governance needs",
-            "description": "Vocdoni is a secure, private & universally verifiable voting system for any organization.",
-            "keywords": "Blockchain Voting, Mobile Voting, Universally Verifiable, Voting-As-A-Service, Decentralized Governance, Anonymous Voting, Privacy Centric, Secure Electronic Voting, Tamper-Proof Digital Voting, Data-Sovereignty, Resilient Governance, Governance/Coordination Tools"
+        "footer": {
+            "powered_by": "Powered by"
         },
         "header": {
             "create_account_backup": "Create account backup",
@@ -27,6 +25,11 @@
             "settings": "Setting",
             "update_entity": "Update entity",
             "user_language": "Language: {{ lang }}"
+        },
+        "meta": {
+            "description": "Vocdoni is a secure, private & universally verifiable voting system for any organization.",
+            "keywords": "Blockchain Voting, Mobile Voting, Universally Verifiable, Voting-As-A-Service, Decentralized Governance, Anonymous Voting, Privacy Centric, Secure Electronic Voting, Tamper-Proof Digital Voting, Data-Sovereignty, Resilient Governance, Governance/Coordination Tools",
+            "title": "Easy and secure solution for all your governance needs"
         }
     },
     "backup": {
@@ -205,7 +208,7 @@
         "new_entity": "Entity name",
         "passphrase": "Password",
         "passphrase_image_alt": "Password",
-        "pending_steps": " ",
+        "personal_data_protection_information": "Personal Data Protection Information",
         "repeat_passphrase": "Repeat the password",
         "select_city_council": "City Council",
         "select_company": "Company",
@@ -410,9 +413,9 @@
         "dashboard": "Dashboard",
         "docs": "Docs",
         "help": "Help Center",
-        "requests_and_bugs": "Feature Request & Bugs",
         "pricing": "Pricing",
         "privacy_policy": "Privacy Policy",
+        "requests_and_bugs": "Feature Request & Bugs",
         "support": "Support"
     },
     "preview": {
@@ -505,7 +508,6 @@
         "back_to_dashboard": "Back to the dashboard",
         "brand_color_used_on_the_voting_process": "Brand color used on the voting process",
         "brand_process_color": "Brand color",
-        "brief_description": "Brief description",
         "canceled_vote": "Vote canceled",
         "cannot_connect_to_the_blockchain_to_check_the_account_balance": "Cannot connect to the blockchain network",
         "cannot_connect_to_the_vocdoni_chain": "Cannot connect to the vocdoni chain",
