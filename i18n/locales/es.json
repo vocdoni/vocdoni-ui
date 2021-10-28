@@ -1,7 +1,7 @@
 {
     "action": {
         "browse": "Navegar",
-        "check_terms_and_conditions": "Revisar términos y condiciones",
+        "check_terms_and_conditions": "Debes acceptar los términos y condiciones",
         "clean": "Limpiar",
         "continue": "Continuar",
         "go_back": "Atrás",
@@ -196,8 +196,8 @@
             "view_in_explorer": "Ver en el explorador"
         },
         "personal_data_protection_information": "Información de Protección de Datos",
-        "i_have_read_and_accept_personal_data": "(Optional) Doy mi consentimiento expreso para la gestión comercial y de servicios.",
-        "i_have_read_and_accept_terms": "He leído y acepto el “Información de protección de datos personales”, y la <1>Política de Privacidad</1> de Aragon Labs",
+        "i_have_read_and_accept_personal_data": "(Optional) Doy mi consentimiento expreso para la gestión comercial y de servicios",
+        "i_have_read_and_accept_terms": "He leído y acepto el “<2>Información de protección de datos personales</2>”, y la “<1>Política de Privacidad</1>” de Aragon Labs",
         "logo": "Logo de la entidad",
         "name": "Nombre de la entidad",
         "new_entity": "Nueva Entidad",
