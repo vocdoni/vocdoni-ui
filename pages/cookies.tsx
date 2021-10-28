@@ -1,9 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Checkbox } from '@components/elements/checkbox'
 import i18n from '@i18n'
 import { useCookies } from '@hooks/cookies'
 import { Button } from '@components/elements/button'
+import { CheckboxToggle } from 'react-rainbow-components';
 
 const CoookiesPage = () => {
   const { acceptCookies, rejectCookies, accepted } = useCookies()
@@ -58,7 +58,15 @@ const CoookiesPage = () => {
           number of visitors and their trend over time. Anonymously identify the most visited content and therefore the
           most attractive to Users. Know if the User who is accessing is a new or repeated visit.</p>
         <p ></p>
-        <h4>Analytics</h4>
+        <h4>
+          <CheckboxToggle
+            id="accept-analytics"
+            value={accepted}
+            onChange={(event) => event.target.checked ? acceptCookies() : rejectCookies()}
+            label={i18n.t('cookies.analytics')}
+            labelAlignment={'left'}
+          />
+        </h4>
         <p ></p>
         <p >Analytical cookies are used to understand how visitors interact with the website.
           These cookies help provide information on metrics the number of visitors, bounce rate, traffic source, etc.</p>
@@ -126,12 +134,6 @@ const CoookiesPage = () => {
             </tr>
           </tbody>
         </table>
-        <Checkbox
-          id="accept-analytics"
-          checked={accepted}
-          onChange={(ack: boolean) => ack ? acceptCookies() : rejectCookies()}
-          text={i18n.t('cookies.accept_analytics')}
-        />
         <h4>How to disable Cookies in the main browsers</h4>
         <p ></p>
         <p >Normally it is possible to stop accepting browser Cookies, or to stop accepting Cookies
