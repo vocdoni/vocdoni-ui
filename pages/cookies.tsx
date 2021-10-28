@@ -51,7 +51,7 @@ const CoookiesPage = () => {
           preferences in the specific social network.</p>
         <p ></p>
         <p >ANALYTICAL COOKIES: Every time a User visits a Service, a tool from an external provider
-          (Google Analytics) generates an analytical Cookie on the User's computer. This Cookie, which is only
+          (Rudderstack) generates an analytical Cookie on the User's computer. This Cookie, which is only
           generated during the visit, will serve in future visits to Aragonlabs.org to anonymously identify the visitor.
           The main objectives pursued are: Allow the anonymous identification of browsing Users through the
           &quot;Cookie&quot; (identifies browsers and devices, not people) and therefore the approximate count of the
@@ -127,7 +127,7 @@ const CoookiesPage = () => {
           </tbody>
         </table>
         <Checkbox
-          id="accept-terms"
+          id="accept-analytics"
           checked={accepted}
           onChange={(ack: boolean) => ack ? acceptCookies() : rejectCookies()}
           text={i18n.t('cookies.accept_analytics')}
@@ -167,9 +167,11 @@ const CoookiesPage = () => {
         <p >We want to be transparent about the data that we and our partners collect and how we use it so that
           you have greater control over your personal data.</p>
 
-        <Button positive href={"/"} wide>
-          {i18n.t('cookies.save')}
-        </Button>
+        <SpacedContainer>
+          <Button positive href={"/"}>
+            {i18n.t('cookies.save')}
+          </Button>
+        </SpacedContainer>
       </PrivacyWrapper>
     </>
   )
@@ -200,6 +202,10 @@ const PrivacyWrapper = styled.div`
     padding: 5px;
   }
 }
+`
+const SpacedContainer = styled.div`
+  margin-top: 40px;
+  margin-bottom: 30px;
 `
 
 export default CoookiesPage
