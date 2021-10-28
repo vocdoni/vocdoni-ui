@@ -1,4 +1,4 @@
-import { VOTING_PATH } from '@const/routes'
+import { COOKIES_PATH, VOTING_PATH } from '@const/routes'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 
@@ -21,10 +21,13 @@ export function useCookies() {
   const { trackPage } = useRudderStack()
 
   useEffect(() => {
+    if (router.pathname.includes(COOKIES_PATH)) setHide(true)
+
     const cookieAcceptance = localStorage.getItem(COOKIES_STORE_KEY)
 
     if (cookieAcceptance) {
       setAccepted(cookieAcceptance === CookiesStatus.Accept)
+      setHide(true)
     }
   }, [])
 

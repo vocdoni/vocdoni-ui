@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { Checkbox } from '@components/elements/checkbox'
 import i18n from '@i18n'
 import { useCookies } from '@hooks/cookies'
+import { Button } from '@components/elements/button'
 
 const CoookiesPage = () => {
   const { acceptCookies, rejectCookies, accepted } = useCookies()
@@ -166,6 +167,9 @@ const CoookiesPage = () => {
         <p >We want to be transparent about the data that we and our partners collect and how we use it so that
           you have greater control over your personal data.</p>
 
+        <Button positive href={"/"} wide>
+          {i18n.t('cookies.save')}
+        </Button>
       </PrivacyWrapper>
     </>
   )

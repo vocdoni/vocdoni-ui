@@ -14,12 +14,10 @@ import { If } from 'react-if'
 
 export const CookiesBanner = () => {
   const { i18n } = useTranslation()
+  const { acceptCookies, hide } = useCookies()
 
-  const { acceptCookies, accepted, hide } = useCookies()
-
-  const showCookiesBanner = !accepted && !hide
   return (
-    <If condition={showCookiesBanner}>
+    <If condition={!hide}>
       <CookiesContainer>
         <CookiesBannerContent>
           <TextContainer>
