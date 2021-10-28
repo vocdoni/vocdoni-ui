@@ -3,7 +3,11 @@ import styled from 'styled-components'
 import { ProcessDetails, EntityMetadata } from 'dvote-js'
 import { useTranslation } from 'react-i18next'
 
-import { Fieldset, FormGroupVariant, InputFormGroup } from '@components/blocks/form'
+import {
+  Fieldset,
+  FormGroupVariant,
+  InputFormGroup,
+} from '@components/blocks/form'
 import { Column } from '@components/elements/grid'
 import { Button } from '@components/elements/button'
 import { PageCard } from '@components/elements/cards'
@@ -42,7 +46,7 @@ export const SignInForm = ({
   }
 
   return (
-    <PageCard>
+    <SignInFormCard>
       <CardImageHeader
         title={processInfo?.metadata?.title.default}
         processImage={processInfo?.metadata?.media.header}
@@ -50,7 +54,7 @@ export const SignInForm = ({
         entityImage={entity?.media.avatar}
       />
 
-      <Fieldset disabled={checkingCredentials}>
+      <LoginFieldset disabled={checkingCredentials}>
         <form onSubmit={handleSubmit}>
           {fields.map((fieldName, i) => {
             const isLastItem = i === fields.length - 1
@@ -60,7 +64,9 @@ export const SignInForm = ({
                   <InputFormGroup
                     label={fieldName}
                     id={fieldName}
-                    onChange={(e: ChangeEvent<HTMLInputElement>) => onChange(fieldName, e.target.value)}
+                    onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                      onChange(fieldName, e.target.value)
+                    }
                     value={values[fieldName]}
                     variant={FormGroupVariant.Small}
                   />
@@ -74,9 +80,9 @@ export const SignInForm = ({
               </FlexContainer>
             )
           })}
-          <HiddenButton type='submit'></HiddenButton>
+          <HiddenButton type="submit"></HiddenButton>
           <FlexContainer justify={FlexJustifyContent.Center}>
-            <Column lg={3} md={4} sm={12}>
+            <InputContainer>
               <Button
                 wide
                 positive
@@ -86,13 +92,24 @@ export const SignInForm = ({
               >
                 {i18n.t('action.continue')}
               </Button>
-            </Column>
+            </InputContainer>
           </FlexContainer>
         </form>
-      </Fieldset>
-    </PageCard>
+      </LoginFieldset>
+    </SignInFormCard>
   )
 }
+
+const LoginFieldset = styled(Fieldset)`
+  margin-top: 20px;
+`
+
+const SignInFormCard = styled(PageCard)`
+  @media ${({ theme }) => theme.screenMax.mobileL} {
+    margin: -24px -20px 0 -20px;
+  }
+`
+
 const HiddenButton = styled.button`
   visibility: hidden;
 `

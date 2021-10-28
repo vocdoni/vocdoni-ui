@@ -11,12 +11,10 @@
         "sign_in": "Accedeix-hi"
     },
     "app": {
-      "meta": {
-            "title": "La solució fàcil i segura per a totes les seves necessitats de govern",
-            "description": "Vocdoni és un sistema de votació segur, privat i universalment verificable per a qualsevol organització.",
-            "keywords": "Vot per cadena de blocs, vot mòbil, verificació universal, vot com a servei, governança descentralitzada, vot anònim, centrat en la privacitat, vot electrònic segur, vot digital a prova de manipulacions, sobirania de dades, governança resistent, eines de governança / coordinació"
-      },
-      "header": {
+        "footer": {
+            "powered_by": ""
+        },
+        "header": {
             "create_account_backup": "Copia de Seguretat",
             "custom_branding": "",
             "dashboard": "Dashboard",
@@ -27,6 +25,11 @@
             "settings": "Eines",
             "update_entity": "Actualitzar l’entitat",
             "user_language": ""
+        },
+        "meta": {
+            "description": "Vocdoni és un sistema de votació segur, privat i universalment verificable per a qualsevol organització.",
+            "keywords": "Vot per cadena de blocs, vot mòbil, verificació universal, vot com a servei, governança descentralitzada, vot anònim, centrat en la privacitat, vot electrònic segur, vot digital a prova de manipulacions, sobirania de dades, governança resistent, eines de governança / coordinació",
+            "title": "La solució fàcil i segura per a totes les seves necessitats de govern"
         }
     },
     "backup": {
@@ -77,7 +80,6 @@
     "cookies": {
         "accept": "Accept",
         "cookies_paragraph_1": "This website uses cookies to improve your experience while browsing the website. The cookies that are classified as necessary are stored in your browser, as they are essential for the functioning of the basic functionalities of the website.",
-        "cookies_paragraph_2": "We also use third-party cookies that help us analyze and understand how you use this website. These cookies will be stored in your browser only with your consent. You also have the option to opt out of receiving these cookies. But opting out of some of these cookies may affect your browsing experience.",
         "more_details": "More details",
         "reject": "Reject"
     },
@@ -196,7 +198,6 @@
             "entity_description": "Descripció de l'entitat",
             "view_in_explorer": "Veure en el navegador"
         },
-        "personal_data_protection_information": "Informació de Protecció de Dades Personals",
         "i_have_read_and_accept_personal_data": "(Optional) Dono el meu consentiment exprés per a la gestió comercial i de serveis.",
         "i_have_read_and_accept_terms": "He llegit i accepto la \"Informació de protecció de dades personals\", i la Política de Privacitat de Aragon Labs",
         "logo": "Logo de l'entitat",
@@ -204,7 +205,7 @@
         "new_entity": "Nom de l'entitat",
         "passphrase": "Contrasenya",
         "passphrase_image_alt": "Contrasenya",
-        "pending_steps": " ",
+        "personal_data_protection_information": "Informació de Protecció de Dades Personals",
         "repeat_passphrase": "Repeteix la contrasenya",
         "select_city_council": "Ajuntament",
         "select_company": "Empresa",
@@ -409,9 +410,9 @@
         "dashboard": "Inici",
         "docs": "Documents",
         "help": "Ajuda",
-        "requests_and_bugs": "Solicituds i Errors",
         "pricing": "Preus",
         "privacy_policy": "Política de privacitat",
+        "requests_and_bugs": "Solicituds i Errors",
         "support": "Suport"
     },
     "preview": {
@@ -504,7 +505,6 @@
         "back_to_dashboard": "Torna a l'inici",
         "brand_color_used_on_the_voting_process": "Brand color used on the voting process",
         "brand_process_color": "Brand color",
-        "brief_description": "Descripció breu",
         "canceled_vote": "Votació cancel·lada",
         "cannot_connect_to_the_blockchain_to_check_the_account_balance": "No s'ha pogut connectar a la cadena de blocs",
         "cannot_connect_to_the_vocdoni_chain": "No s'ha pogut connectar a la cadena Vocdoni",
