@@ -27,6 +27,7 @@ export function useCookies() {
     if (cookieAcceptance) {
       setAccepted(cookieAcceptance === CookiesStatus.Accept)
       setHide(true)
+      trackLoad()
     }
   }, [])
 
