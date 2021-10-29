@@ -2,6 +2,7 @@ build
 .next
 node_modules
 .vscode
+.idea
 .env
 .DS_Store
 

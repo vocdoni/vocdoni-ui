@@ -39,7 +39,7 @@ export const ProcessTermsModal = ({
               checked={processTerms}
               onChange={() => methods.setProcessTerms(!processTerms)}
               text={i18n.t(
-                'vote.i_have_read_and_accept_csv_terms'
+                'vote.i_have_read_and_accept_csv_terms_modal'
               )}
               hrefNewTab
             />
