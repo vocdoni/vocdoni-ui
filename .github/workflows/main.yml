@@ -164,6 +164,7 @@ jobs:
           BACKEND_PUB_KEY: "03cd13285ea116b9093a47364b29ddb09eccf50aa2f0112b6084a0b10943964d4e"
           DISCOVERY_POOL_SIZE: "1"
           ANALYTICS_KEY: '202ZI3WhmcYBnY1Bre6umCcmK9Y'
+          ANALYTICS_URL: 'https://rudderstack.aragon.org'
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@master
         with:
@@ -211,6 +212,7 @@ jobs:
           ADVANCED_CENSUS: "1"
           DISCOVERY_POOL_SIZE: "1"
           ANALYTICS_KEY: '1wDDOq7O5xXspQmBm0PRKWLnIBr'
+          ANALYTICS_URL: 'https://rudderstack.aragon.org'
       - name: Set up Cloud SDK (staging)
         uses: google-github-actions/setup-gcloud@master
         with:
