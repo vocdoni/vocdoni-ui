@@ -587,7 +587,6 @@
         "stream_link": "Video stream link",
         "stream_link_explanation": "If you are going to broadcast an event (an AGM, for instance) by streaming, you can include the link to the video here. It can be, for example, a Youtube stream.",
         "stream_link_label": "This field is optional",
-        "submit_my_vote": "Submit my vote",
         "supported_formats_csv_xls_and_ods": "Supported formats: CSV, XLSX and ODS",
         "surname": "Surname",
         "thanks_for_participate_on_this_AGM": "Thanks for participate on this voting process, get back to the page to follow the results",
@@ -634,5 +633,13 @@
         "your_vote_has_been_registered": "Your vote has been registered",
         "your_vote_is_set_up": "Your vote is set up",
         "your_vote_process_is_being_created": "Your voting process is being created"
+    },
+    "votes": {
+        "questions_list": {
+            "back": "Back",
+            "finish_voting": "",
+            "next_question": "Next question",
+            "question": "Question {{questionIndex}}/{{totalQuestions}}"
+        }
     }
 }

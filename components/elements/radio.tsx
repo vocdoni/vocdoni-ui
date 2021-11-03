@@ -4,17 +4,19 @@ import styled from 'styled-components'
 type RadioProps = {
   children: ReactNode
   onClick?: () => void,
+  value?: string,
   /** The name used to group radio controls */
   name: string,
   checked?: boolean
 }
 
-export const Radio = ({ children, onClick, name, checked}: RadioProps) => (
+export const Radio = ({ children, onClick, name, value, checked}: RadioProps) => (
   <RadioLabel onClick={() => onClick && onClick()}>
     {" "}
     <input
       type="radio"
       readOnly
+      value={value}
       checked={checked}
       name={name}
     />

@@ -75,6 +75,10 @@ export const CardImageHeader = ({
 const CardImageHeaderContainer = styled.div``
 
 const CardH2 = styled(H2)`
+  @media ${({ theme }) => theme.screenMax.tabletL} {
+    font-size: 30px;
+  }
+
   @media ${({ theme }) => theme.screenMax.tablet} {
     font-size: 24px;
   }
