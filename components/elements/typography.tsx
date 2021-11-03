@@ -11,12 +11,14 @@ export enum TypographyVariant {
   H5 = 'h5',
   H6 = 'h6',
   BannerTitle = 'banner',
+  PolicyBanner = 'policy-banner',
   Subtitle1 = 'subtitle',
   Subtitle2 = 'subtitle2',
   Body1 = 'body1',
   Body2 = 'body2',
   ExtraSmall = 'extra-small',
   Small = 'small',
+  SemiBold = 'semi-bold',
   Caption = 'Caption',
 }
 
@@ -65,6 +67,11 @@ export const HeroBanner = styled.h1<ITypographyCommon>`
   text-align: ${({ align }) => (align ? align : TextAlign.Left)};
   color: ${({ color, theme }) => (color ? color : theme.blueText)};
   ${({ margin }) => (margin ? `margin: ${margin};` : '')}
+`
+
+export const PolicyBanner = styled.h3<ITypographyCommon>`
+  font-size: 18px;
+  font-weight: 600;
 `
 
 export const H1 = styled.h1<ITypographyCommon>`
@@ -122,11 +129,17 @@ export const Small = styled(BaseParagraphTypography)`
   font-size: 16px;
 `
 
+export const SemiBold = styled(BaseParagraphTypography)`
+  font-weight: 600;
+`
+
+
 const typographyMap = new Map<
   TypographyVariant,
   StyledComponent<'h1' | 'p', DefaultTheme, ITypographyCommon>
 >([
   [TypographyVariant.HeroBanner, HeroBanner],
+  [TypographyVariant.PolicyBanner, PolicyBanner],
   [TypographyVariant.H1, H1],
   [TypographyVariant.H2, H2],
   [TypographyVariant.Subtitle1, Subtitle1],
@@ -135,4 +148,5 @@ const typographyMap = new Map<
   [TypographyVariant.Body2, Body2],
   [TypographyVariant.Small, Small],
   [TypographyVariant.ExtraSmall, ExtraSmall],
+  [TypographyVariant.SemiBold, SemiBold],
 ])

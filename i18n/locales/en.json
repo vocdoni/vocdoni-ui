@@ -1,7 +1,7 @@
 {
     "action": {
         "browse": "Browse",
-        "check_terms_and_conditions": "You must accept the terms and conditions",
+        "check_terms_and_conditions": "You must accept the terms & conditions",
         "clean": "Clean",
         "continue": "Continue",
         "go_back": "Go back",

@@ -292,7 +292,7 @@ export const FormMetadata = () => {
       </Column>
 
       <Column>
-        <Typography variant={TypographyVariant.Small}>{i18n.t('entity.personal_data_protection_information')}</Typography>
+        <Typography variant={TypographyVariant.PolicyBanner}>{i18n.t('entity.personal_data_protection_information')}</Typography>
         <OnPagePrivacy lang={lang} />
 
         <PendingStepsContainer>
