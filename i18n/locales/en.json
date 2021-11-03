@@ -1,7 +1,7 @@
 {
     "action": {
         "browse": "Browse",
-        "check_terms_and_conditions": "Review terms and conditions",
+        "check_terms_and_conditions": "You must accept the terms & conditions",
         "clean": "Clean",
         "continue": "Continue",
         "go_back": "Go back",
@@ -198,8 +198,8 @@
             "view_in_explorer": "View in explorer"
         },
         "personal_data_protection_information": "Personal Data Protection Information",
-        "i_have_read_and_accept_personal_data": "(Optional) I give my express consent for the commercial, and service management.",
-        "i_have_read_and_accept_terms": "I have read and accept “Personal Data Proteccion Information”, and Aragon Labs <1>Privacy Policy</1>",
+        "i_have_read_and_accept_personal_data": "(Optional) I give my express consent for the commercial, and service management",
+        "i_have_read_and_accept_terms": "I have read and accept “<2>Personal Data Proteccion Information</2>”, and Aragon Labs “<1>Privacy Policy</1>”",
         "logo": "Entity logo",
         "name": "Name of the entity",
         "new_entity": "Entity name",
