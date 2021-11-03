@@ -12,6 +12,10 @@ export type ColumnProps = {
   sm?: number
   /** [XS] Number of grid columns to use (1 to 12) */
   span?: number
+  hiddenXl?: boolean
+  hiddenLg?: boolean
+  hiddenMd?: boolean
+  hiddenSm?: boolean
   children?: React.ReactNode
 }
 
@@ -52,15 +56,20 @@ export const ColumnDiv = styled.div<ColumnProps>`
 
   @media ${({ theme }) => theme.screenMin.mobileL} {
     width: calc(${props => resolveResponsiveSpan(props).sm * 100 / GRID_COLUMNS}% - ${GRID_GUTTER}px);
+    display: ${({hiddenSm}) => hiddenSm ? 'none' : 'block'};
   }
   @media ${({ theme }) => theme.screenMin.tablet} {
     width: calc(${props => resolveResponsiveSpan(props).md * 100 / GRID_COLUMNS}% - ${GRID_GUTTER}px);
+    display: ${({hiddenMd}) => hiddenMd ? 'none' : 'block'};
   }
   @media ${({ theme }) => theme.screenMin.laptop} {
     width: calc(${props => resolveResponsiveSpan(props).lg * 100 / GRID_COLUMNS}% - ${GRID_GUTTER}px);
+    display: ${({hiddenLg}) => hiddenLg ? 'none' : 'block'};
+
   }
   @media ${({ theme }) => theme.screenMin.laptopL} {
     width: calc(${props => resolveResponsiveSpan(props).xl * 100 / GRID_COLUMNS}% - ${GRID_GUTTER}px);
+    display: ${({hiddenLg}) => hiddenLg ? 'none' : 'block'};
   }
 `
 

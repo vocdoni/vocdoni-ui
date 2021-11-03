@@ -1,10 +1,9 @@
-import React from 'react'
+import React, { RefObject, ReactNode, forwardRef } from 'react'
 import styled from 'styled-components'
 import ReactPlayer from 'react-player'
 import { useTranslation } from 'react-i18next'
 
 import { VoteStatus } from '@lib/util'
-
 
 import { colors } from 'theme/colors'
 
@@ -18,102 +17,104 @@ import { MarkDownViewer } from './mark-down-viewer'
 
 interface IVotePageProps {
   description: string
-  liveStream: string
+  hasVideo?: boolean
+  liveStreamUrl?: string
   attachmentUrl?: string
   discussionUrl?: string
   voteStatus: VoteStatus
   timeComment: string
 }
 
-export const VoteDescription = ({
-  description,
-  liveStream,
-  attachmentUrl,
-  discussionUrl,
-  voteStatus,
-  timeComment,
-}: IVotePageProps) => {
-  const { i18n } = useTranslation()
+export const VoteDescription = forwardRef<HTMLDivElement, IVotePageProps>(
+  (
+    {
+      description,
+      hasVideo,
+      liveStreamUrl,
+      attachmentUrl,
+      discussionUrl,
+      voteStatus,
+      timeComment,
+    }: IVotePageProps,
+    ref
+  ) => {
+    const { i18n } = useTranslation()
 
-  const pdfIcon = (
-    <img src="/images/vote/pdf.svg" alt={i18n.t('vote.pdf_image_alt')} />
-  )
-  const questionIcon = (
-    <img
-      src="/images/vote/question.svg"
-      alt={i18n.t('vote.question_image_alt')}
-    />
-  )
+    const pdfIcon = (
+      <img src="/images/vote/pdf.svg" alt={i18n.t('vote.pdf_image_alt')} />
+    )
+    const questionIcon = (
+      <img
+        src="/images/vote/question.svg"
+        alt={i18n.t('vote.question_image_alt')}
+      />
+    )
 
-  return (
-    <Grid>
-      <Column>
-        <ProcessStatusLabel status={voteStatus} />
-      </Column>
+    return (
+      <Grid>
+        <Column>
+          <ProcessStatusLabel status={voteStatus} />
+        </Column>
 
-      <Column>
-        {timeComment}
-      </Column>
+        <Column>{timeComment}</Column>
 
-      <Column>
+        <Column>
           <MarkDownViewer content={description} />
-      </Column>
-
-      <When condition={discussionUrl || attachmentUrl || liveStream}>
-        <Column>
-          <SectionText size={TextSize.Big} color={colors.blueText}>
-            {i18n.t('vote.extra_information')}
-          </SectionText>
         </Column>
-      </When>
 
-      <When condition={discussionUrl}>
-        <Column md={6} sm={12}>
-          <Button
-            border
-            wide
-            icon={questionIcon}
-            href={discussionUrl}
-            target={LinkTarget.Blank}
-            justify={JustifyContent.Left}
-          >
-            <ButtonText>
-              {i18n.t('vote.access_to_the_documentation')}
-            </ButtonText>
-          </Button>
-        </Column>
-      </When>
+        <When condition={discussionUrl || attachmentUrl || !!hasVideo}>
+          <Column>
+            <SectionText size={TextSize.Big} color={colors.blueText}>
+              {i18n.t('vote.extra_information')}
+            </SectionText>
+          </Column>
+        </When>
 
-      <When condition={attachmentUrl}>
-        <Column md={6} sm={12}>
-          <Button
-            border
-            wide
-            icon={pdfIcon}
-            href={attachmentUrl}
-            target={LinkTarget.Blank}
-            justify={JustifyContent.Left}
-          >
-            <ButtonText>
-              {i18n.t('vote.questions_and_answers')}
-            </ButtonText>
-          </Button>
-        </Column>
-      </When>
+        <When condition={discussionUrl}>
+          <Column sm={12}>
+            <Button
+              border
+              wide
+              icon={questionIcon}
+              href={discussionUrl}
+              target={LinkTarget.Blank}
+              justify={JustifyContent.Left}
+            >
+              <ButtonText>
+                {i18n.t('vote.access_to_the_documentation')}
+              </ButtonText>
+            </Button>
+          </Column>
+        </When>
 
-      <When condition={liveStream}>
-        <Column>
-          <LiveStreamContainer>
-            <LiveStreamVideoContainer>
-              <ReactPlayer url={liveStream} width="100%" />
+        <When condition={attachmentUrl}>
+          <Column sm={12}>
+            <Button
+              border
+              wide
+              icon={pdfIcon}
+              href={attachmentUrl}
+              target={LinkTarget.Blank}
+              justify={JustifyContent.Left}
+            >
+              <ButtonText>{i18n.t('vote.questions_and_answers')}</ButtonText>
+            </Button>
+          </Column>
+        </When>
+
+        <When condition={hasVideo}>
+          <Column>
+            <LiveStreamVideoContainer ref={ref}>
+              {liveStreamUrl && (
+                <ReactPlayer url={liveStreamUrl} width="100%" />
+              )}
             </LiveStreamVideoContainer>
-          </LiveStreamContainer>
-        </Column>
-      </When>
-
-    </Grid>
-  )
-}
+          </Column>
+        </When>
+      </Grid>
+    )
+  }
+)
 
 const ButtonText = styled.p`
   color: ${colors.blueText};
@@ -122,13 +123,14 @@ const ButtonText = styled.p`
   margin: 0 20px;
 `
 
-const LiveStreamContainer = styled.div`
-  margin: 10px 0 20px 0;
-`
-
 const LiveStreamVideoContainer = styled.div`
-  border-radius: 10px;
-  overflow: hidden;
-  width: auto;
-  margin-bottom: 20px;
+  height: 360px;
+
+  @media ${({ theme }) => theme.screenMax.tabletL} {
+    height: 300px;
+  }
+
+  @media ${({ theme }) => theme.screenMax.mobileL} {
+    height: 160px;
+  }
 `

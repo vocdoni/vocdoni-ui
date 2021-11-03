@@ -65,7 +65,7 @@ export const PreviewModal = ({
           <VoteDescription
             voteStatus={voteStatus}
             description={metadata.description.default}
-            liveStream={metadata.media[MetadataFields.StreamLink]}
+            liveStreamUrl={metadata.media[MetadataFields.StreamLink]}
             discussionUrl={metadata.meta[PlazaMetadataKeys.DISCUSSION_URL]}
             attachmentUrl={metadata.meta[PlazaMetadataKeys.ATTACHMENT_URI]}
             timeComment={i18n.t('preview.ending_in_one_hour')}
