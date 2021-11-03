@@ -292,7 +292,7 @@ export const FormMetadata = () => {
       </Column>
 
       <Column>
-        <Typography variant={TypographyVariant.PolicyBanner}>{i18n.t('entity.personal_data_protection_information')}</Typography>
+        <PolicyBanner>{i18n.t('entity.personal_data_protection_information')}</PolicyBanner>
         <OnPagePrivacy lang={lang} />
 
         <PendingStepsContainer>
@@ -363,6 +363,11 @@ export const FormMetadata = () => {
     </Grid>
   )
 }
+
+const PolicyBanner = styled.h3`
+  font-size: 18px;
+  font-weight: 600;
+`
 
 const PendingStepsContainer = styled.div`
   margin-bottom: 10px;
