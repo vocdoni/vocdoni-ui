@@ -14,12 +14,10 @@ import { If } from 'react-if'
 
 export const CookiesBanner = () => {
   const { i18n } = useTranslation()
+  const { acceptCookies, hide } = useCookies()
 
-  const { acceptCookies, rejectCookies, accepted, hide } = useCookies()
-
-  const showCookiesBanner = !accepted && !hide
   return (
-    <If condition={showCookiesBanner}>
+    <If condition={!hide}>
       <CookiesContainer>
         <CookiesBannerContent>
           <TextContainer>
@@ -27,7 +25,7 @@ export const CookiesBanner = () => {
               <Typography variant={TypographyVariant.ExtraSmall}>
                 {i18n.t('cookies.cookies_paragraph_1')}{ ' ' }
                 <Link href={COOKIES_PATH}>
-                  {i18n.t('cookies.more_details')}
+                  {i18n.t('cookies.configure')}
                 </Link>
               </Typography>
             </SpacedContainer>
@@ -41,8 +39,8 @@ export const CookiesBanner = () => {
             </SpacedContainer>
 
             <SpacedContainer>
-              <Button border onClick={rejectCookies} wide>
-                {i18n.t('cookies.reject')}
+              <Button border href={COOKIES_PATH} wide>
+                {i18n.t('cookies.configure')}
               </Button>
             </SpacedContainer>
           </ButtonsContainer>
