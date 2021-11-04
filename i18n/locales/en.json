@@ -637,7 +637,7 @@
     "votes": {
         "questions_list": {
             "back": "Back",
-            "finish_voting": "",
+            "finish_voting": "Finish voting",
             "next_question": "Next question",
             "question": "Question {{questionIndex}}/{{totalQuestions}}"
         }
