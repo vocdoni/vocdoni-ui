@@ -20,38 +20,36 @@ export const QuestionCard = ({
   selectedIndex,
 }: IQuestionProps) => {
   return (
-      <Grid>
-        <QuestionCardContainer border>
-          <Typography variant={TypographyVariant.H4} margin='0'>
-            {question.title.default}
-          </Typography>
-          {question.description && (
-            <Typography variant={TypographyVariant.Small}>
-              {question.description.default}
-            </Typography>
-          )}
+    <QuestionCardContainer border>
+      <Typography variant={TypographyVariant.H4} margin="0">
+        {question.title.default}
+      </Typography>
+      {question.description && (
+        <Typography variant={TypographyVariant.Small}>
+          {question.description.default}
+        </Typography>
+      )}
 
-          <OptionsContainer>
-            {question.choices.map((option: Choice, index) => (
-              <Radio
-                name={`question-${questionIndex}`}
-                key={index}
-                // value={option.value.toString()}
-                checked={option.value === selectedIndex}
-                onClick={() => onSelectChoice(option.value)}
-              >
-                {option.title.default}
-              </Radio>
-            ))}
-          </OptionsContainer>
-        </QuestionCardContainer>
-      </Grid>
+      <OptionsContainer>
+        {question.choices.map((option: Choice, index) => (
+          <Radio
+            name={`question-${questionIndex}`}
+            key={index}
+            // value={option.value.toString()}
+            checked={option.value === selectedIndex}
+            onClick={() => onSelectChoice(option.value)}
+          >
+            {option.title.default}
+          </Radio>
+        ))}
+      </OptionsContainer>
+    </QuestionCardContainer>
   )
 }
 
 const QuestionCardContainer = styled(CardDiv)`
   padding: 64px;
-  width: 100%;
+  
 
   @media ${({ theme }) => theme.screenMax.tabletL} {
     padding: 32px;
