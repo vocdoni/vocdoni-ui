@@ -1,4 +1,4 @@
-import React, { RefObject, ReactNode, forwardRef } from 'react'
+import React, { RefObject, ReactNode, forwardRef, useEffect, ForwardedRef } from 'react'
 import styled from 'styled-components'
 import ReactPlayer from 'react-player'
 import { useTranslation } from 'react-i18next'
@@ -23,6 +23,7 @@ interface IVotePageProps {
   discussionUrl?: string
   voteStatus: VoteStatus
   timeComment: string
+  onComponentMounted?: (ref: ForwardedRef<HTMLDivElement>) => void
 }
 
 export const VoteDescription = forwardRef<HTMLDivElement, IVotePageProps>(
@@ -35,10 +36,14 @@ export const VoteDescription = forwardRef<HTMLDivElement, IVotePageProps>(
       discussionUrl,
       voteStatus,
       timeComment,
+      onComponentMounted,
     }: IVotePageProps,
     ref
   ) => {
     const { i18n } = useTranslation()
+    useEffect(() => {
+      onComponentMounted && onComponentMounted(ref)
+    }, [ref])
 
     const pdfIcon = (
       <img src="/images/vote/pdf.svg" alt={i18n.t('vote.pdf_image_alt')} />

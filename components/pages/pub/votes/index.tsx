@@ -44,12 +44,7 @@ import { Else, If, Then, When } from 'react-if'
 import { useUrlHash } from 'use-url-hash'
 import { VotingApi, EntityMetadata, Voting } from 'dvote-js'
 import { DateDiffType, localizedStrDateDiff } from '@lib/date'
-import {
-  Body1,
-  TextAlign,
-  Typography,
-  TypographyVariant,
-} from '@components/elements/typography'
+import { Body1, TextAlign } from '@components/elements/typography'
 import { QuestionsList } from './components/questions-list'
 import { VoteNowCard } from './components/vote-now-card'
 
@@ -58,6 +53,12 @@ enum VotingState {
   Started = 'started',
   Ended = 'ended',
   Guest = 'guest',
+}
+
+interface IVideoStyle {
+  width: number
+  height: number
+  top: number
 }
 
 export const VotingPageView = () => {
@@ -83,43 +84,85 @@ export const VotingPageView = () => {
   const entityMetadata = metadata as EntityMetadata
   const descriptionVideoContainerRef = useRef<HTMLDivElement>(null)
   const votingVideoContainerRef = useRef<HTMLDivElement>(null)
+  const videoRef = useRef<HTMLDivElement>(null)
+  const timeoutRef = useRef<any>()
+  const intervalRef = useRef<any>()
+  const [videosStyle, setVideoStyle] = useState<IVideoStyle>({
+    height: 0,
+    width: 0,
+    top: 0,
+  })
 
-  const [videoTopPosition, setTopVideoPosition] = useState<number>(0)
-  const [videoHeight, setVideoHeight] = useState<number>(0)
-  const [videoWidth, setVideoWidth] = useState<number>(0)
+  // useEffect(() => {
+  //   console.log('component mounted aaaa')
+
+  //   console.log(
+  //     descriptionVideoContainerRef.current || votingVideoContainerRef.current
+  //   )
+  //   handleVideoPosition()
+  // }, [descriptionVideoContainerRef.current, votingVideoContainerRef.current])
 
   const handleVideoPosition = () => {
-    let topPosition = 0
-    let height = 0
-    let width = 0
-
-    if (votingState === VotingState.NotStarted || votingState === VotingState.Guest) {
-      topPosition = descriptionVideoContainerRef.current?.offsetTop
-      height = descriptionVideoContainerRef.current?.offsetHeight
-      width = descriptionVideoContainerRef.current?.offsetWidth
+    console.log('handleVideoPosition')
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current)
     }
 
-    if (votingState === VotingState.Started) {
-      topPosition = votingVideoContainerRef.current?.offsetTop
-      height = votingVideoContainerRef.current?.offsetHeight
-      width = votingVideoContainerRef.current?.offsetWidth
-    }
+    timeoutRef.current = setTimeout(() => {
+      const currentRef =
+      descriptionVideoContainerRef.current || votingVideoContainerRef.current
 
-    setTopVideoPosition(topPosition)
-    setVideoWidth(width)
-    setVideoHeight(height)
+      if (currentRef) {
+        const newVideoStyle = {
+          top: currentRef.offsetTop,
+          height: currentRef.offsetHeight,
+          width: currentRef.offsetWidth,
+        }
+
+        setVideoStyle(newVideoStyle)
+      }
+    }, 100)
+
+    // if (timeoutRef.current) {
+    //   clearTimeout(timeoutRef.current)
+    // }
+
+    // timeoutRef.current = setTimeout(() => {
+    //   let currentRef
+
+    //   if (
+    //     votingState === VotingState.NotStarted ||
+    //     votingState === VotingState.Guest
+    //   ) {
+    //     currentRef = descriptionVideoContainerRef.current
+    //   }
+
+    //   if (votingState === VotingState.Started) {
+    //     currentRef = votingVideoContainerRef.current
+    //   }
+
+    //   setVideoStyle({
+    //     top: currentRef?.offsetTop,
+    //     height: currentRef?.offsetHeight,
+    //     width: currentRef?.offsetWidth,
+    //   })
+    // }, 300)
   }
 
+  useEffect(() => {
+    intervalRef.current = setInterval(() => {
+
+      handleVideoPosition()
+    }, 1000)
+
+    return () => {
+      clearInterval(intervalRef.current)
+    }
+  }, [])
 
   useEffect(() => {
     window.addEventListener('resize', handleVideoPosition)
-    setTimeout(() => {
-      handleVideoPosition()
-    }, 800)
 
-    setTimeout(() => {
-      handleVideoPosition()
-    }, 100)
     return () => {
       window.removeEventListener('resize', handleVideoPosition)
     }
@@ -157,6 +200,7 @@ export const VotingPageView = () => {
   }, [processInfo, entityMetadata])
 
   let dateDiffStr = ''
+
   if (
     processInfo?.state?.startBlock &&
     (voteStatus == VoteStatus.Active ||
@@ -205,10 +249,10 @@ export const VotingPageView = () => {
     setVotingState(VotingState.Started)
     setConfirmModalOpened(false)
   }
-  console.log(votingState)
+
   const showDescription =
     votingState === VotingState.NotStarted || votingState === VotingState.Ended
-  const showResults = 
+  const showResults =
     votingState === VotingState.Guest || votingState === VotingState.Ended
   const showVotingButton = votingState == VotingState.NotStarted
 
@@ -221,13 +265,13 @@ export const VotingPageView = () => {
           subtitle={metadata?.name.default}
           entityImage={metadata?.media.avatar}
         />
-
         <BodyContainer>
           {(votingState === VotingState.Guest ||
             votingState === VotingState.NotStarted) && (
             <Grid>
               <Column sm={12} md={9}>
                 <VoteDescription
+                  onComponentMounted={handleVideoPosition}
                   ref={descriptionVideoContainerRef}
                   description={processInfo?.metadata?.description.default}
                   hasVideo={!!processInfo?.metadata?.media.streamUri}
@@ -257,14 +301,16 @@ export const VotingPageView = () => {
 
           {processInfo?.metadata?.media.streamUri && (
             <PlayerFixedContainer
-              top={videoTopPosition}
-              height={videoHeight}
-              width={videoWidth}
+              ref={videoRef}
+              top={videosStyle.top}
+              height={videosStyle.height}
+              width={videosStyle.width}
             >
               <PlayerContainer>
                 <ReactPlayer
                   url={processInfo?.metadata?.media.streamUri}
                   width="100%"
+                  height="100%"
                 />
               </PlayerContainer>
             </PlayerFixedContainer>
@@ -273,6 +319,7 @@ export const VotingPageView = () => {
 
         {votingState == VotingState.Started && (
           <QuestionsList
+            onComponentMounted={handleVideoPosition}
             ref={votingVideoContainerRef}
             hasVideo={!!processInfo?.metadata?.media.streamUri}
             results={choices}
@@ -305,7 +352,7 @@ export const VotingPageView = () => {
         )}
 
         {hasVoted && <VoteRegisteredCard explorerLink={explorerLink} />}
-        {(showResults) &&
+        {showResults &&
           processInfo?.metadata?.questions.map(
             (question: Question, index: number) => (
               <VoteQuestionCard
@@ -366,13 +413,8 @@ export const VotingPageView = () => {
   )
 }
 
-const PlayerFixedContainer = styled.div<{
-  top?: number
-  height?: number
-  width?: number
-}>`
+const PlayerFixedContainer = styled.div<IVideoStyle>`
   position: absolute;
-
   margin-bottom: 20px;
   z-index: 30;
   transition: all 0.4s ease-in-out;

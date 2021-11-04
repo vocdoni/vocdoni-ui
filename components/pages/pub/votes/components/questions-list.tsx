@@ -1,4 +1,4 @@
-import React, { forwardRef, RefObject, useState } from 'react'
+import React, { forwardRef, ForwardedRef, useEffect, useState } from 'react'
 import { Choice, Question } from '@lib/types'
 import { FlexContainer, FlexJustifyContent } from '@components/elements/flex'
 import { useTranslation } from 'react-i18next'
@@ -19,13 +19,26 @@ interface IQuesListProps {
   onSelect: (questionIndex: number, value: number) => void
   onFinishVote: (results: number[]) => void
   onBackDescription: () => void
+  onComponentMounted?: (ref: ForwardedRef<HTMLDivElement>) => void
 }
 
 export const QuestionsList = forwardRef<HTMLDivElement, IQuesListProps>(
   (
-    { hasVideo, questions, results, onSelect, onFinishVote, onBackDescription }: IQuesListProps,
+    {
+      hasVideo,
+      questions,
+      results,
+      onSelect,
+      onFinishVote,
+      onBackDescription,
+      onComponentMounted,
+    }: IQuesListProps,
     ref
   ) => {
+    useEffect(() => {
+      onComponentMounted && onComponentMounted(ref)
+    }, [])
+
     const [questionIndex, setQuestionIndex] = useState(0)
     // const [results, setResults] = useState<number[]>([])
     const { i18n } = useTranslation()
@@ -65,27 +78,37 @@ export const QuestionsList = forwardRef<HTMLDivElement, IQuesListProps>(
         )}
 
         <div>
-          <Typography variant={TypographyVariant.H3} color={colors.accent1} margin='0'>
+          <Typography
+            variant={TypographyVariant.H3}
+            color={colors.accent1}
+            margin="0"
+          >
             {i18n.t('votes.questions_list.question', {
-              totalQuestions: questions.length ,
+              totalQuestions: questions?.length,
               questionIndex: questionIndex + 1,
             })}
           </Typography>
 
           <QuestionUl>
-            {questions && questions.map((question, index) => (
-              <QuestionLi key={`question-${index}`} active={index === questionIndex}>
-                <QuestionCard
-                  onSelectChoice={(selectedValue) => handleChoice(index, selectedValue)}
-                  question={question}
-                  questionIndex={index}
-                  selectedIndex={results[index]}
-                />
-              </QuestionLi>
-            ))}
+            {questions &&
+              questions.map((question, index) => (
+                <QuestionLi
+                  key={`question-${index}`}
+                  active={index === questionIndex}
+                >
+                  <QuestionCard
+                    onSelectChoice={(selectedValue) =>
+                      handleChoice(index, selectedValue)
+                    }
+                    question={question}
+                    questionIndex={index}
+                    selectedIndex={results[index]}
+                  />
+                </QuestionLi>
+              ))}
           </QuestionUl>
 
-          <FlexContainer justify={FlexJustifyContent.SpaceBetween}>
+          <ButtonsActionContainer justify={FlexJustifyContent.SpaceBetween}>
             <Button onClick={handlePrev}>
               {i18n.t('votes.questions_list.back')}
             </Button>
@@ -95,14 +118,55 @@ export const QuestionsList = forwardRef<HTMLDivElement, IQuesListProps>(
               positive
               disabled={typeof results[questionIndex] === 'undefined'}
             >
-              {lastQuestion? i18n.t('votes.questions_list.finish_voting'): i18n.t('votes.questions_list.next_question')}
+              {lastQuestion
+                ? i18n.t('votes.questions_list.finish_voting')
+                : i18n.t('votes.questions_list.next_question')}
             </Button>
-          </FlexContainer>
+          </ButtonsActionContainer>
         </div>
+
+        <FixedButtonsActionContainer>
+          <Button onClick={handlePrev}>
+            {i18n.t('votes.questions_list.back')}
+          </Button>
+
+          <Button
+            onClick={handleNext}
+            positive
+            disabled={typeof results[questionIndex] === 'undefined'}
+          >
+            {lastQuestion
+              ? i18n.t('votes.questions_list.finish_voting')
+              : i18n.t('votes.questions_list.next_question')}
+          </Button>
+        </FixedButtonsActionContainer>
       </QuestionsContainer>
     )
   }
 )
+
+const ButtonsActionContainer = styled(FlexContainer)`
+  @media ${({ theme }) => theme.screenMax.mobileL}{
+    display: flex;
+  }
+`
+
+const FixedButtonsActionContainer = styled.div`
+  position: fixed;
+  display: none;
+  justify-content: space-between;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 30;
+  background-color: ${({ theme }) => theme.white};
+  padding: 10px 20px;
+  box-shadow: 1px 1px 9px #8f8f8f;
+
+  @media ${({ theme }) => theme.screenMax.mobileL} {
+    display: flex;
+  }
+`
 
 const QuestionsContainer = styled.div`
   position: relative;
@@ -126,9 +190,10 @@ const QuestionUl = styled.ul`
   list-style: none;
   padding: 0;
   position: relative;
+  padding-bottom: 12px;
 `
 
-const QuestionLi = styled.li<{active: boolean}>`
+const QuestionLi = styled.li<{ active: boolean }>`
   position: ${({ active }) => (active ? 'relative' : 'absolute')};
   visibility: ${({ active }) => (active ? 'visible' : 'hidden')};
   opacity: ${({ active }) => (active ? 1 : 0)};
@@ -137,9 +202,3 @@ const QuestionLi = styled.li<{active: boolean}>`
   right: 0;
   transition: all 0.3s ease-in-out;
 `
-const VideoContainer = styled.div`
-  margin: auto;
-  max-width: 800px;
-  width: 100%;
-`
-
