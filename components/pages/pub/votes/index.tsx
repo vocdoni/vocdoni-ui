@@ -26,11 +26,7 @@ import { useWallet, WalletRoles } from '@hooks/use-wallet'
 import { Column, Grid } from '@components/elements/grid'
 import { Card, CardDiv, PageCard } from '@components/elements/cards'
 import { Button } from '@components/elements/button'
-import {
-  FlexAlignItem,
-  FlexContainer,
-  FlexJustifyContent,
-} from '@components/elements/flex'
+import { FlexContainer } from '@components/elements/flex'
 import { VoteQuestionCard } from '@components/blocks/vote-question-card'
 import { MetadataFields } from '@components/pages/votes/new/metadata'
 
@@ -84,7 +80,7 @@ export const VotingPageView = () => {
   const entityMetadata = metadata as EntityMetadata
   const descriptionVideoContainerRef = useRef<HTMLDivElement>(null)
   const votingVideoContainerRef = useRef<HTMLDivElement>(null)
-  const videoRef = useRef<HTMLDivElement>(null)
+
   const timeoutRef = useRef<any>()
   const intervalRef = useRef<any>()
   const [videosStyle, setVideoStyle] = useState<IVideoStyle>({
@@ -93,24 +89,14 @@ export const VotingPageView = () => {
     top: 0,
   })
 
-  // useEffect(() => {
-  //   console.log('component mounted aaaa')
-
-  //   console.log(
-  //     descriptionVideoContainerRef.current || votingVideoContainerRef.current
-  //   )
-  //   handleVideoPosition()
-  // }, [descriptionVideoContainerRef.current, votingVideoContainerRef.current])
-
   const handleVideoPosition = () => {
-    console.log('handleVideoPosition')
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current)
     }
 
     timeoutRef.current = setTimeout(() => {
       const currentRef =
-      descriptionVideoContainerRef.current || votingVideoContainerRef.current
+        descriptionVideoContainerRef.current || votingVideoContainerRef.current
 
       if (currentRef) {
         const newVideoStyle = {
@@ -122,36 +108,10 @@ export const VotingPageView = () => {
         setVideoStyle(newVideoStyle)
       }
     }, 100)
-
-    // if (timeoutRef.current) {
-    //   clearTimeout(timeoutRef.current)
-    // }
-
-    // timeoutRef.current = setTimeout(() => {
-    //   let currentRef
-
-    //   if (
-    //     votingState === VotingState.NotStarted ||
-    //     votingState === VotingState.Guest
-    //   ) {
-    //     currentRef = descriptionVideoContainerRef.current
-    //   }
-
-    //   if (votingState === VotingState.Started) {
-    //     currentRef = votingVideoContainerRef.current
-    //   }
-
-    //   setVideoStyle({
-    //     top: currentRef?.offsetTop,
-    //     height: currentRef?.offsetHeight,
-    //     width: currentRef?.offsetWidth,
-    //   })
-    // }, 300)
   }
 
   useEffect(() => {
     intervalRef.current = setInterval(() => {
-
       handleVideoPosition()
     }, 1000)
 
@@ -223,16 +183,6 @@ export const VotingPageView = () => {
     }
   }
 
-  // useEffect(() => {
-  //   console.log('offset heigh', descriptionVideoContainerRef.current?.offsetTop)
-  // }, [descriptionVideoContainerRef.current?.offsetTop])
-  // const videoPlayers = useMemo(
-  //   () => (
-  //     <ReactPlayer url={processInfo?.metadata?.media.streamUri} width="100%" />
-  //   ),
-  //   [processInfo?.metadata?.media.streamUri]
-  // )
-
   const handleVoteNow = () => {
     setVotingState(VotingState.Started)
   }
@@ -301,7 +251,6 @@ export const VotingPageView = () => {
 
           {processInfo?.metadata?.media.streamUri && (
             <PlayerFixedContainer
-              ref={videoRef}
               top={videosStyle.top}
               height={videosStyle.height}
               width={videosStyle.width}
@@ -383,25 +332,6 @@ export const VotingPageView = () => {
             </Grid>
           </Then>
         </If>
-
-        {/* {videoPlayer && (
-          <PlayerHiddenContainer>
-            { videoPlayer}
-          </PlayerHiddenContainer>
-        )} */}
-
-        {/* <When condition={!hasVoted && !readOnly}>
-          <SubmitButtonContainer justify={FlexJustifyContent.Center}>
-            <Button
-              positive
-              // color={processInfo?.metadata?.meta[MetadataFields.PrimaryColor]}
-              disabled={!allQuestionsChosen || voteStatus != VoteStatus.Active}
-              onClick={() => setConfirmModalOpened(true)}
-            >
-              {i18n.t('vote.submit_my_vote')}
-            </Button>
-          </SubmitButtonContainer>
-        </When> */}
       </PageCard>
 
       <ConfirmModal

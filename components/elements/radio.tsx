@@ -3,27 +3,42 @@ import styled from 'styled-components'
 
 type RadioProps = {
   children: ReactNode
-  onClick?: () => void,
-  value?: string,
+  onClick?: () => void
+  value?: string
   /** The name used to group radio controls */
-  name: string,
+  name: string
   checked?: boolean
 }
 
-export const Radio = ({ children, onClick, name, value, checked}: RadioProps) => (
+export const Radio = ({
+  children,
+  onClick,
+  name,
+  value,
+  checked,
+}: RadioProps) => (
   <RadioLabel onClick={() => onClick && onClick()}>
-    {" "}
-    <input
-      type="radio"
-      readOnly
-      value={value}
-      checked={checked}
-      name={name}
-    />
-    <div className="checkmark"></div> {children}
+    <RadioContainer>
+      <input
+        type="radio"
+        readOnly
+        value={value}
+        checked={checked}
+        name={name}
+      />
+      <div className="checkmark"></div>
+    </RadioContainer>
+    <ChildrenContainer>{children}</ChildrenContainer>
   </RadioLabel>
 )
 
+const RadioContainer = styled.div`
+  position: relative;
+`
+
+const ChildrenContainer = styled.div`
+position: relative;
+`
 const RadioLabel = styled.label`
   cursor: pointer;
   -webkit-user-select: none;

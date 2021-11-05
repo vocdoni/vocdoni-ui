@@ -50,10 +50,7 @@ export const CardImageHeader = ({
 
       <Grid>
         <Column>
-          <CardH2
-            align={TextAlign.Center}
-            margin="0 0 5px 0"
-          >
+          <CardH2 align={TextAlign.Center} margin="0 0 5px 0">
             {title}
           </CardH2>
 
@@ -75,6 +72,8 @@ export const CardImageHeader = ({
 const CardImageHeaderContainer = styled.div``
 
 const CardH2 = styled(H2)`
+  margin: 0 0 8px 0;
+
   @media ${({ theme }) => theme.screenMax.tabletL} {
     font-size: 30px;
   }

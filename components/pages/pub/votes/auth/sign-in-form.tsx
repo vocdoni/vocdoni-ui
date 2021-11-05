@@ -102,6 +102,7 @@ export const SignInForm = ({
 
 const LoginFieldset = styled(Fieldset)`
   margin-top: 20px;
+  margin-bottom: 26px;
 `
 
 const SignInFormCard = styled(PageCard)`
