@@ -184,7 +184,9 @@ export const VotingPageView = () => {
   }
 
   const handleVoteNow = () => {
-    setVotingState(VotingState.Started)
+    if (voteStatus == VoteStatus.Active) {
+      setVotingState(VotingState.Started)
+    }
   }
 
   const handleFinishVote = () => {
@@ -200,10 +202,19 @@ export const VotingPageView = () => {
     setConfirmModalOpened(false)
   }
 
+  const handleOnVoted = () => {
+    setVotingState(VotingState.Ended)
+    setConfirmModalOpened(false)
+  }
+
   const showDescription =
-    votingState === VotingState.NotStarted || votingState === VotingState.Ended
+    votingState === VotingState.NotStarted ||
+    votingState === VotingState.Ended ||
+    votingState === VotingState.Guest
+
   const showResults =
     votingState === VotingState.Guest || votingState === VotingState.Ended
+
   const showVotingButton = votingState == VotingState.NotStarted
 
   return (
@@ -216,8 +227,7 @@ export const VotingPageView = () => {
           entityImage={metadata?.media.avatar}
         />
         <BodyContainer>
-          {(votingState === VotingState.Guest ||
-            votingState === VotingState.NotStarted) && (
+          {showDescription && (
             <Grid>
               <Column sm={12} md={9}>
                 <VoteDescription
@@ -241,7 +251,7 @@ export const VotingPageView = () => {
                   <VoteNowCard
                     onVote={handleVoteNow}
                     explorerLink={explorerLink}
-                    disabled={false}
+                    disabled={voteStatus !== VoteStatus.Active}
                     hasVoted={showResults}
                   />
                 </VoteNowCardContainer>
@@ -293,7 +303,13 @@ export const VotingPageView = () => {
         {showVotingButton && (
           <FixedButtonContainer>
             <div>
-              <Button large positive wide onClick={handleVoteNow}>
+              <Button
+                large
+                positive
+                wide
+                onClick={handleVoteNow}
+                disabled={voteStatus !== VoteStatus.Active}
+              >
                 {i18n.t('vote.vote_now')}
               </Button>
             </div>
@@ -321,7 +337,7 @@ export const VotingPageView = () => {
             )
           )}
 
-        <If condition={totalVotes > 0}>
+        <If condition={showDescription && totalVotes > 0}>
           <Then>
             <Grid>
               <Card sm={12}>
@@ -336,7 +352,7 @@ export const VotingPageView = () => {
 
       <ConfirmModal
         isOpen={confirmModalOpened}
-        onVoted={() => setVotingState(VotingState.Ended)}
+        onVoted={handleOnVoted}
         onClose={handleBackToVoting}
       />
     </>
