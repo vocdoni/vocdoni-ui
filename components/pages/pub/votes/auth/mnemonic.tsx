@@ -119,6 +119,7 @@ const SignInFormCard = styled(PageCard)`
 
 const LoginFieldset = styled(Fieldset)`
   margin-top: 20px;
+  margin-bottom: 26px;
 `
 
 const HiddenButton = styled.button`

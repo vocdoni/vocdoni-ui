@@ -63,18 +63,13 @@ export const QuestionsList = forwardRef<HTMLDivElement, IQuesListProps>(
     }
 
     const handleChoice = (questionNumber: number, choice: number) => {
-      // const updatedChoices = [...results]
-      // updatedChoices[questionNumber] = choice
       onSelect(questionNumber, choice)
-      // setResults(updatedChoices)
     }
 
     return (
       <QuestionsContainer>
         {hasVideo && (
-          <Column>
-            <LiveStreamVideoContainer ref={ref}></LiveStreamVideoContainer>
-          </Column>
+          <LiveStreamVideoContainer ref={ref}></LiveStreamVideoContainer>
         )}
 
         <div>
@@ -146,8 +141,8 @@ export const QuestionsList = forwardRef<HTMLDivElement, IQuesListProps>(
 )
 
 const ButtonsActionContainer = styled(FlexContainer)`
-  @media ${({ theme }) => theme.screenMax.mobileL}{
-    display: flex;
+  @media ${({ theme }) => theme.screenMax.mobileL} {
+    display: none;
   }
 `
 
@@ -175,7 +170,8 @@ const QuestionsContainer = styled.div`
 const LiveStreamVideoContainer = styled.div`
   height: 360px;
   width: 100%;
-  padding-bottom: 30px;
+  margin-bottom: 30px;
+
 
   @media ${({ theme }) => theme.screenMax.tabletL} {
     height: 300px;
