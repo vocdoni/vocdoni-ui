@@ -32,6 +32,7 @@ export const QuestionNoResultsAvailable = ({question}: IQuestionResultsProps) =>
 
 const ProgressBarContainer = styled.div`
   width: 60px;
+  min-width: 60px;
   margin-right: 12px;
 
   & > svg > text {
