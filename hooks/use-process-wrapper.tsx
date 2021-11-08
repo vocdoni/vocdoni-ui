@@ -151,7 +151,7 @@ export const useProcessWrapper = (processId: string) => {
       ]))
       .then(([results, metadata]) =>  Voting.digestSingleChoiceResults(results, metadata))
       .then((results) => setResults(results))
-      .catch((err) => console.error(err))
+      .catch((err) => console.log(err))
   }
 
   // Callbacks
