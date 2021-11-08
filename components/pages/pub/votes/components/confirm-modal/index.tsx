@@ -54,5 +54,5 @@ export const ConfirmModal = ({ isOpen, onClose, onVoted }: IConfigModal) => {
 }
 
 const ModalContainer = styled.div`
-  padding: 10px 20px 10px;
+  padding: 10px 20px 0px;
 `
