@@ -68,7 +68,7 @@ export const VotingPageView = () => {
         accent2B: brandColor,
         textAccent1: brandColor,
         textAccent1B: brandColor,
-        customLogo: entityMetadata.media?.logo
+        customLogo: entityMetadata?.media?.logo
       })
     }
   }, [processInfo, entityMetadata])
