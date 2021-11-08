@@ -16,10 +16,11 @@ interface TextEditorProps {
   onChange?: (content: string) => void;
   content?: string;
   markdown?: boolean;
+  deps?: any[];
 }
 
 
-export const TextEditor = ({ onChange, content, markdown }: TextEditorProps) => {
+export const TextEditor = ({ onChange, content, markdown, deps }: TextEditorProps) => {
   const turndownService = useRef(new TurndownService())
 
   const editor = useEditor({
@@ -32,15 +33,14 @@ export const TextEditor = ({ onChange, content, markdown }: TextEditorProps) => 
       })
     ],
     content,
-    onUpdate: ({ editor }) => {
+    onUpdate: function ({ editor })  {
       if (markdown) {
         onChange(turndownService.current.turndown(editor.getHTML()))
       } else {
         onChange(sanitizeHtml(editor.getHTML()));
       }
     }
-
-  })
+  }, deps)
 
   return (
     <TextEditorContentWrapper>

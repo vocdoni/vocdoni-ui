@@ -120,7 +120,9 @@ export const FormMetadata = () => {
       try {
         const validatedMeta = checkValidProcessMetadata(metadata)
         methods.setRawMetadata(validatedMeta)
-        trackEvent(TrackEvents.PROCESS_CREATION_WIZARD_BUTTON_CLICKED, { step: ProcessCreationPageSteps.CENSUS })
+        trackEvent(TrackEvents.PROCESS_CREATION_WIZARD_BUTTON_CLICKED, {
+          step: ProcessCreationPageSteps.CENSUS,
+        })
         methods.setPageStep(ProcessCreationPageSteps.CENSUS)
       } catch (error) {
         setAlertMessage(i18n.t('error.the_vote_details_are_invalid'))
@@ -150,7 +152,10 @@ export const FormMetadata = () => {
   }
 
   // Only for arbitrary fields within process.metadata.meta[...]
-  const handleMeta = (fieldName: PlazaMetadataKeys | MetadataFields, value: string) => {
+  const handleMeta = (
+    fieldName: PlazaMetadataKeys | MetadataFields,
+    value: string
+  ) => {
     methods.setMetaFields({ [fieldName]: value })
   }
 
@@ -256,8 +261,17 @@ export const FormMetadata = () => {
 
       <Grid>
         <Column>
-          <Typography variant={TypographyVariant.H3}>{i18n.t('vote.description')}</Typography>
-          <TextEditor onChange={(content) => methods.setDescription(content)} markdown />
+          <Typography variant={TypographyVariant.H3}>
+            {i18n.t('vote.description')}
+          </Typography>
+          <TextEditor
+            content={metadata.description.default}
+            deps={[metadata.title, metadata.media, metadata.meta, metadata.questions]}
+            onChange={(content) => {
+              methods.setDescription( content)
+            }}
+            markdown
+          />
         </Column>
       </Grid>
 
@@ -269,7 +283,9 @@ export const FormMetadata = () => {
               placeholder={i18n.t('vote.brand_process_color')}
               label={i18n.t('vote.brand_color_used_on_the_voting_process')}
               id={MetadataFields.BrandColor}
-              helpText={i18n.t('vote.these_color_will_be_used_to_improve_the_look_and_feel')}
+              helpText={i18n.t(
+                'vote.these_color_will_be_used_to_improve_the_look_and_feel'
+              )}
               type="color"
               value={metadata.meta[MetadataFields.BrandColor]}
               error={getErrorMessage(MetadataFields.BrandColor)}
