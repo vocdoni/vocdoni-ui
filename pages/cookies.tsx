@@ -16,8 +16,7 @@ const CoookiesPage = () => {
         <p ></p>
         <h4>Use of cookies</h4>
         <p ></p>
-        <p >This website uses "Cookies", and other similar mechanisms (hereinafter, Cookies)
-          . Cookies are files sent to a browser through a web server to record the User's activities on a specific
+        <p >This website uses "Cookies", and other similar mechanisms (hereinafter, Cookies). Cookies are files sent to a browser through a web server to record the User's activities on a specific
           website or on all websites, apps and / or services on this website. The first purpose of Cookies is to provide
           the User with faster and more personalized access to the services it offers. Cookies are only associated with an
           anonymous User and their computer and do not provide references that allow the User's personal data to be
@@ -56,8 +55,9 @@ const CoookiesPage = () => {
           The main objectives pursued are: Allow the anonymous identification of browsing Users through the
           &quot;Cookie&quot; (identifies browsers and devices, not people) and therefore the approximate count of the
           number of visitors and their trend over time. Anonymously identify the most visited content and therefore the
-          most attractive to Users. Know if the User who is accessing is a new or repeated visit.</p>
-        <p ></p>
+          most attractive to Users. Know if the User who is accessing is a new or repeated visit. Analytical cookies are used to understand how visitors interact with the website.
+          These cookies help provide information on metrics the number of visitors, bounce rate, traffic source, etc. </p>
+        <p ></p> <br />
         <h4>
           <CheckboxToggle
             id="accept-analytics"
@@ -68,8 +68,7 @@ const CoookiesPage = () => {
           />
         </h4>
         <p ></p>
-        <p >Analytical cookies are used to understand how visitors interact with the website.
-          These cookies help provide information on metrics the number of visitors, bounce rate, traffic source, etc.</p>
+        <p >The following table lists the cookies currently being used:</p>
         <table>
           <tbody>
             <tr>
@@ -133,7 +132,7 @@ const CoookiesPage = () => {
               <td>Rudderstack analytics cookie</td>
             </tr>
           </tbody>
-        </table>
+        </table><br />
         <h4>How to disable Cookies in the main browsers</h4>
         <p ></p>
         <p >Normally it is possible to stop accepting browser Cookies, or to stop accepting Cookies
