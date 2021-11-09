@@ -14,7 +14,7 @@ export const PrivacyLayer1En = () => (
         </tr>
           <tr>
             <td>Responsible</td>
-            <td>The personal data that is collected directly from the applicant for the voting process, will be treated confidentially and will be incorporated into the corresponding treatment activity owned by ARAGON LABS.</td>
+            <td>The personal data that is collected directly from the applicant for the voting processes, will be treated confidentially and will be incorporated into the corresponding treatment activity owned by ARAGON LABS.</td>
           </tr>
           <tr>
             <td>Purpose</td>
@@ -29,16 +29,16 @@ export const PrivacyLayer1En = () => (
           </tr>
           <tr>
             <td>Recipients</td>
-            <td>Your personal data will not be disclosed to third parties, nor will it be transferred outside the European Union</td>
+            <td>Aragon Labs shares personal information with other Aragon companies, among the Aragon Association group or third party service providers that assist Aragon Labs providing services. This may include sharing information with third party contractors, bound by obligations of confidentiality, in connection with the processing of user's personal information for the purposes described in this Policy, such as, but not limited to, IT and communications service providers, third parties relevant to the services that Aragon Labs provides including regulators, authorities and governmental institutions. Aragon Labs may transfer personal information outside Europe. In those cases Aragon will ensure that it is protected and transferred in a manner consistent with legal requirements applicable to the information. The data subject consents that the data will be shared between Aragon Labs and the Aragon Association and other partners of the Aragon Network that require the data in order to adequately perform their duties.</td>
           </tr>
           <tr>
             <td>Rights</td>
-            <td>Access, rectify and delete the data, as well as other rights, as explained in the additional information</td>
+            <td>Access, rectify and delete the data, as well as other rights, as explained in the additional information.</td>
           </tr>
           <tr>
             <td>Additional Information (layer 2)</td>
-            <td>You can consult the additional and detailed information on Data Protection on our website:
-            <a target="_blank" href={DATA_POLICY_PATH}>https://vocdoni.app{DATA_POLICY_PATH}</a>
+            <td>You can consult the additional and detailed information on Data Protection on our website 
+              <a target="_blank" href={DATA_POLICY_PATH}>https://vocdoni.app{DATA_POLICY_PATH}</a>.
             </td>
           </tr>
           <tr>
