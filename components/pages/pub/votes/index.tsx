@@ -154,7 +154,7 @@ export const VotingPageView = () => {
         accent2B: brandColor,
         textAccent1: brandColor,
         textAccent1B: brandColor,
-        customLogo: entityMetadata?.media?.logo
+        customLogo: entityMetadata?.media?.logo,
       })
     }
   }, [processInfo, entityMetadata])
@@ -247,14 +247,16 @@ export const VotingPageView = () => {
               </Column>
 
               <Column sm={12} md={3} hiddenSm>
-                <VoteNowCardContainer>
-                  <VoteNowCard
-                    onVote={handleVoteNow}
-                    explorerLink={explorerLink}
-                    disabled={voteStatus !== VoteStatus.Active}
-                    hasVoted={showResults}
-                  />
-                </VoteNowCardContainer>
+                <If condition={votingState !== VotingState.Guest}>
+                  <VoteNowCardContainer>
+                    <VoteNowCard
+                      onVote={handleVoteNow}
+                      explorerLink={explorerLink}
+                      disabled={voteStatus !== VoteStatus.Active}
+                      hasVoted={showResults}
+                    />
+                  </VoteNowCardContainer>
+                </If>
               </Column>
             </Grid>
           )}
