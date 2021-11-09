@@ -64,7 +64,7 @@ export const MnemonicForm = ({
   }
 
   return (
-    <PageCard>
+    <SignInFormCard>
       <CardImageHeader
         title={processInfo?.metadata?.title.default}
         processImage={processInfo?.metadata?.media.header}
@@ -72,7 +72,7 @@ export const MnemonicForm = ({
         entityImage={entity?.media.avatar}
       />
 
-      <Fieldset>
+      <LoginFieldset>
         <form onSubmit={handleSubmit}>
           <FlexContainer justify={FlexJustifyContent.Center} key={0}>
             <InputContainer>
@@ -106,10 +106,22 @@ export const MnemonicForm = ({
             </Column>
           </FlexContainer>
         </form>
-      </Fieldset>
-    </PageCard>
+      </LoginFieldset>
+    </SignInFormCard>
   )
 }
+
+const SignInFormCard = styled(PageCard)`
+  @media ${({ theme }) => theme.screenMax.mobileL} {
+    margin: -24px -20px 0 -20px;
+  }
+`
+
+const LoginFieldset = styled(Fieldset)`
+  margin-top: 20px;
+  margin-bottom: 26px;
+`
+
 const HiddenButton = styled.button`
   visibility: hidden;
 `

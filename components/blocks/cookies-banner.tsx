@@ -92,7 +92,7 @@ const CookiesContainer = styled.div`
   bottom: 0;
   right: 0;
   left: 0;
-  z-index: 1;
+  z-index: 200;
   padding: 10px 20px;
   background-color: ${({ theme }) => theme.white};
 `

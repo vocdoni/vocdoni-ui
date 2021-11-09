@@ -13,14 +13,16 @@ import { useProcess } from '@vocdoni/react-hooks'
 interface IConfigModal {
   isOpen: boolean
   onClose: () => void
+  onVoted: () => void
 }
 
-export const ConfirmModal = ({ isOpen, onClose }: IConfigModal) => {
+export const ConfirmModal = ({ isOpen, onClose, onVoted }: IConfigModal) => {
   const processId = useUrlHash().slice(1) // Skip "/"
   const { process: processInfo } = useProcess(processId)
   const { choices, hasVoted, methods, pleaseWait, actionError } = useVoting(processId)
-  const handleSendVote = () => {
-    methods.submitVote()
+  
+  const handleSendVote = async () => {
+    await methods.submitVote()
   }
 
   const renderResponsesList = new ViewStrategy(
@@ -38,7 +40,7 @@ export const ConfirmModal = ({ isOpen, onClose }: IConfigModal) => {
 
   const renderVoteSubmitted = new ViewStrategy(
     () => hasVoted,
-    <VoteSubmitted onAccept={onClose} />
+    <VoteSubmitted onAccept={onVoted} />
   )
 
   const viewContext = new ViewContext([
@@ -52,5 +54,5 @@ export const ConfirmModal = ({ isOpen, onClose }: IConfigModal) => {
 }
 
 const ModalContainer = styled.div`
-  padding: 10px 20px 10px;
+  padding: 10px 20px 0px;
 `
