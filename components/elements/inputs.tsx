@@ -21,14 +21,21 @@ export type Input = typeof Input
 export const Input = styled.input<IInputProps>`
   padding: ${({type}) =>  type == 'color'? '0px': '11px'};
   margin-top: 8px;
-  border: 2px solid ${({theme, error}) => error? 'rgb(180 10 10 / 55%)': '#eff1f7'};
-  box-shadow: ${({error}) => error? 'inset 0px 2px 3px rgba(180, 10, 10, 0.35)': 'inset 0px 2px 3px rgba(180, 193, 228, 0.35)'};
+  color: ${({error, theme}) => error? '#FF2929' : theme.blueText};
+  border: 2px solid ${({theme, error}) => error? '#FF2929': '#EFF1F7;'};
+  box-shadow: ${({error}) => error? 'inset 0px 2px 3px rgba(180, 193, 228, 0.35)': 'inset 0px 2px 3px rgba(180, 193, 228, 0.35)'};
   box-sizing: border-box;
   border-radius: 8px;
   outline-width: 0;
   margin-bottom: 10px;
   ${({ wide }) => (wide ? 'width: 100%;' : '')}
   ${({type}) =>  type == 'color'? 'height: 40px': ''};
+
+  @media ${({ theme }) => theme.screenMax.mobileL} {
+    padding: 11px 16px;
+    line-height: 22px;
+    font-size: 16px;
+  }
 `
 
 export type Textarea = typeof Textarea
@@ -38,11 +45,17 @@ export const Textarea = styled.textarea<IInputProps>`
   margin-top: 8px;
   border: 2px solid #eff1f7;
   box-sizing: border-box;
-  border: 2px solid ${({theme, error}) => error? 'rgb(180 10 10 / 55%)': '#eff1f7'};
-  box-shadow: ${({error}) => error? 'inset 0px 2px 3px rgba(180, 10, 10, 0.35)': 'inset 0px 2px 3px rgba(180, 193, 228, 0.35)'};  border-radius: 8px;
+  border: 2px solid ${({theme, error}) => error? '#FF2929': '#EFF1F7;'};
+  box-shadow: ${({error}) => error? 'inset 0px 2px 3px rgba(180, 193, 228, 0.35)': 'inset 0px 2px 3px rgba(180, 193, 228, 0.35)'};  border-radius: 8px;
   outline-width: 0;
   margin-bottom: 10px;
   ${({ wide }) => (wide ? 'width: 100%;' : '')}
+
+  @media ${({ theme }) => theme.screenMax.mobileL} {
+    padding: 11px 16px;
+    line-height: 22px;
+    font-size: 16px;
+  }
 `
 
 const selectStyles = {

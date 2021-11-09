@@ -219,7 +219,7 @@ export const VotingPageView = () => {
 
   return (
     <>
-      <PageCard>
+      <VotingCard>
         <CardImageHeader
           title={processInfo?.metadata?.title.default}
           processImage={processInfo?.metadata?.media.header}
@@ -246,8 +246,8 @@ export const VotingPageView = () => {
                 />
               </Column>
 
-              <Column sm={12} md={3} hiddenSm>
-                <If condition={votingState !== VotingState.Guest}>
+              <Column sm={12} md={3} hiddenSm hiddenMd>
+                {votingState === VotingState.NotStarted && (
                   <VoteNowCardContainer>
                     <VoteNowCard
                       onVote={handleVoteNow}
@@ -256,7 +256,13 @@ export const VotingPageView = () => {
                       hasVoted={showResults}
                     />
                   </VoteNowCardContainer>
-                </If>
+                )}
+
+                {votingState === VotingState.Ended && (
+                  <VoteNowCardContainer>
+                    <VoteRegisteredCard explorerLink={explorerLink} />
+                  </VoteNowCardContainer>
+                )}
               </Column>
             </Grid>
           )}
@@ -318,7 +324,11 @@ export const VotingPageView = () => {
           </FixedButtonContainer>
         )}
 
-        {hasVoted && <VoteRegisteredCard explorerLink={explorerLink} />}
+        {hasVoted && (
+          <VoteRegisteredLgContainer>
+            <VoteRegisteredCard explorerLink={explorerLink} />
+          </VoteRegisteredLgContainer>
+        )}
         {showResults &&
           processInfo?.metadata?.questions.map(
             (question: Question, index: number) => (
@@ -350,7 +360,7 @@ export const VotingPageView = () => {
             </Grid>
           </Then>
         </If>
-      </PageCard>
+      </VotingCard>
 
       <ConfirmModal
         isOpen={confirmModalOpened}
@@ -360,6 +370,20 @@ export const VotingPageView = () => {
     </>
   )
 }
+
+const VotingCard = styled(PageCard)`
+  @media ${({ theme }) => theme.screenMax.mobileL} {
+    margin: -21px -16px 0 -16px;
+  }
+`
+
+const VoteRegisteredLgContainer = styled.div`
+  display: none;
+
+  @media ${({ theme }) => theme.screenMax.tablet} {
+    display: block;
+  }
+`
 
 const PlayerFixedContainer = styled.div<IVideoStyle>`
   position: absolute;
@@ -391,12 +415,12 @@ const FixedButtonContainer = styled.div`
   right: 0;
   z-index: 31;
   background-color: ${(props) => props.theme.white};
-  padding: 10px;
+  padding: 28px 10px;
   box-shadow: 1px 1px 9px #8f8f8f;
 
   & > div {
     margin: 0 auto;
-    max-width: 300px;
+    max-width: 330px;
   }
 
   @media ${({ theme }) => theme.screenMin.tablet} {

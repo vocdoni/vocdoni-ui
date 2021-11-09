@@ -11,6 +11,7 @@ import styled from 'styled-components'
 import { sizes } from 'theme/sizes'
 import { useCookies } from '@hooks/cookies'
 import { If } from 'react-if'
+import { colors } from '@theme/colors'
 
 export const CookiesBanner = () => {
   const { i18n } = useTranslation()
@@ -23,26 +24,24 @@ export const CookiesBanner = () => {
           <TextContainer>
             <SpacedContainer>
               <Typography variant={TypographyVariant.ExtraSmall}>
-                {i18n.t('cookies.cookies_paragraph_1')}{ ' ' }
-                <Link href={COOKIES_PATH}>
-                  {i18n.t('cookies.configure')}
-                </Link>
+                {i18n.t('cookies.cookies_paragraph_1')}{' '}
+                <Link href={COOKIES_PATH}>{i18n.t('cookies.configure')}</Link>
               </Typography>
             </SpacedContainer>
           </TextContainer>
 
           <ButtonsContainer>
-            <SpacedContainer>
+            <ButtonContainer>
               <Button positive onClick={acceptCookies} wide>
                 {i18n.t('cookies.accept')}
               </Button>
-            </SpacedContainer>
+            </ButtonContainer>
 
-            <SpacedContainer>
-              <Button border href={COOKIES_PATH} wide>
+            <ButtonContainer>
+              <Button border href={COOKIES_PATH} wide color={colors.accent1}>
                 {i18n.t('cookies.configure')}
               </Button>
-            </SpacedContainer>
+            </ButtonContainer>
           </ButtonsContainer>
         </CookiesBannerContent>
       </CookiesContainer>
@@ -67,7 +66,8 @@ const TextContainer = styled.div`
   }
 
   @media ${({ theme }) => theme.screenMax.mobileL} {
-    p, a{
+    p,
+    a {
       font-size: 10px;
     }
   }
@@ -77,12 +77,20 @@ const ButtonsContainer = styled.div`
   padding: 10px;
 
   @media ${({ theme }) => theme.screenMax.mobileL} {
-    ${ BaseButton } {
-      padding: 4px !important;
-    }
+    padding: 0px;
+
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row-reverse;
   }
 `
-
+const ButtonContainer = styled.div`
+  margin-bottom: 12px;
+  @media ${({ theme }) => theme.screenMax.mobileL} {
+    width: 48%;
+    margin-bottom: 0;
+  }
+`
 const SpacedContainer = styled.div`
   margin-bottom: 12px;
 `
@@ -95,4 +103,9 @@ const CookiesContainer = styled.div`
   z-index: 200;
   padding: 10px 20px;
   background-color: ${({ theme }) => theme.white};
+
+  @supports ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
+    backdrop-filter: blur(40px);
+    background-color: transparent;
+  }
 `
