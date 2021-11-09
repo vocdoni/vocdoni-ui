@@ -47,21 +47,32 @@ const FooterContainer = styled.div`
 
 const VoterIconContainer = styled.div`
   width: 160px;
-  height: 80px;
+  max-height: 80px;
   margin-left: 20px;
+
+  & > img {
+    max-width: 160px;
+    max-height: 80px;
+  }
 
   @media ${({ theme }) => theme.screenMax.tablet} {
     width: 120px;
-    height: 70px;
+    max-height: 70px;
+
+    & > img {
+      max-width: 120px;
+      max-height: 70px;
+    }
   }
 
   @media ${({ theme }) => theme.screenMax.mobileM} {
     width: 100px;
-    height: 60px;
+    max-height: 60px;
+
+    & > img {
+      max-width: 100px;
+      max-height: 60px;
+    }
   }
 
-  & > img {
-    max-width: 100%;
-    max-height: 100%;
-  }
 `
