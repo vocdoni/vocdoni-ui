@@ -1,5 +1,10 @@
 # CHANGELOG
 
+### v1.2.4
+
+- [DVOT-200] Fix problem with brand color on voting page
+- [DVOT-160] Redesign voting page
+
 ### v1.2.3
 
 - Updated the entity terms and conditions to make a smoother user flow
