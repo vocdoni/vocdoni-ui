@@ -3,10 +3,8 @@ import styled from 'styled-components'
 
 import { useTranslation } from 'react-i18next'
 
-import { Banner } from '@components/blocks/banners'
 import { ImageContainer } from '@components/elements/images'
-import { Grid } from '@components/elements/grid'
-import { Button } from '@components/elements/button'
+import { Button, LinkTarget } from '@components/elements/button'
 
 interface IVoteRegisteredCardProps {
   explorerLink: string
@@ -33,7 +31,7 @@ export const VoteRegisteredCard = ({
             {i18n.t('vote.your_vote_has_been_registered')}
           </BannerTitle>
           <div>
-            <Button href={explorerLink} positive wide>
+            <Button href={explorerLink} target={LinkTarget.Blank} positive wide>
               {i18n.t('vote.view_link')}
             </Button>
           </div>
