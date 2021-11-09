@@ -53,6 +53,11 @@ export const PageCardHeader = styled.div<{ variant?: PageCardHeaderVariant }>`
     PageCardHeaderVariantStyle[variant || PageCardHeaderVariant.Image](
       theme,
     )}
+  
+  @media ${({ theme }) => theme.screenMax.mobileL} {
+    border-radius: 0;
+  }
+    
 `
 
 export const Card = ({ span, sm, md, lg, xl, border, ...props }: CardProps) => (

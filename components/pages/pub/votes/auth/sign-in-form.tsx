@@ -64,6 +64,7 @@ export const SignInForm = ({
                   <InputFormGroup
                     label={fieldName}
                     id={fieldName}
+                    placeholder={i18n.t('vote.auth.insert_your', {field: fieldName})}
                     onChange={(e: ChangeEvent<HTMLInputElement>) =>
                       onChange(fieldName, e.target.value)
                     }
@@ -107,7 +108,7 @@ const LoginFieldset = styled(Fieldset)`
 
 const SignInFormCard = styled(PageCard)`
   @media ${({ theme }) => theme.screenMax.mobileL} {
-    margin: -24px -20px 0 -20px;
+    margin: -21px -16px 0 -16px;
   }
 `
 
