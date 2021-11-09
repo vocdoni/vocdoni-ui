@@ -11,7 +11,7 @@ export const PrivacyLayer1Ca = () => (
         <tbody>
           <tr>
             <td>Responsable</td>
-            <td>Los datos personales que se recojan directamente del solicitante para el proceso de votación, serán tratados de forma confidencial y se incorporarán a la actividad de tratamiento correspondiente propiedad de ARAGON LABS.</td>
+            <td>Los datos personales que se recojan directamente del solicitante para los procesos de votación, serán tratados de forma confidencial y se incorporarán a la actividad de tratamiento correspondiente propiedad de ARAGON LABS.</td>
           </tr>
           <tr>
             <td>Finalidad</td>
@@ -20,26 +20,25 @@ export const PrivacyLayer1Ca = () => (
           <tr>
             <td>Legitimación</td>
             <td> 
-              <p>La base legal para el tratamiento de sus datos es la ejecución del contrato al que se refiere el artículo 6.1.b) GDPR. La base legal para el mantenimiento de las relaciones comerciales, es el interés legítimo de ARAGON LABS referido en el artículo 6.1.f) GDPR</p>
+              <p>La base legal para el tratamiento de sus datos es la ejecución del contrato al que se refiere el artículo 6.1.b) GDPR. La base legal para el mantenimiento de las relaciones comerciales, es el interés legítimo de ARAGON LABS referido en el artículo 6.1.f) GDPR.</p>
             </td>
           </tr>
           <tr>
             <td>Destinatarios</td>
-            <td>Sus datos personales no serán cedidos a terceros, ni serán transferidos fuera de la Unión Europea</td>
+            <td>Aragon Labs comparte información personal con otras empresas de Aragon, dentro del grupo de la Aragon Association o con terceros proveedores de servicios que ayudan a Aragon Labs a prestar sus servicios. Esto puede incluir el intercambio de información con terceros contratistas, sujetos a obligaciones de confidencialidad, en relación con el tratamiento de la información personal del usuario para los fines descritos en esta Política, como, entre otros, los proveedores de servicios informáticos y de comunicaciones, los terceros relacionados con los servicios que presta Aragon Labs, incluidos los reguladores, las autoridades y las instituciones gubernamentales. Aragon Labs puede transferir información personal fuera de Europa. En esos casos, Aragon se asegurará de que la información esté protegida y se transfiera de forma coherente con los requisitos legales aplicables a la información. El interesado consiente que los datos sean compartidos entre Aragon Labs y la Aragon Association y otros socios de la Aragon Network que requieran los datos para el adecuado desempeño de sus funciones.</td>
           </tr>
           <tr>
             <td>Derechos</td>
-            <td>Acceder, rectificar y suprimir los datos, así como otros derechos, como
-              se explica en la información adicional</td>
+            <td>Acceder, rectificar y suprimir los datos, así como otros derechos, como se explica en la información adicional.</td>
           </tr>
           <tr>
             <td>Información adicional (capa 2)</td>
-            <td>Puede consultar la información adicional y detallada sobre la protección de datos en nuestro sitio web:
-              <a target="_blank" href={DATA_POLICY_PATH}>https://vocdoni.app{DATA_POLICY_PATH}</a>
+            <td>Puede consultar la información adicional y detallada sobre la protección de datos en nuestro sitio web
+              <a target="_blank" href={DATA_POLICY_PATH}>https://vocdoni.app{DATA_POLICY_PATH}</a>.
             </td>
           </tr>
           <tr>
-            <td>Fuente (procedencia) de los datos en el supuesto en que los datos personales no hayan sido obtenidos directamente de usted</td>
+            <td>Fuente (procedencia) de los datos en el supuesto en que los datos personales no hayan sido obtenidos directamente de usted.</td>
             <td>No aplica.</td>
           </tr>
       </tbody>

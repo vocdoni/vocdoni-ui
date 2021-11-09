@@ -10,6 +10,7 @@ const PageView = () => {
     <PageCard>
       <>
         <When condition={!lang || lang === 'es' || lang === 'ca'}>
+          <h3>Registro de Actividad</h3>
           <RegistryWrapper>
             <table>
               <tbody>
@@ -115,7 +116,7 @@ const PageView = () => {
                 </tr>
                 <tr>
                   <td> Entidad responsable </td>
-                  <td> Aragon Labs </td>
+                  <td> Aragon Labs. </td>
                 </tr>
               </tbody>
             </table>
@@ -124,6 +125,7 @@ const PageView = () => {
 
         <When condition={lang === 'en'}>
           <RegistryWrapper>
+            <h3>Activity Register</h3>
             <table>
               <tbody>
                 <tr>
@@ -190,7 +192,7 @@ To attend inquiries, send advertising, and process a registration in the newslet
                 </tr>
                 <tr>
                   <td> Responsible entity </td>
-                  <td> Aragon Labs </td>
+                  <td> Aragon Labs. </td>
                 </tr>
               </tbody>
             </table>
