@@ -2,6 +2,7 @@
 
 ### v1.2.4
 
+- Improved cookies/policy and conditions of use, added new legal texts and missing information and improved formatting.
 - [DVOT-200] Fix problem with brand color on voting page
 - [DVOT-160] Redesign voting page
 
