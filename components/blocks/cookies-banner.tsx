@@ -37,11 +37,11 @@ export const CookiesBanner = () => {
               </Button>
             </ButtonContainer>
 
-            <ButtonContainer>
+            <ConfigureButtonContainer>
               <Button border href={COOKIES_PATH} wide color={colors.accent1}>
                 {i18n.t('cookies.configure')}
               </Button>
-            </ButtonContainer>
+            </ConfigureButtonContainer>
           </ButtonsContainer>
         </CookiesBannerContent>
       </CookiesContainer>
@@ -84,13 +84,24 @@ const ButtonsContainer = styled.div`
     flex-direction: row-reverse;
   }
 `
+
 const ButtonContainer = styled.div`
   margin-bottom: 12px;
+
   @media ${({ theme }) => theme.screenMax.mobileL} {
-    width: 48%;
     margin-bottom: 0;
+    width: 100%;
   }
 `
+
+const ConfigureButtonContainer = styled(ButtonContainer)`
+@media ${({ theme }) => theme.screenMax.mobileL} {
+  width: auto;
+  margin-right: 16px;
+}
+`
+
+
 const SpacedContainer = styled.div`
   margin-bottom: 12px;
 `

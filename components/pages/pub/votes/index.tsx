@@ -373,7 +373,7 @@ export const VotingPageView = () => {
 
 const VotingCard = styled(PageCard)`
   @media ${({ theme }) => theme.screenMax.mobileL} {
-    margin: -21px -16px 0 -16px;
+    margin: -20px -15px 0 -15px;
   }
 `
 
