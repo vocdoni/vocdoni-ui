@@ -113,7 +113,7 @@ export const MnemonicForm = ({
 
 const SignInFormCard = styled(PageCard)`
   @media ${({ theme }) => theme.screenMax.mobileL} {
-    margin: -24px -20px 0 -20px;
+    margin: -21px -16px 0 -16px;
   }
 `
 

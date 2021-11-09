@@ -54,22 +54,30 @@ export const ColumnDiv = styled.div<ColumnProps>`
   box-sizing: border-box;
   width: calc(${props => resolveResponsiveSpan(props).xs * 100 / GRID_COLUMNS}% - ${GRID_GUTTER}px);
 
+  @media ${({ theme }) => theme.screenMax.laptop} {
+    display: ${({hiddenLg}) => hiddenLg ? 'none' : 'block'};
+  }
+
+  @media ${({ theme }) => theme.screenMax.tablet} {
+    display: ${({hiddenMd}) => hiddenMd ? 'none' : 'block'};
+  }
+  
+  @media ${({ theme }) => theme.screenMax.mobileL} {
+    display: ${({hiddenSm}) => hiddenSm ? 'none' : 'block'};
+  }
+
   @media ${({ theme }) => theme.screenMin.mobileL} {
     width: calc(${props => resolveResponsiveSpan(props).sm * 100 / GRID_COLUMNS}% - ${GRID_GUTTER}px);
-    display: ${({hiddenSm}) => hiddenSm ? 'none' : 'block'};
   }
   @media ${({ theme }) => theme.screenMin.tablet} {
     width: calc(${props => resolveResponsiveSpan(props).md * 100 / GRID_COLUMNS}% - ${GRID_GUTTER}px);
-    display: ${({hiddenMd}) => hiddenMd ? 'none' : 'block'};
   }
   @media ${({ theme }) => theme.screenMin.laptop} {
     width: calc(${props => resolveResponsiveSpan(props).lg * 100 / GRID_COLUMNS}% - ${GRID_GUTTER}px);
-    display: ${({hiddenLg}) => hiddenLg ? 'none' : 'block'};
 
   }
   @media ${({ theme }) => theme.screenMin.laptopL} {
     width: calc(${props => resolveResponsiveSpan(props).xl * 100 / GRID_COLUMNS}% - ${GRID_GUTTER}px);
-    display: ${({hiddenLg}) => hiddenLg ? 'none' : 'block'};
   }
 `
 

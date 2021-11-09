@@ -117,6 +117,9 @@ ${props => props.large ? "font-size: 125%;" :
 
     @media ${({theme})  => theme.screenMax.mobileL } {
         white-space: normal;
+        padding:  ${({ border }) => border? '16px 18px !important': '18px 20px !important' };
+        line-height: 20px !important;
+        font-size: 16px !important;
     }
 `
 
