@@ -80,9 +80,8 @@
     "cookies": {
         "accept": "Aceptar",
         "analytics": "Analítica",
-        "cookies_paragraph_1": "Este sitio web utiliza cookies para mejorar su experiencia mientras navega por el sitio web. También utilizamos cookies de terceros que nos ayudan a analizar y comprender cómo utiliza este sitio web. Estas cookies se almacenarán en su navegador solo con su consentimiento. También tiene la opción de optar por no recibir estas cookies. Pero la exclusión voluntaria de algunas de estas cookies puede afectar su experiencia de navegación.",
         "configure": "Configurar",
-        "reject": "Rechazar",
+        "cookies_paragraph_1": "Este sitio web utiliza cookies para mejorar su experiencia mientras navega por el sitio web. También utilizamos cookies de terceros que nos ayudan a analizar y comprender cómo utiliza este sitio web. Estas cookies se almacenarán en su navegador solo con su consentimiento. También tiene la opción de optar por no recibir estas cookies. Pero la exclusión voluntaria de algunas de estas cookies puede afectar su experiencia de navegación.",
         "save": "Guardar"
     },
     "copy": {
@@ -200,7 +199,6 @@
             "entity_description": "Descripcion de la entidad",
             "view_in_explorer": "Ver en el explorador"
         },
-        "personal_data_protection_information": "Información de Protección de Datos",
         "i_have_read_and_accept_personal_data": "(Optional) Doy mi consentimiento expreso para la gestión comercial y de servicios",
         "i_have_read_and_accept_terms": "He leído y acepto el “<2>Información de protección de datos personales</2>”, y la “<1>Política de Privacidad</1>” de Aragon Labs",
         "logo": "Logo de la entidad",
@@ -505,6 +503,9 @@
         "active_vote": "Proceso activo",
         "add_new_question": "Añade una nueva pregunta",
         "add_option": "Añade más opciones",
+        "auth": {
+            "insert_your": "Inserta tu {{ field }}"
+        },
         "back_to_dashboard": "Vuelve al inicio",
         "brand_color_used_on_the_voting_process": "Brand color used on the voting process",
         "brand_process_color": "Brand color",

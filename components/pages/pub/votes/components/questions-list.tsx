@@ -121,19 +121,21 @@ export const QuestionsList = forwardRef<HTMLDivElement, IQuesListProps>(
         </div>
 
         <FixedButtonsActionContainer>
-          <Button onClick={handlePrev}>
-            {i18n.t('votes.questions_list.back')}
-          </Button>
+          <div>
+            <Button onClick={handlePrev}>
+              {i18n.t('votes.questions_list.back')}
+            </Button>
 
-          <Button
-            onClick={handleNext}
-            positive
-            disabled={typeof results[questionIndex] === 'undefined'}
-          >
-            {lastQuestion
-              ? i18n.t('votes.questions_list.finish_voting')
-              : i18n.t('votes.questions_list.next_question')}
-          </Button>
+            <Button
+              onClick={handleNext}
+              positive
+              disabled={typeof results[questionIndex] === 'undefined'}
+            >
+              {lastQuestion
+                ? i18n.t('votes.questions_list.finish_voting')
+                : i18n.t('votes.questions_list.next_question')}
+            </Button>
+          </div>
         </FixedButtonsActionContainer>
       </QuestionsContainer>
     )
@@ -155,11 +157,22 @@ const FixedButtonsActionContainer = styled.div`
   bottom: 0;
   z-index: 30;
   background-color: ${({ theme }) => theme.white};
-  padding: 10px 20px;
+  padding: 28px 10px;
   box-shadow: 1px 1px 9px #8f8f8f;
 
-  @media ${({ theme }) => theme.screenMax.mobileL} {
+  & > div {
+    margin: 0 auto;
+    max-width: 330px;
     display: flex;
+    justify-content: space-between;
+
+    & > * {
+      width: 48%;
+    }
+  }
+
+  @media ${({ theme }) => theme.screenMax.mobileL} {
+    display: block;
   }
 `
 
@@ -171,7 +184,6 @@ const LiveStreamVideoContainer = styled.div`
   height: 360px;
   width: 100%;
   margin-bottom: 30px;
-
 
   @media ${({ theme }) => theme.screenMax.tabletL} {
     height: 300px;
