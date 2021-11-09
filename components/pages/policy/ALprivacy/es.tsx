@@ -41,15 +41,11 @@ export const ALPrivacyEs = () => (
         <p ></p>
         <p >2. How is the information collected?</p>
         <p ></p>
-        <p >2.1 Information provided by the user</p>
-        <p ></p>
-        <p >processes personal information that the user provides
+        <p >Aragon Labs processes personal information that the user provides
     directly through various channels:</p>
         <p ></p>
         <ul >
-          <li >: when the
-          user registers at any Aragon site, signs up for news, events or newsletters, obtains services from Aragon Labs,
-      contacts Aragon Labs with queries or responds to Aragon Labs communications. </li>
+          <li >: when the user registers at any Aragon site, obtains services from Aragon Labs, contacts Aragon Labs with queries or responds to Aragon Labs communications. Additionally, the user may signs up for news, events or newsletters. </li>
         </ul>
         <p >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
         <ul >
@@ -66,18 +62,15 @@ export const ALPrivacyEs = () => (
         </ul>
         <p ></p>
         <p >Data may also be collected when the user visits any Aragon Labs site, requires any
-        services, or Aragon Labs interacts directly with the user. Aragon Labs may use different technologies to collect and
-        store information such as, the type of device used to access the websites, IP address and geographic location, the
-        operating system and version, browser type, the content viewed and features accessed on Aragon Labs&rsquo; websites,
-    the web pages and the&nbsp;search terms entered on Aragon Labs websites. For those purposes
-          Aragon Labs may also process data collected by the Aragon Association, an affiliated entity, including the
-  Aragon Forum, Rocketchat (email, chat conversations, cookies), Helpscout (email, browser
-            fingerprint, IP address), Aragon Client notification system (Using 3rd party service), Hubspot, Google
-    Surveys/Forms, Surveymonkey, Earn.com, Typeform, Gmail, Mailchimp.</p>
+          services, or Aragon Labs interacts directly with the user. Aragon Labs may use different technologies to collect and
+          store information such as, the type of device used to access the websites, browser type, the content viewed and features accessed on Aragon Labs' websites,
+          the web pages entered on Aragon Labs websites. For those purposes
+          Aragon Labs may also process data collected by Helpscout (email, browser
+          fingerprint, IP address), Hubspot, Typeform & Rudderstack.</p>
             <p ></p>
             <p >3. How is the information used?</p>
             <p ></p>
-            <p >may use the collected information for the following
+            <p >Aragon Labs may use the collected information for the following
     purposes:</p>
             <p ></p>
             <ul >
@@ -104,9 +97,9 @@ export const ALPrivacyEs = () => (
                 <p ></p>
                 <p >4. How the information is shared</p>
                 <p ></p>
-                <p >shares personal information with other Aragon
+                <p >Aragon Labs shares personal information with other Aragon
                 companies, among the Aragon Association group or third party service providers that assist Aragon Labs providing
-    services. This may include sharing information with hird party
+    services. This may include sharing information with third party
                   contractors, bound by obligations of confidentiality, in connection with the processing of user&rsquo;s personal
                   information for the purposes described in this Policy, such as, but not limited to, IT and communications service
                   providers, third parties relevant to the services that Aragon Labs provides including regulators, authorities and
@@ -132,7 +125,7 @@ export const ALPrivacyEs = () => (
                   <p ></p>
                   <p >6. Exercise of Rights</p>
                   <p ></p>
-                  <p >number of legal rights in
+                  <p >The user holds a number of legal rights in
                   relation to the personal information that Aragon Labs may hold about the user. These rights can be exercised at any
     time by contacting Aragon Labs using the details set out below.</p>
                   <p ></p>
@@ -143,10 +136,10 @@ export const ALPrivacyEs = () => (
       access to the personal information which is held about the user;</li>
                     <li >Request that Aragon Labs corrects any personal information if it is
       inaccurate or incomplete;</li>
-                    <li >Request that Aragon Labs and other group entities erase the personal
+                    <li >Request that Aragon Labs erase the personal
                     information in certain circumstances. There may be circumstances where the user asks Aragon Labs to erase personal
       information but Aragon Labs is legally entitled to retain it.</li>
-                    <li >Object to, and request that Aragon LAbs restricts the processing of
+                    <li >Object to, and request that Aragon Labs restricts the processing of
                     personal information in certain circumstances. There may be circumstances where the user objects to, or asks
                     Aragon Labs to restrict the processing of personal information but Aragon Labs is legally entitled to refuse that
       request.</li>
@@ -160,7 +153,7 @@ export const ALPrivacyEs = () => (
                   </ul>
                   <p >7. Contact</p>
                   <p ></p>
-                  <p >further information on the collection, use, disclosure,
+                  <p >For any further information on the collection, use, disclosure,
                   transfer or processing of personal information or the exercise of any of the rights listed above, please contact
     Aragon by sending an email to <a>privacy@aragonlabs.org</a></p>
 
