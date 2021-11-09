@@ -1,5 +1,9 @@
 # CHANGELOG
 
+
+### v1.2.5
+- [DVOT-197] Fix problem with the text editor on the process creation
+
 ### v1.2.4
 
 - Improved cookies/policy and conditions of use, added new legal texts and missing information and improved formatting.
