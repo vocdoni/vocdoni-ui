@@ -33,19 +33,21 @@ export const ModalQuestionList = ({
         <QuestionText>{question?.title.default}</QuestionText>
       </QuestionGroup>
 
-      <QuestionGroup>
+      <div>
         <SectionText color="#7E89AC">{i18n.t('vote.your_choice')}</SectionText>
         <QuestionText>{choice?.title.default}</QuestionText>
-      </QuestionGroup>
+      </div>
     </div>
   )
   return (
-    <>
+    <ModalContent>
       <ModalHeader>{i18n.t('vote.confirm_your_vote')}</ModalHeader>
 
-      {questions.map((question: Question, index: number) =>
-        renderQuestion(question, question.choices[choices[index]], index)
-      )}
+      <QuestionsContainer>
+        {questions.map((question: Question, index: number) =>
+          renderQuestion(question, question.choices[choices[index]], index)
+        )}
+      </QuestionsContainer>
 
       <Grid>
         <Column sm={6}>
@@ -71,9 +73,23 @@ export const ModalQuestionList = ({
           </Button>
         </Column>
       </Grid>
-    </>
+    </ModalContent>
   )
 }
+
+const ModalContent = styled.div`
+  position: relative;
+`
+
+const QuestionsContainer = styled.div`
+  overflow-y: scroll;
+  overflow-x: hidden;
+  max-height: 300px;
+
+  @media ${({theme}) => theme.screenMax.mobileL} {
+    max-height: 260px;
+  }
+`
 
 const ModalHeader = styled(SectionText)`
   font-size: 20px;
@@ -83,6 +99,7 @@ const ModalHeader = styled(SectionText)`
 const QuestionText = styled(SectionText)`
   size: 22px;
   font-weight: 500;
+  margin-bottom: 4px;
 `
 
 const QuestionGroup = styled.div`

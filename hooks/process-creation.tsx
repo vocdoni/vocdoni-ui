@@ -268,7 +268,7 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
         while (retries >= 0) {
           try {
             // the following getProcessInfo throws if no process is found with this id
-            let processInfo = await VotingApi.getProcessState(trimProcId, pool)
+            let processInfo = await VotingApi.getProcessState(trimProcId, pool, {skipArchive: true})
             if (typeof processInfo !== 'object') {
               throw new Error("invalid process info")
             }
