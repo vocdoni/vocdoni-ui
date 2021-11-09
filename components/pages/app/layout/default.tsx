@@ -1,13 +1,13 @@
 import styled from 'styled-components'
+import { useRouter } from 'next/router'
 
 import { sizes } from '../../../../theme/sizes'
 import { useWallet } from '../../../../hooks/use-wallet'
 
-import { Footer } from '../footer'
 import { MessageAlert } from '../../../blocks/msg-alert'
 import { LoadingAlert } from '../../../blocks/loading-alert'
 import { Loader } from '../../../blocks/loader'
-import { useRouter } from 'next/router'
+import { Footer } from '../footer'
 import { EntityHeader } from '../header/entity'
 
 

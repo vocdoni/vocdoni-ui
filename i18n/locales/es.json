@@ -11,12 +11,10 @@
         "sign_in": "Iniciar sesión"
     },
     "app": {
-      "meta": {
-            "title": "La solución fácil y segura para todas sus necesidades de gobierno",
-            "description": "Vocdoni es un sistema de votación seguro, privado y universalmente verificable para cualquier organización.",
-            "keywords": "Voto por cadena de bloques, voto móvil, verificación universal, voto como servicio, gobernanza descentralizada, voto anónimo, centrado en la privacidad, voto electrónico seguro, voto digital a prueba de manipulaciones, soberanía de datos, gobernanza resistente, herramientas de gobernanza/coordinación"
-      },
-      "header": {
+        "footer": {
+            "powered_by": ""
+        },
+        "header": {
             "create_account_backup": "Crear backup",
             "custom_branding": "Personalizar marca",
             "dashboard": "Dashboard",
@@ -27,6 +25,11 @@
             "settings": "Herramientas",
             "update_entity": "Actualizar entidad",
             "user_language": "Idioma: {{ lang }}"
+        },
+        "meta": {
+            "description": "Vocdoni es un sistema de votación seguro, privado y universalmente verificable para cualquier organización.",
+            "keywords": "Voto por cadena de bloques, voto móvil, verificación universal, voto como servicio, gobernanza descentralizada, voto anónimo, centrado en la privacidad, voto electrónico seguro, voto digital a prueba de manipulaciones, soberanía de datos, gobernanza resistente, herramientas de gobernanza/coordinación",
+            "title": "La solución fácil y segura para todas sus necesidades de gobierno"
         }
     },
     "backup": {
@@ -205,7 +208,7 @@
         "new_entity": "Nueva Entidad",
         "passphrase": "Contraseña",
         "passphrase_image_alt": "Contraseña",
-        "pending_steps": " ",
+        "personal_data_protection_information": "Información de Protección de Datos",
         "repeat_passphrase": "Repite la contraseña",
         "select_city_council": "Ayuntamiento",
         "select_company": "Empresa",
@@ -410,9 +413,9 @@
         "dashboard": "Inicio",
         "docs": "Documentos",
         "help": "Ayuda",
-        "requests_and_bugs": "Solicitudes y Errores",
         "pricing": "Precio",
         "privacy_policy": "Política de Privacidad",
+        "requests_and_bugs": "Solicitudes y Errores",
         "support": "Soporte"
     },
     "preview": {
@@ -505,7 +508,6 @@
         "back_to_dashboard": "Vuelve al inicio",
         "brand_color_used_on_the_voting_process": "Brand color used on the voting process",
         "brand_process_color": "Brand color",
-        "brief_description": "Breve descripción",
         "canceled_vote": "Votación cancelada",
         "cannot_connect_to_the_blockchain_to_check_the_account_balance": "No se ha podido conectar a la cadena de bloques",
         "cannot_connect_to_the_vocdoni_chain": "No se ha podido conectar a la cadena Vocdoni",
@@ -585,7 +587,6 @@
         "stream_link": "Enlace del video streaming",
         "stream_link_explanation": "Si quieres emitir tu proceso en vivo puedes incluir un video streaming. Puede ser, por ejemplo, un stream de youtube.",
         "stream_link_label": "Este campo es opcional",
-        "submit_my_vote": "Envía mi voto",
         "supported_formats_csv_xls_and_ods": "Formatos compatibles: CSV, XLSX and ODS",
         "surname": "Apellido",
         "thanks_for_participate_on_this_AGM": "Gracias por participar en este proceso, vuelve a la página principal para seguir y consultar los resultados cuando estén disponibles",
@@ -632,5 +633,13 @@
         "your_vote_has_been_registered": "Tu voto ha sido registrado",
         "your_vote_is_set_up": "Votación creada",
         "your_vote_process_is_being_created": "Proceso de votación creado"
+    },
+    "votes": {
+        "questions_list": {
+            "back": "",
+            "finish_voting": "",
+            "next_question": "",
+            "question": ""
+        }
     }
 }

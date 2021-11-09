@@ -232,4 +232,5 @@ export const FormGroup = styled.div<{ variant: FormGroupVariant }>`
 
 export const Fieldset = styled.fieldset`
   border: none;
+  padding: 0;
 `

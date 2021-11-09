@@ -1,9 +1,11 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import Link from 'next/link'
-import { useWallet } from '../../../hooks/use-wallet'
-import { DASHBOARD_PATH, PRIVACY_PATH } from '../../../const/routes'
 import { useTranslation } from 'react-i18next'
+
+import { useWallet } from '../../../../hooks/use-wallet'
+import { DASHBOARD_PATH, PRIVACY_PATH } from '../../../../const/routes'
+
 import { Image } from '@components/elements/image'
 import { useTheme } from '@hooks/use-theme'
 
@@ -68,7 +70,7 @@ export const Footer = () => {
   const links = wallet ? LINKS.filter(link => link.logged) : LINKS.filter(link => link.guest)
 
   return (
-    <Container>
+    <FooterContainer>
       <LogoSection>
         <Link href={wallet ? DASHBOARD_PATH : "/"} passHref>
           <HomeLink target='_self'>
@@ -79,8 +81,6 @@ export const Footer = () => {
           </HomeLink>
         </Link>
       </LogoSection>
-
-
 
       <LinksSection color={theme.lightText}>
         {links.map(({ url, name, external }, i) => (
@@ -117,11 +117,11 @@ export const Footer = () => {
           <AragonLink target='_blank'><img src="/images/common/powered.svg" alt="Aragon" /></AragonLink>
         </Link>
       }
-    </Container>
+    </FooterContainer>
   )
 }
 
-const Container = styled.div`
+export const FooterContainer = styled.div`
   position: absolute;
   bottom: 0;
   width: 100%;
