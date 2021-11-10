@@ -1,4 +1,5 @@
 import React from 'react'
+import { useRouter } from 'next/router'
 import styled from 'styled-components'
 import i18n from '@i18n'
 import { useCookies } from '@hooks/cookies'
@@ -7,7 +8,7 @@ import { CheckboxToggle } from 'react-rainbow-components';
 
 const CoookiesPage = () => {
   const { acceptCookies, rejectCookies, accepted } = useCookies()
-
+  const { back } = useRouter()
   return (
     <>
       <PrivacyWrapper>
@@ -169,7 +170,7 @@ const CoookiesPage = () => {
           you have greater control over your personal data.</p>
 
         <SpacedContainer>
-          <Button positive href={"/"}>
+          <Button positive onClick={() => back()}>
             {i18n.t('cookies.save')}
           </Button>
         </SpacedContainer>
