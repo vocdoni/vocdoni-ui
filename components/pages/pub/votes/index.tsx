@@ -1,19 +1,16 @@
 import React, {
   useState,
-  ReactNode,
   useEffect,
-  useMemo,
   useRef,
-  forwardRef,
 } from 'react'
+import { useRecoilValue } from 'recoil'
 import styled from 'styled-components'
 import { useTranslation } from 'react-i18next'
 import ReactPlayer from 'react-player'
 
 import {
-  useEntity,
-  useBlockHeight,
   useBlockStatus,
+  useEntity,
   useProcess,
 } from '@vocdoni/react-hooks'
 
@@ -34,9 +31,9 @@ import { CardImageHeader } from '@components/blocks/card/image-header'
 import { VoteDescription } from '@components/blocks/vote-description'
 
 import { ConfirmModal } from './components/confirm-modal'
-import { VoteRegisteredCard } from './components/vote-registered-card'
+import { VoteActionCard } from './components/vote-action-card'
 import { VoteStatus, getVoteStatus } from '@lib/util'
-import { Else, If, Then, When } from 'react-if'
+import { If, Then } from 'react-if'
 import { useUrlHash } from 'use-url-hash'
 import {
   VotingApi,
@@ -45,15 +42,15 @@ import {
 import { DateDiffType, localizedStrDateDiff } from '@lib/date'
 import { Body1, TextAlign } from '@components/elements/typography'
 import { QuestionsList } from './components/questions-list'
-import { VoteNowCard } from './components/vote-now-card'
-import { useRecoilValue } from 'recoil'
 import { censusProofState } from '@recoil/atoms/census-proof'
+import { VoteRegisteredCard } from './components/vote-registered-card'
 
-enum VotingState {
+export enum VotingState {
   NotStarted = 'notStarted',
   Started = 'started',
   Ended = 'ended',
   Guest = 'guest',
+  Expired = 'expired',
 }
 
 interface IVideoStyle {
@@ -70,7 +67,7 @@ export const VotingPageView = () => {
   const { methods, choices, hasVoted, results, nullifier } = useVoting(
     processId
   )
-  const { process: processInfo, error, loading } = useProcess(processId)
+  const { process: processInfo } = useProcess(processId)
   const { wallet } = useWallet({ role: WalletRoles.VOTER })
   const { metadata } = useEntity(processInfo?.state?.entityId)
   const [confirmModalOpened, setConfirmModalOpened] = useState<boolean>(false)
@@ -134,13 +131,25 @@ export const VotingPageView = () => {
   }, [votingState])
 
   useEffect(() => {
-    if (!wallet) {
-      return setVotingState(VotingState.Guest)
-    }
 
     if (hasVoted) {
       return setVotingState(VotingState.Ended)
     }
+
+    if (
+      voteStatus === VoteStatus.Ended ||
+      voteStatus === VoteStatus.Canceled ||
+      voteStatus === VoteStatus.Upcoming
+    ) {
+      return setVotingState(VotingState.Expired)
+    }
+
+    if (!wallet) {
+      return setVotingState(VotingState.Guest)
+    }
+
+    setVotingState(VotingState.NotStarted)
+
   }, [wallet, hasVoted])
 
   useEffect(() => {
@@ -262,22 +271,15 @@ export const VotingPageView = () => {
               </Column>
 
               <Column sm={12} md={3} hiddenSm hiddenMd>
-                {votingState === VotingState.NotStarted && (
-                  <VoteNowCardContainer>
-                    <VoteNowCard
-                      onVote={handleVoteNow}
-                      explorerLink={explorerLink}
-                      disabled={voteStatus !== VoteStatus.Active}
-                      hasVoted={showResults}
-                    />
-                  </VoteNowCardContainer>
-                )}
+                <VoteNowCardContainer>
+                  <VoteActionCard
+                    onClick={handleVoteNow}
+                    votingState={votingState}
+                    explorerLink={explorerLink}
+                    disabled={voteStatus !== VoteStatus.Active}
+                  />
+                </VoteNowCardContainer>
 
-                {votingState === VotingState.Ended && (
-                  <VoteNowCardContainer>
-                    <VoteRegisteredCard explorerLink={explorerLink} />
-                  </VoteNowCardContainer>
-                )}
               </Column>
             </Grid>
           )}
