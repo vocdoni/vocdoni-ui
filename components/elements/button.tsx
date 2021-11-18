@@ -150,7 +150,7 @@ const SpinnerContainer = styled.div`
     position: relative;
     height: 16px;
 `
-const PositiveButton = styled(BaseButton)`
+export const PositiveButton = styled(BaseButton)`
 cursor: pointer;
 
 background: linear-gradient(106.26deg, ${props => hexToRgbA(props.theme.accent1B)} 5.73%, ${props => hexToRgbA(props.theme.accent1)} 93.83%);

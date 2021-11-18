@@ -4,17 +4,24 @@ import styled from 'styled-components'
 import { useTranslation } from 'react-i18next'
 
 import { SpreadSheetReader } from '@lib/spread-sheet-reader'
+import {
+  TextAlign,
+  Typography,
+  TypographyVariant,
+} from '@components/elements/typography'
+import { ImageContainer } from '@components/elements/images'
+import { FlexContainer, FlexJustifyContent } from '@components/elements/flex'
 
 const containerStyles = {
-  height: 385,
-  borderRadius: 10,
+  height: 238,
+  borderRadius: 16,
 }
 
 interface ICensusFileSelector {
   onXlsLoad: (xls: SpreadSheetReader) => void
 }
 
-export const CensusFileSelector = ({onXlsLoad}:ICensusFileSelector) => {
+export const CensusFileSelector = ({ onXlsLoad }: ICensusFileSelector) => {
   const { i18n } = useTranslation()
   const [invalidFileType, setInvalidFileType] = useState<string | null>()
 
@@ -48,11 +55,33 @@ export const CensusFileSelector = ({onXlsLoad}:ICensusFileSelector) => {
         accept="xls,csv,ods"
         error={invalidFileType}
         uploadIcon={
-          <ExcelImageContainer>
-            <img src="/images/vote/excel.svg" alt="Excel" />
-          </ExcelImageContainer>
+          <TextContainer>
+            <FlexContainer justify={FlexJustifyContent.Center}>
+              <ImageContainer width="70px">
+                <img src="/images/vote/excel.svg" alt="Excel" />
+              </ImageContainer>
+            </FlexContainer>
+
+            <TextContainer>
+              <Typography
+                variant={TypographyVariant.Body1}
+                margin="10px 0 0 0"
+                align={TextAlign.Center}
+              >
+                {i18n.t('votes.new.upload_or_drag_and_drop_here_the_list')}
+              </Typography>
+
+              <Typography
+                variant={TypographyVariant.ExtraSmall}
+                margin="10px 0 0 0"
+                align={TextAlign.Center}
+              >
+                {i18n.t('votes.new.supported_formats_csv_xls')}
+              </Typography>
+            </TextContainer>
+          </TextContainer>
         }
-        placeholder={i18n.t('vote.supported_formats_csv_xls_and_ods')}
+        placeholder={''}
         variant="multiline"
         onChange={handleChange}
       />
@@ -60,10 +89,22 @@ export const CensusFileSelector = ({onXlsLoad}:ICensusFileSelector) => {
   )
 }
 
-const ExcelImageContainer = styled.div`
-  width: 86px;
+const TextContainer = styled.div`
+  width: 500px;
 
-  & > img {
-    max-width: 100%;
+  @media ${({ theme }) => theme.screenMax.tablet} {
+    width: 400px;
+  }
+
+  @media ${({ theme }) => theme.screenMax.mobileL} {
+    width: 300px;
+  }
+
+  @media ${({ theme }) => theme.screenMax.mobileM} {
+    width: 240px;
+  }
+
+  @media ${({ theme }) => theme.screenMax.mobileS} {
+    width: 200px;
   }
 `

@@ -16,6 +16,7 @@ export enum TypographyVariant {
   Body1 = 'body1',
   Body2 = 'body2',
   ExtraSmall = 'extra-small',
+  MediumSmall = 'medium-small',
   Small = 'small',
   Caption = 'Caption',
 }
@@ -127,6 +128,10 @@ export const ExtraSmall = styled(BaseParagraphTypography)`
   font-size: 12px;
 `
 
+export const MediumSmall = styled(BaseParagraphTypography)`
+  font-size: 14px;
+`
+
 export const Small = styled(BaseParagraphTypography)`
   font-size: 16px;
 `
@@ -144,5 +149,6 @@ const typographyMap = new Map<
   [TypographyVariant.Body1, Body1],
   [TypographyVariant.Body2, Body2],
   [TypographyVariant.Small, Small],
+  [TypographyVariant.MediumSmall, MediumSmall],
   [TypographyVariant.ExtraSmall, ExtraSmall],
 ])
