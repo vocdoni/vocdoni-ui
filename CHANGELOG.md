@@ -1,7 +1,12 @@
 # CHANGELOG
 
+
+### v1.2.5
+
 ### v1.2.4
 
+- [DVOT-197] Fix problem with the text editor on the process creation
+- Improved cookies/policy and conditions of use, added new legal texts and missing information and improved formatting.
 - [DVOT-200] Fix problem with brand color on voting page
 - [DVOT-160] Redesign voting page
 
