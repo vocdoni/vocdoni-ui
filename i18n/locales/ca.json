@@ -188,7 +188,7 @@
             "size_of_entity": "Tamany de l'entitad",
             "type_of_entity": "Tipus d'organització",
             "update": "Actualitzar",
-            "your_entity": "Editar Entidad"
+            "your_entity": "Editar Entitat"
         },
         "email": "Adreça de correu electrònic de contacte",
         "enter_the_name_of_the_entity": "Entra el nom de l'entitat",
@@ -203,7 +203,7 @@
         },
         "personal_data_protection_information": "Informació de Protecció de Dades Personals",
         "i_have_read_and_accept_personal_data": "(Opcional) Dono el meu consentiment exprés per a la gestió comercial i de serveis",
-        "i_have_read_and_accept_terms": "He llegit i accepto la “<2>Informació de protecció de dades personals</2>”, i la “<1>Política de Privacitat</1>” de Aragon Labs",
+        "i_have_read_and_accept_terms": "He llegit i accepto la “Informació de protecció de dades personals” (veure a sobre), i la “<1>Política de Privacitat</1>” de Aragon Labs",
         "logo": "Logo de l'entitat",
         "name": "Nom de l'entitat",
         "new_entity": "Nom de l'entitat",

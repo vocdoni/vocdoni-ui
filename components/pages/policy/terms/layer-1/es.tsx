@@ -39,8 +39,7 @@ export const TermsLayer1Es = () => (
         </tr>
         <tr>
           <td>Destinatarios</td>
-          <td>Sus datos personales no serán cedidos a terceros, ni se transferirán
-            fuera de la Unión Europea</td>
+          <td>- Aragon Labs comparte información personal con otras empresas de Aragon, dentro del grupo de la Aragon Association o con terceros proveedores de servicios que ayudan a Aragon Labs a prestar sus servicios. Esto puede incluir el intercambio de información con terceros contratistas, sujetos a obligaciones de confidencialidad, en relación con el tratamiento de la información personal del usuario para los fines descritos en esta Política, como, entre otros, los proveedores de servicios informáticos y de comunicaciones, los terceros relacionados con los servicios que presta Aragon Labs, incluidos los reguladores, las autoridades y las instituciones gubernamentales. Aragon Labs puede transferir información personal fuera de Europa. En esos casos, Aragon se asegurará de que la información esté protegida y se transfiera de forma coherente con los requisitos legales aplicables a la información. El interesado consiente que los datos sean compartidos entre Aragon Labs y la Aragon Association y otros socios de la Aragon Network que requieran los datos para el adecuado desempeño de sus funciones.</td>
         </tr>
         <tr>
           <td>Derechos</td>
