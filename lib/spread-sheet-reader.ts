@@ -1,5 +1,16 @@
 import xlsx, { WorkBook } from 'xlsx'
+import { InvalidRowLength } from './validators/errors/invalid-row-length'
+import { InvalidWeightedRow } from './validators/errors/invalid-weighted-row-length'
 
+export enum VotingType {
+  Normal = 'normal',
+  Weighted = 'weighted',
+}
+
+export enum ErrorType {
+  InvalidRowLength = 'invalidRowLength',
+  InvalidWeightedVoted = 'invalidWeightedVoted',
+}
 
 export class SpreadSheetReader {
   private readonly reader
@@ -33,19 +44,50 @@ export class SpreadSheetReader {
     })
   }
 
-  public validateDataIntegrity(): void {
-    this.data.forEach((row) => {
+  public validateDataIntegrity(csvType: VotingType): void {
+    const errorTypes: ErrorType[] = []
+    const invalidRows = []
+
+    this.data.forEach((row, index) => {
       if (row.length !== this.header.length) {
-        throw new Error('Invalid data integrity')
+        if (!errorTypes.includes(ErrorType.InvalidRowLength)) {
+          errorTypes.push(ErrorType.InvalidRowLength)
+        }
+
+        invalidRows.push(index + 1)
+      }
+
+      if (csvType === VotingType.Weighted) {
+        const regex = /^[0-9]?$/
+        if (!regex.test(row[0])) {
+          if (!errorTypes.includes(ErrorType.InvalidWeightedVoted)) {
+            errorTypes.push(ErrorType.InvalidWeightedVoted)
+          }
+
+          errorTypes.push(ErrorType.InvalidWeightedVoted)
+
+          invalidRows.push(index + 1)
+        }
       }
     })
+
+    if (errorTypes.includes(ErrorType.InvalidRowLength)) {
+      throw new InvalidRowLength(invalidRows)
+    }
+
+    if (errorTypes.includes(ErrorType.InvalidWeightedVoted)) {
+      throw new InvalidWeightedRow(invalidRows)
+    }
   }
 
   private handleUploadPromise(): Promise<SpreadSheetReader> {
     return new Promise((resolve, reject): void => {
       this.reader.onload = (event) => {
         try {
-          this.workBook = xlsx.read(this.reader.result, { type: 'binary', codepage: 65001 })
+          this.workBook = xlsx.read(this.reader.result, {
+            type: 'binary',
+            codepage: 65001,
+          })
           this.data = this.getSheetsData(this.workBook)
 
           this.header = this.data.splice(0, 1)[0]

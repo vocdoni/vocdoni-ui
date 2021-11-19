@@ -12,16 +12,11 @@ import { SectionTitle, SectionText, TextSize } from '@components/elements/text'
 import { ProcessCreationPageSteps } from '.'
 import { CensusFileSelector } from './census-file-selector'
 import { SpreadSheetReader } from '@lib/spread-sheet-reader'
-import { CensusFileData } from './census-file-data'
 import { colors } from 'theme/colors'
-import { useScrollTop } from '@hooks/use-scroll-top'
 
 import { ProcessTermsModal } from './components/process-terms-modal'
 import { FlexAlignItem, FlexContainer } from '@components/elements/flex'
-import {
-  RoundedCheck,
-  RoundedCheckSize,
-} from '@components/elements/rounded-check'
+
 import { Typography, TypographyVariant } from '@components/elements/typography'
 import { DownloadCsvTemplateCard } from './components/download-csv-template-card'
 import { InputFormGroup } from '@components/blocks/form'
@@ -30,14 +25,13 @@ import { VotingTypeButtons } from './components/voting-type-buttons'
 import { ConfirmModal } from '@components/blocks/confirm-modal'
 import { ImportVoterListNormal } from './components/import-voter-list-normal'
 import { ImportVoterListWeighted } from './components/import-voter-list-wighted'
-import { Banner, BannerVariant } from '@components/blocks/banner_v2'
-import { Checkbox } from '@components/elements/checkbox'
-import { Radio } from '@components/elements/radio'
+import { DisclaimerBanner } from './components/disclaimer-banner'
 
 export enum VotingType {
   Normal = 'normal',
   Weighted = 'weighted',
 }
+
 export const FormCensus = () => {
   const { i18n } = useTranslation()
   const [showTermsModal, setShowTermsModal] = useState<boolean>(false)
@@ -46,9 +40,8 @@ export const FormCensus = () => {
   const [censusUriError, setCensusUriError] = useState<string>()
   const [votingType, setVotingType] = useState<VotingType>(VotingType.Normal)
   const [showConfirmModal, setShowConfirmModal] = useState<boolean>(false)
-  const [showPrivacyModal, setShowPrivacyModal] = useState<boolean>(false)
+  const changeVotingTypeRef = useRef<VotingType>()
   const advancedCensusEnabled = !!process.env.ADVANCED_CENSUS || false
-  const votingTypeToConfirm = useRef<VotingType>()
 
   const {
     methods,
@@ -109,6 +102,9 @@ export const FormCensus = () => {
     console.log(spreadSheetReader)
     if (!spreadSheetReader) {
       setVotingType(votingType)
+    } else {
+      changeVotingTypeRef.current = votingType
+      setShowConfirmModal(true)
     }
   }
 
@@ -116,13 +112,12 @@ export const FormCensus = () => {
     setShowConfirmModal(false)
   }
 
-  const handleOpenPrivacyModal = (event) => {
-    event.stopPropagation()
-
-    setShowPrivacyModal(true)
+  const handleConfirmChangeVotingType = () => {
+    setShowConfirmModal(false)
+    setVotingType(changeVotingTypeRef.current)
+    methods.setSpreadSheetReader(null)
   }
 
-  const handleConfirmChangeVotingType = () => {}
   return (
     <>
       <Grid>
@@ -157,16 +152,12 @@ export const FormCensus = () => {
                 {/* <DownloadCsvTemplateCardContainer>
                   <DownloadCsvTemplateCard />
                 </DownloadCsvTemplateCardContainer> */}
-                {spreadSheetReader ? (
-                  <CensusFileData
-                    fileName={spreadSheetReader.file.name}
-                    fileHeaders={spreadSheetReader.header}
-                    censusSize={spreadSheetReader.data.length}
-                    onChangeFile={handleOnChangeXls}
-                  />
-                ) : (
-                  <CensusFileSelector onXlsLoad={handleOnXlsUpload} />
-                )}
+
+                <CensusFileSelector
+                  onXlsLoad={handleOnXlsUpload}
+                  votingType={votingType}
+                  loadedXls={spreadSheetReader}
+                />
               </CensusContainer>
             </Column>
           </>
@@ -234,73 +225,13 @@ export const FormCensus = () => {
         </Column>
 
         <Column>
-          {!spreadSheetReader && (
-            <Banner
-              icon={<img src="/images/vote/disclaimer.png" />}
-              variant={BannerVariant.Secondary}
-            >
-              <Typography
-                variant={TypographyVariant.H4}
-                color={colors.warningText}
-                margin="0 0 10px 0"
-              >
-                {i18n.t('votes.new.disclaimer')}
-              </Typography>
-              <Typography
-                variant={TypographyVariant.Body2}
-                margin="0 0 10px 0"
-                color={colors.lightText}
-              >
-                {i18n.t(
-                  'votes.new.vocdoni_currently_only_support_public_voting_process'
-                )}
-              </Typography>
-
-              <FlexContainer alignItem={FlexAlignItem.Center}>
-                <Radio
-                  name="terms-and-conditions"
-                  checked={processTerms}
-                  onClick={() => {
-                    console.log('click', processTerms)
-                    methods.setProcessTerms(!processTerms)
-                  }}
-                  value="terms-and-conditions"
-                >
-                  <Typography
-                    variant={TypographyVariant.Small}
-                    color={colors.lightText}
-                  >
-                    {' '}
-                    <Trans
-                      defaults={i18n.t(
-                        'votes.new.i_understand_and_i_agree_to_the_terms_and_conditions'
-                      )}
-                      components={[<a onClick={handleOpenTermsModal} />]}
-                    ></Trans>
-                  </Typography>
-                </Radio>
-                {/* <RoundedCheck
-                  size={RoundedCheckSize.Small}
-                  checked={processTerms}
-                />
-                <Typography variant={TypographyVariant.Small} margin="0 10px">
-                  {i18n.t('vote.i_have_read_and_accept_csv_terms')}
-                </Typography>*/}
-              </FlexContainer>
-            </Banner>
-          )}
-          {/* <FlexContainer
-            alignItem={FlexAlignItem.Center}
-            onClick={handleOpenTermsModal}
-          >
-            <RoundedCheck
-              size={RoundedCheckSize.Small}
-              checked={processTerms}
+          {spreadSheetReader && (
+            <DisclaimerBanner
+              onClickTerms={() => methods.setProcessTerms(!processTerms)}
+              onOpenTerms={handleOpenTermsModal}
+              termsAccepted={processTerms}
             />
-            <Typography variant={TypographyVariant.Small} margin="0 10px">
-              {i18n.t('vote.i_have_read_and_accept_csv_terms')}
-            </Typography>
-          </FlexContainer> */}
+          )}
         </Column>
         <Column>
           <BottomDiv>
@@ -314,7 +245,13 @@ export const FormCensus = () => {
             </Button>
 
             <Switch>
-              <Case condition={!processTerms}>
+              <Case condition={!spreadSheetReader}>
+                <Button positive onClick={handleOpenTermsModal}>
+                  {i18n.t('action.review_process_terms_and_conditions')}
+                </Button>
+              </Case>
+
+              <Case condition={!spreadSheetReader}>
                 <Button positive onClick={handleOpenTermsModal}>
                   {i18n.t('action.review_process_terms_and_conditions')}
                 </Button>

@@ -7,6 +7,7 @@ interface IBannerPros {
   children: ReactNode
   icon?: ReactNode
   variant?: BannerVariant
+  size?: BannerSize
 }
 
 export enum BannerVariant {
@@ -15,11 +16,16 @@ export enum BannerVariant {
   Tertiary = 'tertiary',
 }
 
-export const Banner = ({ icon, variant, children }: IBannerPros) => {
+export enum BannerSize {
+  Normal = 'normal',
+  Small = 'small',
+}
+
+export const Banner = ({ icon, variant, size, children }: IBannerPros) => {
   return (
-    <BannerContainer variant={variant}>
+    <BannerContainer variant={variant} size={size || BannerSize.Normal}>
       <FlexContainer alignItem={FlexAlignItem.Center}>
-        {icon && <IconContainer>{icon}</IconContainer>}
+        {icon && <IconContainer size={size || BannerSize.Normal}>{icon}</IconContainer>}
         <BannerContent>{children}</BannerContent>
       </FlexContainer>
     </BannerContainer>
@@ -39,18 +45,39 @@ const getBackgroundColor = ({ theme, variant }) => {
   }
 }
 
-const BannerContainer = styled.div<{ variant: BannerVariant }>`
+const getBannerPaddingSize = ({ size }) => {
+  switch (size) {
+    case BannerSize.Small:
+      return '32px'
+
+    default:
+      return '40px'
+  }
+}
+
+
+const getBannerIconSize = ({ size }) => {
+  switch (size) {
+    case BannerSize.Small:
+      return '30px'
+
+    default:
+      return '60px'
+  }
+}
+
+const BannerContainer = styled.div<{ variant: BannerVariant, size: BannerSize }>`
   background: ${getBackgroundColor};
   border-radius: 16px;
-  padding: 40px;
+  padding: ${getBannerPaddingSize};
 
   @media ${({ theme }) => theme.screenMax.laptop} {
     padding: 20px;
   }
 `
 
-const IconContainer = styled.div<{ variant?: BannerVariant }>`
-  max-width: 66px;
+const IconContainer = styled.div<{ size: BannerSize }>`
+  max-width: ${getBannerIconSize};
   width: 100%;
   margin-right: 20px;
   

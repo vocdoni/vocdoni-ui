@@ -6,19 +6,20 @@ import { InputFormGroup } from '@components/blocks/form'
 import { Button, ButtonColor } from '@components/elements/button'
 import { SectionText } from '@components/elements/text'
 import { useTranslation } from 'react-i18next'
+import { UploadFileButton } from './components/upload-new-document-button'
 
 interface ICensusFileDataProps {
   fileName: string
   censusSize: number
   fileHeaders: string[]
-  onChangeFile: () => void
+  onUploadFile: (files: FileList) => void
 }
 
 export const CensusFileData = ({
   fileName,
   censusSize,
   fileHeaders,
-  onChangeFile,
+  onUploadFile,
 }: ICensusFileDataProps) => {
   const { i18n } = useTranslation()
   
@@ -37,9 +38,7 @@ export const CensusFileData = ({
           </div>
         </FileDataContainer>
 
-        <Button border color={ButtonColor.Positive} onClick={onChangeFile}>
-          {i18n.t('vote.upload_different_document')}
-        </Button>
+        <UploadFileButton onChange={onUploadFile}/>
       </FileContainer>
 
       <CensusFieldsContainer>
