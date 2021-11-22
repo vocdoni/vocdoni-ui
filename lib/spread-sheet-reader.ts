@@ -80,6 +80,10 @@ export class SpreadSheetReader {
     }
   }
 
+  public getHeader(csvType: VotingType): string[] {
+    return csvType === VotingType.Normal? this.header:this.header.slice(1)
+  }
+
   private handleUploadPromise(): Promise<SpreadSheetReader> {
     return new Promise((resolve, reject): void => {
       this.reader.onload = (event) => {

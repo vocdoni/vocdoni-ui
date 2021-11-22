@@ -29,7 +29,7 @@ export const ErrorBanner = ({
       size={BannerSize.Small}
     >
       <FlexContainer alignItem={FlexAlignItem.Center}>
-        <div>
+        <TextContainer>
           <Typography
             variant={TypographyVariant.Body2}
             color={colors.warningText}
@@ -47,7 +47,7 @@ export const ErrorBanner = ({
           >
             {fileErrorMessage}
           </Typography>
-        </div>
+        </TextContainer>
 
         <div>
           <UploadFileButton onChange={onUploadFile}/>
@@ -57,3 +57,7 @@ export const ErrorBanner = ({
   )
 }
 
+
+const TextContainer = styled.div`
+  padding-right: 20px;
+`

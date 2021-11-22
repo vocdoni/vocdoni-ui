@@ -8,7 +8,8 @@
         "preview_proposal": "Previsualitza",
         "retry": "Torna-ho a intentar",
         "review_process_terms_and_conditions": "Revisar termes i condicions",
-        "sign_in": "Accedeix-hi"
+        "sign_in": "Accedeix-hi",
+        "upload_list_of_voters": ""
     },
     "app": {
         "footer": {
@@ -643,6 +644,7 @@
             "disclaimer": "",
             "download_template": "",
             "download_the_original_template_to_fill": "",
+            "form_preview": "",
             "i_understand_and_i_agree_to_the_terms_and_conditions": "",
             "if_change_the_type_of_vote_the_updated_census_will_be_lost": "",
             "import_the_list_of_voters": "",

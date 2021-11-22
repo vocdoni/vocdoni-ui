@@ -8,7 +8,8 @@
         "preview_proposal": "Preview",
         "retry": "Retry",
         "review_process_terms_and_conditions": "Review terms and conditions",
-        "sign_in": "Sign in"
+        "sign_in": "Sign in",
+        "upload_list_of_voters": "Upload list of voters"
     },
     "app": {
         "footer": {
@@ -621,7 +622,7 @@
         "vote_process_image_alt": "Vote process image",
         "vote_submitted_image_alt": "Vote submitted image",
         "voted_alt": "Vote",
-        "voting_power": "",
+        "voting_power": "Voting power",
         "we_are_trying_to_connect_to_blockchain_to_check_your_account_balance_we_store_all_the_data_to_follow_the_process": "We are trying to connect to blockchain to check your account balance. We store all the data to follow the process",
         "we_are_trying_to_sign_on_the_vocdoni_blockchain_to_register_your_entity": "We are trying to sign on the Vocdoni blockchain to register your entity",
         "we_are_using_a_decentralized_secure_system": "We are sending all the information to the blockchain. This action may take a few minutes, please be patient.",
@@ -643,6 +644,7 @@
             "disclaimer": "Disclaimer",
             "download_template": "Download template",
             "download_the_original_template_to_fill": "Download the original template to fill with your list of voters",
+            "form_preview": "Form preview",
             "i_understand_and_i_agree_to_the_terms_and_conditions": "I understand and agree to the <0>Terms and Conditions</0> for organizing voting processes.",
             "if_change_the_type_of_vote_the_updated_census_will_be_lost": "If change the type of vote the current update census will be lost",
             "import_the_list_of_voters": "Import the list of voters",

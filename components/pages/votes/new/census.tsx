@@ -18,7 +18,6 @@ import { ProcessTermsModal } from './components/process-terms-modal'
 import { FlexAlignItem, FlexContainer } from '@components/elements/flex'
 
 import { Typography, TypographyVariant } from '@components/elements/typography'
-import { DownloadCsvTemplateCard } from './components/download-csv-template-card'
 import { InputFormGroup } from '@components/blocks/form'
 import { TrackEvents, useRudderStack } from '@hooks/rudderstack'
 import { VotingTypeButtons } from './components/voting-type-buttons'
@@ -99,7 +98,6 @@ export const FormCensus = () => {
   }
 
   const handleChangeVotingType = (votingType: VotingType) => {
-    console.log(spreadSheetReader)
     if (!spreadSheetReader) {
       setVotingType(votingType)
     } else {
@@ -149,9 +147,6 @@ export const FormCensus = () => {
 
             <Column>
               <CensusContainer>
-                {/* <DownloadCsvTemplateCardContainer>
-                  <DownloadCsvTemplateCard />
-                </DownloadCsvTemplateCardContainer> */}
 
                 <CensusFileSelector
                   onXlsLoad={handleOnXlsUpload}
@@ -246,13 +241,13 @@ export const FormCensus = () => {
 
             <Switch>
               <Case condition={!spreadSheetReader}>
-                <Button positive onClick={handleOpenTermsModal}>
-                  {i18n.t('action.review_process_terms_and_conditions')}
+                <Button positive disabled>
+                  {i18n.t('action.upload_list_of_voters')}
                 </Button>
               </Case>
 
-              <Case condition={!spreadSheetReader}>
-                <Button positive onClick={handleOpenTermsModal}>
+              <Case condition={spreadSheetReader}>
+                <Button positive disabled={!processTerms} onClick={handleOpenTermsModal}>
                   {i18n.t('action.review_process_terms_and_conditions')}
                 </Button>
               </Case>
@@ -292,10 +287,6 @@ export const FormCensus = () => {
 const CensusContainer = styled.div<{ disabled?: boolean }>`
   opacity: ${({ disabled }) => (disabled ? '0.6' : '1')};
   pointer-events: ${({ disabled }) => (disabled ? 'none' : 'auto')};
-`
-
-const DownloadCsvTemplateCardContainer = styled.div`
-  margin-bottom: 30px;
 `
 
 const BottomDiv = styled.div`

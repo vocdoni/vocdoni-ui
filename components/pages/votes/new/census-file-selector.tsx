@@ -3,7 +3,7 @@ import FileSelector from 'react-rainbow-components/components/FileSelector'
 import styled from 'styled-components'
 import { useTranslation } from 'react-i18next'
 
-import { CSVType, SpreadSheetReader } from '@lib/spread-sheet-reader'
+import { SpreadSheetReader } from '@lib/spread-sheet-reader'
 import {
   TextAlign,
   Typography,
@@ -38,9 +38,9 @@ export const CensusFileSelector = ({
   const handleChange = (files: FileList) => {
     const file = files[0]
 
-    if (!file) {
-      setInvalidFile(null)
-    } else if (!SpreadSheetReader.AcceptedTypes.includes(file.type)) {
+    setInvalidFile(null)
+
+    if (!SpreadSheetReader.AcceptedTypes.includes(file.type)) {
       return setInvalidFile(i18n.t('vote.invalid_file_type'))
     }
 
@@ -110,7 +110,7 @@ export const CensusFileSelector = ({
       ) : (
         <CensusFileData
           fileName={loadedXls.file.name}
-          fileHeaders={loadedXls.header}
+          fileHeaders={loadedXls.getHeader(votingType)}
           censusSize={loadedXls.data.length}
           onUploadFile={handleChange}
         />

@@ -8,7 +8,8 @@
         "preview_proposal": "Previsualizar",
         "retry": "Reintentar",
         "review_process_terms_and_conditions": "Revisar términos y condiciones",
-        "sign_in": "Iniciar sesión"
+        "sign_in": "Iniciar sesión",
+        "upload_list_of_voters": "Subir lista de votantes"
     },
     "app": {
         "footer": {
@@ -621,7 +622,7 @@
         "vote_process_image_alt": "Imagen del proceso",
         "vote_submitted_image_alt": "Imagen cargada",
         "voted_alt": "Vota",
-        "voting_power": "",
+        "voting_power": "Peso del voto",
         "we_are_trying_to_connect_to_blockchain_to_check_your_account_balance_we_store_all_the_data_to_follow_the_process": "Estamos intentando conectar a la cadena de bloques para comprovar el balance del teu compte d'entitat. Guardamos tota la información per configurar el proceso.",
         "we_are_trying_to_sign_on_the_vocdoni_blockchain_to_register_your_entity": "Estamos intentando acceder a la cadena de bloques para registrar tu entidad",
         "we_are_using_a_decentralized_secure_system": "Estamos enviando toda la información a la cadena de bloques. Esta acción puede tardar unos minutos.",
@@ -643,6 +644,7 @@
             "disclaimer": "",
             "download_template": "",
             "download_the_original_template_to_fill": "",
+            "form_preview": "",
             "i_understand_and_i_agree_to_the_terms_and_conditions": "",
             "if_change_the_type_of_vote_the_updated_census_will_be_lost": "",
             "import_the_list_of_voters": "",

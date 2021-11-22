@@ -41,7 +41,7 @@ export const DisclaimerBanner = ({
       >
         {i18n.t(
           'votes.new.vocdoni_currently_only_support_public_voting_process'
-        )}
+        )}  
       </Typography>
 
       <FlexContainer alignItem={FlexAlignItem.Center}>
@@ -54,6 +54,7 @@ export const DisclaimerBanner = ({
           <Typography
             variant={TypographyVariant.Small}
             color={colors.lightText}
+            margin="10px 0 0 0"
           >
             {' '}
             <Trans
