@@ -39,8 +39,14 @@ export const CensusFileSelector = ({
     const file = files[0]
 
     setInvalidFile(null)
+    if (!file) {
+      return
+    }
+
+    setFileName(file.name)
 
     if (!SpreadSheetReader.AcceptedTypes.includes(file.type)) {
+      onXlsLoad(null)
       return setInvalidFile(i18n.t('vote.invalid_file_type'))
     }
 
@@ -51,8 +57,8 @@ export const CensusFileSelector = ({
         reader.validateDataIntegrity(votingType)
 
         onXlsLoad(reader)
-      } catch (error) {
-        setFileName(file.name)
+      } catch (error) {        
+        onXlsLoad(null)
         setInvalidFile(error.message)
       }
     })

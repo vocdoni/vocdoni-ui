@@ -68,6 +68,8 @@ export const CensusFileData = ({
 
 const FormPreviewTag = styled.div`
   background-color: #7c80f2;
+  line-height: 20px;
+  font-weight: 600;
   color: ${({ theme }) => theme.white};
   display: inline-block;
   padding: 2px 12px;

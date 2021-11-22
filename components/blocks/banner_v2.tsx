@@ -38,7 +38,7 @@ const getBackgroundColor = ({ theme, variant }) => {
       return `linear-gradient(110.89deg, ${theme.accentLight1B} 0%, ${theme.accentLight1} 100%)`
 
     case BannerVariant.Secondary:
-      return `linear-gradient(110.89deg, ${theme.accentLight2} 0%, ${theme.accentLight2B} 100%)`
+      return `linear-gradient(110.89deg, ${theme.accentLight2B} 0%, ${theme.accentLight2} 100%)`
 
     default:
       return theme.white

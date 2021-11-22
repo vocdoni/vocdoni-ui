@@ -13,9 +13,9 @@ export const UploadFileButton = ({ onChange }: InputFileContainerProps) => {
   return (
     <>
       <label htmlFor="file-upload">
-        <Button color={ButtonColor.Positive}>
+        <Button color={ButtonColor.Positive} border>
           <IconContainer>
-            <img src="/images/vote/upload-icon.png" />
+            <img src="/images/vote/upload-icon.svg" />
           </IconContainer>
 
           {i18n.t('votes.new.upload_new_document')}

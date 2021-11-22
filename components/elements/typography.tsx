@@ -111,6 +111,10 @@ const BaseParagraphTypography = styled.p<ITypographyCommon>`
   color: ${({ color, theme }) =>
     colors[color] ? colors[color] : color ? color : theme.blueText};
   ${({ margin }) => (margin ? `margin: ${margin};` : '')}
+
+  & > strong {
+    font-weight: 600;
+  }
 `
 export const Body1 = styled(BaseParagraphTypography)`
   font-size: 20px;

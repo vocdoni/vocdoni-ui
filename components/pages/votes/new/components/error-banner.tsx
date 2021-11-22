@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Banner, BannerSize, BannerVariant } from '@components/blocks/banner_v2'
-import { FlexAlignItem, FlexContainer } from '@components/elements/flex'
+import { FlexAlignItem, FlexContainer, FlexJustifyContent } from '@components/elements/flex'
 import { Typography, TypographyVariant } from '@components/elements/typography'
 import { useTranslation } from 'react-i18next'
 import { colors } from '@theme/colors'
@@ -24,11 +24,11 @@ export const ErrorBanner = ({
 
   return (
     <Banner
-      icon={<img src="/images/vote/warning.png" />}
+      icon={<img src="/images/vote/warning.svg" />}
       variant={BannerVariant.Secondary}
       size={BannerSize.Small}
     >
-      <FlexContainer alignItem={FlexAlignItem.Center}>
+      <FlexContainer alignItem={FlexAlignItem.Center} justify={FlexJustifyContent.SpaceBetween}>
         <TextContainer>
           <Typography
             variant={TypographyVariant.Body2}

@@ -18,6 +18,7 @@ import {
 } from '@components/elements/flex'
 import { Button, LinkTarget, PositiveButton } from '@components/elements/button'
 import { colors } from '@theme/colors'
+import { ImageContainer } from '@components/elements/images'
 
 interface IImpotVoterListBaseProps {
   requirements: string[]
@@ -35,9 +36,19 @@ export const ImportVoterListBase = ({
   return (
     <Grid>
       <Column sm={12} md={7}>
-        <Typography variant={TypographyVariant.Small}>
-          {i18n.t('votes.new.requirements')}
-        </Typography>
+        <FlexContainer alignItem={FlexAlignItem.Center}>
+          <ImageContainer width="22px">
+            <img src="/images/vote/info-icon.svg" />
+          </ImageContainer>
+
+          <Typography
+            variant={TypographyVariant.Small}
+            color={colors.accent1}
+            margin="0 0 0 12px"
+          >
+            <strong>{i18n.t('votes.new.requirements')}</strong>
+          </Typography>
+        </FlexContainer>
         <Ul>
           {requirements.map((requirement, index) => (
             <Li key={`requirements-list-${index}`}>
@@ -70,14 +81,13 @@ export const ImportVoterListBase = ({
           >
             <PositiveButton color={colors.white}>
               <FlexContainer alignItem={FlexAlignItem.Center}>
-                <DownloadIcon fill={colors.white} width="20px" />{' '}
-                <Typography
-                  variant={TypographyVariant.Small}
-                  color={colors.white}
-                  margin="0 0 0 10px"
-                >
+                <ImageContainer width="20px">
+                  <img src="/images/vote/icon-download.svg" />
+                </ImageContainer>
+
+                <ButtonTextContainer>
                   {i18n.t('votes.new.download_template')}
-                </Typography>
+                </ButtonTextContainer>
               </FlexContainer>
             </PositiveButton>
           </LinkButtonWrapper>
@@ -87,9 +97,13 @@ export const ImportVoterListBase = ({
   )
 }
 
+const ButtonTextContainer = styled.span`
+  margin-left: 16px;
+`
+
 const ButtonContainer = styled(FlexContainer)`
   height: 174px;
-  padding: 20px 28px;
+  padding: 0px 28px;
   background-color: rgba(207, 218, 246, 0.15);
   border-radius: 16px;
 `

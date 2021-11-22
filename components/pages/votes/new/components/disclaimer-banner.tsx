@@ -24,7 +24,7 @@ export const DisclaimerBanner = ({
 
   return (
     <Banner
-      icon={<img src="/images/vote/disclaimer.png" />}
+      icon={<img src="/images/vote/disclaimer.svg" />}
       variant={BannerVariant.Secondary}
     >
       <Typography
@@ -35,7 +35,7 @@ export const DisclaimerBanner = ({
         {i18n.t('votes.new.disclaimer')}
       </Typography>
       <Typography
-        variant={TypographyVariant.Body2}
+        variant={TypographyVariant.Small}
         margin="0 0 10px 0"
         color={colors.lightText}
       >
@@ -52,9 +52,9 @@ export const DisclaimerBanner = ({
           value="terms-and-conditions"
         >
           <Typography
-            variant={TypographyVariant.Small}
+            variant={TypographyVariant.MediumSmall}
             color={colors.lightText}
-            margin="10px 0 0 0"
+            margin="0"
           >
             {' '}
             <Trans

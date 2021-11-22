@@ -114,6 +114,7 @@ ${props => props.large ? "font-size: 125%;" :
     white-space: nowrap;
     user-select: none;
     box-sizing: border-box;
+    font-weight: 600;
 
     @media ${({theme})  => theme.screenMax.mobileL } {
         white-space: normal;

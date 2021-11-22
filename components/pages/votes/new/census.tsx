@@ -122,7 +122,7 @@ export const FormCensus = () => {
         <When condition={!showAdvanced}>
           <>
             <Column>
-              <Typography variant={TypographyVariant.Body1} margin="10px 0 0 0">
+              <Typography variant={TypographyVariant.Body1} margin="10px 0 20px 0">
                 1. {i18n.t('votes.new.select_voting_options')}
               </Typography>
             </Column>
@@ -135,7 +135,7 @@ export const FormCensus = () => {
             </Column>
 
             <Column>
-              <Typography variant={TypographyVariant.Body1} margin="10px 0 0 0">
+              <Typography variant={TypographyVariant.Body1} margin="18px 0 22px 0">
                 2. {i18n.t('votes.new.import_the_list_of_voters')}
               </Typography>
 
@@ -147,7 +147,6 @@ export const FormCensus = () => {
 
             <Column>
               <CensusContainer>
-
                 <CensusFileSelector
                   onXlsLoad={handleOnXlsUpload}
                   votingType={votingType}
@@ -232,11 +231,12 @@ export const FormCensus = () => {
           <BottomDiv>
             <Button
               border
+              color={colors.accent1}
               onClick={() =>
                 methods.setPageStep(ProcessCreationPageSteps.METADATA)
               }
             >
-              {i18n.t('action.go_back')}
+              {i18n.t('action.back')}
             </Button>
 
             <Switch>
@@ -247,8 +247,14 @@ export const FormCensus = () => {
               </Case>
 
               <Case condition={spreadSheetReader}>
-                <Button positive disabled={!processTerms} onClick={handleOpenTermsModal}>
-                  {i18n.t('action.review_process_terms_and_conditions')}
+                <Button
+                  positive
+                  disabled={!processTerms}
+                  onClick={handleOpenTermsModal}
+                >
+                  {processTerms
+                    ? i18n.t('action.continue')
+                    : i18n.t('action.review_process_terms_and_conditions')}
                 </Button>
               </Case>
 

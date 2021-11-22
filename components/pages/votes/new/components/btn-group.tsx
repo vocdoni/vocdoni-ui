@@ -38,7 +38,8 @@ export const BtnGroup = styled.button<{ active?: boolean }>`
   border-radius: 16px;
   cursor: pointer;
   background-color: ${({ theme, active }) => active? theme.white: 'transparent'};
-  border: ${({ theme, active }) => active ? '1px solid ' + theme.accent1 : 'none'};
+  border: ${({ theme, active }) => active ? '2px solid ' + theme.accent1 : 'none'};
+  box-shadow: 0px 6px 25px rgba(65, 70, 85, 0.05);
   text-align: center;
   width: 100%;
 
