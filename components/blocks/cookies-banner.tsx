@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 
 import { COOKIES_PATH } from '@const/routes'
 
-import { BaseButton, Button } from '@components/elements/button'
+import { Button } from '@components/elements/button'
 import { Typography, TypographyVariant } from '@components/elements/typography'
 
 import styled from 'styled-components'

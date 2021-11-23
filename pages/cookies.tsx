@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import styled from 'styled-components'
 import i18n from '@i18n'
@@ -8,7 +8,17 @@ import { CheckboxToggle } from 'react-rainbow-components';
 
 const CoookiesPage = () => {
   const { acceptCookies, rejectCookies, accepted } = useCookies()
+  const [cookiesAcceptance, setCookiesAcceptance] = useState(accepted)
   const { back } = useRouter()
+
+  const handleStoreCookies = () => {
+    if (cookiesAcceptance) {
+      acceptCookies()
+      back()
+    } else {
+      rejectCookies()
+    }
+  }
   return (
     <>
       <PrivacyWrapper>
@@ -56,14 +66,14 @@ const CoookiesPage = () => {
           The main objectives pursued are: Allow the anonymous identification of browsing Users through the
           &quot;Cookie&quot; (identifies browsers and devices, not people) and therefore the approximate count of the
           number of visitors and their trend over time. Anonymously identify the most visited content and therefore the
-          most attractive to Users. Know if the User who is accessing is a new or repeated visit. Analytical cookies are used to understand how visitors interact with the website.
+          most attractive to Users. Know if the User who  is accessing is a new or repeated visit. Analytical cookies are used to understand how visitors interact with the website.
           These cookies help provide information on metrics the number of visitors, bounce rate, traffic source, etc. </p>
         <p ></p> <br />
         <h4>
           <CheckboxToggle
             id="accept-analytics"
-            value={accepted}
-            onChange={(event) => event.target.checked ? acceptCookies() : rejectCookies()}
+            value={cookiesAcceptance}
+            onChange={(event) => setCookiesAcceptance(event.target.checked)}
             label={i18n.t('cookies.analytics')}
             labelAlignment={'left'}
           />
@@ -170,7 +180,7 @@ const CoookiesPage = () => {
           you have greater control over your personal data.</p>
 
         <SpacedContainer>
-          <Button positive onClick={() => back()}>
+          <Button positive onClick={handleStoreCookies}>
             {i18n.t('cookies.save')}
           </Button>
         </SpacedContainer>
