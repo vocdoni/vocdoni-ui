@@ -31,7 +31,7 @@ export const ErrorBanner = ({
       <FlexContainer alignItem={FlexAlignItem.Center} justify={FlexJustifyContent.SpaceBetween}>
         <TextContainer>
           <Typography
-            variant={TypographyVariant.Body2}
+            variant={TypographyVariant.Small}
             color={colors.warningText}
             margin="0 0 8px 0"
           >

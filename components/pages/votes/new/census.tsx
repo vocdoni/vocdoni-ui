@@ -57,10 +57,6 @@ export const FormCensus = () => {
     methods.setSpreadSheetReader(spreadSheet)
   }
 
-  const handleOnChangeXls = () => {
-    methods.setSpreadSheetReader(null)
-  }
-
   const handleContinue = () => {
     trackEvent(TrackEvents.PROCESS_CREATION_WIZARD_BUTTON_CLICKED, {
       step: ProcessCreationPageSteps.SETTINGS,

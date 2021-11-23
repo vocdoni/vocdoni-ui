@@ -35,7 +35,7 @@ export const DisclaimerBanner = ({
         {i18n.t('votes.new.disclaimer')}
       </Typography>
       <Typography
-        variant={TypographyVariant.Small}
+        variant={TypographyVariant.MediumSmall}
         margin="0 0 10px 0"
         color={colors.lightText}
       >

@@ -102,7 +102,7 @@ const ButtonTextContainer = styled.span`
 `
 
 const ButtonContainer = styled(FlexContainer)`
-  height: 174px;
+  height: 160px;
   padding: 0px 28px;
   background-color: rgba(207, 218, 246, 0.15);
   border-radius: 16px;

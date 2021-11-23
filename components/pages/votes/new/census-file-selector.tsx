@@ -57,7 +57,7 @@ export const CensusFileSelector = ({
         reader.validateDataIntegrity(votingType)
 
         onXlsLoad(reader)
-      } catch (error) {        
+      } catch (error) {
         onXlsLoad(null)
         setInvalidFile(error.message)
       }
@@ -77,42 +77,44 @@ export const CensusFileSelector = ({
       )}
 
       {!loadedXls ? (
-        <FileSelector
-          className="rainbow-m-vertical_x-large rainbow-p-horizontal_medium rainbow-m_auto"
-          style={containerStyles}
-          accept="xls,csv,ods"
-          // error={invalidFile}
-          uploadIcon={
-            <TextContainer>
-              <FlexContainer justify={FlexJustifyContent.Center}>
-                <ImageContainer width="70px">
-                  <img src="/images/vote/excel.svg" alt="Excel" />
-                </ImageContainer>
-              </FlexContainer>
-
+        !invalidFile && (
+          <FileSelector
+            className="rainbow-m-vertical_x-large rainbow-p-horizontal_medium rainbow-m_auto"
+            style={containerStyles}
+            accept="xls,csv,ods"
+            // error={invalidFile}
+            uploadIcon={
               <TextContainer>
-                <Typography
-                  variant={TypographyVariant.Body1}
-                  margin="10px 0 0 0"
-                  align={TextAlign.Center}
-                >
-                  {i18n.t('votes.new.upload_or_drag_and_drop_here_the_list')}
-                </Typography>
+                <FlexContainer justify={FlexJustifyContent.Center}>
+                  <ImageContainer width="70px">
+                    <img src="/images/vote/excel.svg" alt="Excel" />
+                  </ImageContainer>
+                </FlexContainer>
 
-                <Typography
-                  variant={TypographyVariant.ExtraSmall}
-                  margin="10px 0 0 0"
-                  align={TextAlign.Center}
-                >
-                  {i18n.t('votes.new.supported_formats_csv_xls')}
-                </Typography>
+                <TextContainer>
+                  <Typography
+                    variant={TypographyVariant.Body1}
+                    margin="10px 0 0 0"
+                    align={TextAlign.Center}
+                  >
+                    {i18n.t('votes.new.upload_or_drag_and_drop_here_the_list')}
+                  </Typography>
+
+                  <Typography
+                    variant={TypographyVariant.ExtraSmall}
+                    margin="10px 0 0 0"
+                    align={TextAlign.Center}
+                  >
+                    {i18n.t('votes.new.supported_formats_csv_xls')}
+                  </Typography>
+                </TextContainer>
               </TextContainer>
-            </TextContainer>
-          }
-          placeholder={''}
-          variant="multiline"
-          onChange={handleChange}
-        />
+            }
+            placeholder={''}
+            variant="multiline"
+            onChange={handleChange}
+          />
+        )
       ) : (
         <CensusFileData
           fileName={loadedXls.file.name}

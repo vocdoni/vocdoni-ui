@@ -14,14 +14,14 @@ interface IBteGroupProps {
 
 export const BtnGroupContainer = styled.div`
     border-radius: 16px;
-    height: 88px;
+    height: 78px;
     background-color: rgba(207, 218, 246, 0.15);
     display: flex;
 `
 
 export const BtnGroupText = styled.span`
   font-weight: 600;
-  font-size: 18px;
+  font-size: 17px;
   line-height: 25px;
   display: block;
   margin-bottom: 10px;
