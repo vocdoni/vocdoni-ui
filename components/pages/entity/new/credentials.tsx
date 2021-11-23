@@ -5,17 +5,17 @@ import { useTranslation } from 'react-i18next'
 
 import { useEntityCreation } from '@hooks/entity-creation'
 import { useMessageAlert } from '@hooks/message-alert'
+import { TrackEvents, useRudderStack } from '@hooks/rudderstack'
+import { useScrollTop } from "@hooks/use-scroll-top"
 
 import { checkStrength } from '@lib/util'
 
 import { Column, Grid } from '@components/elements/grid'
-import { Input } from '@components/elements/inputs'
+import { InputPassword } from '@components/elements/inputs'
 import { Button } from '@components/elements/button'
 import { FlexAlignItem, FlexContainer } from '@components/elements/flex'
 import { EntityCreationPageSteps } from '.'
 import { Banner } from '@components/blocks/banners'
-import { useScrollTop } from "@hooks/use-scroll-top"
-import { TrackEvents, useRudderStack } from '@hooks/rudderstack'
 
 export const FormCredentials = () => {
   const { i18n } = useTranslation()
@@ -77,17 +77,16 @@ export const FormCredentials = () => {
 
       <Column md={6}>
         <label htmlFor="pwd">{i18n.t('entity.passphrase')}</label>
-        <Input
+        <InputPassword
           id="pwd"
           wide
-          type="password"
           value={passphrase}
           onChange={(e) => setPassphrase(e.target.value)}
         />
       </Column>
       <Column md={6}>
         <label htmlFor="rep">{i18n.t('entity.repeat_passphrase')}</label>
-        <Input
+        <InputPassword
           id="rep"
           wide
           type="password"
