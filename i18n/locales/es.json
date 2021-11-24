@@ -637,10 +637,10 @@
     },
     "votes": {
         "questions_list": {
-            "back": "",
-            "finish_voting": "",
-            "next_question": "",
-            "question": ""
+            "back": "Atrás",
+            "finish_voting": "Finalizar votación",
+            "next_question": "Siguiente pregunta",
+            "question": "Pregunta {{questionIndex}}/{{totalQuestions}}"
         }
     }
 }
