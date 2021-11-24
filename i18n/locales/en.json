@@ -403,7 +403,9 @@
     },
     "input": {
         "enter_the_url_or_upload_a_file": "Enter the URL of an image or upload a file",
-        "remove_file": "Remove file"
+        "hide": "Hide",
+        "remove_file": "Remove file",
+        "show": "Show"
     },
     "links": {
         "about": "About",
@@ -626,7 +628,6 @@
         "who_can_vote": "Who can vote",
         "yes_submit_the_vote": "Yes, submit the vote",
         "you_are_connected_as_a_guest": "You are connected as a guest",
-        "you_can_verify_its_inclusion_on_the_block_explorer": "You can verify its inclusion on the block explorer",
         "you_can_vote_on_this_proposal": "You can vote on this proposal",
         "you_cant_enter_contact_with_entity": "Unable to access? Please, contact with the entity",
         "your_choice": "Your choice",

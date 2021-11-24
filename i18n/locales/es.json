@@ -403,7 +403,9 @@
     },
     "input": {
         "enter_the_url_or_upload_a_file": "Cargar una imagen o introducir un enlace externo",
-        "remove_file": "Borrar archivo"
+        "hide": "Ocultar",
+        "remove_file": "Borrar archivo",
+        "show": "Mostrar"
     },
     "links": {
         "about": "Sobre Vocdoni",
@@ -626,7 +628,6 @@
         "who_can_vote": "¿Quién puede votar?",
         "yes_submit_the_vote": "Sí, envía mi voto",
         "you_are_connected_as_a_guest": "Estás conectado como invitado",
-        "you_can_verify_its_inclusion_on_the_block_explorer": "Puedes verificar su inclusión en el explorador de bloques",
         "you_can_vote_on_this_proposal": "Ya puedes votar en este proceso",
         "you_cant_enter_contact_with_entity": "Si no puedes acceder, contacta con la entidad",
         "your_choice": "Tu selección",

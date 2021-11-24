@@ -1,12 +1,11 @@
 import React, { ReactElement, useState } from 'react'
 import styled, { DefaultTheme, StyledComponentProps } from 'styled-components'
-import EyeIcon from 'remixicon/icons/System/eye-line.svg'
 import {
   default as ReactSelect,
   Props as SelectProps,
   OptionTypeBase,
 } from 'react-select'
-import { colors } from '@theme/colors'
+import { useTranslation } from 'react-i18next'
 
 interface IInputProps {
   wide?: boolean
@@ -43,31 +42,45 @@ export const Input = styled.input<IInputProps>`
   }
 `
 
+enum InputType {
+  Text = 'text',
+  Password = 'password',
+}
+
 export const InputPassword = (
   props: StyledComponentProps<'input', DefaultTheme, IInputProps, never>
 ) => {
-  const [inputType, setInputType] = useState('password')
+  const { i18n } = useTranslation()
+  const [inputType, setInputType] = useState<InputType>(InputType.Password)
+
+  const handleClick = () => {
+    const newType = inputType === InputType.Password ? InputType.Text : InputType.Password
+    setInputType(newType)
+  }
+
   return (
     <InputContainer wide={props.wide}>
       <Input {...props} type={inputType} />
 
-      <EyeIconContainer
-        onMouseDown={() => setInputType('text')}
-        onMouseUp={() => setInputType('password')}
-        onMouseLeave={() => setInputType('password')}
+      <ShowContainer
+        onClick={handleClick}
       >
-        <EyeIcon width="22px" fill={colors.lighterText} />
-      </EyeIconContainer>
+        {inputType === InputType.Password
+          ? i18n.t('input.show')
+          : i18n.t('input.hide')}
+      </ShowContainer>
     </InputContainer>
   )
 }
 
-const EyeIconContainer = styled.div`
+const ShowContainer = styled.div`
   position: absolute;
-  right: -8px;
-  top: 19px;
-  width: 40px;
+  right: 10px;
+  top: 10px;
   height: 40px;
+  font-size: 12px;
+  line-height: 40px;
+  color: ${({ theme }) => theme.lightText};
 `
 
 const InputContainer = styled.div<{ wide: boolean }>`
