@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { HelpText } from './help-text'
 import FileLoader from './FileLoader'
 
-import { Input, ISelectOption, Select, Textarea } from '../elements/inputs'
+import { Input, InputPassword, ISelectOption, Select, Textarea } from '../elements/inputs'
 import { SectionTitle } from '../elements/text'
 
 
@@ -154,6 +154,7 @@ export const SelectFormGroup = ({
 
 
 export const InputFormGroup = formGroupHOC(Input)
+export const InputPasswordFormGroup = formGroupHOC(InputPassword)
 export const TextareaFormGroup = formGroupHOC(Textarea)
 
 export const FileLoaderFormGroup = ({
