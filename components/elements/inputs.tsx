@@ -75,7 +75,7 @@ export const InputPassword = (
 
 const ShowContainer = styled.div`
   position: absolute;
-  right: 10px;
+  right: 14px;
   top: 10px;
   height: 40px;
   font-size: 12px;
