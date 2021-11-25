@@ -1,5 +1,10 @@
-import React, { ReactNode } from "react";
-import { UseEntityProvider, UsePoolProvider, UseProcessProvider, UseBlockStatusProvider } from '@vocdoni/react-hooks'
+import React, { ReactNode } from 'react'
+import {
+  UseEntityProvider,
+  UsePoolProvider,
+  UseProcessProvider,
+  UseBlockStatusProvider,
+} from '@vocdoni/react-hooks'
 import { EthNetworkID, VocdoniEnvironment } from 'dvote-js'
 
 import { UseMessageAlertProvider } from '@hooks/message-alert'
@@ -9,6 +14,7 @@ import { UseBackendProvider } from '@hooks/backend'
 import { UseVotingProvider } from '@hooks/use-voting'
 import { UseDbAccountsProvider } from '@hooks/use-db-accounts'
 import { UseRudderStackProvider } from '@hooks/rudderstack'
+import { UseCookiesProvider } from '@hooks/cookies'
 
 interface IDefaultProvidersProps {
   children: ReactNode
@@ -24,31 +30,33 @@ export const DefaultProviders = ({ children }: IDefaultProvidersProps) => {
   return (
     <UseWalletContextProvider>
       <UseRudderStackProvider>
-        <UseMessageAlertProvider>
-          <UseLoadingAlertProvider>
-            <UsePoolProvider
-              bootnodeUri={bootnodeUri}
-              networkId={networkId}
-              environment={environment}
-              discoveryTimeout={discoveryTimeout}
-              minNumGateways={discoveryPoolSize}
-            >
-              <UseBlockStatusProvider>
-                <UseBackendProvider>
-                  <UseProcessProvider>
-                    <UseVotingProvider>
-                      <UseEntityProvider>
-                        <UseDbAccountsProvider>
-                        {children}
-                        </UseDbAccountsProvider>
-                      </UseEntityProvider>
-                    </UseVotingProvider>
-                  </UseProcessProvider>
-                </UseBackendProvider>
-              </UseBlockStatusProvider>
-            </UsePoolProvider>
-          </UseLoadingAlertProvider>
-        </UseMessageAlertProvider>
+        <UseCookiesProvider>
+          <UseMessageAlertProvider>
+            <UseLoadingAlertProvider>
+              <UsePoolProvider
+                bootnodeUri={bootnodeUri}
+                networkId={networkId}
+                environment={environment}
+                discoveryTimeout={discoveryTimeout}
+                minNumGateways={discoveryPoolSize}
+              >
+                <UseBlockStatusProvider>
+                  <UseBackendProvider>
+                    <UseProcessProvider>
+                      <UseVotingProvider>
+                        <UseEntityProvider>
+                          <UseDbAccountsProvider>
+                            {children}
+                          </UseDbAccountsProvider>
+                        </UseEntityProvider>
+                      </UseVotingProvider>
+                    </UseProcessProvider>
+                  </UseBackendProvider>
+                </UseBlockStatusProvider>
+              </UsePoolProvider>
+            </UseLoadingAlertProvider>
+          </UseMessageAlertProvider>
+        </UseCookiesProvider>
       </UseRudderStackProvider>
     </UseWalletContextProvider>
   )
