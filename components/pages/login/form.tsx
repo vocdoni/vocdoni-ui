@@ -9,12 +9,11 @@ import { Account } from '../../../lib/types'
 import { ACCOUNT_RECOVER_PATH } from '../../../const/routes'
 
 import { Fieldset } from '../../blocks/form'
-import { Input, Select } from '../../elements/inputs'
+import { InputPassword, Select } from '../../elements/inputs'
 import { SectionTitle, SectionText } from '../../elements/text'
 import { Button } from '../../elements/button'
 import { HelpText } from '@components/blocks/help-text'
 import { usePool } from '@vocdoni/react-hooks'
-import { useMessageAlert } from '@hooks/message-alert'
 
 interface SignInFormProps {
   accounts: Account[]
@@ -31,9 +30,9 @@ export const SignInForm = ({
   const { poolPromise } = usePool()
   const [passphrase, setPassphrase] = useState<string>('')
   const [account, setAccount] = useState<Account>(accounts[0])
-  const buttonDisabled = !passphrase || !account
-  const { setAlertMessage } = useMessageAlert()
   const [loading, setLoading] = useState(false)
+  
+  const buttonDisabled = !passphrase || !account
 
   const handlerSubmit = (event: FormEvent) => {
     event.preventDefault()
@@ -94,10 +93,10 @@ export const SignInForm = ({
             {i18n.t('sign_in.write_your_passphrase')}
             <HelpText text="" />
           </label>
-          <Input
+          
+          <InputPassword
             wide
             id="passphrase"
-            type="password"
             value={passphrase}
             placeholder={i18n.t('sign_in.passphrase')}
             onChange={(e: ChangeEvent<HTMLInputElement>) =>

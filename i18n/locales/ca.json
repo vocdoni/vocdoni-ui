@@ -403,7 +403,9 @@
     },
     "input": {
         "enter_the_url_or_upload_a_file": "Carrega una imatge o introdueix un enllaç extern",
-        "remove_file": "Esborra fitxer"
+        "hide": "Amagar",
+        "remove_file": "Esborra fitxer",
+        "show": "Mostrar"
     },
     "links": {
         "about": "Quant a Vocdoni",
@@ -626,7 +628,6 @@
         "who_can_vote": "Qui pot votar",
         "yes_submit_the_vote": "Sí, envia el meu vot",
         "you_are_connected_as_a_guest": "Estàs connectat com a convidat",
-        "you_can_verify_its_inclusion_on_the_block_explorer": "Pots verificar-ne la inclusió a l'explorador de blocs",
         "you_can_vote_on_this_proposal": "Ja pots votar en aquest procés",
         "you_cant_enter_contact_with_entity": "Problemes amb l'accés? contacta amb l'entitat",
         "your_choice": "La teva selecció",
