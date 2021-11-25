@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react'
+import React, { ChangeEvent, ReactNode, useState, forwardRef } from 'react'
 import styled, { DefaultTheme } from 'styled-components'
 import { useTranslation } from 'react-i18next'
 
@@ -8,8 +8,6 @@ import FileLoader from './FileLoader'
 import { Input, InputPassword, ISelectOption, Select, Textarea } from '../elements/inputs'
 import { SectionTitle } from '../elements/text'
 
-
-
 type BaseForGroupProps = {
   title?: string
   label?: string
@@ -17,8 +15,10 @@ type BaseForGroupProps = {
   id?: string
   name?: string
   placeholder?: string
+  info?: string | ReactNode
   error?: string
-  editButton?: boolean,
+  success?: string | ReactNode
+  editButton?: boolean
   variant?: FormGroupVariant
 }
 
@@ -35,7 +35,6 @@ type ISelectFromGroupProps = {
   options?: ISelectOption[]
   onChange: (value: ISelectOption) => void
 } & BaseForGroupProps
-
 
 type FileFormGroupProps = {
   file: File
@@ -65,54 +64,68 @@ const FormGroupVariantStyle = {
   `,
 }
 
-export const formGroupHOC = (InputField) => ({
-  title,
-  label,
-  name,
-  helpText,
-  id,
-  placeholder,
-  value,
-  type,
-  rows,
-  error,
-  editButton,
-  onChange,
-  onBlur,
-  variant = FormGroupVariant.Regular,
-}: IInputFormGroupProps) => {
-  const { i18n } = useTranslation()
+export const formGroupHOC = (InputField) =>
+  forwardRef<HTMLDivElement, IInputFormGroupProps>(
+    (
+      {
+        title,
+        label,
+        name,
+        helpText,
+        id,
+        placeholder,
+        value,
+        type,
+        rows,
+        info,
+        error,
+        success,
+        editButton,
+        onChange,
+        onBlur,
+        variant = FormGroupVariant.Regular,
+      },
+      ref
+    ) => {
+      const { i18n } = useTranslation()
 
-  const [editEnabled, setEditEnabled] = useState(true)
-  const inputId = id || `input-${generateRandomId()}`
+      const [editEnabled, setEditEnabled] = useState(true)
+      const inputId = id || `input-${generateRandomId()}`
 
-  return (
-    <FormGroup variant={variant}>
-      {title && <InputTitle>{title}</InputTitle>}
-      {label && <InputLabel htmlFor={inputId}>{label}</InputLabel>}
-      {helpText && <HelpText text={helpText} />}
+      return (
+        <FormGroup variant={variant} ref={ref}>
+          {title && <InputTitle>{title}</InputTitle>}
+          {label && <InputLabel htmlFor={inputId}>{label}</InputLabel>}
+          {helpText && <HelpText text={helpText} />}
 
-      <div>
-        <InputContainer>
-          <InputField
-            id={inputId}
-            rows={rows}
-            wide={type !== 'color'}
-            placeholder={placeholder}
-            type={type}
-            name={name}
-            value={value || ''}
-            error={!!error}
-            onChange={onChange}
-            onBlur={onBlur}
-          />
-          { editEnabled && editButton && <EditButton onClick={() => setEditEnabled(false)}>{i18n.t('form.input.edit')}</EditButton> }
-        </InputContainer>
-        {error && <InputError>{error}</InputError>}
-      </div>
-    </FormGroup>
+          <div>
+            <InputContainer>
+              <InputField
+                id={inputId}
+                rows={rows}
+                wide={type !== 'color'}
+                placeholder={placeholder}
+                type={type}
+                name={name}
+                value={value || ''}
+                error={!!error}
+                onChange={onChange}
+                onBlur={onBlur}
+              />
+              {editEnabled && editButton && (
+                <EditButton onClick={() => setEditEnabled(false)}>
+                  {i18n.t('form.input.edit')}
+                </EditButton>
+              )}
+            </InputContainer>
+            {info && <InputFeedback>{info}</InputFeedback>}
+            {success && <InputFeedbackSuccess>{success}</InputFeedbackSuccess>}
+            {error && <InputFeedbackError>{error}</InputFeedbackError>}
+          </div>
+        </FormGroup>
+      )
+    }
   )
-}
 
 export const SelectFormGroup = ({
   title,
@@ -123,7 +136,9 @@ export const SelectFormGroup = ({
   id,
   placeholder,
   value,
+  info,
   error,
+  success,
   onChange,
   variant = FormGroupVariant.Regular,
 }: ISelectFromGroupProps) => {
@@ -146,18 +161,19 @@ export const SelectFormGroup = ({
           error={!!error}
           onChange={onChange}
         />
-        {error && <InputError>{error}</InputError>}
+        {info && <InputFeedback>{info}</InputFeedback>}
+        {success && <InputFeedbackSuccess>{success}</InputFeedbackSuccess>}
+        {error && <InputFeedbackError>{error}</InputFeedbackError>}
       </div>
     </FormGroup>
   )
 }
 
-
 export const InputFormGroup = formGroupHOC(Input)
 export const InputPasswordFormGroup = formGroupHOC(InputPassword)
 export const TextareaFormGroup = formGroupHOC(Textarea)
 
-export const FileLoaderFormGroup = ({
+export const FileLoaderFormGroup = forwardRef<HTMLDivElement, FileFormGroupProps>(({
   title,
   label,
   id,
@@ -165,15 +181,17 @@ export const FileLoaderFormGroup = ({
   accept,
   url,
   error,
+  success,
+  info,
   maxMbSize,
   onChange,
   onSelect,
   variant = FormGroupVariant.Regular,
-}: FileFormGroupProps) => {
+}: FileFormGroupProps, ref) => {
   const fileInputId = id || `file-${generateRandomId()}`
 
   return (
-    <FormGroup variant={variant}>
+    <FormGroup variant={variant} ref={ref}>
       {title && <InputTitle>{title}</InputTitle>}
       {label && <InputLabel>{label}</InputLabel>}
 
@@ -182,13 +200,15 @@ export const FileLoaderFormGroup = ({
         onChange={onChange}
         maxMbSize={maxMbSize}
         file={file}
+        error={error}
         url={url}
         accept={accept}
       />
-      {error && <InputError>{error}</InputError>}
+      {info && <InputFeedback>{info}</InputFeedback>}
+      {success && <InputFeedbackSuccess>{success}</InputFeedbackSuccess>}
     </FormGroup>
   )
-}
+})
 
 const InputContainer = styled.div`
   position: relative;
@@ -203,7 +223,7 @@ const EditButton = styled.span`
   font-weight: 500;
   display: inline-block;
   cursor: pointer;
-  color: ${({ theme }) => theme.accent1}
+  color: ${({ theme }) => theme.accent1};
 `
 
 const InputTitle = styled(SectionTitle)`
@@ -218,11 +238,21 @@ const InputLabel = styled.label`
   line-height: 1.6em;
 `
 
-const InputError = styled.p`
-  color: ${({ theme }) => theme.danger};
+const InputFeedback = styled.p`
   position: absolute;
   margin: 0 0 0 4px;
-  bottom: -6px;
+  bottom: -10px;
+  font-size: 12px;
+  font-weight: 500;
+  color: ${({ theme }) => theme.lightText};
+`
+
+const InputFeedbackError = styled(InputFeedback)`
+  color: ${({ theme }) => theme.danger};
+`
+
+const InputFeedbackSuccess = styled(InputFeedback)`
+  color: ${({ theme }) => theme.success};
 `
 
 export const FormGroup = styled.div<{ variant: FormGroupVariant }>`

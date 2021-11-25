@@ -10,12 +10,31 @@ import { useScrollTop } from "@hooks/use-scroll-top"
 
 import { checkStrength } from '@lib/util'
 
+import Check from 'public/icons/common/check.svg'
+
 import { Column, Grid } from '@components/elements/grid'
-import { InputPassword } from '@components/elements/inputs'
 import { Button } from '@components/elements/button'
 import { FlexAlignItem, FlexContainer } from '@components/elements/flex'
 import { EntityCreationPageSteps } from '.'
 import { Banner } from '@components/blocks/banners'
+import { InputFormGroup } from '@components/blocks/form'
+
+const PassPhraseFeedback = () => {
+  const { i18n } = useTranslation()
+
+  return (
+    <span>
+      <FeedbackTextContainer>
+        {i18n.t('success.passphrase_match')}
+      </FeedbackTextContainer>
+      <Check />
+    </span>
+  )
+}
+
+const FeedbackTextContainer = styled.span`
+  margin-right: 8px;
+`
 
 export const FormCredentials = () => {
   const { i18n } = useTranslation()
@@ -47,12 +66,14 @@ export const FormCredentials = () => {
       step: EntityCreationPageSteps.CREATION,
       name: name,
       type: entityType?.value,
-      size: entitySize?.value
+      size: entitySize?.value,
     })
     methods.setPageStep(EntityCreationPageSteps.CREATION)
   }
 
   const disabledContinue = !passphrase || !passphrase2 || !ack
+  const passphraseMatch =
+    !checkStrength(passphrase) && passphrase === passphrase2
 
   return (
     <Grid>
@@ -76,22 +97,33 @@ export const FormCredentials = () => {
       </Column>
 
       <Column md={6}>
-        <label htmlFor="pwd">{i18n.t('entity.passphrase')}</label>
-        <InputPassword
+        <InputFormGroup
+          label={i18n.t('entity.passphrase')}
           id="pwd"
-          wide
+          info={
+            passphrase.length && checkStrength(passphrase)
+              ? checkStrength(passphrase)
+              : null
+          }
           value={passphrase}
           onChange={(e) => setPassphrase(e.target.value)}
+          type="password"
         />
       </Column>
+
       <Column md={6}>
-        <label htmlFor="rep">{i18n.t('entity.repeat_passphrase')}</label>
-        <InputPassword
-          id="rep"
-          wide
-          type="password"
+        <InputFormGroup
+          label={i18n.t('entity.repeat_passphrase')}
+          id="pwd2"
           value={passphrase2}
+          info={
+            passphrase2.length && !passphraseMatch
+              ? i18n.t('errors.passphrase_dont_match')
+              : undefined
+          }
+          success={passphraseMatch ? <PassPhraseFeedback /> : undefined}
           onChange={(e) => setPassphrase2(e.target.value)}
+          type="password"
         />
       </Column>
       <Column>

@@ -49,6 +49,8 @@ export interface Colors {
 
   /** Error color */
   danger: Color;
+  /** Success color */
+  success: Color;
 
   white: Color;
   darkFg: Color;

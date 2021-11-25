@@ -155,7 +155,7 @@
             "you_can_customize_your_branding": "Here you can customize how your clients see the application on the voting process",
             "you_can_update_the_visible_logo_on_the_voting_process": "You can define the the visible logo"
         },
-        "brief_description": "Brief description of the entity",
+        "brief_description": "Brief description of the entity, it will be displayed in the public entity page.",
         "choose_a_passphrase": "Choose a password",
         "confirming_details": "Confirming details",
         "consolidating_path": "Uploading metadata",
@@ -164,7 +164,7 @@
         "creation": "Creation",
         "credentials": "Credentials",
         "decentralized_accounts_cannot_be_recovered_by_and_external_agent": "Decentralized accounts cannot be recovered by an external agent. If you lose your password, you will not be able to access your account in the future.",
-        "define_your_credentials_to_protect_the_account": "Define your credentials to protect your account",
+        "define_your_credentials_to_protect_the_account": "Define your entity/organization details",
         "description": "Description",
         "details": "Details",
         "edit": {
@@ -188,12 +188,13 @@
             "update": "Update",
             "your_entity": "Edit entity"
         },
-        "email": "Contact e-mail",
+        "email": "Contact e-mail*",
         "enter_the_name_of_the_entity": "Enter the name of the entity",
         "entity_details": "Entity details",
         "entity_size": "Entity size",
         "go_to_the_dashboard": "Go to the dashboard",
-        "header": "Entity header",
+        "header": "A .jpg, .jpeg or .png file (2mb max)*",
+        "header_label": "Entity header",
         "home": {
             "entity_address": "Entity address",
             "entity_description": "Entity description",
@@ -202,7 +203,8 @@
         "i_have_read_and_accept_personal_data": "(Optional) I give my express consent for the commercial, and service management",
         "i_have_read_and_accept_terms": "I have read and accept “Personal Data Proteccion Information” (see above), and Aragon Labs “<1>Privacy Policy</1>”",
         "logo": "Entity logo",
-        "name": "Name of the entity",
+        "logo_label": ".jpg, .jpeg or .png file (2mb max)*",
+        "name": "Name of the entity*",
         "new_entity": "Entity name",
         "passphrase": "Password",
         "passphrase_image_alt": "Password",
@@ -271,6 +273,7 @@
         "invalid_link": "You are following and invalid link",
         "not_a_web_browser": "Not a web browser",
         "page_not_found": "Page not found",
+        "passphrase_dont_match": "The passphrase don't match",
         "please_accept_credentials_tos": "Please accept the Terms of Service",
         "please_confirm_your_passphrase": "Please confirm your password",
         "please_ensure_no_incognito_mode": "Please ensure your are not in incognito mode",
@@ -471,6 +474,9 @@
         "the_vote_is_open_for_voting": "The vote is open for voting",
         "the_vote_is_paused": "The vote is paused",
         "the_vote_will_start_soon": "The vote will start soon"
+    },
+    "success": {
+        "passphrase_match": "Passphrase match!"
     },
     "supported_langs": {
         "catalan": "Català",
