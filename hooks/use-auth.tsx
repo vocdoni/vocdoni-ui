@@ -22,7 +22,7 @@ export const useAuth = (): IUseAuth => {
   
       const censusProof = await CensusOffChainApi.generateProof(
         censusRoot,
-        { key: digestedHexClaim },
+        digestedHexClaim,
         false,
         pool
       )

@@ -1,11 +1,7 @@
 import xlsx, { WorkBook } from 'xlsx'
+import { VotingType } from './types'
 import { InvalidRowLength } from './validators/errors/invalid-row-length'
 import { InvalidWeightedRow } from './validators/errors/invalid-weighted-row-length'
-
-export enum VotingType {
-  Normal = 'normal',
-  Weighted = 'weighted',
-}
 
 export enum ErrorType {
   InvalidRowLength = 'invalidRowLength',

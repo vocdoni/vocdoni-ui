@@ -610,7 +610,7 @@
         "this_is_weighted_voted": "",
         "this_type_of_vote_is_not_supported_on_the_current_page": "Aquest tipus de votació encara no està disponible",
         "title": "Títol",
-        "total_votes": "Nombre total de vots",
+        "total_votes": "Nombre total de vots: {{totalVotes}}",
         "total_weighted_votes": "Número de participants: {{totalVotes}}. Pes total dels vots emesos: {{totalWeightedVotes}}",
         "upcoming_vote": "Propera votació",
         "upload_new_logo": "Carrega un logo nou",
