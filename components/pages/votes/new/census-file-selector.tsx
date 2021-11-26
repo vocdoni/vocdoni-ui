@@ -12,8 +12,8 @@ import {
 import { ImageContainer } from '@components/elements/images'
 import { FlexContainer, FlexJustifyContent } from '@components/elements/flex'
 import { ErrorBanner } from './components/error-banner'
-import { VotingType } from './census'
 import { CensusFileData } from './census-file-data'
+import { VotingType } from '@lib/types'
 
 const containerStyles = {
   height: 238,

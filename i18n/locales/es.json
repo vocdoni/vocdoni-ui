@@ -611,6 +611,7 @@
         "this_type_of_vote_is_not_supported_on_the_current_page": "Este tipo de votación no está disponible todavía",
         "title": "Título",
         "total_votes": "Número total de votos",
+        "total_weighted_votes": "Número de participantes: {{totalVotes}}. Peso total de los votos emitidos: {{totalWeightedVotes}}",
         "upcoming_vote": "Próxima votación",
         "upload_new_logo": "Cargar un logo nuevo",
         "uploading_metadata": "Cargando los metadatos",

@@ -1,6 +1,6 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { VotingType } from '../census'
+import { VotingType } from '@lib/types'
 
 import {
   BtnGroup,

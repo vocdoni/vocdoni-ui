@@ -4,12 +4,12 @@ import { createContext, ReactNode, useContext, useEffect, useState } from 'react
 
 import { useWallet, WalletRoles } from './use-wallet'
 import i18n from '../i18n'
-import { StepperFunc } from '../lib/types'
+import { CensusPoof, IProcessResults, StepperFunc } from '../lib/types'
 import { useStepper } from './use-stepper'
 import { useMessageAlert } from './message-alert'
 import { areAllNumbers, waitBlockFraction } from '../lib/util'
 import { useProcessWrapper } from '@hooks/use-process-wrapper'
-// import { MetadataFields } from '@components/steps-new-vote/metadata'
+
 
 export interface VotingContext {
   pleaseWait: boolean,
@@ -33,7 +33,7 @@ export interface VotingContext {
   nullifier: string,
   invalidProcessId: boolean,
   refreshingVotedStatus: boolean,
-  results: ProcessResultsSingleChoice,
+  results: IProcessResults,
 
   // sent: boolean,
 
@@ -79,11 +79,12 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
     results,
     methods
   } = useProcessWrapper(processId)
+  // const censusProof = useRecoilStateLoadable(censusProofState)
   const { wallet } = useWallet({ role: WalletRoles.VOTER })
   const { setAlertMessage } = useMessageAlert()
   const { blockHeight } = useBlockHeight()
   const [nullifier, setNullifier] = useState("")
-  const [censusProof, setCensusProof] = useState("")
+  const [censusProof, setCensusProof] = useState<CensusPoof>()
   const [hasVoted, setHasVoted] = useState(false)
   const [refreshingVotedStatus, setRefreshingVotedStatus] = useState(false)
   const [choices, setChoices] = useState([] as number[])
@@ -125,7 +126,7 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
 
       const censusProof = await CensusOffChainApi.generateProof(
         processInfo.state?.censusRoot,
-        { key: digestedHexClaim },
+        digestedHexClaim,
         isDigested,
         pool
       )

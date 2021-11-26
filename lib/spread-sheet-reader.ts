@@ -81,8 +81,19 @@ export class SpreadSheetReader {
   }
 
   public getHeader(csvType: VotingType): string[] {
-    return csvType === VotingType.Normal? this.header:this.header.slice(1)
+    return csvType === VotingType.Normal ? this.header : this.header.slice(1)
   }
+
+  public getData(csvType: VotingType): string[][] {
+    return csvType === VotingType.Normal
+      ? this.data
+      : this.data.map((row) => row.slice(1))
+  }
+
+  public getWeightedVotes(): string[] {
+    return this.data.map((row) => row[0])
+  }
+
 
   private handleUploadPromise(): Promise<SpreadSheetReader> {
     return new Promise((resolve, reject): void => {

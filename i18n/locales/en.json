@@ -611,6 +611,7 @@
         "this_type_of_vote_is_not_supported_on_the_current_page": "This type of vote is not supported on the current page",
         "title": "Title",
         "total_votes": "Total number of votes",
+        "total_weighted_votes": "Number of participants: {{totalVotes}}. Total weight of votes cast: {{totalWeightedVotes}}",
         "upcoming_vote": "Upcoming",
         "upload_new_logo": "Upload new logo",
         "uploading_metadata": "Uploading metadata",

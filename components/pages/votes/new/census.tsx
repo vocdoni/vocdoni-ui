@@ -25,11 +25,8 @@ import { ConfirmModal } from '@components/blocks/confirm-modal'
 import { ImportVoterListNormal } from './components/import-voter-list-normal'
 import { ImportVoterListWeighted } from './components/import-voter-list-wighted'
 import { DisclaimerBanner } from './components/disclaimer-banner'
+import { VotingType } from '@lib/types'
 
-export enum VotingType {
-  Normal = 'normal',
-  Weighted = 'weighted',
-}
 
 export const FormCensus = () => {
   const { i18n } = useTranslation()
@@ -37,7 +34,6 @@ export const FormCensus = () => {
   const [showAdvanced, setShowAdvanced] = useState<boolean>(false)
   const [censusRootError, setCensusRootError] = useState<string>()
   const [censusUriError, setCensusUriError] = useState<string>()
-  const [votingType, setVotingType] = useState<VotingType>(VotingType.Normal)
   const [showConfirmModal, setShowConfirmModal] = useState<boolean>(false)
   const changeVotingTypeRef = useRef<VotingType>()
   const advancedCensusEnabled = !!process.env.ADVANCED_CENSUS || false
@@ -47,6 +43,7 @@ export const FormCensus = () => {
     spreadSheetReader,
     processTerms,
     parameters,
+    votingType
   } = useProcessCreation()
   const { trackEvent } = useRudderStack()
 
@@ -58,6 +55,10 @@ export const FormCensus = () => {
   }
 
   const handleContinue = () => {
+    if (!processTerms) {
+      return
+    }
+
     trackEvent(TrackEvents.PROCESS_CREATION_WIZARD_BUTTON_CLICKED, {
       step: ProcessCreationPageSteps.SETTINGS,
     })
@@ -95,7 +96,7 @@ export const FormCensus = () => {
 
   const handleChangeVotingType = (votingType: VotingType) => {
     if (!spreadSheetReader) {
-      setVotingType(votingType)
+      methods.setVotingType(votingType)
     } else {
       changeVotingTypeRef.current = votingType
       setShowConfirmModal(true)
@@ -108,7 +109,7 @@ export const FormCensus = () => {
 
   const handleConfirmChangeVotingType = () => {
     setShowConfirmModal(false)
-    setVotingType(changeVotingTypeRef.current)
+    methods.setVotingType(changeVotingTypeRef.current)
     methods.setSpreadSheetReader(null)
   }
 
@@ -171,10 +172,7 @@ export const FormCensus = () => {
                 placeholder={i18n.t('vote.0x000')}
                 helpText={i18n.t('vote.stream_link_explanation')}
                 error={censusRootError}
-                // id={MetadataFields.StreamLink}
                 value={parameters.censusRoot}
-                // error={getErrorMessage(MetadataFields.StreamLink)}
-                // onBlur={() => handleBlur(MetadataFields.StreamLink)}
                 onChange={handleOnChangeCensusRoot}
               />
             </Column>
@@ -185,11 +183,7 @@ export const FormCensus = () => {
                 label={'CensusURI'}
                 placeholder={'ipfs//:'}
                 error={censusUriError}
-                // helpText={i18n.t('vote.stream_link_explanation')}
-                // id={MetadataFields.StreamLink}
                 value={parameters.censusUri}
-                // error={getErrorMessage(MetadataFields.StreamLink)}
-                // onBlur={() => handleBlur(MetadataFields.StreamLink)}
                 onChange={handleOnChangeCensusUri}
               />
             </Column>
@@ -246,7 +240,7 @@ export const FormCensus = () => {
                 <Button
                   positive
                   disabled={!processTerms}
-                  onClick={handleOpenTermsModal}
+                  onClick={handleContinue}
                 >
                   {processTerms
                     ? i18n.t('action.continue')
