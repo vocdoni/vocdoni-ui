@@ -54,7 +54,7 @@ export class SpreadSheetReader {
       }
 
       if (csvType === VotingType.Weighted) {
-        const regex = /^[0-9]?$/
+        const regex = /^[0-9]+?$/
         if (!regex.test(row[0])) {
           if (!errorTypes.includes(ErrorType.InvalidWeightedVoted)) {
             errorTypes.push(ErrorType.InvalidWeightedVoted)
