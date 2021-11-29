@@ -17,7 +17,7 @@ import { Button } from '@components/elements/button'
 import { FlexAlignItem, FlexContainer } from '@components/elements/flex'
 import { EntityCreationPageSteps } from '.'
 import { Banner } from '@components/blocks/banners'
-import { InputFormGroup } from '@components/blocks/form'
+import { InputPasswordFormGroup } from '@components/blocks/form'
 
 const PassPhraseFeedback = () => {
   const { i18n } = useTranslation()
@@ -71,9 +71,10 @@ export const FormCredentials = () => {
     methods.setPageStep(EntityCreationPageSteps.CREATION)
   }
 
-  const disabledContinue = !passphrase || !passphrase2 || !ack
   const passphraseMatch =
-    !checkStrength(passphrase) && passphrase === passphrase2
+  !checkStrength(passphrase) && passphrase === passphrase2
+
+  const disabledContinue = !passphraseMatch || !ack
 
   return (
     <Grid>
@@ -97,7 +98,7 @@ export const FormCredentials = () => {
       </Column>
 
       <Column md={6}>
-        <InputFormGroup
+        <InputPasswordFormGroup
           label={i18n.t('entity.passphrase')}
           id="pwd"
           info={
@@ -112,7 +113,7 @@ export const FormCredentials = () => {
       </Column>
 
       <Column md={6}>
-        <InputFormGroup
+        <InputPasswordFormGroup
           label={i18n.t('entity.repeat_passphrase')}
           id="pwd2"
           value={passphrase2}
