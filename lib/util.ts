@@ -54,7 +54,7 @@ export function shortAddress(address: string, slashIndex = 15): string {
 
 export function checkStrength(passphrase: string): string {
   if (!passphrase) return i18n.t("errors.the_passphrase_is_empty")
-  else if (!passphrase.match(/^(?=.*[a-z])(?=.*[A-Z])[a-zA-Z\d]{8,}$/)) return i18n.t("errors.the_passphrase_should_contain_some_uppercase_characters_and_length_8")
+  else if (!passphrase.match(/^(?=.*[a-z])(?=.*[A-Z])[\w\W\d]{8,}$/)) return i18n.t("errors.the_passphrase_should_contain_some_uppercase_characters_and_length_8")
   return null
 }
 

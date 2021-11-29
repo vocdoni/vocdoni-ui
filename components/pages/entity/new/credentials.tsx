@@ -71,8 +71,7 @@ export const FormCredentials = () => {
     methods.setPageStep(EntityCreationPageSteps.CREATION)
   }
 
-  const passphraseMatch =
-  !checkStrength(passphrase) && passphrase === passphrase2
+  const passphraseMatch = passphrase.length && passphrase === passphrase2
 
   const disabledContinue = !passphraseMatch || !ack
 
