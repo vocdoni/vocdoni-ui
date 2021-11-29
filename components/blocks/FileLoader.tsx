@@ -1,3 +1,4 @@
+import { FlexAlignItem, FlexContainer } from '@components/elements/flex'
 import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Else, If, Then } from 'react-if'
@@ -12,6 +13,7 @@ type Props = {
   accept?: string,
   file?: File,
   url?: string,
+  error?: string,
   maxMbSize?: number,
   onSelect: (file: File) => void,
   onChange: (url: string) => void,
@@ -21,9 +23,14 @@ const FileLoader = ({ onSelect, onChange, accept, maxMbSize, ...props }: Props) 
   const { i18n } = useTranslation()
 
   const [file, setFile] = useState<File>(null)
-  const [error, setError] = useState<string>(null)
+  const [error, setError] = useState<string>(props.error)
   const [fileUrl, setFileUrl] = useState<string>('')
-  // const [fileName, setFileName] = useState<string>('')
+  console.log('The file has error', error , props.error)
+
+  useEffect(() => {
+    setError(props.error)
+  }, [props.error])
+    // const [fileName, setFileName] = useState<string>('')
   const inputRef = useRef<HTMLInputElement>(null)
   const maxSize = maxMbSize || 5
 
@@ -93,20 +100,24 @@ const FileLoader = ({ onSelect, onChange, accept, maxMbSize, ...props }: Props) 
   }
 
   return <>
-    <div>
+    <FlexContainer alignItem={FlexAlignItem.Center}>
       <If condition={!file}>
         <Then>
-          <MyInput
+          <Input
             type='text'
+            error={!!error}
+            wide
             placeholder={i18n.t("input.enter_the_url_or_upload_a_file")}
             value={fileUrl}
             onChange={onFileUrlChange}
           />
         </Then>
         <Else>
-          <MyInput
+          <Input
             type='text'
             readOnly
+            wide
+            error={!!error}
             value={file?.name}
             title={i18n.t("input.remove_file")}
           />
@@ -119,20 +130,22 @@ const FileLoader = ({ onSelect, onChange, accept, maxMbSize, ...props }: Props) 
         style={{ display: 'none' }}
         {...input}
       />
-      <If condition={!file}>
-        <Then>
-          <Button positive width={BROWSE_BUTTON_WIDTH} onClick={() => inputRef.current.click()}>
-            {i18n.t('action.browse')}
-          </Button>
-        </Then>
+      <ButtonContainer>
+        <If condition={!file}>
+          <Then>
+            <Button positive width={BROWSE_BUTTON_WIDTH} onClick={() => inputRef.current.click()}>
+              {i18n.t('action.browse')}
+            </Button>
+          </Then>
 
-        <Else>
-          <Button border width={BROWSE_BUTTON_WIDTH} onClick={handleCleanFile}>
-            {i18n.t('action.clean')}
-          </Button>
-        </Else>
-      </If>
-    </div>
+          <Else>
+            <Button border width={BROWSE_BUTTON_WIDTH} onClick={handleCleanFile}>
+              {i18n.t('action.clean')}
+            </Button>
+          </Else>
+        </If>
+      </ButtonContainer>
+    </FlexContainer>
     <If condition={error}>
       <ErrorMsg>{error}</ErrorMsg>
     </If>
@@ -140,12 +153,16 @@ const FileLoader = ({ onSelect, onChange, accept, maxMbSize, ...props }: Props) 
 }
 
 const ErrorMsg = styled.span`
-color: ${({ theme }) => theme.textAccent2B};
+color: ${({ theme }) => theme.danger};
+margin-top: -10px;
+margin-left: 4px;
+font-size: 12px;
+font-weight: 500;
+position: absolute;
 `
 
-const MyInput = styled(Input)`
-margin-right: 10px;
-width: calc(100% - ${BROWSE_BUTTON_WIDTH}px - 10px);
+const ButtonContainer = styled.div`
+  margin-left: 10px;
 `
 
 export default FileLoader

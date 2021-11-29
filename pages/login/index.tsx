@@ -10,7 +10,6 @@ import { SignInForm, SignInImport } from '@components/pages/login'
 import { Account, AccountStatus } from '@lib/types'
 import { useDbAccounts } from '@hooks/use-db-accounts'
 import { useWallet } from '@hooks/use-wallet'
-import { useMessageAlert } from '@hooks/message-alert'
 import { useResponsive } from '@hooks/use-window-size'
 import { CREATE_ACCOUNT_PATH, DASHBOARD_PATH } from '@const/routes'
 
@@ -18,7 +17,7 @@ const SignInPage = () => {
   const { dbAccounts } = useDbAccounts()
   const { laptop } = useResponsive()
   const { restoreEncryptedWallet } = useWallet()
-  const { setAlertMessage } = useMessageAlert()
+  const [loginError, setLoginError] = useState<string | null>(null)
   const router = useRouter()
 
   const [verifyingCredentials, setVerifyingCredentials] = useState<boolean>(
@@ -30,7 +29,7 @@ const SignInPage = () => {
 
   const handlerSubmit = (account: Account, passphrase: string): Promise<any> => {
     setVerifyingCredentials(true)
-
+    setLoginError(null)
     try {
       restoreEncryptedWallet(
         account.encryptedMnemonic,
@@ -44,8 +43,8 @@ const SignInPage = () => {
 
       return router.push(DASHBOARD_PATH)
     } catch (error) {
+      setLoginError(i18n.t('sign_in.invalid_passphrase'))
       setVerifyingCredentials(false)
-      setAlertMessage(i18n.t('sign_in.invalid_passphrase'))
       return Promise.reject(null)
     }
   }
@@ -57,6 +56,7 @@ const SignInPage = () => {
           <Column lg={colSmSize}>
             <SignInForm
               accounts={dbAccounts}
+              error={loginError}
               onSubmit={handlerSubmit}
               disabled={verifyingCredentials}
             />

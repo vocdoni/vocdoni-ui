@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState } from 'react'
+import React, { ChangeEvent, useEffect, useRef, useState } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
@@ -16,7 +16,7 @@ import {
   FileLoaderFormGroup,
   InputFormGroup,
   TextareaFormGroup,
-  SelectFormGroup
+  SelectFormGroup,
 } from '@components/blocks/form'
 import {
   FlexAlignItem,
@@ -24,6 +24,7 @@ import {
   FlexJustifyContent,
 } from '@components/elements/flex'
 import { DirtyFields, ErrorFields } from '@lib/validators'
+import { EntityNameAlreadyExistError } from '@lib/validators/errors/entity-name-already-exits-error'
 
 import { AccountStatus } from '@lib/types'
 
@@ -39,7 +40,10 @@ import {
   RoundedCheckSize,
 } from '@components/elements/rounded-check'
 import { Typography, TypographyVariant } from '@components/elements/typography'
-import { SELECT_ORGANIZATION_TYPE, SELECT_ORGANIZATION_SIZE } from '../const/organizations'
+import {
+  SELECT_ORGANIZATION_TYPE,
+  SELECT_ORGANIZATION_SIZE,
+} from '../const/organizations'
 import { PRIVACY_PATH } from '@const/routes'
 import { TrackEvents, useRudderStack } from '@hooks/rudderstack'
 import { OnPagePrivacy } from '@components/pages/policy/privacy/onpage-layer-1'
@@ -53,7 +57,7 @@ export enum MetadataFields {
   Terms = 'terms',
   Consent = 'consent',
   EntityType = 'entity-type',
-  EntitySize = 'entity-size'
+  EntitySize = 'entity-size',
 }
 
 export const FormMetadata = () => {
@@ -82,9 +86,17 @@ export const FormMetadata = () => {
   const { trackEvent } = useRudderStack()
 
   const [showTermsModal, setShowTermsModal] = useState<boolean>(false)
-  const [showEntityTermsModal, setShowEntityTermsModal] =
-    useState<boolean>(false)
+  const [showEntityTermsModal, setShowEntityTermsModal] = useState<boolean>(
+    false
+  )
   const [showPrivacyModal, setShowPrivacyModal] = useState<boolean>(false)
+
+  const metadataRef = {
+    [MetadataFields.Name]: useRef<HTMLDivElement>(null),
+    [MetadataFields.Email]: useRef<HTMLDivElement>(null),
+    [MetadataFields.Header]: useRef<HTMLDivElement>(null),
+    [MetadataFields.Logo]: useRef<HTMLDivElement>(null),
+  }
 
   useEffect(() => {
     const metadata = {
@@ -140,9 +152,7 @@ export const FormMetadata = () => {
     )
 
     if (registeredAccount && registeredAccount.status === AccountStatus.Ready) {
-      return setAlertMessage(
-        i18n.t('errors.there_is_already_one_entity_with_the_same_name')
-      )
+      metadataErrors.set(MetadataFields.Name, new EntityNameAlreadyExistError())
     }
 
     if (!metadataErrors.size) {
@@ -156,12 +166,30 @@ export const FormMetadata = () => {
         step: destinationPage,
         name: name,
         type: entityType?.value,
-        size: entitySize?.value
+        size: entitySize?.value,
       })
 
       methods.setPageStep(destinationPage)
     } else {
       dirtyAllFields()
+
+      for (let errorField of metadataErrors.keys()) {
+        const fieldRef = metadataRef[errorField]
+
+        if (fieldRef) {
+          
+          window.scroll({
+            top: fieldRef.current?.offsetTop - 100,
+            behavior: 'smooth',
+          })
+          
+          setTimeout(() => {
+            fieldRef.current?.getElementsByTagName('input')[0]?.focus()
+          }, 900)
+
+          return
+        }
+      }
     }
   }
 
@@ -190,7 +218,6 @@ export const FormMetadata = () => {
   }
 
   return (
-
     <Grid>
       <Column md={6}>
         <InputFormGroup
@@ -199,6 +226,7 @@ export const FormMetadata = () => {
           placeholder={i18n.t('entity.enter_the_name_of_the_entity')}
           id={MetadataFields.Name}
           value={name}
+          ref={metadataRef[MetadataFields.Name]}
           error={getErrorMessage(MetadataFields.Name)}
           onBlur={() => handleBlur(MetadataFields.Name)}
           onChange={(event: ChangeEvent<HTMLInputElement>) =>
@@ -216,6 +244,7 @@ export const FormMetadata = () => {
             helpText={i18n.t(
               'entity.this_will_be_the_email_for_the_members_of_the_entity_to_contact_you'
             )}
+            ref={metadataRef[MetadataFields.Email]}
             value={email}
             error={getErrorMessage(MetadataFields.Email)}
             onBlur={() => handleBlur(MetadataFields.Email)}
@@ -266,10 +295,11 @@ export const FormMetadata = () => {
       <Column md={6}>
         <FileLoaderFormGroup
           title={i18n.t('entity.logo')}
-          label={i18n.t('entity.logo')}
+          label={i18n.t('entity.logo_label')}
           onSelect={(file) => methods.setLogoFile(file)}
           onChange={methods.setLogoUrl}
           maxMbSize={2}
+          ref={metadataRef[MetadataFields.Logo]}
           error={getErrorMessage(MetadataFields.Logo)}
           file={logoFile}
           url={logoUrl}
@@ -280,10 +310,11 @@ export const FormMetadata = () => {
       <Column md={6}>
         <FileLoaderFormGroup
           title={i18n.t('entity.header')}
-          label={i18n.t('entity.header')}
+          label={i18n.t('entity.header_label')}
           onSelect={(file) => methods.setHeaderFile(file)}
           onChange={methods.setHeaderUrl}
           maxMbSize={2}
+          ref={metadataRef[MetadataFields.Header]}
           error={getErrorMessage(MetadataFields.Header)}
           file={headerFile}
           url={headerUrl}
@@ -292,19 +323,24 @@ export const FormMetadata = () => {
       </Column>
 
       <Column>
-        <PolicyBanner>{i18n.t('entity.personal_data_protection_information')}</PolicyBanner>
+        <PolicyBanner>
+          {i18n.t('entity.personal_data_protection_information')}
+        </PolicyBanner>
         <OnPagePrivacy lang={lang} />
 
         <PendingStepsContainer>
           <FlexContainer alignItem={FlexAlignItem.Center}>
-            <RoundedCheck size={RoundedCheckSize.Small} checked={terms}
-                          onClick={() => methods.setTerms(!terms)} />
+            <RoundedCheck
+              size={RoundedCheckSize.Small}
+              checked={terms}
+              onClick={() => methods.setTerms(!terms)}
+            />
             <Typography variant={TypographyVariant.Small} margin="0 10px">
               <Trans
                 defaults={i18n.t('entity.i_have_read_and_accept_terms')}
                 components={[
                   <a onClick={handleOpenEntityTermsModal} />,
-                  <a href={PRIVACY_PATH} target='_blank' />,
+                  <a href={PRIVACY_PATH} target="_blank" />,
                   <a onClick={handleOpenTermsModal} />,
                 ]}
               />
@@ -314,14 +350,15 @@ export const FormMetadata = () => {
 
         <PendingStepsContainer>
           <FlexContainer alignItem={FlexAlignItem.Center}>
-            <RoundedCheck size={RoundedCheckSize.Small} checked={consent}
-                          onClick={() => methods.setConsent(!consent)} />
+            <RoundedCheck
+              size={RoundedCheckSize.Small}
+              checked={consent}
+              onClick={() => methods.setConsent(!consent)}
+            />
             <Typography variant={TypographyVariant.Small} margin="0 10px">
               <Trans
                 defaults={i18n.t('entity.i_have_read_and_accept_personal_data')}
-                components={[
-                  <a onClick={handleOpenPrivacyModal} />,
-                ]}
+                components={[<a onClick={handleOpenPrivacyModal} />]}
               />
             </Typography>
           </FlexContainer>

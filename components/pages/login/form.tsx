@@ -8,22 +8,23 @@ import { useTranslation } from 'react-i18next'
 import { Account } from '../../../lib/types'
 import { ACCOUNT_RECOVER_PATH } from '../../../const/routes'
 
-import { Fieldset } from '../../blocks/form'
-import { InputPassword, Select } from '../../elements/inputs'
+import { Fieldset, InputFormGroup } from '../../blocks/form'
+import { Input, Select } from '../../elements/inputs'
 import { SectionTitle, SectionText } from '../../elements/text'
 import { Button } from '../../elements/button'
-import { HelpText } from '@components/blocks/help-text'
 import { usePool } from '@vocdoni/react-hooks'
 
 interface SignInFormProps {
   accounts: Account[]
   disabled?: boolean
+  error?: string
   onSubmit: (account: Account, passphrase: string) => Promise<any>
 }
 
 export const SignInForm = ({
   accounts,
   disabled,
+  error,
   onSubmit,
 }: SignInFormProps) => {
   const { i18n } = useTranslation()
@@ -89,19 +90,14 @@ export const SignInForm = ({
 
       <form onSubmit={handlerSubmit}>
         <FormGroup>
-          <label htmlFor="passphrase">
-            {i18n.t('sign_in.write_your_passphrase')}
-            <HelpText text="" />
-          </label>
-          
-          <InputPassword
-            wide
-            id="passphrase"
+          <InputFormGroup 
+            label={i18n.t('sign_in.passphrase')}
+            helpText={i18n.t('sign_in.write_your_passphrase')}
+            type="password"
+            error={error}
             value={passphrase}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => setPassphrase(e.target.value)}
             placeholder={i18n.t('sign_in.passphrase')}
-            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-              setPassphrase(e.target.value)
-            }
           />
         </FormGroup>
 

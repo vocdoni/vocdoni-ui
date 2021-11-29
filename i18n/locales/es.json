@@ -155,7 +155,7 @@
             "you_can_customize_your_branding": "Aquí puede personalizar cómo ven sus clientes la aplicación en el proceso de votación.",
             "you_can_update_the_visible_logo_on_the_voting_process": "Puedes definir el logo que ven tus clientes"
         },
-        "brief_description": "Breve descripción de la entidad",
+        "brief_description": "Breve descripción de la entidad, se mostrará en la página de la entidad pública.",
         "choose_a_passphrase": "Escoger contraseña",
         "confirming_details": "Confirmando detalles",
         "consolidating_path": "Cargando los metadatos",
@@ -164,7 +164,7 @@
         "creation": "Creación",
         "credentials": "Credenciales",
         "decentralized_accounts_cannot_be_recovered_by_and_external_agent": "Las cuentas descentralizadas no pueden ser recuperadas por un agente externo. En caso de perder la contraseña podrías perder también el acceso a la cuenta de tu entidad.",
-        "define_your_credentials_to_protect_the_account": "Define las credenciales para proteger tu cuenta de entidad",
+        "define_your_credentials_to_protect_the_account": "Defina los detalles de su entidad / organización",
         "description": "Descripción",
         "details": "Detalles",
         "edit": {
@@ -188,12 +188,13 @@
             "update": "Actualizar",
             "your_entity": "Editar entidad"
         },
-        "email": "Dirección de correo electrónico de contacto",
+        "email": "Dirección de correo electrónico de contacto*",
         "enter_the_name_of_the_entity": "Introducir el nombre de la entidad",
         "entity_details": "Detalles de la entidad",
         "entity_size": "Tamaño de la entidad",
         "go_to_the_dashboard": "Volver al inicio",
         "header": "Cabecera",
+        "header_label": "Debe ser un .jpg, .jpeg or .png fichero (2mb max)*",
         "home": {
             "entity_address": "Direccion de entidad",
             "entity_description": "Descripcion de la entidad",
@@ -202,7 +203,8 @@
         "i_have_read_and_accept_personal_data": "(Optional) Doy mi consentimiento expreso para la gestión comercial y de servicios",
         "i_have_read_and_accept_terms": "He leído y acepto el “Información de protección de datos personales” (ver arriba), y la “<1>Política de Privacidad</1>” de Aragon Labs",
         "logo": "Logo de la entidad",
-        "name": "Nombre de la entidad",
+        "logo_label": "Debe ser un .jpg, .jpeg or .png fichero (2mb max)*",
+        "name": "Nombre de la entidad*",
         "new_entity": "Nueva Entidad",
         "passphrase": "Contraseña",
         "passphrase_image_alt": "Contraseña",
@@ -271,6 +273,7 @@
         "invalid_link": "You are following and invalid link",
         "not_a_web_browser": "No es un navegador",
         "page_not_found": "No se ha encontrado la página",
+        "passphrase_dont_match": "El passphrase no coincide",
         "please_accept_credentials_tos": "Por favor, acepta las Condiciones de Servicio",
         "please_confirm_your_passphrase": "Por favor, confirma contraseña",
         "please_ensure_no_incognito_mode": "Por favor, asegurate que no utilizas navegación privada",
@@ -291,13 +294,11 @@
         "the_list_of_votes_cannot_be_loaded": "No se puede cargar la lista de los procesos de votación",
         "the_passphrase_does_not_match": "La contraseña no coincide",
         "the_passphrase_is_empty": "La contraseña está vacía",
-        "the_passphrase_should_contain_some_uppercase_characters": "La contraseña debe contener alguna mayúscula",
-        "the_passphrase_should_have_8_characters_or_more": "La contraseña debe tener 8 caracteres o más",
+        "the_passphrase_should_contain_some_uppercase_characters_and_length_8": "La contraseña debe tener 8 caracteres o más, con al menos 1 mayúscula",
         "the_recovery_could_not_be_completed": "La recuperación no se ha podido completar",
         "the_vote_has_not_been_registered": "El voto no ha sido registrado",
         "there_is_already_one_account_with_the_same_credentials": "Ya hay otra cuenta con estas credenciales",
         "there_is_already_one_account_with_the_same_name": "Ya hay otra cuenta con este nombre",
-        "there_is_already_one_entity_with_the_same_name": "Ya hay otra cuenta con este nombre",
         "update_entity_data_error": "Error actualizando los datos",
         "you_are_not_part_of_the_census": "No formas parte del censo",
         "you_canceled_the_operation": "Has cancelado la operación",
@@ -471,6 +472,9 @@
         "the_vote_is_open_for_voting": "El proceso de votación está abierto",
         "the_vote_is_paused": "El proceso de votación está parado",
         "the_vote_will_start_soon": "El proceso de votación empezará pronto"
+    },
+    "success": {
+        "passphrase_match": "El phassphrase conicide!"
     },
     "supported_langs": {
         "catalan": "Català",

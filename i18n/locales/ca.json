@@ -155,7 +155,7 @@
             "you_can_customize_your_branding": "",
             "you_can_update_the_visible_logo_on_the_voting_process": ""
         },
-        "brief_description": "Descripció breu de l'entitat",
+        "brief_description": "Breu descripció de l'entitat, es mostrarà a la pàgina de l'entitat pública.",
         "choose_a_passphrase": "Tria una contrasenya",
         "confirming_details": "Confirmant els detalls",
         "consolidating_path": "Carregant les metadades",
@@ -188,12 +188,13 @@
             "update": "Actualitzar",
             "your_entity": "Editar Entitat"
         },
-        "email": "Adreça de correu electrònic de contacte",
+        "email": "Adreça de correu electrònic de contacte*",
         "enter_the_name_of_the_entity": "Entra el nom de l'entitat",
         "entity_details": "Detalls de l'entitat",
         "entity_size": "Mida de l'entitat",
         "go_to_the_dashboard": "Ves a l'inici",
         "header": "Capçalera de l'entitat",
+        "header_label": "Ha de ser .jpg, .jpeg or .png fitxer (2mb max)*",
         "home": {
             "entity_address": "Adreça de l'entitad",
             "entity_description": "Descripció de l'entitat",
@@ -201,8 +202,9 @@
         },
         "i_have_read_and_accept_personal_data": "(Opcional) Dono el meu consentiment exprés per a la gestió comercial i de serveis",
         "i_have_read_and_accept_terms": "He llegit i accepto la “Informació de protecció de dades personals” (veure a sobre), i la “<1>Política de Privacitat</1>” de Aragon Labs",
-        "logo": "Logo de l'entitat",
-        "name": "Nom de l'entitat",
+        "logo": "Logo de l'entitat*",
+        "logo_label": "Ha de ser .jpg, .jpeg or .png fitxer (2mb max)*",
+        "name": "Nom de l'entitat*",
         "new_entity": "Nom de l'entitat",
         "passphrase": "Contrasenya",
         "passphrase_image_alt": "Contrasenya",
@@ -271,6 +273,7 @@
         "invalid_link": "You are following and invalid link",
         "not_a_web_browser": "No és un navegador",
         "page_not_found": "No s'ha trobat la pàgina",
+        "passphrase_dont_match": "",
         "please_accept_credentials_tos": "Si et plau, accepta les Condicions de Servei",
         "please_confirm_your_passphrase": "Si et plau, confirma la contrasenya",
         "please_ensure_no_incognito_mode": "Si et plau, assegura't que no fas servir navegació privada",
@@ -291,13 +294,11 @@
         "the_list_of_votes_cannot_be_loaded": "No es pot carregar la llista de processos de votació",
         "the_passphrase_does_not_match": "La contrasenya no coincideix",
         "the_passphrase_is_empty": "La contrasenya està buida",
-        "the_passphrase_should_contain_some_uppercase_characters": "La contrasenya ha de contenir alguna majúscula",
-        "the_passphrase_should_have_8_characters_or_more": "La contrasenya ha de tenir 8 caràcters o més",
+        "the_passphrase_should_contain_some_uppercase_characters_and_length_8": "La contrasenya ha de tenir 8 caràcters o més, amb almenys 1 majúscula",
         "the_recovery_could_not_be_completed": "La recuperació no s'ha pogut completar",
         "the_vote_has_not_been_registered": "El vot no ha estat registrat",
         "there_is_already_one_account_with_the_same_credentials": "Ja hi ha un altre compte amb aquestes credencials",
         "there_is_already_one_account_with_the_same_name": "Ja hi ha un altre compte amb aquest mateix nom",
-        "there_is_already_one_entity_with_the_same_name": "Ja hi ha un altre compte amb aquest mateix nom",
         "update_entity_data_error": "",
         "you_are_not_part_of_the_census": "No formes part del cens",
         "you_canceled_the_operation": "Has cancel·lat l'operació",
@@ -471,6 +472,9 @@
         "the_vote_is_open_for_voting": "El procés de votació està obert",
         "the_vote_is_paused": "El procés de votació està aturat",
         "the_vote_will_start_soon": "El procés de votació començarà aviat"
+    },
+    "success": {
+        "passphrase_match": ""
     },
     "supported_langs": {
         "catalan": "Català",
