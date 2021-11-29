@@ -101,7 +101,7 @@ export const FormCredentials = () => {
           label={i18n.t('entity.passphrase')}
           id="pwd"
           info={
-            passphrase.length && checkStrength(passphrase)
+            checkStrength(passphrase)
               ? checkStrength(passphrase)
               : null
           }
