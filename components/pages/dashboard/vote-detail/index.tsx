@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { useTranslation } from 'react-i18next'
+import { Else, If, Then, When } from 'react-if'
+import { useBlockStatus, usePool } from '@vocdoni/react-hooks'
 import {
-  ProcessResultsSingleChoice,
   ProcessDetails,
   VochainProcessStatus,
   VotingApi,
@@ -12,30 +13,31 @@ import {
 import { colors } from 'theme/colors'
 import { VOTING_AUTH_FORM_PATH, VOTING_AUTH_LINK_PATH, VOTING_AUTH_MNEMONIC_PATH } from '@const/routes'
 import RouterService from '@lib/router'
-import { Question } from '@lib/types'
+import { IProcessResults, Question, VotingType } from '@lib/types'
+import { getVoteStatus, VoteStatus } from '@lib/util'
+import { DateDiffType, localizedStrDateDiff } from '@lib/date'
+
+import { useWallet, WalletRoles } from '@hooks/use-wallet'
+import { useMessageAlert } from '@hooks/message-alert'
 
 import { FlexAlignItem, FlexContainer, FlexJustifyContent, FlexWrap } from '@components/elements/flex'
 import { SectionText, SectionTitle, TextSize } from '@components/elements/text'
 import { Column, Grid } from '@components/elements/grid'
 import { Button } from '@components/elements/button'
 import { Line } from '@components/elements/line'
-import { PageCard } from '@components/elements/cards'
+import { Card, PageCard } from '@components/elements/cards'
 import { DashedLink } from '@components/blocks/dashed-link'
 import { ProcessStatusLabel } from '@components/blocks/process-status-label'
 import { VoteQuestionCard } from '@components/blocks/vote-question-card'
-import { GeneratePdfCard } from './generate-pdf-card'
-import { useWallet, WalletRoles } from '@hooks/use-wallet'
-import { useMessageAlert } from '@hooks/message-alert'
-import { useBlockStatus, usePool } from '@vocdoni/react-hooks'
-import { getVoteStatus, VoteStatus } from '@lib/util'
-import { Else, If, Then, When } from 'react-if'
 import { HelpText } from '@components/blocks/help-text'
-import { DateDiffType, localizedStrDateDiff } from '@lib/date'
 import { MarkDownViewer } from '@components/blocks/mark-down-viewer'
+import { TextAlign, Typography, TypographyVariant } from '@components/elements/typography'
+
+import { GeneratePdfCard } from './generate-pdf-card'
 
 interface IProcessDetailProps {
   process: ProcessDetails
-  results: ProcessResultsSingleChoice
+  results: IProcessResults
   entityMetadata: EntityMetadata
   cancelProcess: () => Promise<void>
   endProcess: () => Promise<void>
@@ -68,8 +70,13 @@ export const ViewDetail = ({
         processId: process.id,
       })
     : ''
+  
+  const processVotingType: VotingType = process?.state?.censusOrigin as any
 
-  const totalVotes = results?.totalVotes || 0
+  const totalVotes =
+    VotingType.Weighted === processVotingType
+      ? results?.totalWeightedVotes
+      : results?.totalVotes
 
   const { blockStatus } = useBlockStatus()
   const blockHeight = blockStatus?.blockNumber || 0
@@ -141,8 +148,6 @@ export const ViewDetail = ({
       })
   }
 
-  // TODO handleGeneratePdfResult return not implemented an make button not clickable
-  const handleGeneratePdfResult = () => {}
 
   let dateDiffStr = ''
   if (
@@ -309,10 +314,20 @@ export const ViewDetail = ({
             )}
           </div>
 
-          <SectionText>
-            {i18n.t('vote.total_votes')}: {totalVotes}
-          </SectionText>
-
+          <Grid>
+              <Card sm={12}>
+                <Typography align={TextAlign.Center} margin='margin: 12px 0' variant={TypographyVariant.Body1}>
+                  {processVotingType === VotingType.Weighted
+                    ? i18n.t('vote.total_weighted_votes', {
+                        totalVotes: results?.totalVotes,
+                        totalWeightedVotes: results?.totalWeightedVotes,
+                      })
+                    : i18n.t('vote.total_votes', {
+                        totalVotes: results?.totalVotes,
+                      })}
+                </Typography>
+              </Card>
+            </Grid>
         </Column>
 
         <Column md={3} sm={12}>
