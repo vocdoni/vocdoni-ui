@@ -73,7 +73,7 @@ export const FormCredentials = () => {
 
   const passphraseMatch = passphrase.length && passphrase === passphrase2
 
-  const disabledContinue = !passphraseMatch || !ack
+  const disabledContinue = !passphraseMatch || !ack || !checkStrength(passphrase)
 
   return (
     <Grid>
