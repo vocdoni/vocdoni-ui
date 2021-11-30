@@ -67,7 +67,7 @@ export const useVoting = (processId: string) => {
 export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
   const { poolPromise } = usePool()
   const [processId, setProcessId] = useState("")
-  const invalidProcessId = !processId.match(/^0x[0-9a-fA-A]{64}$/)
+  const invalidProcessId = !processId.match(/^0x[0-9a-fA-F]{64}$/)
   const {
     loadingInfoError,
     loadingInfo,

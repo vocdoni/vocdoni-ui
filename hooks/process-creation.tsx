@@ -163,17 +163,21 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
     // Process the CSV entries
     const claims = await Promise.all(spreadsheetData.map((row: string[]) => new Promise((resolve) => {
       setTimeout(() => {
+        // If voting type is weighted, the first column is the weight
         const dataRow = votingType === VotingType.Weighted ? row.slice(1) : row
+        const weight = votingType === VotingType.Weighted ? row[0] : undefined
+
+        // Clean uppercase and spaces
         const normalizedRow = dataRow.map(x => normalizeText(x))
+
+        // Concatenate the row with the entityId to get the payload to generate the private key
         const payload = importedRowToString(normalizedRow, entityId)
         const voterWallet = digestedWalletFromString(payload)
         const key = CensusOffChain.Public.encodePublicKey(voterWallet.publicKey)
-        const weight = votingType === VotingType.Weighted ? row[0] : undefined
         
         resolve({ key, value: weight })
       }, 50)
     }))) as { key: string, value?: string }[]
-    console.log(claims)
 
     // Create the census
     const { censusId } = await CensusOffChainApi.addCensus(name, [wallet.publicKey], wallet, pool)
@@ -263,7 +267,7 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
           title: metadata?.title?.default,
           id: processId
         })
-        console.log("process created with id: ", processId)
+
         return {
           waitNext: true,
         }

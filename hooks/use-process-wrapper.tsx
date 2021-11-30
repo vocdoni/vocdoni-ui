@@ -30,7 +30,7 @@ export interface ProcessWrapperContext {
 
 
 export const useProcessWrapper = (processId: string) => {
-  const invalidProcessId = !processId || !processId.match(/^0x[0-9a-fA-A]{64}$/)
+  const invalidProcessId = !processId || !processId.match(/^0x[0-9a-fA-F]{64}$/)
   const processContext = useContext(UseProcessContext)
   const { poolPromise } = usePool()
   const { blockHeight } = useBlockHeight()
