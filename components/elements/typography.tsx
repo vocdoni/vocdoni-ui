@@ -16,6 +16,7 @@ export enum TypographyVariant {
   Body1 = 'body1',
   Body2 = 'body2',
   ExtraSmall = 'extra-small',
+  MediumSmall = 'medium-small',
   Small = 'small',
   Caption = 'Caption',
 }
@@ -110,6 +111,10 @@ const BaseParagraphTypography = styled.p<ITypographyCommon>`
   color: ${({ color, theme }) =>
     colors[color] ? colors[color] : color ? color : theme.blueText};
   ${({ margin }) => (margin ? `margin: ${margin};` : '')}
+
+  & > strong {
+    font-weight: 600;
+  }
 `
 export const Body1 = styled(BaseParagraphTypography)`
   font-size: 20px;
@@ -125,6 +130,10 @@ export const Subtitle1 = styled(BaseParagraphTypography)`
 
 export const ExtraSmall = styled(BaseParagraphTypography)`
   font-size: 12px;
+`
+
+export const MediumSmall = styled(BaseParagraphTypography)`
+  font-size: 14px;
 `
 
 export const Small = styled(BaseParagraphTypography)`
@@ -144,5 +153,6 @@ const typographyMap = new Map<
   [TypographyVariant.Body1, Body1],
   [TypographyVariant.Body2, Body2],
   [TypographyVariant.Small, Small],
+  [TypographyVariant.MediumSmall, MediumSmall],
   [TypographyVariant.ExtraSmall, ExtraSmall],
 ])

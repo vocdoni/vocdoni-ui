@@ -9,6 +9,9 @@ import { useMessageAlert } from './message-alert'
 import { useUrlHash } from 'use-url-hash'
 import { useWallet, WalletRoles } from './use-wallet'
 import { utils } from 'ethers'
+import { CensusPoof } from '@lib/types'
+import { useRecoilState, useSetRecoilState } from 'recoil'
+import { censusProofState } from '@recoil/atoms/census-proof'
 
 // CONTEXT
 
@@ -23,7 +26,7 @@ type IAuthForm = {
 
   methods: {
     setFormValue: (key: string, value: string) => void,
-    onLogin: () => Promise<void>
+    onLogin: () => Promise<void|number>
   }
 }
 
@@ -32,6 +35,7 @@ export const useAuthForm = () => {
   const router = useRouter()
   const { poolPromise } = usePool()
   const { setWallet } = useWallet({ role: WalletRoles.VOTER })
+  const setCensusProof= useSetRecoilState<CensusPoof>(censusProofState)
   const processId = useUrlHash().slice(1) // Skip /
   const invalidProcessId = processId && !processId.match(/^0x[0-9a-fA-F]{64}$/)
   const { loading: loadingInfo, error: loadingInfoError, process: processInfo } = useProcess(processId)
@@ -47,8 +51,9 @@ export const useAuthForm = () => {
     newValue[key] = value
     setFormValues(newValue)
   }
+  
 
-  const onLogin = (): Promise<void> => {
+  const onLogin = (): Promise<void|number> => {
     let authFields: string[] = []
     for (const fieldName of fieldNames) {
       if (!formValues[fieldName]) {
@@ -61,15 +66,16 @@ export const useAuthForm = () => {
 
     const entityId = utils.getAddress(processInfo.state?.entityId)
     authFields = authFields.map(x => normalizeText(x))
+
     const strPayload = importedRowToString(authFields, entityId)
     const voterWallet = digestedWalletFromString(strPayload)
     const digestedHexClaim = CensusOffChain.Public.encodePublicKey(voterWallet.publicKey)
 
     return poolPromise.then(pool =>
-      CensusOffChainApi.generateProof(processInfo.state?.censusRoot, { key: digestedHexClaim }, false, pool)
+      CensusOffChainApi.generateProof(processInfo.state?.censusRoot, digestedHexClaim , false, pool)
     ).then(censusProof => {
       if (!censusProof) throw new Error("Invalid census proof")
-
+      setCensusProof(censusProof)
       // Set the voter wallet recovered
       setWallet(voterWallet)
 

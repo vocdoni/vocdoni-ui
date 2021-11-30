@@ -24,7 +24,6 @@ export const ProcessTermsModal = ({
   onCloseProcessTerms,
 }: IEntityTermsModalProps) => {
   const { i18n } = useTranslation()
-  const {processTerms, methods} = useProcessCreation()
   const lang = i18n.language
 
   return (
@@ -32,23 +31,10 @@ export const ProcessTermsModal = ({
       <TermsContainer>
         <CsvTerms lang={lang} />
         {/* <Terms lang={lang} /> */}
-        <PaddedContainer>
-          <FlexContainer alignItem={FlexAlignItem.Center}>
-            <Checkbox
-              id="voter-terms-check"
-              checked={processTerms}
-              onChange={() => methods.setProcessTerms(!processTerms)}
-              text={i18n.t(
-                'vote.i_have_read_and_accept_csv_terms'
-              )}
-              hrefNewTab
-            />
-          </FlexContainer>
-        </PaddedContainer>
-
+        
         <PaddedContainer>
           <FlexContainer justify={FlexJustifyContent.Center}>
-            <Button positive disabled={!processTerms} onClick={onCloseProcessTerms}>
+            <Button positive onClick={onCloseProcessTerms}>
               {i18n.t('vote.accept_terms')}
             </Button>
           </FlexContainer>

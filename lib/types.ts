@@ -1,5 +1,5 @@
-import { EntityMetadata, ProcessSummary, MultiLanguage, ProcessMetadata } from 'dvote-js'
-
+import { EntityMetadata, ProcessSummary, MultiLanguage, ProcessMetadata, ProcessResultsSingleChoice } from 'dvote-js'
+import { ProcessCensusOrigin, IProcessCensusOrigin } from 'dvote-solidity'
 // IndexDB types
 export enum AccountStatus {
   Wallet,
@@ -10,6 +10,23 @@ export enum AccountStatus {
   Ready
 }
 
+
+export type CensusPoof = {
+  censusValue: Uint8Array
+  siblings: Uint8Array
+  weight: string
+}
+
+
+export enum VotingType{
+  Normal = ProcessCensusOrigin.OFF_CHAIN_TREE,
+  Weighted = ProcessCensusOrigin.OFF_CHAIN_TREE_WEIGHTED,
+}
+
+
+export interface IProcessResults extends ProcessResultsSingleChoice {
+  totalWeightedVotes?: number
+}
 
 export type Account = {
   name: string,
