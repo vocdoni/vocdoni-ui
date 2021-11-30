@@ -11,11 +11,13 @@ import { Column } from '@components/elements/grid'
 import { QuestionCard } from './question-card'
 import { colors } from '@theme/colors'
 import { Indexed } from '@ethersproject/abi'
+import { VoteWeightCard } from './vote-weight-card'
 
 interface IQuesListProps {
   hasVideo: boolean
   questions: Question[]
   results: number[]
+  voteWeight?: string
   onSelect: (questionIndex: number, value: number) => void
   onFinishVote: (results: number[]) => void
   onBackDescription: () => void
@@ -28,6 +30,7 @@ export const QuestionsList = forwardRef<HTMLDivElement, IQuesListProps>(
       hasVideo,
       questions,
       results,
+      voteWeight,
       onSelect,
       onFinishVote,
       onBackDescription,
@@ -71,7 +74,11 @@ export const QuestionsList = forwardRef<HTMLDivElement, IQuesListProps>(
         {hasVideo && (
           <LiveStreamVideoContainer ref={ref}></LiveStreamVideoContainer>
         )}
-
+        {voteWeight && (
+          <WeightedBannerContainer>
+            <VoteWeightCard voteWeight={voteWeight} />
+          </WeightedBannerContainer>
+        )}
         <div>
           <Typography
             variant={TypographyVariant.H3}
@@ -141,6 +148,10 @@ export const QuestionsList = forwardRef<HTMLDivElement, IQuesListProps>(
     )
   }
 )
+
+const WeightedBannerContainer = styled.div`
+  margin: 30px 0 40px 0;
+`
 
 const ButtonsActionContainer = styled(FlexContainer)`
   @media ${({ theme }) => theme.screenMax.mobileL} {

@@ -17,7 +17,10 @@ export const Radio = ({
   value,
   checked,
 }: RadioProps) => (
-  <RadioLabel onClick={() => onClick && onClick()}>
+  <RadioLabel onClick={(event) => {
+    event.preventDefault()
+    onClick && onClick()
+  }}>
     <RadioContainer>
       <input
         type="radio"

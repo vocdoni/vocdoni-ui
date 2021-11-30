@@ -17,7 +17,7 @@ import {
   useProcess,
 } from '@vocdoni/react-hooks'
 
-import { Question } from '@lib/types'
+import { Question, VotingType } from '@lib/types'
 
 import { useTheme } from '@hooks/use-theme'
 import { useVoting } from '@hooks/use-voting'
@@ -38,11 +38,16 @@ import { VoteRegisteredCard } from './components/vote-registered-card'
 import { VoteStatus, getVoteStatus } from '@lib/util'
 import { Else, If, Then, When } from 'react-if'
 import { useUrlHash } from 'use-url-hash'
-import { VotingApi, EntityMetadata, Voting } from 'dvote-js'
+import {
+  VotingApi,
+  EntityMetadata,
+} from 'dvote-js'
 import { DateDiffType, localizedStrDateDiff } from '@lib/date'
 import { Body1, TextAlign } from '@components/elements/typography'
 import { QuestionsList } from './components/questions-list'
 import { VoteNowCard } from './components/vote-now-card'
+import { useRecoilValue } from 'recoil'
+import { censusProofState } from '@recoil/atoms/census-proof'
 
 enum VotingState {
   NotStarted = 'notStarted',
@@ -61,9 +66,10 @@ export const VotingPageView = () => {
   const { i18n } = useTranslation()
   const processId = useUrlHash().slice(1) // Skip "/"
   const { updateAppTheme } = useTheme()
-
-  const { methods, choices, allQuestionsChosen, hasVoted, results, nullifier } =
-    useVoting(processId)
+  const censusProof = useRecoilValue(censusProofState)
+  const { methods, choices, hasVoted, results, nullifier } = useVoting(
+    processId
+  )
   const { process: processInfo, error, loading } = useProcess(processId)
   const { wallet } = useWallet({ role: WalletRoles.VOTER })
   const { metadata } = useEntity(processInfo?.state?.entityId)
@@ -72,7 +78,6 @@ export const VotingPageView = () => {
     VotingState.NotStarted
   )
 
-  const totalVotes = results?.totalVotes || 0
   const { blockStatus } = useBlockStatus()
   const blockHeight = blockStatus?.blockNumber
   const voteStatus: VoteStatus = getVoteStatus(processInfo?.state, blockHeight)
@@ -207,6 +212,8 @@ export const VotingPageView = () => {
     setConfirmModalOpened(false)
   }
 
+  const processVotingType: VotingType = processInfo?.state?.censusOrigin as any
+
   const showDescription =
     votingState === VotingState.NotStarted ||
     votingState === VotingState.Ended ||
@@ -216,6 +223,14 @@ export const VotingPageView = () => {
     votingState === VotingState.Guest || votingState === VotingState.Ended
 
   const showVotingButton = votingState == VotingState.NotStarted
+
+  const voteWeight =
+    VotingType.Weighted === processVotingType ? censusProof?.weight : null
+
+  const totalVotes =
+    VotingType.Weighted === processVotingType
+      ? results?.totalWeightedVotes
+      : results?.totalVotes
 
   return (
     <>
@@ -291,6 +306,7 @@ export const VotingPageView = () => {
             hasVideo={!!processInfo?.metadata?.media.streamUri}
             results={choices}
             questions={processInfo?.metadata?.questions}
+            voteWeight={voteWeight}
             onSelect={methods.onSelect}
             onFinishVote={handleFinishVote}
             onBackDescription={handleBackToDescription}
@@ -354,7 +370,14 @@ export const VotingPageView = () => {
             <Grid>
               <Card sm={12}>
                 <TextContainer align={TextAlign.Center}>
-                  {i18n.t('vote.total_votes')}: {totalVotes}
+                  {processVotingType === VotingType.Weighted
+                    ? i18n.t('vote.total_weighted_votes', {
+                        totalVotes: results?.totalVotes,
+                        totalWeightedVotes: results?.totalWeightedVotes,
+                      })
+                    : i18n.t('vote.total_votes', {
+                        totalVotes: results?.totalVotes,
+                      })}
                 </TextContainer>
               </Card>
             </Grid>

@@ -1,17 +1,19 @@
-import { PdfGenerator } from "./pdf-generator";
-import { ProcessResultsSingleChoice, SingleChoiceQuestionResults, ProcessDetails } from 'dvote-js'
-import RouterService from "./router";
-import { colors } from "@theme/colors";
 import i18n from "@i18n";
+import { SingleChoiceQuestionResults, ProcessDetails } from 'dvote-js'
+import { colors } from "@theme/colors";
+
+import { PdfGenerator } from "./pdf-generator";
+import RouterService from "./router";
+import { IProcessResults, VotingType } from "./types";
 
 interface IResultsPdfGeneratorOptions {
   process: ProcessDetails;
-  processResults: ProcessResultsSingleChoice;
+  processResults: IProcessResults;
 }
 
 export class ResultPdfGenerator extends PdfGenerator {
   private readonly process: ProcessDetails;
-  private readonly processResults: ProcessResultsSingleChoice;
+  private readonly processResults: IProcessResults;
   private logoHeader: string;
   constructor({ process, processResults }: IResultsPdfGeneratorOptions) {
     super();
@@ -38,11 +40,15 @@ export class ResultPdfGenerator extends PdfGenerator {
       this.addHeaderStroke(colors.textAccent1)
       this.addImage(this.logoHeader, { width: 100, top: 30, left: 20 })
       this.addSpace(1)
-    // }
-
   }
 
   private async generatePdfContent() {
+    const processVotingType: VotingType = this.process?.state?.censusOrigin as any
+    const totalVotes =
+      VotingType.Weighted === processVotingType
+        ? this.processResults?.totalWeightedVotes
+        : this.processResults?.totalVotes
+
     this.logoHeader = await this.fetchImageUri(RouterService.instance.get('/media/logo-full.png', {}))
     this.generateHeader()
 
@@ -53,7 +59,7 @@ export class ResultPdfGenerator extends PdfGenerator {
     this.addTitle(i18n.t('results.pdf.process_description'), { width: 400, align: 'left', fontColor: colors.text, margin: 0.5  })
     this.addMdText(this.process.metadata.description.default)
     this.addSpace(1)
-    this.addSubTitle(i18n.t('results.pdf.total_votes', { votes: this.processResults.totalVotes }), { align: 'left' })
+    this.addSubTitle(i18n.t('results.pdf.total_votes', { votes: totalVotes }), { align: 'left' })
     this.addTitle(i18n.t('results.pdf.questions'), { align: 'left', margin: 1 })
 
     this.addSeparator(colors.lightBorder)

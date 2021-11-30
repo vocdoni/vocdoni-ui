@@ -1,27 +1,28 @@
 import React from 'react'
 import styled from 'styled-components'
 
-
-import { InputFormGroup } from '@components/blocks/form'
-import { Button, ButtonColor } from '@components/elements/button'
+import { FormGroupVariant, InputFormGroup } from '@components/blocks/form'
 import { SectionText } from '@components/elements/text'
 import { useTranslation } from 'react-i18next'
+import { UploadFileButton } from './components/upload-new-document-button'
+import { Typography, TypographyVariant } from '@components/elements/typography'
+import { colors } from '@theme/colors'
 
 interface ICensusFileDataProps {
   fileName: string
   censusSize: number
   fileHeaders: string[]
-  onChangeFile: () => void
+  onUploadFile: (files: FileList) => void
 }
 
 export const CensusFileData = ({
   fileName,
   censusSize,
   fileHeaders,
-  onChangeFile,
+  onUploadFile,
 }: ICensusFileDataProps) => {
   const { i18n } = useTranslation()
-  
+
   const voidImplementation = () => {}
   return (
     <ConsensusFileDataContainer>
@@ -37,17 +38,17 @@ export const CensusFileData = ({
           </div>
         </FileDataContainer>
 
-        <Button border color={ButtonColor.Positive} onClick={onChangeFile}>
-          {i18n.t('vote.upload_different_document')}
-        </Button>
+        <UploadFileButton onChange={onUploadFile} />
       </FileContainer>
 
       <CensusFieldsContainer>
-        <SectionText>
+        <FormPreviewTag>{i18n.t('votes.new.form_preview')}</FormPreviewTag>
+
+        <Typography variant={TypographyVariant.Small} color={colors.lightText}>
           {i18n.t(
             'vote.this_is_the_form_that_your_community_will_need_to_fill_in_order_to_vote'
           )}
-        </SectionText>
+        </Typography>
 
         <CensusFieldSummary>
           {fileHeaders.map((headerName: string, index: number) => (
@@ -55,6 +56,7 @@ export const CensusFileData = ({
               key={index}
               label={headerName}
               onChange={voidImplementation}
+              variant={FormGroupVariant.Small}
               value=""
             />
           ))}
@@ -63,6 +65,18 @@ export const CensusFileData = ({
     </ConsensusFileDataContainer>
   )
 }
+
+const FormPreviewTag = styled.div`
+  background-color: #7c80f2;
+  line-height: 20px;
+  font-weight: 600;
+  color: ${({ theme }) => theme.white};
+  display: inline-block;
+  padding: 2px 12px;
+  border-radius: 40px;
+  height: 20px;
+  margin-bottom: 6px;
+`
 
 const ConsensusFileDataContainer = styled.div`
   border: dashed 1px rgba(215, 217, 226, 1);
@@ -102,7 +116,7 @@ const CensusFieldsContainer = styled.div`
 `
 
 const CensusFieldSummary = styled.div`
-  max-width: 604px;
+  max-width: 490px;
   width: 100%;
   margin: auto;
 `

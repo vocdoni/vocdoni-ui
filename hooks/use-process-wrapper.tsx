@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react'
 import i18n from '../i18n'
 
 import { DateDiffType, localizedStrDateDiff } from '../lib/date'
+import { IProcessResults } from '@lib/types'
 
 export interface ProcessWrapperContext {
   loadingInfo: boolean,
@@ -20,15 +21,16 @@ export interface ProcessWrapperContext {
   remainingTime: string,
   statusText: string,
   processId: string,
-  results: ProcessResultsSingleChoice,
+  results: IProcessResults,
   methods: {
     refreshProcessInfo: (processId: string) => Promise<ProcessDetails>
     refreshResults: () => Promise<any>
   }
 }
 
+
 export const useProcessWrapper = (processId: string) => {
-  const invalidProcessId = !processId || !processId.match(/^0x[0-9a-fA-A]{64}$/)
+  const invalidProcessId = !processId || !processId.match(/^0x[0-9a-fA-F]{64}$/)
   const processContext = useContext(UseProcessContext)
   const { poolPromise } = usePool()
   const { blockHeight } = useBlockHeight()
@@ -40,7 +42,7 @@ export const useProcessWrapper = (processId: string) => {
     refresh,
   } = useProcess(processId)
 
-  const [results, setResults] = useState(null as ProcessResultsSingleChoice)
+  const [results, setResults] = useState<IProcessResults>(null)
   const [statusText, setStatusText] = useState('')
 
   const startBlock = processInfo?.state?.startBlock || 0
@@ -141,6 +143,10 @@ export const useProcessWrapper = (processId: string) => {
   }
   // Loaders
 
+  const countVotesWeight = (results: ProcessResultsSingleChoice): number => {
+    return results.questions.reduce((prev, curr) => prev + curr.voteResults.reduce((p, c) => p + c.votes.toNumber(), 0), 0) / results.questions.length
+  }
+
   const refreshResults = () => {
     if (!processId || invalidProcessId) return Promise.resolve()
 
@@ -150,7 +156,14 @@ export const useProcessWrapper = (processId: string) => {
         VotingApi.getProcessMetadata(processId, pool),
       ]))
       .then(([results, metadata]) =>  Voting.digestSingleChoiceResults(results, metadata))
-      .then((results) => setResults(results))
+      .then((results) => {
+        const parsedResults: IProcessResults = {
+          ...results,
+          totalWeightedVotes: countVotesWeight(results),
+        }
+
+        setResults(parsedResults)
+      })
       .catch((err) => console.log(err))
   }
 

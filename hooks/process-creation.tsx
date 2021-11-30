@@ -7,10 +7,10 @@ import {
   ProcessEnvelopeType,
   ProcessMetadata,
   ProcessMetadataTemplate,
-  checkValidProcessMetadata,
   ProcessMode,
   VotingApi,
   INewProcessParams,
+  IProcessCensusOrigin,
   ProcessCensusOrigin,
   GatewayPool,
   normalizeText
@@ -29,6 +29,8 @@ import { isUri } from '../lib/regex'
 import { SpreadSheetReader } from '../lib/spread-sheet-reader'
 import { utils } from 'ethers'
 import { TrackEvents, useRudderStack } from '@hooks/rudderstack'
+import { VotingType } from '@lib/types'
+
 
 export interface ProcessCreationContext {
   metadata: ProcessMetadata,
@@ -44,6 +46,7 @@ export interface ProcessCreationContext {
   startRightAway: boolean,
   startDate: Date,
   endDate: Date,
+  votingType: VotingType,
   spreadSheetReader,
   processTerms,
   methods: {
@@ -76,6 +79,7 @@ export interface ProcessCreationContext {
     setMaxVoteOverwrites: (maxVoteOverwrites: number) => void,
     setStringMetadata: (metadataOrigin: string) => void,
     setSpreadSheetReader: (metadata: SpreadSheetReader) => void,
+    setVotingType: (votingType: VotingType) => void,
     setHeaderFile,
     setHeaderURL,
     setStartRightAway,
@@ -111,11 +115,17 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
   const [startRightAway, setStartRightAway] = useState<boolean>(true)
   const [startDate, setStartDate] = useState<Date>()
   const [endDate, setEndDate] = useState<Date>()
+  const [votingType, setVotingType] = useState<VotingType>(VotingType.Normal)
   const { wallet } = useWallet()
   const { blockStatus } = useBlockStatus()
   const { pool, poolPromise } = usePool()
   const { trackEvent } = useRudderStack()
 
+  useEffect(() => {
+    paramsMethods.setCensusOrigin(
+      new ProcessCensusOrigin(votingType as IProcessCensusOrigin)
+    )    
+  }, [votingType])
   // STEPPER OPERATIONS
 
   const stepEnsureMedia: StepperFunc = () => {
@@ -146,18 +156,26 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
     const name = metadata.title.default + '_' + Math.floor(Date.now() / 1000)
     const entityId = utils.getAddress(wallet.address)
     const spreadsheetData = spreadSheetReader.data
-    metadataMethods.setMetaFields({ 'formFieldTitles': spreadSheetReader.header })
+    metadataMethods.setMetaFields({ 'formFieldTitles': spreadSheetReader.getHeader(votingType) })
 
     // TODO: USE Bluebird to limit the concurrency and leave the UI thread some space
 
     // Process the CSV entries
     const claims = await Promise.all(spreadsheetData.map((row: string[]) => new Promise((resolve) => {
       setTimeout(() => {
-        row = row.map(x => normalizeText(x))
-        const payload = importedRowToString(row, entityId)
+        // If voting type is weighted, the first column is the weight
+        const dataRow = votingType === VotingType.Weighted ? row.slice(1) : row
+        const weight = votingType === VotingType.Weighted ? row[0] : undefined
+
+        // Clean uppercase and spaces
+        const normalizedRow = dataRow.map(x => normalizeText(x))
+
+        // Concatenate the row with the entityId to get the payload to generate the private key
+        const payload = importedRowToString(normalizedRow, entityId)
         const voterWallet = digestedWalletFromString(payload)
         const key = CensusOffChain.Public.encodePublicKey(voterWallet.publicKey)
-        resolve({ key })
+        
+        resolve({ key, value: weight })
       }, 50)
     }))) as { key: string, value?: string }[]
 
@@ -240,6 +258,7 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
           censusUri: parameters.censusUri,
           paramsSignature: "0x0000000000000000000000000000000000000000000000000000000000000000",
         }
+
         return VotingApi.newProcess(finalParams, wallet, pool)
       }).then(processId => {
         setProcessId(processId)
@@ -248,7 +267,7 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
           title: metadata?.title?.default,
           id: processId
         })
-        console.log("process created with id: ", processId)
+
         return {
           waitNext: true,
         }
@@ -351,6 +370,7 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
     startRightAway,
     startDate,
     endDate,
+    votingType,
     metadata,
     parameters,
     spreadSheetReader,
@@ -366,6 +386,7 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
       setEndDate,
       setPageStep,
       createProcess,
+      setVotingType,
       continueProcessCreation: doMainActionSteps,
       setProcessTerms,
       checkValidCensusParameters

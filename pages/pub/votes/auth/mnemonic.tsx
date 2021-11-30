@@ -42,7 +42,7 @@ const VoteAuthMnemonic = () => {
   useEffect(() => {
     if (urlHash) {
       const process = urlHash.slice(1).split('/')[0]
-      const invalidProcess= !process || !process.match(/^0x[0-9a-fA-A]{64}$/)
+      const invalidProcess= !process || !process.match(/^0x[0-9a-fA-F]{64}$/)
 
       setProcessId(process)
       setInvalidProcessId(invalidProcess)
