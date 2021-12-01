@@ -35,6 +35,11 @@ const PageCardHeaderVariantStyle = {
 `,
 }
 
+export const SignInFormCard = styled(PageCard)`
+  @media ${({ theme }) => theme.screenMax.mobileL} {
+    margin: -21px -16px 0 -16px;
+  }
+`
 
 export const PageCard = styled.div`
   background-color: ${({ theme }) => theme.white};

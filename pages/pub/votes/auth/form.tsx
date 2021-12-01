@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { overrideTheme } from 'theme'
 import { EntityMetadata } from 'dvote-js'
 
-import { useEntity } from '@vocdoni/react-hooks'
+import { useBlockHeight, useEntity } from '@vocdoni/react-hooks'
 
 
 import { ViewContext, ViewStrategy } from '@lib/strategy'
@@ -15,11 +15,15 @@ import { SignInForm } from '@components/pages/pub/votes/auth/sign-in-form'
 import { VotingErrorPage } from '@components/pages/pub/votes/voting-error-page'
 import { LayoutVoter } from '@components/pages/app/layout/voter'
 import { MetadataFields } from '@components/pages/votes/new/metadata'
+import { useRouter } from 'next/router'
+import { PREREGISTER_PATH, VOTING_PATH } from '@const/routes'
+import { VotingType } from '@lib/types'
 // NOTE: This page uses a custom Layout. See below.
 
 const VoteAuthLogin = () => {
   const { i18n } = useTranslation()
-
+  const router = useRouter()
+  const { blockHeight } = useBlockHeight()
   const [checkingCredentials, setCheckingCredentials] = useState<boolean>(false)
   const {
     invalidProcessId,
@@ -35,6 +39,9 @@ const VoteAuthLogin = () => {
   const { updateAppTheme } = useTheme();
 
   const entityMetadata = metadata as EntityMetadata
+  const votingType: VotingType = VotingType.Anonymous
+  const processStarted = processInfo?.state?.startBlock > blockHeight
+  const userRequirePreregister = votingType === VotingType.Anonymous && !processStarted
 
   useEffect(() => {
     if (processInfo?.metadata?.meta?.[MetadataFields.BrandColor] || entityMetadata?.meta?.[MetadataFields.BrandColor]) {
@@ -52,13 +59,22 @@ const VoteAuthLogin = () => {
     }
   }, [processInfo, entityMetadata])
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     setCheckingCredentials(true)
 
-    methods.onLogin()
-      .finally(() => {
-        setCheckingCredentials(false)
-      })
+    try {
+      await methods.onLogin()
+      
+      if(userRequirePreregister) {
+        router.push(PREREGISTER_PATH + "#/" + processInfo?.id)
+      } else {
+        router.push(VOTING_PATH + "#/" + processInfo?.id)
+      }
+    } catch (err) {
+      console.error(err)
+    }
+    
+    setCheckingCredentials(false)
   }
 
   const renderLoadingPage = new ViewStrategy(

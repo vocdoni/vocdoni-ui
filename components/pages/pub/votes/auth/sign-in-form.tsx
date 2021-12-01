@@ -10,9 +10,10 @@ import {
 } from '@components/blocks/form'
 import { Column } from '@components/elements/grid'
 import { Button } from '@components/elements/button'
-import { PageCard } from '@components/elements/cards'
+import { SignInFormCard } from '@components/elements/cards'
 import { FlexContainer, FlexJustifyContent } from '@components/elements/flex'
 import { CardImageHeader } from '@components/blocks/card/image-header'
+import { FormFieldsetContainer } from '../components/form-fieldset-container'
 
 interface IFieldValues {
   [field: string]: string
@@ -54,13 +55,12 @@ export const SignInForm = ({
         entityImage={entity?.media.avatar}
       />
 
-      <LoginFieldset disabled={checkingCredentials}>
+      <FormFieldsetContainer disabled={checkingCredentials}>
         <form onSubmit={handleSubmit}>
           {fields.map((fieldName, i) => {
             const isLastItem = i === fields.length - 1
             return (
               <FlexContainer justify={FlexJustifyContent.Center} key={i}>
-                <InputContainer>
                   <InputFormGroup
                     label={fieldName}
                     id={fieldName}
@@ -77,13 +77,11 @@ export const SignInForm = ({
                       {i18n.t('vote.you_cant_enter_contact_with_entity')}
                     </ContainerContainer>
                   )}
-                </InputContainer>
               </FlexContainer>
             )
           })}
           <HiddenButton type="submit"></HiddenButton>
           <FlexContainer justify={FlexJustifyContent.Center}>
-            <InputContainer>
               <Button
                 wide
                 positive
@@ -93,10 +91,9 @@ export const SignInForm = ({
               >
                 {i18n.t('action.continue')}
               </Button>
-            </InputContainer>
           </FlexContainer>
         </form>
-      </LoginFieldset>
+      </FormFieldsetContainer>
     </SignInFormCard>
   )
 }
@@ -104,12 +101,6 @@ export const SignInForm = ({
 const LoginFieldset = styled(Fieldset)`
   margin-top: 20px;
   margin-bottom: 26px;
-`
-
-const SignInFormCard = styled(PageCard)`
-  @media ${({ theme }) => theme.screenMax.mobileL} {
-    margin: -21px -16px 0 -16px;
-  }
 `
 
 const HiddenButton = styled.button`
