@@ -233,9 +233,10 @@ const InputTitle = styled(SectionTitle)`
 `
 
 const InputLabel = styled.label`
-  font-weight: 400;
-  font-size: 13px;
+  font-weight: 500;
+  font-size: 15px;
   line-height: 1.6em;
+  color: ${({theme}) => theme.lightText};
 `
 
 const InputFeedback = styled.p`
