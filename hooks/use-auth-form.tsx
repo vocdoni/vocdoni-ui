@@ -32,7 +32,6 @@ type IAuthForm = {
 
 /** Provides the currently available wallet for the admin (by default) or for the voter otherwise  */
 export const useAuthForm = () => {
-  const router = useRouter()
   const { poolPromise } = usePool()
   const { setWallet } = useWallet({ role: WalletRoles.VOTER })
   const setCensusProof= useSetRecoilState<CensusPoof>(censusProofState)
@@ -78,9 +77,6 @@ export const useAuthForm = () => {
       setCensusProof(censusProof)
       // Set the voter wallet recovered
       setWallet(voterWallet)
-
-      // Go there
-      router.push(VOTING_PATH + "#/" + processId)
     }).catch(err => {
       setAlertMessage(i18n.t("errors.the_contents_you_entered_may_be_incorrect"))
     })
