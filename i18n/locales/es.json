@@ -200,7 +200,8 @@
         "home": {
             "entity_address": "Direccion de entidad",
             "entity_description": "Descripcion de la entidad",
-            "view_in_explorer": "Ver en el explorador"
+            "view_in_explorer": "Ver en el explorador",
+            "entity_processes": "Processos de la entidad"
         },
         "i_have_read_and_accept_personal_data": "(Optional) Doy mi consentimiento expreso para la gestión comercial y de servicios",
         "i_have_read_and_accept_terms": "He leído y acepto el “Información de protección de datos personales” (ver arriba), y la “<1>Política de Privacidad</1>” de Aragon Labs",
@@ -298,7 +299,7 @@
         "the_list_of_votes_cannot_be_loaded": "No se puede cargar la lista de los procesos de votación",
         "the_passphrase_does_not_match": "La contraseña no coincide",
         "the_passphrase_is_empty": "La contraseña está vacía",
-        "the_passphrase_should_contain_some_uppercase_characters_and_length_8": "La contraseña debe tener 8 caracteres o más, con al menos 1 mayúscula",
+        "the_passphrase_should_contain_some_uppercase_characters_and_length_8": "Debe tener 8 caracteres o más, con al menos 1 mayúscula y 1 minúscula",
         "the_recovery_could_not_be_completed": "La recuperación no se ha podido completar",
         "the_vote_has_not_been_registered": "El voto no ha sido registrado",
         "there_is_already_one_account_with_the_same_credentials": "Ya hay otra cuenta con estas credenciales",

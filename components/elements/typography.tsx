@@ -79,6 +79,7 @@ export const H1 = styled.h1<ITypographyCommon>`
 `
 export const H2 = styled.h2<ITypographyCommon>`
   font-size: 44px;
+  line-height: 54px;
   font-weight: 400;
   line-height: 1em;
   text-align: ${({ align }) => (align ? align : TextAlign.Left)};

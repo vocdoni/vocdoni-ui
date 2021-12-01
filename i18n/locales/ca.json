@@ -22,11 +22,11 @@
             "dashboard": "Dashboard",
             "disconnect_account": "Tancar Sessió",
             "help_and_feedback": "Centre d’ajuda",
-            "language": "",
+            "language": "Idioma",
             "public_page": "Pàgina pública",
             "settings": "Eines",
             "update_entity": "Actualitzar l’entitat",
-            "user_language": ""
+            "user_language": "Idioma: {{ lang }}"
         },
         "meta": {
             "description": "Vocdoni és un sistema de votació segur, privat i universalment verificable per a qualsevol organització.",
@@ -185,7 +185,7 @@
             "name_of_the_entity": "Nom de l'entitat",
             "optional_introduction": "Descripció",
             "save_changes": "Guardar canvis",
-            "size_of_entity": "Tamany de l'entitad",
+            "size_of_entity": "Tamany de l'entitat",
             "type_of_entity": "Tipus d'organització",
             "update": "Actualitzar",
             "your_entity": "Editar Entitat"
@@ -198,13 +198,14 @@
         "header": "Capçalera de l'entitat",
         "header_label": "Ha de ser .jpg, .jpeg or .png fitxer (2mb max)*",
         "home": {
-            "entity_address": "Adreça de l'entitad",
+            "entity_address": "Adreça de l'entitat",
             "entity_description": "Descripció de l'entitat",
-            "view_in_explorer": "Veure en el navegador"
+            "view_in_explorer": "Veure en el navegador",            
+            "entity_processes": "Processos de l'entitat"
         },
         "i_have_read_and_accept_personal_data": "(Opcional) Dono el meu consentiment exprés per a la gestió comercial i de serveis",
         "i_have_read_and_accept_terms": "He llegit i accepto la “Informació de protecció de dades personals” (veure a sobre), i la “<1>Política de Privacitat</1>” de Aragon Labs",
-        "logo": "Logo de l'entitat*",
+        "logo": "Logo de l'entitat",
         "logo_label": "Ha de ser .jpg, .jpeg or .png fitxer (2mb max)*",
         "name": "Nom de l'entitat*",
         "new_entity": "Nom de l'entitat",
@@ -298,7 +299,7 @@
         "the_list_of_votes_cannot_be_loaded": "No es pot carregar la llista de processos de votació",
         "the_passphrase_does_not_match": "La contrasenya no coincideix",
         "the_passphrase_is_empty": "La contrasenya està buida",
-        "the_passphrase_should_contain_some_uppercase_characters_and_length_8": "La contrasenya ha de tenir 8 caràcters o més, amb almenys 1 majúscula",
+        "the_passphrase_should_contain_some_uppercase_characters_and_length_8": "Ha de tenir 8 caràcters o més, amb almenys 1 majúscula i 1 minúscula",
         "the_recovery_could_not_be_completed": "La recuperació no s'ha pogut completar",
         "the_vote_has_not_been_registered": "El vot no ha estat registrat",
         "there_is_already_one_account_with_the_same_credentials": "Ja hi ha un altre compte amb aquestes credencials",

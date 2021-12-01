@@ -76,10 +76,12 @@ const CardH2 = styled(H2)`
 
   @media ${({ theme }) => theme.screenMax.tabletL} {
     font-size: 30px;
+    line-height: 36px;
   }
 
   @media ${({ theme }) => theme.screenMax.tablet} {
     font-size: 24px;
+    line-height: 28px;
   }
 
   @media ${({ theme }) => theme.screenMax.mobileL} {

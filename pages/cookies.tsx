@@ -17,6 +17,7 @@ const CoookiesPage = () => {
       back()
     } else {
       rejectCookies()
+      back()
     }
   }
   return (
