@@ -35,16 +35,16 @@ const PageCardHeaderVariantStyle = {
 `,
 }
 
-export const SignInFormCard = styled(PageCard)`
-  @media ${({ theme }) => theme.screenMax.mobileL} {
-    margin: -21px -16px 0 -16px;
-  }
-`
-
 export const PageCard = styled.div`
   background-color: ${({ theme }) => theme.white};
   padding: 32px;
   border-radius: 16px;
+`
+
+export const SignInFormCard = styled(PageCard)`
+  @media ${({ theme }) => theme.screenMax.mobileL} {
+    margin: -21px -16px 0 -16px;
+  }
 `
 
 export const PageCardHeader = styled.div<{ variant?: PageCardHeaderVariant }>`

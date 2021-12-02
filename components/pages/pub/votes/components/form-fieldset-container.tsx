@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
 export const FormFieldsetContainer = styled.fieldset`
-  max-with: 328px;
+  max-width: 490px;
   width: 100%;
+  border: none;
+  margin: auto;
 `

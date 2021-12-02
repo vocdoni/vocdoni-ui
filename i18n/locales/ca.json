@@ -668,6 +668,18 @@
             "vocdoni_currently_only_support_public_voting_process": "Vocdoni actualment només admet processos de votació pública. La informació sobre el procés es posarà a disposició del públic i no es podrà actualitzar després d'enviar-la. Assegureu-vos que tota la informació sigui correcta, que hàgiu llegit els Termes i condicions abans de crear el procés de votació i que no esteu compartint informació sensible.",
             "weighted_voting": "Votació ponderada"
         },
+        "preregister_view": {
+            "back": "",
+            "important": "",
+            "insert_password": "",
+            "insert_password_again": "",
+            "next": "",
+            "password": "",
+            "repeat": "",
+            "set_password_of_authentication": "",
+            "the_password_that_you_set_will_not_be_possible": "",
+            "when_the_process_start_at_date_in_order_to_vote_anonymously": ""
+        },
         "questions_list": {
             "back": "Enrere",
             "finish_voting": "Finalitzar votació",

@@ -668,6 +668,18 @@
             "vocdoni_currently_only_support_public_voting_process": "Actualmente, Vocdoni solo admite procesos de votación pública. La información sobre el proceso se pondrá a disposición del público y no se podrá actualizar después de enviarla. Asegúrese de que toda la información sea correcta, que haya leído los Términos y condiciones antes de crear el proceso de votación y que no esté compartiendo información confidencial.",
             "weighted_voting": "Votación ponderada"
         },
+        "preregister_view": {
+            "back": "",
+            "important": "",
+            "insert_password": "",
+            "insert_password_again": "",
+            "next": "",
+            "password": "",
+            "repeat": "",
+            "set_password_of_authentication": "",
+            "the_password_that_you_set_will_not_be_possible": "",
+            "when_the_process_start_at_date_in_order_to_vote_anonymously": ""
+        },
         "questions_list": {
             "back": "Atrás",
             "finish_voting": "Finalizar votación",
