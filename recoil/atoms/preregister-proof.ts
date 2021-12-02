@@ -5,7 +5,7 @@ export type PreregisterData = {
   prove: string
 }
 
-export const preregisterProofAtom = atom<AsyncAction<PreregisterData>>({
-  key: 'preregisterProofAtom',
+export const preregisterProofState = atom<AsyncAction<PreregisterData>>({
+  key: 'preregisterProofState',
   default: null,
 })

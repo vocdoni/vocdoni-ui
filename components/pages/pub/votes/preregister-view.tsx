@@ -15,6 +15,7 @@ import { ImageContainer } from '@components/elements/images'
 import { colors } from '@theme/colors'
 import { PasswordFeedbackSuccess } from '@components/blocks/password-feedback-success'
 import { Button } from '@components/elements/button'
+import { parseDate } from '@lib/date'
 
 export enum PreregisterFormFields {
   Password = 'password',
@@ -51,14 +52,9 @@ export const PreregisterView = ({
     process?.state?.startBlock,
     blockStatus
   )
+  const DATE_FORMAT = '(dd/mm/yyyy)'
 
-  const parsedStartDate = `(${processStartDate
-    .getDate()
-    .toLocaleString('en-US', { minimumIntegerDigits: 2 })}/${
-    (
-      processStartDate.getMonth() + 1
-    ).toLocaleString('en-US', { minimumIntegerDigits: 2 })
-    }/${processStartDate.getFullYear()})`
+  const parsedStartDate = parseDate(processStartDate, DATE_FORMAT)
 
   useEffect((): void => {
     setErrorPassword(checkStrength(values.password))
@@ -93,6 +89,7 @@ export const PreregisterView = ({
         subtitle={entity?.name.default}
         entityImage={entity?.media.avatar}
       />
+
       <FormFieldsetContainer disabled={generatingProof}>
         <div>
           <Typography variant={TypographyVariant.Small}>
@@ -123,6 +120,7 @@ export const PreregisterView = ({
                 {i18n.t('votes.preregister_view.important')}
               </Typography>
             </FlexContainer>
+
             <Typography
               variant={TypographyVariant.Small}
               margin="20px 0 0 0"
@@ -156,18 +154,39 @@ export const PreregisterView = ({
         </form>
 
         <FlexContainer justify={FlexJustifyContent.SpaceBetween}>
-          <Button color={colors.accent1}>
-            {i18n.t('votes.preregister_view.back')}
-          </Button>
+          <BackButtonContainer>
+            <Button color={colors.accent1} wide>
+              {i18n.t('votes.preregister_view.back')}
+            </Button>
+          </BackButtonContainer>
 
-          <Button positive disabled={submitDisabled} onClick={handleSubmit}>
-            {i18n.t('votes.preregister_view.next')}
-          </Button>
+          <ContinueButtonContainer>
+            <Button positive disabled={submitDisabled} onClick={handleSubmit} wide>
+              {i18n.t('votes.preregister_view.next')}
+            </Button>
+          </ContinueButtonContainer>
         </FlexContainer>
       </FormFieldsetContainer>
     </SignInFormCard>
   )
 }
+
+const BaseButtonContainer = styled.div`
+  max-width: 210px;
+  width: 100%;
+`
+
+const ContinueButtonContainer = styled(BaseButtonContainer)`
+  @media ${({ theme }) => theme.screenMax.mobileM} {
+    max-width: 100%;
+  }
+`
+
+const BackButtonContainer = styled(BaseButtonContainer)`
+  @media ${({ theme }) => theme.screenMax.mobileM} {
+    max-width: 100%;
+  }
+`
 
 const BannerContainer = styled.div`
   margin-bottom: 20px;
