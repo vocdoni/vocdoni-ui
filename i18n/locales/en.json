@@ -658,7 +658,7 @@
             "the_fields_are_case_insensitive_blank_spaces_will_be_ignored": "The fields are case insensitive, blank spaces will be ignored and diacritics will be transformed into plain letters.",
             "the_first_row_will_be_used_as_the_name_of_the_fields": "The first row of the spreadsheet will be used as the name of the fields that voters will be prompted for. ",
             "the_voting_power_should_be_above": "The voting power should be set with whole numbers above 0 (zero). Any voting power that doesn’t follow the requirements will count as 1 (one).",
-            "the_weighted_voted_should_always_come_the_first_column": "The weighted voting should always come as the first field.",
+            "the_weighted_voted_should_always_come_the_first_column": "The weight of each voter should always come as the first field.",
             "upload_new_document": "Upload a new document",
             "upload_or_drag_and_drop_here_the_list": "Upload or drag and drop here the list of voters",
             "vocdoni_currently_only_support_public_voting_process": "Vocdoni currently only supports public voting processes. The information on the process will be made publicly available and can’t be updated after submitting it. Please make sure all information is correct, you have read the Terms & Conditions before creating the voting process and that you are not sharing sensitive information.",
