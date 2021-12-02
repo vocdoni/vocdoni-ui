@@ -668,6 +668,18 @@
             "vocdoni_currently_only_support_public_voting_process": "Vocdoni currently only supports public voting processes. The information on the process will be made publicly available and can’t be updated after submitting it. Please make sure all information is correct, you have read the Terms & Conditions before creating the voting process and that you are not sharing sensitive information.",
             "weighted_voting": "Weighted voting"
         },
+        "preregister_view": {
+            "back": "Back",
+            "important": "Important",
+            "insert_password": "Insert password",
+            "insert_password_again": "Insert password again",
+            "next": "Next",
+            "password": "Password",
+            "repeat": "Repeat",
+            "set_password_of_authentication": "Set a password of authentication",
+            "the_password_that_you_set_will_not_be_possible": "The password that you set will not be possible to be recovered or reset.",
+            "when_the_process_start_at_date_in_order_to_vote_anonymously": "When the voting process starts {{date}}, in order to vote anonymously you will be asked to enter this password."
+        },
         "questions_list": {
             "back": "Back",
             "finish_voting": "Finish voting",

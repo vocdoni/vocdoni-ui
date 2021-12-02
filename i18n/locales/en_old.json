@@ -7,5 +7,17 @@
     },
     "action": {
         "check_privacy_policy": "Review privacy policy"
+    },
+    "votes": {
+        "preregister": {
+            "insert_password": "",
+            "password": ""
+        }
+    },
+    "voter": {
+        "preregister_view": {
+            "important": "",
+            "the_password_that_you_set_will_not_be_possible": ""
+        }
     }
 }

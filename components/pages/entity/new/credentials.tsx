@@ -10,31 +10,13 @@ import { useScrollTop } from "@hooks/use-scroll-top"
 
 import { checkStrength } from '@lib/util'
 
-import Check from 'public/icons/common/check.svg'
-
 import { Column, Grid } from '@components/elements/grid'
 import { Button } from '@components/elements/button'
 import { FlexAlignItem, FlexContainer } from '@components/elements/flex'
 import { EntityCreationPageSteps } from '.'
 import { Banner } from '@components/blocks/banners'
 import { InputPasswordFormGroup } from '@components/blocks/form'
-
-const PassPhraseFeedback = () => {
-  const { i18n } = useTranslation()
-
-  return (
-    <span>
-      <FeedbackTextContainer>
-        {i18n.t('success.passphrase_match')}
-      </FeedbackTextContainer>
-      <Check />
-    </span>
-  )
-}
-
-const FeedbackTextContainer = styled.span`
-  margin-right: 8px;
-`
+import { PasswordFeedbackSuccess } from '@components/blocks/password-feedback-success'
 
 export const FormCredentials = () => {
   const { i18n } = useTranslation()
@@ -121,7 +103,7 @@ export const FormCredentials = () => {
               ? i18n.t('errors.passphrase_dont_match')
               : undefined
           }
-          success={passphraseMatch ? <PassPhraseFeedback /> : undefined}
+          success={passphraseMatch ? <PasswordFeedbackSuccess /> : undefined}
           onChange={(e) => setPassphrase2(e.target.value)}
           type="password"
         />

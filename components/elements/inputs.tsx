@@ -80,6 +80,7 @@ const ShowContainer = styled.div`
   height: 40px;
   font-size: 12px;
   line-height: 40px;
+  cursor: pointer;
   color: ${({ theme }) => theme.lightText};
 `
 
