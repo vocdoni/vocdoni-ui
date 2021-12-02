@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { useEntity, useProcess } from '@vocdoni/react-hooks'
+import { useRecoilState } from 'recoil'
 import { useUrlHash } from 'use-url-hash'
+import { useEntity, useProcess } from '@vocdoni/react-hooks'
+
 import { ViewContext, ViewStrategy } from '@lib/strategy'
 import {
   PreregisterFormFields,
@@ -8,10 +10,9 @@ import {
   IPreregisterData,
 } from '@components/pages/pub/votes/preregister-view'
 import { Loader } from '@components/blocks/loader'
-import { useRecoilStateLoadable } from 'recoil'
-import { walletState } from '@recoil/atoms/wallet'
-import { preregisterProofGeneratorSelector } from '@recoil/selectors/preregister-proof-generator'
-import { useProofActions } from '@recoil/actions/use-generate-proof-action'
+
+import { useCensusActions } from '@recoil/actions/use-census-action'
+import { preregisterProofState } from '@recoil/atoms/preregister-proof'
 
 const PreregisterPage = () => {
   const [data, setData] = useState<IPreregisterData>({
@@ -19,10 +20,8 @@ const PreregisterPage = () => {
     [PreregisterFormFields.PasswordConfirm]: '',
   })
   const processId = useUrlHash().slice(1)
-  const { generateProof } =  useProofActions()
-  const [{ contents: preregisterProof, state: preregisterProofGeneratorState }, setPreregisterData] = useRecoilStateLoadable(
-    preregisterProofGeneratorSelector(processId)
-  )
+  const { generateProof } =  useCensusActions()
+  const preregisterProof = useRecoilState(preregisterProofState)
   const { process, loading: loadingProcess } = useProcess(processId)
   const { metadata: entity, loading: loadingEntity } = useEntity(
     process?.state?.entityId
@@ -39,8 +38,6 @@ const PreregisterPage = () => {
   }
 
   const handleSubmit = async () => {
-    console.log('submit', data)
-    setPreregisterData(data.passwordConfirm)
     generateProof(processId, data.passwordConfirm)
   }
 
