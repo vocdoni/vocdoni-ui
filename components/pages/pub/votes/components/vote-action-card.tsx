@@ -6,6 +6,11 @@ import { useTranslation } from 'react-i18next'
 import { ImageContainer } from '@components/elements/images'
 import { Button, LinkTarget } from '@components/elements/button'
 import { VotingState } from '..'
+import {
+  TextAlign,
+  Typography,
+  TypographyVariant,
+} from '@components/elements/typography'
 
 interface IVoteActionCardProps {
   disabled: boolean
@@ -33,7 +38,8 @@ export const VoteActionCard = ({
       case VotingState.NotStarted:
         return i18n.t('vote.you_can_vote_on_this_proposal')
 
-      case VotingState.Started:
+      case VotingState.Guest:
+        return i18n.t('vote.you_need_authenticate_to_vote')
     }
   }
 
@@ -41,12 +47,7 @@ export const VoteActionCard = ({
     switch (status) {
       case VotingState.Ended:
         return (
-          <Button
-            wide
-            target={LinkTarget.Blank}
-            positive
-            href={explorerLink}
-          >
+          <Button wide target={LinkTarget.Blank} positive href={explorerLink}>
             {i18n.t('vote.view_in_explorer')}
           </Button>
         )
@@ -58,15 +59,42 @@ export const VoteActionCard = ({
           </Button>
         )
 
-      default:
+      case VotingState.Guest:
         return (
-          <></>
+          <Button wide positive onClick={onClick}>
+            {i18n.t('vote.vote_now')}
+          </Button>
         )
+      default:
+        return <></>
     }
   }
 
-  if (votingState == VotingState.Guest)
-    return (<></>)
+  const getVotingImage = (status: VotingState) => {
+    switch (status) {
+      case VotingState.Ended:
+        return '/images/vote/vote-now.png'
+
+      case VotingState.Guest:
+        return '/images/vote/vote-now.png'
+
+      default:
+        return '/images/vote/vocdoni-vote.png'
+    }
+  }
+
+  const getVotingIcon = (status: VotingState) => {
+    switch (status) {
+      case VotingState.Ended:
+        return '/images/vote/vote-check.png'
+
+      case VotingState.Guest:
+        return '/icons/common/warning.svg'
+      
+      default:
+        return ''
+    }
+  }
 
   return (
     <BannerDiv positive={votingState == VotingState.Ended}>
@@ -74,26 +102,27 @@ export const VoteActionCard = ({
         <BannerIcon>
           <ImageContainer width="80px">
             <img
-              src={votingState == VotingState.Ended ? "/images/vote/vote-now.png" : "/images/vote/vocdoni-vote.png"}
+              src={getVotingImage(votingState)}
               alt={i18n.t('vote.voted_alt')}
             />
 
-            {votingState == VotingState.Ended && (
+            {getVotingIcon(votingState) && (
               <CheckImageContainer>
-                <img src="/images/vote/vote-check.png" />
+                <img src={getVotingIcon(votingState) }/>
               </CheckImageContainer>
             )}
           </ImageContainer>
         </BannerIcon>
 
-        <BanerText>
-          <BannerTitle>
+        <BannerText>
+          <Typography
+            variant={TypographyVariant.Body2}
+            align={TextAlign.Center}
+          >
             {getTitleFromState(votingState)}
-          </BannerTitle>
-          <div>
-            {getButtonFromState(votingState)}
-          </div>
-        </BanerText>
+          </Typography>
+          <div>{getButtonFromState(votingState)}</div>
+        </BannerText>
       </BannerMainDiv>
     </BannerDiv>
   )
@@ -103,11 +132,9 @@ const BannerDiv = styled.div<{ positive?: boolean }>`
   padding: 16px;
   background: linear-gradient(
     106.26deg,
-    ${({ theme, positive }) =>
-    positive ? theme.accentLight1B : theme.white}
+    ${({ theme, positive }) => (positive ? theme.accentLight1B : theme.white)}
       5.73%,
-    ${({ theme, positive }) =>
-    positive ? theme.accentLight1 : theme.white}
+    ${({ theme, positive }) => (positive ? theme.accentLight1 : theme.white)}
       93.83%
   );
   box-shadow: 0px 3px 3px rgba(180, 193, 228, 0.35);
@@ -121,7 +148,6 @@ const BannerDiv = styled.div<{ positive?: boolean }>`
     padding: 14px;
   }
 `
-
 
 const CheckImageContainer = styled.div`
   position: absolute;
@@ -138,7 +164,7 @@ const BannerIcon = styled.div`
   flex: 1;
   margin-bottom: 10px;
 `
-const BanerText = styled.div`
+const BannerText = styled.div`
   flex: 10;
   margin: 0 10px;
 `
@@ -151,7 +177,8 @@ const BannerMainDiv = styled.div`
 `
 
 const BannerTitle = styled.h2<{ positive?: boolean }>`
-  color: ${({ theme, positive }) => (positive ? theme.textAccent2B : theme.text)};
+  color: ${({ theme, positive }) =>
+    positive ? theme.textAccent2B : theme.text};
   font-weight: normal;
   margin: 0 0 10px;
   text-align: center;

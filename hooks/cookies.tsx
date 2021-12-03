@@ -1,4 +1,10 @@
-import React, { useEffect, createContext, useContext, useState } from 'react'
+import React, {
+  ReactNode,
+  useEffect,
+  createContext,
+  useContext,
+  useState,
+} from 'react'
 import { COOKIES_PATH, VOTING_PATH } from '@const/routes'
 import { useRouter } from 'next/router'
 
@@ -34,7 +40,15 @@ export function useCookies() {
   return { acceptCookies, rejectCookies, accepted, hide }
 }
 
-export const UseCookiesProvider: React.FC = ({ children }) => {
+interface IUseCookiesProvider {
+  children: ReactNode
+  hideInPaths?: RegExp[]
+}
+
+export const UseCookiesProvider: React.FC<IUseCookiesProvider> = ({
+  hideInPaths,
+  children,
+}: IUseCookiesProvider) => {
   const [accepted, setAccepted] = useState<boolean>(false)
   const [hide, setHide] = useState<boolean>(false)
 
@@ -47,12 +61,25 @@ export const UseCookiesProvider: React.FC = ({ children }) => {
 
     const cookieAcceptance = localStorage.getItem(COOKIES_STORE_KEY)
 
-    if (cookieAcceptance) {
+    if (
+      cookieAcceptance ||
+      (hideInPaths && hideInPaths?.some((path) => router.pathname.match(path)))
+    ) {
       setAccepted(cookieAcceptance === CookiesStatus.Accept)
       setHide(true)
       trackLoad()
     }
   }, [])
+
+  useEffect(() => {
+    if (
+      !hide &&
+      hideInPaths &&
+      hideInPaths?.some((path) => router.pathname.match(path))
+    ) {
+      setHide(true)
+    }
+  }, [router.pathname])
 
   const acceptCookies = () => {
     if (!router.pathname.includes(VOTING_PATH)) show()
