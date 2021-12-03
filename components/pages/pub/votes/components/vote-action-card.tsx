@@ -17,6 +17,7 @@ interface IVoteActionCardProps {
   explorerLink: string
   votingState: VotingState
   onClick: () => void
+  onLogOut?: () => void
 }
 
 export const VoteActionCard = ({
@@ -24,6 +25,7 @@ export const VoteActionCard = ({
   votingState,
   explorerLink,
   onClick,
+  onLogOut,
 }: IVoteActionCardProps) => {
   const { i18n } = useTranslation()
 
@@ -47,16 +49,32 @@ export const VoteActionCard = ({
     switch (status) {
       case VotingState.Ended:
         return (
-          <Button wide target={LinkTarget.Blank} positive href={explorerLink}>
-            {i18n.t('vote.view_in_explorer')}
-          </Button>
+          <>
+            <Button wide target={LinkTarget.Blank} positive href={explorerLink}>
+              {i18n.t('vote.view_in_explorer')}
+            </Button>
+
+            <ButtonContainer>
+              <Button wide onClick={onLogOut}>
+                {i18n.t('vote.submit_new_vote')}
+              </Button>
+            </ButtonContainer>
+          </>
         )
 
       case VotingState.NotStarted:
         return (
-          <Button wide disabled={disabled} positive onClick={onClick}>
-            {i18n.t('vote.vote_now')}
-          </Button>
+          <>
+            <Button wide disabled={disabled} positive onClick={onClick}>
+              {i18n.t('vote.vote_now')}
+            </Button>
+
+            <ButtonContainer>
+              <Button wide onClick={onLogOut}>
+                {i18n.t('vote.log_out')}
+              </Button>
+            </ButtonContainer>
+          </>
         )
 
       case VotingState.Guest:
@@ -90,7 +108,7 @@ export const VoteActionCard = ({
 
       case VotingState.Guest:
         return '/icons/common/warning.svg'
-      
+
       default:
         return ''
     }
@@ -108,7 +126,7 @@ export const VoteActionCard = ({
 
             {getVotingIcon(votingState) && (
               <CheckImageContainer>
-                <img src={getVotingIcon(votingState) }/>
+                <img src={getVotingIcon(votingState)} />
               </CheckImageContainer>
             )}
           </ImageContainer>
@@ -158,6 +176,10 @@ const CheckImageContainer = styled.div`
   & > img {
     width: 100%;
   }
+`
+
+const ButtonContainer = styled.div`
+  margin-top: 16px;
 `
 
 const BannerIcon = styled.div`

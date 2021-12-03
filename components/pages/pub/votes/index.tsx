@@ -61,7 +61,7 @@ export const VotingPageView = () => {
     processId
   )
   const { process: processInfo } = useProcess(processId)
-  const { wallet } = useWallet({ role: WalletRoles.VOTER })
+  const { wallet, setWallet } = useWallet({ role: WalletRoles.VOTER })
   const { metadata } = useEntity(processInfo?.state?.entityId)
   const [confirmModalOpened, setConfirmModalOpened] = useState<boolean>(false)
   const [votingState, setVotingState] = useState<VotingState>(
@@ -192,9 +192,7 @@ export const VotingPageView = () => {
     if (voteStatus == VoteStatus.Active) {
       setVotingState(VotingState.Started)
     } else if (votingState == VotingState.Guest) {
-      router.push(
-        RouterService.instance.get(VOTING_AUTH_FORM_PATH, { processId })
-      )
+      handleLogOut()
     }
   }
 
@@ -216,6 +214,15 @@ export const VotingPageView = () => {
     setConfirmModalOpened(false)
   }
 
+  const handleLogOut = () => {
+    setWallet(null)
+
+    router.push(
+      RouterService.instance.get(VOTING_AUTH_FORM_PATH, { processId })
+    )
+  }
+
+  
   const processVotingType: VotingType = processInfo?.state?.censusOrigin as any
 
   const showDescription =
@@ -271,6 +278,7 @@ export const VotingPageView = () => {
                 <VoteNowCardContainer>
                   <VoteActionCard
                     onClick={handleVoteNow}
+                    onLogOut={handleLogOut}
                     votingState={votingState}
                     explorerLink={explorerLink}
                     disabled={voteStatus !== VoteStatus.Active}
