@@ -63,6 +63,9 @@ export const EntityView = ({ address, metadata, processes, blockHeight }: IEntit
               />
             )
           })}
+          {processes.length <= 0 &&
+            <Typography variant={TypographyVariant.Small}>{i18n.t('entity.home.no_processes_yet')} </Typography>
+          }
         </Column>
       </Grid>
     </PageCard>

@@ -24,7 +24,7 @@
             "help_and_feedback": "Help & feedback",
             "language": "Language",
             "public_page": "Public page",
-            "settings": "Setting",
+            "settings": "Settings",
             "update_entity": "Update entity",
             "user_language": "Language: {{ lang }}"
         },
@@ -201,7 +201,8 @@
             "entity_address": "Entity address",
             "entity_description": "Entity description",
             "view_in_explorer": "View in explorer",
-            "entity_processes": "Entity processes"
+            "entity_processes": "Entity processes",
+            "no_processes_yet": "No voting processes"
         },
         "i_have_read_and_accept_personal_data": "(Optional) I give my express consent for the commercial, and service management",
         "i_have_read_and_accept_terms": "I have read and accept “Personal Data Proteccion Information” (see above), and Aragon Labs “<1>Privacy Policy</1>”",

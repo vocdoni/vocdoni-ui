@@ -201,7 +201,8 @@
             "entity_address": "Direccion de entidad",
             "entity_description": "Descripcion de la entidad",
             "view_in_explorer": "Ver en el explorador",
-            "entity_processes": "Processos de la entidad"
+            "entity_processes": "Procesos de la entidad",
+            "no_processes_yet": "Sin procesos de votación"
         },
         "i_have_read_and_accept_personal_data": "(Optional) Doy mi consentimiento expreso para la gestión comercial y de servicios",
         "i_have_read_and_accept_terms": "He leído y acepto el “Información de protección de datos personales” (ver arriba), y la “<1>Política de Privacidad</1>” de Aragon Labs",
