@@ -26,7 +26,7 @@ import { ImportVoterListNormal } from './components/import-voter-list-normal'
 import { ImportVoterListWeighted } from './components/import-voter-list-wighted'
 import { DisclaimerBanner } from './components/disclaimer-banner'
 import { VotingType } from '@lib/types'
-
+import { AnonymousCard } from './components/anonymous-card'
 
 export const FormCensus = () => {
   const { i18n } = useTranslation()
@@ -43,7 +43,8 @@ export const FormCensus = () => {
     spreadSheetReader,
     processTerms,
     parameters,
-    votingType
+    votingType,
+    anonymousVoting,
   } = useProcessCreation()
   const { trackEvent } = useRudderStack()
 
@@ -113,13 +114,20 @@ export const FormCensus = () => {
     methods.setSpreadSheetReader(null)
   }
 
+  const handleChangeAnonymous = (anonymous: boolean) => {
+    methods.setAnonymousVoting(anonymous)
+  }
+
   return (
     <>
       <Grid>
         <When condition={!showAdvanced}>
           <>
             <Column>
-              <Typography variant={TypographyVariant.Body1} margin="10px 0 20px 0">
+              <Typography
+                variant={TypographyVariant.Body1}
+                margin="10px 0 20px 0"
+              >
                 1. {i18n.t('votes.new.select_voting_options')}
               </Typography>
             </Column>
@@ -132,8 +140,27 @@ export const FormCensus = () => {
             </Column>
 
             <Column>
-              <Typography variant={TypographyVariant.Body1} margin="18px 0 22px 0">
-                2. {i18n.t('votes.new.import_the_list_of_voters')}
+              <Typography
+                variant={TypographyVariant.Body1}
+                margin="18px 0 22px 0"
+              >
+                2. {i18n.t('votes.new.select_')}
+              </Typography>
+            </Column>
+
+            <Column>
+              <AnonymousCard
+                onChange={handleChangeAnonymous}
+                anonymous={anonymousVoting}
+              />
+            </Column>
+
+            <Column>
+              <Typography
+                variant={TypographyVariant.Body1}
+                margin="18px 0 22px 0"
+              >
+                3. {i18n.t('votes.new.import_the_list_of_voters')}
               </Typography>
 
               {votingType === VotingType.Normal && <ImportVoterListNormal />}
