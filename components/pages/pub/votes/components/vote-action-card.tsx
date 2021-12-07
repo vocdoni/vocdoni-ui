@@ -56,7 +56,7 @@ export const VoteActionCard = ({
 
             <ButtonContainer>
               <Button wide onClick={onLogOut}>
-                {i18n.t('vote.submit_new_vote')}
+                {i18n.t('app.header.disconnect_account')}
               </Button>
             </ButtonContainer>
           </>
