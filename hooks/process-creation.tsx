@@ -47,6 +47,7 @@ export interface ProcessCreationContext {
   startDate: Date,
   endDate: Date,
   votingType: VotingType,
+  anonymousVoting: boolean,
   spreadSheetReader,
   processTerms,
   methods: {
@@ -80,6 +81,7 @@ export interface ProcessCreationContext {
     setStringMetadata: (metadataOrigin: string) => void,
     setSpreadSheetReader: (metadata: SpreadSheetReader) => void,
     setVotingType: (votingType: VotingType) => void,
+    setAnonymousVoting: (anonymousVoting: boolean) => void,
     setHeaderFile,
     setHeaderURL,
     setStartRightAway,
@@ -116,6 +118,7 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
   const [startDate, setStartDate] = useState<Date>()
   const [endDate, setEndDate] = useState<Date>()
   const [votingType, setVotingType] = useState<VotingType>(VotingType.Normal)
+  const [anonymousVoting, setAnonymousVoting] = useState<boolean>(false)
   const { wallet } = useWallet()
   const { blockStatus } = useBlockStatus()
   const { pool, poolPromise } = usePool()
@@ -126,6 +129,11 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
       new ProcessCensusOrigin(votingType as IProcessCensusOrigin)
     )    
   }, [votingType])
+
+  useEffect(() => {
+    paramsMethods.setAnonymousVoting(anonymousVoting)
+  }, [anonymousVoting])
+
   // STEPPER OPERATIONS
 
   const stepEnsureMedia: StepperFunc = () => {
@@ -371,6 +379,7 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
     startDate,
     endDate,
     votingType,
+    anonymousVoting,
     metadata,
     parameters,
     spreadSheetReader,
@@ -387,6 +396,7 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
       setPageStep,
       createProcess,
       setVotingType,
+      setAnonymousVoting,
       continueProcessCreation: doMainActionSteps,
       setProcessTerms,
       checkValidCensusParameters
@@ -565,6 +575,10 @@ const useProcessParameters = () => {
     parameters.metadata = metadataOrigin
     forceUpdate()
   }
+  const setAnonymousVoting = (anonymousVoting: boolean) => {
+    setEnvelopeType(ProcessEnvelopeType.make({ serial: false, uniqueValues: false, encryptedVotes: false, anonymousVoters: anonymousVoting }) as ProcessEnvelopeType)
+  }
+
 
   // parameters.paramsSignature
   // parameters.questionCount  (computed automatically by dvote-js)
@@ -587,6 +601,7 @@ const useProcessParameters = () => {
     setMaxValue,
     setMaxVoteOverwrites,
     setStringMetadata,
+    setAnonymousVoting
   }
   return { parameters, methods }
 }
