@@ -189,7 +189,7 @@ export const VotingPageView = () => {
   }
 
   const handleVoteNow = () => {
-    if (voteStatus == VoteStatus.Active) {
+    if (votingState == VotingState.NotStarted) {
       setVotingState(VotingState.Started)
     } else if (votingState == VotingState.Guest) {
       handleLogOut()
