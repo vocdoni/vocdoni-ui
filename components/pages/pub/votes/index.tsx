@@ -1,21 +1,12 @@
-import React, {
-  useState,
-  ReactNode,
-  useEffect,
-  useMemo,
-  useRef,
-  forwardRef,
-} from 'react'
+import React, { useState, useEffect, useRef } from 'react'
+import { useRecoilValue } from 'recoil'
 import styled from 'styled-components'
 import { useTranslation } from 'react-i18next'
 import ReactPlayer from 'react-player'
 
-import {
-  useEntity,
-  useBlockHeight,
-  useBlockStatus,
-  useProcess,
-} from '@vocdoni/react-hooks'
+import { useBlockStatus, useEntity, useProcess } from '@vocdoni/react-hooks'
+import { useRouter } from 'next/router'
+import { If, Then } from 'react-if'
 
 import { Question, VotingType } from '@lib/types'
 
@@ -34,26 +25,24 @@ import { CardImageHeader } from '@components/blocks/card/image-header'
 import { VoteDescription } from '@components/blocks/vote-description'
 
 import { ConfirmModal } from './components/confirm-modal'
-import { VoteRegisteredCard } from './components/vote-registered-card'
+import { VoteActionCard } from './components/vote-action-card'
 import { VoteStatus, getVoteStatus } from '@lib/util'
-import { Else, If, Then, When } from 'react-if'
 import { useUrlHash } from 'use-url-hash'
-import {
-  VotingApi,
-  EntityMetadata,
-} from 'dvote-js'
+import { VotingApi, EntityMetadata } from 'dvote-js'
 import { DateDiffType, localizedStrDateDiff } from '@lib/date'
-import { Body1, TextAlign } from '@components/elements/typography'
+import { Body1, TextAlign, Typography, TypographyVariant } from '@components/elements/typography'
 import { QuestionsList } from './components/questions-list'
-import { VoteNowCard } from './components/vote-now-card'
-import { useRecoilValue } from 'recoil'
 import { censusProofState } from '@recoil/atoms/census-proof'
+import { VoteRegisteredCard } from './components/vote-registered-card'
+import RouterService from '@lib/router'
+import { VOTING_AUTH_FORM_PATH } from '@const/routes'
 
-enum VotingState {
+export enum VotingState {
   NotStarted = 'notStarted',
   Started = 'started',
   Ended = 'ended',
   Guest = 'guest',
+  Expired = 'expired',
 }
 
 interface IVideoStyle {
@@ -65,13 +54,14 @@ interface IVideoStyle {
 export const VotingPageView = () => {
   const { i18n } = useTranslation()
   const processId = useUrlHash().slice(1) // Skip "/"
+  const router = useRouter()
   const { updateAppTheme } = useTheme()
   const censusProof = useRecoilValue(censusProofState)
   const { methods, choices, hasVoted, results, nullifier } = useVoting(
     processId
   )
-  const { process: processInfo, error, loading } = useProcess(processId)
-  const { wallet } = useWallet({ role: WalletRoles.VOTER })
+  const { process: processInfo } = useProcess(processId)
+  const { wallet, setWallet } = useWallet({ role: WalletRoles.VOTER })
   const { metadata } = useEntity(processInfo?.state?.entityId)
   const [confirmModalOpened, setConfirmModalOpened] = useState<boolean>(false)
   const [votingState, setVotingState] = useState<VotingState>(
@@ -134,13 +124,23 @@ export const VotingPageView = () => {
   }, [votingState])
 
   useEffect(() => {
+    if (hasVoted) {
+      return setVotingState(VotingState.Ended)
+    }
+
+    if (
+      voteStatus === VoteStatus.Ended ||
+      voteStatus === VoteStatus.Canceled ||
+      voteStatus === VoteStatus.Upcoming
+    ) {
+      return setVotingState(VotingState.Expired)
+    }
+
     if (!wallet) {
       return setVotingState(VotingState.Guest)
     }
 
-    if (hasVoted) {
-      return setVotingState(VotingState.Ended)
-    }
+    setVotingState(VotingState.NotStarted)
   }, [wallet, hasVoted])
 
   useEffect(() => {
@@ -189,8 +189,10 @@ export const VotingPageView = () => {
   }
 
   const handleVoteNow = () => {
-    if (voteStatus == VoteStatus.Active) {
+    if (votingState == VotingState.NotStarted) {
       setVotingState(VotingState.Started)
+    } else if (votingState == VotingState.Guest) {
+      handleLogOut()
     }
   }
 
@@ -212,6 +214,15 @@ export const VotingPageView = () => {
     setConfirmModalOpened(false)
   }
 
+  const handleLogOut = () => {
+    setWallet(null)
+
+    router.push(
+      RouterService.instance.get(VOTING_AUTH_FORM_PATH, { processId })
+    )
+  }
+
+  
   const processVotingType: VotingType = processInfo?.state?.censusOrigin as any
 
   const showDescription =
@@ -223,6 +234,8 @@ export const VotingPageView = () => {
     votingState === VotingState.Guest || votingState === VotingState.Ended
 
   const showVotingButton = votingState == VotingState.NotStarted
+
+  const showLogInButton = votingState == VotingState.Guest
 
   const voteWeight =
     VotingType.Weighted === processVotingType ? censusProof?.weight : null
@@ -262,22 +275,15 @@ export const VotingPageView = () => {
               </Column>
 
               <Column sm={12} md={3} hiddenSm hiddenMd>
-                {votingState === VotingState.NotStarted && (
-                  <VoteNowCardContainer>
-                    <VoteNowCard
-                      onVote={handleVoteNow}
-                      explorerLink={explorerLink}
-                      disabled={voteStatus !== VoteStatus.Active}
-                      hasVoted={showResults}
-                    />
-                  </VoteNowCardContainer>
-                )}
-
-                {votingState === VotingState.Ended && (
-                  <VoteNowCardContainer>
-                    <VoteRegisteredCard explorerLink={explorerLink} />
-                  </VoteNowCardContainer>
-                )}
+                <VoteNowCardContainer>
+                  <VoteActionCard
+                    onClick={handleVoteNow}
+                    onLogOut={handleLogOut}
+                    votingState={votingState}
+                    explorerLink={explorerLink}
+                    disabled={voteStatus !== VoteStatus.Active}
+                  />
+                </VoteNowCardContainer>
               </Column>
             </Grid>
           )}
@@ -312,17 +318,6 @@ export const VotingPageView = () => {
             onBackDescription={handleBackToDescription}
           />
         )}
-        <Grid>
-          <If condition={votingState === VotingState.Guest}>
-            <Then>
-              <Card sm={12}>
-                <TextContainer align={TextAlign.Center}>
-                  {i18n.t('vote.you_are_connected_as_a_guest')}
-                </TextContainer>
-              </Card>
-            </Then>
-          </If>
-        </Grid>
 
         {showVotingButton && (
           <FixedButtonContainer>
@@ -334,6 +329,19 @@ export const VotingPageView = () => {
                 onClick={handleVoteNow}
                 disabled={voteStatus !== VoteStatus.Active}
               >
+                {i18n.t('vote.vote_now')}
+              </Button>
+            </div>
+          </FixedButtonContainer>
+        )}
+
+        {showLogInButton && (
+          <FixedButtonContainer>
+            <div>
+              <Typography variant={TypographyVariant.Body2}>
+                {i18n.t('vote.you_need_authenticate_to_vote')}
+              </Typography>
+              <Button large positive wide onClick={handleVoteNow}>
                 {i18n.t('vote.vote_now')}
               </Button>
             </div>

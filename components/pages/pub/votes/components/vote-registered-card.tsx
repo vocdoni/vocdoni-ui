@@ -32,7 +32,7 @@ export const VoteRegisteredCard = ({
           </BannerTitle>
           <div>
             <Button href={explorerLink} target={LinkTarget.Blank} positive wide>
-              {i18n.t('vote.view_link')}
+              {i18n.t('vote.view_in_explorer')}
             </Button>
           </div>
         </BanerText>
