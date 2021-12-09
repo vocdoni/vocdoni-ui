@@ -1,7 +1,7 @@
 // This file is evaluated when exporting the frontend application
 // The environment variabled need to be set locally on in the CI/CD console
 
-const LANG = process.env.APP_LANG || 'en'
+const LANG = process.env.APP_LANG || 'ca'
 const DEVELOPMENT = process.env.NODE_ENV !== 'production'
 const COMMIT_SHA = process.env.COMMIT_SHA || 'development'
 const VOCDONI_ENVIRONMENT = process.env.VOCDONI_ENVIRONMENT || 'dev'

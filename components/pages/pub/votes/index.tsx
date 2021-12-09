@@ -350,9 +350,11 @@ export const VotingPageView = () => {
 
         {hasVoted && (
           <VoteRegisteredLgContainer>
-            <VoteRegisteredCard explorerLink={explorerLink} />
+            <Typography variant={TypographyVariant.Body2}>{i18n.t('vote.you_vote_has_been_submit_successfully_the_results_will_be_available')}</Typography>
           </VoteRegisteredLgContainer>
         )}
+
+        
         {showResults &&
           processInfo?.metadata?.questions.map(
             (question: Question, index: number) => (
