@@ -64,7 +64,7 @@ export const VoteDescription = forwardRef<HTMLDivElement, IVotePageProps>(
           <FlexContainer justify={FlexJustifyContent.SpaceBetween}>
             <ProcessStatusLabel status={voteStatus} />
             <LogOutContainer>
-              { onLogOut && <Button small border>{i18n.t('app.header.disconnect_account')}</Button>}
+              { onLogOut && <Button small border onClick={() => onLogOut()}>{i18n.t('app.header.disconnect_account')}</Button>}
             </LogOutContainer>
           </FlexContainer>
         </Column>
