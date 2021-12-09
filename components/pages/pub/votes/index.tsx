@@ -263,6 +263,7 @@ export const VotingPageView = () => {
                   ref={descriptionVideoContainerRef}
                   description={processInfo?.metadata?.description.default}
                   hasVideo={!!processInfo?.metadata?.media.streamUri}
+                  onLogOut={handleLogOut}
                   discussionUrl={
                     processInfo?.metadata?.meta[MetadataFields.DiscussionLink]
                   }

@@ -14,6 +14,7 @@ import { ProcessStatusLabel } from '@components/blocks/process-status-label'
 import { When } from 'react-if'
 
 import { MarkDownViewer } from './mark-down-viewer'
+import { FlexContainer, FlexJustifyContent } from '@components/elements/flex'
 
 interface IVotePageProps {
   description: string
@@ -23,6 +24,7 @@ interface IVotePageProps {
   discussionUrl?: string
   voteStatus: VoteStatus
   timeComment: string
+  onLogOut?: () => void
   onComponentMounted?: (ref: ForwardedRef<HTMLDivElement>) => void
 }
 
@@ -36,6 +38,7 @@ export const VoteDescription = forwardRef<HTMLDivElement, IVotePageProps>(
       discussionUrl,
       voteStatus,
       timeComment,
+      onLogOut,
       onComponentMounted,
     }: IVotePageProps,
     ref
@@ -58,7 +61,12 @@ export const VoteDescription = forwardRef<HTMLDivElement, IVotePageProps>(
     return (
       <Grid>
         <Column>
-          <ProcessStatusLabel status={voteStatus} />
+          <FlexContainer justify={FlexJustifyContent.SpaceBetween}>
+            <ProcessStatusLabel status={voteStatus} />
+            <LogOutContainer>
+              { onLogOut && <Button small border>{i18n.t('app.header.disconnect_account')}</Button>}
+            </LogOutContainer>
+          </FlexContainer>
         </Column>
 
         <Column>{timeComment}</Column>
@@ -121,6 +129,14 @@ export const VoteDescription = forwardRef<HTMLDivElement, IVotePageProps>(
   }
 )
 
+const LogOutContainer = styled.div`
+  display: none;
+
+  @media ${({ theme }) => theme.screenMax.tablet} {
+    display: block;
+  }
+
+`
 const ButtonText = styled.p`
   color: ${colors.blueText};
   font-size: 18px;

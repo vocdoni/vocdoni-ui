@@ -118,9 +118,16 @@ ${props => props.large ? "font-size: 125%;" :
 
     @media ${({theme})  => theme.screenMax.mobileL } {
         white-space: normal;
-        padding:  ${({ border }) => border? '16px 18px !important': '18px 20px !important' };
+        padding:  ${({ border, small }) => { 
+            const padded = border ? 2 : 0;
+            const topBottomPaddingBase = 16
+            const leftRightPaddingBase = 18
+            const reducerBase = small ? 2 : 1
+
+            return `${(topBottomPaddingBase - padded)/ reducerBase}px ${(leftRightPaddingBase - padded)/ reducerBase}px !important`;
+        }};
         line-height: 20px !important;
-        font-size: 16px !important;
+        font-size:  ${({ border, small }) => small? '12px': '16px'} !important;
     }
 `
 
