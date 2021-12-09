@@ -44,6 +44,7 @@ const PreregisterPage = () => {
   const renderPreregisterView = new ViewStrategy(
     () => !loadingProcess && !loadingEntity,
     (
+      <>
       <PreregisterView
         process={process}
         entity={entity}
@@ -51,6 +52,7 @@ const PreregisterPage = () => {
         onChange={handleDataChange}
         onSubmit={handleSubmit}
       />
+      </>
     )
   )
 

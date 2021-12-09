@@ -200,9 +200,9 @@
         "home": {
             "entity_address": "Direccion de entidad",
             "entity_description": "Descripcion de la entidad",
-            "view_in_explorer": "Ver en el explorador",
             "entity_processes": "Procesos de la entidad",
-            "no_processes_yet": "Sin procesos de votación"
+            "no_processes_yet": "Sin procesos de votación",
+            "view_in_explorer": "Ver en el explorador"
         },
         "i_have_read_and_accept_personal_data": "(Optional) Doy mi consentimiento expreso para la gestión comercial y de servicios",
         "i_have_read_and_accept_terms": "He leído y acepto el “Información de protección de datos personales” (ver arriba), y la “<1>Política de Privacidad</1>” de Aragon Labs",
@@ -429,6 +429,12 @@
         "ending_in_one_hour": "Acaba de aquí 1h",
         "vote": "Votar"
     },
+    "pub": {
+        "votes": {
+            "preregister_completed": "",
+            "your_password_was_set_successfully_to_allow_you_participate_on": ""
+        }
+    },
     "recover": {
         "continue": "Continuar",
         "drag_a_vocdoni_backup_file": "Arrastrar aquí las credenciales de Vocdoni",
@@ -596,7 +602,6 @@
         "stream_link": "Enlace del video streaming",
         "stream_link_explanation": "Si quieres emitir tu proceso en vivo puedes incluir un video streaming. Puede ser, por ejemplo, un stream de youtube.",
         "stream_link_label": "Este campo es opcional",
-        "submit_new_vote": "Votar de nuevo",
         "surname": "Apellido",
         "thanks_for_participate_on_this_AGM": "Gracias por participar en este proceso, vuelve a la página principal para seguir y consultar los resultados cuando estén disponibles",
         "the_blockchain_network_is_congested": "La red de la cadena de bloques está congestionada",
@@ -646,6 +651,8 @@
     "votes": {
         "new": {
             "all_the_voters_has_the_same_power": "Todos los votantes tendrán el mismo poder de voto",
+            "anonymous_voting": "",
+            "by_activating_the_anonymous_voting_option": "",
             "disclaimer": "Atención",
             "download_template": "Descargar plantilla",
             "download_the_original_template_to_fill": "Descargue la plantilla original para completar con su lista de votantes",
@@ -653,20 +660,27 @@
             "i_understand_and_i_agree_to_the_terms_and_conditions": "Entiendo y acepto los <0>Términos y condiciones</0> para organizar los procesos de votación.",
             "if_change_the_type_of_vote_the_updated_census_will_be_lost": "Si cambia el tipo de voto, se perderá el censo actual cargado",
             "import_the_list_of_voters": "Importar la lista de votantes",
+            "it_will_be_impossible_for_a_third_party_to_see_witch_vote_a_use_has_cast": "",
+            "no": "",
             "normal_voting": "Votación normal",
             "requirements": "Requisitos",
+            "select_": "",
             "select_voting_options": "Seleccionar opciones de votación",
             "set_different_power_to_each_voter": "Establecer un poder de voto diferente para cada votante",
             "supported_formats_csv_xls": "(Formatos admitidos: CSV, XLSX y ODS)",
             "the_document_name_that_you_updated_do_not_fill": "El documento \"{{ documentName }}\" que cargó no cumple con algunos de los requisitos.",
             "the_fields_are_case_insensitive_blank_spaces_will_be_ignored": "Los campos no distinguen entre mayúsculas y minúsculas, los espacios en blanco se ignorarán y los signos diacríticos se transformarán en letras simples.",
             "the_first_row_will_be_used_as_the_name_of_the_fields": "La primera fila de la hoja de cálculo se utilizará como el nombre de los campos que se solicitarán a los votantes.",
+            "the_voters_will_be_required_to_then_authenticate": "",
+            "the_voters_will_need_preregister_before_starting_date": "",
             "the_voting_power_should_be_above": "El poder de voto debe establecerse con números enteros por encima de 0 (cero). Cualquier poder de voto que no cumpla con los requisitos contará como 1 (uno).",
             "the_weighted_voted_should_always_come_the_first_column": "El peso de cada votante siempre debe aparecer como primer campo.",
             "upload_new_document": "Subir una nueva lista de votantes",
             "upload_or_drag_and_drop_here_the_list": "Sube o arrastra y suelta aquí la lista de votantes",
             "vocdoni_currently_only_support_public_voting_process": "Actualmente, Vocdoni solo admite procesos de votación pública. La información sobre el proceso se pondrá a disposición del público y no se podrá actualizar después de enviarla. Asegúrese de que toda la información sea correcta, que haya leído los Términos y condiciones antes de crear el proceso de votación y que no esté compartiendo información confidencial.",
-            "weighted_voting": "Votación ponderada"
+            "weighted_voting": "Votación ponderada",
+            "would_you_like_this_voting_process_to_ensure_cryptographic_anonymity": "",
+            "yes": ""
         },
         "preregister_view": {
             "back": "",

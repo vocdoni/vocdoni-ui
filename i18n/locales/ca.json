@@ -200,9 +200,9 @@
         "home": {
             "entity_address": "Adreça de l'entitat",
             "entity_description": "Descripció de l'entitat",
-            "view_in_explorer": "Veure en el navegador",            
             "entity_processes": "Processos de l'entitat",
-            "no_processes_yet": "Sense processos de votació."
+            "no_processes_yet": "Sense processos de votació.",
+            "view_in_explorer": "Veure en el navegador"
         },
         "i_have_read_and_accept_personal_data": "(Opcional) Dono el meu consentiment exprés per a la gestió comercial i de serveis",
         "i_have_read_and_accept_terms": "He llegit i accepto la “Informació de protecció de dades personals” (veure a sobre), i la “<1>Política de Privacitat</1>” de Aragon Labs",
@@ -429,6 +429,12 @@
         "ending_in_one_hour": "Acaba d'aquí 1h",
         "vote": "Votar"
     },
+    "pub": {
+        "votes": {
+            "preregister_completed": "",
+            "your_password_was_set_successfully_to_allow_you_participate_on": ""
+        }
+    },
     "recover": {
         "continue": "Continua",
         "drag_a_vocdoni_backup_file": "Arrossega aquí les credencials de Vocdoni",
@@ -596,7 +602,6 @@
         "stream_link": "Enllaç de la retransmissió en directe",
         "stream_link_explanation": "Si fas una retransmissió en directe per internet (per exemple de l'Assemblea general), pots incloure'n l'adreça aquí. Pot ser, per exemple, un stream de Youtube.",
         "stream_link_label": "Aquest camp és opcional",
-        "submit_new_vote": "Votar de nou",
         "surname": "Surname",
         "thanks_for_participate_on_this_AGM": "Gràcies per participar en aquest procés, torna a la pàgina principal per a seguir i consultar els resultats quan estiguin disponibles",
         "the_blockchain_network_is_congested": "La xarxa de la cadena de blocs està congestionada",
@@ -646,6 +651,8 @@
     "votes": {
         "new": {
             "all_the_voters_has_the_same_power": "Tots els votants tindran el mateix poder de vot",
+            "anonymous_voting": "",
+            "by_activating_the_anonymous_voting_option": "",
             "disclaimer": "Atenció",
             "download_template": "Descarrega la plantilla",
             "download_the_original_template_to_fill": "Descarrega la plantilla original per omplir-la amb la teva llista de votants",
@@ -653,20 +660,27 @@
             "i_understand_and_i_agree_to_the_terms_and_conditions": "Entenc i accepto els <0>Termes i condicions</0> per organitzar els processos de votació.",
             "if_change_the_type_of_vote_the_updated_census_will_be_lost": "Si canvieu el tipus de vot, es perdrà el cens actual penjat",
             "import_the_list_of_voters": "Importa la llista de votants",
+            "it_will_be_impossible_for_a_third_party_to_see_witch_vote_a_use_has_cast": "",
+            "no": "",
             "normal_voting": "Votació normal",
             "requirements": "Requirements",
+            "select_": "",
             "select_voting_options": "Seleccioneu les opcions de votació",
             "set_different_power_to_each_voter": "Estableix un poder de vot diferent per a cada votant",
             "supported_formats_csv_xls": "(Formats compatibles: CSV, XLSX i ODS)",
             "the_document_name_that_you_updated_do_not_fill": "El document \"{{ documentName }}\" que heu penjat no compleixen alguns dels requisits.",
             "the_fields_are_case_insensitive_blank_spaces_will_be_ignored": "Els camps no distingeixen entre majúscules i minúscules, els espais en blanc s'ignoraran i els signes diacrítics es transformaran en lletres senzilles.",
             "the_first_row_will_be_used_as_the_name_of_the_fields": "La primera fila del full de càlcul s'utilitzarà com a nom dels camps que se'ls demanarà als votants.",
+            "the_voters_will_be_required_to_then_authenticate": "",
+            "the_voters_will_need_preregister_before_starting_date": "",
             "the_voting_power_should_be_above": "El poder de vot s'ha d'establir amb nombres enters superiors a 0 (zero). Qualsevol poder de vot que no compleixi els requisits comptarà com a 1 (un).",
             "the_weighted_voted_should_always_come_the_first_column": "La votació ponderada ha de ser sempre el primer camp.",
             "upload_new_document": "Carregueu una nova llista de votants",
             "upload_or_drag_and_drop_here_the_list": "Carregueu o arrossegueu i deixeu anar aquí la llista de votants",
             "vocdoni_currently_only_support_public_voting_process": "Vocdoni actualment només admet processos de votació pública. La informació sobre el procés es posarà a disposició del públic i no es podrà actualitzar després d'enviar-la. Assegureu-vos que tota la informació sigui correcta, que hàgiu llegit els Termes i condicions abans de crear el procés de votació i que no esteu compartint informació sensible.",
-            "weighted_voting": "Votació ponderada"
+            "weighted_voting": "Votació ponderada",
+            "would_you_like_this_voting_process_to_ensure_cryptographic_anonymity": "",
+            "yes": ""
         },
         "preregister_view": {
             "back": "",
