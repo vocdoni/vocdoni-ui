@@ -200,9 +200,9 @@
         "home": {
             "entity_address": "Entity address",
             "entity_description": "Entity description",
-            "view_in_explorer": "View in explorer",
             "entity_processes": "Entity processes",
-            "no_processes_yet": "No voting processes"
+            "no_processes_yet": "No voting processes",
+            "view_in_explorer": "View in explorer"
         },
         "i_have_read_and_accept_personal_data": "(Optional) I give my express consent for the commercial, and service management",
         "i_have_read_and_accept_terms": "I have read and accept “Personal Data Proteccion Information” (see above), and Aragon Labs “<1>Privacy Policy</1>”",
@@ -429,6 +429,12 @@
         "ending_in_one_hour": "Ending in 1h",
         "vote": "Vote"
     },
+    "pub": {
+        "votes": {
+            "preregister_completed": "",
+            "your_password_was_set_successfully_to_allow_you_participate_on": ""
+        }
+    },
     "recover": {
         "continue": "Continue",
         "drag_a_vocdoni_backup_file": "Drag the Vocdoni credentials here",
@@ -596,7 +602,6 @@
         "stream_link": "Video stream link",
         "stream_link_explanation": "If you are going to broadcast an event (an AGM, for instance) by streaming, you can include the link to the video here. It can be, for example, a Youtube stream.",
         "stream_link_label": "This field is optional",
-        "submit_new_vote": "Submit new vote",
         "surname": "Surname",
         "thanks_for_participate_on_this_AGM": "Thanks for participate on this voting process, get back to the page to follow the results",
         "the_blockchain_network_is_congested": "The blockchain network is congested",
