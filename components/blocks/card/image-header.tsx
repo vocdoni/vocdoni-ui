@@ -76,10 +76,12 @@ const CardH2 = styled(H2)`
 
   @media ${({ theme }) => theme.screenMax.tabletL} {
     font-size: 30px;
+    line-height: 36px;
   }
 
   @media ${({ theme }) => theme.screenMax.tablet} {
     font-size: 24px;
+    line-height: 28px;
   }
 
   @media ${({ theme }) => theme.screenMax.mobileL} {
@@ -100,15 +102,16 @@ const CardBody = styled(Body1)`
 const EntityLogoWrapper = styled.div`
   overflow: hidden;
   border-radius: 50%;
-  width: 78px;
-  height: 78px;
+  width: 84px;
+  height: 84px;
   display: flex;
-  margin: -62px auto 10px;
+  margin: -62px auto 0px;
   border: solid 1px ${({ theme }) => theme.white};
 
   & > img {
     max-height: 100%;
     max-width: 100%;
+    background-color: #fff;
   }
 
   @media ${({ theme }) => theme.screenMax.mobileL} {

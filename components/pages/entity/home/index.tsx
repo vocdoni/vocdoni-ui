@@ -34,13 +34,6 @@ export const EntityView = ({ address, metadata, processes, blockHeight }: IEntit
 
       <Grid>
         <Column sm={12}>
-          <Typography variant={TypographyVariant.Body1}>{i18n.t('entity.home.entity_address')} </Typography>
-          <Typography variant={TypographyVariant.Small}>{address}<a href={explorerUrl} target='blank'>({i18n.t('entity.home.view_in_explorer')})</a></Typography>
-        </Column>
-      </Grid>
-
-      <Grid>
-        <Column sm={12}>
           <Typography variant={TypographyVariant.Body1}>{i18n.t('entity.home.entity_description')}</Typography>
           <Typography variant={TypographyVariant.Small}>{metadata.description.default}</Typography>
         </Column>
@@ -48,6 +41,14 @@ export const EntityView = ({ address, metadata, processes, blockHeight }: IEntit
 
       <Grid>
         <Column sm={12}>
+          <Typography variant={TypographyVariant.Body1}>{i18n.t('entity.home.entity_address')} </Typography>
+          <Typography variant={TypographyVariant.Small}>{address}<a href={explorerUrl} target='blank'>({i18n.t('entity.home.view_in_explorer')})</a></Typography>
+        </Column>
+      </Grid>
+
+      <Grid>
+        <Column sm={12}>
+          <Typography variant={TypographyVariant.Body1}>{i18n.t('entity.home.entity_processes')} </Typography>
           {processes.map((process, index) => {
             const processStatus = getVoteStatus(process.summary, blockHeight)
             
@@ -62,6 +63,9 @@ export const EntityView = ({ address, metadata, processes, blockHeight }: IEntit
               />
             )
           })}
+          {processes.length <= 0 &&
+            <Typography variant={TypographyVariant.Small}>{i18n.t('entity.home.no_processes_yet')} </Typography>
+          }
         </Column>
       </Grid>
     </PageCard>
