@@ -24,7 +24,7 @@
             "help_and_feedback": "Help & feedback",
             "language": "Language",
             "public_page": "Public page",
-            "settings": "Setting",
+            "settings": "Settings",
             "update_entity": "Update entity",
             "user_language": "Language: {{ lang }}"
         },
@@ -200,7 +200,9 @@
         "home": {
             "entity_address": "Entity address",
             "entity_description": "Entity description",
-            "view_in_explorer": "View in explorer"
+            "view_in_explorer": "View in explorer",
+            "entity_processes": "Entity processes",
+            "no_processes_yet": "No voting processes"
         },
         "i_have_read_and_accept_personal_data": "(Optional) I give my express consent for the commercial, and service management",
         "i_have_read_and_accept_terms": "I have read and accept “Personal Data Proteccion Information” (see above), and Aragon Labs “<1>Privacy Policy</1>”",
@@ -298,7 +300,7 @@
         "the_list_of_votes_cannot_be_loaded": "The list of votes cannot be loaded",
         "the_passphrase_does_not_match": "The password does not match",
         "the_passphrase_is_empty": "The password is empty",
-        "the_passphrase_should_contain_some_uppercase_characters_and_length_8": "The password must have 8 characters or more, with at least 1 uppercase",
+        "the_passphrase_should_contain_some_uppercase_characters_and_length_8": "Must have 8 characters or more, with at least 1 uppercase and 1 lowercase",
         "the_recovery_could_not_be_completed": "The recovery could not be completed",
         "the_vote_has_not_been_registered": "The vote has not been registered",
         "there_is_already_one_account_with_the_same_credentials": "There is already one account with the same credentials",

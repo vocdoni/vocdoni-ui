@@ -97,12 +97,13 @@ const BaseSpinner = styled.div`
   width: 26px;
   height: 26px;
   border-radius: 50%;
+  margin-right: 8px;
 `
 const Check = styled(BaseSpinner)`
   background-color: ${({ theme }) => theme.accent1};
   color: ${({ theme }) => theme.white};
   & > svg {
-    width: 18px;
+    width: 16px;
     margin: 5px;
   }
 `
