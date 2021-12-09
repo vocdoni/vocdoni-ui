@@ -16,6 +16,8 @@ import { UseDbAccountsProvider } from '@hooks/use-db-accounts'
 import { UseRudderStackProvider } from '@hooks/rudderstack'
 import { UseCookiesProvider } from '@hooks/cookies'
 
+import { PATH_WITHOUT_COOKIES } from '@const/routes'
+
 interface IDefaultProvidersProps {
   children: ReactNode
 }
@@ -30,7 +32,7 @@ export const DefaultProviders = ({ children }: IDefaultProvidersProps) => {
   return (
     <UseWalletContextProvider>
       <UseRudderStackProvider>
-        <UseCookiesProvider>
+        <UseCookiesProvider hideInPaths={PATH_WITHOUT_COOKIES}>
           <UseMessageAlertProvider>
             <UseLoadingAlertProvider>
               <UsePoolProvider
