@@ -7,6 +7,7 @@ import { SectionText } from '@components/elements/text'
 import { Grid, Column } from '@components/elements/grid'
 import { Button } from '@components/elements/button'
 import { Choice, Question } from '@lib/types'
+import { Typography, TypographyVariant } from '@components/elements/typography'
 
 interface IModalQuestionList {
   questions: Question[]
@@ -44,24 +45,32 @@ export const ModalQuestionList = ({
       <ModalHeader>{i18n.t('vote.confirm_your_vote')}</ModalHeader>
 
       <QuestionsContainer>
-        {questions.map((question: Question, index: number) =>
-          renderQuestion(question, question.choices[choices[index]], index)
+        {!sendingVote ? (
+          questions.map((question: Question, index: number) =>
+            renderQuestion(question, question.choices[choices[index]], index)
+          )
+        ) : (
+          <Typography variant={TypographyVariant.Body2}>
+            {i18n.t('vote.sending_vote_please_dont_close_the_browsers')}
+          </Typography>
         )}
       </QuestionsContainer>
 
       <Grid>
-        <Column sm={6}>
-          <Button
-            wide
-            color={colors.accent1}
-            onClick={onClose}
-            disabled={sendingVote}
-          >
-            {i18n.t('vote.no_back_to_login')}
-          </Button>
-        </Column>
+        {!sendingVote && (
+          <Column sm={6}>
+            <Button
+              wide
+              color={colors.accent1}
+              onClick={onClose}
+              disabled={sendingVote}
+            >
+              {i18n.t('vote.no_back_to_login')}
+            </Button>
+          </Column>
+        )}
 
-        <Column sm={6}>
+        <Column sm={sendingVote ? 12 : 6}>
           <Button
             wide
             positive
@@ -86,7 +95,7 @@ const QuestionsContainer = styled.div`
   overflow-x: hidden;
   max-height: 300px;
 
-  @media ${({theme}) => theme.screenMax.mobileL} {
+  @media ${({ theme }) => theme.screenMax.mobileL} {
     max-height: 260px;
   }
 `

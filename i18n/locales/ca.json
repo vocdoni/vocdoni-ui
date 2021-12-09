@@ -200,7 +200,7 @@
         "home": {
             "entity_address": "Adreça de l'entitat",
             "entity_description": "Descripció de l'entitat",
-            "view_in_explorer": "Veure en el navegador",            
+            "view_in_explorer": "Veure en el navegador",
             "entity_processes": "Processos de l'entitat",
             "no_processes_yet": "Sense processos de votació."
         },
@@ -586,6 +586,7 @@
         "retry": "Torna-ho a provar",
         "reveal_results_at_the_end": "Revela els resultats al final del procés",
         "select_whether_results_should_be_visible_in_real_time": "Selecciona si vols que el recompte sigui en temps real o només quan hagi acabat el procés de votació",
+        "sending_vote_please_dont_close_the_browsers": "Estem processant el teu vot. Aquest procés trigarà uns segons. Si us plau, no tanquis ni actualitzis aquesta pàgina.",
         "set_option": "Estableix una opció",
         "settings": "Configuració",
         "something_was_wrong_please_click_retry_to_try_again_the_entity_creation_if_fails_again_contact_with_our_support_team": "Si et plau, espera una estona i torna-ho a provar. Si el problema persisteix, posa't en contacte amb l'equip de suport.",
@@ -637,6 +638,7 @@
         "you_cant_enter_contact_with_entity": "Problemes amb l'accés? contacta amb l'entitat",
         "you_got_attributed_a_voting_power_per_question": "",
         "you_need_authenticate_to_vote": "Es necessita autenticar-te per votar",
+        "you_vote_has_been_submit_successfully_the_results_will_be_available": "El teu vot ha estat registrat correctament. Els resultats es faran públics durant l’Assemblea del 18 de juny",
         "your_choice": "La teva selecció",
         "your_entity_is_being_registered": "La teva entitat ha estat registrada",
         "your_vote_has_been_registered": "El teu vot ha estat registrat",

@@ -5,7 +5,7 @@ import translation from './locales'
 
 const i18n = i18next.createInstance()
 
-export const supportedLanguages = ['ca', 'es', 'en']
+export const supportedLanguages = ['ca']
 
 const userLang = LanguageService.getDefaultLanguage()
 
@@ -13,12 +13,12 @@ i18n
 	.use(initReactI18next)
 	.init({
 		debug: process.env.NODE_ENV === 'development',
-		preload: ['en'],
+		preload: ['ca'],
 		resources: {
 			translation
 		},
 		lng: userLang,
-		fallbackLng: 'en',
+		fallbackLng: 'ca',
 		defaultNS: 'translation',
 		interpolation: {
 			escapeValue: false,
