@@ -3,14 +3,11 @@ import { Choice, Question } from '@lib/types'
 import { FlexContainer, FlexJustifyContent } from '@components/elements/flex'
 import { useTranslation } from 'react-i18next'
 import { Button } from '@components/elements/button'
-import styled from 'styled-components'
+import styled, { useTheme } from 'styled-components'
 
 import { Typography, TypographyVariant } from '@components/elements/typography'
-import ReactPlayer from 'react-player'
-import { Column } from '@components/elements/grid'
+
 import { QuestionCard } from './question-card'
-import { colors } from '@theme/colors'
-import { Indexed } from '@ethersproject/abi'
 import { VoteWeightCard } from './vote-weight-card'
 
 interface IQuesListProps {
@@ -38,6 +35,7 @@ export const QuestionsList = forwardRef<HTMLDivElement, IQuesListProps>(
     }: IQuesListProps,
     ref
   ) => {
+    const { accent1 } = useTheme()
     useEffect(() => {
       onComponentMounted && onComponentMounted(ref)
     }, [])
@@ -82,7 +80,7 @@ export const QuestionsList = forwardRef<HTMLDivElement, IQuesListProps>(
         <div>
           <Typography
             variant={TypographyVariant.H3}
-            color={colors.accent1}
+            color={accent1}
             margin="0"
           >
             {i18n.t('votes.questions_list.question', {
