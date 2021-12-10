@@ -13,20 +13,19 @@ export const useAuth = (): IUseAuth => {
   const checkCensusProof = async (censusRoot: string, key: string) => {
     try {
       const voterWallet = new Wallet(key)
-  
+
       const digestedHexClaim = CensusOffChain.Public.encodePublicKey(
         voterWallet.publicKey
       )
-  
+
       const pool = await poolPromise
-  
+
       const censusProof = await CensusOffChainApi.generateProof(
         censusRoot,
-        digestedHexClaim,
-        false,
+        { key: digestedHexClaim },
         pool
       )
-  
+
       if (!censusProof) throw new NoCensusMemberError()
     } catch (error) {
       throw new NoCensusMemberError()

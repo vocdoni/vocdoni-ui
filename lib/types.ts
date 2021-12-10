@@ -12,9 +12,8 @@ export enum AccountStatus {
 
 
 export type CensusPoof = {
-  censusValue: Uint8Array
-  siblings: Uint8Array
-  weight: string
+  siblings: string
+  weight: bigint
 }
 
 

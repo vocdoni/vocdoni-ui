@@ -222,7 +222,7 @@ export const VotingPageView = () => {
     )
   }
 
-  
+
   const processVotingType: VotingType = processInfo?.state?.censusOrigin as any
 
   const showDescription =
@@ -238,7 +238,7 @@ export const VotingPageView = () => {
   const showLogInButton = votingState == VotingState.Guest
 
   const voteWeight =
-    VotingType.Weighted === processVotingType ? censusProof?.weight : null
+    VotingType.Weighted === processVotingType ? censusProof?.weight.toString() : null
 
   const totalVotes =
     VotingType.Weighted === processVotingType
