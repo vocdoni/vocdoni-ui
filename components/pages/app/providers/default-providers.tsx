@@ -6,8 +6,6 @@ import {
   UseBlockStatusProvider,
 } from '@vocdoni/react-hooks'
 import { EthNetworkID, VocdoniEnvironment } from 'dvote-js'
-import { Elements } from '@stripe/react-stripe-js'
-import { loadStripe } from '@stripe/stripe-js'
 
 import { UseMessageAlertProvider } from '@hooks/message-alert'
 import { UseLoadingAlertProvider } from '@hooks/loading-alert'
@@ -19,7 +17,6 @@ import { UseRudderStackProvider } from '@hooks/rudderstack'
 import { UseCookiesProvider } from '@hooks/cookies'
 
 import { PATH_WITHOUT_COOKIES } from '@const/routes'
-import { STRIPE_PUB_KEY } from '@const/env'
 
 interface IDefaultProvidersProps {
   children: ReactNode
@@ -35,35 +32,33 @@ export const DefaultProviders = ({ children }: IDefaultProvidersProps) => {
   return (
     <UseWalletContextProvider>
       <UseRudderStackProvider>
-        <Elements stripe={stripePromise}>
-          <UseCookiesProvider hideInPaths={PATH_WITHOUT_COOKIES}>
-            <UseMessageAlertProvider>
-              <UseLoadingAlertProvider>
-                <UsePoolProvider
-                  bootnodeUri={bootnodeUri}
-                  networkId={networkId}
-                  environment={environment}
-                  discoveryTimeout={discoveryTimeout}
-                  minNumGateways={discoveryPoolSize}
-                >
-                  <UseBlockStatusProvider>
-                    <UseBackendProvider>
-                      <UseProcessProvider>
-                        <UseVotingProvider>
-                          <UseEntityProvider>
-                            <UseDbAccountsProvider>
-                              {children}
-                            </UseDbAccountsProvider>
-                          </UseEntityProvider>
-                        </UseVotingProvider>
-                      </UseProcessProvider>
-                    </UseBackendProvider>
-                  </UseBlockStatusProvider>
-                </UsePoolProvider>
-              </UseLoadingAlertProvider>
-            </UseMessageAlertProvider>
-          </UseCookiesProvider>
-        </Elements>
+        <UseCookiesProvider hideInPaths={PATH_WITHOUT_COOKIES}>
+          <UseMessageAlertProvider>
+            <UseLoadingAlertProvider>
+              <UsePoolProvider
+                bootnodeUri={bootnodeUri}
+                networkId={networkId}
+                environment={environment}
+                discoveryTimeout={discoveryTimeout}
+                minNumGateways={discoveryPoolSize}
+              >
+                <UseBlockStatusProvider>
+                  <UseBackendProvider>
+                    <UseProcessProvider>
+                      <UseVotingProvider>
+                        <UseEntityProvider>
+                          <UseDbAccountsProvider>
+                            {children}
+                          </UseDbAccountsProvider>
+                        </UseEntityProvider>
+                      </UseVotingProvider>
+                    </UseProcessProvider>
+                  </UseBackendProvider>
+                </UseBlockStatusProvider>
+              </UsePoolProvider>
+            </UseLoadingAlertProvider>
+          </UseMessageAlertProvider>
+        </UseCookiesProvider>
       </UseRudderStackProvider>
     </UseWalletContextProvider>
   )
