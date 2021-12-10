@@ -127,7 +127,7 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
   useEffect(() => {
     paramsMethods.setCensusOrigin(
       new ProcessCensusOrigin(votingType as IProcessCensusOrigin)
-    )    
+    )
   }, [votingType])
 
   useEffect(() => {
@@ -182,14 +182,14 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
         const payload = importedRowToString(normalizedRow, entityId)
         const voterWallet = digestedWalletFromString(payload)
         const key = CensusOffChain.Public.encodePublicKey(voterWallet.publicKey)
-        
+
         resolve({ key, value: weight })
       }, 50)
     }))) as { key: string, value?: string }[]
 
     // Create the census
     const { censusId } = await CensusOffChainApi.addCensus(name, [wallet.publicKey], wallet, pool)
-    const { censusRoot, invalidClaims } = await CensusOffChainApi.addClaimBulk(censusId, claims, false, wallet, pool)
+    const { censusRoot, invalidClaims } = await CensusOffChainApi.addClaimBulk(censusId, claims, wallet, pool)
     if (invalidClaims.length) {
       return Promise.reject(new Error(i18n.t('error.num_entries_could_not_be_added_to_the_census', { total: invalidClaims.length })))
     }

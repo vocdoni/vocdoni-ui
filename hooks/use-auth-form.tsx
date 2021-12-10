@@ -50,7 +50,7 @@ export const useAuthForm = () => {
     newValue[key] = value
     setFormValues(newValue)
   }
-  
+
 
   const onLogin = (): Promise<void|number> => {
     let authFields: string[] = []
@@ -71,7 +71,7 @@ export const useAuthForm = () => {
     const digestedHexClaim = CensusOffChain.Public.encodePublicKey(voterWallet.publicKey)
 
     return poolPromise.then(pool =>
-      CensusOffChainApi.generateProof(processInfo.state?.censusRoot, digestedHexClaim , false, pool)
+      CensusOffChainApi.generateProof(processInfo.state?.censusRoot, { key: digestedHexClaim }, pool)
     ).then(censusProof => {
       if (!censusProof) throw new Error("Invalid census proof")
       setCensusProof(censusProof)

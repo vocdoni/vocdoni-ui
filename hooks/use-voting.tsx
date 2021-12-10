@@ -1,5 +1,5 @@
 import { usePool, useBlockHeight } from '@vocdoni/react-hooks'
-import { ProcessDetails, CensusOffChain, CensusOffChainApi, ProcessResultsSingleChoice, VotingApi } from 'dvote-js'
+import { ProcessDetails, CensusOffChain, CensusOffChainApi, ProcessResultsSingleChoice, VotingApi, Voting } from 'dvote-js'
 import { createContext, ReactNode, useContext, useEffect, useState } from 'react'
 
 import { useWallet, WalletRoles } from './use-wallet'
@@ -109,7 +109,7 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
 
     // Future: adapt to the zk snark case
 
-    const nullifier = VotingApi.getSignedVoteNullifier(wallet.address, processId)
+    const nullifier = Voting.getSignedVoteNullifier(wallet.address, processId)
     setNullifier(nullifier)
   }, [wallet?.address, processId])
 
@@ -122,13 +122,11 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
     try {
       const pool = await poolPromise
 
-      const isDigested = false
       const digestedHexClaim = CensusOffChain.Public.encodePublicKey(wallet.publicKey)
 
       const censusProof = await CensusOffChainApi.generateProof(
         processInfo.state?.censusRoot,
-        digestedHexClaim,
-        isDigested,
+        { key: digestedHexClaim },
         pool
       )
       if (!censusProof) return setAlertMessage(i18n.t("errors.you_are_not_part_of_the_census"))
@@ -206,11 +204,11 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
       // Detect encryption
       if (processInfo.state?.envelopeType.encryptedVotes) {
         const processKeys = await VotingApi.getProcessKeys(processId, pool)
-        const envelope = await VotingApi.packageSignedEnvelope({ censusOrigin: processInfo.state?.censusOrigin, votes: choices, censusProof, processId, walletOrSigner: wallet, processKeys })
+        const envelope = await Voting.packageSignedEnvelope({ censusOrigin: processInfo.state?.censusOrigin, votes: choices, censusProof, processId, walletOrSigner: wallet, processKeys })
         await VotingApi.submitEnvelope(envelope, wallet, pool)
       }
       else {
-        const envelope = await VotingApi.packageSignedEnvelope({ censusOrigin: processInfo.state?.censusOrigin, votes: choices, censusProof, processId, walletOrSigner: wallet })
+        const envelope = await Voting.packageSignedEnvelope({ censusOrigin: processInfo.state?.censusOrigin, votes: choices, censusProof, processId, walletOrSigner: wallet })
         await VotingApi.submitEnvelope(envelope, wallet, pool)
       }
 
