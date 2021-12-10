@@ -36,7 +36,7 @@ export const BoxPlan = ({ product, onSelectProduct }: IBoxPlanProps) => {
       </Button>}
 
       <FeatureList>
-        {product.features.map((feature, index) => (
+        {product.features.list.map((feature, index) => (
           <FeatureItem key={index}>{feature}</FeatureItem>
         ))}
       </FeatureList>

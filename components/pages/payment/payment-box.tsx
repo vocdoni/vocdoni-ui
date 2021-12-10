@@ -21,7 +21,7 @@ export const PaymentBox = ({product, subscription}: IPaymentBoxProps) => {
       </div>
 
       <FeatureList>
-        {product.features && product.features.map((feature, index) => (
+        {product.features && product.features.list.map((feature, index) => (
           <FeatureItem key={index}>{feature}</FeatureItem>
         ))}
       </FeatureList>

@@ -38,7 +38,7 @@ type ButtonProps = {
     target?: LinkTarget
     spinner?: boolean
     type?: 'submit' | 'reset' | 'button'
-    onClick?: (ev: React.MouseEvent<HTMLDivElement, MouseEvent>) => void
+    onClick?: (ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
 }
 
 export const Button = ({ disabled, positive, negative, color, href, target, onClick, width, icon, wide, border, borderColor, justify, verticalAlign, large, small, spinner, type, children }: ButtonProps) => {
