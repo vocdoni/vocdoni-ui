@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled, { useTheme } from 'styled-components'
 import { useTranslation } from 'react-i18next'
 
 import { PageCardHeader } from '@components/elements/cards'
@@ -31,6 +31,7 @@ export const CardImageHeader = ({
   processImage,
 }: ICardImageHeader) => {
   const { i18n } = useTranslation()
+  const { accent1 } = useTheme()
 
   const headerImageSrc = processImage || FALLBACK_VOTE_HEADER_IMAGE
   const entityImageSrc = entityImage || FALLBACK_ACCOUNT_ICON
@@ -56,7 +57,7 @@ export const CardImageHeader = ({
 
           {subtitle && (
             <CardBody
-              color={colors.accent1}
+              color={accent1}
               align={TextAlign.Center}
               margin="0 0 20px 0"
             >
