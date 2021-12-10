@@ -46,7 +46,7 @@ const VoteAuthLogin = () => {
   useEffect(() => {
     if (processInfo?.metadata?.meta?.[MetadataFields.BrandColor] || entityMetadata?.meta?.[MetadataFields.BrandColor]) {
       const brandColor = processInfo?.metadata?.meta?.[MetadataFields.BrandColor] || entityMetadata?.meta?.[MetadataFields.BrandColor]
-
+      console.log('setting theme', brandColor)
       updateAppTheme({
         accent1: brandColor,
         accent1B: brandColor,
