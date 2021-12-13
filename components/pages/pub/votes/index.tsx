@@ -88,31 +88,6 @@ export const VotingPageView = () => {
     top: 0,
   })
 
-{/*
-  const startBlock = processInfo?.state?.startBlock || 0
-  const endBlock = processInfo?.state?.endBlock || 0
-  const { date: startDate } = useDateAtBlock(startBlock)
-  const { date: endDate } = useDateAtBlock(endBlock)
-
-  // Callbacks
-  const hasStarted = startDate && startDate.getTime() <= Date.now()
-  const hasEnded = endDate && endDate.getTime() < Date.now()
-
-
-  const remainingTime = (startBlock && startDate)
-    ? hasStarted
-      ? localizedStrDateDiff(DateDiffType.End, endDate)
-      : localizedStrDateDiff(DateDiffType.Start, startDate)
-    : ''
-  
-
-  console.log("Start date: "+startDate.toUTCString('es-ES'))
-  console.log("End date: "+endDate)
-  console.log("remaining time:"+remainingTime)
-  console.log("Has started: " + hasStarted);
-  console.log("Has ended: "+ hasEnded)
-*/}
-
   const handleVideoPosition = () => {
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current)
@@ -230,7 +205,6 @@ export const VotingPageView = () => {
   }
 
   const handleBackToDescription = () => {
-    console.log("handleBackToDescription FIRED!")
     setVotingState(VotingState.NotStarted)
   }
 
