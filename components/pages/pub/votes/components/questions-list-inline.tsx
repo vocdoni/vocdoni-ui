@@ -90,7 +90,7 @@ export const QuestionsListInline = forwardRef<HTMLDivElement, IQuesListProps>(
             <Button
               onClick={finishVote}
               positive
-              disabled={(results.length < questions.length || results.every((r) => r === 'undefined'))}
+              disabled={(results.length < questions.length || results.includes(undefined))}
             >
               {i18n.t('votes.questions_list.finish_voting')}
             </Button>
@@ -102,7 +102,7 @@ export const QuestionsListInline = forwardRef<HTMLDivElement, IQuesListProps>(
             <Button
               onClick={finishVote}
               positive
-              disabled={(results.length < questions.length || results.every((r) => r === 'undefined'))}
+              disabled={(results.length < questions.length || results.includes(undefined))}
             >
               {i18n.t('votes.questions_list.finish_voting')}
             </Button>

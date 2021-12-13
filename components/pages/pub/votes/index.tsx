@@ -385,6 +385,7 @@ export const VotingPageView = () => {
             <VoteRegisteredCard explorerLink={explorerLink} />
           </VoteRegisteredLgContainer>
         )}
+        
         {showResults &&
           processInfo?.metadata?.questions.map(
             (question: Question, index: number) => (
