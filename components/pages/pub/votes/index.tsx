@@ -215,12 +215,10 @@ export const VotingPageView = () => {
   }
 
   const handleLogOut = () => {
-    setWallet(null)
-    votingMethods.cleanup()
-
-    router.push(
-      RouterService.instance.get(VOTING_AUTH_FORM_PATH, { processId })
-    )
+    // setWallet(null)
+    // votingMethods.cleanup()
+    let url = RouterService.instance.get(VOTING_AUTH_FORM_PATH, { processId })
+    window.location.href = url
   }
 
 
