@@ -1,10 +1,10 @@
 # Static web site compiler
-FROM node:14 as builder
+FROM node:16 as builder
 
 ARG COMMIT_SHA
 ENV COMMIT_SHA=${COMMIT_SHA}
-ARG NODE_ENV="development"
-ENV NODE_ENV=${NODE_ENV}
+# ARG NODE_ENV="development"
+# ENV NODE_ENV=${NODE_ENV}
 ARG VOCDONI_ENVIRONMENT
 ENV VOCDONI_ENVIRONMENT=${VOCDONI_ENVIRONMENT}
 ARG ETH_NETWORK_ID
@@ -16,8 +16,9 @@ ENV BOOTNODES_URL=${BOOTNODES_URL}
 ARG DISCOVERY_POOL_SIZE
 ENV DISCOVERY_POOL_SIZE=${DISCOVERY_POOL_SIZE}
 
-ADD . /app
 WORKDIR /app
+
+ADD . /app
 RUN npm install && npm run export
 
 ## Static web server
