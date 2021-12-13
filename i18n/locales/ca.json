@@ -548,6 +548,7 @@
         "error_something_is_wrong": "Quelcom ha anat malament",
         "error_storing_metadata_on_ipfs": "Error emmagatzemant les metadades a IPFS",
         "extra_information": "Informació adicional",
+        "questions": "Preguntes",
         "forum_link": "Precs i preguntes",
         "forum_link_explanation": "Pots afegir un enllaç al vostre sistema de precs i preguntes. Aquest pot ser l'enllaç a un fòrum, a un grup de Telegram, una adreça de correu electrònic, una web...",
         "forum_link_label": "Aquest camp és opcional",

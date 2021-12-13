@@ -548,6 +548,7 @@
         "error_something_is_wrong": "Algo fue mal",
         "error_storing_metadata_on_ipfs": "Error almacenando los metadatos en IPFS",
         "extra_information": "Información adicional",
+        "questions": "Preguntas",
         "forum_link": "Ruegos y preguntas",
         "forum_link_explanation": "Puedes añadir un enlace a tu sistema de ruegos y preguntas. Este enlace puede llevar a un Fórum, a grupo de Telegram, a un correo, una web...",
         "forum_link_label": "Este campo es opcional",

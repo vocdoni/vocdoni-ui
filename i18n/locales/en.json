@@ -548,6 +548,7 @@
         "error_something_is_wrong": "Something went wrong",
         "error_storing_metadata_on_ipfs": "Error storing metadata on IPFS",
         "extra_information": "Extra Information",
+        "questions": "Questions",
         "forum_link": "Questions and answers",
         "forum_link_explanation": "Here you can add a URL to your question and answer system. It can be a link to a forum, e-mail, website, telegram group,...",
         "forum_link_label": "This field is optional",
