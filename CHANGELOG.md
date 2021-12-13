@@ -2,6 +2,16 @@
 
 
 ### v1.2.5
+* [DVOT-76] Added support for weighted voting
+* [DVOT-406] Improved entity creation process
+* [DVOT-105] Add Eye on password fields
+* [DVOT-201] Redirect to previous pages after configuring cookies
+    * Fix issue with the cookie banner
+* [DVOT-243] Improved logo on public page, added new info in the entity public page and added translations
+* [DVOT-216] Fix action card
+* Improved cookies/policy and conditions of use text, added new legal texts and missing information
+* Added logout button for desktop and mobile versions
+* Added missing translations for the public voting page
 
 ### v1.2.4
 
