@@ -216,13 +216,14 @@ export const VotingPageView = () => {
 
   const handleLogOut = () => {
     setWallet(null)
+    methods.cleanup()
 
     router.push(
       RouterService.instance.get(VOTING_AUTH_FORM_PATH, { processId })
     )
   }
 
-  
+
   const processVotingType: VotingType = processInfo?.state?.censusOrigin as any
 
   const showDescription =
@@ -381,12 +382,12 @@ export const VotingPageView = () => {
                 <TextContainer align={TextAlign.Center}>
                   {processVotingType === VotingType.Weighted
                     ? i18n.t('vote.total_weighted_votes', {
-                        totalVotes: results?.totalVotes,
-                        totalWeightedVotes: results?.totalWeightedVotes,
-                      })
+                      totalVotes: results?.totalVotes,
+                      totalWeightedVotes: results?.totalWeightedVotes,
+                    })
                     : i18n.t('vote.total_votes', {
-                        totalVotes: results?.totalVotes,
-                      })}
+                      totalVotes: results?.totalVotes,
+                    })}
                 </TextContainer>
               </Card>
             </Grid>
