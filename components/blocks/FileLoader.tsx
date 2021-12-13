@@ -25,7 +25,6 @@ const FileLoader = ({ onSelect, onChange, accept, maxMbSize, ...props }: Props) 
   const [file, setFile] = useState<File>(null)
   const [error, setError] = useState<string>(props.error)
   const [fileUrl, setFileUrl] = useState<string>('')
-  console.log('The file has error', error , props.error)
 
   useEffect(() => {
     setError(props.error)

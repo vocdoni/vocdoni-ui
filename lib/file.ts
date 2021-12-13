@@ -1,4 +1,4 @@
-import { FileApi, GatewayPool } from "dvote-js"
+import { FileApi, IGatewayClient } from "dvote-js"
 import { Wallet } from "ethers"
 
 /**
@@ -20,7 +20,7 @@ export const FileReaderPromise = (file: File): Promise<Buffer> => new Promise((r
   reader.readAsArrayBuffer(file)
 })
 
-export const uploadFileToIpfs = (file: File, pool: GatewayPool, wallet: Wallet) => {
+export const uploadFileToIpfs = (file: File, pool: IGatewayClient, wallet: Wallet) => {
   return FileReaderPromise(file).then(buffer => {
     return FileApi.add(buffer, file.name, wallet, pool)
   })

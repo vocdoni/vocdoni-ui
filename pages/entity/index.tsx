@@ -21,7 +21,6 @@ const EntityPage = () => {
     loadingProcessesDetails,
   } = useProcessesFromAccount(entityId)
 
-  console.log(entityId)
   const renderEntityPage = new ViewStrategy(
     () => !!metadata && !loading && !loadingProcessList && !loadingProcessesDetails,
     <EntityView address={entityId} metadata={metadata} processes={processes} blockHeight={blockHeight}/>

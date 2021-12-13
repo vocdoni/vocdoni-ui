@@ -12,7 +12,7 @@ import {
   EntityApi,
   EntityMetadata,
   EntityMetadataTemplate,
-  GatewayPool,
+  IGatewayClient,
   Symmetric,
   TextRecordKeys,
 } from 'dvote-js'
@@ -129,7 +129,7 @@ export const UseEntityCreationProvider = ({
   const { wallet, setWallet } = useWallet()
   const { dbAccounts, addDbAccount, updateAccount, getAccount } =
     useDbAccounts()
-  const [{contents: accounts}, setAccounts] = useRecoilStateLoadable<Account[]>(AccountsState)
+  const [{ contents: accounts }, setAccounts] = useRecoilStateLoadable<Account[]>(AccountsState)
   const { poolPromise } = usePool()
   const { bkPromise } = useBackend()
   const { trackEvent } = useRudderStack()
@@ -211,7 +211,7 @@ export const UseEntityCreationProvider = ({
     }
 
     try {
-      let pool: GatewayPool = await poolPromise
+      let pool: IGatewayClient = await poolPromise
       let avatar: string = logoUrl
       let header: string = headerUrl
 
@@ -326,7 +326,7 @@ export const UseEntityCreationProvider = ({
     if (account.status === AccountStatus.Ready) return null
 
     try {
-      const pool: GatewayPool = await poolPromise
+      const pool: IGatewayClient = await poolPromise
       const instance = await pool.getEnsPublicResolverInstance()
 
       const entityData = await instance.text(
