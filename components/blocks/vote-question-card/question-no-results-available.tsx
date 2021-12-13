@@ -31,9 +31,10 @@ export const QuestionNoResultsAvailable = ({question}: IQuestionResultsProps) =>
 }
 
 const ProgressBarContainer = styled.div`
-  width: 60px;
-  min-width: 60px;
+  width: 48px;
+  min-width: 48px;
   margin-right: 12px;
+  margin-bottom: 5px;
 
   & > svg > text {
     font-size: 24px !important;
@@ -41,5 +42,6 @@ const ProgressBarContainer = styled.div`
 `
 
 const DescriptionContainer = styled(SectionText)`
-  font-size: 24px;
+  font-size: 18px;
+  line-height: 40px;
 `

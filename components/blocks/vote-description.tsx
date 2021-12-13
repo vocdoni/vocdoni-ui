@@ -49,11 +49,11 @@ export const VoteDescription = forwardRef<HTMLDivElement, IVotePageProps>(
     }, [ref])
 
     const pdfIcon = (
-      <img src="/images/vote/pdf.svg" alt={i18n.t('vote.pdf_image_alt')} />
+      <img src="/images/vote/faq.png" alt={i18n.t('vote.pdf_image_alt')} />
     )
     const questionIcon = (
       <img
-        src="/images/vote/question.svg"
+        src="/images/vote/pdf.png"
         alt={i18n.t('vote.question_image_alt')}
       />
     )
@@ -77,9 +77,9 @@ export const VoteDescription = forwardRef<HTMLDivElement, IVotePageProps>(
 
         <When condition={discussionUrl || attachmentUrl || !!hasVideo}>
           <Column>
-            <SectionText size={TextSize.Big} color={colors.blueText}>
+            <ExtraInfoText size={TextSize.Big} color={colors.blueText}>
               {i18n.t('vote.extra_information')}
-            </SectionText>
+            </ExtraInfoText>
           </Column>
         </When>
 
@@ -154,4 +154,8 @@ const LiveStreamVideoContainer = styled.div`
   @media ${({ theme }) => theme.screenMax.mobileL} {
     height: 160px;
   }
+`
+
+const ExtraInfoText = styled(SectionText)`
+  margin:10px 0 0;
 `

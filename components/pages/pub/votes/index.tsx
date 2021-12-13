@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { useTranslation } from 'react-i18next'
 import ReactPlayer from 'react-player'
 
-import { useBlockStatus, useEntity, useProcess } from '@vocdoni/react-hooks'
+import { useBlockStatus, useDateAtBlock, useEntity, useProcess } from '@vocdoni/react-hooks'
 import { useRouter } from 'next/router'
 import { If, Then } from 'react-if'
 
@@ -32,10 +32,13 @@ import { VotingApi, EntityMetadata } from 'dvote-js'
 import { DateDiffType, localizedStrDateDiff } from '@lib/date'
 import { Body1, TextAlign, Typography, TypographyVariant } from '@components/elements/typography'
 import { QuestionsList } from './components/questions-list'
+import { QuestionsListInline } from './components/questions-list-inline'
+import { VoteNowCard } from './components/vote-now-card'
 import { censusProofState } from '@recoil/atoms/census-proof'
 import { VoteRegisteredCard } from './components/vote-registered-card'
 import RouterService from '@lib/router'
 import { VOTING_AUTH_FORM_PATH } from '@const/routes'
+import { useIsMobile } from '@hooks/use-window-size'
 
 export enum VotingState {
   NotStarted = 'notStarted',
@@ -52,6 +55,7 @@ interface IVideoStyle {
 }
 
 export const VotingPageView = () => {
+  const isMobile = useIsMobile()
   const { i18n } = useTranslation()
   const processId = useUrlHash().slice(1) // Skip "/"
   const router = useRouter()
@@ -83,6 +87,31 @@ export const VotingPageView = () => {
     width: 0,
     top: 0,
   })
+
+{/*
+  const startBlock = processInfo?.state?.startBlock || 0
+  const endBlock = processInfo?.state?.endBlock || 0
+  const { date: startDate } = useDateAtBlock(startBlock)
+  const { date: endDate } = useDateAtBlock(endBlock)
+
+  // Callbacks
+  const hasStarted = startDate && startDate.getTime() <= Date.now()
+  const hasEnded = endDate && endDate.getTime() < Date.now()
+
+
+  const remainingTime = (startBlock && startDate)
+    ? hasStarted
+      ? localizedStrDateDiff(DateDiffType.End, endDate)
+      : localizedStrDateDiff(DateDiffType.Start, startDate)
+    : ''
+  
+
+  console.log("Start date: "+startDate.toUTCString('es-ES'))
+  console.log("End date: "+endDate)
+  console.log("remaining time:"+remainingTime)
+  console.log("Has started: " + hasStarted);
+  console.log("Has ended: "+ hasEnded)
+*/}
 
   const handleVideoPosition = () => {
     if (timeoutRef.current) {
@@ -201,11 +230,14 @@ export const VotingPageView = () => {
   }
 
   const handleBackToDescription = () => {
+    console.log("handleBackToDescription FIRED!")
     setVotingState(VotingState.NotStarted)
   }
 
   const handleBackToVoting = () => {
-    setVotingState(VotingState.Started)
+    if(!showInlineQuestions){
+      setVotingState(VotingState.Started)
+    }
     setConfirmModalOpened(false)
   }
 
@@ -222,13 +254,17 @@ export const VotingPageView = () => {
     )
   }
 
-  
   const processVotingType: VotingType = processInfo?.state?.censusOrigin as any
 
   const showDescription =
     votingState === VotingState.NotStarted ||
     votingState === VotingState.Ended ||
     votingState === VotingState.Guest
+
+  const showInlineQuestions = 
+    votingState !== VotingState.Guest &&
+    !isMobile && 
+    processInfo?.metadata?.questions.length <= 3
 
   const showResults =
     votingState === VotingState.Guest || votingState === VotingState.Ended
@@ -283,8 +319,29 @@ export const VotingPageView = () => {
                     votingState={votingState}
                     explorerLink={explorerLink}
                     disabled={voteStatus !== VoteStatus.Active}
+                    showInlineQuestions={showInlineQuestions}
                   />
                 </VoteNowCardContainer>
+
+                {/*
+                {votingState === VotingState.NotStarted && (
+                  <VoteNowCardContainer>
+                    <VoteNowCard
+                      onVote={handleVoteNow}
+                      explorerLink={explorerLink}
+                      disabled={voteStatus !== VoteStatus.Active}
+                      hasVoted={showResults}
+                      isInline={showInlineQuestions}
+                    />
+                  </VoteNowCardContainer>
+                )}
+
+                {votingState === VotingState.Ended && (
+                  <VoteNowCardContainer>
+                    <VoteRegisteredCard explorerLink={explorerLink} />
+                  </VoteNowCardContainer>
+                )}
+              */}
               </Column>
             </Grid>
           )}
@@ -319,7 +376,7 @@ export const VotingPageView = () => {
             onBackDescription={handleBackToDescription}
           />
         )}
-
+        
         {showVotingButton && (
           <FixedButtonContainer>
             <div>
@@ -347,6 +404,18 @@ export const VotingPageView = () => {
               </Button>
             </div>
           </FixedButtonContainer>
+        )}
+
+        { showInlineQuestions && (
+          <QuestionsListInline
+            onComponentMounted={handleVideoPosition}
+            ref={votingVideoContainerRef}
+            results={choices}
+            questions={processInfo?.metadata?.questions}
+            voteWeight={voteWeight}
+            onSelect={methods.onSelect}
+            onFinishVote={handleFinishVote}
+          />
         )}
 
         {hasVoted && (

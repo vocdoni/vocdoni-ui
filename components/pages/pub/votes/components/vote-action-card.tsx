@@ -18,6 +18,7 @@ interface IVoteActionCardProps {
   votingState: VotingState
   onClick: () => void
   onLogOut?: () => void
+  showInlineQuestions: boolean
 }
 
 export const VoteActionCard = ({
@@ -26,6 +27,7 @@ export const VoteActionCard = ({
   explorerLink,
   onClick,
   onLogOut,
+  showInlineQuestions,
 }: IVoteActionCardProps) => {
   const { i18n } = useTranslation()
 
@@ -65,9 +67,11 @@ export const VoteActionCard = ({
       case VotingState.NotStarted:
         return (
           <>
-            <Button wide disabled={disabled} positive onClick={onClick}>
-              {i18n.t('vote.vote_now')}
-            </Button>
+            {!showInlineQuestions && (
+              <Button wide disabled={disabled} positive onClick={onClick}>
+                {i18n.t('vote.vote_now')}
+              </Button>
+            )}
 
             <ButtonContainer>
               <Button wide onClick={onLogOut}>
@@ -134,7 +138,7 @@ export const VoteActionCard = ({
 
         <BannerText>
           <Typography
-            variant={TypographyVariant.Body2}
+            variant={TypographyVariant.ExtraSmall}
             align={TextAlign.Center}
           >
             {getTitleFromState(votingState)}

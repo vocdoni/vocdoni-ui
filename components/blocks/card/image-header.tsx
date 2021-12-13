@@ -50,10 +50,6 @@ export const CardImageHeader = ({
 
       <Grid>
         <Column>
-          <CardH2 align={TextAlign.Center} margin="0 0 5px 0">
-            {title}
-          </CardH2>
-
           {subtitle && (
             <CardBody
               color={colors.accent1}
@@ -63,6 +59,10 @@ export const CardImageHeader = ({
               {subtitle}
             </CardBody>
           )}
+
+          <CardH2 align={TextAlign.Center} margin="0 0 5px 0">
+            {title}
+          </CardH2>
         </Column>
       </Grid>
     </CardImageHeaderContainer>
@@ -105,7 +105,7 @@ const EntityLogoWrapper = styled.div`
   width: 84px;
   height: 84px;
   display: flex;
-  margin: -62px auto 0px;
+  margin: -62px auto -10px;
   border: solid 1px ${({ theme }) => theme.white};
 
   & > img {
