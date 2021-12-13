@@ -19,7 +19,7 @@ ENV DISCOVERY_POOL_SIZE=${DISCOVERY_POOL_SIZE}
 WORKDIR /app
 
 ADD . /app
-RUN npm install && npm run export
+RUN npm install -f && npm run export
 
 ## Static web server
 FROM nginx:1.19
