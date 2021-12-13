@@ -1,5 +1,5 @@
 # Static web site compiler
-FROM node:14 as builder
+FROM node:16 as builder
 
 ARG COMMIT_SHA
 ENV COMMIT_SHA=${COMMIT_SHA}
@@ -24,7 +24,7 @@ RUN npm install
 ADD . /app
 RUN npm run export
 
-FROM node:14
+FROM node:16
 
 RUN apt update && apt install nginx -y && apt clean
 
