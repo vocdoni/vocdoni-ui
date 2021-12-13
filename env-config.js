@@ -9,10 +9,18 @@ let bootnodes = 'https://bootnodes.vocdoni.net/gateways.json'
 let backend = 'https://manager.vocdoni.net/api/manager'
 let explorer = 'https://explorer.vote'
 
+switch (VOCDONI_ENVIRONMENT) {
+  case 'dev':
+    explorer = `https://explorer.${VOCDONI_ENVIRONMENT}.vocdoni.net`
+    break
+  case 'stg':
+    explorer = `https://${VOCDONI_ENVIRONMENT}.explorer.vote`
+    break
+}
+
 if (VOCDONI_ENVIRONMENT !== 'prod') {
   bootnodes = bootnodes.replace('.json', `.${VOCDONI_ENVIRONMENT}.json`)
   backend = backend.replace('manager.', `manager.${VOCDONI_ENVIRONMENT}.`)
-  explorer = `https://explorer.${VOCDONI_ENVIRONMENT}.vocdoni.net/`
 }
 
 module.exports = {
