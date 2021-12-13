@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useEntity } from '@vocdoni/react-hooks'
 import { useTranslation } from 'react-i18next'
 
@@ -13,6 +13,7 @@ import { LayoutVoter } from '@components/pages/app/layout/voter'
 import { Redirect } from '@components/redirect'
 
 import { VOTING_PATH } from '@const/routes'
+import { useVoting } from '@hooks/use-voting'
 
 // NOTE: This page uses a custom Layout. See below.
 
@@ -27,8 +28,13 @@ const VoteAuthLogin = () => {
     key,
   } = useAuthKey()
   const { i18n } = useTranslation()
+  const { methods: votingMethods } = useVoting(processId)
   const { wallet } = useWallet({ role: WalletRoles.VOTER })
   const { loading, error } = useEntity(processInfo?.state?.entityId)
+
+  useEffect(() => {
+    votingMethods.cleanup()
+  }, [])
 
   const renderLoadingPage = new ViewStrategy(() => true, <Loader visible />)
 

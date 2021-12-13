@@ -170,7 +170,12 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
   }
 
   const cleanup = () => {
+    creationStepper.resetActionStep()
+    setNullifier("")
+    setCensusProof(null)
+    setHasVoted(false)
     setChoices([])
+    setRefreshingVotedStatus(false)
   }
 
   // MAIN ACTION STEPS
