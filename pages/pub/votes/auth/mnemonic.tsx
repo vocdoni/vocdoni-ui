@@ -21,6 +21,7 @@ import { langCa as wordListCa } from '@lib/wordlist-ca'
 import { Redirect } from '@components/redirect'
 import { VOTING_PATH } from '@const/routes'
 import { ETH_PATH } from '@const/eth'
+import { useVoting } from '@hooks/use-voting'
 
 // NOTE: This page uses a custom Layout. See below.
 const wordListEs = ethers.wordlists['es']
@@ -36,13 +37,18 @@ const VoteAuthMnemonic = () => {
   const [mnemonicError, setMnemonicError] = useState<string>()
   const [invalidProcessId, setInvalidProcessId] = useState<boolean>(false)
   const [validating, setValidating] = useState<boolean>(false)
+  const { methods: votingMethods } = useVoting(processId)
 
   const urlHash = useUrlHash() // Skip /
 
   useEffect(() => {
+    votingMethods.cleanup()
+  }, [])
+
+  useEffect(() => {
     if (urlHash) {
       const process = urlHash.slice(1).split('/')[0]
-      const invalidProcess= !process || !process.match(/^0x[0-9a-fA-F]{64}$/)
+      const invalidProcess = !process || !process.match(/^0x[0-9a-fA-F]{64}$/)
 
       setProcessId(process)
       setInvalidProcessId(invalidProcess)
@@ -105,7 +111,7 @@ const VoteAuthMnemonic = () => {
       const wallet = getWalletFromMnemonic(mnemonic)
       setMnemonicError('')
 
-      await checkCensusProof(
+      checkCensusProof(
         processInfo.state?.censusRoot,
         wallet.privateKey
       )

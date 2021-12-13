@@ -57,7 +57,7 @@ export const VotingPageView = () => {
   const router = useRouter()
   const { updateAppTheme } = useTheme()
   const censusProof = useRecoilValue(censusProofState)
-  const { methods, choices, hasVoted, results, nullifier } = useVoting(
+  const { methods: votingMethods, choices, hasVoted, results, nullifier } = useVoting(
     processId
   )
   const { process: processInfo } = useProcess(processId)
@@ -216,7 +216,7 @@ export const VotingPageView = () => {
 
   const handleLogOut = () => {
     setWallet(null)
-    methods.cleanup()
+    votingMethods.cleanup()
 
     router.push(
       RouterService.instance.get(VOTING_AUTH_FORM_PATH, { processId })
@@ -315,7 +315,7 @@ export const VotingPageView = () => {
             results={choices}
             questions={processInfo?.metadata?.questions}
             voteWeight={voteWeight}
-            onSelect={methods.onSelect}
+            onSelect={votingMethods.onSelect}
             onFinishVote={handleFinishVote}
             onBackDescription={handleBackToDescription}
           />
@@ -369,7 +369,7 @@ export const VotingPageView = () => {
                 selectedChoice={choices.length > index ? choices[index] : -1}
                 readOnly={true}
                 onSelectChoice={(selectedChoice) => {
-                  methods.onSelect(index, selectedChoice)
+                  votingMethods.onSelect(index, selectedChoice)
                 }}
               />
             )

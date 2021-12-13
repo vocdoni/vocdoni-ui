@@ -15,6 +15,8 @@ import { SignInForm } from '@components/pages/pub/votes/auth/sign-in-form'
 import { VotingErrorPage } from '@components/pages/pub/votes/voting-error-page'
 import { LayoutVoter } from '@components/pages/app/layout/voter'
 import { MetadataFields } from '@components/pages/votes/new/metadata'
+import { useVoting } from '@hooks/use-voting'
+
 // NOTE: This page uses a custom Layout. See below.
 
 const VoteAuthLogin = () => {
@@ -31,10 +33,15 @@ const VoteAuthLogin = () => {
     processInfo,
     methods,
   } = useAuthForm()
+  const { methods: votingMethods } = useVoting(processInfo?.id)
   const { metadata, loading, error } = useEntity(processInfo?.state?.entityId)
   const { updateAppTheme } = useTheme();
 
   const entityMetadata = metadata as EntityMetadata
+
+  useEffect(() => {
+    votingMethods.cleanup()
+  }, [])
 
   useEffect(() => {
     if (processInfo?.metadata?.meta?.[MetadataFields.BrandColor] || entityMetadata?.meta?.[MetadataFields.BrandColor]) {
