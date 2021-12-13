@@ -216,13 +216,10 @@ export const VotingPageView = () => {
 
   const handleLogOut = () => {
     setWallet(null)
-
-    router.push(
-      RouterService.instance.get(VOTING_AUTH_FORM_PATH, { processId })
-    )
+    let url = RouterService.instance.get(VOTING_AUTH_FORM_PATH, { processId })
+    window.location.href = url
   }
 
-  
   const processVotingType: VotingType = processInfo?.state?.censusOrigin as any
 
   const showDescription =
