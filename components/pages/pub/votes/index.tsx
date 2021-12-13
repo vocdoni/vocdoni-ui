@@ -192,7 +192,7 @@ export const VotingPageView = () => {
     if (votingState == VotingState.NotStarted) {
       setVotingState(VotingState.Started)
     } else if (votingState == VotingState.Guest) {
-      handleLogOut()
+      handleGotoAuth()
     }
   }
 
@@ -214,15 +214,29 @@ export const VotingPageView = () => {
     setConfirmModalOpened(false)
   }
 
-  const handleLogOut = () => {
+  const handleGotoAuth = () => {
     setWallet(null)
     votingMethods.cleanup()
 
-    router.push(
-      RouterService.instance.get(VOTING_AUTH_FORM_PATH, { processId })
-    )
+    setTimeout(() => {
+      router.push(
+        RouterService.instance.get(VOTING_AUTH_FORM_PATH, { processId })
+      )
+    }, 50)
   }
 
+  const handleLogOut = () => {
+    const confirmMsg = i18n.t('confirm.do_you_want_to_continue')
+    if (!confirm(confirmMsg)) return
+
+    setWallet(null)
+    votingMethods.cleanup()
+
+    setTimeout(() => {
+      // Force window unload after the wallet is wiped
+      window.location.href = RouterService.instance.get(VOTING_AUTH_FORM_PATH, { processId })
+    }, 50)
+  }
 
   const processVotingType: VotingType = processInfo?.state?.censusOrigin as any
 
