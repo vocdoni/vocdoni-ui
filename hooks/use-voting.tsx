@@ -40,6 +40,7 @@ export interface VotingContext {
   methods: {
     setProcessId: (processId: string) => void,
     onSelect: (questionIdx: number, choiceValue: number) => void,
+    cleanup: () => void,
 
     submitVote: () => Promise<void>,
     continueSubmitVote: () => Promise<void>
@@ -157,7 +158,7 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
       })
   }
 
-  // // Callbacks
+  // Callbacks
 
   const onSelect = (questionIdx: number, choiceValue: number) => {
     if (typeof choiceValue == 'string') choiceValue = parseInt(choiceValue)
@@ -168,17 +169,21 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
     setChoices([].concat(choices))
   }
 
+  const cleanup = () => {
+    setChoices([])
+  }
+
   // MAIN ACTION STEPS
 
-  const confirmAction: StepperFunc = () => {
-    const confirmed = confirm(
-      i18n.t("confirm.you_are_about_to_submit_your_vote") + ". " +
-      i18n.t("confirm.this_action_cannot_be_undone") + ".\n\n" +
-      i18n.t("confirm.do_you_want_to_continue")
-    )
-    if (!confirmed) throw new Error(i18n.t("errors.you_canceled_the_operation"))
-    return Promise.resolve({})
-  }
+  // const confirmAction: StepperFunc = () => {
+  //   const confirmed = confirm(
+  //     i18n.t("confirm.you_are_about_to_submit_your_vote") + ". " +
+  //     i18n.t("confirm.this_action_cannot_be_undone") + ".\n\n" +
+  //     i18n.t("confirm.do_you_want_to_continue")
+  //   )
+  //   if (!confirmed) Promise.reject(new Error(i18n.t("errors.you_canceled_the_operation")))
+  //   return Promise.resolve({})
+  // }
 
   const ensureCensusProof: StepperFunc = () => {
     if (censusProof) return Promise.resolve({})
@@ -293,6 +298,7 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
     methods: {
       setProcessId,
       onSelect,
+      cleanup,
 
       submitVote: doMainActionSteps,
       continueSubmitVote: doMainActionSteps
