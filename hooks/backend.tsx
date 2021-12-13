@@ -5,15 +5,15 @@ import React, {
   useContext,
   ReactNode
 } from 'react'
-import { DVoteGateway } from 'dvote-js'
+import { DVoteGateway, IGatewayDVoteClient } from 'dvote-js'
 import { Nullable } from '@vocdoni/react-hooks'
 import { useSetRecoilState } from 'recoil'
 import { backendState } from 'recoil/atoms/backend'
 
 interface BackendContext {
   error: Nullable<string>,
-  bk: DVoteGateway,
-  bkPromise: Promise<DVoteGateway>,
+  bk: IGatewayDVoteClient,
+  bkPromise: Promise<IGatewayDVoteClient>,
   loading: boolean,
   setLoading?(loading: boolean): void,
   setError?(error: string): void,
@@ -47,14 +47,14 @@ export function UseBackendProvider({
   // Promise holder for requests arriving before the pool is available
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<Nullable<string>>(null)
-  const [bk, setBk] = useState<DVoteGateway>(() => new DVoteGateway({
+  const [bk, setBk] = useState<IGatewayDVoteClient>(() => new DVoteGateway({
     supportedApis: ['registry'],
     uri: process.env.BACKEND_URL,
     publicKey: process.env.BACKEND_PUB_KEY,
   }))
   const setBackend = useSetRecoilState(backendState)
-  let bkPromise: Promise<DVoteGateway>
-  let resolveBackendPromise: (bk: DVoteGateway) => any
+  let bkPromise: Promise<IGatewayDVoteClient>
+  let resolveBackendPromise: (bk: IGatewayDVoteClient) => any
 
   useEffect(() => {
     setLoading(true)
@@ -73,7 +73,7 @@ export function UseBackendProvider({
 
   // Ensure that by default, resolvePool always has a promise
   if (bk === null) {
-    bkPromise = new Promise<DVoteGateway>((resolve) => {
+    bkPromise = new Promise<IGatewayDVoteClient>((resolve) => {
       resolveBackendPromise = resolve
     })
   } else {

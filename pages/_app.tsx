@@ -38,7 +38,7 @@ const VocdoniApp: FC<NextAppProps> = ({ Component, pageProps }) => {
   const Providers: FC = Component['Providers']
     ? Component['Providers']
     : DefaultProviders
-  console.log(pageProps)
+
   return (
     <RecoilRoot>
       <ThemeContextProvider>

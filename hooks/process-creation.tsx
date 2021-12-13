@@ -12,7 +12,7 @@ import {
   INewProcessParams,
   IProcessCensusOrigin,
   ProcessCensusOrigin,
-  GatewayPool,
+  IGatewayClient,
   normalizeText
 } from 'dvote-js'
 import { createContext, ReactNode, useContext, useEffect, useState } from 'react'
@@ -217,7 +217,7 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
   }
 
   const stepEnsureProcessCreated: StepperFunc = (): Promise<StepperFuncResult> => {
-    let pool: GatewayPool
+    let pool: IGatewayClient
 
     return poolPromise
       .then((p) => {
