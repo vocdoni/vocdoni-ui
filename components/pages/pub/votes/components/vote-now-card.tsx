@@ -25,7 +25,7 @@ export const VoteNowCard = ({
   isInline
 }: IVoteNowCardProps) => {
   const { i18n } = useTranslation()
-  const isMobile = useIsMobile
+  const isMobile = useIsMobile()
   return <Card>
     <ImageContainer width="80px" justify={FlexJustifyContent.Center}>
       <img src="/images/vote/vote-now.png" />

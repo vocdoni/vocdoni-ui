@@ -238,7 +238,9 @@ export const VotingPageView = () => {
   const showInlineQuestions = 
     votingState !== VotingState.Guest &&
     !isMobile && 
-    processInfo?.metadata?.questions.length <= 3
+    processInfo?.metadata?.questions.length <= 3 &&
+    voteStatus === 0
+
 
   const showResults =
     votingState === VotingState.Guest || votingState === VotingState.Ended
@@ -295,27 +297,13 @@ export const VotingPageView = () => {
                     disabled={voteStatus !== VoteStatus.Active}
                     showInlineQuestions={showInlineQuestions}
                   />
-                </VoteNowCardContainer>
-
-                {/*
-                {votingState === VotingState.NotStarted && (
-                  <VoteNowCardContainer>
-                    <VoteNowCard
-                      onVote={handleVoteNow}
-                      explorerLink={explorerLink}
-                      disabled={voteStatus !== VoteStatus.Active}
-                      hasVoted={showResults}
-                      isInline={showInlineQuestions}
-                    />
-                  </VoteNowCardContainer>
-                )}
+                </VoteNowCardContainer>                
 
                 {votingState === VotingState.Ended && (
                   <VoteNowCardContainer>
                     <VoteRegisteredCard explorerLink={explorerLink} />
                   </VoteNowCardContainer>
                 )}
-              */}
               </Column>
             </Grid>
           )}
@@ -417,7 +405,7 @@ export const VotingPageView = () => {
             )
           )}
 
-        <If condition={showDescription && totalVotes > 0}>
+        <If condition={showDescription && totalVotes > 0 && !showInlineQuestions}>
           <Then>
             <Grid>
               <Card sm={12}>
