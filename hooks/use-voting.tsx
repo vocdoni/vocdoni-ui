@@ -204,11 +204,11 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
       // Detect encryption
       if (processInfo.state?.envelopeType.encryptedVotes) {
         const processKeys = await VotingApi.getProcessKeys(processId, pool)
-        const envelope = await Voting.packageSignedEnvelope({ censusOrigin: processInfo.state?.censusOrigin, votes: choices, censusProof, processId, walletOrSigner: wallet, processKeys })
+        const envelope = await Voting.packageSignedEnvelope({ censusOrigin: processInfo.state?.censusOrigin, votes: choices, censusProof, processId, processKeys })
         await VotingApi.submitEnvelope(envelope, wallet, pool)
       }
       else {
-        const envelope = await Voting.packageSignedEnvelope({ censusOrigin: processInfo.state?.censusOrigin, votes: choices, censusProof, processId, walletOrSigner: wallet })
+        const envelope = await Voting.packageSignedEnvelope({ censusOrigin: processInfo.state?.censusOrigin, votes: choices, censusProof, processId })
         await VotingApi.submitEnvelope(envelope, wallet, pool)
       }
 
