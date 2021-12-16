@@ -21,6 +21,7 @@ import { Typography, TypographyVariant } from '@components/elements/typography'
 import { InputFormGroup } from '@components/blocks/form'
 import { TrackEvents, useRudderStack } from '@hooks/rudderstack'
 import { VotingTypeButtons } from './components/voting-type-buttons'
+import { VotingOptions } from './components/voting-options'
 import { ConfirmModal } from '@components/blocks/confirm-modal'
 import { ImportVoterListNormal } from './components/import-voter-list-normal'
 import { ImportVoterListWeighted } from './components/import-voter-list-wighted'
@@ -46,6 +47,7 @@ export const FormCensus = () => {
     parameters,
     votingType,
     anonymousVoting,
+    randomAnswersOrder
   } = useProcessCreation()
   const { trackEvent } = useRudderStack()
 
@@ -109,6 +111,10 @@ export const FormCensus = () => {
     }
   }
 
+  const handleChangeRandomAnswers = (selectedOption) => {
+    methods.setRandomAnswersOrder(selectedOption)
+  }
+
   const handleCloseModal = () => {
     setShowConfirmModal(false)
   }
@@ -163,11 +169,24 @@ export const FormCensus = () => {
             </When>
 
             <Column>
+              <VotingOptions
+                onClick={handleChangeRandomAnswers}
+                randomAnswersOrder={randomAnswersOrder}
+              />
+            </Column> 
+
+            <Column>
               <Typography
                 variant={TypographyVariant.Body1}
                 margin="18px 0 22px 0"
               >
                 {showAnonymous ? '3' : '2'}. {i18n.t('votes.new.import_the_list_of_voters')}
+              </Typography>             
+            </Column>
+
+            <Column>
+              <Typography variant={TypographyVariant.Body1} margin="18px 0 22px 0">
+                3. {i18n.t('votes.new.import_the_list_of_voters')}
               </Typography>
 
               {votingType === VotingType.Normal && <ImportVoterListNormal />}
