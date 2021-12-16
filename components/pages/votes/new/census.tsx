@@ -21,6 +21,7 @@ import { Typography, TypographyVariant } from '@components/elements/typography'
 import { InputFormGroup } from '@components/blocks/form'
 import { TrackEvents, useRudderStack } from '@hooks/rudderstack'
 import { VotingTypeButtons } from './components/voting-type-buttons'
+import { VotingOptions } from './components/voting-options'
 import { ConfirmModal } from '@components/blocks/confirm-modal'
 import { ImportVoterListNormal } from './components/import-voter-list-normal'
 import { ImportVoterListWeighted } from './components/import-voter-list-wighted'
@@ -43,7 +44,8 @@ export const FormCensus = () => {
     spreadSheetReader,
     processTerms,
     parameters,
-    votingType
+    votingType,
+    randomAnswersOrder
   } = useProcessCreation()
   const { trackEvent } = useRudderStack()
 
@@ -103,6 +105,10 @@ export const FormCensus = () => {
     }
   }
 
+  const handleChangeRandomAnswers = (selectedOption) => {
+    methods.setRandomAnswersOrder(selectedOption)
+  }
+
   const handleCloseModal = () => {
     setShowConfirmModal(false)
   }
@@ -120,7 +126,7 @@ export const FormCensus = () => {
           <>
             <Column>
               <Typography variant={TypographyVariant.Body1} margin="10px 0 20px 0">
-                1. {i18n.t('votes.new.select_voting_options')}
+                1. {i18n.t('votes.new.select_voting_type')}
               </Typography>
             </Column>
 
@@ -132,8 +138,21 @@ export const FormCensus = () => {
             </Column>
 
             <Column>
+              <Typography variant={TypographyVariant.Body1} margin="10px 0 10px 0">
+                2. {i18n.t('votes.new.select_voting_options')}
+              </Typography>
+
+              <Column>
+                <VotingOptions
+                  onClick={handleChangeRandomAnswers}
+                  randomAnswersOrder={randomAnswersOrder}
+                />
+              </Column>              
+            </Column>
+
+            <Column>
               <Typography variant={TypographyVariant.Body1} margin="18px 0 22px 0">
-                2. {i18n.t('votes.new.import_the_list_of_voters')}
+                3. {i18n.t('votes.new.import_the_list_of_voters')}
               </Typography>
 
               {votingType === VotingType.Normal && <ImportVoterListNormal />}
