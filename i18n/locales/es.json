@@ -504,7 +504,7 @@
         "vote_details": "Detalles de la votación"
     },
     "vote_question_card": {
-        "no_results_available": "Resultados no disponibles",
+        "no_results_available": "Los resultados estarán disponibles cuando se finalize el proceso de votación.",
         "number_votes": "{{ number }} votos",
         "question": "Pregunta {{ number }}"
     },
@@ -655,6 +655,7 @@
             "import_the_list_of_voters": "Importar la lista de votantes",
             "normal_voting": "Votación normal",
             "requirements": "Requisitos",
+            "select_voting_type": "Seleccionar tipo de votación",
             "select_voting_options": "Seleccionar opciones de votación",
             "set_different_power_to_each_voter": "Establecer un poder de voto diferente para cada votante",
             "supported_formats_csv_xls": "(Formatos admitidos: CSV, XLSX y ODS)",
@@ -666,7 +667,11 @@
             "upload_new_document": "Subir una nueva lista de votantes",
             "upload_or_drag_and_drop_here_the_list": "Sube o arrastra y suelta aquí la lista de votantes",
             "vocdoni_currently_only_support_public_voting_process": "Actualmente, Vocdoni solo admite procesos de votación pública. La información sobre el proceso se pondrá a disposición del público y no se podrá actualizar después de enviarla. Asegúrese de que toda la información sea correcta, que haya leído los Términos y condiciones antes de crear el proceso de votación y que no esté compartiendo información confidencial.",
-            "weighted_voting": "Votación ponderada"
+            "weighted_voting": "Votación ponderada",
+            "yes": "Si",
+            "no": "No",
+            "random_order_answers": "Respuestas en Orden Aleatorio",
+            "random_order_answers_text": "Muestra las respuestas de cada pregunta del proceso de votación en orden aleatorio, para no favorecer ninguna respuesta"
         },
         "questions_list": {
             "back": "Atrás",
