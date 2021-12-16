@@ -511,7 +511,7 @@
         "vote_details": "Vote details"
     },
     "vote_question_card": {
-        "no_results_available": "No results available",
+        "no_results_available": "Results will be available when the voting process is complete.",
         "number_votes": "{{ number }} votes",
         "question": "Question {{ number }}"
     },
@@ -665,7 +665,7 @@
             "no": "No",
             "normal_voting": "Normal voting",
             "requirements": "Requirements",
-            "select_": "Select",
+            "select_voting_type": "Select voting type",
             "select_voting_options": "Select voting options",
             "set_different_power_to_each_voter": "Set different voting power to each voter",
             "supported_formats_csv_xls": "(Supported formats: CSV, XLSX and ODS)",
@@ -681,7 +681,10 @@
             "vocdoni_currently_only_support_public_voting_process": "Vocdoni currently only supports public voting processes. The information on the process will be made publicly available and can’t be updated after submitting it. Please make sure all information is correct, you have read the Terms & Conditions before creating the voting process and that you are not sharing sensitive information.",
             "weighted_voting": "Weighted voting",
             "would_you_like_this_voting_process_to_ensure_cryptographic_anonymity": "Would you like this voting process to ensure cryptographic anonymity?",
-            "yes": "Yes"
+            "yes": "Yes",
+            "no": "No",
+            "random_order_answers": "Answers in Random Order",
+            "random_order_answers_text": "Displays the answers to each question in the voting process in random order, so as not to favor any answer"
         },
         "preregister_view": {
             "back": "Back",
