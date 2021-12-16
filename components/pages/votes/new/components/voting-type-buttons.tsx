@@ -25,6 +25,7 @@ export const VotingTypeButtons = ({
       <BtnGroup
         active={votingType === VotingType.Normal}
         onClick={() => onClick(VotingType.Normal)}
+        size='small'
       >
         <BtnGroupText>{i18n.t('votes.new.normal_voting')}</BtnGroupText>
         <BtnGroupSubText>
@@ -35,6 +36,7 @@ export const VotingTypeButtons = ({
       <BtnGroup
         active={votingType === VotingType.Weighted}
         onClick={() => onClick(VotingType.Weighted)}
+        size='small'
       >
         <BtnGroupText>{i18n.t('votes.new.weighted_voting')}</BtnGroupText>
         <BtnGroupSubText>
