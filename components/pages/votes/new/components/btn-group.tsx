@@ -1,8 +1,15 @@
 import React from 'react'
 import styled from 'styled-components'
 
+
+export enum Size {
+  big = 'big',
+  small = 'small',
+}
+
 interface IBteGroupProps {
-  onClick: (e: React.MouseEvent<HTMLButtonElement>) => void
+  onClick: (e: React.MouseEvent<HTMLButtonElement>) => void,
+  size?: Size
 }
 
 // export const BtnGroup = ({
@@ -14,9 +21,10 @@ interface IBteGroupProps {
 
 export const BtnGroupContainer = styled.div`
     border-radius: 16px;
-    height: 78px;
+    height: ${({ size }) => (size ? '48px' : '78px')};
     background-color: rgba(207, 218, 246, 0.15);
     display: flex;
+    margin-top: ${({ size }) => (size ? '18px' : '0px')};
 `
 
 export const BtnGroupText = styled.span`
@@ -34,11 +42,11 @@ export const BtnGroupSubText = styled.span`
   color: ${({ theme }) => theme.lightText};
 `
 
-export const BtnGroup = styled.button<{ active?: boolean }>`
+export const BtnGroup = styled.button<{ active?: boolean, size?: boolean }>`
   border-radius: 16px;
   cursor: pointer;
   background-color: ${({ theme, active }) => active? theme.white: 'transparent'};
-  border: ${({ theme, active }) => active ? '2px solid ' + theme.accent1 : 'none'};
+  border: ${({ theme, active, size }) => active ? '2px solid ' + (size ? theme.accent1Blue : theme.accent1) : 'none'};
   box-shadow: 0px 6px 25px rgba(65, 70, 85, 0.05);
   text-align: center;
   width: 100%;
