@@ -50,6 +50,7 @@ export interface ProcessCreationContext {
   anonymousVoting: boolean,
   spreadSheetReader,
   processTerms,
+  randomAnswersOrder: boolean,
   methods: {
     setPageStep: (s: ProcessCreationPageSteps) => void,
 
@@ -62,13 +63,13 @@ export interface ProcessCreationContext {
     }) => void;
     setQuestions: (questions: ProcessMetadata["questions"]) => void;
     setRawMetadata: (metadata: ProcessMetadata) => void,
-    //
     setMode: (mode: ProcessMode) => void;
     setEnvelopeType: (envelopeType: ProcessEnvelopeType) => void;
     setStartBlock: (startBlock: number) => void;
     setBlockCount: (blockCount: number) => void;
     setCensusOrigin: (censusOrigin: ProcessCensusOrigin) => void;
     setProcessTerms: (processTerms: boolean) => void;
+    setRandomAnswersOrder: (randomAnswersOrder: boolean) => void;
     // TODO:
     setCensusRoot: (censusRoot: string) => void,
     setCensusUri: (censusUri: string) => void,
@@ -89,7 +90,7 @@ export interface ProcessCreationContext {
     setEndDate: (date: Date) => void,
     createProcess(): void,
     continueProcessCreation(): void,
-    checkValidCensusParameters(): boolean,
+    checkValidCensusParameters(): boolean
   },
 }
 
@@ -123,6 +124,7 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
   const { blockStatus } = useBlockStatus()
   const { pool, poolPromise } = usePool()
   const { trackEvent } = useRudderStack()
+  const [randomAnswersOrder, setRandomAnswersOrder] = useState<boolean>(false)
 
   useEffect(() => {
     paramsMethods.setCensusOrigin(
@@ -384,6 +386,7 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
     parameters,
     spreadSheetReader,
     processTerms,
+    randomAnswersOrder,
     methods: {
       ...metadataMethods,
       ...paramsMethods,
@@ -399,7 +402,8 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
       setAnonymousVoting,
       continueProcessCreation: doMainActionSteps,
       setProcessTerms,
-      checkValidCensusParameters
+      checkValidCensusParameters,
+      setRandomAnswersOrder
     }
   }
 
