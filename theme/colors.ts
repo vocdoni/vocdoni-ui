@@ -22,6 +22,7 @@ export const colors: Colors = {
   accent1B: "#A3EC93",
   accent1C: "#4BDD7C",
   accent1Grayed: "#B8C2F6",
+  accent1Blue: '#7A859F',
 
   accent2: "#FF5442",
   accent2B: "#FF9E6D",
