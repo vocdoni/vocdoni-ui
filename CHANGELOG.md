@@ -1,7 +1,7 @@
 # CHANGELOG
 
 
-### v1.2.5
+### v1.3
 * [DVOT-76] Added support for weighted voting
 * [DVOT-406] Improved entity creation process
 * [DVOT-105] Add Eye on password fields
@@ -12,6 +12,8 @@
 * Improved cookies/policy and conditions of use text, added new legal texts and missing information
 * Added logout button for desktop and mobile versions
 * Added missing translations for the public voting page
+* Improves voter logout
+* Fixes explorer URL
 
 ### v1.2.4
 
