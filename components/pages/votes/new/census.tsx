@@ -231,7 +231,8 @@ export const FormCensus = () => {
 
             <Switch>
               <Case condition={!spreadSheetReader}>
-                <Button positive disabled>
+                <Button positive
+                  disabled={!showAdvanced || !advancedCensusEnabled}>
                   {i18n.t('action.upload_list_of_voters')}
                 </Button>
               </Case>
