@@ -35,7 +35,7 @@ import { QuestionsList } from './components/questions-list'
 import { censusProofState } from '@recoil/atoms/census-proof'
 import { VoteRegisteredCard } from './components/vote-registered-card'
 import RouterService from '@lib/router'
-import { VOTING_AUTH_FORM_PATH } from '@const/routes'
+import { VOTING_AUTH_LINK_PATH } from '@const/routes'
 
 export enum VotingState {
   NotStarted = 'notStarted',
@@ -220,7 +220,7 @@ export const VotingPageView = () => {
 
     setTimeout(() => {
       router.push(
-        RouterService.instance.get(VOTING_AUTH_FORM_PATH, { processId })
+        RouterService.instance.get(VOTING_AUTH_LINK_PATH, { processId })
       )
     }, 50)
   }
@@ -234,7 +234,7 @@ export const VotingPageView = () => {
 
     setTimeout(() => {
       // Force window unload after the wallet is wiped
-      window.location.href = RouterService.instance.get(VOTING_AUTH_FORM_PATH, { processId })
+      window.location.href = RouterService.instance.get(VOTING_AUTH_LINK_PATH, { processId })
     }, 50)
   }
 
@@ -370,7 +370,7 @@ export const VotingPageView = () => {
           </VoteRegisteredLgContainer>
         )}
 
-        
+
         {showResults &&
           processInfo?.metadata?.questions.map(
             (question: Question, index: number) => (
