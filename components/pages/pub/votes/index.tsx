@@ -220,7 +220,7 @@ export const VotingPageView = () => {
 
     setTimeout(() => {
       router.push(
-        RouterService.instance.get(VOTING_PATH, { processId })
+        RouterService.instance.get(VOTING_PATH + "#/" + processId, {} )
       )
     }, 50)
   }
@@ -234,7 +234,7 @@ export const VotingPageView = () => {
 
     setTimeout(() => {
       // Force window unload after the wallet is wiped
-      window.location.href = RouterService.instance.get(VOTING_PATH, { processId })
+      window.location.href = RouterService.instance.get(VOTING_PATH+ "#/" + processId, {} )
     }, 50)
   }
 
