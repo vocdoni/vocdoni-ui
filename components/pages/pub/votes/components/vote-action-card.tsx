@@ -119,7 +119,7 @@ export const VoteActionCard = ({
       <BannerMainDiv>
         <BannerIcon>
           <ImageContainer width="80px">
-            <img
+            <ImageColor
               src={getVotingImage(votingState)}
               alt={i18n.t('vote.voted_alt')}
             />
@@ -146,15 +146,13 @@ export const VoteActionCard = ({
   )
 }
 
+const ImageColor = styled.img`
+  filter: hue-rotate(200deg) grayscale(.5);
+  opacity: 0.75;
+`
+
 const BannerDiv = styled.div<{ positive?: boolean }>`
   padding: 16px;
-  background: linear-gradient(
-    106.26deg,
-    ${({ theme, positive }) => (positive ? theme.accentLight1B : theme.white)}
-      5.73%,
-    ${({ theme, positive }) => (positive ? theme.accentLight1 : theme.white)}
-      93.83%
-  );
   box-shadow: 0px 3px 3px rgba(180, 193, 228, 0.35);
   border-radius: 16px;
 

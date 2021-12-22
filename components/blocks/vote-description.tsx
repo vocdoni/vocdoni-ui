@@ -49,12 +49,11 @@ export const VoteDescription = forwardRef<HTMLDivElement, IVotePageProps>(
     }, [ref])
 
     const pdfIcon = (
-      <img src="/images/vote/pdf.svg" alt={i18n.t('vote.pdf_image_alt')} />
+      <img src="/images/vote/faq.png" alt={i18n.t('vote.pdf_image_alt')} />
     )
     const questionIcon = (
       <img
-        src="/images/vote/question.svg"
-        alt={i18n.t('vote.question_image_alt')}
+        src="/images/vote/pdf.png" alt={i18n.t('vote.question_image_alt')}
       />
     )
 

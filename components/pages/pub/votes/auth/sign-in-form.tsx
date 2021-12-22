@@ -71,12 +71,6 @@ export const SignInForm = ({
                     value={values[fieldName]}
                     variant={FormGroupVariant.Small}
                   />
-
-                  {isLastItem && (
-                    <ContainerContainer>
-                      {i18n.t('vote.you_cant_enter_contact_with_entity')}
-                    </ContainerContainer>
-                  )}
                 </InputContainer>
               </FlexContainer>
             )

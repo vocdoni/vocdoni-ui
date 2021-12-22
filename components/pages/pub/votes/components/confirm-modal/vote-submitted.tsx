@@ -16,9 +16,9 @@ export const VoteSubmitted = ({ onAccept }: IVoteSubmittedProps) => {
   const { i18n } = useTranslation()
   return (
     <>
-      <ImageContainer width="320px" justify={FlexJustifyContent.Center}>
+      <ImageContainer width="220px" justify={FlexJustifyContent.Center}>
         <img
-          src="/images/vote/voted-submitted.png"
+          src="/images/common/logo.png"
           alt={i18n.t('vote.vote_submitted_image_alt')}
         />
       </ImageContainer>
@@ -35,10 +35,13 @@ export const VoteSubmitted = ({ onAccept }: IVoteSubmittedProps) => {
       <FlexContainer justify={FlexJustifyContent.Center}>
         <Button positive onClick={onAccept}>{i18n.t('vote.go_back_to_home_page')}</Button>
       </FlexContainer>
+
+      <br />
     </>
   )
 }
 
 const TextContainer = styled.div`
   margin-bottom: 12px;
+  margin-top: 30px;
 `

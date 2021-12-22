@@ -55,7 +55,7 @@ export const CardImageHeader = ({
             {title}
           </CardH2>
 
-          {subtitle && (
+          {subtitle && false && (
             <CardBody
               color={accent1}
               align={TextAlign.Center}

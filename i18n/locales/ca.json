@@ -14,7 +14,7 @@
     },
     "app": {
         "footer": {
-            "powered_by": ""
+            "powered_by": "Powered by"
         },
         "header": {
             "create_account_backup": "Copia de Seguretat",
@@ -516,7 +516,7 @@
         "add_new_question": "Afegeix una nova pregunta",
         "add_option": "Afegeix una altra opció",
         "auth": {
-            "insert_your": ""
+            "insert_your": "Entra el teu {{ field }}"
         },
         "back_to_dashboard": "Torna a l'inici",
         "brand_color_used_on_the_voting_process": "Brand color used on the voting process",
@@ -637,7 +637,7 @@
         "you_can_vote_on_this_proposal": "Ja pots votar en aquest procés",
         "you_cant_enter_contact_with_entity": "Problemes amb l'accés? contacta amb l'entitat",
         "you_got_attributed_a_voting_power_per_question": "",
-        "you_need_authenticate_to_vote": "Es necessita autenticar-te per votar",
+        "you_need_authenticate_to_vote": "T'has d'autenticar per votar",
         "you_vote_has_been_submit_successfully_the_results_will_be_available": "El teu vot ha estat registrat correctament. Els resultats es faran públics durant l’Assemblea del 18 de juny",
         "your_choice": "La teva selecció",
         "your_entity_is_being_registered": "La teva entitat ha estat registrada",
