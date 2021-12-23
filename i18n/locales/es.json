@@ -671,7 +671,9 @@
             "yes": "Si",
             "no": "No",
             "random_order_answers": "Respuestas en Orden Aleatorio",
-            "random_order_answers_text": "Muestra las respuestas de cada pregunta del proceso de votación en orden aleatorio, para no favorecer ninguna respuesta"
+            "random_order_answers_text": "Quieres que las respuestas se muestren en orden aleatorio?",
+            "activate_random_title": "Al activar la opción de aleatorizar respuestas, se aplicará lo siguiente:",
+            "activate_random_desc": "Todas las preguntas se mostrarán en un orden diferente para cada votante para agregar una capa adicional de imparcialidad al proceso."
         },
         "questions_list": {
             "back": "Atrás",

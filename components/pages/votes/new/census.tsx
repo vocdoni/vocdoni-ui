@@ -105,7 +105,7 @@ export const FormCensus = () => {
     }
   }
 
-  const handleChangeRandomAnswers = (selectedOption) => {
+  const handleChangeRandomAnswers = (selectedOption: boolean) => {
     methods.setRandomAnswersOrder(selectedOption)
   }
 

@@ -4,6 +4,7 @@ import { Column, Grid } from '@components/elements/grid'
 import { Typography, TypographyVariant } from '@components/elements/typography'
 import { colors } from 'theme/colors'
 import styled from 'styled-components'
+import { Ul, Li } from '@components/elements/list'
 
 import {
   BtnGroup,
@@ -17,10 +18,7 @@ interface VotingOptionsProps {
   randomAnswersOrder: boolean
 }
 
-export const VotingOptions = ({
-  onClick,
-  randomAnswersOrder,
-}: VotingOptionsProps) => {
+export const VotingOptions = ({ onClick, randomAnswersOrder }: VotingOptionsProps) => {
   const { i18n } = useTranslation()
 
   return (
@@ -58,11 +56,34 @@ export const VotingOptions = ({
             </BtnGroup>        
           </BtnGroupContainer>
         </Column>
+        
+        {randomAnswersOrder && (
+        <DescriptionContainer>
+          <Typography variant={TypographyVariant.ExtraSmall}>
+            <strong>
+              {i18n.t('votes.new.activate_random_title')}
+            </strong>
+          </Typography>
+
+          <Ul>
+            <Li>
+              {i18n.t('votes.new.activate_random_desc')}
+            </Li>
+          </Ul>
+        </DescriptionContainer>
+        )}
       </Grid>
     </ContainerBox>
   )
 }
 
+
+const DescriptionContainer = styled.div`
+  background-color: ${({ theme }) => theme.lightBg};
+  padding: 10px 20px;
+  border-radius: 16px;
+  width: 100%;
+`
 
 const ContainerBox = styled.div`
   border: 2px solid #EEE;

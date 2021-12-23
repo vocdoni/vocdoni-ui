@@ -671,7 +671,9 @@
             "yes": "Si",
             "no": "No",
             "random_order_answers": "Respostes en Ordre Aleatori",
-            "random_order_answers_text": "Mostra les respostes de cada pregunta del procés de votació en ordre aleatori, per no afavorir cap resposta"
+            "random_order_answers_text": "Vols que les respostes s'ordenin de forma aleatoria?",
+            "activate_random_title": "En activar l'opció de respostes aleatòries, s'aplicarà el següent:",
+            "activate_random_desc": "Totes les preguntes es mostraran en un ordre diferent perquè cada votant afegeixi una capa addicional d'imparcialitat al procés."
         },
         "questions_list": {
             "back": "Enrere",

@@ -68,7 +68,7 @@ export interface ProcessCreationContext {
     setBlockCount: (blockCount: number) => void;
     setCensusOrigin: (censusOrigin: ProcessCensusOrigin) => void;
     setProcessTerms: (processTerms: boolean) => void;
-    setRandomAnswersOrder: (randomAnswersOrder: boolean) => void;
+    
     // TODO:
     setCensusRoot: (censusRoot: string) => void,
     setCensusUri: (censusUri: string) => void,
@@ -81,6 +81,7 @@ export interface ProcessCreationContext {
     setStringMetadata: (metadataOrigin: string) => void,
     setSpreadSheetReader: (metadata: SpreadSheetReader) => void,
     setVotingType: (votingType: VotingType) => void,
+    setRandomAnswersOrder: (randomAnswersOrder: boolean) => void,
     setHeaderFile,
     setHeaderURL,
     setStartRightAway,
@@ -123,6 +124,12 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
   const { trackEvent } = useRudderStack()
   const [randomAnswersOrder, setRandomAnswersOrder] = useState<boolean>(false)
 
+  /*
+  useEffect(() => {
+    paramsMethods.setRandomAnswersOrder(randomAnswersOrder)
+  }, [randomAnswersOrder])
+  */
+  
   useEffect(() => {
     paramsMethods.setCensusOrigin(
       new ProcessCensusOrigin(votingType as IProcessCensusOrigin)
@@ -503,13 +510,11 @@ const useProcessParameters = () => {
   const setCensusRoot = (censusRoot: string) => {
     if (parameters.censusRoot === censusRoot) return
 
-
     parameters.censusRoot = censusRoot
     forceUpdate()
   }
   const setCensusUri = (censusUri: string) => {
     if (parameters.censusUri === censusUri) return
-
 
     parameters.censusUri = censusUri
     forceUpdate()
@@ -517,7 +522,6 @@ const useProcessParameters = () => {
   const setCostExponent = (costExponent: number) => {
     if (costExponent < 0 || costExponent >= 65535) throw new Error("Invalid cost exponent")
     if (parameters.costExponent === costExponent) return
-
 
     parameters.costExponent = costExponent
     forceUpdate()
@@ -535,14 +539,12 @@ const useProcessParameters = () => {
     if (maxCount < 0) throw new Error("Invalid maxCount")
     if (parameters.maxCount === maxCount) return
 
-
     parameters.maxCount = maxCount
     forceUpdate()
   }
   const setMaxTotalCost = (maxTotalCost: number) => {
     if (maxTotalCost < 0) throw new Error("Invalid maxTotalCost")
     if (parameters.maxTotalCost === maxTotalCost) return
-
 
     parameters.maxTotalCost = maxTotalCost
     forceUpdate()
@@ -551,14 +553,12 @@ const useProcessParameters = () => {
     if (maxValue < 0) throw new Error("Invalid maxValue")
     if (parameters.maxValue === maxValue) return
 
-
     parameters.maxValue = maxValue
     forceUpdate()
   }
   const setMaxVoteOverwrites = (maxVoteOverwrites: number) => {
     if (maxVoteOverwrites < 0) throw new Error("Invalid maxVoteOverwrites")
     if (parameters.maxVoteOverwrites === maxVoteOverwrites) return
-
 
     parameters.maxVoteOverwrites = maxVoteOverwrites
     forceUpdate()
@@ -594,4 +594,3 @@ const useProcessParameters = () => {
   }
   return { parameters, methods }
 }
-
