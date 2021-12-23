@@ -15,6 +15,8 @@ import { When } from 'react-if'
 
 import { MarkDownViewer } from './mark-down-viewer'
 import { FlexContainer, FlexJustifyContent } from '@components/elements/flex'
+import { CalendarCard } from '@components/blocks/calendar-card'
+import { SettingsCard } from '@components/blocks/settings-card'
 
 interface IVotePageProps {
   description: string
@@ -22,6 +24,10 @@ interface IVotePageProps {
   liveStreamUrl?: string
   attachmentUrl?: string
   discussionUrl?: string
+  startDate?: Date,
+  endDate?: Date,
+  isWeighted?: boolean
+  isAnonymous?: boolean
   voteStatus: VoteStatus
   timeComment: string
   onLogOut?: () => void
@@ -36,8 +42,12 @@ export const VoteDescription = forwardRef<HTMLDivElement, IVotePageProps>(
       liveStreamUrl,
       attachmentUrl,
       discussionUrl,
+      startDate,
+      endDate,
       voteStatus,
       timeComment,
+      isWeighted,
+      isAnonymous,
       onLogOut,
       onComponentMounted,
     }: IVotePageProps,
@@ -57,6 +67,12 @@ export const VoteDescription = forwardRef<HTMLDivElement, IVotePageProps>(
         alt={i18n.t('vote.question_image_alt')}
       />
     )
+    // const linkIcon = (
+    //   <img
+    //     src="/images/vote/link.svg"
+    //     alt={i18n.t('vote.question_image_alt')}
+    //   />
+    // )
 
     return (
       <Grid>
@@ -64,17 +80,26 @@ export const VoteDescription = forwardRef<HTMLDivElement, IVotePageProps>(
           <FlexContainer justify={FlexJustifyContent.SpaceBetween}>
             <ProcessStatusLabel status={voteStatus} />
             <LogOutContainer>
-              { onLogOut && <Button small border onClick={() => onLogOut()}>{i18n.t('app.header.disconnect_account')}</Button>}
+              {onLogOut && <Button small border onClick={() => onLogOut()}>{i18n.t('app.header.disconnect_account')}</Button>}
             </LogOutContainer>
           </FlexContainer>
         </Column>
-
         <Column>{timeComment}</Column>
-
         <Column>
           <MarkDownViewer content={description} />
         </Column>
 
+        <When condition={startDate !== undefined && endDate !== undefined}>
+          <Column sm={12} md={6}>
+            <CalendarCard startDate={startDate} endDate={endDate} />
+          </Column>
+        </When>
+
+        <When condition={isWeighted !== undefined || isAnonymous !== undefined}>
+          <Column sm={12} md={6}>
+            <SettingsCard isWeigthed={isWeighted} />
+          </Column>
+        </When>
         <When condition={discussionUrl || attachmentUrl || !!hasVideo}>
           <Column>
             <SectionText size={TextSize.Big} color={colors.blueText}>
@@ -82,13 +107,13 @@ export const VoteDescription = forwardRef<HTMLDivElement, IVotePageProps>(
             </SectionText>
           </Column>
         </When>
-
         <When condition={discussionUrl}>
           <Column sm={12}>
             <Button
               border
               wide
               icon={questionIcon}
+              // appendIcon={linkIcon}
               href={discussionUrl}
               target={LinkTarget.Blank}
               justify={JustifyContent.Left}
@@ -106,6 +131,7 @@ export const VoteDescription = forwardRef<HTMLDivElement, IVotePageProps>(
               border
               wide
               icon={pdfIcon}
+              // appendIcon={linkIcon}
               href={attachmentUrl}
               target={LinkTarget.Blank}
               justify={JustifyContent.Left}

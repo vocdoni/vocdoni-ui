@@ -36,7 +36,7 @@ import { censusProofState } from '@recoil/atoms/census-proof'
 import { VoteRegisteredCard } from './components/vote-registered-card'
 import RouterService from '@lib/router'
 import { VOTING_AUTH_FORM_PATH } from '@const/routes'
-
+import { useProcessWrapper } from '@hooks/use-process-wrapper'
 export enum VotingState {
   NotStarted = 'notStarted',
   Started = 'started',
@@ -61,6 +61,7 @@ export const VotingPageView = () => {
     processId
   )
   const { process: processInfo } = useProcess(processId)
+  const { startDate, endDate } = useProcessWrapper(processId)
   const { wallet, setWallet } = useWallet({ role: WalletRoles.VOTER })
   const { metadata } = useEntity(processInfo?.state?.entityId)
   const [confirmModalOpened, setConfirmModalOpened] = useState<boolean>(false)
@@ -74,7 +75,6 @@ export const VotingPageView = () => {
   const entityMetadata = metadata as EntityMetadata
   const descriptionVideoContainerRef = useRef<HTMLDivElement>(null)
   const votingVideoContainerRef = useRef<HTMLDivElement>(null)
-
   const timeoutRef = useRef<any>()
   const intervalRef = useRef<any>()
   const [videosStyle, setVideoStyle] = useState<IVideoStyle>({
@@ -277,6 +277,7 @@ export const VotingPageView = () => {
                   ref={descriptionVideoContainerRef}
                   description={processInfo?.metadata?.description.default}
                   hasVideo={!!processInfo?.metadata?.media.streamUri}
+                  isWeighted={processVotingType === VotingType.Weighted}
                   onLogOut={handleLogOut}
                   discussionUrl={
                     processInfo?.metadata?.meta[MetadataFields.DiscussionLink]
@@ -286,6 +287,8 @@ export const VotingPageView = () => {
                   }
                   timeComment={dateDiffStr}
                   voteStatus={voteStatus}
+                  startDate={startDate}
+                  endDate={endDate}
                 />
               </Column>
 
