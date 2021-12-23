@@ -683,8 +683,10 @@
             "would_you_like_this_voting_process_to_ensure_cryptographic_anonymity": "Would you like this voting process to ensure cryptographic anonymity?",
             "yes": "Yes",
             "no": "No",
-            "random_order_answers": "Answers in Random Order",
-            "random_order_answers_text": "Displays the answers to each question in the voting process in random order, so as not to favor any answer"
+            "random_order_answers": "Randomize Answers Order",
+            "random_order_answers_text": "Would you like to randomize the order of all answers?",
+            "activate_random_title": "By activating the randomize answers option, the following will be applied:",
+            "activate_random_desc": "All questions will be displayed in a different order for each voter to add an extra layer of impartiality to the process."
         },
         "preregister_view": {
             "back": "Back",
