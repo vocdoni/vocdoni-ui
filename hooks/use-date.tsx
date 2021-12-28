@@ -8,7 +8,8 @@ export interface IUseCalendar {
 export const useCalendar = (): IUseCalendar => {
   const { i18n } = useTranslation()
   const toCalendarFormat = (date: Date) => {
-    return moment(date).locale(i18n.language).format("MMM DD - YYYY (hh:mm)")
+    let momentDate = moment(date).locale('es').format("MMM DD - YYYY (hh:mm)")
+    return momentDate.charAt(0).toUpperCase() + momentDate.slice(1)
   }
   return {
     toCalendarFormat
