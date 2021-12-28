@@ -19,6 +19,7 @@ import { CalendarCard } from '@components/blocks/calendar-card'
 import { SettingsCard } from '@components/blocks/settings-card'
 import { LinkButton } from '@components/elements-v2/link-button'
 import { useIsMobile } from '@hooks/use-window-size'
+import { ExpandableContainer } from './expandable-container'
 
 interface IVotePageProps {
   description: string
@@ -95,9 +96,15 @@ export const VoteDescription = forwardRef<HTMLDivElement, IVotePageProps>(
             </LogOutContainer>
           </FlexContainer>
         </Column>
-        <Column>{timeComment}</Column>
+        {/* DESCRIPTION */}
         <Column>
-          <MarkDownViewer content={description} />
+          <ExpandableContainer
+            lines={5}
+            buttonText={i18n.t('vote.show_more')}
+            buttonExpandedText={i18n.t('vote.show_less')}
+          >
+            {description}
+          </ExpandableContainer>
         </Column>
         {/* DATE AND SETTINGS */}
         <When condition={startDate !== undefined && endDate !== undefined}>
