@@ -46,8 +46,8 @@ const LinkBtn = styled(FlexContainer) <FlexContainerProps>`
   flex: 1;
   cursor: pointer;
   padding: 0px 24px;
-  background: #FFFFFF;
-  border: 2px solid #EFF1F7;
+  background: ${colors.white};
+  border: 2px solid ${colors.lightBorder};
   box-sizing: border-box;
   box-shadow: 0px 6px 6px rgba(180, 193, 228, 0.35);
   border-radius: 16px;
