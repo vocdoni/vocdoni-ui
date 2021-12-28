@@ -17,6 +17,8 @@ import { MarkDownViewer } from './mark-down-viewer'
 import { FlexContainer, FlexJustifyContent } from '@components/elements/flex'
 import { CalendarCard } from '@components/blocks/calendar-card'
 import { SettingsCard } from '@components/blocks/settings-card'
+import { LinkButton } from '@components/elements-v2/link-button'
+import { useIsMobile } from '@hooks/use-window-size'
 
 interface IVotePageProps {
   description: string
@@ -54,12 +56,16 @@ export const VoteDescription = forwardRef<HTMLDivElement, IVotePageProps>(
     ref
   ) => {
     const { i18n } = useTranslation()
+    const isMobile = useIsMobile()
     useEffect(() => {
       onComponentMounted && onComponentMounted(ref)
     }, [ref])
 
     const pdfIcon = (
-      <img src="/images/vote/pdf.svg" alt={i18n.t('vote.pdf_image_alt')} />
+      <img
+        src="/images/vote/pdf.svg"
+        alt={i18n.t('vote.pdf_image_alt')}
+      />
     )
     const questionIcon = (
       <img
@@ -67,13 +73,18 @@ export const VoteDescription = forwardRef<HTMLDivElement, IVotePageProps>(
         alt={i18n.t('vote.question_image_alt')}
       />
     )
-    // const linkIcon = (
-    //   <img
-    //     src="/images/vote/link.svg"
-    //     alt={i18n.t('vote.question_image_alt')}
-    //   />
-    // )
-
+    const pdfIconOutlined = (
+      <img
+        src="/images/vote/pdf-outlined.svg"
+        alt={i18n.t('vote.pdf_image_alt')}
+      />
+    )
+    const questionIconOutlined = (
+      <img
+        src="/images/vote/question-outlined.svg"
+        alt={i18n.t('vote.question_image_alt')}
+      />
+    )
     return (
       <Grid>
         <Column>
@@ -88,18 +99,33 @@ export const VoteDescription = forwardRef<HTMLDivElement, IVotePageProps>(
         <Column>
           <MarkDownViewer content={description} />
         </Column>
-
+        {/* DATE AND SETTINGS */}
         <When condition={startDate !== undefined && endDate !== undefined}>
           <Column sm={12} md={6}>
             <CalendarCard startDate={startDate} endDate={endDate} />
           </Column>
         </When>
-
         <When condition={isWeighted !== undefined || isAnonymous !== undefined}>
           <Column sm={12} md={6}>
             <SettingsCard isWeigthed={isWeighted} />
           </Column>
         </When>
+        {/* LIVE STREAM */}
+        <When condition={hasVideo}>
+          <Column>
+            <SectionText size={TextSize.Big} color={colors.blueText}>
+              {i18n.t('vote.live_stream')}
+            </SectionText>
+          </Column>
+          <Column>
+            <LiveStreamVideoContainer ref={ref}>
+              {liveStreamUrl && (
+                <ReactPlayer url={liveStreamUrl} width="100%" />
+              )}
+            </LiveStreamVideoContainer>
+          </Column>
+        </When>
+        {/* EXTRA INFO */}
         <When condition={discussionUrl || attachmentUrl || !!hasVideo}>
           <Column>
             <SectionText size={TextSize.Big} color={colors.blueText}>
@@ -108,46 +134,25 @@ export const VoteDescription = forwardRef<HTMLDivElement, IVotePageProps>(
           </Column>
         </When>
         <When condition={discussionUrl}>
-          <Column sm={12}>
-            <Button
-              border
-              wide
-              icon={questionIcon}
-              // appendIcon={linkIcon}
+          <Column sm={12} md={6}>
+            <LinkButton
               href={discussionUrl}
-              target={LinkTarget.Blank}
-              justify={JustifyContent.Left}
+              target="_blank"
+              icon={isMobile ? pdfIcon : pdfIconOutlined}
             >
-              <ButtonText>
-                {i18n.t('vote.access_to_the_documentation')}
-              </ButtonText>
-            </Button>
+              {i18n.t('vote.access_to_the_documentation')}
+            </LinkButton>
           </Column>
         </When>
-
         <When condition={attachmentUrl}>
-          <Column sm={12}>
-            <Button
-              border
-              wide
-              icon={pdfIcon}
-              // appendIcon={linkIcon}
+          <Column sm={12} md={6}>
+            <LinkButton
+              icon={isMobile ? questionIcon : questionIconOutlined}
               href={attachmentUrl}
-              target={LinkTarget.Blank}
-              justify={JustifyContent.Left}
+              target="_blank"
             >
-              <ButtonText>{i18n.t('vote.questions_and_answers')}</ButtonText>
-            </Button>
-          </Column>
-        </When>
-
-        <When condition={hasVideo}>
-          <Column>
-            <LiveStreamVideoContainer ref={ref}>
-              {liveStreamUrl && (
-                <ReactPlayer url={liveStreamUrl} width="100%" />
-              )}
-            </LiveStreamVideoContainer>
+              {i18n.t('vote.questions_and_answers')}
+            </LinkButton>
           </Column>
         </When>
       </Grid>
