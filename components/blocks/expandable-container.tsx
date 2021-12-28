@@ -1,14 +1,16 @@
+import { useRef, useLayoutEffect } from 'react'
 import { TextButton } from '@components/elements-v2/text-button'
 import { Button } from '@components/elements/button'
 import { colors } from '@theme/colors'
-import { initial } from 'lodash'
+import { initial, set } from 'lodash'
 import { ReactNode, useState } from 'react'
 import styled from 'styled-components'
 import { CalendarCard } from './calendar-card'
 import { MarkDownViewer } from './mark-down-viewer'
+import { When } from 'react-if'
 
 
-interface IExpandibleContainerProps {
+interface IExpandableContainerProps {
   children: ReactNode
   lines?: number
   maxHeight?: number | string
@@ -22,11 +24,22 @@ interface IContainerProps {
   isExpanded: boolean
 }
 
-export const ExpandableContainer = (props: IExpandibleContainerProps) => {
+export const ExpandableContainer = (props: IExpandableContainerProps) => {
   const [isExpanded, setIsExpanded] = useState(false)
+  const [height, setHeight] = useState(0)
+  const ref = useRef()
+  // Hide the button if the content height is less than
+  // props.lines, assuming each line has a height of 22
+  const lineHeight = 22 * props.lines
+  useLayoutEffect(() => {
+    if (ref.current) {
+      setHeight(ref.current.scrollHeight)
+    }
+  })
   return (
     <div>
       <TextContainer
+        ref={ref}
         isExpanded={isExpanded}
         lines={props.lines}
         maxHeight={props.maxHeight}
@@ -35,9 +48,11 @@ export const ExpandableContainer = (props: IExpandibleContainerProps) => {
           <MarkDownViewer content={props.children} />
         </Text>
       </TextContainer>
-      <TextButton onClick={() => setIsExpanded(!isExpanded)}>
-        {isExpanded ? props.buttonExpandedText : props.buttonText}
-      </TextButton>
+      <When condition={height > lineHeight}>
+        <TextButton onClick={() => setIsExpanded(!isExpanded)} >
+          {isExpanded ? props.buttonExpandedText : props.buttonText}
+        </TextButton>
+      </When>
     </div>
   )
 }
