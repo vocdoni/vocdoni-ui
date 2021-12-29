@@ -6,7 +6,7 @@ import ReactPlayer from 'react-player'
 
 import { useBlockStatus, useEntity, useProcess } from '@vocdoni/react-hooks'
 import { useRouter } from 'next/router'
-import { If, Then } from 'react-if'
+import { If, Then, Else } from 'react-if'
 
 import { Question, VotingType } from '@lib/types'
 
@@ -37,6 +37,8 @@ import { VoteRegisteredCard } from './components/vote-registered-card'
 import RouterService from '@lib/router'
 import { VOTING_AUTH_FORM_PATH } from '@const/routes'
 import { useProcessWrapper } from '@hooks/use-process-wrapper'
+import { ExpandableCard } from '@components/blocks/expandable-card'
+import { NoResultsCard } from '@components/blocks/NoResultsCard'
 export enum VotingState {
   NotStarted = 'notStarted',
   Started = 'started',
@@ -259,7 +261,18 @@ export const VotingPageView = () => {
     VotingType.Weighted === processVotingType
       ? results?.totalWeightedVotes
       : results?.totalVotes
-
+  const showMoreIcon = (
+    <img
+      src="/images/vote/show-more.svg"
+      alt={i18n.t('vote.question_image_alt')}
+    />
+  )
+  const voteResultsIcon = (
+    <img
+      src="/images/vote/vote-results.svg"
+      alt={i18n.t('vote.question_image_alt')}
+    />
+  )
   return (
     <>
       <VotingCard>
@@ -324,8 +337,62 @@ export const VotingPageView = () => {
           )}
         </BodyContainer>
 
-        {votingState == VotingState.Started && (
-          <QuestionsList
+        {/* RESULTS CARD */}
+        <Grid>
+          <Column sm={12}>
+            <ExpandableCard
+              title="Voting Results"
+              icon={voteResultsIcon}
+              buttonText="Show"
+              buttonTextActive="Hide"
+              buttonProps={{
+                variant: 'light',
+                iconRight: showMoreIcon,
+                width: '124px'
+              }}
+              buttonPropsActive={{
+                variant: 'outlined',
+                iconRight: showMoreIcon,
+                width: '124px'
+              }}
+            >
+              {/* IF RESULTS */}
+              <If condition={showResults}>
+                <Then>
+                  {processInfo?.metadata?.questions.map(
+                    (question: Question, index: number) => (
+                      <VoteQuestionCard
+                        questionIdx={index}
+                        key={index}
+                        question={question}
+                        hasVoted={hasVoted}
+                        totalVotes={totalVotes}
+                        result={results?.questions[index]}
+                        processStatus={processInfo?.state?.status}
+                        selectedChoice={choices.length > index ? choices[index] : -1}
+                        readOnly={true}
+                        onSelectChoice={(selectedChoice) => {
+                          votingMethods.onSelect(index, selectedChoice)
+                        }}
+                      />
+                    )
+                  )}
+                </Then>
+                {/* IF NO RESULTS */}
+                <Else>
+                  <NoResultsCard
+                    title={i18n.t('vote.no_results_title')}
+                    subtitle={i18n.t('vote.no_results_subtitle')}
+                  />
+                </Else>
+              </If>
+
+            </ExpandableCard>
+          </Column>
+        </Grid>
+        {/* VOTING PAGE */}
+        {/* {votingState == VotingState.Started && ( */}
+          {/* <QuestionsList
             onComponentMounted={handleVideoPosition}
             ref={votingVideoContainerRef}
             hasVideo={!!processInfo?.metadata?.media.streamUri}
@@ -335,8 +402,10 @@ export const VotingPageView = () => {
             onSelect={votingMethods.onSelect}
             onFinishVote={handleFinishVote}
             onBackDescription={handleBackToDescription}
-          />
-        )}
+          /> */}
+        {/* )} */}
+
+        {/* FIXED BUTTON ON MOBILE VERSION */}
 
         {showVotingButton && (
           <FixedButtonContainer>
@@ -367,31 +436,14 @@ export const VotingPageView = () => {
           </FixedButtonContainer>
         )}
 
+        {/* HAS VOTED CARD */}
         {hasVoted && (
           <VoteRegisteredLgContainer>
             <VoteRegisteredCard explorerLink={explorerLink} />
           </VoteRegisteredLgContainer>
         )}
-        {showResults &&
-          processInfo?.metadata?.questions.map(
-            (question: Question, index: number) => (
-              <VoteQuestionCard
-                questionIdx={index}
-                key={index}
-                question={question}
-                hasVoted={hasVoted}
-                totalVotes={totalVotes}
-                result={results?.questions[index]}
-                processStatus={processInfo?.state?.status}
-                selectedChoice={choices.length > index ? choices[index] : -1}
-                readOnly={true}
-                onSelectChoice={(selectedChoice) => {
-                  votingMethods.onSelect(index, selectedChoice)
-                }}
-              />
-            )
-          )}
 
+        {/* COUNT OF TOTAL VOTES */}
         <If condition={showDescription && totalVotes > 0}>
           <Then>
             <Grid>
