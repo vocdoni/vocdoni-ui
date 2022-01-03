@@ -8,6 +8,7 @@ import { theme } from "@theme/global";
 
 
 type ButtonVariant = 'light' | 'primary' | 'outlined' | 'white'
+type ButtonFontSize = 'regular' | 'large'
 export interface IButtonProps {
   children?: string
   onClick?: () => void
@@ -17,17 +18,25 @@ export interface IButtonProps {
   disabled?: boolean
   color?: string
   width?: number | string
+  fontSize?: ButtonFontSize
 }
 
 interface StyledButtonProps {
   color?: string
   width?: number | string
   variant?: ButtonVariant
+  fontSize?: ButtonFontSize
 }
 
 export const Button = (props: IButtonProps) => {
   return (
-    <BaseButton onClick={props.onClick} color={props.color} width={props.width} variant={props.variant}>
+    <BaseButton
+      onClick={props.onClick}
+      color={props.color}
+      width={props.width}
+      variant={props.variant}
+      fontSize={props.fontSize}
+    >
       <Row
         gutter="md"
         align="center"
@@ -93,6 +102,16 @@ const getBoxShadow = (props: StyledButtonProps) => {
       return ''
   }
 }
+const getButtonFontSize = (props: StyledButtonProps) => {
+  switch (props.fontSize) {
+    case 'regular':
+      return '16px'
+    case 'large':
+      return '20px'
+    default:
+      return '16px'
+  }
+}
 
 const BaseButton = styled.div<StyledButtonProps>`
 cursor: pointer;
@@ -101,7 +120,7 @@ border-radius: 8px;
 font-family: Manrope;
 padding: 12px 20px;
 font-weight: 600;
-font-size: 16px;
+font-size: ${getButtonFontSize};
 text-align: center;
 border: ${getBorderColor};
 color: ${getTextColor};
