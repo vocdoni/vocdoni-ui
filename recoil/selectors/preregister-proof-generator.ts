@@ -1,4 +1,4 @@
-import { preregisterProofAtom } from '@recoil/atoms/preregister-proof-async-action'
+import { preregisterProofState } from '@recoil/atoms/preregister-proof'
 import { walletState } from '@recoil/atoms/wallet'
 import { Wallet } from 'dvote-js'
 import { selectorFamily } from 'recoil'
@@ -8,7 +8,7 @@ export const preregisterProofGeneratorSelector = selectorFamily({
   get:
     (processId) =>
     async ({ get }) => {
-      return get(preregisterProofAtom)
+      return get(preregisterProofState)
     },
   set:
     (processId) =>
@@ -19,7 +19,7 @@ export const preregisterProofGeneratorSelector = selectorFamily({
       console.log('setting the password')
 
       setTimeout(() => {
-        set(preregisterProofAtom, 'new value')
+        // set(preregisterProofAtom, 'new value')
       }, 10000)
     },
 })

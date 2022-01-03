@@ -127,7 +127,7 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
   useEffect(() => {
     paramsMethods.setCensusOrigin(
       new ProcessCensusOrigin(votingType as IProcessCensusOrigin)
-    )    
+    )
   }, [votingType])
 
   useEffect(() => {
@@ -182,7 +182,7 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
         const payload = importedRowToString(normalizedRow, entityId)
         const voterWallet = digestedWalletFromString(payload)
         const key = CensusOffChain.Public.encodePublicKey(voterWallet.publicKey)
-        
+
         resolve({ key, value: weight })
       }, 50)
     }))) as { key: string, value?: string }[]
@@ -576,7 +576,16 @@ const useProcessParameters = () => {
     forceUpdate()
   }
   const setAnonymousVoting = (anonymousVoting: boolean) => {
-    setEnvelopeType(ProcessEnvelopeType.make({ serial: false, uniqueValues: false, encryptedVotes: false, anonymousVoters: anonymousVoting }) as ProcessEnvelopeType)
+    if (anonymousVoting) {
+      if ((ProcessEnvelopeType.ANONYMOUS & parameters.envelopeType.value) == 0)
+        // set anonymous to true
+        setEnvelopeType(new ProcessEnvelopeType(ProcessEnvelopeType.ANONYMOUS ^ parameters.envelopeType.value))
+      return
+    }
+    if ((ProcessEnvelopeType.ANONYMOUS & parameters.envelopeType.value) != 0)
+        // set anonymous to false
+        setEnvelopeType(new ProcessEnvelopeType((~ProcessEnvelopeType.ANONYMOUS) & parameters.envelopeType.value))
+    return
   }
 
 
