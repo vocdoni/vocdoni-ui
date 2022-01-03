@@ -8,6 +8,8 @@ import styled from 'styled-components'
 import { CalendarCard } from './calendar-card'
 import { MarkDownViewer } from './mark-down-viewer'
 import { When } from 'react-if'
+import { Col, Row } from '@components/elements-v2/grid'
+import { Spacer } from '@components/elements-v2/spacer'
 
 
 interface IExpandableContainerProps {
@@ -37,7 +39,8 @@ export const ExpandableContainer = (props: IExpandableContainerProps) => {
     }
   })
   return (
-    <div>
+    <Row gutter='none'>
+      {/* <Col xs={12}> */}
       <TextContainer
         ref={ref}
         isExpanded={isExpanded}
@@ -48,12 +51,16 @@ export const ExpandableContainer = (props: IExpandableContainerProps) => {
           <MarkDownViewer content={props.children} />
         </Text>
       </TextContainer>
-      <When condition={height > lineHeight}>
-        <TextButton onClick={() => setIsExpanded(!isExpanded)} >
-          {isExpanded ? props.buttonExpandedText : props.buttonText}
-        </TextButton>
-      </When>
-    </div>
+      {/* </Col> */}
+      {height > lineHeight &&
+        <Col xs={12}>
+          <Spacer direction='vertical' size='xs' />
+          <TextButton onClick={() => setIsExpanded(!isExpanded)} >
+            {isExpanded ? props.buttonExpandedText : props.buttonText}
+          </TextButton>
+        </Col>
+      }
+    </Row>
   )
 }
 
@@ -64,7 +71,9 @@ const Text = styled.span`
   color: ${colors.blueText};
   line-height: 22px;
 `
-
+const VerticalSpacer = styled.div`
+  margin: 4px 4px;
+`
 const TextContainer = styled.div <IContainerProps>`
   margin-bottom: 8px;
   display: -webkit-box;
