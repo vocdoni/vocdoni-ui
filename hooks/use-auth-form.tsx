@@ -12,6 +12,7 @@ import { utils } from 'ethers'
 import { CensusPoof } from '@lib/types'
 import { useRecoilState, useSetRecoilState } from 'recoil'
 import { censusProofState } from '@recoil/atoms/census-proof'
+import { VotingType } from '@lib/types'
 
 // CONTEXT
 
