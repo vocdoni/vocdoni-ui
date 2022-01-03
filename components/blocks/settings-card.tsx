@@ -1,15 +1,15 @@
-import { FlexContainer } from "@components/elements/flex"
 import { useIsMobile } from "@hooks/use-window-size"
 import { useTranslation } from "react-i18next"
-import { If, Then, Else, When } from "react-if"
-import { Column } from "react-rainbow-components"
+import { If, Then, Else } from "react-if"
 import styled from "styled-components"
-import { Card } from "./card"
-import { Tag } from "./tag"
+import { Tag } from "../elements-v2/tag"
+import { Col, Row } from "@components/elements-v2/grid"
+import { theme } from "@theme/global"
+import { Text } from "@components/elements-v2/text"
 
 type ISettingsCardProps = {
-  isWeigthed?: boolean | false
-  isAnonymous?: boolean | false
+  isWeigthed?: boolean
+  isAnonymous?: boolean
 }
 export const SettingsCard = (props: ISettingsCardProps) => {
   const { i18n } = useTranslation()
@@ -17,37 +17,67 @@ export const SettingsCard = (props: ISettingsCardProps) => {
   const settingsIcon = (
     <img
       src="/images/vote/settings.svg"
-      // alt={i18n.t('vote.calendar_image_alt')}
     />
   )
-  return (
-    <Card icon={settingsIcon} title={i18n.t('vote.settings')} matchHeight>
-      <Grid isMobile={isMobile}>
-      <If condition={props.isWeigthed}>
+  const CardTitle = () => {
+    return (
+      <Row align='center' gutter='md'>
+        <Col>
+          {settingsIcon}
+        </Col>
+        <Col>
+          <Text size='lg' color='dark-blue' weight='bold'>
+            {i18n.t('vote.calendar_title')}
+          </Text>
+        </Col>
+      </Row>
+    )
+  }
+  const CardContent = () => {
+    return (
+      <Row align='center' gutter='sm'>
+        <If condition={props.isWeigthed}>
         <Then>
-          <Tag variant="neutral" large>
-            {i18n.t("vote.tag_is_weighted")}
-          </Tag>
+          <Col>
+            <Tag variant="neutral" size="large" fontWeight="regular">
+              {i18n.t("vote.tag_is_weighted")}
+            </Tag>
+          </Col>
         </Then>
         <Else>
-          <Tag variant="neutral" large>
-            {i18n.t("vote.tag_is_normal")}
-          </Tag>
+          <Col>
+            <Tag variant="neutral" size="large" fontWeight="regular">
+              {i18n.t("vote.tag_is_normal")}
+            </Tag>
+          </Col>
         </Else>
       </If>
-      <When condition={props.isAnonymous}>
-        <Tag variant="neutral" large>
-          {i18n.t("vote.tag_is_anonymous")}
-        </Tag>
-      </When>
-      </Grid>
+        {props.isAnonymous &&
+          <Col>
+            <Tag variant="neutral" size="large" fontWeight="regular">
+              {i18n.t("vote.tag_is_anonymous")}
+            </Tag>
+          </Col>
+        }
+      </Row>
+    )
+  }
+  return (
+    <Card>
+      <Row gutter={isMobile ? 'md' : 'lg'} >
+        <Col xs={12}>
+          <CardTitle />
+        </Col>
+        <Col xs={12}>
+          <CardContent />
+        </Col>
+      </Row>
     </Card>
   )
 }
 
-const Grid = styled.div<{isMobile?:boolean}>`
-  display: flex;
-  flex-wrap: wrap;
-  grid-gap: 8px 8px;
-  margin-top: ${({isMobile})=> isMobile? '16px': '24px'};
+const Card = styled.div`
+  border-radius: 16px;
+  padding: 24px;
+  background-color: ${theme.lightBg};
 `
