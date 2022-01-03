@@ -1,8 +1,8 @@
-import { FlexContainer, FlexDirection, FlexJustifyContent } from "@components/elements/flex";
 import { colors } from "@theme/colors";
 import styled from "styled-components";
-import { StringMappingType } from "typescript";
 import { useIsMobile } from '@hooks/use-window-size'
+import { Col, Row } from "@components/elements-v2/grid";
+import { Text } from "@components/elements-v2/text";
 
 interface INoResultsCardProps {
   title: string
@@ -13,14 +13,18 @@ export const NoResultsCard = (props: INoResultsCardProps) => {
   const isMobile = useIsMobile()
   return (
     <Card isMobile={isMobile}>
-      <FlexContainer direction={FlexDirection.Column}>
-        <Title isMobile={isMobile}>
-          {props.title}
-        </Title>
-        <Subtitle isMobile={isMobile}>
-          {props.subtitle}
-        </Subtitle>
-      </FlexContainer>
+      <Row justify="center" gutter="md">
+        <Col justify="center" xs={12}>
+          <StyledText size={isMobile ? 'xl' : 'display-1'} color="dark-blue">
+            {props.title}
+          </StyledText>
+        </Col>
+        <Col justify="center" xs={12}>
+          <StyledText size={isMobile ? 'sm' : 'xl'} color="dark-gray">
+            {props.subtitle}
+          </StyledText>
+        </Col>
+      </Row>
     </Card>
   )
 }
@@ -30,20 +34,6 @@ const Card = styled.div<{ isMobile: boolean }>`
   background-color: ${colors.lightBg};
   border-radius: 16px;
 `
-const Title = styled.span<{ isMobile: boolean }>`
-  font-family: Manrope;
-  font-weight: normal;
-  align-self:center;
-  font-size: ${({ isMobile }) => isMobile ? '20px' : '32px'};
-  text-align:center;
-  margin-bottom: 8px;
-  color: ${colors.blueText}
-`
-const Subtitle = styled.span<{ isMobile: boolean }>`
-  font-family: Manrope;
-  font-weight: normal;
-  align-self:center;
-  margin-top: 8px;
-  font-size: ${({ isMobile }) => isMobile ? '16px' : '20px'};
-  color: ${colors.lightText}
+const StyledText = styled(Text)`
+  text-align: center;
 `
