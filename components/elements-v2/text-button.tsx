@@ -6,28 +6,27 @@ import { When } from 'react-if'
 import Link from "next/link"
 import styled from 'styled-components'
 
-type ILinkButtonProps = {
+export type ITextButtonProps = {
   disabled?: boolean | false
-  rightIcon?: ReactNode
-  leftIcon?: boolean
+  iconRight?: ReactNode
+  iconLeft?: ReactNode
+  width?: number | string
   children: string
   onClick?: () => void
 }
 
-export const TextButton = (props: ILinkButtonProps) => {
+export const TextButton = (props: ITextButtonProps) => {
   return (
     <Container>
-    <FlexContainer onClick={props.onClick} alignItem={FlexAlignItem.Center}>
-      <When condition={props.leftIcon !== undefined}>
-        {props.leftIcon}
-        <Spacer />
-      </When>
-      {props.children}
-      <When condition={props.rightIcon !== undefined}>
-        <Spacer />
-        {props.rightIcon}
-      </When>
-    </FlexContainer>
+      <FlexContainer
+        onClick={props.onClick}
+        alignItem={FlexAlignItem.Center}
+        justify={FlexJustifyContent.SpaceBetween}
+      >
+        {props.iconLeft && <Icon>{props.iconRight}</Icon>}
+        {props.children}
+        {props.iconRight && <Icon>{props.iconRight}</Icon>}
+      </FlexContainer>
     </Container>
   )
 }
@@ -35,13 +34,11 @@ export const TextButton = (props: ILinkButtonProps) => {
 const Container = styled.div`
   cursor: pointer;
   color: ${colors.accent1};
-`
-
-const Text = styled.span`
   font-family: Manrope;
   font-weight: 600;
   font-size: 16px;
 `
-const Spacer = styled.div`
-  margin: 0px 10px;
+
+const Icon = styled.div`
+  margin: 0px 4px;
 `
