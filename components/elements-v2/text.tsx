@@ -31,7 +31,7 @@ export type ITextProps = {
 type TextVariant = 'title' | 'subtitle' | 'body'
 type TextSize = 'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl' | 'display-1'
 type TextWeight = 'light' | 'regular' | 'bold'
-type TextColor = 'primary' | 'dark-blue' | 'dark-gray'
+type TextColor = 'primary' | 'dark-blue' | 'dark-gray' | 'white'
 
 export const Text = (props: ITextProps) => {
   return (
@@ -102,6 +102,8 @@ const getTextColor = (props: ITextProps) => {
         return theme.accent1
       case 'dark-gray':
         return theme.lightText
+      case 'white':
+        return theme.white
     }
   }
   switch (props.variant) {

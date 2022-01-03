@@ -16,7 +16,8 @@ import { useWallet, WalletRoles } from '@hooks/use-wallet'
 
 import { Column, Grid } from '@components/elements/grid'
 import { Card, CardDiv, PageCard } from '@components/elements/cards'
-import { Button } from '@components/elements/button'
+// import { Button } from '@components/elements/button'
+import { Button } from '@components/elements-v2/button'
 import { FlexContainer } from '@components/elements/flex'
 import { VoteQuestionCard } from '@components/blocks/vote-question-card'
 import { MetadataFields } from '@components/pages/votes/new/metadata'
@@ -45,6 +46,9 @@ import { Spacer } from '@components/elements-v2/spacer'
 import { QuestionResults } from '@components/blocks/question-results'
 import { TotalVotesCard } from '@components/blocks/total-votes-card'
 import { useCalendar } from '@hooks/use-calendar'
+import { Text } from '@components/elements-v2/text'
+import { LinkButton } from '@components/elements-v2/link-button'
+import { TextButton } from '@components/elements-v2/text-button'
 export enum VotingState {
   NotStarted = 'notStarted',
   Started = 'started',
@@ -246,7 +250,18 @@ export const VotingPageView = () => {
       window.location.href = RouterService.instance.get(VOTING_AUTH_FORM_PATH, { processId })
     }, 50)
   }
-
+  const startingIn = getDateDiff(null, startDate, 'diff')
+  const endingIn = getDateDiff(null, endDate, 'diff')
+  let startingString, endingString
+  switch (startingIn.format) {
+    case 'days':
+      startingString = i18n.t("vote.value_days", { value: startingIn.value })
+      endingString = i18n.t("vote.value_days", { value: endingIn.value })
+      break
+    default:
+      startingString = getDateDiff(null, startDate, 'countdown').value + 's'
+      endingString = getDateDiff(null, endDate, 'countdown').value + 's'
+  }
   const processVotingType: VotingType = processInfo?.state?.censusOrigin as any
 
   const showDescription =
@@ -299,8 +314,17 @@ export const VotingPageView = () => {
       alt={i18n.t('vote.question_image_alt')}
     />
   )
+  const seeResultsIcon = (
+    <img
+      src="/images/vote/chevron-right.svg"
+      alt={i18n.t('vote.pdf_image_alt')}
+      height="10px"
+      width="10px"
+    />
+  )
   return (
     <>
+      <ModalController></ModalController>
       <VotingCard>
         <CardImageHeader
           title={processInfo?.metadata?.title.default}
@@ -493,17 +517,44 @@ export const VotingPageView = () => {
           /> */}
         {/* )} */}
 
-        {/* FIXED BUTTON ON MOBILE VERSION */}
+        {/* FIXED WILL START ON MOBILE VERSION */}
 
-        {voteStatus === VoteStatus.Upcoming && (
-          <FixedButtonContainer>
-            {getDateDiff(null, startDate, 'days').value} <br />
-            {getDateDiff(null, startDate, 'hours').value} <br />
-            {getDateDiff(null, startDate, 'minutes').value} <br />
-            {getDateDiff(null, startDate, 'countdown').value} <br />
-            {getDateDiff(null, startDate, 'diff').value} <br />
-            <div>
-              {/* {getDateDiff(startDate, null, 'startingIn')} */}
+        {voteStatus === VoteStatus.Upcoming &&
+          <FixedContainerRow align='center' justify='center'>
+            <Col>
+              <Text size='lg' color='white'>
+                {i18n.t('vote.vote_will_start')}&nbsp;<b>{startingString}</b>
+              </Text>
+            </Col>
+          </FixedContainerRow>
+        }
+
+        {voteStatus === VoteStatus.Active &&
+          <VoteNowFixedContainer justify='center' align='center' gutter='md'>
+            <Col xs={12} justify='center'>
+              <Text size='lg' color='white'>
+                {i18n.t('vote.vote_will_close')}&nbsp;<b>{endingString}</b>
+              </Text>
+            </Col>
+            <Col xs={12} disableFlex>
+              <Button variant='primary' fontSize='large'>
+                {i18n.t("vote.vote_now")}
+              </Button>
+            </Col>
+            <Col xs={12} justify='center'>
+              <Spacer direction='vertical' size='xxs' />
+              <TextButton iconRight={seeResultsIcon}>
+                {i18n.t("vote.see_results")}
+              </TextButton>
+              <Spacer direction='vertical' size='xxs' />
+            </Col>
+          </VoteNowFixedContainer>
+
+        }
+
+        {/*
+            <FixedButtonContainer>
+            <FixedContainerRow>
               <Button
                 large
                 positive
@@ -513,9 +564,9 @@ export const VotingPageView = () => {
               >
                 {i18n.t('vote.vote_now')}
               </Button>
-            </div>
-          </FixedButtonContainer>
-        )}
+             </FixedContainerRow>
+          </FixedButtonContainer> */}
+
 
         {/* {showLogInButton && (
           <FixedButtonContainer>
@@ -636,3 +687,23 @@ const SubmitButtonContainer = styled(FlexContainer)`
 const TextContainer = styled(Body1)`
   margin: 12px 0;
 `
+
+const FixedContainerRow = styled(Row)`
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 31;
+  background-color: rgba(13, 71, 82, 0.75);
+  min-height: 72px;
+  backdrop-filter: blur(8px);
+  @media ${({ theme }) => theme.screenMin.tablet} {
+    display: none;
+  }
+`
+const VoteNowFixedContainer = styled(FixedContainerRow)`
+  padding: 24px;
+`
+// const StyledTextButton = styled(TextButton)`
+//   margin: 4px;
+// `
