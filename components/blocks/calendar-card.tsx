@@ -1,10 +1,13 @@
 import { Column, Grid } from '@components/elements/grid'
 import { useTranslation } from 'react-i18next'
-import { Card } from './card'
+// import { Card } from './card'
 import styled from 'styled-components'
 import { colors } from '@theme/colors'
-import { useCalendar } from '@hooks/use-date'
+import { useCalendar } from '@hooks/use-calendar'
 import { useIsMobile } from '@hooks/use-window-size'
+import { Col, Row } from '@components/elements-v2/grid'
+import { theme } from '@theme/global'
+import { Text } from '@components/elements-v2/text'
 
 
 type ICalendarCardProps = {
@@ -19,44 +22,55 @@ export const CalendarCard = (props: ICalendarCardProps) => {
   const calendarIcon = (
     <img
       src="/images/vote/calendar.svg"
-      // alt={i18n.t('vote.calendar_image_alt')}
+    // alt={i18n.t('vote.calendar_image_alt')}
     />
   )
+  const CardTitle = () => {
+    return (
+      <Row align='center' gutter='md'>
+        <Col>
+          {calendarIcon}
+        </Col>
+        <Col>
+          <Text size='lg' color='dark-blue' weight='bold'>
+            {i18n.t('vote.calendar_title')}
+          </Text>
+        </Col>
+      </Row>
+    )
+  }
   return (
-    <Card icon={calendarIcon} title={i18n.t('vote.calendar_title')} matchHeight>
-      <Grid noGutter>
-        <Column noGutter sm={6}>
-          <Label isMobile={isMobile}>
+    <Card >
+      <Row gutter={isMobile ? 'md' : 'lg'}>
+        <Col xs={12}>
+          <CardTitle />
+        </Col>
+        <Col xs={6}>
+          <Label size="xs" color='dark-gray' weight='bold'>
             {i18n.t('vote.calendar_start_label')}:
           </Label>
-          <Text>
-            {props.startDate ? toCalendarFormat(props.startDate) : '...'}
+          <Text size='md' color='dark-blue'>
+            {props.startDate && toCalendarFormat(props.startDate)}
           </Text>
-        </Column>
-        <Column noGutter sm={6}>
-          <Label isMobile={isMobile}>
+        </Col>
+        <Col xs={6}>
+          <Label size="xs" color='dark-gray' weight='bold'>
             {i18n.t('vote.calendar_end_label')}:
           </Label>
-          <Text>
-            {props.endDate ? toCalendarFormat(props.endDate) : '...'}
+          <Text size='md' color='dark-blue'>
+            {props.endDate && toCalendarFormat(props.endDate)}
           </Text>
-        </Column>
-      </Grid>
+        </Col>
+      </Row>
     </Card>
   )
 }
 
-const Label = styled.div<{isMobile?:boolean}>`
-  color: ${colors.lightText};
-  font-size: 14px;
-  font-weight: 600;
-  font-family: Manrope;
+const Label = styled(Text)`
   margin-bottom: 4px;
-  margin-top: ${({isMobile})=> isMobile? '16px': '24px'};
 `
-const Text = styled.span`
-  color: ${colors.blueText};
-  font-size: 18px;
-  font-weight: 400;
-  font-family: Manrope;
+const Card = styled.div`
+  border-radius: 16px;
+  padding: 24px;
+  background-color: ${theme.lightBg};
 `
