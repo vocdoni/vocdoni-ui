@@ -8,10 +8,7 @@ import { VoteStatus } from '@lib/util'
 import { colors } from 'theme/colors'
 
 import { SectionText, TextSize } from '@components/elements/text'
-import { Button } from '@components/elements/button'
-import { Column, Grid } from '@components/elements/grid'
-import { ProcessStatusLabel } from '@components/blocks/process-status-label'
-import { When } from 'react-if'
+import { ProcessStatusLabelV2 } from '@components/blocks/process-status-label-v2'
 
 import { FlexContainer, FlexJustifyContent } from '@components/elements/flex'
 import { CalendarCard } from '@components/blocks/calendar-card'
@@ -19,6 +16,7 @@ import { SettingsCard } from '@components/blocks/settings-card'
 import { LinkButton } from '@components/elements-v2/link-button'
 import { useIsMobile } from '@hooks/use-window-size'
 import { ExpandableContainer } from './expandable-container'
+import { Col, Row } from '@components/elements-v2/grid'
 
 interface IVotePageProps {
   description: string
@@ -86,100 +84,119 @@ export const VoteDescription = forwardRef<HTMLDivElement, IVotePageProps>(
       />
     )
     return (
-      <Grid>
-        <Column>
-          <FlexContainer justify={FlexJustifyContent.SpaceBetween}>
-            <ProcessStatusLabel status={voteStatus} />
-            <LogOutContainer>
-              {onLogOut && <Button small border onClick={() => onLogOut()}>{i18n.t('app.header.disconnect_account')}</Button>}
-            </LogOutContainer>
-          </FlexContainer>
-        </Column>
-        {/* DESCRIPTION */}
-        <Column>
-          <ExpandableContainer
-            lines={5}
-            buttonText={i18n.t('vote.show_more')}
-            buttonExpandedText={i18n.t('vote.show_less')}
-          >
-            {description}
-          </ExpandableContainer>
-        </Column>
-        {/* DATE AND SETTINGS */}
-        <When condition={startDate !== undefined && endDate !== undefined}>
-          <Column sm={12} md={6}>
-            <CalendarCard startDate={startDate} endDate={endDate} />
-          </Column>
-        </When>
-        <When condition={isWeighted !== undefined || isAnonymous !== undefined}>
-          <Column sm={12} md={6}>
-            <SettingsCard isWeigthed={isWeighted} />
-          </Column>
-        </When>
-        {/* LIVE STREAM */}
-        <When condition={hasVideo}>
-          <Column>
-            <SectionText size={TextSize.Big} color={colors.blueText}>
-              {i18n.t('vote.live_stream')}
-            </SectionText>
-          </Column>
-          <Column>
-            <LiveStreamVideoContainer ref={ref}>
-              {liveStreamUrl && (
-                <ReactPlayer url={liveStreamUrl} width="100%" />
-              )}
-            </LiveStreamVideoContainer>
-          </Column>
-        </When>
-        {/* EXTRA INFO */}
-        <When condition={discussionUrl || attachmentUrl || !!hasVideo}>
-          <Column>
-            <SectionText size={TextSize.Big} color={colors.blueText}>
-              {i18n.t('vote.extra_information')}
-            </SectionText>
-          </Column>
-        </When>
-        <When condition={discussionUrl}>
-          <Column sm={12} md={6}>
-            <LinkButton
-              href={discussionUrl}
-              target="_blank"
-              icon={isMobile ? pdfIcon : pdfIconOutlined}
-            >
-              {i18n.t('vote.access_to_the_documentation')}
-            </LinkButton>
-          </Column>
-        </When>
-        <When condition={attachmentUrl}>
-          <Column sm={12} md={6}>
-            <LinkButton
-              icon={isMobile ? questionIcon : questionIconOutlined}
-              href={attachmentUrl}
-              target="_blank"
-            >
-              {i18n.t('vote.questions_and_answers')}
-            </LinkButton>
-          </Column>
-        </When>
-      </Grid>
+      // MAIN ROW
+      <Row gutter='xxxl'>
+        {/* TAG AND DESCRIPCTION */}
+        <Col xs={12}>
+          {/* INSIDE ROW TO AJUST GUTTER */}
+          <Row gutter='xl'>
+            <Col xs={12}>
+              <FlexContainer justify={FlexJustifyContent.SpaceBetween}>
+                {startDate &&
+                  <ProcessStatusLabelV2 status={voteStatus} startDate={startDate} endDate={endDate} />
+                }
+              </FlexContainer>
+            </Col>
+
+            {description &&
+              <Col xs={12}>
+                <ExpandableContainer
+                  lines={5}
+                  buttonText={i18n.t('vote.show_more')}
+                  buttonExpandedText={i18n.t('vote.show_less')}
+                >
+                  {description}
+                </ExpandableContainer>
+              </Col>
+            }
+          </Row>
+        </Col>
+        {/* DATE AND SETTINGS CARDS */}
+        {((startDate && endDate) || isWeighted !== undefined || isAnonymous !== undefined) &&
+          <Col xs={12}>
+            {/* INSIDE ROW TO ADJUST GUTTER */}
+            <Row gutter='lg'>
+              {startDate && endDate &&
+                <Col xs={12} md={6}>
+                  <CalendarCard startDate={startDate} endDate={endDate} />
+                </Col>
+              }
+              {(isWeighted !== undefined || isAnonymous !== undefined) &&
+                <Col xs={12} md={6}>
+                  <SettingsCard isWeigthed={isWeighted} />
+                </Col>
+              }
+            </Row>
+          </Col>
+        }
+
+        {/* VIDEO */}
+        {hasVideo &&
+          <Col xs={12}>
+            {/* INSIDE ROW TO ADJUST GUTTER BETWEEN TITLE AND VIDEO*/}
+            <Row gutter='md'>
+              <Col xs={12}>
+                <SectionText size={TextSize.Big} color={colors.blueText}>
+                  {i18n.t('vote.live_stream')}
+                </SectionText>
+              </Col>
+              <Col xs={12}>
+                <LiveStreamVideoContainer ref={ref}>
+                  {liveStreamUrl && (
+                    <ReactPlayer url={liveStreamUrl} width="100%" />
+                  )}
+                </LiveStreamVideoContainer>
+              </Col>
+            </Row>
+          </Col>
+        }
+
+        {/* LINKS */}
+        {(discussionUrl || attachmentUrl) &&
+          <Col xs={12}>
+            {/* INSIDE ROW TO ADJUST GUTTER BETWEEN TITLE AND LINKS*/}
+            <Row gutter='md'>
+              <Col xs={12}>
+                <SectionText size={TextSize.Big} color={colors.blueText}>
+                  {i18n.t('vote.extra_information')}
+                </SectionText>
+              </Col>
+              <Col xs={12}>
+                {/* INSIDE ROW TO ADJUST GUTTER BETWEEN 2 LINKS */}
+                <Row gutter='lg'>
+                  {discussionUrl &&
+                    <Col xs={12} md={6}>
+                      <LinkButton
+                        href={discussionUrl}
+                        target="_blank"
+                        icon={isMobile ? pdfIcon : pdfIconOutlined}
+                      >
+                        {i18n.t('vote.access_to_the_documentation')}
+                      </LinkButton>
+                    </Col>
+                  }
+                  {attachmentUrl &&
+                    <Col xs={12} md={6}>
+                      <LinkButton
+                        icon={isMobile ? questionIcon : questionIconOutlined}
+                        href={attachmentUrl}
+                        target="_blank"
+                      >
+                        {i18n.t('vote.questions_and_answers')}
+                      </LinkButton>
+                    </Col>
+                  }
+                </Row>
+              </Col>
+            </Row>
+          </Col>
+        }
+      </Row>
+      // </Grid >
     )
   }
 )
 
-const LogOutContainer = styled.div`
-  display: none;
-
-  @media ${({ theme }) => theme.screenMax.tablet} {
-    display: block;
-  }
-
-`
-const ButtonText = styled.p`
-  color: ${colors.blueText};
-  font-size: 18px;
-  font-weight: 500;
-  margin: 0 20px;
-`
 
 const LiveStreamVideoContainer = styled.div`
   height: 360px;
