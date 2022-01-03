@@ -39,6 +39,12 @@ import { VOTING_AUTH_FORM_PATH } from '@const/routes'
 import { useProcessWrapper } from '@hooks/use-process-wrapper'
 import { ExpandableCard } from '@components/blocks/expandable-card'
 import { NoResultsCard } from '@components/blocks/NoResultsCard'
+import { Banner } from '@components/elements-v2/banner'
+import { Col, Row, IColProps } from '@components/elements-v2/grid'
+import { Spacer } from '@components/elements-v2/spacer'
+import { QuestionResults } from '@components/blocks/question-results'
+import { TotalVotesCard } from '@components/blocks/total-votes-card'
+import { useCalendar } from '@hooks/use-calendar'
 export enum VotingState {
   NotStarted = 'notStarted',
   Started = 'started',
@@ -59,6 +65,7 @@ export const VotingPageView = () => {
   const router = useRouter()
   const { updateAppTheme } = useTheme()
   const censusProof = useRecoilValue(censusProofState)
+  const { getDateDiff } = useCalendar()
   const { methods: votingMethods, choices, hasVoted, results, nullifier } = useVoting(
     processId
   )
@@ -250,9 +257,10 @@ export const VotingPageView = () => {
   const showResults =
     votingState === VotingState.Guest || votingState === VotingState.Ended
 
-  const showVotingButton = votingState == VotingState.NotStarted
+  // const showVotingButton = votingState == VotingState.NotStarted
 
   const showLogInButton = votingState == VotingState.Guest
+  const showCountdown = voteStatus === VoteStatus.Upcoming
 
   const voteWeight =
     VotingType.Weighted === processVotingType ? censusProof?.weight : null
@@ -273,6 +281,24 @@ export const VotingPageView = () => {
       alt={i18n.t('vote.question_image_alt')}
     />
   )
+  const authenticateIcon = (
+    <img
+      src="/images/vote/authenticate-icon.svg"
+      alt={i18n.t('vote.question_image_alt')}
+    />
+  )
+  const authenticateBannerImage = (
+    <img
+      src="/images/vote/authenticate-banner-image.svg"
+      alt={i18n.t('vote.question_image_alt')}
+    />
+  )
+  const disconnectIcon = (
+    <img
+      src="/images/vote/disconnect-icon.svg"
+      alt={i18n.t('vote.question_image_alt')}
+    />
+  )
   return (
     <>
       <VotingCard>
@@ -283,63 +309,107 @@ export const VotingPageView = () => {
           entityImage={metadata?.media.avatar}
         />
         <BodyContainer>
-          {showDescription && (
-            <Grid>
-              <Column sm={12} md={9}>
-                <VoteDescription
-                  onComponentMounted={handleVideoPosition}
-                  ref={descriptionVideoContainerRef}
-                  description={processInfo?.metadata?.description.default}
-                  hasVideo={!!processInfo?.metadata?.media.streamUri}
-                  isWeighted={processVotingType === VotingType.Weighted}
-                  onLogOut={handleLogOut}
-                  discussionUrl={
-                    processInfo?.metadata?.meta[MetadataFields.DiscussionLink]
+          <Row gutter='xxl'>
+            {/* NOT AUTHENTICATED BANNER */}
+            {votingState === VotingState.Guest && voteStatus == VoteStatus.Active &&
+              <Col xs={12} disableFlex>
+                <Banner
+                  image={authenticateBannerImage}
+                  subtitle={i18n.t('vote.auth.with_credentials')}
+                  titleSize='regular'
+                  titleWeight='bold'
+                  subtitleSize='large'
+                  buttonProps={
+                    {
+                      variant: 'primary',
+                      children: i18n.t('vote.auth.auth_button'),
+                      iconRight: authenticateIcon,
+                      onClick: () => handleGotoAuth()
+                    }
                   }
-                  attachmentUrl={
-                    processInfo?.metadata?.meta[MetadataFields.AttachmentLink]
+                >
+                  {i18n.t('vote.auth.not_authenticated')}
+                </Banner>
+              </Col>
+            }
+            {/* DISCONNECT BANNER */}
+            {votingState === VotingState.NotStarted && voteStatus == VoteStatus.Active &&
+              <Col xs={12} disableFlex>
+                <Banner
+                  titleSize='regular'
+                  titleWeight='regular'
+                  buttonProps={
+                    {
+                      variant: 'white',
+                      children: i18n.t('vote.auth.disconnect_button'),
+                      iconRight: disconnectIcon,
+                      onClick: () => handleLogOut()
+                    }
                   }
-                  timeComment={dateDiffStr}
-                  voteStatus={voteStatus}
-                  startDate={startDate}
-                  endDate={endDate}
-                />
-              </Column>
-
-              <Column sm={12} md={3} hiddenSm hiddenMd>
-                <VoteNowCardContainer>
+                >
+                  {i18n.t('vote.you_are_autenticated')}
+                  <Spacer size="xxs" direction="horizontal" />
+                  <b> TODO :here goes the voter info</b>
+                </Banner>
+              </Col>
+            }
+            {showDescription && (
+              <>
+                <Col xs={12} md={9}>
+                  <VoteDescription
+                    onComponentMounted={handleVideoPosition}
+                    ref={descriptionVideoContainerRef}
+                    description={processInfo?.metadata?.description.default}
+                    hasVideo={!!processInfo?.metadata?.media.streamUri}
+                    isWeighted={processVotingType === VotingType.Weighted}
+                    onLogOut={handleLogOut}
+                    discussionUrl={
+                      processInfo?.metadata?.meta[MetadataFields.DiscussionLink]
+                    }
+                    attachmentUrl={
+                      processInfo?.metadata?.meta[MetadataFields.AttachmentLink]
+                    }
+                    timeComment={dateDiffStr}
+                    voteStatus={voteStatus}
+                    startDate={startDate}
+                    endDate={endDate}
+                  />
+                </Col>
+                <StickyCol xs={12} md={3} hiddenMdAndDown disableFlex>
                   <VoteActionCard
                     onClick={handleVoteNow}
+                    startDate={startDate}
+                    endDate={endDate}
                     onLogOut={handleLogOut}
-                    votingState={votingState}
+                    votingState={voteStatus}
                     explorerLink={explorerLink}
+                    totalVotes={totalVotes}
                     disabled={voteStatus !== VoteStatus.Active}
                   />
-                </VoteNowCardContainer>
-              </Column>
-            </Grid>
-          )}
-
-          {processInfo?.metadata?.media.streamUri && (
-            <PlayerFixedContainer
-              top={videosStyle.top}
-              height={videosStyle.height}
-              width={videosStyle.width}
-            >
-              <PlayerContainer>
-                <ReactPlayer
-                  url={processInfo?.metadata?.media.streamUri}
-                  width="100%"
-                  height="100%"
-                />
-              </PlayerContainer>
-            </PlayerFixedContainer>
-          )}
+                </StickyCol>
+              </>
+            )}
+            {processInfo?.metadata?.media.streamUri && (
+              <PlayerFixedContainer
+                top={videosStyle.top}
+                height={videosStyle.height}
+                width={videosStyle.width}
+              >
+                <PlayerContainer>
+                  <ReactPlayer
+                    url={processInfo?.metadata?.media.streamUri}
+                    width="100%"
+                    height="100%"
+                  />
+                </PlayerContainer>
+              </PlayerFixedContainer>
+            )}
+          </Row>
         </BodyContainer>
-
+        <Spacer direction='vertical' size='xxl' />
         {/* RESULTS CARD */}
-        <Grid>
-          <Column sm={12}>
+        <Row gutter='xxl'>
+          <Col xs={12}>
             <ExpandableCard
               title="Voting Results"
               icon={voteResultsIcon}
@@ -357,9 +427,9 @@ export const VotingPageView = () => {
               }}
             >
               {/* IF RESULTS */}
-              <If condition={showResults}>
+              <If condition={showResults && totalVotes > 0}>
                 <Then>
-                  {processInfo?.metadata?.questions.map(
+                  {/* {processInfo?.metadata?.questions.map(
                     (question: Question, index: number) => (
                       <VoteQuestionCard
                         questionIdx={index}
@@ -376,7 +446,25 @@ export const VotingPageView = () => {
                         }}
                       />
                     )
-                  )}
+                  )} */}
+                  <Row gutter='xxl'>
+                    <Col xs={12}>
+                      <TotalVotesCard
+                        totalVotes={totalVotes}
+                      />
+                    </Col>
+                    <Col xs={12}>
+                      {processInfo?.metadata?.questions.map(
+                        (question: Question, index: number) =>
+                          <QuestionResults
+                            question={question}
+                            index={index}
+                            totalVotes={totalVotes}
+                            key={index}
+                          />
+                      )}
+                    </Col>
+                  </Row>
                 </Then>
                 {/* IF NO RESULTS */}
                 <Else>
@@ -386,13 +474,13 @@ export const VotingPageView = () => {
                   />
                 </Else>
               </If>
-
             </ExpandableCard>
-          </Column>
-        </Grid>
+          </Col>
+        </Row>
+        {/* </Grid> */}
         {/* VOTING PAGE */}
         {/* {votingState == VotingState.Started && ( */}
-          {/* <QuestionsList
+        {/* <QuestionsList
             onComponentMounted={handleVideoPosition}
             ref={votingVideoContainerRef}
             hasVideo={!!processInfo?.metadata?.media.streamUri}
@@ -407,9 +495,15 @@ export const VotingPageView = () => {
 
         {/* FIXED BUTTON ON MOBILE VERSION */}
 
-        {showVotingButton && (
+        {voteStatus === VoteStatus.Upcoming && (
           <FixedButtonContainer>
+            {getDateDiff(null, startDate, 'days').value} <br />
+            {getDateDiff(null, startDate, 'hours').value} <br />
+            {getDateDiff(null, startDate, 'minutes').value} <br />
+            {getDateDiff(null, startDate, 'countdown').value} <br />
+            {getDateDiff(null, startDate, 'diff').value} <br />
             <div>
+              {/* {getDateDiff(startDate, null, 'startingIn')} */}
               <Button
                 large
                 positive
@@ -423,7 +517,7 @@ export const VotingPageView = () => {
           </FixedButtonContainer>
         )}
 
-        {showLogInButton && (
+        {/* {showLogInButton && (
           <FixedButtonContainer>
             <div>
               <Typography variant={TypographyVariant.Body2}>
@@ -434,7 +528,7 @@ export const VotingPageView = () => {
               </Button>
             </div>
           </FixedButtonContainer>
-        )}
+        )} */}
 
         {/* HAS VOTED CARD */}
         {hasVoted && (
@@ -444,7 +538,7 @@ export const VotingPageView = () => {
         )}
 
         {/* COUNT OF TOTAL VOTES */}
-        <If condition={showDescription && totalVotes > 0}>
+        {/* <If condition={showDescription && totalVotes > 0}>
           <Then>
             <Grid>
               <Card sm={12}>
@@ -461,7 +555,7 @@ export const VotingPageView = () => {
               </Card>
             </Grid>
           </Then>
-        </If>
+        </If> */}
       </VotingCard>
 
       <ConfirmModal
@@ -489,7 +583,8 @@ const VoteRegisteredLgContainer = styled.div`
 
 const PlayerFixedContainer = styled.div<IVideoStyle>`
   position: absolute;
-  margin-bottom: 20px;
+  // margin-bottom: 20px;
+  margin:0;
   z-index: 30;
   transition: all 0.4s ease-in-out;
   top: ${({ top }) => top || 0}px;
@@ -503,7 +598,7 @@ const PlayerContainer = styled.div`
   max-width: 800px;
   border-radius: 10px;
   overflow: hidden;
-  margin: 0 auto;
+  // margin: 0 auto;
 `
 
 const BodyContainer = styled.div`
@@ -530,7 +625,7 @@ const FixedButtonContainer = styled.div`
   }
 `
 
-const VoteNowCardContainer = styled.div`
+const StickyCol = styled(Col) <IColProps>`
   position: sticky;
   top: 20px;
 `
