@@ -30,6 +30,7 @@ interface IVoteActionCardProps {
 
   onClick: () => void
   onLogOut?: () => void
+  onSeeResults?: () => void
 }
 
 export const VoteActionCard = ({
@@ -40,6 +41,7 @@ export const VoteActionCard = ({
   endDate,
   totalVotes,
   onClick,
+  onSeeResults,
   onLogOut,
 }: IVoteActionCardProps) => {
   const { i18n } = useTranslation()
@@ -57,10 +59,15 @@ export const VoteActionCard = ({
     switch (endingIn.format) {
       case 'days':
         endingString = i18n.t("vote.value_days", { value: endingIn.value })
-        startingString = i18n.t("vote.value_days", { value: startingIn.value })
         break
       default:
         endingString = getDateDiff(null, endDate, 'countdown').value + 's'
+    }
+    switch (startingIn.format) {
+      case 'days':
+        startingString = i18n.t("vote.value_days", { value: startingIn.value })
+        break
+      default:
         startingString = getDateDiff(null, startDate, 'countdown').value + 's'
     }
     switch (status) {
@@ -202,7 +209,7 @@ export const VoteActionCard = ({
           {totalVotes} (0%)
         </Text>
         <VerticalSpacer />
-        <TextButton iconRight={seeResultsIcon}>
+        <TextButton iconRight={seeResultsIcon} onClick={() => onSeeResults()}>
           {i18n.t('vote.see_results')}
         </TextButton>
       </BannerMainDiv>

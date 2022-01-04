@@ -82,6 +82,7 @@ export const VotingPageView = () => {
   const { wallet, setWallet } = useWallet({ role: WalletRoles.VOTER })
   const { metadata } = useEntity(processInfo?.state?.entityId)
   const [confirmModalOpened, setConfirmModalOpened] = useState<boolean>(false)
+  const [isExpandableCardOpen, setIsExpandableCardOpen] = useState<boolean>(false)
   const [votingState, setVotingState] = useState<VotingState>(
     VotingState.NotStarted
   )
@@ -93,6 +94,7 @@ export const VotingPageView = () => {
   const entityMetadata = metadata as EntityMetadata
   const descriptionVideoContainerRef = useRef<HTMLDivElement>(null)
   const votingVideoContainerRef = useRef<HTMLDivElement>(null)
+  const resultsCardRef = useRef(null)
   const timeoutRef = useRef<any>()
   const intervalRef = useRef<any>()
   const [videosStyle, setVideoStyle] = useState<IVideoStyle>({
@@ -212,6 +214,13 @@ export const VotingPageView = () => {
       handleGotoAuth()
     }
   }
+  const handleSeeResultsClick = () => {
+    setIsExpandableCardOpen(true)
+    resultsCardRef.current.scrollIntoView({ block: 'start', behavior: 'smooth' })
+  }
+  const handleExpandableCardButtonClick = () => {
+    setIsExpandableCardOpen(!isExpandableCardOpen)
+  }
 
   const handleFinishVote = () => {
     setConfirmModalOpened(true)
@@ -253,17 +262,22 @@ export const VotingPageView = () => {
       window.location.href = RouterService.instance.get(VOTING_AUTH_FORM_PATH, { processId })
     }, 50)
   }
-  const startingIn = getDateDiff(null, startDate, 'diff')
   const endingIn = getDateDiff(null, endDate, 'diff')
-  let startingString, endingString
-  switch (startingIn.format) {
+  const startingIn = getDateDiff(null, startDate, 'diff')
+  let endingString, startingString
+  switch (endingIn.format) {
     case 'days':
-      startingString = i18n.t("vote.value_days", { value: startingIn.value })
       endingString = i18n.t("vote.value_days", { value: endingIn.value })
       break
     default:
-      startingString = getDateDiff(null, startDate, 'countdown').value + 's'
       endingString = getDateDiff(null, endDate, 'countdown').value + 's'
+  }
+  switch (startingIn.format) {
+    case 'days':
+      startingString = i18n.t("vote.value_days", { value: startingIn.value })
+      break
+    default:
+      startingString = getDateDiff(null, startDate, 'countdown').value + 's'
   }
   const processVotingType: VotingType = processInfo?.state?.censusOrigin as any
 
@@ -381,6 +395,7 @@ export const VotingPageView = () => {
             }
             {showDescription && (
               <>
+                {/* DESCIRPTION */}
                 <Col xs={12} md={9}>
                   <VoteDescription
                     onComponentMounted={handleVideoPosition}
@@ -401,9 +416,11 @@ export const VotingPageView = () => {
                     endDate={endDate}
                   />
                 </Col>
+                {/* VOTE CARD */}
                 <StickyCol xs={12} md={3} hiddenMdAndDown disableFlex>
                   <VoteActionCard
                     onClick={handleVoteNow}
+                    onSeeResults={handleSeeResultsClick}
                     startDate={startDate}
                     endDate={endDate}
                     onLogOut={handleLogOut}
@@ -415,6 +432,7 @@ export const VotingPageView = () => {
                 </StickyCol>
               </>
             )}
+            {/* STREAM CARD */}
             {processInfo?.metadata?.media.streamUri && (
               <PlayerFixedContainer
                 top={videosStyle.top}
@@ -437,6 +455,9 @@ export const VotingPageView = () => {
         <Row gutter='xxl'>
           <Col xs={12}>
             <ExpandableCard
+              ref={resultsCardRef}
+              isOpen={isExpandableCardOpen}
+              onButtonClick={handleExpandableCardButtonClick}
               title="Voting Results"
               icon={voteResultsIcon}
               buttonText="Show"
@@ -455,24 +476,6 @@ export const VotingPageView = () => {
               {/* IF RESULTS */}
               <If condition={showResults && totalVotes > 0}>
                 <Then>
-                  {/* {processInfo?.metadata?.questions.map(
-                    (question: Question, index: number) => (
-                      <VoteQuestionCard
-                        questionIdx={index}
-                        key={index}
-                        question={question}
-                        hasVoted={hasVoted}
-                        totalVotes={totalVotes}
-                        result={results?.questions[index]}
-                        processStatus={processInfo?.state?.status}
-                        selectedChoice={choices.length > index ? choices[index] : -1}
-                        readOnly={true}
-                        onSelectChoice={(selectedChoice) => {
-                          votingMethods.onSelect(index, selectedChoice)
-                        }}
-                      />
-                    )
-                  )} */}
                   <Row gutter='xxl'>
                     <Col xs={12}>
                       <TotalVotesCard
@@ -503,23 +506,8 @@ export const VotingPageView = () => {
             </ExpandableCard>
           </Col>
         </Row>
-        {/* </Grid> */}
-        {/* VOTING PAGE */}
-        {/* {votingState == VotingState.Started && ( */}
-        {/* <QuestionsList
-            onComponentMounted={handleVideoPosition}
-            ref={votingVideoContainerRef}
-            hasVideo={!!processInfo?.metadata?.media.streamUri}
-            results={choices}
-            questions={processInfo?.metadata?.questions}
-            voteWeight={voteWeight}
-            onSelect={votingMethods.onSelect}
-            onFinishVote={handleFinishVote}
-            onBackDescription={handleBackToDescription}
-          /> */}
-        {/* )} */}
 
-        {/* FIXED WILL START ON MOBILE VERSION */}
+        {/* FIXED CARDS ON MOBILE VERSION */}
 
         {voteStatus === VoteStatus.Upcoming &&
           <FixedContainerRow align='center' justify='center'>
@@ -545,43 +533,14 @@ export const VotingPageView = () => {
             </Col>
             <Col xs={12} justify='center'>
               <Spacer direction='vertical' size='xxs' />
-              <TextButton iconRight={seeResultsIcon}>
+              <TextButton iconRight={seeResultsIcon} onClick={handleSeeResultsClick}>
                 {i18n.t("vote.see_results")}
               </TextButton>
               <Spacer direction='vertical' size='xxs' />
             </Col>
           </VoteNowFixedContainer>
-
         }
 
-        {/*
-            <FixedButtonContainer>
-            <FixedContainerRow>
-              <Button
-                large
-                positive
-                wide
-                onClick={handleVoteNow}
-                disabled={voteStatus !== VoteStatus.Active}
-              >
-                {i18n.t('vote.vote_now')}
-              </Button>
-             </FixedContainerRow>
-          </FixedButtonContainer> */}
-
-
-        {/* {showLogInButton && (
-          <FixedButtonContainer>
-            <div>
-              <Typography variant={TypographyVariant.Body2}>
-                {i18n.t('vote.you_need_authenticate_to_vote')}
-              </Typography>
-              <Button large positive wide onClick={handleVoteNow}>
-                {i18n.t('vote.vote_now')}
-              </Button>
-            </div>
-          </FixedButtonContainer>
-        )} */}
 
         {/* HAS VOTED CARD */}
         {hasVoted && (
@@ -589,28 +548,9 @@ export const VotingPageView = () => {
             <VoteRegisteredCard explorerLink={explorerLink} />
           </VoteRegisteredLgContainer>
         )}
-
-        {/* COUNT OF TOTAL VOTES */}
-        {/* <If condition={showDescription && totalVotes > 0}>
-          <Then>
-            <Grid>
-              <Card sm={12}>
-                <TextContainer align={TextAlign.Center}>
-                  {processVotingType === VotingType.Weighted
-                    ? i18n.t('vote.total_weighted_votes', {
-                      totalVotes: results?.totalVotes,
-                      totalWeightedVotes: results?.totalWeightedVotes,
-                    })
-                    : i18n.t('vote.total_votes', {
-                      totalVotes: results?.totalVotes,
-                    })}
-                </TextContainer>
-              </Card>
-            </Grid>
-          </Then>
-        </If> */}
       </VotingCard>
 
+      {/* MODALS */}
       <ConfirmModal
         isOpen={confirmModalOpened}
         onVoted={handleOnVoted}
