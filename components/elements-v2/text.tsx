@@ -26,12 +26,14 @@ export type ITextProps = {
   size?: TextSize
   weight?: TextWeight
   color?: TextColor
+  align?: TextAlign
 }
 
 type TextVariant = 'title' | 'subtitle' | 'body'
 type TextSize = 'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl' | 'display-1'
-type TextWeight = 'light' | 'regular' | 'bold'
-type TextColor = 'primary' | 'dark-blue' | 'dark-gray' | 'white'
+type TextWeight = 'light' | 'regular' | 'medium' | 'bold'
+type TextColor = 'primary' | 'dark-blue' | 'dark-gray' | 'white' | 'error'
+type TextAlign = 'center' | 'right' | 'left' | 'justify'
 
 export const Text = (props: ITextProps) => {
   return (
@@ -39,6 +41,20 @@ export const Text = (props: ITextProps) => {
       {props.children}
     </BaseText>
   )
+}
+const getTextAlign = (props: ITextProps) => {
+  switch (props.align) {
+    case 'center':
+      return 'center'
+    case 'right':
+      return 'right'
+    case 'left':
+      return 'left'
+    case 'justify':
+      return 'justify'
+    default:
+      return ''
+  }
 }
 
 const getTextSize = (props: ITextProps) => {
@@ -80,6 +96,8 @@ const getTextWeight = (props: ITextProps) => {
         return 300
       case 'regular':
         return 400
+      case 'medium':
+        return 500
       case 'bold':
         return 600
     }
@@ -102,6 +120,8 @@ const getTextColor = (props: ITextProps) => {
         return theme.accent1
       case 'dark-gray':
         return theme.lightText
+      case 'error':
+        return theme.warningText
       case 'white':
         return theme.white
     }
@@ -120,4 +140,5 @@ const BaseText = styled.span<ITextProps>`
   font-size: ${getTextSize};
   font-weight: ${getTextWeight};
   color:  ${getTextColor};
+  text-align: ${getTextAlign};
 `

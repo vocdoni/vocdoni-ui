@@ -49,6 +49,9 @@ import { useCalendar } from '@hooks/use-calendar'
 import { Text } from '@components/elements-v2/text'
 import { LinkButton } from '@components/elements-v2/link-button'
 import { TextButton } from '@components/elements-v2/text-button'
+
+import Modal from 'react-rainbow-components/components/Modal'
+import { DisconnectModal } from '@components/elements-v2/disconnect-modal'
 export enum VotingState {
   NotStarted = 'notStarted',
   Started = 'started',
@@ -67,6 +70,7 @@ export const VotingPageView = () => {
   const { i18n } = useTranslation()
   const processId = useUrlHash().slice(1) // Skip "/"
   const router = useRouter()
+  const [disconnectModalOpened, setDisconnectModalOpened] = useState(false)
   const { updateAppTheme } = useTheme()
   const censusProof = useRecoilValue(censusProofState)
   const { getDateDiff } = useCalendar()
@@ -239,14 +243,13 @@ export const VotingPageView = () => {
   }
 
   const handleLogOut = () => {
-    const confirmMsg = i18n.t('confirm.do_you_want_to_continue')
-    if (!confirm(confirmMsg)) return
-
+    console.log('here')
     setWallet(null)
     votingMethods.cleanup()
 
     setTimeout(() => {
       // Force window unload after the wallet is wiped
+      setDisconnectModalOpened(false)
       window.location.href = RouterService.instance.get(VOTING_AUTH_FORM_PATH, { processId })
     }, 50)
   }
@@ -324,7 +327,6 @@ export const VotingPageView = () => {
   )
   return (
     <>
-      <ModalController></ModalController>
       <VotingCard>
         <CardImageHeader
           title={processInfo?.metadata?.title.default}
@@ -367,7 +369,7 @@ export const VotingPageView = () => {
                       variant: 'white',
                       children: i18n.t('vote.auth.disconnect_button'),
                       iconRight: disconnectIcon,
-                      onClick: () => handleLogOut()
+                      onClick: () => setDisconnectModalOpened(true)
                     }
                   }
                 >
@@ -614,6 +616,12 @@ export const VotingPageView = () => {
         onVoted={handleOnVoted}
         onClose={handleBackToVoting}
       />
+      <DisconnectModal
+        hideCloseButton
+        isOpen={disconnectModalOpened}
+        onRequestClose={() => setDisconnectModalOpened(false)}
+        onDisconnect={handleLogOut}
+      />
     </>
   )
 }
@@ -694,7 +702,7 @@ const FixedContainerRow = styled(Row)`
   left: 0;
   right: 0;
   z-index: 31;
-  background-color: rgba(13, 71, 82, 0.75);
+  background-color: rgba(13, 71, 82, 0.85);
   min-height: 72px;
   backdrop-filter: blur(8px);
   @media ${({ theme }) => theme.screenMin.tablet} {
