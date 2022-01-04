@@ -4,7 +4,7 @@ import { FlexAlignItem, FlexContainer, FlexContainerProps, FlexDirection, FlexJu
 import { colors } from '@theme/colors'
 import { initial } from 'lodash'
 import { StringifyOptions } from 'querystring'
-import { ReactNode, useState } from 'react'
+import { ForwardedRef, forwardRef, ReactNode, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { CalendarCard } from './calendar-card'
 import { MarkDownViewer } from './mark-down-viewer'
@@ -24,96 +24,103 @@ interface IExpandableCardProps {
   buttonTextActive: string
   buttonProps?: IButtonProps
   buttonPropsActive?: IButtonProps
+  isOpen?: boolean
+  onButtonClick?: () => void
+  onComponentMounted?: (ref: ForwardedRef<HTMLDivElement>) => void
 }
 
 
-export const ExpandableCard = (props: IExpandableCardProps) => {
-  const [isExpanded, setIsExpanded] = useState(false)
-  const i18n = useTranslation()
-  const isMobile = useIsMobile()
-  const DesktopHeader = () => {
-    return (
-      <FlexContainer alignItem={FlexAlignItem.Center} justify={FlexJustifyContent.SpaceBetween}>
-        <FlexContainer alignItem={FlexAlignItem.Center}>
+export const ExpandableCard = forwardRef<HTMLDivElement, IExpandableCardProps>(
+  (props: IExpandableCardProps,
+    ref
+  ) => {
+    const [isExpanded, setIsExpanded] = useState(false)
+    const i18n = useTranslation()
+    const isMobile = useIsMobile()
+    const DesktopHeader = () => {
+      return (
+        <FlexContainer alignItem={FlexAlignItem.Center} justify={FlexJustifyContent.SpaceBetween}>
+          <FlexContainer alignItem={FlexAlignItem.Center}>
+            <When condition={props.icon !== undefined}>
+              {props.icon}
+              <HorizontalSpacer />
+            </When>
+            <Title>{props.title}</Title>
+          </FlexContainer>
+          <If condition={props.isOpen}>
+            <Then>
+              <Button
+                onClick={() => props.onButtonClick()}
+                {...props.buttonPropsActive}
+              >
+                {props.buttonTextActive}
+              </Button>
+            </Then>
+            <Else>
+              <Button
+                onClick={() => props.onButtonClick()}
+                {...props.buttonProps}
+              >
+                {props.buttonText}
+              </Button>
+            </Else>
+          </If>
+        </FlexContainer>
+      )
+    }
+    const MobileHeader = () => {
+      return (
+        <FlexContainer direction={FlexDirection.Column} justify={FlexJustifyContent.Center}>
           <When condition={props.icon !== undefined}>
-            {props.icon}
-            <HorizontalSpacer />
+            <Center>
+              {props.icon}
+              <VerticalSpacer />
+            </Center>
           </When>
           <Title>{props.title}</Title>
         </FlexContainer>
-        <If condition={isExpanded}>
-          <Then>
-            <Button
-              onClick={() => setIsExpanded(!isExpanded)}
-              {...props.buttonPropsActive}
-            >
-              {props.buttonTextActive}
-            </Button>
-          </Then>
-          <Else>
-            <Button
-              onClick={() => setIsExpanded(!isExpanded)}
-              {...props.buttonProps}
-            >
-              {props.buttonText}
-            </Button>
-          </Else>
-        </If>
-      </FlexContainer>
-    )
-  }
-  const MobileHeader = () => {
+      )
+    }
+    if (isMobile) {
+      return (
+        <Grid>
+          <Column sm={12}>
+            <MobileHeader />
+          </Column>
+          <Column sm={12}>
+            {props.children}
+          </Column>
+        </Grid>
+      )
+    }
     return (
-      <FlexContainer direction={FlexDirection.Column} justify={FlexJustifyContent.Center}>
-        <When condition={props.icon !== undefined}>
-          <Center>
-            {props.icon}
-            <VerticalSpacer />
-          </Center>
+      <StyledGrid ref={ref}>
+        <Column sm={12}>
+          <DesktopHeader />
+        </Column>
+        <When condition={props.isOpen}>
+          <Column sm={12}>
+            {props.children}
+          </Column>
         </When>
-        <Title>{props.title}</Title>
-      </FlexContainer>
+      </StyledGrid>
+      // <div>
+      //   <TextContainer
+      //     isExpanded={isExpanded}
+      //     lines={props.lines}
+      //     maxHeight={props.maxHeight}
+      //   >
+      //     <Text>
+      //       <MarkDownViewer content={props.children} />
+      //     </Text>
+      //   </TextContainer>
+      //   <TextButton onClick={() => setIsExpanded(!isExpanded)}>
+      //     {isExpanded ? props.buttonExpandedText : props.buttonText}
+      //   </TextButton>
+      // </div>
     )
   }
-  if (isMobile) {
-    return (
-      <Grid>
-        <Column sm={12}>
-          <MobileHeader />
-        </Column>
-        <Column sm={12}>
-          {props.children}
-        </Column>
-      </Grid>
-    )
-  }
-  return (
-    <StyledGrid>
-      <Column sm={12}>
-        <DesktopHeader />
-      </Column>
-      <When condition={isExpanded}>
-        <Column sm={12}>
-          {props.children}
-        </Column>
-      </When>
-    </StyledGrid>
-    // <div>
-    //   <TextContainer
-    //     isExpanded={isExpanded}
-    //     lines={props.lines}
-    //     maxHeight={props.maxHeight}
-    //   >
-    //     <Text>
-    //       <MarkDownViewer content={props.children} />
-    //     </Text>
-    //   </TextContainer>
-    //   <TextButton onClick={() => setIsExpanded(!isExpanded)}>
-    //     {isExpanded ? props.buttonExpandedText : props.buttonText}
-    //   </TextButton>
-    // </div>
-  )
-}
+)
 const HorizontalSpacer = styled.div`
   padding: 0 12px;
 `
