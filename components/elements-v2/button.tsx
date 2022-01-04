@@ -7,7 +7,7 @@ import { Col, Row } from "./grid";
 import { theme } from "@theme/global";
 
 
-type ButtonVariant = 'light' | 'primary' | 'outlined' | 'white'
+type ButtonVariant = 'light' | 'primary' | 'outlined' | 'white' | 'outlinederror'
 type ButtonFontSize = 'regular' | 'large'
 export interface IButtonProps {
   children?: string
@@ -17,12 +17,14 @@ export interface IButtonProps {
   variant?: ButtonVariant
   disabled?: boolean
   color?: string
+  backgroundColor?: string
   width?: number | string
   fontSize?: ButtonFontSize
 }
 
 interface StyledButtonProps {
   color?: string
+  backgroundColor?: string
   width?: number | string
   variant?: ButtonVariant
   fontSize?: ButtonFontSize
@@ -33,6 +35,7 @@ export const Button = (props: IButtonProps) => {
     <BaseButton
       onClick={props.onClick}
       color={props.color}
+      backgroundColor={props.backgroundColor}
       width={props.width}
       variant={props.variant}
       fontSize={props.fontSize}
@@ -53,6 +56,9 @@ export const Button = (props: IButtonProps) => {
 }
 
 const getTextColor = (props: StyledButtonProps) => {
+  if (props.color) {
+    return props.color
+  }
   switch (props.variant) {
     case 'light':
       return theme.blueText
@@ -65,6 +71,9 @@ const getTextColor = (props: StyledButtonProps) => {
   }
 }
 const getBackgroundColor = (props: StyledButtonProps) => {
+  if (props.backgroundColor) {
+    return props.backgroundColor
+  }
   switch (props.variant) {
     case 'light':
       return theme.white
@@ -79,9 +88,11 @@ const getBackgroundColor = (props: StyledButtonProps) => {
 const getBorderColor = (props: StyledButtonProps) => {
   switch (props.variant) {
     case 'light':
-      return `2px solid ${theme.lightBorder}`;
+      return `2px solid ${theme.lightBorder}`
     case 'outlined':
-      return `2px solid ${theme.accent1}`;
+      return `2px solid ${props.color ? props.color : theme.accent1}`
+    case 'white':
+      return `2px solid ${theme.lightBorder}`
     default:
       return ''
   }
