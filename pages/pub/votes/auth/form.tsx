@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { overrideTheme } from 'theme'
 import { EntityMetadata } from 'dvote-js'
 
-import { useBlockHeight, useEntity } from '@vocdoni/react-hooks'
+import { useEntity } from '@vocdoni/react-hooks'
 
 
 import { ViewContext, ViewStrategy } from '@lib/strategy'
@@ -24,8 +24,6 @@ import { VotingType } from '@lib/types'
 
 const VoteAuthLogin = () => {
   const { i18n } = useTranslation()
-  const router = useRouter()
-  const { blockHeight } = useBlockHeight()
   const [checkingCredentials, setCheckingCredentials] = useState<boolean>(false)
   const {
     invalidProcessId,
@@ -42,9 +40,6 @@ const VoteAuthLogin = () => {
   const { updateAppTheme } = useTheme();
 
   const entityMetadata = metadata as EntityMetadata
-  const votingType: VotingType = VotingType.Anonymous
-  const processStarted = processInfo?.state?.startBlock > blockHeight
-  const userRequirePreregister = votingType === VotingType.Anonymous && !processStarted
 
   useEffect(() => {
     votingMethods.cleanup()
@@ -69,19 +64,10 @@ const VoteAuthLogin = () => {
   const handleSubmit = async () => {
     setCheckingCredentials(true)
 
-    try {
-      await methods.onLogin()
-
-      if(userRequirePreregister) {
-        router.push(PREREGISTER_PATH + "#/" + processInfo?.id)
-      } else {
-        router.push(VOTING_PATH + "#/" + processInfo?.id)
-      }
-    } catch (err) {
-      console.error(err)
-    }
-
-    setCheckingCredentials(false)
+    methods.onLogin()
+      .finally(() => {
+        setCheckingCredentials(false)
+      })
   }
 
   const renderLoadingPage = new ViewStrategy(

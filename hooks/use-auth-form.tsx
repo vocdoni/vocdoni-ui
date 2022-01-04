@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import { usePool, useProcess } from '@vocdoni/react-hooks'
+import { useBlockHeight, usePool, useProcess } from '@vocdoni/react-hooks'
 import { useRouter } from 'next/router'
 import { ProcessDetails,CensusOffChain, CensusOffChainApi, normalizeText } from 'dvote-js'
-import { VOTING_PATH } from '../const/routes'
+import { PREREGISTER_PATH, VOTING_PATH } from '../const/routes'
 import i18n from '../i18n'
 import { digestedWalletFromString, importedRowToString } from '../lib/util'
 import { useMessageAlert } from './message-alert'
@@ -32,12 +32,16 @@ type IAuthForm = {
 
 /** Provides the currently available wallet for the admin (by default) or for the voter otherwise  */
 export const useAuthForm = () => {
+  const router = useRouter()
   const { poolPromise } = usePool()
   const { setWallet } = useWallet({ role: WalletRoles.VOTER })
   const setCensusProof= useSetRecoilState<CensusPoof>(censusProofState)
   const processId = useUrlHash().slice(1) // Skip /
   const invalidProcessId = processId && !processId.match(/^0x[0-9a-fA-F]{64}$/)
   const { loading: loadingInfo, error: loadingInfoError, process: processInfo } = useProcess(processId)
+  const { blockHeight } = useBlockHeight()
+  const processStarted = blockHeight >= processInfo?.state?.startBlock
+  const userRequirePreregister = processInfo?.state?.processMode?.preRegister && !processStarted
   const { setAlertMessage } = useMessageAlert()
   const [formValues, setFormValues] = useState<{ [k: string]: string }>({})
 
@@ -77,6 +81,11 @@ export const useAuthForm = () => {
       setCensusProof(censusProof)
       // Set the voter wallet recovered
       setWallet(voterWallet)
+      if(userRequirePreregister) {
+        router.push(PREREGISTER_PATH + "#/" + processInfo?.id)
+      } else {
+        router.push(VOTING_PATH + "#/" + processInfo?.id)
+      }
     }).catch(err => {
       setAlertMessage(i18n.t("errors.the_contents_you_entered_may_be_incorrect"))
     })

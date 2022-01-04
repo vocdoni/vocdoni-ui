@@ -465,7 +465,7 @@ const useProcessParameters = () => {
     maxTotalCost: 0,
     maxValue: 1,
     maxVoteOverwrites: 0,
-    mode: ProcessMode.make({ autoStart: true, interruptible: true, dynamicCensus: false, encryptedMetadata: false }),
+    mode: ProcessMode.make({ autoStart: true, interruptible: true, dynamicCensus: false, encryptedMetadata: false, preregister: false }),
     metadata: JSON.parse(JSON.stringify(ProcessMetadataTemplate)),
     censusUri: defaultCensusUri,
     paramsSignature: "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -576,7 +576,19 @@ const useProcessParameters = () => {
     forceUpdate()
   }
   const setAnonymousVoting = (anonymousVoting: boolean) => {
-    setEnvelopeType(ProcessEnvelopeType.make({ serial: false, uniqueValues: false, encryptedVotes: false, anonymousVoters: anonymousVoting }) as ProcessEnvelopeType)
+    setEnvelopeType(ProcessEnvelopeType.make({
+      serial: false,
+      uniqueValues: false,
+      encryptedVotes: false,
+      anonymousVoters: anonymousVoting,
+    }) as unknown as ProcessEnvelopeType)
+    setMode(ProcessMode.make({
+      autoStart: true,
+      interruptible: true,
+      dynamicCensus: false,
+      encryptedMetadata: false,
+      preregister: true,
+    }) as unknown as ProcessMode)
   }
 
 

@@ -1,5 +1,5 @@
 import { usePool, useBlockHeight } from '@vocdoni/react-hooks'
-import { ProcessDetails, CensusOffChain, CensusOffChainApi, ProcessResultsSingleChoice, VotingApi, Voting } from 'dvote-js'
+import { ProcessDetails, CensusOffChain, CensusOffChainApi, VotingApi, Voting } from 'dvote-js'
 import { createContext, ReactNode, useContext, useEffect, useState } from 'react'
 
 import { useWallet, WalletRoles } from './use-wallet'
@@ -9,6 +9,7 @@ import { useStepper } from './use-stepper'
 import { useMessageAlert } from './message-alert'
 import { areAllNumbers, waitBlockFraction } from '../lib/util'
 import { useProcessWrapper } from '@hooks/use-process-wrapper'
+import { anonymousVote } from '@hooks/anonymous-voting'
 
 
 export interface VotingContext {
@@ -201,14 +202,23 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
     try {
       const pool = await poolPromise
 
+      let processKeys = null
       // Detect encryption
       if (processInfo.state?.envelopeType.encryptedVotes) {
-        const processKeys = await VotingApi.getProcessKeys(processId, pool)
-        const envelope = await Voting.packageSignedEnvelope({ censusOrigin: processInfo.state?.censusOrigin, votes: choices, censusProof, processId, processKeys })
-        await VotingApi.submitEnvelope(envelope, wallet, pool)
+        processKeys = await VotingApi.getProcessKeys(processId, pool)
       }
-      else {
-        const envelope = await Voting.packageSignedEnvelope({ censusOrigin: processInfo.state?.censusOrigin, votes: choices, censusProof, processId })
+
+      if(processInfo.state?.envelopeType?.anonymous) {
+        // TODO use real registerPass
+        await anonymousVote("registerPass", choices, processId, processKeys, pool)
+      } else {
+        const envelope = await Voting.packageSignedEnvelope({
+          censusOrigin: processInfo.state?.censusOrigin,
+          votes: choices,
+          censusProof,
+          processId,
+          processKeys
+        })
         await VotingApi.submitEnvelope(envelope, wallet, pool)
       }
 
