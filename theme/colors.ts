@@ -7,12 +7,11 @@ export const colors: Colors = {
   blueText: "#0D4752",
   warningText: '#F67272',
 
-
-  background: "#F6F9FC",
+  background: "#FFF",
 
   textAccent1: "#46C4C2",
   textAccent1B: "#A3EC93",
-  textAccent1C: "#4BDD7C",
+  textAccent1C: "#499B34",
   textAccent1Grayed: "#B8C2F6",
 
   textAccent2: "#FF5442",
@@ -20,7 +19,7 @@ export const colors: Colors = {
 
   accent1: "#46C4C2",
   accent1B: "#A3EC93",
-  accent1C: "#4BDD7C",
+  accent1C: "#499B34",
   accent1Grayed: "#B8C2F6",
 
   accent2: "#FF5442",

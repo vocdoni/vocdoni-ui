@@ -46,32 +46,32 @@ const FooterContainer = styled.div`
 `
 
 const VoterIconContainer = styled.div`
-  width: 160px;
-  max-height: 80px;
+  width: 120px;
+  max-height: 60px;
   margin-left: 20px;
 
   & > img {
-    max-width: 160px;
-    max-height: 80px;
+    max-width: 120px;
+    max-height: 60px;
   }
 
   @media ${({ theme }) => theme.screenMax.tablet} {
-    width: 120px;
-    max-height: 70px;
+    width: 100px;
+    max-height: 50px;
 
     & > img {
-      max-width: 120px;
-      max-height: 70px;
+      max-width: 100px;
+      max-height: 50px;
     }
   }
 
   @media ${({ theme }) => theme.screenMax.mobileM} {
-    width: 100px;
-    max-height: 60px;
+    width: 80px;
+    max-height: 40px;
 
     & > img {
-      max-width: 100px;
-      max-height: 60px;
+      max-width: 80px;
+      max-height: 40px;
     }
   }
 

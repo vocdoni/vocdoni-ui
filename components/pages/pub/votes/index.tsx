@@ -402,7 +402,7 @@ export const VotingPageView = () => {
                       totalWeightedVotes: results?.totalWeightedVotes,
                     })
                     : i18n.t('vote.total_votes', {
-                      totalVotes: results?.totalVotes,
+                      totalVotes: results ? results.totalVotes : '0',
                     })}
                 </TextContainer>
               </Card>

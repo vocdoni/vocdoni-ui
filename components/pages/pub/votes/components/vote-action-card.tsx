@@ -50,15 +50,7 @@ export const VoteActionCard = ({
       case VotingState.Ended:
         return (
           <>
-            <Button wide target={LinkTarget.Blank} positive href={explorerLink}>
-              {i18n.t('vote.view_in_explorer')}
-            </Button>
-
-            <ButtonContainer>
-              <Button wide onClick={onLogOut}>
-                {i18n.t('app.header.disconnect_account')}
-              </Button>
-            </ButtonContainer>
+            <div></div>
           </>
         )
 
@@ -68,12 +60,6 @@ export const VoteActionCard = ({
             <Button wide disabled={disabled} positive onClick={onClick}>
               {i18n.t('vote.vote_now')}
             </Button>
-
-            <ButtonContainer>
-              <Button wide onClick={onLogOut}>
-                {i18n.t('vote.log_out')}
-              </Button>
-            </ButtonContainer>
           </>
         )
 
@@ -123,12 +109,6 @@ export const VoteActionCard = ({
               src={getVotingImage(votingState)}
               alt={i18n.t('vote.voted_alt')}
             />
-
-            {getVotingIcon(votingState) && (
-              <CheckImageContainer>
-                <img src={getVotingIcon(votingState)} />
-              </CheckImageContainer>
-            )}
           </ImageContainer>
         </BannerIcon>
 

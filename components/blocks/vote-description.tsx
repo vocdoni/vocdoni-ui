@@ -49,13 +49,20 @@ export const VoteDescription = forwardRef<HTMLDivElement, IVotePageProps>(
     }, [ref])
 
     const pdfIcon = (
-      <img src="/images/vote/faq.png" alt={i18n.t('vote.pdf_image_alt')} />
+      <img src="/images/vote/faq.png" width="32" alt={i18n.t('vote.pdf_image_alt')} />
     )
     const questionIcon = (
       <img
-        src="/images/vote/pdf.png" alt={i18n.t('vote.question_image_alt')}
+        src="/images/vote/pdf.png" width="26" alt={i18n.t('vote.question_image_alt')}
       />
     )
+    const inscripcionsIcon = (
+      <img
+        src="/images/vote/play.png" width="32" alt={i18n.t('vote.question_image_alt')}
+      />
+    )
+
+    const inscripcionsUrl = "https://inscripcions.omnium.cat"
 
     return (
       <Grid>
@@ -74,6 +81,8 @@ export const VoteDescription = forwardRef<HTMLDivElement, IVotePageProps>(
           <MarkDownViewer content={description} />
         </Column>
 
+        <Separator>&nbsp;</Separator>
+
         <When condition={discussionUrl || attachmentUrl || !!hasVideo}>
           <Column>
             <SectionText size={TextSize.Big} color={colors.blueText}>
@@ -82,15 +91,16 @@ export const VoteDescription = forwardRef<HTMLDivElement, IVotePageProps>(
           </Column>
         </When>
 
-        <When condition={discussionUrl}>
+        <When condition={attachmentUrl}>
           <Column sm={12}>
             <Button
               border
               wide
               icon={questionIcon}
-              href={discussionUrl}
+              href={attachmentUrl}
               target={LinkTarget.Blank}
               justify={JustifyContent.Left}
+              omnium
             >
               <ButtonText>
                 {i18n.t('vote.access_to_the_documentation')}
@@ -99,20 +109,41 @@ export const VoteDescription = forwardRef<HTMLDivElement, IVotePageProps>(
           </Column>
         </When>
 
-        <When condition={attachmentUrl}>
+        <Separator>&nbsp;</Separator>
+
+        <When condition={discussionUrl}>
           <Column sm={12}>
             <Button
               border
               wide
               icon={pdfIcon}
-              href={attachmentUrl}
+              href={discussionUrl}
               target={LinkTarget.Blank}
               justify={JustifyContent.Left}
+              omnium
             >
               <ButtonText>{i18n.t('vote.questions_and_answers')}</ButtonText>
             </Button>
           </Column>
         </When>
+
+        <Separator>&nbsp;</Separator>
+
+        <Column sm={12}>
+          <Button
+            border
+            wide
+            icon={inscripcionsIcon}
+            href={inscripcionsUrl}
+            target={LinkTarget.Blank}
+            justify={JustifyContent.Left}
+            omnium
+          >
+            <ButtonText>Inscripcions</ButtonText>
+          </Button>
+        </Column>
+
+        <Separator>&nbsp;</Separator>
 
         <When condition={hasVideo}>
           <Column>
@@ -137,7 +168,7 @@ const LogOutContainer = styled.div`
 
 `
 const ButtonText = styled.p`
-  color: ${colors.blueText};
+  color: #fff;
   font-size: 18px;
   font-weight: 500;
   margin: 0 20px;
@@ -153,4 +184,7 @@ const LiveStreamVideoContainer = styled.div`
   @media ${({ theme }) => theme.screenMax.mobileL} {
     height: 160px;
   }
+`
+const Separator = styled.div`
+  margin:0px;
 `

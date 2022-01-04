@@ -29,12 +29,7 @@ export const VoteRegisteredCard = ({
         <BanerText>
           <BannerTitle>
             {i18n.t('vote.your_vote_has_been_registered')}
-          </BannerTitle>
-          <div>
-            <Button href={explorerLink} target={LinkTarget.Blank} positive wide>
-              {i18n.t('vote.view_in_explorer')}
-            </Button>
-          </div>
+          </BannerTitle>          
         </BanerText>
       </BannerMainDiv>
     </BannerDiv>

@@ -76,7 +76,6 @@ export const VoteQuestionCard = ({
     () => true,
     (
       <>
-        <QuestionNoResultsAvailable question={question} />
         <NoResultsAvailableText>
           {i18n.t('vote_question_card.no_results_available')}
         </NoResultsAvailableText>

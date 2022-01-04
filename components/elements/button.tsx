@@ -23,6 +23,7 @@ type ButtonProps = {
     large?: boolean,
     small?: boolean,
     verticalAlign?: boolean,
+    omnium?: boolean,
     /** Draws a gray border only in default buttons */
     border?: boolean,
     wide?: boolean,
@@ -36,10 +37,10 @@ type ButtonProps = {
     href?: string
     target?: LinkTarget
     spinner?: boolean
-    onClick?: (ev: React.MouseEvent<HTMLDivElement, MouseEvent>) => void
+    onClick?: (ev: React.MouseEvent<HTMLDivElement, MouseEvent>) => void,
 }
 
-export const Button = ({ disabled, positive, negative, color, href, target, onClick, width, icon, wide, border, borderColor, justify, verticalAlign, large, small, spinner, children }: ButtonProps) => {
+export const Button = ({ disabled, positive, negative, color, href, target, onClick, width, icon, wide, border, borderColor, justify, verticalAlign, large, small, spinner, children, omnium }: ButtonProps) => {
     let component: JSX.Element
     const getButtonText = (spinnerVariant: SpinnerProps['variant'] = 'brand'): ReactNode => (
         spinner ?
@@ -75,7 +76,7 @@ export const Button = ({ disabled, positive, negative, color, href, target, onCl
         </NegativeButton>
     }
     else {
-        component = <DefaultButton wide={wide} border={border} borderColor={borderColor} large={large} small={small} width={width} onClick={ev => (onClick && !disabled) ? onClick(ev) : null}>
+        component = <DefaultButton omnium={omnium} wide={wide} border={border} borderColor={borderColor} large={large} small={small} width={width} onClick={ev => (onClick && !disabled) ? onClick(ev) : null}>
             {icon ?
                 <ButtonContent color={color} justify={justify}>{icon}&nbsp;{getButtonText('inverse')}</ButtonContent> :
                 <ButtonContent color={color} verticalAlign={verticalAlign} justify={justify}>{getButtonText('inverse')}</ButtonContent>
@@ -98,7 +99,7 @@ export const SquareButton = ({ icon, children, width, disabled, onClick }: Butto
     </Button>
 )
 
-export const BaseButton = styled.div<{ wide?: boolean, large?: boolean, small?: boolean, width?: number, border?: boolean, borderColor?: ButtonColor | string }>`
+export const BaseButton = styled.div<{ wide?: boolean, large?: boolean, small?: boolean, width?: number, border?: boolean, omnium?: boolean, borderColor?: ButtonColor | string }>`
 ${props => props.wide ? "" : "display: inline-block;"}
 ${props => props.width != undefined ? "width: " + props.width + "px;" : ""}
 ${props => props.large ? "padding: 13px 25px;" :
@@ -132,26 +133,27 @@ ${props => props.large ? "font-size: 125%;" :
 `
 
 const DisabledButton = styled(BaseButton)`
-cursor: no-drop;
+    cursor: no-drop;
 `
 
 const DefaultButton = styled(BaseButton)`
-cursor: pointer;
-${({ border, borderColor, theme }) => border ? "border: 2px solid " + (borderColor? borderColor: theme.lightBorder)+ ";" : ""}
-background: ${props => props.theme.white};
+    cursor: pointer;
+    ${({ border, borderColor, theme }) => border ? "border: 2px solid " + (borderColor? borderColor: theme.lightBorder)+ ";" : ""}
+    
+    background: ${({omnium}) => omnium ? '#e9501d': '#fff'};
 
-// Compensate 2px border (if applicable)
-${({ large, small, border }) =>
-        large ? (border ? "padding: 11px 23px;" : "padding: 13px 25px;") :
-            small ? (border ? "padding: 6px 13px;" : "padding: 8px 15px;") :
-                (border ? "padding: 9px 18px;" : "padding: 11px 20px;")}
+    // Compensate 2px border (if applicable)
+    ${({ large, small, border }) =>
+            large ? (border ? "padding: 11px 23px;" : "padding: 13px 25px;") :
+                small ? (border ? "padding: 6px 13px;" : "padding: 8px 15px;") :
+                    (border ? "padding: 9px 18px;" : "padding: 11px 20px;")}
 
-&:hover {
-    background-color: ${props => props.theme.lightBg};
-}
-&:active {
-    background-color: ${props => props.theme.lightBg2};
-}
+    &:hover {
+        background-color: ${({omnium}) => omnium ? '#f4a78e': '#F6F9FC'};
+    }
+    &:active {
+        background-color: ${({omnium}) => omnium ? '#f4a78e': '#EFF1F7'};
+    }
 `
 
 const SpinnerContainer = styled.div`
@@ -159,29 +161,29 @@ const SpinnerContainer = styled.div`
     height: 16px;
 `
 export const PositiveButton = styled(BaseButton)`
-cursor: pointer;
+    cursor: pointer;
 
-background: linear-gradient(106.26deg, ${props => hexToRgbA(props.theme.accent1B)} 5.73%, ${props => hexToRgbA(props.theme.accent1)} 93.83%);
+    background: linear-gradient(106.26deg, ${props => hexToRgbA(props.theme.accent1B)} 5.73%, ${props => hexToRgbA(props.theme.accent1)} 93.83%);
 
-&:hover {
-    background: linear-gradient(106.26deg, ${props => hexToRgbA(props.theme.accent1B, 0.9)} 5.73%, ${props => hexToRgbA(props.theme.accent1, 0.9)} 93.83%);
-}
-&:active {
-    background: linear-gradient(106.26deg, ${props => hexToRgbA(props.theme.accent1B, 0.8)} 5.73%, ${props => hexToRgbA(props.theme.accent1, 0.8)} 93.83%);
-}
+    &:hover {
+        background: linear-gradient(106.26deg, ${props => hexToRgbA(props.theme.accent1B, 0.9)} 5.73%, ${props => hexToRgbA(props.theme.accent1, 0.9)} 93.83%);
+    }
+    &:active {
+        background: linear-gradient(106.26deg, ${props => hexToRgbA(props.theme.accent1B, 0.8)} 5.73%, ${props => hexToRgbA(props.theme.accent1, 0.8)} 93.83%);
+    }
 `
 
 const NegativeButton = styled(BaseButton)`
-cursor: pointer;
+    cursor: pointer;
 
-background: linear-gradient(106.26deg, ${props => hexToRgbA(props.theme.accent2B)} 5.73%, ${props => hexToRgbA(props.theme.accent2)} 93.83%) !important;
+    background: linear-gradient(106.26deg, ${props => hexToRgbA(props.theme.accent2B)} 5.73%, ${props => hexToRgbA(props.theme.accent2)} 93.83%) !important;
 
-&:hover {
-    background: linear-gradient(106.26deg, ${props => hexToRgbA(props.theme.accent2B, 0.9)} 5.73%, ${props => hexToRgbA(props.theme.accent2, 0.9)} 93.83%);
-}
-&:active {
-    background: linear-gradient(106.26deg, ${props => hexToRgbA(props.theme.accent2B, 0.8)} 5.73%, ${props => hexToRgbA(props.theme.accent2, 0.8)} 93.83%);
-}
+    &:hover {
+        background: linear-gradient(106.26deg, ${props => hexToRgbA(props.theme.accent2B, 0.9)} 5.73%, ${props => hexToRgbA(props.theme.accent2, 0.9)} 93.83%);
+    }
+    &:active {
+        background: linear-gradient(106.26deg, ${props => hexToRgbA(props.theme.accent2B, 0.8)} 5.73%, ${props => hexToRgbA(props.theme.accent2, 0.8)} 93.83%);
+    }
 `
 
 export enum JustifyContent {
@@ -191,18 +193,18 @@ export enum JustifyContent {
 }
 
 const ButtonContent = styled.div<{ color?: ButtonProps["color"], justify?: JustifyContent, verticalAlign?: boolean}>`
-display: flex;
-flex-direction: ${({verticalAlign}) => verticalAlign? 'column': 'row'};
-justify-content: ${({justify}) => justify? justify: JustifyContent.Center};
-align-items: center;
-${props => props.color == "positive" ? "color: " + props.theme.textAccent1 + ";" :
-        props.color == "negative" ? "color: " + props.theme.textAccent2 + ";" :
-            !!props.color ? "color: " + props.color + ";" :
-                ""}
+    display: flex;
+    flex-direction: ${({verticalAlign}) => verticalAlign? 'column': 'row'};
+    justify-content: ${({justify}) => justify? justify: JustifyContent.Center};
+    align-items: center;
+    ${props => props.color == "positive" ? "color: " + props.theme.textAccent1 + ";" :
+            props.color == "negative" ? "color: " + props.theme.textAccent2 + ";" :
+                !!props.color ? "color: " + props.color + ";" :
+                    ""}
 `
 
 const MyAnchor = styled.a`
-color: unset;
+    color: unset;
 `
 
 const SquareButtonIconContainer = styled.div`
