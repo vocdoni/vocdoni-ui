@@ -68,11 +68,11 @@ export const useCalendar = (): IUseCalendar => {
         return { value: dateString, format: 'ddd hhh mmm sss' }
       case 'diff':
         if (dayDiff < 2 && hourDiff > 0) {
-          return { value: (hourDiff + dayDiff * 24).toString(), format: 'days' }
+          return { value: (hourDiff + dayDiff * 24).toString(), format: 'hours' }
         }
         // if diffrence beween 60 and 1 minute
         else if (hourDiff === 0 && minDiff > 0) {
-          return { value: minDiff.toString(), format: 'hours' }
+          return { value: minDiff.toString(), format: 'minutes' }
         }
         // if diffrence is less than 1 minute
         else if (minDiff === 0) {
