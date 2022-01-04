@@ -5,6 +5,7 @@ import styled from "styled-components"
 
 type justifyOptions = 'start' | 'end' | 'center' | 'space-between' | 'space-around'
 type alignOptions = 'start' | 'end' | 'center'
+type textAlignOptions = 'start' | 'end' | 'center' | 'justify'
 export type IRowProps = {
   children?: ReactNode
   /**
@@ -282,6 +283,5 @@ export const Col = styled.div<IColProps>`
     display: ${getColChildFlex};
     justify-content: ${getColJustify};
     align-items: ${getColAlign};
-    flex: 0 1 auto;
   }
 `
