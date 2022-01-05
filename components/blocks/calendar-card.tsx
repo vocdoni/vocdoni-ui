@@ -1,13 +1,11 @@
 import { Column, Grid } from '@components/elements/grid'
 import { useTranslation } from 'react-i18next'
-// import { Card } from './card'
 import styled from 'styled-components'
-import { colors } from '@theme/colors'
 import { useCalendar } from '@hooks/use-calendar'
 import { useIsMobile } from '@hooks/use-window-size'
 import { Col, Row } from '@components/elements-v2/grid'
-import { theme } from '@theme/global'
 import { Text } from '@components/elements-v2/text'
+import { Card } from "@components/elements-v2/card"
 
 
 type ICalendarCardProps = {
@@ -22,7 +20,7 @@ export const CalendarCard = (props: ICalendarCardProps) => {
   const calendarIcon = (
     <img
       src="/images/vote/calendar.svg"
-    // alt={i18n.t('vote.calendar_image_alt')}
+    alt='calendar'
     />
   )
   const CardTitle = () => {
@@ -40,7 +38,7 @@ export const CalendarCard = (props: ICalendarCardProps) => {
     )
   }
   return (
-    <Card >
+    <Card padding="sm" variant="gray">
       <Row gutter={isMobile ? 'md' : 'lg'}>
         <Col xs={12}>
           <CardTitle />
@@ -68,9 +66,4 @@ export const CalendarCard = (props: ICalendarCardProps) => {
 
 const Label = styled(Text)`
   margin-bottom: 4px;
-`
-const Card = styled.div`
-  border-radius: 16px;
-  padding: 24px;
-  background-color: ${theme.lightBg};
 `

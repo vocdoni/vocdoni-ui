@@ -1,18 +1,19 @@
 import { FlexAlignItem, FlexContainer, FlexJustifyContent } from "@components/elements/flex";
 import { Column, Grid } from "@components/elements/grid";
+import { Card } from "@components/elements-v2/card";
 import { useIsMobile } from "@hooks/use-window-size";
 import { theme } from "@theme/global";
 import { ReactNode } from "react";
 import styled from "styled-components";
-import { IButtonProps, Button } from "./button";
+import { ButtonProps, Button } from "./button";
 import { Col, Row } from "./grid";
 
 
-interface IBannerProps {
+interface BannerProps {
   children: string | ReactNode
   image?: ReactNode
   variant?: BannerVariant
-  buttonProps?: IButtonProps
+  buttonProps?: ButtonProps
   subtitle?: string | ReactNode
   titleSize?: TextSize
   titleWeight?: TextWeight
@@ -30,7 +31,7 @@ interface StyledTextProps {
 }
 
 
-const getTextColSize = (props: IBannerProps, size: colSize) => {
+const getTextColSize = (props: BannerProps, size: colSize) => {
   switch (size) {
     case 'xs':
       if (props.image && props.buttonProps === undefined) {
@@ -62,10 +63,18 @@ const getTextColSize = (props: IBannerProps, size: colSize) => {
   }
 }
 
-export const Banner = (props: IBannerProps) => {
+const getBackgroundColor = (props: BannerProps): string => {
+  switch (props.variant) {
+    case 'primary':
+      return `linear-gradient(110.89deg, ${theme.accentLight1B} 0%, ${theme.accentLight1} 100%)`
+    default:
+      return `linear-gradient(110.89deg, ${theme.accentLight1B} 0%, ${theme.accentLight1} 100%)`
+  }
+}
+export const Banner = (props: BannerProps) => {
   const isMobile = useIsMobile()
   return (
-    <BannerContainer variant={props.variant}>
+    <Card padding={isMobile ? '20px' : '24px 40px'} variant={props.variant}>
       <Row align='center' gutter={isMobile ? 'md' : 'lg'}>
         {props.image &&
           <Col xs={3} md={2} lg={1} justify='end'>
@@ -93,19 +102,11 @@ export const Banner = (props: IBannerProps) => {
           </Button>
         </Col>
       </Row>
-    </BannerContainer >
+    </Card >
   )
 }
 
 
-const getBackgroundColor = ({ variant }: { variant: BannerVariant }) => {
-  switch (variant) {
-    case 'primary':
-      return `linear-gradient(110.89deg, ${theme.accentLight1B} 0%, ${theme.accentLight1} 100%)`
-    default:
-      return `linear-gradient(110.89deg, ${theme.accentLight1B} 0%, ${theme.accentLight1} 100%)`
-  }
-}
 const getTextSize = (props: StyledTextProps) => {
   switch (props.size) {
     case 'large':
@@ -129,14 +130,14 @@ const getTextWeight = (props: StyledTextProps) => {
   }
 }
 
-const BannerContainer = styled.div<{ variant: BannerVariant }>`
-  padding: 24px 40px;
-  border-radius: 16px;
-  background: ${getBackgroundColor};
-  @media ${({ theme }) => theme.screenMax.tablet} {
-    padding: 20px;
-  }
-`
+// const BannerContainer = styled.div<{ variant: BannerVariant }>`
+//   padding: 24px 40px;
+//   border-radius: 16px;
+//   background: ${getBackgroundColor};
+//   @media ${({ theme }) => theme.screenMax.tablet} {
+//     padding: 20px;
+//   }
+// `
 const Text = styled.span<StyledTextProps>`
   font-family: Manrope;
   color: ${theme.blueText};

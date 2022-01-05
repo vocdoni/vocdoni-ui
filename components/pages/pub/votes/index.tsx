@@ -354,6 +354,7 @@ export const VotingPageView = () => {
             {votingState === VotingState.Guest && voteStatus == VoteStatus.Active &&
               <Col xs={12} disableFlex>
                 <Banner
+                  variant='primary'
                   image={authenticateBannerImage}
                   subtitle={i18n.t('vote.auth.with_credentials')}
                   titleSize='regular'
@@ -376,6 +377,7 @@ export const VotingPageView = () => {
             {votingState === VotingState.NotStarted && voteStatus == VoteStatus.Active &&
               <Col xs={12} disableFlex>
                 <Banner
+                  variant='primary'
                   titleSize='regular'
                   titleWeight='regular'
                   buttonProps={
@@ -450,7 +452,7 @@ export const VotingPageView = () => {
             )}
           </Row>
         </BodyContainer>
-        <Spacer direction='vertical' size='xxl' />
+        <Spacer direction='vertical' size='xxxl' />
         {/* RESULTS CARD */}
         <Row gutter='xxl'>
           <Col xs={12}>
@@ -458,19 +460,19 @@ export const VotingPageView = () => {
               ref={resultsCardRef}
               isOpen={isExpandableCardOpen}
               onButtonClick={handleExpandableCardButtonClick}
-              title="Voting Results"
+              title={i18n.t("vote.voting_results_title")}
               icon={voteResultsIcon}
-              buttonText="Show"
-              buttonTextActive="Hide"
               buttonProps={{
                 variant: 'light',
                 iconRight: showMoreIcon,
-                width: '124px'
+                width: '124px',
+                children: i18n.t("vote.voting_results_show")
               }}
-              buttonPropsActive={{
+              buttonPropsOpen={{
                 variant: 'outlined',
                 iconRight: showMoreIcon,
-                width: '124px'
+                width: '124px',
+                children: i18n.t("vote.voting_results_hide")
               }}
             >
               {/* IF RESULTS */}

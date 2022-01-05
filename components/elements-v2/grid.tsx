@@ -247,10 +247,12 @@ function getColsWidth(props: IColProps) {
 export const Row = styled.div<IRowProps>`
   margin: -${getRowMargin}px;
   display: flex;
+  flex: 1;
   flex-direction: row;
   justify-content: ${getRowJustify};
   align-items: ${getRowAlign};
   flex-wrap: ${getRowWrap};
+  box-sizing: border-box;
   --row-margin: ${(props) => getRowMargin(props) * 2}px;
   &>div {
     margin: ${getRowMargin}px;
