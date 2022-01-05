@@ -298,7 +298,7 @@ export const UseEntityCreationProvider = ({
             entity: {
               name: account.name,
               email: account.pending.email,
-              consent: consent,
+              consented: consent,
               type: entityType?.value,
               size: entitySize?.value
             },
