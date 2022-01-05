@@ -31,6 +31,8 @@ const MarkdownWrapper = styled.div`
 
   & p {
     margin: 0 0.4em;
+    font-size: 16px;
+    line-height: 24px;
   }
 
   & blockquote {

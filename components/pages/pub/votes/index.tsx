@@ -364,14 +364,15 @@ export const VotingPageView = () => {
           </FixedButtonContainer>
         )}
 
-        {hasVoted && (
-          <VoteRegisteredLgContainer>
-            <br /><br />
-            <Typography align={TextAlign.Center} variant={TypographyVariant.Body2}>{i18n.t('vote.you_vote_has_been_submit_successfully_the_results_will_be_available')}</Typography>
-          </VoteRegisteredLgContainer>
-        )}
-
-
+        <If condition={hasVoted && !showResults}>
+          <Then>
+            <VoteRegisteredLgContainer>
+              <br /><br />
+              <Typography align={TextAlign.Center} variant={TypographyVariant.Body2}>{i18n.t('vote.you_vote_has_been_submit_successfully_the_results_will_be_available')}</Typography>
+            </VoteRegisteredLgContainer>
+          </Then>
+        </If>
+        
         {showResults &&
           processInfo?.metadata?.questions.map(
             (question: Question, index: number) => (

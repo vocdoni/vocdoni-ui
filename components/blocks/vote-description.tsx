@@ -67,13 +67,14 @@ export const VoteDescription = forwardRef<HTMLDivElement, IVotePageProps>(
     return (
       <Grid>
         <Column>
-          <FlexContainer justify={FlexJustifyContent.SpaceBetween}>
+          <FlexContainer justify={FlexJustifyContent.Start}>
             <ProcessStatusLabel status={voteStatus} />
+            <TimeComment>{timeComment}</TimeComment>
           </FlexContainer>
         </Column>
 
-        <Column>{timeComment}</Column>
-
+        <Separator>&nbsp;</Separator>
+        
         <Column>
           <MarkDownViewer content={description} />
         </Column>
@@ -184,4 +185,9 @@ const LiveStreamVideoContainer = styled.div`
 `
 const Separator = styled.div`
   margin:0px;
+`
+
+const TimeComment = styled.div`
+  line-height: 22px;
+  margin-left: 20px;
 `

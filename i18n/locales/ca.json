@@ -504,7 +504,7 @@
         "vote_details": "Detalls del procés de votació"
     },
     "vote_question_card": {
-        "no_results_available": "Els resultats estaran disponibles el 28 de gener",
+        "no_results_available": "Els resultats estaran disponibles el 17 de Gener.",
         "number_votes": "{{ number }} vots",
         "question": "Pregunta {{ number }}"
     },
