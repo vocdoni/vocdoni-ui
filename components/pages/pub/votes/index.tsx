@@ -366,7 +366,8 @@ export const VotingPageView = () => {
 
         {hasVoted && (
           <VoteRegisteredLgContainer>
-            <Typography variant={TypographyVariant.Body2}>{i18n.t('vote.you_vote_has_been_submit_successfully_the_results_will_be_available')}</Typography>
+            <br /><br />
+            <Typography align={TextAlign.Center} variant={TypographyVariant.Body2}>{i18n.t('vote.you_vote_has_been_submit_successfully_the_results_will_be_available')}</Typography>
           </VoteRegisteredLgContainer>
         )}
 
@@ -427,7 +428,7 @@ const VotingCard = styled(PageCard)`
 `
 
 const VoteRegisteredLgContainer = styled.div`
-  display: none;
+  display: block;
 
   @media ${({ theme }) => theme.screenMax.tablet} {
     display: block;

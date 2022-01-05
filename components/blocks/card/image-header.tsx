@@ -44,24 +44,6 @@ export const CardImageHeader = ({
           alt={i18n.t('vote.vote_process_image_alt')}
         />
       </PageCardHeader>
-
-      <EntityLogoWrapper>
-        <Image src={entityImageSrc} alt={i18n.t('vote.entity_logo_alt')} />
-      </EntityLogoWrapper>
-
-      <Grid>
-        <Column>
-          {subtitle && false && (
-            <CardBody
-              color={accent1}
-              align={TextAlign.Center}
-              margin="0 0 20px 0"
-            >
-              {subtitle}
-            </CardBody>
-          )}
-        </Column>
-      </Grid>
     </CardImageHeaderContainer>
   )
 }

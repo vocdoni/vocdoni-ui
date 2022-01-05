@@ -69,9 +69,6 @@ export const VoteDescription = forwardRef<HTMLDivElement, IVotePageProps>(
         <Column>
           <FlexContainer justify={FlexJustifyContent.SpaceBetween}>
             <ProcessStatusLabel status={voteStatus} />
-            <LogOutContainer>
-              { onLogOut && <Button small border onClick={() => onLogOut()}>{i18n.t('app.header.disconnect_account')}</Button>}
-            </LogOutContainer>
           </FlexContainer>
         </Column>
 
@@ -92,7 +89,7 @@ export const VoteDescription = forwardRef<HTMLDivElement, IVotePageProps>(
         </When>
 
         <When condition={attachmentUrl}>
-          <Column sm={12}>
+          <Column sm={12} md={6}>
             <Button
               border
               wide
@@ -112,7 +109,7 @@ export const VoteDescription = forwardRef<HTMLDivElement, IVotePageProps>(
         <Separator>&nbsp;</Separator>
 
         <When condition={discussionUrl}>
-          <Column sm={12}>
+          <Column sm={12} md={6}>
             <Button
               border
               wide
@@ -129,7 +126,7 @@ export const VoteDescription = forwardRef<HTMLDivElement, IVotePageProps>(
 
         <Separator>&nbsp;</Separator>
 
-        <Column sm={12}>
+        <Column sm={12} md={6}>
           <Button
             border
             wide
