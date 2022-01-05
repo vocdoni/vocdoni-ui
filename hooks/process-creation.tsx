@@ -587,7 +587,7 @@ const useProcessParameters = () => {
       interruptible: true,
       dynamicCensus: false,
       encryptedMetadata: false,
-      preregister: true,
+      preregister: anonymousVoting,
     }) as unknown as ProcessMode)
   }
 
