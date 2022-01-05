@@ -5,6 +5,9 @@ import { useTranslation } from 'react-i18next'
 import { When } from 'react-if'
 import Link from "next/link"
 import styled from 'styled-components'
+import { Card } from './card'
+import { Text } from './text'
+import { Row, Col } from './grid'
 
 type ILinkButtonProps = {
   disabled?: boolean | false
@@ -25,7 +28,30 @@ export const LinkButton = (props: ILinkButtonProps) => {
   )
   return (
     <Anchor href={props.href} target={props.target}>
-      <LinkBtn alignItem={FlexAlignItem.Center} justify={FlexJustifyContent.SpaceBetween}>
+      <Card hover padding='xs'>
+        <Row align='center' justify='space-between'>
+          <Col>
+            <Row align='center' gutter='md'>
+              {props.icon &&
+                <Col>
+                  {props.icon}
+                </Col>
+              }
+              <Col>
+                <Text size='md' color='dark-blue' weight='bold'>
+                  {props.children}
+                </Text>
+              </Col>
+            </Row>
+          </Col>
+          {!props.hideLinkIcon &&
+            <Col>
+              {linkIcon}
+            </Col>
+          }
+        </Row>
+      </Card>
+      {/* <LinkBtn alignItem={FlexAlignItem.Center} justify={FlexJustifyContent.SpaceBetween}>
         <FlexContainer alignItem={FlexAlignItem.Center}>
           <When condition={props.icon !== undefined}>
             {props.icon}
@@ -34,7 +60,7 @@ export const LinkButton = (props: ILinkButtonProps) => {
           {props.children}
         </FlexContainer>
         {props.hideLinkIcon ? null : linkIcon}
-      </LinkBtn>
+      </LinkBtn> */}
     </Anchor>
   )
 }
@@ -60,11 +86,6 @@ const LinkBtn = styled(FlexContainer) <FlexContainerProps>`
   &:hover{
     background-color:${colors.lightBg};
   }
-`
-const Text = styled.span`
-  font-family: Manrope;
-  font-weight: 600;
-  font-size: 16px;
 `
 const Spacer = styled.div`
   margin: 0px 10px;

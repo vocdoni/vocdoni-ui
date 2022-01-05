@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useIsMobile } from '@hooks/use-window-size'
 import { Col, Row } from "@components/elements-v2/grid";
 import { Text } from "@components/elements-v2/text";
+import { Card } from "@components/elements-v2/card";
 
 interface INoResultsCardProps {
   title: string
@@ -12,28 +13,20 @@ interface INoResultsCardProps {
 export const NoResultsCard = (props: INoResultsCardProps) => {
   const isMobile = useIsMobile()
   return (
-    <Card isMobile={isMobile}>
-      <Row justify="center" gutter="md">
+    <Card padding={isMobile ? '24px' : '40px'} variant="gray">
+      <Row gutter="md">
         <Col justify="center" xs={12}>
-          <StyledText size={isMobile ? 'xl' : 'display-1'} color="dark-blue">
+          <Text size={isMobile ? 'xl' : 'display-1'} color="dark-blue" align="center">
             {props.title}
-          </StyledText>
+          </Text>
         </Col>
         <Col justify="center" xs={12}>
-          <StyledText size={isMobile ? 'sm' : 'xl'} color="dark-gray">
+          <Text size={isMobile ? 'sm' : 'xl'} color="dark-gray" align="center">
             {props.subtitle}
-          </StyledText>
+          </Text>
         </Col>
       </Row>
     </Card>
   )
 }
 
-const Card = styled.div<{ isMobile: boolean }>`
-  padding: ${({ isMobile }) => isMobile ? '24px' : '40px'};
-  background-color: ${colors.lightBg};
-  border-radius: 16px;
-`
-const StyledText = styled(Text)`
-  text-align: center;
-`

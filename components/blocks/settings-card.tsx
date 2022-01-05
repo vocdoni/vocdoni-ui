@@ -1,11 +1,10 @@
 import { useIsMobile } from "@hooks/use-window-size"
 import { useTranslation } from "react-i18next"
 import { If, Then, Else } from "react-if"
-import styled from "styled-components"
 import { Tag } from "../elements-v2/tag"
 import { Col, Row } from "@components/elements-v2/grid"
-import { theme } from "@theme/global"
 import { Text } from "@components/elements-v2/text"
+import { Card } from "@components/elements-v2/card"
 
 type ISettingsCardProps = {
   isWeigthed?: boolean
@@ -27,7 +26,7 @@ export const SettingsCard = (props: ISettingsCardProps) => {
         </Col>
         <Col>
           <Text size='lg' color='dark-blue' weight='bold'>
-            {i18n.t('vote.calendar_title')}
+            {i18n.t('vote.settings')}
           </Text>
         </Col>
       </Row>
@@ -35,7 +34,7 @@ export const SettingsCard = (props: ISettingsCardProps) => {
   }
   const CardContent = () => {
     return (
-      <Row align='center' gutter='sm'>
+      <Row justify='space-between' align='center' gutter='sm'>
         <If condition={props.isWeigthed}>
         <Then>
           <Col>
@@ -63,7 +62,7 @@ export const SettingsCard = (props: ISettingsCardProps) => {
     )
   }
   return (
-    <Card>
+    <Card padding="sm" variant="gray">
       <Row gutter={isMobile ? 'md' : 'lg'} >
         <Col xs={12}>
           <CardTitle />
@@ -76,8 +75,3 @@ export const SettingsCard = (props: ISettingsCardProps) => {
   )
 }
 
-const Card = styled.div`
-  border-radius: 16px;
-  padding: 24px;
-  background-color: ${theme.lightBg};
-`

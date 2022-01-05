@@ -7,9 +7,9 @@ import { Col, Row } from "./grid";
 import { theme } from "@theme/global";
 
 
-type ButtonVariant = 'light' | 'primary' | 'outlined' | 'white' | 'outlinederror'
+type ButtonVariant = 'light' | 'primary' | 'outlined' | 'white'
 type ButtonFontSize = 'regular' | 'large'
-export interface IButtonProps {
+export interface ButtonProps {
   children?: string
   onClick?: () => void
   iconLeft?: ReactNode
@@ -30,7 +30,7 @@ interface StyledButtonProps {
   fontSize?: ButtonFontSize
 }
 
-export const Button = (props: IButtonProps) => {
+export const Button = (props: ButtonProps) => {
   return (
     <BaseButton
       onClick={props.onClick}
