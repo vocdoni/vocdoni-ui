@@ -11,12 +11,14 @@ import { useCensusActions } from '@recoil/actions/use-census-action'
 import { preregisterProofState } from '@recoil/atoms/preregister-proof'
 import { CensusPoof } from '@lib/types'
 import { censusProofState } from '@recoil/atoms/census-proof'
-import { CensusOnChainApi, Voting } from 'dvote-js'
+import { CensusOnChainApi, uintArrayToHex, Voting, Keccak256 } from 'dvote-js'
 import { ProcessCensusOrigin } from 'dvote-solidity/build/data-wrappers'
 import { IProofArbo } from '@vocdoni/data-models'
 import { useWallet, WalletRoles } from '@hooks/use-wallet'
-import { bufferToBigInt } from '@vocdoni/common'
+import {useAuthForm } from  '@hooks/use-auth-form'
+import { bufferToBigInt, normalizeText } from '@vocdoni/common'
 import { PreregisteredSuccessModal } from '@components/pages/pub/votes/components/preregistered-success-modal'
+import { importedRowToString } from '@lib/util'
 
 const PreregisterPage = () => {
   const [data, setData] = useState<IPreregisterData>({
@@ -25,6 +27,7 @@ const PreregisterPage = () => {
   })
   const [preregisterSent, setPreregisterSent] = useState<boolean>(false)
   const processId = useUrlHash().slice(1)
+  const {authFields} = useAuthForm()
   const { generateProof } =  useCensusActions()
   const preregisterProof = useRecoilState(preregisterProofState)
   const { process, loading: loadingProcess } = useProcess(processId)
@@ -45,12 +48,20 @@ const PreregisterPage = () => {
     setData(dataFields)
   }
 
+
+
   const handleSubmit = async () => {
 
     const censusOrigin = new ProcessCensusOrigin(ProcessCensusOrigin.OFF_CHAIN_TREE)
     const proof = Voting.packageSignedProof(processId, censusOrigin, useCensusProof[0] as IProofArbo)
 
-    const secretKey = bufferToBigInt(Buffer.from(data[PreregisterFormFields.PasswordConfirm], "utf-8"))
+    let plainKey = authFields
+    plainKey.push(data[PreregisterFormFields.PasswordConfirm])
+    plainKey = plainKey.map(x => normalizeText(x))
+
+    const secretKey = BigInt(uintArrayToHex(Buffer.from(Keccak256.hashText(importedRowToString(plainKey, process?.state?.entityId)), "utf-8")))
+    // const secretKey = BigInt(Keccak256.hashText(importedRowToString(plainKey, process?.state?.entityId)))
+    // const secretKey = BigInt(uintArrayToHex(Buffer.from(data[PreregisterFormFields.PasswordConfirm], "utf-8")))
 
     await CensusOnChainApi.registerVoterKey(processId, proof, secretKey, BigInt(1), wallet, pool)
       .then(() => setPreregisterSent(true))

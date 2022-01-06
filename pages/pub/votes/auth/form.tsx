@@ -33,6 +33,7 @@ const VoteAuthLogin = () => {
     fieldNames,
     formValues,
     processInfo,
+    secretKey,
     methods,
   } = useAuthForm()
   const { methods: votingMethods } = useVoting(processInfo?.id)
@@ -114,6 +115,8 @@ const VoteAuthLogin = () => {
           processInfo={processInfo}
           entity={metadata}
           onChange={methods.setFormValue}
+          onChangeSecretKey={methods.setSecretKey}
+          secretKey={secretKey}
           onSubmit={handleSubmit}
           submitEnabled={!emptyFields}
         />

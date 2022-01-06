@@ -2,6 +2,7 @@ import React, { ChangeEvent } from 'react'
 import styled from 'styled-components'
 import { ProcessDetails, EntityMetadata } from 'dvote-js'
 import { useTranslation } from 'react-i18next'
+import { useBlockHeight} from '@vocdoni/react-hooks'
 
 import {
   Fieldset,
@@ -22,18 +23,22 @@ interface IFieldValues {
 interface IFormProps {
   fields: string[]
   values: IFieldValues
+  secretKey: string
   submitEnabled?: boolean
   checkingCredentials?: boolean
   processInfo: ProcessDetails
   entity: EntityMetadata
   onChange: (field: string, value) => void
   onSubmit: () => void
+  onChangeSecretKey
 }
 
 export const SignInForm = ({
   fields,
   submitEnabled,
   values,
+  secretKey,
+  onChangeSecretKey,
   processInfo,
   entity,
   checkingCredentials,
@@ -45,6 +50,10 @@ export const SignInForm = ({
     e.preventDefault()
     onSubmit()
   }
+
+  const { blockHeight } = useBlockHeight()
+  const processStarted = blockHeight >= processInfo?.state?.startBlock
+
 
   return (
     <SignInFormCard>
@@ -80,6 +89,21 @@ export const SignInForm = ({
               </FlexContainer>
             )
           })}
+          {(processInfo.state.processMode.preRegister && processStarted ) ? (
+            <FlexContainer justify={FlexJustifyContent.Center}>
+            <InputFormGroup
+              label="secretKey"
+              id="secretKey"
+              placeholder={i18n.t('vote.auth.insert_your_secret_key')}
+              onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                onChangeSecretKey(e.target.value)
+              }
+              value={secretKey}
+              variant={FormGroupVariant.Small}
+            />
+        </FlexContainer>
+        ) : (<div></div>)}
+
           <HiddenButton type="submit"></HiddenButton>
           <FlexContainer justify={FlexJustifyContent.Center}>
               <Button

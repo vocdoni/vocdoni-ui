@@ -16,6 +16,11 @@ export type CensusPoof = {
   weight: bigint
 }
 
+export type ZKCensusPoof = {
+  siblings: bigint[]
+  index: bigint
+}
+
 
 export enum VotingType{
   Normal = ProcessCensusOrigin.OFF_CHAIN_TREE,
