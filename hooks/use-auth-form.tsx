@@ -1,7 +1,15 @@
 import { useState } from 'react'
 import { useBlockHeight, usePool, useProcess } from '@vocdoni/react-hooks'
 import { useRouter } from 'next/router'
-import { ProcessDetails, CensusOffChain, CensusOffChainApi, normalizeText, bufferToBigInt, CensusOnChainApi } from 'dvote-js'
+import {
+  ProcessDetails,
+  CensusOffChain,
+  CensusOffChainApi,
+  normalizeText,
+  bufferToBigInt,
+  CensusOnChainApi,
+  Keccak256, Poseidon,
+} from 'dvote-js'
 import { PREREGISTER_PATH, VOTING_PATH } from '../const/routes'
 import i18n from '../i18n'
 import { digestedWalletFromString, importedRowToString } from '../lib/util'
@@ -80,22 +88,26 @@ export const useAuthForm = () => {
     setAuthFields(authFieldsData.map(x => normalizeText(x)))
 
 
+    authFieldsData = authFieldsData.map(x => normalizeText(x))
+    const strPayload = importedRowToString(authFieldsData, entityId)
+    const voterWallet = digestedWalletFromString(strPayload)
+    const digestedHexClaim = CensusOffChain.Public.encodePublicKey(voterWallet.publicKey)
 
     if (requireSecretKey) {
       if (secretKey.length == 0) {
         setAlertMessage(i18n.t("errors.please_fill_in_all_the_fields"))
         return Promise.resolve()
       }
-      authFieldsData.push(secretKey)
-      authFieldsData = authFieldsData.map(x => normalizeText(x))
-      const anonymousKey = bufferToBigInt(Buffer.from(importedRowToString(authFieldsData, processInfo?.state?.entityId), "utf-8"))
+
+      const anonymousKey = bufferToBigInt(Buffer.from(Keccak256.hashText(importedRowToString([secretKey, voterWallet.privateKey], processInfo?.state?.entityId)), "utf-8"))
+
       return poolPromise.then(pool =>
-        CensusOnChainApi.generateProof(processInfo?.state?.rollingCensusRoot, anonymousKey, pool)
+        CensusOnChainApi.generateProof(processInfo?.state?.rollingCensusRoot, anonymousKey % Poseidon.Q, pool)
       ).then(anonymousProof => {
         if (!anonymousProof) throw new Error("Invalid census proof")
         setZKCensusProof(anonymousProof)
         // Set the voter wallet recovered
-        // setWallet(voterWallet)
+        setWallet(voterWallet)
 
         if (userRequirePreregister) {
           router.push(PREREGISTER_PATH + "#/" + processInfo?.id)
@@ -108,10 +120,6 @@ export const useAuthForm = () => {
     } else {
       // calculate plain census claim, perform generateProof and redirect
       // according to anonymous o plain census
-      authFieldsData = authFieldsData.map(x => normalizeText(x))
-      const strPayload = importedRowToString(authFieldsData, entityId)
-      const voterWallet = digestedWalletFromString(strPayload)
-      const digestedHexClaim = CensusOffChain.Public.encodePublicKey(voterWallet.publicKey)
 
       return poolPromise.then(pool =>
         CensusOffChainApi.generateProof(processInfo.state?.censusRoot, { key: digestedHexClaim }, pool)

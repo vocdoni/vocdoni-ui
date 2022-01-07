@@ -4,11 +4,10 @@ import { useRecoilState, useSetRecoilState } from 'recoil'
 import { ZKcensusProofState } from '@recoil/atoms/zk-census-proof'
 
 
-export async function anonymousVote(registerPass, choices, processId, processKeys, pool) {
-  const secretKey = bufferToBigInt(Buffer.from(registerPass, "utf-8"))
+export async function anonymousVote(secretKey, choices, processId, processKeys, pool) {
   const state = await VotingApi.getProcessState(processId, pool)
-  const [censusProofZK, setCensusProofZK] = useRecoilState(ZKcensusProofState)
-  // const censusProofZK = await CensusOnChainApi.generateProof(state.rollingCensusRoot, secretKey, pool)
+  // const [censusProofZK, setCensusProofZK] = useRecoilState(ZKcensusProofState)
+  const censusProofZK = await CensusOnChainApi.generateProof(state.rollingCensusRoot, secretKey, pool)
 
   const circuitInfo = await VotingApi.getProcessCircuitInfo(processId, pool)
   const witnessGeneratorWasm = await VotingApi.fetchAnonymousWitnessGenerator(circuitInfo)

@@ -1,5 +1,5 @@
 import { usePool, useBlockHeight } from '@vocdoni/react-hooks'
-import { ProcessDetails, CensusOffChain, CensusOffChainApi, VotingApi, Voting } from 'dvote-js'
+import { ProcessDetails, CensusOffChain, CensusOffChainApi, VotingApi, Voting, Keccak256, Poseidon } from 'dvote-js'
 import { createContext, ReactNode, useContext, useEffect, useState } from 'react'
 
 import { useWallet, WalletRoles } from './use-wallet'
@@ -7,9 +7,12 @@ import i18n from '../i18n'
 import { CensusPoof, IProcessResults, StepperFunc } from '../lib/types'
 import { useStepper } from './use-stepper'
 import { useMessageAlert } from './message-alert'
-import { areAllNumbers, waitBlockFraction } from '../lib/util'
+import { areAllNumbers, importedRowToString, waitBlockFraction } from '../lib/util'
 import { useProcessWrapper } from '@hooks/use-process-wrapper'
 import { anonymousVote } from '@hooks/anonymous-voting'
+import { PreregisterFormFields } from '@components/pages/pub/votes/preregister-view'
+import { bufferToBigInt } from '@vocdoni/common'
+import { useAuthForm } from '@hooks/use-auth-form'
 
 
 export interface VotingContext {
@@ -81,6 +84,7 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
     results,
     methods
   } = useProcessWrapper(processId)
+  const { secretKey } = useAuthForm()
   // const censusProof = useRecoilStateLoadable(censusProofState)
   const { wallet } = useWallet({ role: WalletRoles.VOTER })
   const { setAlertMessage } = useMessageAlert()
@@ -209,8 +213,8 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
       }
 
       if(processInfo.state?.envelopeType?.anonymous) {
-        // TODO use real registerPass
-        await anonymousVote("registerPass", choices, processId, processKeys, pool)
+        const anonymousKey = bufferToBigInt(Buffer.from(Keccak256.hashText(importedRowToString([secretKey, wallet.privateKey], processInfo?.state?.entityId)), "utf-8"))
+        await anonymousVote(anonymousKey % Poseidon.Q, choices, processId, processKeys, pool)
       } else {
         const envelope = await Voting.packageSignedEnvelope({
           censusOrigin: processInfo.state?.censusOrigin,

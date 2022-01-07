@@ -11,7 +11,7 @@ import { useCensusActions } from '@recoil/actions/use-census-action'
 import { preregisterProofState } from '@recoil/atoms/preregister-proof'
 import { CensusPoof } from '@lib/types'
 import { censusProofState } from '@recoil/atoms/census-proof'
-import { CensusOnChainApi, uintArrayToHex, Voting, Keccak256 } from 'dvote-js'
+import { CensusOnChainApi, uintArrayToHex, Voting, Keccak256, Poseidon } from 'dvote-js'
 import { ProcessCensusOrigin } from 'dvote-solidity/build/data-wrappers'
 import { IProofArbo } from '@vocdoni/data-models'
 import { useWallet, WalletRoles } from '@hooks/use-wallet'
@@ -55,15 +55,13 @@ const PreregisterPage = () => {
     const censusOrigin = new ProcessCensusOrigin(ProcessCensusOrigin.OFF_CHAIN_TREE)
     const proof = Voting.packageSignedProof(processId, censusOrigin, useCensusProof[0] as IProofArbo)
 
-    let plainKey = authFields
-    plainKey.push(data[PreregisterFormFields.PasswordConfirm])
-    plainKey = plainKey.map(x => normalizeText(x))
+    const plainKey = data[PreregisterFormFields.PasswordConfirm]
 
-    const secretKey = BigInt(uintArrayToHex(Buffer.from(Keccak256.hashText(importedRowToString(plainKey, process?.state?.entityId)), "utf-8")))
+    const secretKey = bufferToBigInt(Buffer.from(Keccak256.hashText(importedRowToString([plainKey, wallet.privateKey], process?.state?.entityId)), "utf-8"))
     // const secretKey = BigInt(Keccak256.hashText(importedRowToString(plainKey, process?.state?.entityId)))
     // const secretKey = BigInt(uintArrayToHex(Buffer.from(data[PreregisterFormFields.PasswordConfirm], "utf-8")))
 
-    await CensusOnChainApi.registerVoterKey(processId, proof, secretKey, BigInt(1), wallet, pool)
+    await CensusOnChainApi.registerVoterKey(processId, proof, secretKey % Poseidon.Q, BigInt(1), wallet, pool)
       .then(() => setPreregisterSent(true))
       .catch((err) => {
         console.log(err)
