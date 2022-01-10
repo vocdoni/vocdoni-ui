@@ -12,27 +12,30 @@ import { useState, useEffect } from "react"
 import { ProgressBarProps } from "react-rainbow-components/components/ProgressBar"
 import { useIsMobile } from "@hooks/use-window-size"
 import { i18n } from "i18next"
+import { useProcessInfo } from "@hooks/use-process-info"
+import { useUrlHash } from "use-url-hash"
 
 
 
-export type IQuestionsResults = {
+export type QuestionsResultsProps = {
   question: Question
   index: number
-  totalVotes: number
 }
 type StyledProgressBarProps = ProgressBarProps & { disabled: boolean }
 type StyledCardProps = {
   isMobile: boolean
 }
 
-export const QuestionResults = (props: IQuestionsResults) => {
+export const QuestionResults = (props: QuestionsResultsProps) => {
   const { i18n } = useTranslation()
+  const processId = useUrlHash().slice(1)
+  const { totalVotes } = useProcessInfo(processId)
   const [sortedChoices, setSortedChoices] = useState<Choice[]>([])
   const [hasWinner, setHasWinner] = useState<boolean>(false)
   const isMobile = useIsMobile()
   useEffect(() => {
     setSortedChoices(props.question.choices.sort((a, b) => b.value - a.value))
-  }, [props.totalVotes])
+  }, [totalVotes])
   useEffect(() => {
     if (sortedChoices.length > 1) {
       if (sortedChoices[0].value === sortedChoices[1].value) {
@@ -42,104 +45,30 @@ export const QuestionResults = (props: IQuestionsResults) => {
       }
     }
   }, [sortedChoices])
-  const QuestionTitle = () => {
-    return (
-      <Row gutter="xs">
-        <Col xs={12}>
-          <Text size="md" color="primary" weight="bold">
-            {i18n.t('vote.results_question', { index: props.index + 1 })}
-          </Text>
-        </Col>
-        <Col xs={12}>
-          <Text size="xxl" color="dark-blue" weight="bold">
-            {props.question.title.default}
-          </Text>
-        </Col>
-        {props.question.description &&
-          <Col xs={12}>
-            <Text size="sm" color="dark-gray" weight="regular">
-              {props.question.description.default}
-            </Text>
-          </Col>
-        }
-      </Row>
-    )
-  }
-  const QuestionChoices = () => {
-    return (
-      // props.question.choices.map(
-      <Row gutter='lg'>
-        {sortedChoices.map(
-          (choice: Choice, index: number) =>
-            <Col xs={12}>
-              <Row gutter={isMobile ? 'xs' : 'lg'} align="center">
-                <Col xs={10} md={4}>
-                  <Text
-                    size="lg"
-                    weight={index === 0 && hasWinner ? 'bold' : 'regular'}
-                    color="dark-blue"
-                  >
-                    {choice.title.default}
-                  </Text>
-                </Col>
-                <Col hiddenSmAndDown md={2}>
-                  <Text
-                    size="lg"
-                    weight="bold"
-                    color="dark-blue"
-                  >
-                    {((choice.value / props.totalVotes) * 100).toFixed(2)}%
-                  </Text>
-                  <Text
-                    size="sm"
-                    color="dark-gray"
-                    weight="regular"
-                  >
-                    {i18n.t('vote.vote_count', { count: choice.value.toLocaleString(i18n.language) })}
-                  </Text>
-                </Col>
-                <Col xs={12} md={6}>
-                  <StyledProgressBar
-                    value={getProgressPercent(choice.value, props.totalVotes)}
-                    size={isMobile ? 'medium' : 'large'} style={{ background: '#E4E7EB' }}
-                    disabled={choice.value === 0}
-                  />
-                </Col>
-                <Col xs={12} hiddenSmAndUp>
-                  <Row align="end" gutter="md">
-                    <Col>
-                      <Text
-                        size="lg"
-                        weight="bold"
-                        color="dark-blue"
-                      >
-                        {((choice.value / props.totalVotes) * 100).toFixed(2)}%
-                      </Text>
-                    </Col>
-                    <Col>
-                      <Text
-                        size="sm"
-                        color="dark-gray"
-                        weight="regular"
-                      >
-                        {i18n.t('vote.vote_count', { count: choice.value.toLocaleString(i18n.language) })}
-                      </Text>
-                    </Col>
-                  </Row>
-                </Col>
-              </Row>
-
-            </Col>
-        )}
-      </Row>
-    )
-  }
   return (
     <Card isMobile={isMobile}>
       {/* TITLE */}
       <Row gutter="none">
         <Col xs={12}>
-          <QuestionTitle />
+          <Row gutter="xs">
+            <Col xs={12}>
+              <Text size="md" color="primary" weight="bold">
+                {i18n.t('vote.results_question', { index: props.index + 1 })}
+              </Text>
+            </Col>
+            <Col xs={12}>
+              <Text size="xxl" color="dark-blue" weight="bold">
+                {props.question.title.default}
+              </Text>
+            </Col>
+            {props.question.description &&
+              <Col xs={12}>
+                <Text size="sm" color="dark-gray" weight="regular">
+                  {props.question.description.default}
+                </Text>
+              </Col>
+            }
+          </Row>
         </Col>
         {/* SPACING */}
         <Col xs={12}>
@@ -150,7 +79,69 @@ export const QuestionResults = (props: IQuestionsResults) => {
         </Col>
         {/* QUESTIONS */}
         <Col xs={12}>
-          <QuestionChoices />
+          <Row gutter='lg'>
+            {sortedChoices.map(
+              (choice: Choice, index: number) =>
+                <Col xs={12}>
+                  <Row gutter={isMobile ? 'xs' : 'lg'} align="center">
+                    <Col xs={10} md={4}>
+                      <Text
+                        size="lg"
+                        weight={index === 0 && hasWinner ? 'bold' : 'regular'}
+                        color="dark-blue"
+                      >
+                        {choice.title.default}
+                      </Text>
+                    </Col>
+                    <Col hiddenSmAndDown md={2}>
+                      <Text
+                        size="lg"
+                        weight="bold"
+                        color="dark-blue"
+                      >
+                        {((choice.value / totalVotes) * 100).toFixed(2)}%
+                      </Text>
+                      <Text
+                        size="sm"
+                        color="dark-gray"
+                        weight="regular"
+                      >
+                        {i18n.t('vote.vote_count', { count: choice.value.toLocaleString(i18n.language) as any })}
+                      </Text>
+                    </Col>
+                    <Col xs={12} md={6}>
+                      <StyledProgressBar
+                        value={getProgressPercent(choice.value, totalVotes)}
+                        size={isMobile ? 'medium' : 'large'} style={{ background: '#E4E7EB' }}
+                        disabled={choice.value === 0}
+                      />
+                    </Col>
+                    <Col xs={12} hiddenSmAndUp>
+                      <Row align="end" gutter="md">
+                        <Col>
+                          <Text
+                            size="lg"
+                            weight="bold"
+                            color="dark-blue"
+                          >
+                            {((choice.value / totalVotes) * 100).toFixed(2)}%
+                          </Text>
+                        </Col>
+                        <Col>
+                          <Text
+                            size="sm"
+                            color="dark-gray"
+                            weight="regular"
+                          >
+                            {i18n.t('vote.vote_count', { count: choice.value.toLocaleString(i18n.language) as any })}
+                          </Text>
+                        </Col>
+                      </Row>
+                    </Col>
+                  </Row>
+                </Col>
+            )}
+          </Row>
         </Col>
       </Row>
     </Card>
