@@ -38,7 +38,7 @@ export const LinkButton = (props: ILinkButtonProps) => {
                 </Col>
               }
               <Col>
-                <Text size='md' color='dark-blue' weight='bold'>
+                <Text size='sm' color='dark-blue' weight='bold'>
                   {props.children}
                 </Text>
               </Col>

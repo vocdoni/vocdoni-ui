@@ -11,69 +11,39 @@ import {
   TypographyVariant,
 } from '@components/elements/typography'
 import { VoteStatus } from '@lib/util'
-import { VotingState } from '..'
-import { FlexContainer, FlexDirection } from '@components/elements/flex'
 import { colors } from '@theme/colors'
-import { theme } from '@theme/global'
 import { useCalendar } from '@hooks/use-calendar'
-import * as ButtonV2 from '@components/elements-v2/button'
-import { LinkButton } from '@components/elements-v2/link-button'
-import { TextButton, ITextButtonProps } from '@components/elements-v2/text-button'
+import { TextButton } from '@components/elements-v2/text-button'
+import { useVoting } from '@hooks/use-voting'
+import { useUrlHash } from 'use-url-hash'
+import { useProcessWrapper } from '@hooks/use-process-wrapper'
+import { Else, If, Then } from 'react-if'
+import { useProcessInfo } from '@hooks/use-process-info'
+import { ChevronRightIcon } from '@components/elements-v2/icons'
 
 interface IVoteActionCardProps {
-  disabled: boolean
-  explorerLink: string
-  votingState: VoteStatus
-  startDate: Date
-  endDate: Date
-  totalVotes: Number,
-
   onClick: () => void
-  onLogOut?: () => void
   onSeeResults?: () => void
 }
 
 export const VoteActionCard = ({
-  disabled,
-  votingState,
-  explorerLink,
-  startDate,
-  endDate,
-  totalVotes,
   onClick,
   onSeeResults,
-  onLogOut,
 }: IVoteActionCardProps) => {
   const { i18n } = useTranslation()
-  const { getDateDiff } = useCalendar()
-  const seeResultsIcon = (
-    <img
-      src="/images/vote/chevron-right.svg"
-      alt={i18n.t('vote.pdf_image_alt')}
-    />
-  )
+  const { getDateDiffString } = useCalendar()
+  const processId = useUrlHash().slice(1)
+  const { startDate, endDate, totalVotes, status, censusSize, liveResults } = useProcessInfo(processId)
+  const { nullifier } = useVoting(processId)
+  const disabled = status !== VoteStatus.Active
+  const explorerLink = process.env.EXPLORER_URL + '/envelope/' + nullifier
+
   const getTitleFromState = (status: VoteStatus) => {
-    const endingIn = getDateDiff(null, endDate, 'diff')
-    const startingIn = getDateDiff(null, startDate, 'diff')
-    let endingString, startingString
-    switch (endingIn.format) {
-      case 'days':
-        endingString = i18n.t("vote.value_days", { value: endingIn.value })
-        break
-      default:
-        endingString = getDateDiff(null, endDate, 'countdown').value + 's'
-    }
-    switch (startingIn.format) {
-      case 'days':
-        startingString = i18n.t("vote.value_days", { value: startingIn.value })
-        break
-      default:
-        startingString = getDateDiff(null, startDate, 'countdown').value + 's'
-    }
+    const endingString = getDateDiffString(null, endDate)
+    const startingString = getDateDiffString(null, startDate)
     switch (status) {
       case VoteStatus.Ended:
         return i18n.t('vote.your_vote_has_been_registered')
-
       case VoteStatus.Ended:
         return i18n.t('vote.the_voting_process_has_endded')
       case VoteStatus.Active:
@@ -108,12 +78,6 @@ export const VoteActionCard = ({
             <Button wide target={LinkTarget.Blank} positive href={explorerLink}>
               {i18n.t('vote.view_in_explorer')}
             </Button>
-
-            {/* <ButtonContainer>
-              <Button wide onClick={onLogOut}>
-                {i18n.t('app.header.disconnect_account')}
-              </Button>
-            </ButtonContainer> */}
           </>
         )
 
@@ -123,11 +87,6 @@ export const VoteActionCard = ({
             <Button wide disabled={disabled} positive>
               {i18n.t('vote.vote_now')}
             </Button>
-            {/* <ButtonContainer>
-              <Button wide onClick={onLogOut}>
-                {i18n.t('vote.log_out')}
-              </Button>
-            </ButtonContainer> */}
           </>
         )
       case VoteStatus.Active:
@@ -170,18 +129,18 @@ export const VoteActionCard = ({
   }
 
   return (
-    <BannerDiv positive={votingState == VoteStatus.Ended}>
+    <BannerDiv positive={status == VoteStatus.Ended}>
       <BannerMainDiv radius='top'>
         <BannerIcon>
           <ImageContainer width="80px">
             <img
-              src={getVotingImage(votingState)}
+              src={getVotingImage(status)}
               alt={i18n.t('vote.voted_alt')}
             />
 
-            {getVotingIcon(votingState) && (
+            {getVotingIcon(status) && (
               <CheckImageContainer>
-                <img src={getVotingIcon(votingState)} />
+                <img src={getVotingIcon(status)} />
               </CheckImageContainer>
             )}
           </ImageContainer>
@@ -192,24 +151,29 @@ export const VoteActionCard = ({
             variant={TypographyVariant.Body2}
             align={TextAlign.Center}
           >
-            {getTitleFromState(votingState)}
+            {getTitleFromState(status)}
           </Typography>
-          <div>{getButtonFromState(votingState)}</div>
+          <div>{getButtonFromState(status)}</div>
         </BannerText>
       </BannerMainDiv>
+
       <BannerMainDiv radius='bottom' background={colors.lightBg} padding='large'>
         <Text bold>
           {i18n.t('vote.total_votes_submited')}
         </Text>
-        {/* TODO
-          The percentage cannot be coputed because the length
-          of the census is unknown
-        */}
         <Text large>
-          {totalVotes} (0%)
+          <If condition={liveResults}>
+            <Then>
+              {totalVotes} ({totalVotes / (censusSize || 1) * 100}%)
+            </Then>
+            <Else>
+              0 (0%)
+            </Else>
+          </If>
         </Text>
+
         <VerticalSpacer />
-        <TextButton iconRight={seeResultsIcon} onClick={() => onSeeResults()}>
+        <TextButton iconRight={<ChevronRightIcon />} onClick={() => onSeeResults()}>
           {i18n.t('vote.see_results')}
         </TextButton>
       </BannerMainDiv>
