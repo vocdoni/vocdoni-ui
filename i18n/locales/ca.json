@@ -511,7 +511,7 @@
     "vote": {
         "0x000": "0x00000000000000000000000000000000000000",
         "accept_terms": "Estic d'accord",
-        "access_to_the_documentation": "Accedeix a la documentació",
+        "access_to_the_documentation": "Documentació",
         "active_vote": "Procés actiu",
         "add_new_question": "Afegeix una nova pregunta",
         "add_option": "Afegeix una altra opció",
@@ -599,7 +599,7 @@
         "stream_link_label": "Aquest camp és opcional",
         "submit_new_vote": "Votar de nou",
         "surname": "Surname",
-        "thanks_for_participate_on_this_AGM": "Gràcies per participar en aquest procés, torna a la pàgina principal per a seguir i consultar els resultats quan estiguin disponibles",
+        "thanks_for_participate_on_this_AGM": "Gràcies per participar en aquest procés, torna a la pàgina principal per a seguir i consultar els resultats quan estiguin disponibles.",
         "the_blockchain_network_is_congested": "La xarxa de la cadena de blocs està congestionada",
         "the_blockchain_network_is_congested_for_these_reason_te_transactions_could_spend_several_minutes_dont_worry_we_keep_the_data_to_follow_the_process": "La xarxa de la cadena de blocs està congestionada. Per aquesta raó les transaccions poden trigar uns quants minuts. No et preocupis, nosaltres guardem les dades per assegurar-ne el seu lliurament.",
         "the_entity_name_already_exist": "El nom d'entitat ja existeix",

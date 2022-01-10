@@ -57,7 +57,7 @@ export const VoteActionCard = ({
       case VotingState.NotStarted:
         return (
           <>
-            <Button wide disabled={disabled} positive onClick={onClick}>
+            <Button wide disabled={disabled} omnium onClick={onClick}>
               {i18n.t('vote.vote_now')}
             </Button>
           </>
@@ -65,7 +65,7 @@ export const VoteActionCard = ({
 
       case VotingState.Guest:
         return (
-          <Button wide positive onClick={onClick}>
+          <Button wide omnium onClick={onClick}>
             {i18n.t('vote.vote_now')}
           </Button>
         )

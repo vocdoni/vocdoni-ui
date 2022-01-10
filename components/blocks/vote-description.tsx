@@ -74,23 +74,15 @@ export const VoteDescription = forwardRef<HTMLDivElement, IVotePageProps>(
         </Column>
 
         <Separator>&nbsp;</Separator>
-        
+
         <Column>
           <MarkDownViewer content={description} />
         </Column>
 
         <Separator>&nbsp;</Separator>
 
-        <When condition={discussionUrl || attachmentUrl || !!hasVideo}>
-          <Column>
-            <SectionText size={TextSize.Big} color={colors.blueText}>
-              {i18n.t('vote.extra_information')}
-            </SectionText>
-          </Column>
-        </When>
-
         <When condition={attachmentUrl}>
-          <Column sm={12} md={6}>
+          <Column sm={12} md={7}>
             <Button
               border
               wide
@@ -110,7 +102,7 @@ export const VoteDescription = forwardRef<HTMLDivElement, IVotePageProps>(
         <Separator>&nbsp;</Separator>
 
         <When condition={discussionUrl}>
-          <Column sm={12} md={6}>
+          <Column sm={12} md={7}>
             <Button
               border
               wide
@@ -127,7 +119,7 @@ export const VoteDescription = forwardRef<HTMLDivElement, IVotePageProps>(
 
         <Separator>&nbsp;</Separator>
 
-        <Column sm={12} md={6}>
+        <Column sm={12} md={7}>
           <Button
             border
             wide

@@ -140,7 +140,8 @@ const DefaultButton = styled(BaseButton)`
     cursor: pointer;
     ${({ border, borderColor, theme }) => border ? "border: 2px solid " + (borderColor? borderColor: theme.lightBorder)+ ";" : ""}
     
-    background: ${({omnium}) => omnium ? '#f13e3e': '#fff'};
+    background: ${({omnium}) => omnium ? '#FF6320': '#fff'};
+    color: #fff;
 
     // Compensate 2px border (if applicable)
     ${({ large, small, border }) =>
@@ -149,10 +150,10 @@ const DefaultButton = styled(BaseButton)`
                     (border ? "padding: 9px 18px;" : "padding: 11px 20px;")}
 
     &:hover {
-        background-color: ${({omnium}) => omnium ? '#e9501d': '#F6F9FC'};
+        background-color: ${({omnium}) => omnium ? '#D23F00': '#F6F9FC'};
     }
     &:active {
-        background-color: ${({omnium}) => omnium ? '#e9501d': '#EFF1F7'};
+        background-color: ${({omnium}) => omnium ? '#D23F00': '#EFF1F7'};
     }
 `
 
