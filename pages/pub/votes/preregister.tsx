@@ -16,6 +16,8 @@ import { IProofArbo } from '@vocdoni/data-models'
 import { useWallet, WalletRoles } from '@hooks/use-wallet'
 import { useAuthForm } from '@hooks/use-auth-form'
 import { PreregisteredSuccessModal } from '@components/pages/pub/votes/components/preregistered-success-modal'
+import { useMessageAlert } from '@hooks/message-alert'
+import i18n from '@i18n'
 
 const PreregisterPage = () => {
   const [data, setData] = useState<IPreregisterData>({
@@ -33,14 +35,10 @@ const PreregisterPage = () => {
     process?.state?.entityId
   )
   const useCensusProof = useRecoilState<CensusPoof>(censusProofState)
+  const { setAlertMessage } = useMessageAlert()
 
-  useEffect(() => {
-    console.log('Updated')
-    console.log(preregisterProof)
-  }, [preregisterProof])
 
   const handleDataChange = (dataFields: IPreregisterData) => {
-    console.log('the data is', dataFields)
     setData(dataFields)
   }
 
@@ -55,9 +53,10 @@ const PreregisterPage = () => {
     const secretKey = methods.calculateAnonymousKey(wallet.privateKey, plainKey, process?.state?.entityId)
 
     await CensusOnChainApi.registerVoterKey(processId, proof, secretKey, BigInt(1), wallet, pool)
-      .then(() => setPreregisterSent(true))
+      .then(response => setPreregisterSent(true))
       .catch((err) => {
         console.log(err)
+        setAlertMessage(i18n.t("errors.register_the_voter_key"))
       })
 
     // generateProof(processId, data.passwordConfirm)
@@ -106,3 +105,5 @@ const PreregisterPage = () => {
 }
 
 export default PreregisterPage
+
+
