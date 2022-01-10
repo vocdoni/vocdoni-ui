@@ -9,6 +9,7 @@ type dateDiffReturn = {
 export interface IUseCalendar {
   toCalendarFormat: (date: Date) => string
   getDateDiff: (startDate?: Date, endDate?: Date, format?: DateDiffFormat) => dateDiffReturn
+  getDateDiffString: (startDate?: Date, endDate?: Date) => string
 }
 export type DateDiffFormat = 'diff' | 'days' | 'hours' | 'minutes' | 'seconds' | 'countdown' | 'countdownV2' | 'startingIn' | 'endingIn'
 export const useCalendar = (): IUseCalendar => {
@@ -86,9 +87,21 @@ export const useCalendar = (): IUseCalendar => {
     }
 
   }
-  // const getCountdown(startDate: Date){ }
+  const getDateDiffString = (startDate?: Date, endDate?: Date): string => {
+    const diff = getDateDiff(startDate, endDate, 'diff')
+    let string
+    switch (diff.format) {
+      case 'days':
+        string = i18n.t("vote.value_days", { value: diff.value })
+        break
+      default:
+        string = getDateDiff(null, endDate, 'countdown').value + 's'
+    }
+    return string
+  }
   return {
     toCalendarFormat,
-    getDateDiff
+    getDateDiff,
+    getDateDiffString
   }
 }

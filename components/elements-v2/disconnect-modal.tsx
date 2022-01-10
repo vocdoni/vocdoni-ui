@@ -10,6 +10,7 @@ import { Button } from "./button"
 import { Spacer } from "./spacer"
 import { theme } from "@theme/global"
 import { useTranslation } from "react-i18next"
+import { LogOutIcon } from "./icons"
 type StyledModalProps = {
   isMobile: boolean
 }
@@ -24,60 +25,27 @@ export const DisconnectModal = (props: DisconnectModalProps) => {
   if (modal.current?.containerRef?.current) {
     modal.current.containerRef.current.style.backgroundColor = 'rgba(13, 71, 82, 0.86)'
   }
-
-  <img src="/images/vote/disconnect-modal-icon.svg" alt="disconnect" />
-  const disconnectModalIcon = (
-    <img
-      src="/images/vote/disconnect-modal-icon.svg"
-      height={isMobile ? '48px' : '72px'}
-      width={isMobile ? '48px' : '72px'}
-    />
-  )
-  const ModalHeader = () => {
-    return (
-      <Row justify="center" align="center" gutter="md">
-        <Col xs={12}>
-          <Row justify="center">
-            <Col>
-              {disconnectModalIcon}
-            </Col>
-          </Row>
-        </Col>
-        <Col xs={12} justify="center">
-          <Text size="xxl" weight="medium" color="error">
-            {i18n.t("vote.disconnect_modal_title")}
-          </Text>
-        </Col>
-      </Row>
-    )
-  }
-  const ModalActions = () => {
-    return (
-      <Row justify='space-between'>
-        <Col>
-          <Button
-            variant='outlined'
-            color={theme.warningText}
-            onClick={() => props.onDisconnect()}
-          >
-          {i18n.t("vote.disconnect_modal_confirm_button")}
-          </Button>
-        </Col>
-        <Col>
-          <Button
-            variant='white'
-            onClick={() => props.onRequestClose()}>
-            {i18n.t("vote.disconnect_modal_back_button")}
-          </Button>
-        </Col>
-      </Row >
-    )
-  }
   return (
     <StyledModal isMobile={isMobile} ref={modal} {...props} size='medium'>
       <Row justify="center" gutter={isMobile ? 'md' : 'lg'}>
         <Col xs={12}>
-          <ModalHeader />
+          {/** HEADER */}
+          <Row justify="center" align="center" gutter="md">
+            <Col xs={12}>
+              <Row justify="center">
+                <Col>
+                  <LogOutIcon
+                    size={isMobile ? '48px' : '72px'}
+                  />
+                </Col>
+              </Row>
+            </Col>
+            <Col xs={12} justify="center">
+              <Text size="xxl" weight="medium" color="error">
+                {i18n.t("vote.disconnect_modal_title")}
+              </Text>
+            </Col>
+          </Row>
         </Col>
         <Col xs={12} justify="center">
           <Text align="center" size="md" color="dark-gray">
@@ -88,7 +56,25 @@ export const DisconnectModal = (props: DisconnectModalProps) => {
           <Spacer size="md" direction="vertical" />
         </Col>
         <Col xs={12}>
-          <ModalActions />
+          <Row justify='space-between'>
+            {/** ACTIONS */}
+            <Col>
+              <Button
+                variant='outlined'
+                color={theme.warningText}
+                onClick={() => props.onDisconnect()}
+              >
+                {i18n.t("vote.disconnect_modal_confirm_button")}
+              </Button>
+            </Col>
+            <Col>
+              <Button
+                variant='white'
+                onClick={() => props.onRequestClose()}>
+                {i18n.t("vote.disconnect_modal_back_button")}
+              </Button>
+            </Col>
+          </Row >
         </Col>
       </Row>
     </ StyledModal >

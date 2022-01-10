@@ -17,6 +17,7 @@ import { UseRudderStackProvider } from '@hooks/rudderstack'
 import { UseCookiesProvider } from '@hooks/cookies'
 
 import { PATH_WITHOUT_COOKIES } from '@const/routes'
+import { UseProcessInfoProvider } from '@hooks/use-process-info'
 
 interface IDefaultProvidersProps {
   children: ReactNode
@@ -46,11 +47,13 @@ export const DefaultProviders = ({ children }: IDefaultProvidersProps) => {
                   <UseBackendProvider>
                     <UseProcessProvider>
                       <UseVotingProvider>
-                        <UseEntityProvider>
-                          <UseDbAccountsProvider>
-                            {children}
-                          </UseDbAccountsProvider>
-                        </UseEntityProvider>
+                        <UseProcessInfoProvider>
+                          <UseEntityProvider>
+                            <UseDbAccountsProvider>
+                              {children}
+                            </UseDbAccountsProvider>
+                          </UseEntityProvider>
+                        </UseProcessInfoProvider>
                       </UseVotingProvider>
                     </UseProcessProvider>
                   </UseBackendProvider>
