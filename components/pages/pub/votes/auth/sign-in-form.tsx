@@ -2,12 +2,13 @@ import React, { ChangeEvent } from 'react'
 import styled from 'styled-components'
 import { ProcessDetails, EntityMetadata } from 'dvote-js'
 import { useTranslation } from 'react-i18next'
-import { useBlockHeight} from '@vocdoni/react-hooks'
+import { useBlockHeight } from '@vocdoni/react-hooks'
 
 import {
   Fieldset,
   FormGroupVariant,
   InputFormGroup,
+  InputPasswordFormGroup,
 } from '@components/blocks/form'
 import { Column } from '@components/elements/grid'
 import { Button } from '@components/elements/button'
@@ -70,51 +71,49 @@ export const SignInForm = ({
             const isLastItem = i === fields.length - 1
             return (
               <FlexContainer justify={FlexJustifyContent.Center} key={i}>
-                  <InputFormGroup
-                    label={fieldName}
-                    id={fieldName}
-                    placeholder={i18n.t('vote.auth.insert_your', {field: fieldName})}
-                    onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                      onChange(fieldName, e.target.value)
-                    }
-                    value={values[fieldName]}
-                    variant={FormGroupVariant.Small}
-                  />
-
-                  {isLastItem && (
-                    <ContainerContainer>
-                      {i18n.t('vote.you_cant_enter_contact_with_entity')}
-                    </ContainerContainer>
-                  )}
+                <InputFormGroup
+                  label={fieldName}
+                  id={fieldName}
+                  placeholder={i18n.t('vote.auth.insert_your', { field: fieldName })}
+                  onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                    onChange(fieldName, e.target.value)
+                  }
+                  value={values[fieldName]}
+                  variant={FormGroupVariant.Small}
+                />
               </FlexContainer>
             )
           })}
-          {(processInfo.state.processMode.preRegister && processStarted ) ? (
+          {(processInfo.state.processMode.preRegister && processStarted) ? (
             <FlexContainer justify={FlexJustifyContent.Center}>
-            <InputFormGroup
-              label="secretKey"
-              id="secretKey"
-              placeholder={i18n.t('vote.auth.insert_your_secret_key')}
-              onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                onChangeSecretKey(e.target.value)
-              }
-              value={secretKey}
-              variant={FormGroupVariant.Small}
-            />
-        </FlexContainer>
-        ) : (<div></div>)}
-
+              <InputPasswordFormGroup
+                label="secretKey"
+                id="secretKey"
+                placeholder={i18n.t('vote.auth.insert_your_secret_key')}
+                onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                  onChangeSecretKey(e.target.value)
+                }
+                value={secretKey}
+                variant={FormGroupVariant.Small}
+              />
+            </FlexContainer>
+          ) : (<div></div>)}
+          <FlexContainer justify={FlexJustifyContent.Center}>
+            <ContainerContainer>
+              {i18n.t('vote.you_cant_enter_contact_with_entity')}
+            </ContainerContainer>
+          </FlexContainer>
           <HiddenButton type="submit"></HiddenButton>
           <FlexContainer justify={FlexJustifyContent.Center}>
-              <Button
-                wide
-                positive
-                onClick={onSubmit}
-                spinner={submitEnabled && checkingCredentials}
-                disabled={!submitEnabled || checkingCredentials}
-              >
-                {i18n.t('action.continue')}
-              </Button>
+            <Button
+              wide
+              positive
+              onClick={onSubmit}
+              spinner={submitEnabled && checkingCredentials}
+              disabled={!submitEnabled || checkingCredentials}
+            >
+              {i18n.t('action.continue')}
+            </Button>
           </FlexContainer>
         </form>
       </FormFieldsetContainer>

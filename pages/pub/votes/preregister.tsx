@@ -7,18 +7,15 @@ import { ViewContext, ViewStrategy } from '@lib/strategy'
 import { IPreregisterData, PreregisterFormFields, PreregisterView } from '@components/pages/pub/votes/preregister-view'
 import { Loader } from '@components/blocks/loader'
 
-import { useCensusActions } from '@recoil/actions/use-census-action'
 import { preregisterProofState } from '@recoil/atoms/preregister-proof'
 import { CensusPoof } from '@lib/types'
 import { censusProofState } from '@recoil/atoms/census-proof'
-import { CensusOnChainApi, uintArrayToHex, Voting, Keccak256, Poseidon } from 'dvote-js'
+import { CensusOnChainApi, Voting} from 'dvote-js'
 import { ProcessCensusOrigin } from 'dvote-solidity/build/data-wrappers'
 import { IProofArbo } from '@vocdoni/data-models'
 import { useWallet, WalletRoles } from '@hooks/use-wallet'
-import {useAuthForm } from  '@hooks/use-auth-form'
-import { bufferToBigInt, normalizeText } from '@vocdoni/common'
+import { useAuthForm } from '@hooks/use-auth-form'
 import { PreregisteredSuccessModal } from '@components/pages/pub/votes/components/preregistered-success-modal'
-import { importedRowToString } from '@lib/util'
 
 const PreregisterPage = () => {
   const [data, setData] = useState<IPreregisterData>({
@@ -27,8 +24,7 @@ const PreregisterPage = () => {
   })
   const [preregisterSent, setPreregisterSent] = useState<boolean>(false)
   const processId = useUrlHash().slice(1)
-  const {authFields} = useAuthForm()
-  const { generateProof } =  useCensusActions()
+  const { methods } = useAuthForm()
   const preregisterProof = useRecoilState(preregisterProofState)
   const { process, loading: loadingProcess } = useProcess(processId)
   const { pool } = usePool()
@@ -56,12 +52,9 @@ const PreregisterPage = () => {
     const proof = Voting.packageSignedProof(processId, censusOrigin, useCensusProof[0] as IProofArbo)
 
     const plainKey = data[PreregisterFormFields.PasswordConfirm]
+    const secretKey = methods.calculateAnonymousKey(wallet.privateKey, plainKey, process?.state?.entityId)
 
-    const secretKey = bufferToBigInt(Buffer.from(Keccak256.hashText(importedRowToString([plainKey, wallet.privateKey], process?.state?.entityId)), "utf-8"))
-    // const secretKey = BigInt(Keccak256.hashText(importedRowToString(plainKey, process?.state?.entityId)))
-    // const secretKey = BigInt(uintArrayToHex(Buffer.from(data[PreregisterFormFields.PasswordConfirm], "utf-8")))
-
-    await CensusOnChainApi.registerVoterKey(processId, proof, secretKey % Poseidon.Q, BigInt(1), wallet, pool)
+    await CensusOnChainApi.registerVoterKey(processId, proof, secretKey, BigInt(1), wallet, pool)
       .then(() => setPreregisterSent(true))
       .catch((err) => {
         console.log(err)
@@ -74,13 +67,13 @@ const PreregisterPage = () => {
     () => !loadingProcess && !loadingEntity && !preregisterSent,
     (
       <>
-      <PreregisterView
-        process={process}
-        entity={entity}
-        values={data}
-        onChange={handleDataChange}
-        onSubmit={handleSubmit}
-      />
+        <PreregisterView
+          process={process}
+          entity={entity}
+          values={data}
+          onChange={handleDataChange}
+          onSubmit={handleSubmit}
+        />
       </>
     )
   )
@@ -89,11 +82,11 @@ const PreregisterPage = () => {
     () => preregisterSent,
     (
       <>
-      <PreregisteredSuccessModal
-        isOpen={preregisterSent}
-        processStartDate={"TEST DATE"}
-        onClose={() => console.log("closed")}
-      />
+        <PreregisteredSuccessModal
+          isOpen={preregisterSent}
+          processStartDate={"TEST DATE"}
+          onClose={() => console.log("closed")}
+        />
       </>
     )
   )

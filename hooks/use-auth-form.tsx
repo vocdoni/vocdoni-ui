@@ -8,7 +8,7 @@ import {
   normalizeText,
   bufferToBigInt,
   CensusOnChainApi,
-  Keccak256, Poseidon,
+  Poseidon,
 } from 'dvote-js'
 import { PREREGISTER_PATH, VOTING_PATH } from '../const/routes'
 import i18n from '../i18n'
@@ -18,10 +18,11 @@ import { useUrlHash } from 'use-url-hash'
 import { useWallet, WalletRoles } from './use-wallet'
 import { utils } from 'ethers'
 import { CensusPoof, ZKCensusPoof } from '@lib/types'
-import { useRecoilState, useSetRecoilState } from 'recoil'
+import { useSetRecoilState } from 'recoil'
 import { censusProofState } from '@recoil/atoms/census-proof'
 import { ZKcensusProofState } from '@recoil/atoms/zk-census-proof'
-import { VotingType } from '@lib/types'
+import { Wallet } from '@ethersproject/wallet'
+import { useVoting } from '@hooks/use-voting'
 
 // CONTEXT
 
@@ -38,8 +39,9 @@ type IAuthForm = {
 
   methods: {
     setFormValue: (key: string, value: string) => void,
-    setSecretKey,
     onLogin: () => Promise<void | number>
+    setSecretKey,
+    calculateAnonymousKey: (privKey: string, password: string, entityId) => bigint
   }
 }
 
@@ -61,6 +63,7 @@ export const useAuthForm = () => {
   const [formValues, setFormValues] = useState<{ [k: string]: string }>({})
   const [authFields, setAuthFields] = useState<string[]>([])
   const [secretKey, setSecretKey] = useState<string>()
+  const { methods: votingMethods } = useVoting(processId)
 
   const fieldNames: string[] = processInfo?.metadata?.meta?.formFieldTitles || []
 
@@ -85,13 +88,9 @@ export const useAuthForm = () => {
     }
 
     const entityId = utils.getAddress(processInfo.state?.entityId)
-    setAuthFields(authFieldsData.map(x => normalizeText(x)))
+    setAuthFields(authFieldsData)
 
-
-    authFieldsData = authFieldsData.map(x => normalizeText(x))
-    const strPayload = importedRowToString(authFieldsData, entityId)
-    const voterWallet = digestedWalletFromString(strPayload)
-    const digestedHexClaim = CensusOffChain.Public.encodePublicKey(voterWallet.publicKey)
+    const voterWallet = walletFromAuthData(authFieldsData, entityId)
 
     if (requireSecretKey) {
       if (secretKey.length == 0) {
@@ -99,14 +98,14 @@ export const useAuthForm = () => {
         return Promise.resolve()
       }
 
-      const anonymousKey = bufferToBigInt(Buffer.from(Keccak256.hashText(importedRowToString([secretKey, voterWallet.privateKey], processInfo?.state?.entityId)), "utf-8"))
-
+      const anonymousKey = calculateAnonymousKey(voterWallet.privateKey, secretKey, processInfo?.state?.entityId)
       return poolPromise.then(pool =>
-        CensusOnChainApi.generateProof(processInfo?.state?.rollingCensusRoot, anonymousKey % Poseidon.Q, pool)
+        CensusOnChainApi.generateProof(processInfo?.state?.rollingCensusRoot, anonymousKey, pool)
       ).then(anonymousProof => {
         if (!anonymousProof) throw new Error("Invalid census proof")
         setZKCensusProof(anonymousProof)
         // Set the voter wallet recovered
+        votingMethods.setAnonymousKey(anonymousKey)
         setWallet(voterWallet)
 
         if (userRequirePreregister) {
@@ -120,6 +119,7 @@ export const useAuthForm = () => {
     } else {
       // calculate plain census claim, perform generateProof and redirect
       // according to anonymous o plain census
+      const digestedHexClaim = CensusOffChain.Public.encodePublicKey(voterWallet.publicKey)
 
       return poolPromise.then(pool =>
         CensusOffChainApi.generateProof(processInfo.state?.censusRoot, { key: digestedHexClaim }, pool)
@@ -140,6 +140,18 @@ export const useAuthForm = () => {
     }
   }
 
+  const walletFromAuthData = (authFieldsData: string[], entityId: string): Wallet => {
+    authFieldsData = authFieldsData.map(x => normalizeText(x))
+    const strPayload = importedRowToString(authFieldsData, entityId)
+    return digestedWalletFromString(strPayload)
+  }
+
+
+
+  const calculateAnonymousKey = (privKey: string, password: string, entityId): bigint => {
+    return bufferToBigInt(Buffer.from(importedRowToString([password, privKey], entityId), "utf-8")) % Poseidon.Q
+  }
+
   const emptyFields = !formValues || Object.values(formValues).some(v => !v)
 
   const value: IAuthForm = {
@@ -157,7 +169,8 @@ export const useAuthForm = () => {
 
       setFormValue,
       onLogin,
-      setSecretKey
+      setSecretKey,
+      calculateAnonymousKey
     }
   }
   return value
