@@ -1,4 +1,5 @@
 import moment from 'moment'
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 type dateDiffReturn = {
@@ -9,7 +10,7 @@ type dateDiffReturn = {
 export interface IUseCalendar {
   toCalendarFormat: (date: Date) => string
   getDateDiff: (startDate?: Date, endDate?: Date, format?: DateDiffFormat) => dateDiffReturn
-  getDateDiffString: (startDate?: Date, endDate?: Date) => string
+  getDateDiffString: (startDate?: Date, endDate?: Date, disableCountdown?: boolean) => string
 }
 export type DateDiffFormat = 'diff' | 'days' | 'hours' | 'minutes' | 'seconds' | 'countdown' | 'countdownV2' | 'startingIn' | 'endingIn'
 export const useCalendar = (): IUseCalendar => {
@@ -87,15 +88,34 @@ export const useCalendar = (): IUseCalendar => {
     }
 
   }
-  const getDateDiffString = (startDate?: Date, endDate?: Date): string => {
-    const diff = getDateDiff(startDate, endDate, 'diff')
+  const getDateDiffString = (startDate?: Date, endDate?: Date, disableCountdown?: boolean): string => {
+    let diff = getDateDiff(startDate, endDate, 'diff')
     let string
-    switch (diff.format) {
-      case 'days':
-        string = i18n.t("vote.value_days", { value: diff.value })
-        break
-      default:
-        string = getDateDiff(null, endDate, 'countdown').value + 's'
+    if (!disableCountdown) {
+      switch (diff.format) {
+        case 'days':
+          string = i18n.t("vote.value_days", { value: diff.value })
+          break
+        default:
+          string = getDateDiff(null, endDate, 'countdown').value + 's'
+      }
+    } else {
+      switch (diff.format) {
+        case 'days':
+          string = i18n.t("vote.value_days", { value: diff.value })
+          break
+        case 'hours':
+          string = i18n.t("vote.value_hours", { value: diff.value })
+          break
+        case 'minutes':
+          string = i18n.t("vote.value_minutes", { value: diff.value })
+          break
+        case 'seconds':
+          string = i18n.t("vote.value_seconds", { value: diff.value })
+          break
+        default:
+          string = i18n.t("vote.value_days", { value: diff.value })
+      }
     }
     return string
   }

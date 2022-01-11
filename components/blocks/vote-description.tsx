@@ -8,7 +8,6 @@ import { ProcessStatusLabelV2 } from '@components/blocks/process-status-label-v2
 import { CalendarCard } from '@components/blocks/calendar-card'
 import { SettingsCard } from '@components/blocks/settings-card'
 import { LinkButton } from '@components/elements-v2/link-button'
-import { useIsMobile } from '@hooks/use-window-size'
 import { ExpandableContainer } from './expandable-container'
 import { Col, Row } from '@components/elements-v2/grid'
 import { useUrlHash } from 'use-url-hash'
@@ -18,12 +17,17 @@ import { When } from 'react-if'
 
 export const VoteDescription = () => {
   const { i18n } = useTranslation()
-  const isMobile = useIsMobile()
   const processId = useUrlHash().slice(1)
   const { description, liveStreamUrl, discussionUrl, attachmentUrl } = useProcessInfo(processId)
+
   // This is used to make the video url have its own
   // lifecycle so it not rerenders the video automatically
   // when dvotejs polling is done
+  // When the dvot js polling is done, for a brief
+  // moment the value is undefined before is set
+  // to its final value.
+  // React detects this as a change and the video
+  // blinks, stops and reload
   const [videoUrl, setVideoUrl] = useState('')
   useEffect(() => {
     if (videoUrl !== liveStreamUrl && liveStreamUrl !== undefined) {
