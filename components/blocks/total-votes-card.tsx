@@ -33,7 +33,7 @@ export const TotalVotesCard = () => {
               </Col>
               <Col>
                 <Text size="lg" color="dark-gray">
-                  ({totalVotes / (censusSize || 0) * 100}%)
+                  ({(totalVotes / (censusSize || 1) * 100).toFixed(2)}%)
                 </Text>
               </Col>
             </Row>

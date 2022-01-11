@@ -4,7 +4,7 @@ import { Text } from "@components/elements-v2/text"
 import { Choice, Question } from "@lib/types"
 import { questionsValidator } from "@lib/validators/questions-validator"
 import { theme } from "@theme/global"
-import { JsonFeedTemplate } from "dvote-js"
+import { JsonFeedTemplate, MultiLanguage, SingleChoiceQuestionResults } from "dvote-js"
 import { useTranslation } from "react-i18next"
 import { ProgressBar, } from "react-rainbow-components"
 import styled from "styled-components"
@@ -14,31 +14,40 @@ import { useIsMobile } from "@hooks/use-window-size"
 import { i18n } from "i18next"
 import { useProcessInfo } from "@hooks/use-process-info"
 import { useUrlHash } from "use-url-hash"
-
+import { BigNumber } from "ethers"
 
 
 export type QuestionsResultsProps = {
   question: Question
+  results: SingleChoiceQuestionResults
   index: number
 }
 type StyledProgressBarProps = ProgressBarProps & { disabled: boolean }
 type StyledCardProps = {
   isMobile: boolean
 }
-
+type ChoiceResult = {
+  title: MultiLanguage<string>;
+  votes: BigNumber;
+}
 export const QuestionResults = (props: QuestionsResultsProps) => {
   const { i18n } = useTranslation()
   const processId = useUrlHash().slice(1)
   const { totalVotes } = useProcessInfo(processId)
-  const [sortedChoices, setSortedChoices] = useState<Choice[]>([])
+  const [sortedChoices, setSortedChoices] = useState<ChoiceResult[]>([])
   const [hasWinner, setHasWinner] = useState<boolean>(false)
   const isMobile = useIsMobile()
+  // sort the results from high to low
   useEffect(() => {
-    setSortedChoices(props.question.choices.sort((a, b) => b.value - a.value))
+    setSortedChoices(
+      props.results.voteResults.sort((a, b) => {
+        return parseInt(b.votes._hex, 16) - parseInt(a.votes._hex, 16)
+      }))
   }, [totalVotes])
+  // Check if one result is bigger than the others
   useEffect(() => {
     if (sortedChoices.length > 1) {
-      if (sortedChoices[0].value === sortedChoices[1].value) {
+      if (parseInt(sortedChoices[0].votes._hex, 16) === parseInt(sortedChoices[1].votes._hex, 16)) {
         setHasWinner(false)
       } else {
         setHasWinner(true)
@@ -58,7 +67,7 @@ export const QuestionResults = (props: QuestionsResultsProps) => {
             </Col>
             <Col xs={12}>
               <Text size="xxl" color="dark-blue" weight="bold">
-                {props.question.title.default}
+                {props.results.title.default}
               </Text>
             </Col>
             {props.question.description &&
@@ -81,7 +90,7 @@ export const QuestionResults = (props: QuestionsResultsProps) => {
         <Col xs={12}>
           <Row gutter='lg'>
             {sortedChoices.map(
-              (choice: Choice, index: number) =>
+              (choice: ChoiceResult, index: number) =>
                 <Col xs={12}>
                   <Row gutter={isMobile ? 'xs' : 'lg'} align="center">
                     <Col xs={10} md={4}>
@@ -99,21 +108,21 @@ export const QuestionResults = (props: QuestionsResultsProps) => {
                         weight="bold"
                         color="dark-blue"
                       >
-                        {((choice.value / totalVotes) * 100).toFixed(2)}%
+                        {((parseInt(choice.votes._hex, 16) / totalVotes) * 100).toFixed(2)}%
                       </Text>
                       <Text
                         size="sm"
                         color="dark-gray"
                         weight="regular"
                       >
-                        {i18n.t('vote.vote_count', { count: choice.value.toLocaleString(i18n.language) as any })}
+                        {i18n.t('vote.vote_count', { count: parseInt(choice.votes._hex, 16).toLocaleString(i18n.language) as any })}
                       </Text>
                     </Col>
                     <Col xs={12} md={6}>
                       <StyledProgressBar
-                        value={getProgressPercent(choice.value, totalVotes)}
+                        value={getProgressPercent(parseInt(choice.votes._hex, 16), totalVotes)}
                         size={isMobile ? 'medium' : 'large'} style={{ background: '#E4E7EB' }}
-                        disabled={choice.value === 0}
+                        disabled={parseInt(choice.votes._hex, 16) === 0}
                       />
                     </Col>
                     <Col xs={12} hiddenSmAndUp>
@@ -124,7 +133,7 @@ export const QuestionResults = (props: QuestionsResultsProps) => {
                             weight="bold"
                             color="dark-blue"
                           >
-                            {((choice.value / totalVotes) * 100).toFixed(2)}%
+                            {((parseInt(choice.votes._hex, 16) / totalVotes) * 100).toFixed(2)}%
                           </Text>
                         </Col>
                         <Col>
@@ -133,7 +142,7 @@ export const QuestionResults = (props: QuestionsResultsProps) => {
                             color="dark-gray"
                             weight="regular"
                           >
-                            {i18n.t('vote.vote_count', { count: choice.value.toLocaleString(i18n.language) as any })}
+                            {i18n.t('vote.vote_count', { count: parseInt(choice.votes._hex, 16).toLocaleString(i18n.language) as any })}
                           </Text>
                         </Col>
                       </Row>
