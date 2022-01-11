@@ -145,7 +145,10 @@ export const useProcessWrapper = (processId: string) => {
   const updateCensusSize = async () => {
     try {
       const pool = await poolPromise
-      const size = await CensusOffChainApi.getSize(processInfo.state.censusRoot, pool)
+      let size = "1"
+      if(processInfo?.state?.censusRoot){
+        size = await CensusOffChainApi.getSize(processInfo?.state?.censusRoot, pool)
+      }
       setCensusSize(parseInt(size))
     } catch (e) {
       console.error(e)
