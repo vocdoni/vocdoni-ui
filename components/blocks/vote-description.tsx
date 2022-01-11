@@ -101,15 +101,10 @@ export const VoteDescription = () => {
                       href={discussionUrl}
                       target="_blank"
                       icon={
-                        isMobile ?
-                          <img
-                            src="/images/vote/pdf.svg"
-                            alt={i18n.t('vote.pdf_image_alt')}
-                          /> :
-                          <img
-                            src="/images/vote/pdf-outlined.svg"
-                            alt={i18n.t('vote.pdf_image_alt')}
-                          />
+                        <img
+                          src="/images/vote/pdf-outlined.svg"
+                          alt={i18n.t('vote.pdf_image_alt')}
+                        />
                       }
                     >
                       {i18n.t('vote.access_to_the_documentation')}
@@ -120,15 +115,10 @@ export const VoteDescription = () => {
                   <Col xs={12} md={6}>
                     <LinkButton
                       icon={
-                        isMobile ?
-                          <img
-                            src="/images/vote/question.svg"
-                            alt={i18n.t('vote.question_image_alt')}
-                          /> :
-                          <img
-                            src="/images/vote/question-outlined.svg"
-                            alt={i18n.t('vote.question_image_alt')}
-                          />
+                        <img
+                          src="/images/vote/question-outlined.svg"
+                          alt={i18n.t('vote.question_image_alt')}
+                        />
                       }
                       href={attachmentUrl}
                       target="_blank"
