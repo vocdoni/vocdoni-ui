@@ -1,13 +1,11 @@
-import { FlexAlignItem, FlexContainer, FlexJustifyContent, FlexContainerProps } from '@components/elements/flex'
-import { colors } from '@theme/colors'
 import React, { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 import { Card } from './card'
 import { Text } from './text'
 import { Row, Col } from './grid'
-
-type ILinkButtonProps = {
+import { ExternalLinkIcon } from '@components/elements-v2/icons'
+type LinkButtonProps = {
   icon?: ReactNode
   hideLinkIcon?: boolean
   /**
@@ -16,19 +14,16 @@ type ILinkButtonProps = {
   children: string
   href: string
   target: '_self' | '_blank'
+  disabled?: boolean
 }
-
-export const LinkButton = (props: ILinkButtonProps) => {
+type StyledAnchorProps = {
+  disabled: boolean
+}
+export const LinkButton = (props: LinkButtonProps) => {
   const i18n = useTranslation()
-  const linkIcon = (
-    <img
-      src="/images/vote/link.svg"
-      alt={i18n.t('vote.question_image_alt')}
-    />
-  )
   return (
-    <Anchor href={props.href} target={props.target}>
-      <Card hover padding='xs'>
+    <Anchor href={props.href} target={props.target} disabled={props.disabled}>
+      <Card hover padding='xs' >
         <Row align='center' justify='space-between'>
           <Col>
             <Row align='center' gutter='md'>
@@ -46,7 +41,7 @@ export const LinkButton = (props: ILinkButtonProps) => {
           </Col>
           {!props.hideLinkIcon &&
             <Col>
-              {linkIcon}
+              <ExternalLinkIcon />
             </Col>
           }
         </Row>
@@ -54,10 +49,31 @@ export const LinkButton = (props: ILinkButtonProps) => {
     </Anchor>
   )
 }
+const getOpacity = (props: StyledAnchorProps) => {
+  if (props.disabled) {
+    return 0.25
+  }
+  return 1
+}
+const getCursor = (props: StyledAnchorProps) => {
+  if (props.disabled) {
+    return 'not-allowed'
+  }
+  return 'pointer'
+}
+const getPointerEvents = (props: StyledAnchorProps) => {
+  if (props.disabled) {
+    return 'none'
+  }
+  return 'auto'
+}
 
-const Anchor = styled.a`
+const Anchor = styled.a<StyledAnchorProps>`
   display: flex;
   text-decoration: none;
+  opacity: ${getOpacity};
+  cursor: ${getCursor};
+  & > * {
+    pointer-events: ${getPointerEvents};
+  }
 `
-
-// const
