@@ -95,10 +95,10 @@ export const VoteDescription = () => {
             <Col xs={12}>
               {/* INSIDE ROW TO ADJUST GUTTER BETWEEN 2 LINKS */}
               <Row gutter='lg'>
-                {discussionUrl &&
+                {attachmentUrl &&
                   <Col xs={12} md={6}>
                     <LinkButton
-                      href={discussionUrl}
+                      href={attachmentUrl}
                       target="_blank"
                       icon={
                         <img
@@ -111,7 +111,7 @@ export const VoteDescription = () => {
                     </LinkButton>
                   </Col>
                 }
-                {attachmentUrl &&
+                {discussionUrl &&
                   <Col xs={12} md={6}>
                     <LinkButton
                       icon={
@@ -120,7 +120,7 @@ export const VoteDescription = () => {
                           alt={i18n.t('vote.question_image_alt')}
                         />
                       }
-                      href={attachmentUrl}
+                      href={discussionUrl}
                       target="_blank"
                     >
                       {i18n.t('vote.questions_and_answers')}
