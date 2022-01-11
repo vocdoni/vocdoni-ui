@@ -6,7 +6,7 @@ import ReactPlayer from 'react-player'
 
 import { useBlockStatus, useEntity, useProcess } from '@vocdoni/react-hooks'
 import { useRouter } from 'next/router'
-import { If, Then, Else } from 'react-if'
+import { If, Then, Else, When } from 'react-if'
 
 import { Question, VotingType } from '@lib/types'
 
@@ -53,12 +53,30 @@ import { TextButton } from '@components/elements-v2/text-button'
 import Modal from 'react-rainbow-components/components/Modal'
 import { DisconnectModal } from '@components/elements-v2/disconnect-modal'
 import { ResultsCard } from './components/results-card'
-export enum VotingState {
-  NotStarted = 'notStarted',
-  Started = 'started',
-  Ended = 'ended',
-  Guest = 'guest',
+import { useProcessInfo } from '@hooks/use-process-info'
+export enum UserVoteStatus {
+  /**
+   * User is voting right now
+   */
+  InProgress = 'inProgress',
+  /**
+   * User vote has expired due to external
+   * things like the vote is clossed
+   */
   Expired = 'expired',
+  /**
+   * User is not authenticated
+   */
+  Guest = 'guest',
+  /**
+   * User hase emitted its vote
+   */
+  Emitted = 'emitted',
+  /**
+   * User is authenticated but hasn't
+   * emitted a vote
+   */
+  NotEmitted = 'notEmitted',
 }
 
 interface IVideoStyle {
@@ -79,19 +97,23 @@ export const VotingPageView = () => {
     processId
   )
   const { process: processInfo } = useProcess(processId)
-  const { startDate, endDate, status, liveResults } = useProcessWrapper(processId)
+  const { startDate, endDate, status, liveResults, votingType } = useProcessInfo(processId)
   const { wallet, setWallet } = useWallet({ role: WalletRoles.VOTER })
   const { metadata } = useEntity(processInfo?.state?.entityId)
   const [confirmModalOpened, setConfirmModalOpened] = useState<boolean>(false)
   const [isExpandableCardOpen, setIsExpandableCardOpen] = useState<boolean>(false)
-  const [votingState, setVotingState] = useState<VotingState>(
-    VotingState.NotStarted
-  )
+  /**
+   * used to manage if the status of the user vote
+   * see `UserVoteStatus` for a description of each
+   * status
+   */
+  const [userVoteStatus, setUserVoteStatus] = useState<UserVoteStatus>(UserVoteStatus.NotEmitted)
   const { blockStatus } = useBlockStatus()
   const blockHeight = blockStatus?.blockNumber
   const voteStatus: VoteStatus = getVoteStatus(processInfo?.state, blockHeight)
   const entityMetadata = metadata as EntityMetadata
   const resultsCardRef = useRef(null)
+  // used for getting the ending in and starting in string
   const [now, setNow] = useState(new Date)
   useEffect(() => {
     setInterval(() => {
@@ -100,9 +122,12 @@ export const VotingPageView = () => {
   }, [])
   const endingString = getDateDiffString(now, endDate)
   const startingString = getDateDiffString(now, startDate)
+  /**
+   * effect to set the user vote status
+   */
   useEffect(() => {
     if (hasVoted) {
-      return setVotingState(VotingState.Ended)
+      return setUserVoteStatus(UserVoteStatus.Emitted)
     }
 
     if (
@@ -110,42 +135,22 @@ export const VotingPageView = () => {
       voteStatus === VoteStatus.Canceled ||
       voteStatus === VoteStatus.Upcoming
     ) {
-      return setVotingState(VotingState.Expired)
+      return setUserVoteStatus(UserVoteStatus.Expired)
     }
 
     if (!wallet) {
-      return setVotingState(VotingState.Guest)
+      return setUserVoteStatus(UserVoteStatus.Guest)
     }
 
-    setVotingState(VotingState.NotStarted)
+    setUserVoteStatus(UserVoteStatus.NotEmitted)
   }, [wallet, hasVoted])
 
-  useEffect(() => {
-    if (
-      processInfo?.metadata?.meta?.[MetadataFields.BrandColor] ||
-      entityMetadata?.meta?.[MetadataFields.BrandColor]
-    ) {
-      const brandColor =
-        processInfo?.metadata?.meta?.[MetadataFields.BrandColor] ||
-        entityMetadata?.meta?.[MetadataFields.BrandColor]
-
-      updateAppTheme({
-        accent1: brandColor,
-        accent1B: brandColor,
-        accent2: brandColor,
-        accent2B: brandColor,
-        textAccent1: brandColor,
-        textAccent1B: brandColor,
-        customLogo: entityMetadata?.media?.logo,
-      })
-    }
-  }, [processInfo, entityMetadata])
 
 
   const handleVoteNow = () => {
-    if (votingState == VotingState.NotStarted) {
-      setVotingState(VotingState.Started)
-    } else if (votingState == VotingState.Guest) {
+    if (userVoteStatus === UserVoteStatus.NotEmitted) {
+      setUserVoteStatus(UserVoteStatus.InProgress)
+    } else if (userVoteStatus === UserVoteStatus.Guest) {
       handleGotoAuth()
     }
   }
@@ -159,21 +164,21 @@ export const VotingPageView = () => {
     setIsExpandableCardOpen(!isExpandableCardOpen)
   }
 
-  // const handleFinishVote = () => {
-  //   setConfirmModalOpened(true)
-  // }
+  const handleFinishVote = () => {
+    setConfirmModalOpened(true)
+  }
 
-  // const handleBackToDescription = () => {
-  //   setVotingState(VotingState.NotStarted)
-  // }
+  const handleBackToDescription = () => {
+    setUserVoteStatus(UserVoteStatus.NotEmitted)
+  }
 
   const handleBackToVoting = () => {
-    setVotingState(VotingState.Started)
+    setUserVoteStatus(UserVoteStatus.InProgress)
     setConfirmModalOpened(false)
   }
 
   const handleOnVoted = () => {
-    setVotingState(VotingState.Ended)
+    setUserVoteStatus(UserVoteStatus.Emitted)
     setConfirmModalOpened(false)
   }
 
@@ -200,18 +205,13 @@ export const VotingPageView = () => {
   }
   const processVotingType: VotingType = processInfo?.state?.censusOrigin as any
 
-
-  const showResults =
-    votingState === VotingState.Guest || votingState === VotingState.Ended
-
-
-  const totalVotes =
-    VotingType.Weighted === processVotingType
-      ? results?.totalWeightedVotes
-      : results?.totalVotes
-
-  const showDisconnectBanner = wallet && status === VoteStatus.Upcoming && voteStatus == VoteStatus.Active
-  const showNotAuthenticatedBanner = !wallet && status == VoteStatus.Active
+  const showAuthBanner = (
+    status === VoteStatus.Upcoming ||
+    status === VoteStatus.Active ||
+    status === VoteStatus.Ended
+  )
+  const showDisconnectBanner = wallet && showAuthBanner
+  const showNotAuthenticatedBanner = !wallet && showAuthBanner
 
   const showMoreIcon = (
     makeShowMoreIcon(i18n.t('vote.question_image_alt'))
@@ -240,93 +240,108 @@ export const VotingPageView = () => {
           subtitle={metadata?.name.default}
           entityImage={metadata?.media.avatar}
         />
-        <BodyContainer>
-          <Row gutter='xxl'>
-            {/* NOT AUTHENTICATED BANNER */}
-            {showNotAuthenticatedBanner &&
-              <Col xs={12} disableFlex>
-                <Banner
-                  variant='primary'
-                  image={authenticateBannerImage}
-                  subtitle={i18n.t('vote.auth.with_credentials')}
-                  titleSize='regular'
-                  titleWeight='bold'
-                  subtitleSize='large'
-                  buttonProps={
-                    {
-                      variant: 'primary',
-                      children: i18n.t('vote.auth.auth_button'),
-                      iconRight: authenticateIcon,
-                      onClick: () => handleGotoAuth()
-                    }
-                  }
+        <If condition={userVoteStatus !== UserVoteStatus.InProgress}>
+          <Then>
+            <BodyContainer >
+              <Row gutter='xxl'>
+                {/* NOT AUTHENTICATED BANNER */}
+                {showNotAuthenticatedBanner &&
+                  <Col xs={12} disableFlex>
+                    <Banner
+                      variant='primary'
+                      image={authenticateBannerImage}
+                      subtitle={i18n.t('vote.auth.with_credentials')}
+                      titleSize='regular'
+                      titleWeight='bold'
+                      subtitleSize='large'
+                      buttonProps={
+                        {
+                          variant: 'primary',
+                          children: i18n.t('vote.auth.auth_button'),
+                          iconRight: authenticateIcon,
+                          onClick: () => handleGotoAuth()
+                        }
+                      }
+                    >
+                      {i18n.t('vote.auth.not_authenticated')}
+                    </Banner>
+                  </Col>
+                }
+                {/* DISCONNECT BANNER */}
+                {showDisconnectBanner &&
+                  <Col xs={12} disableFlex>
+                    <Banner
+                      variant='primary'
+                      titleSize='regular'
+                      titleWeight='regular'
+                      buttonProps={
+                        {
+                          variant: 'white',
+                          children: i18n.t('vote.auth.disconnect_button'),
+                          iconRight: disconnectIcon,
+                          onClick: () => setDisconnectModalOpened(true)
+                        }
+                      }
+                    >
+                      {i18n.t('vote.you_are_autenticated')}
+                      <Spacer size="xxs" direction="horizontal" />
+                      <b> TODO :here goes the voter info</b>
+                    </Banner>
+                  </Col>
+                }
+                {/* DESCIRPTION */}
+                <Col xs={12} md={9}>
+                  <VoteDescription />
+                </Col>
+                {/* VOTE CARD */}
+                <StickyCol xs={12} md={3} hiddenSmAndDown disableFlex>
+                  <VoteActionCard
+                    userVoteStatus={userVoteStatus}
+                    onClick={handleVoteNow}
+                    onSeeResults={handleSeeResultsClick}
+                  />
+                </StickyCol>
+              </Row>
+            </BodyContainer>
+            <Spacer direction='vertical' size='xxxl' />
+            {/* RESULTS CARD */}
+            <Row gutter='xxl'>
+              <Col xs={12}>
+                <ExpandableCard
+                  ref={resultsCardRef}
+                  isOpen={isExpandableCardOpen}
+                  onButtonClick={handleExpandableCardButtonClick}
+                  title={i18n.t("vote.voting_results_title")}
+                  icon={voteResultsIcon}
+                  buttonProps={{
+                    variant: 'light',
+                    iconRight: showMoreIcon,
+                    width: '124px',
+                    children: i18n.t("vote.voting_results_show")
+                  }}
+                  buttonPropsOpen={{
+                    variant: 'outlined',
+                    iconRight: showMoreIcon,
+                    width: '124px',
+                    children: i18n.t("vote.voting_results_hide")
+                  }}
                 >
-                  {i18n.t('vote.auth.not_authenticated')}
-                </Banner>
+                  <ResultsCard />
+                </ExpandableCard>
               </Col>
-            }
-            {/* DISCONNECT BANNER */}
-            {showDisconnectBanner &&
-              <Col xs={12} disableFlex>
-                <Banner
-                  variant='primary'
-                  titleSize='regular'
-                  titleWeight='regular'
-                  buttonProps={
-                    {
-                      variant: 'white',
-                      children: i18n.t('vote.auth.disconnect_button'),
-                      iconRight: disconnectIcon,
-                      onClick: () => setDisconnectModalOpened(true)
-                    }
-                  }
-                >
-                  {i18n.t('vote.you_are_autenticated')}
-                  <Spacer size="xxs" direction="horizontal" />
-                  <b> TODO :here goes the voter info</b>
-                </Banner>
-              </Col>
-            }
-            {/* DESCIRPTION */}
-            <Col xs={12} md={9}>
-              <VoteDescription />
-            </Col>
-            {/* VOTE CARD */}
-            <StickyCol xs={12} md={3} hiddenSmAndDown disableFlex>
-              <VoteActionCard
-                onClick={handleVoteNow}
-                onSeeResults={handleSeeResultsClick}
-              />
-            </StickyCol>
-          </Row>
-        </BodyContainer>
-        <Spacer direction='vertical' size='xxxl' />
-        {/* RESULTS CARD */}
-        <Row gutter='xxl'>
-          <Col xs={12}>
-            <ExpandableCard
-              ref={resultsCardRef}
-              isOpen={isExpandableCardOpen}
-              onButtonClick={handleExpandableCardButtonClick}
-              title={i18n.t("vote.voting_results_title")}
-              icon={voteResultsIcon}
-              buttonProps={{
-                variant: 'light',
-                iconRight: showMoreIcon,
-                width: '124px',
-                children: i18n.t("vote.voting_results_show")
-              }}
-              buttonPropsOpen={{
-                variant: 'outlined',
-                iconRight: showMoreIcon,
-                width: '124px',
-                children: i18n.t("vote.voting_results_hide")
-              }}
-            >
-              <ResultsCard />
-            </ExpandableCard>
-          </Col>
-        </Row>
+            </Row>
+          </Then>
+          <Else>
+            <QuestionsList
+              results={choices}
+              questions={processInfo?.metadata?.questions}
+              voteWeight={votingType === VotingType.Weighted ? censusProof?.weight : null}
+              onSelect={votingMethods.onSelect}
+              onFinishVote={handleFinishVote}
+              onBackDescription={handleBackToDescription}
+            />
+          </Else>
+        </If>
 
         {/* FIXED CARDS ON MOBILE VERSION */}
 

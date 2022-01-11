@@ -20,13 +20,16 @@ import { useProcessWrapper } from '@hooks/use-process-wrapper'
 import { Else, If, Then } from 'react-if'
 import { useProcessInfo } from '@hooks/use-process-info'
 import { ChevronRightIcon } from '@components/elements-v2/icons'
+import { UserVoteStatus } from '..'
 
 interface IVoteActionCardProps {
+  userVoteStatus: UserVoteStatus
   onClick: () => void
   onSeeResults?: () => void
 }
 
 export const VoteActionCard = ({
+  userVoteStatus,
   onClick,
   onSeeResults,
 }: IVoteActionCardProps) => {
@@ -34,8 +37,9 @@ export const VoteActionCard = ({
   const { getDateDiffString, getDateDiff } = useCalendar()
   const processId = useUrlHash().slice(1)
   const { startDate, endDate, totalVotes, status, censusSize, liveResults } = useProcessInfo(processId)
-  const { nullifier } = useVoting(processId)
-  const disabled = status !== VoteStatus.Active
+  const { hasVoted, nullifier } = useVoting(processId)
+
+  const disabled = (status !== VoteStatus.Active || userVoteStatus === UserVoteStatus.Emitted)
   const explorerLink = process.env.EXPLORER_URL + '/envelope/' + nullifier
   const [now, setNow] = useState(new Date)
   useEffect(() => {
@@ -47,64 +51,51 @@ export const VoteActionCard = ({
   const getTitleFromState = (status: VoteStatus) => {
     const endingString = getDateDiffString(now, endDate)
     const startingString = getDateDiffString(now, startDate)
-    switch (status) {
-      case VoteStatus.Ended:
-        return i18n.t('vote.your_vote_has_been_registered')
-      case VoteStatus.Ended:
-        return i18n.t('vote.the_voting_process_has_endded')
-      case VoteStatus.Active:
-        return (
-          <>
-            <Text>
-              {i18n.t('vote.vote_will_close')}
-            </Text>
-            <Text bold large>
-              {endingString}
-            </Text>
-          </>
-        )
-      case VoteStatus.Upcoming:
-        return (
-          <>
-            <Text>
-              {i18n.t('vote.vote_will_start')}
-            </Text>
-            <Text bold large>
-              {startingString}
-            </Text>
-          </>
-        )
+    if (userVoteStatus === UserVoteStatus.Emitted) {
+      return i18n.t('vote.your_vote_has_been_registered')
+    } else if (userVoteStatus === UserVoteStatus.Expired || status === VoteStatus.Ended) {
+      return i18n.t('vote.the_voting_process_has_endded')
+    } else if (status === VoteStatus.Active) {
+      return (
+        <>
+          <Text>
+            {i18n.t('vote.vote_will_close')}
+          </Text>
+          <Text bold large>
+            {endingString}
+          </Text>
+        </>
+      )
+    } else if (status === VoteStatus.Upcoming) {
+      return (
+        <>
+          <Text>
+            {i18n.t('vote.vote_will_start')}
+          </Text>
+          <Text bold large>
+            {startingString}
+          </Text>
+        </>
+      )
     }
   }
   const getButtonFromState = (status: VoteStatus) => {
-    switch (status) {
-      case VoteStatus.Ended:
-        return (
-          <>
-            <Button wide target={LinkTarget.Blank} positive href={explorerLink}>
-              {i18n.t('vote.view_in_explorer')}
-            </Button>
-          </>
-        )
-
-      case VoteStatus.Upcoming:
-        return (
-          <>
-            <Button wide disabled={disabled} positive>
-              {i18n.t('vote.vote_now')}
-            </Button>
-          </>
-        )
-      case VoteStatus.Active:
-        return (
-          <>
-            <Button wide disabled={disabled} positive onClick={onClick}>
-              {i18n.t('vote.vote_now')}
-            </Button>
-          </>
-        )
-      default:
-        return <></>
+    if (userVoteStatus === UserVoteStatus.Emitted) {
+      return (
+        <>
+          <Button wide target={LinkTarget.Blank} positive href={explorerLink}>
+            {i18n.t('vote.view_in_explorer')}
+          </Button>
+        </>
+      )
+    } else if (status === VoteStatus.Ended) {
+      return null
+    } else {
+      return (
+        <Button wide disabled={disabled} positive onClick={onClick}>
+          {i18n.t('vote.vote_now')}
+        </Button>
+      )
     }
   }
 
