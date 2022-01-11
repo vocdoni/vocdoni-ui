@@ -30,7 +30,7 @@ export const CalendarCard = () => {
               <CalendarIcon />
             </Col>
             <Col>
-              <Text size='lg' color='dark-blue' weight='bold'>
+              <Text size='lg' color='dark-blue' weight='regular'>
                 {i18n.t('vote.calendar_title')}
               </Text>
             </Col>

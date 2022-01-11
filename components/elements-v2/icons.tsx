@@ -1,6 +1,6 @@
 export const CalendarIcon = ({ size }: { size?: string }) => (
   <img
-    src="/images/vote/calendar.svg"
+    src="/images/vote/calendar-outlined.svg"
     alt='calendar'
     width={size}
     height={size}
@@ -8,7 +8,7 @@ export const CalendarIcon = ({ size }: { size?: string }) => (
 )
 export const SettingsIcon = ({ size }: { size?: string }) => (
   <img
-    src="/images/vote/calendar.svg"
+    src="/images/vote/settings.svg"
     alt='calendar'
     height={size} width={size}
   />
