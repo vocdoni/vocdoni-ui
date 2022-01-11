@@ -161,7 +161,7 @@ export const VoteActionCard = ({
         <Text large>
           <If condition={liveResults}>
             <Then>
-              {totalVotes} ({totalVotes / (censusSize || 1) * 100}%)
+              {totalVotes} ({(totalVotes / (censusSize || 1) * 100).toFixed(2)}%)
             </Then>
             <Else>
               0 (0%)

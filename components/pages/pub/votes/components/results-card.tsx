@@ -9,10 +9,11 @@ import { useUrlHash } from "use-url-hash"
 import { NoResultsCard } from "@components/blocks/NoResultsCard"
 import { useTranslation } from "react-i18next"
 import { QuestionResults } from "@components/blocks/question-results"
+import { SingleChoiceQuestionResults } from "dvote-js"
 
 export const ResultsCard = () => {
   const processId = useUrlHash().slice(1) // Skip "/"
-  const { status, liveResults, totalVotes, questions } = useProcessInfo(processId)
+  const { status, liveResults, totalVotes, questions, results } = useProcessInfo(processId)
   const { i18n } = useTranslation()
   if (questions) {
     return (
@@ -24,10 +25,11 @@ export const ResultsCard = () => {
               <TotalVotesCard />
             </Col>
             <Col xs={12}>
-              {questions.map(
-                (question: Question, index: number) =>
+              {results?.questions.map(
+                (results: SingleChoiceQuestionResults, index: number) =>
                   <QuestionResults
-                    question={question}
+                    question={questions[index]}
+                    results={results}
                     index={index}
                     key={index}
                   />
@@ -39,7 +41,7 @@ export const ResultsCard = () => {
         <Else>
           <NoResultsCard
             title={i18n.t('vote.no_results_title')}
-            subtitle={liveResults?i18n.t('vote.no_results_subtitle_live'):i18n.t('vote.no_results_subtitle_end')}
+            subtitle={liveResults ? i18n.t('vote.no_results_subtitle_live') : i18n.t('vote.no_results_subtitle_end')}
           />
         </Else>
       </If>

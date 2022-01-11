@@ -215,10 +215,7 @@ export const useProcessWrapper = (processId: string) => {
   // Callbacks
   const hasStarted = startDate && startDate.getTime() <= Date.now()
   const hasEnded = endDate && endDate.getTime() < Date.now()
-  // TODO
-  // Check if this is the correct property
-  // const liveResults = processInfo?.state.haveResults
-  const liveResults = false
+  const liveResults = !processInfo?.state?.envelopeType?.encryptedVotes
   const votingType: VotingType = processInfo?.state?.censusOrigin as any
   const description = processInfo?.metadata?.description.default
   const liveStreamUrl = processInfo?.metadata?.media.streamUri
