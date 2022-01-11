@@ -16,7 +16,7 @@ export type DateDiffFormat = 'diff' | 'days' | 'hours' | 'minutes' | 'seconds' |
 export const useCalendar = (): IUseCalendar => {
   const { i18n } = useTranslation()
   const toCalendarFormat = (date: Date) => {
-    let momentDate = moment(date).locale('es').format("MMM DD - YYYY (hh:mm)")
+    let momentDate = moment(date).locale('es').format("MMM DD - YYYY (HH:mm)")
     return momentDate.charAt(0).toUpperCase() + momentDate.slice(1)
   }
   const getDateDiff = (startDate?: Date, endDate?: Date, format?: DateDiffFormat): dateDiffReturn => {
