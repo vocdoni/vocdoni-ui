@@ -24,7 +24,7 @@ export const SettingsCard = () => {
               <SettingsIcon />
             </Col>
             <Col>
-              <Text size='lg' color='dark-blue' weight='bold'>
+              <Text size='lg' color='dark-blue' weight='regular'>
                 {i18n.t('vote.settings')}
               </Text>
             </Col>
