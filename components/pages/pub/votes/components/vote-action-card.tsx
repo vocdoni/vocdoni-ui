@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 
 import { useTranslation } from 'react-i18next'
@@ -31,16 +31,22 @@ export const VoteActionCard = ({
   onSeeResults,
 }: IVoteActionCardProps) => {
   const { i18n } = useTranslation()
-  const { getDateDiffString } = useCalendar()
+  const { getDateDiffString, getDateDiff } = useCalendar()
   const processId = useUrlHash().slice(1)
   const { startDate, endDate, totalVotes, status, censusSize, liveResults } = useProcessInfo(processId)
   const { nullifier } = useVoting(processId)
   const disabled = status !== VoteStatus.Active
   const explorerLink = process.env.EXPLORER_URL + '/envelope/' + nullifier
+  const [now, setNow] = useState(new Date)
+  useEffect(() => {
+    setInterval(() => {
+      setNow(new Date)
+    }, 1000)
+  }, [])
 
   const getTitleFromState = (status: VoteStatus) => {
-    const endingString = getDateDiffString(null, endDate)
-    const startingString = getDateDiffString(null, startDate)
+    const endingString = getDateDiffString(now, endDate)
+    const startingString = getDateDiffString(now, startDate)
     switch (status) {
       case VoteStatus.Ended:
         return i18n.t('vote.your_vote_has_been_registered')
