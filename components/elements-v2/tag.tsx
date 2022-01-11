@@ -1,20 +1,18 @@
-import { FlexAlignItem, FlexContainer } from '@components/elements/flex'
-import { colors } from '@theme/colors'
 import { theme } from '@theme/global'
 import { ReactNode } from 'react'
-import { When } from 'react-if'
 import styled from 'styled-components'
 import { Col, Row } from './grid'
-import { ITextProps } from './text'
 
 
 interface ITagProps {
   variant?: "neutral" | "success" | "error" | "info"
-  large?: boolean
   size?: 'regular' | 'large'
   fontWeight?: 'regular' | 'bold'
   label?: string
-  children: ReactNode
+  /**
+   * Children
+   */
+  children?: ReactNode
 }
 export const Tag = (props: ITagProps) => {
 

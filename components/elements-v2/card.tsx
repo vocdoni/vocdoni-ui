@@ -132,7 +132,7 @@ export const StyledCard = styled.div<StyledCardProps>`
   padding: ${getPadding};
   box-shadow: ${getShadow};
   border: ${getBorder};
-  border: ${getHeight};
+  min-height: ${getHeight};
   box-sizing: border-box;
   flex:1;
   transition: 0.3s;
