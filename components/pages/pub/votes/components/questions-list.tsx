@@ -14,7 +14,6 @@ import { Indexed } from '@ethersproject/abi'
 import { VoteWeightCard } from './vote-weight-card'
 
 interface IQuesListProps {
-  hasVideo: boolean
   questions: Question[]
   results: number[]
   voteWeight?: string
@@ -24,130 +23,108 @@ interface IQuesListProps {
   onComponentMounted?: (ref: ForwardedRef<HTMLDivElement>) => void
 }
 
-export const QuestionsList = forwardRef<HTMLDivElement, IQuesListProps>(
-  (
-    {
-      hasVideo,
-      questions,
-      results,
-      voteWeight,
-      onSelect,
-      onFinishVote,
-      onBackDescription,
-      onComponentMounted,
-    }: IQuesListProps,
-    ref
-  ) => {
-    useEffect(() => {
-      onComponentMounted && onComponentMounted(ref)
-    }, [])
+export const QuestionsList = (props: IQuesListProps) => {
+  const [questionIndex, setQuestionIndex] = useState(0)
+  const { i18n } = useTranslation()
+  const lastQuestion = questionIndex === props.questions?.length - 1
 
-    const [questionIndex, setQuestionIndex] = useState(0)
-    // const [results, setResults] = useState<number[]>([])
-    const { i18n } = useTranslation()
-    const lastQuestion = questionIndex === questions?.length - 1
-
-    const handleNext = () => {
-      if (questionIndex + 1 < questions.length) {
-        setQuestionIndex(questionIndex + 1)
-        return
-      }
-
-      onFinishVote(results)
+  const handleNext = () => {
+    if (questionIndex + 1 < props.questions.length) {
+      setQuestionIndex(questionIndex + 1)
+      return
     }
 
-    const handlePrev = () => {
-      if (questionIndex !== 0) {
-        setQuestionIndex(questionIndex - 1)
-        return
-      }
-
-      onBackDescription()
-    }
-
-    const handleChoice = (questionNumber: number, choice: number) => {
-      onSelect(questionNumber, choice)
-    }
-
-    return (
-      <QuestionsContainer>
-        {hasVideo && (
-          <LiveStreamVideoContainer ref={ref}></LiveStreamVideoContainer>
-        )}
-        {voteWeight && (
-          <WeightedBannerContainer>
-            <VoteWeightCard voteWeight={voteWeight} />
-          </WeightedBannerContainer>
-        )}
-        <div>
-          <Typography
-            variant={TypographyVariant.H3}
-            color={colors.accent1}
-            margin="0"
-          >
-            {i18n.t('votes.questions_list.question', {
-              totalQuestions: questions?.length,
-              questionIndex: questionIndex + 1,
-            })}
-          </Typography>
-
-          <QuestionUl>
-            {questions &&
-              questions.map((question, index) => (
-                <QuestionLi
-                  key={`question-${index}`}
-                  active={index === questionIndex}
-                >
-                  <QuestionCard
-                    onSelectChoice={(selectedValue) =>
-                      handleChoice(index, selectedValue)
-                    }
-                    question={question}
-                    questionIndex={index}
-                    selectedIndex={results[index]}
-                  />
-                </QuestionLi>
-              ))}
-          </QuestionUl>
-
-          <ButtonsActionContainer justify={FlexJustifyContent.SpaceBetween}>
-            <Button onClick={handlePrev}>
-              {i18n.t('votes.questions_list.back')}
-            </Button>
-
-            <Button
-              onClick={handleNext}
-              positive
-              disabled={typeof results[questionIndex] === 'undefined'}
-            >
-              {lastQuestion
-                ? i18n.t('votes.questions_list.finish_voting')
-                : i18n.t('votes.questions_list.next_question')}
-            </Button>
-          </ButtonsActionContainer>
-        </div>
-
-        <FixedButtonsActionContainer>
-          <div>
-            <Button onClick={handlePrev}>
-              {i18n.t('votes.questions_list.back')}
-            </Button>
-
-            <Button
-              onClick={handleNext}
-              positive
-              disabled={typeof results[questionIndex] === 'undefined'}
-            >
-              {lastQuestion
-                ? i18n.t('votes.questions_list.finish_voting')
-                : i18n.t('votes.questions_list.next_question')}
-            </Button>
-          </div>
-        </FixedButtonsActionContainer>
-      </QuestionsContainer>
-    )
+    props.onFinishVote(props.results)
   }
-)
+
+  const handlePrev = () => {
+    if (questionIndex !== 0) {
+      setQuestionIndex(questionIndex - 1)
+      return
+    }
+
+    props.onBackDescription()
+  }
+
+  const handleChoice = (questionNumber: number, choice: number) => {
+    props.onSelect(questionNumber, choice)
+  }
+
+  return (
+    <QuestionsContainer>
+      {props.voteWeight && (
+        <WeightedBannerContainer>
+          <VoteWeightCard voteWeight={props.voteWeight} />
+        </WeightedBannerContainer>
+      )}
+      <div>
+        <Typography
+          variant={TypographyVariant.H3}
+          color={colors.accent1}
+          margin="0"
+        >
+          {i18n.t('votes.questions_list.question', {
+            totalQuestions: props.questions?.length,
+            questionIndex: questionIndex + 1,
+          })}
+        </Typography>
+
+        <QuestionUl>
+          {props.questions &&
+            props.questions.map((question, index) => (
+              <QuestionLi
+                key={`question-${index}`}
+                active={index === questionIndex}
+              >
+                <QuestionCard
+                  onSelectChoice={(selectedValue) =>
+                    handleChoice(index, selectedValue)
+                  }
+                  question={question}
+                  questionIndex={index}
+                  selectedIndex={props.results[index]}
+                />
+              </QuestionLi>
+            ))}
+        </QuestionUl>
+
+        <ButtonsActionContainer justify={FlexJustifyContent.SpaceBetween}>
+          <Button onClick={handlePrev}>
+            {i18n.t('votes.questions_list.back')}
+          </Button>
+
+          <Button
+            onClick={handleNext}
+            positive
+            disabled={typeof props.results[questionIndex] === 'undefined'}
+          >
+            {lastQuestion
+              ? i18n.t('votes.questions_list.finish_voting')
+              : i18n.t('votes.questions_list.next_question')}
+          </Button>
+        </ButtonsActionContainer>
+      </div>
+
+      <FixedButtonsActionContainer>
+        <div>
+          <Button onClick={handlePrev}>
+            {i18n.t('votes.questions_list.back')}
+          </Button>
+
+          <Button
+            onClick={handleNext}
+            positive
+            disabled={typeof props.results[questionIndex] === 'undefined'}
+          >
+            {lastQuestion
+              ? i18n.t('votes.questions_list.finish_voting')
+              : i18n.t('votes.questions_list.next_question')}
+          </Button>
+        </div>
+      </FixedButtonsActionContainer>
+    </QuestionsContainer>
+  )
+}
 
 const WeightedBannerContainer = styled.div`
   margin: 30px 0 40px 0;
