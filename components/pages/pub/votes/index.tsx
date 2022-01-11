@@ -93,7 +93,14 @@ export const VotingPageView = () => {
   const explorerLink = process.env.EXPLORER_URL + '/envelope/' + nullifier
   const entityMetadata = metadata as EntityMetadata
   const resultsCardRef = useRef(null)
-
+  const [now, setNow] = useState(new Date)
+  useEffect(() => {
+    setInterval(() => {
+      setNow(new Date)
+    }, 1000)
+  }, [])
+  const endingString = getDateDiffString(now, endDate)
+  const startingString = getDateDiffString(now, startDate)
   useEffect(() => {
     if (hasVoted) {
       return setVotingState(VotingState.Ended)
@@ -190,8 +197,6 @@ export const VotingPageView = () => {
       window.location.href = RouterService.instance.get(VOTING_AUTH_FORM_PATH, { processId })
     }, 50)
   }
-  const endingString = getDateDiffString(null, endDate)
-  const startingString = getDateDiffString(null, startDate)
   const processVotingType: VotingType = processInfo?.state?.censusOrigin as any
 
 
@@ -283,7 +288,7 @@ export const VotingPageView = () => {
             }
             {/* DESCIRPTION */}
             <Col xs={12} md={9}>
-              <VoteDescription/>
+              <VoteDescription />
             </Col>
             {/* VOTE CARD */}
             <StickyCol xs={12} md={3} hiddenSmAndDown disableFlex>
