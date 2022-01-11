@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import ReactPlayer from 'react-player'
 import { useTranslation } from 'react-i18next'
@@ -21,6 +21,16 @@ export const VoteDescription = () => {
   const isMobile = useIsMobile()
   const processId = useUrlHash().slice(1)
   const { description, liveStreamUrl, discussionUrl, attachmentUrl } = useProcessInfo(processId)
+  // This is used to make the video url have its own
+  // lifecycle so it not rerenders the video automatically
+  // when dvotejs polling is done
+  const [videoUrl, setVideoUrl] = useState('')
+  useEffect(() => {
+    if (videoUrl !== liveStreamUrl && liveStreamUrl !== undefined) {
+      setVideoUrl(liveStreamUrl)
+    }
+  }, [liveStreamUrl])
+
   return (
     // MAIN ROW
     <Row gutter='xxxl'>
@@ -58,7 +68,7 @@ export const VoteDescription = () => {
       </Col>
 
       {/* VIDEO */}
-      <When condition={liveStreamUrl}>
+      <When condition={videoUrl}>
         <Col xs={12}>
           {/* INSIDE ROW TO ADJUST GUTTER BETWEEN TITLE AND VIDEO*/}
           <Row gutter='md'>
@@ -71,7 +81,7 @@ export const VoteDescription = () => {
               <PlayerFixedContainer>
                 <PlayerContainer>
                   <ReactPlayer
-                    url={liveStreamUrl}
+                    url={videoUrl}
                     width="100%"
                     height="100%"
                   />
