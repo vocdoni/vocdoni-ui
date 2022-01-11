@@ -1,5 +1,5 @@
 import { MetadataFields } from "@components/pages/votes/new/metadata"
-import { Question, VotingType } from "@lib/types"
+import { Question, VotingType,IProcessResults } from "@lib/types"
 import { VoteStatus } from "@lib/util"
 import { usePool } from "@vocdoni/react-hooks"
 import { createContext, useContext, useEffect, useState, ReactNode } from "react"
@@ -19,6 +19,7 @@ export interface ProcessInfoContext {
   discussionUrl: string
   attachmentUrl: string
   questions: Question[]
+  results: IProcessResults,
   methods: {
     setProcessId: (processId: string) => void
   }
@@ -60,7 +61,8 @@ export const UseProcessInfoProvider = ({ children }: { children: ReactNode }) =>
     discussionUrl,
     attachmentUrl,
     status,
-    questions
+    questions,
+    results
   } = useProcessWrapper(processId)
   const value: ProcessInfoContext = {
     censusSize,
@@ -76,6 +78,7 @@ export const UseProcessInfoProvider = ({ children }: { children: ReactNode }) =>
     attachmentUrl,
     status,
     questions,
+    results,
     methods: {
       setProcessId
     }
