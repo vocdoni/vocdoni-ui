@@ -152,7 +152,9 @@ export const VotingPageView = () => {
   }
   const handleSeeResultsClick = () => {
     setIsExpandableCardOpen(true)
-    resultsCardRef.current.scrollIntoView({ block: 'start', behavior: 'smooth' })
+    setTimeout(() => {
+      resultsCardRef.current.scrollIntoView({ block: 'start', behavior: 'smooth' })
+    }, 200)
   }
   const handleExpandableCardButtonClick = () => {
     setIsExpandableCardOpen(!isExpandableCardOpen)
