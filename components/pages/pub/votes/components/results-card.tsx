@@ -39,7 +39,7 @@ export const ResultsCard = () => {
         <Else>
           <NoResultsCard
             title={i18n.t('vote.no_results_title')}
-            subtitle={i18n.t('vote.no_results_subtitle')}
+            subtitle={liveResults?i18n.t('vote.no_results_subtitle_live'):i18n.t('vote.no_results_subtitle_end')}
           />
         </Else>
       </If>
