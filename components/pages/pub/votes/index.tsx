@@ -329,35 +329,41 @@ export const VotingPageView = () => {
         {/* FIXED CARDS ON MOBILE VERSION */}
 
         {voteStatus === VoteStatus.Upcoming &&
-          <FixedContainerRow align='center' justify='center'>
-            <Col>
-              <Text size='lg' color='white'>
-                {i18n.t('vote.vote_will_start')}&nbsp;<b>{startingString}</b>
-              </Text>
-            </Col>
-          </FixedContainerRow>
+          <>
+            <MobileSpacer />
+            <FixedContainerRow align='center' justify='center'>
+              <Col>
+                <Text size='lg' color='white'>
+                  {i18n.t('vote.vote_will_start')}&nbsp;<b>{startingString}</b>
+                </Text>
+              </Col>
+            </FixedContainerRow>
+          </>
         }
 
         {voteStatus === VoteStatus.Active &&
-          <VoteNowFixedContainer justify='center' align='center' gutter='md'>
-            <Col xs={12} justify='center'>
-              <Text size='lg' color='white'>
-                {i18n.t('vote.vote_will_close')}&nbsp;<b>{endingString}</b>
-              </Text>
-            </Col>
-            <Col xs={12} disableFlex>
-              <Button variant='primary' fontSize='large'>
-                {i18n.t("vote.vote_now")}
-              </Button>
-            </Col>
-            <Col xs={12} justify='center'>
-              <Spacer direction='vertical' size='xxs' />
-              <TextButton iconRight={seeResultsIcon} onClick={handleSeeResultsClick}>
-                {i18n.t("vote.see_results")}
-              </TextButton>
-              <Spacer direction='vertical' size='xxs' />
-            </Col>
-          </VoteNowFixedContainer>
+          <>
+            <MobileSpacer />
+            <VoteNowFixedContainer justify='center' align='center' gutter='md'>
+              <Col xs={12} justify='center'>
+                <Text size='lg' color='white'>
+                  {i18n.t('vote.vote_will_close')}&nbsp;<b>{endingString}</b>
+                </Text>
+              </Col>
+              <Col xs={12} disableFlex>
+                <Button variant='primary' fontSize='large'>
+                  {i18n.t("vote.vote_now")}
+                </Button>
+              </Col>
+              <Col xs={12} justify='center'>
+                <Spacer direction='vertical' size='xxs' />
+                <TextButton iconRight={seeResultsIcon} onClick={handleSeeResultsClick}>
+                  {i18n.t("vote.see_results")}
+                </TextButton>
+                <Spacer direction='vertical' size='xxs' />
+              </Col>
+            </VoteNowFixedContainer>
+          </>
         }
 
 
@@ -508,6 +514,12 @@ const FixedContainerRow = styled(Row)`
 `
 const VoteNowFixedContainer = styled(FixedContainerRow)`
   padding: 24px;
+`
+const MobileSpacer = styled.div`
+min-height: 72px;
+@media ${({ theme }) => theme.screenMin.tablet} {
+  display: none;
+}
 `
 // const StyledTextButton = styled(TextButton)`
 //   margin: 4px;
