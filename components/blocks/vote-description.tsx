@@ -13,6 +13,7 @@ import { Col, Row } from '@components/elements-v2/grid'
 import { useUrlHash } from 'use-url-hash'
 import { useProcessInfo } from '@hooks/use-process-info'
 import { When } from 'react-if'
+import { DocumentOutlinedIcon, QuestionOutlinedIcon } from '@components/elements-v2/icons'
 
 
 export const VoteDescription = () => {
@@ -97,55 +98,43 @@ export const VoteDescription = () => {
       </When>
 
       {/* LINKS */}
-      {(discussionUrl || attachmentUrl) &&
-        <Col xs={12}>
-          {/* INSIDE ROW TO ADJUST GUTTER BETWEEN TITLE AND LINKS*/}
-          <Row gutter='md'>
-            <Col xs={12}>
-              <SectionText size={TextSize.Big} color={colors.blueText}>
-                {i18n.t('vote.extra_information')}
-              </SectionText>
-            </Col>
-            <Col xs={12}>
-              {/* INSIDE ROW TO ADJUST GUTTER BETWEEN 2 LINKS */}
-              <Row gutter='lg'>
-                {attachmentUrl &&
-                  <Col xs={12} md={6}>
-                    <LinkButton
-                      href={attachmentUrl}
-                      target="_blank"
-                      icon={
-                        <img
-                          src="/images/vote/pdf-outlined.svg"
-                          alt={i18n.t('vote.pdf_image_alt')}
-                        />
-                      }
-                    >
-                      {i18n.t('vote.access_to_the_documentation')}
-                    </LinkButton>
-                  </Col>
-                }
-                {discussionUrl &&
-                  <Col xs={12} md={6}>
-                    <LinkButton
-                      icon={
-                        <img
-                          src="/images/vote/question-outlined.svg"
-                          alt={i18n.t('vote.question_image_alt')}
-                        />
-                      }
-                      href={discussionUrl}
-                      target="_blank"
-                    >
-                      {i18n.t('vote.questions_and_answers')}
-                    </LinkButton>
-                  </Col>
-                }
-              </Row>
-            </Col>
-          </Row>
-        </Col>
-      }
+      <Col xs={12}>
+        {/* INSIDE ROW TO ADJUST GUTTER BETWEEN TITLE AND LINKS*/}
+        <Row gutter='md'>
+          <Col xs={12}>
+            <SectionText size={TextSize.Big} color={colors.blueText}>
+              {i18n.t('vote.extra_information')}
+            </SectionText>
+          </Col>
+          <Col xs={12}>
+            {/* INSIDE ROW TO ADJUST GUTTER BETWEEN 2 LINKS */}
+            <Row gutter='lg'>
+              <Col xs={12} md={6}>
+                <LinkButton
+                  href={attachmentUrl}
+                  target="_blank"
+                  disabled={attachmentUrl === undefined || !attachmentUrl}
+                  icon={<DocumentOutlinedIcon />
+
+                  }
+                >
+                  {i18n.t('vote.access_to_the_documentation')}
+                </LinkButton>
+              </Col>
+              <Col xs={12} md={6}>
+                <LinkButton
+                  icon={<QuestionOutlinedIcon />}
+                  href={discussionUrl}
+                  disabled={discussionUrl === undefined || !discussionUrl}
+                  target="_blank"
+                >
+                  {i18n.t('vote.questions_and_answers')}
+                </LinkButton>
+              </Col>
+            </Row>
+          </Col>
+        </Row>
+      </Col>
     </Row>
     // </Grid >
   )

@@ -31,3 +31,27 @@ export const LogOutIcon = ({ size }: { size?: string }) => (
     width={size}
   />
 )
+export const ExternalLinkIcon = ({ size }: { size?: string }) => (
+  <img
+    src="/images/vote/link.svg"
+    alt="link"
+    height={size}
+    width={size}
+  />
+)
+export const QuestionOutlinedIcon = ({ size }: { size?: string }) => (
+  <img
+    src="/images/vote/question-outlined.svg"
+    alt="link"
+    height={size}
+    width={size}
+  />
+)
+export const DocumentOutlinedIcon = ({ size }: { size?: string }) => (
+  <img
+    src="/images/vote/pdf-outlined.svg"
+    alt="link"
+    height={size}
+    width={size}
+  />
+)
