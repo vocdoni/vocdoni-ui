@@ -286,7 +286,7 @@ export const VotingPageView = () => {
                     >
                       {i18n.t('vote.you_are_autenticated')}
                       <Spacer size="xxs" direction="horizontal" />
-                      <b> TODO :here goes the voter info</b>
+                      <b> {localStorage.getItem('voterData')}</b>
                     </Banner>
                   </Col>
                 }
