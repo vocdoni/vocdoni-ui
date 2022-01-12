@@ -25,15 +25,19 @@ export const ResultsCard = () => {
               <TotalVotesCard />
             </Col>
             <Col xs={12}>
-              {results?.questions.map(
-                (results: SingleChoiceQuestionResults, index: number) =>
-                  <QuestionResults
-                    question={questions[index]}
-                    results={results}
-                    index={index}
-                    key={index}
-                  />
-              )}
+              <Row gutter="md">
+                {results?.questions.map(
+                  (results: SingleChoiceQuestionResults, index: number) =>
+                    <Col xs={12}>
+                      <QuestionResults
+                        question={questions[index]}
+                        results={results}
+                        index={index}
+                        key={index}
+                      />
+                    </Col>
+                )}
+              </Row>
             </Col>
           </Row>
         </Then>
