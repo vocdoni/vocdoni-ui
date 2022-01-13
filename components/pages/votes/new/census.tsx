@@ -1,13 +1,13 @@
-import React, { ChangeEvent, useRef, useState } from 'react'
+import React, { ChangeEvent, useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 import { Case, Default, Switch, When } from 'react-if'
-import { Trans, useTranslation } from 'react-i18next'
+import { useTranslation } from 'react-i18next'
 
 import { useProcessCreation } from '@hooks/process-creation'
 
 import { Column, Grid } from '@components/elements/grid'
 import { Button } from '@components/elements/button'
-import { SectionTitle, SectionText, TextSize } from '@components/elements/text'
+import { SectionText, SectionTitle } from '@components/elements/text'
 
 import { ProcessCreationPageSteps } from '.'
 import { CensusFileSelector } from './census-file-selector'
@@ -35,6 +35,7 @@ export const FormCensus = () => {
   const [censusRootError, setCensusRootError] = useState<string>()
   const [censusUriError, setCensusUriError] = useState<string>()
   const [showConfirmModal, setShowConfirmModal] = useState<boolean>(false)
+  const [showAnonymous, setShowAnonymous] = useState<boolean>(false)
   const changeVotingTypeRef = useRef<VotingType>()
   const advancedCensusEnabled = !!process.env.ADVANCED_CENSUS || false
 
@@ -50,6 +51,10 @@ export const FormCensus = () => {
 
   const continueDisabled =
     !spreadSheetReader && !methods.checkValidCensusParameters()
+
+  useEffect(() => {
+    setShowAnonymous(votingType === VotingType.Normal)
+  }, [votingType])
 
   const handleOnXlsUpload = (spreadSheet: SpreadSheetReader) => {
     methods.setSpreadSheetReader(spreadSheet)
@@ -139,28 +144,30 @@ export const FormCensus = () => {
               />
             </Column>
 
+            <When condition={showAnonymous}>
+              <Column>
+                <Typography
+                  variant={TypographyVariant.Body1}
+                  margin="18px 0 22px 0"
+                >
+                  2. {i18n.t('votes.new.select_')}
+                </Typography>
+              </Column>
+
+              <Column>
+                <AnonymousCard
+                  onChange={handleChangeAnonymous}
+                  anonymous={anonymousVoting}
+                />
+              </Column>
+            </When>
+
             <Column>
               <Typography
                 variant={TypographyVariant.Body1}
                 margin="18px 0 22px 0"
               >
-                2. {i18n.t('votes.new.select_')}
-              </Typography>
-            </Column>
-
-            <Column>
-              <AnonymousCard
-                onChange={handleChangeAnonymous}
-                anonymous={anonymousVoting}
-              />
-            </Column>
-
-            <Column>
-              <Typography
-                variant={TypographyVariant.Body1}
-                margin="18px 0 22px 0"
-              >
-                3. {i18n.t('votes.new.import_the_list_of_voters')}
+                {showAnonymous ? '3' : '2'}. {i18n.t('votes.new.import_the_list_of_voters')}
               </Typography>
 
               {votingType === VotingType.Normal && <ImportVoterListNormal />}
