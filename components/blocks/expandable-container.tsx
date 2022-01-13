@@ -8,11 +8,10 @@ import styled from 'styled-components'
 import { CalendarCard } from './calendar-card'
 import { MarkDownViewer } from './mark-down-viewer'
 import { When } from 'react-if'
-import { Col, Row } from '@components/elements-v2/grid'
-import { Spacer } from '@components/elements-v2/spacer'
+import { Col, Row, Spacer, Text } from '@components/elements-v2'
 
 
-interface IExpandableContainerProps {
+interface ExpandableContainerProps {
   children: ReactNode
   lines?: number
   maxHeight?: number | string
@@ -20,13 +19,11 @@ interface IExpandableContainerProps {
   buttonExpandedText: string
 }
 
-interface IContainerProps {
-  lines?: number
-  maxHeight?: number | string
+interface IContainerProps extends ExpandableContainerProps {
   isExpanded: boolean
 }
 
-export const ExpandableContainer = (props: IExpandableContainerProps) => {
+export const ExpandableContainer = (props: ExpandableContainerProps) => {
   const [isExpanded, setIsExpanded] = useState(false)
   const [height, setHeight] = useState(0)
   const ref = useRef()
@@ -44,10 +41,9 @@ export const ExpandableContainer = (props: IExpandableContainerProps) => {
       <TextContainer
         ref={ref}
         isExpanded={isExpanded}
-        lines={props.lines}
-        maxHeight={props.maxHeight}
+        {...props}
       >
-        <Text>
+        <Text size='sm' weight='light' color='dark-blue'>
           <MarkDownViewer content={props.children} />
         </Text>
       </TextContainer>
@@ -63,22 +59,23 @@ export const ExpandableContainer = (props: IExpandableContainerProps) => {
     </Row>
   )
 }
-
-const Text = styled.span`
-  font-weight:400;
-  font-size: 16px;
-  font-family: Manrope;
-  color: ${colors.blueText};
-  line-height: 22px;
-`
-const VerticalSpacer = styled.div`
-  margin: 4px 4px;
-`
+const getLineClamp = (props:IContainerProps) => {
+  if(!props.isExpanded && props.lines) {
+    return props.lines
+  }
+  return 'initial'
+}
+const getMaxHeight = (props:IContainerProps) => {
+  if(!props.isExpanded && props.maxHeight) {
+    return props.maxHeight
+  }
+  return undefined
+}
 const TextContainer = styled.div <IContainerProps>`
   margin-bottom: 8px;
   display: -webkit-box;
-  -webkit-line-clamp: ${({ lines, isExpanded }) => lines && !isExpanded ? lines : 'initial'};
+  -webkit-line-clamp: ${getLineClamp};
   -webkit-box-orient: vertical;
   overflow: hidden;
-  max-height: ${({ maxHeight, isExpanded, lines }) => maxHeight && !isExpanded ? maxHeight : undefined};
+  max-height: ${getMaxHeight};
   `

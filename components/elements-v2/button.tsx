@@ -8,7 +8,7 @@ import { theme } from "@theme/global";
 
 
 type ButtonVariant = 'light' | 'primary' | 'outlined' | 'white'
-type ButtonFontSize = 'regular' | 'large'
+type ButtonSize = 'md' | 'lg'
 export interface ButtonProps {
   children?: string
   onClick?: () => void
@@ -18,16 +18,16 @@ export interface ButtonProps {
   disabled?: boolean
   color?: string
   backgroundColor?: string
-  width?: number | string
-  fontSize?: ButtonFontSize
+  width?: number
+  size?: ButtonSize
 }
 
 interface StyledButtonProps {
   color?: string
   backgroundColor?: string
-  width?: number | string
+  width?: number
   variant?: ButtonVariant
-  fontSize?: ButtonFontSize
+  size?: ButtonSize
 }
 
 export const Button = (props: ButtonProps) => {
@@ -38,7 +38,7 @@ export const Button = (props: ButtonProps) => {
       backgroundColor={props.backgroundColor}
       width={props.width}
       variant={props.variant}
-      fontSize={props.fontSize}
+      size={props.size}
     >
       <Row
         gutter="md"
@@ -98,10 +98,10 @@ const getBorderColor = (props: StyledButtonProps) => {
   }
 }
 const getWidth = (props: StyledButtonProps) => {
-  if (props.width) {
+  if (!props.width) {
     return 'auto'
   }
-  return props.width
+  return `${props.width}px`
 }
 const getBoxShadow = (props: StyledButtonProps) => {
   switch (props.variant) {
@@ -114,10 +114,10 @@ const getBoxShadow = (props: StyledButtonProps) => {
   }
 }
 const getButtonFontSize = (props: StyledButtonProps) => {
-  switch (props.fontSize) {
-    case 'regular':
+  switch (props.size) {
+    case 'md':
       return '16px'
-    case 'large':
+    case 'lg':
       return '20px'
     default:
       return '16px'
@@ -126,7 +126,7 @@ const getButtonFontSize = (props: StyledButtonProps) => {
 
 const BaseButton = styled.div<StyledButtonProps>`
 cursor: pointer;
-// box-sizing: border-box;
+box-sizing: border-box;
 border-radius: 8px;
 font-family: Manrope;
 padding: 12px 20px;

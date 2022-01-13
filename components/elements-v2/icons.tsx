@@ -22,7 +22,23 @@ export const ChevronRightIcon = ({ size }: { size?: string }) => (
     height={size}
   />
 )
+export const LightningSlashIcon = ({ size }: { size?: string }) => (
+  <img
+    src="/images/vote/disconnect-icon.svg"
+    alt='calendar'
+    width={size}
+    height={size}
+  />
+)
 
+export const PenOutlinedIcon = ({ size }: { size?: string }) => (
+  <img
+    src="/images/vote/authenticate-icon.svg"
+    alt='pen-outlined'
+    width={size}
+    height={size}
+  />
+)
 export const LogOutIcon = ({ size }: { size?: string }) => (
   <img
     src="/images/vote/disconnect-modal-icon.svg"

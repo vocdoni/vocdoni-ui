@@ -1,7 +1,6 @@
 import React from "react";
 
 import { Row, Col, Card, Text } from "@components/elements-v2";
-import { ComponentStory } from "@storybook/react";
 export default {
   title: 'Elements V2/Grid/Col',
   component: Col,
