@@ -18,7 +18,7 @@ interface CardProps {
 
 type CardBorderRadiusSize = 'sm' | 'md' | 'lg'
 type CardPadding = 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl'
-type CardVariant = 'white' | 'primary' | 'gray'
+export type CardVariant = 'white' | 'primary' | 'gray'
 
 interface StyledCardProps extends CardProps {
   isMobile: boolean
