@@ -54,6 +54,7 @@ import Modal from 'react-rainbow-components/components/Modal'
 import { DisconnectModal } from '@components/elements-v2/disconnect-modal'
 import { ResultsCard } from './components/results-card'
 import { useProcessInfo } from '@hooks/use-process-info'
+import { useIsMobile } from '@hooks/use-window-size'
 export enum UserVoteStatus {
   /**
    * User is voting right now
@@ -91,6 +92,7 @@ export const VotingPageView = () => {
   const router = useRouter()
   const [disconnectModalOpened, setDisconnectModalOpened] = useState(false)
   const { updateAppTheme } = useTheme()
+  const isMobile = useIsMobile()
   const censusProof = useRecoilValue(censusProofState)
   const { getDateDiffString } = useCalendar()
   const { methods: votingMethods, choices, hasVoted, results, nullifier } = useVoting(
@@ -224,7 +226,7 @@ export const VotingPageView = () => {
     makeAuthenticateIcon(i18n.t('vote.question_image_alt'))
   )
   const authenticateBannerImage = (
-    makeAuthenticateBannerImage(i18n.t('vote.question_image_alt'))
+    makeAuthenticateBannerImage(i18n.t('vote.question_image_alt'), isMobile ? 56 : 88)
   )
   const disconnectIcon = (
     makeDisconnectIcon(i18n.t('vote.question_image_alt'))
@@ -247,14 +249,17 @@ export const VotingPageView = () => {
               <Row gutter='xxl'>
                 {/* NOT AUTHENTICATED BANNER */}
                 {showNotAuthenticatedBanner &&
-                  <Col xs={12} disableFlex>
+                  <Col xs={12}>
                     <Banner
                       variant='primary'
                       image={authenticateBannerImage}
-                      subtitle={i18n.t('vote.auth.with_credentials')}
-                      titleSize='regular'
-                      titleWeight='bold'
-                      subtitleSize='large'
+                      subtitleProps={
+                        {
+                          size: isMobile ? 'xs' : 'md',
+                          children: i18n.t('vote.auth.with_credentials')
+                        }
+                      }
+                      titleProps={{ size: 'sm' }}
                       buttonProps={
                         {
                           variant: 'primary',
@@ -273,8 +278,7 @@ export const VotingPageView = () => {
                   <Col xs={12} disableFlex>
                     <Banner
                       variant='primary'
-                      titleSize='regular'
-                      titleWeight='regular'
+                      titleProps={{ weight: 'regular' }}
                       buttonProps={
                         {
                           variant: 'white',
@@ -317,13 +321,13 @@ export const VotingPageView = () => {
                   buttonProps={{
                     variant: 'light',
                     iconRight: showMoreIcon,
-                    width: '124px',
+                    width: 124,
                     children: i18n.t("vote.voting_results_show")
                   }}
                   buttonPropsOpen={{
                     variant: 'outlined',
                     iconRight: showMoreIcon,
-                    width: '124px',
+                    width: 124,
                     children: i18n.t("vote.voting_results_hide")
                   }}
                 >
@@ -369,7 +373,7 @@ export const VotingPageView = () => {
                 </Text>
               </Col>
               <Col xs={12} disableFlex>
-                <Button variant='primary' fontSize='large'>
+                <Button variant='primary' size='lg'>
                   {i18n.t("vote.vote_now")}
                 </Button>
               </Col>
@@ -427,9 +431,11 @@ const makeAuthenticateIcon = (alt: string) => (
     alt={alt}
   />
 )
-const makeAuthenticateBannerImage = (alt: string) => (
+const makeAuthenticateBannerImage = (alt: string, size: number) => (
   <img
     src="/images/vote/authenticate-banner-image.svg"
+    width={size}
+    height={size}
     alt={alt}
   />
 )

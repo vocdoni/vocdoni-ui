@@ -1,150 +1,78 @@
-import { FlexAlignItem, FlexContainer, FlexJustifyContent } from "@components/elements/flex";
-import { Column, Grid } from "@components/elements/grid";
 import { Card } from "@components/elements-v2/card";
 import { useIsMobile } from "@hooks/use-window-size";
-import { theme } from "@theme/global";
 import { ReactNode } from "react";
-import styled from "styled-components";
-import { ButtonProps, Button } from "./button";
-import { Col, Row } from "./grid";
+import { CardVariant, Spacer, Text, TextProps, Button, ButtonProps, Col, Row } from ".";
 
 
-interface BannerProps {
+type BannerProps = {
+  /**
+   * Children
+   */
   children: string | ReactNode
+  /**
+   * React node with the image
+   */
   image?: ReactNode
-  variant?: BannerVariant
+  /**
+   * Card components variants are accepted
+   */
+  variant?: CardVariant
+  /**
+   * Object with the button props, icons are
+   * accepted
+   */
   buttonProps?: ButtonProps
-  subtitle?: string | ReactNode
-  titleSize?: TextSize
-  titleWeight?: TextWeight
-  subtitleSize?: TextSize
-  subtitleWeight?: TextWeight
-}
-
-type BannerVariant = 'primary'
-type TextSize = 'regular' | 'large' | 'small'
-type TextWeight = 'regular' | 'bold'
-type colSize = 'xs' | 'md' | 'lg'
-interface StyledTextProps {
-  size?: TextSize
-  weight?: TextWeight
+  /**
+   * Object with the text props for the title
+   * only `size` and `weight` are supported
+   */
+  subtitleProps?: TextProps
+  /**
+   * Object with the text props for the subtitle
+   * only `size` and `weight` are supported
+   */
+  titleProps?: TextProps
 }
 
 
-const getTextColSize = (props: BannerProps, size: colSize) => {
-  switch (size) {
-    case 'xs':
-      if (props.image && props.buttonProps === undefined) {
-        return 9
-      } else if (props.image === undefined && props.buttonProps) {
-        return 12
-      } else if (props.image === undefined && props.buttonProps === undefined) {
-        return 12
-      }
-      return 9
-    case 'md':
-      if (props.image && props.buttonProps === undefined) {
-        return 10
-      } else if (props.image === undefined && props.buttonProps) {
-        return 9
-      } else if (props.image === undefined && props.buttonProps === undefined) {
-        return 12
-      }
-      return 7
-    case 'lg':
-      if (props.image && props.buttonProps === undefined) {
-        return 11
-      } else if (props.image === undefined && props.buttonProps) {
-        return 9
-      } else if (props.image === undefined && props.buttonProps === undefined) {
-        return 12
-      }
-      return 8
-  }
-}
-
-const getBackgroundColor = (props: BannerProps): string => {
-  switch (props.variant) {
-    case 'primary':
-      return `linear-gradient(110.89deg, ${theme.accentLight1B} 0%, ${theme.accentLight1} 100%)`
-    default:
-      return `linear-gradient(110.89deg, ${theme.accentLight1B} 0%, ${theme.accentLight1} 100%)`
-  }
-}
 export const Banner = (props: BannerProps) => {
   const isMobile = useIsMobile()
   return (
-    <Card padding={isMobile ? '20px' : '24px 40px'} variant={props.variant}>
-      <Row align='center' gutter={isMobile ? 'md' : 'lg'}>
-        {props.image &&
-          <Col xs={3} md={2} lg={1} justify='end'>
-            {props.image}
+    <Card padding={isMobile ? '20px' : '24px 40px'} variant={props.variant || "primary"}>
+      <Row align='center' justify="space-between" gutter="md">
+        <Col xs={12} md={9}>
+          <Row gutter={isMobile ? 'md' : 'lg'} align="center" wrap={false}>
+            {props.image &&
+              <Col>
+                {props.image}
+              </Col>
+            }
+            <Col>
+              <Text weight={props?.titleProps?.weight || 'bold'} size={props?.titleProps?.size || 'md'} color="dark-blue">
+                {props.children}
+              </Text>
+              {props.subtitleProps &&
+                <>
+                  <Spacer size="xxs" direction="vertical" />
+                  <Text weight={props.subtitleProps.weight || 'regular'} size={props.subtitleProps.size || 'sm'} color='dark-blue'>
+                    {props.subtitleProps.children}
+                  </Text>
+                </>
+              }
+            </Col>
+          </Row>
+        </Col>
+        {props.buttonProps &&
+          <Col xs={12} md={3}>
+            <Button
+              {...props.buttonProps}
+            >
+              {props.buttonProps.children}
+            </Button>
           </Col>
         }
-        <Col xs={getTextColSize(props, 'xs')} md={getTextColSize(props, 'md')} lg={getTextColSize(props, 'lg')}>
-          <Text weight={props.titleWeight || 'bold'} size={props.titleSize || 'large'}>
-            {props.children}
-          </Text>
-          {props.subtitle &&
-            <>
-              <VerticalSpacer></VerticalSpacer>
-              <Text weight={props.subtitleWeight || 'regular'} size={props.subtitleSize || 'regular'}>
-                {props.subtitle}
-              </Text>
-            </>
-          }
-        </Col>
-        <Col xs={12} md={3} disableFlex>
-          <Button
-            {...props.buttonProps}
-          >
-            {props.buttonProps.children}
-          </Button>
-        </Col>
       </Row>
     </Card >
   )
 }
 
-
-const getTextSize = (props: StyledTextProps) => {
-  switch (props.size) {
-    case 'large':
-      return '16px'
-    case 'regular':
-      return '14px'
-    case 'small':
-      return '12px'
-    default:
-      return `14px`
-  }
-}
-const getTextWeight = (props: StyledTextProps) => {
-  switch (props.weight) {
-    case 'bold':
-      return '600'
-    case 'regular':
-      return '400'
-    default:
-      return `600`
-  }
-}
-
-// const BannerContainer = styled.div<{ variant: BannerVariant }>`
-//   padding: 24px 40px;
-//   border-radius: 16px;
-//   background: ${getBackgroundColor};
-//   @media ${({ theme }) => theme.screenMax.tablet} {
-//     padding: 20px;
-//   }
-// `
-const Text = styled.span<StyledTextProps>`
-  font-family: Manrope;
-  color: ${theme.blueText};
-  font-size: ${getTextSize};
-  font-weight: ${getTextWeight};
-`
-
-const VerticalSpacer = styled.div`
-  margin: 4px 0px;
-`

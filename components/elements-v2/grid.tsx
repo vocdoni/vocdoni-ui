@@ -34,11 +34,12 @@ export type IRowProps = {
 }
 
 export type IColProps = {
-  xs?: number
-  sm?: number
-  md?: number
-  lg?: number
-  xl?: number
+  xs?: number | string
+  sm?: number | string
+  md?: number | string
+  lg?: number | string
+  xl?: number | string
+  auto?: boolean
   hidden?: boolean
   hiddenXs?: boolean
   hiddenSm?: boolean
@@ -228,19 +229,27 @@ const getColChildFlex = (props: IColProps) => {
   return 'flex'
 }
 const COLUMNS = 12
-const validateColWidth = (value: number) => {
+const validateColWidth = (value: number | string) => {
+  if (typeof value === 'string') {
+    return 'auto'
+  }
   if (value < 1) return 1
   else if (value > COLUMNS) return COLUMNS
   return Math.round(value)
 }
 
-function getColsWidth(props: IColProps) {
+const getColsWidth = (props: IColProps) => {
+  const widthXs = validateColWidth(props.xs)
+  const widthSm = validateColWidth(props.sm || props.xs)
+  const widthMd = validateColWidth(props.md || props.sm || props.xs)
+  const widthLg = validateColWidth(props.lg || props.md || props.sm || props.xs)
+  const widthXl = validateColWidth(props.xl || props.lg || props.md || props.sm || props.xs)
   return {
-    xs: validateColWidth(props.xs),
-    sm: validateColWidth(props.sm || props.xs),
-    md: validateColWidth(props.md || props.sm || props.xs),
-    lg: validateColWidth(props.lg || props.md || props.sm || props.xs),
-    xl: validateColWidth(props.xl || props.lg || props.md || props.sm || props.xs),
+    xs: typeof widthXs === 'string' ? 'auto' : `calc(${widthXs * 100 / COLUMNS}% - var(--row-margin))`,
+    sm: typeof widthSm === 'string' ? 'auto' : `calc(${widthSm * 100 / COLUMNS}% - var(--row-margin))`,
+    md: typeof widthMd === 'string' ? 'auto' : `calc(${widthMd * 100 / COLUMNS}% - var(--row-margin))`,
+    lg: typeof widthLg === 'string' ? 'auto' : `calc(${widthLg * 100 / COLUMNS}% - var(--row-margin))`,
+    xl: typeof widthXl === 'string' ? 'auto' : `calc(${widthXl * 100 / COLUMNS}% - var(--row-margin))`,
   }
 }
 
@@ -263,23 +272,23 @@ export const Col = styled.div<IColProps>`
   box-sizing: border-box;
   @media ${theme.screenMin.desktop} {
     display: ${getColDisplayXL};
-    width: calc(${(props) => getColsWidth(props).xl * 100 / COLUMNS}% - var(--row-margin));
+    width: ${(props)=>getColsWidth(props).xl}
   }
   @media ${theme.screenMin.laptopL} and ${theme.screenMax.desktop} {
     display: ${getColDisplayLg};
-    width: calc(${(props) => getColsWidth(props).lg * 100 / COLUMNS}% - var(--row-margin));
+    width: ${(props)=>getColsWidth(props).lg}
   }
   @media ${theme.screenMin.tablet} and ${theme.screenMax.laptopL}{
     display: ${getColDisplayMd};
-    width: calc(${(props) => getColsWidth(props).md * 100 / COLUMNS}% - var(--row-margin));
+    width: ${(props)=>getColsWidth(props).md}
   }
   @media ${theme.screenMin.mobileL} and ${theme.screenMax.tablet}{
     display: ${getColDisplaySm};
-    width: calc(${(props) => getColsWidth(props).sm * 100 / COLUMNS}% - var(--row-margin));
+    width: ${(props)=>getColsWidth(props).sm}
   }
   @media ${theme.screenMax.mobileL} {
     display: ${getColDisplayXs};
-    width: calc(${(props) => getColsWidth(props).xs * 100 / COLUMNS}% - var(--row-margin));
+    width: ${(props)=>getColsWidth(props).xs}
   }
   & > *{
     display: ${getColChildFlex};

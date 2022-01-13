@@ -3,8 +3,8 @@ import { ReactNode } from "react"
 import styled from "styled-components"
 
 
-export type ITextProps = {
-  children: ReactNode
+export type TextProps = {
+  children?: ReactNode
   variant?: TextVariant
   /**
    * xxs > 12px
@@ -35,14 +35,14 @@ type TextWeight = 'light' | 'regular' | 'medium' | 'bold'
 type TextColor = 'primary' | 'dark-blue' | 'dark-gray' | 'white' | 'error'
 type TextAlign = 'center' | 'right' | 'left' | 'justify'
 
-export const Text = (props: ITextProps) => {
+export const Text = (props: TextProps) => {
   return (
     <BaseText {...props} >
       {props.children}
     </BaseText>
   )
 }
-const getTextAlign = (props: ITextProps) => {
+const getTextAlign = (props: TextProps) => {
   switch (props.align) {
     case 'center':
       return 'center'
@@ -57,7 +57,7 @@ const getTextAlign = (props: ITextProps) => {
   }
 }
 
-const getTextSize = (props: ITextProps) => {
+const getTextSize = (props: TextProps) => {
   if (props.size) {
     switch (props.size) {
       case 'xxs':
@@ -89,7 +89,7 @@ const getTextSize = (props: ITextProps) => {
       return '16px'
   }
 }
-const getTextWeight = (props: ITextProps) => {
+const getTextWeight = (props: TextProps) => {
   if (props.weight) {
     switch (props.weight) {
       case 'light':
@@ -111,7 +111,7 @@ const getTextWeight = (props: ITextProps) => {
       return 600
   }
 }
-const getTextColor = (props: ITextProps) => {
+const getTextColor = (props: TextProps) => {
   if (props.color) {
     switch (props.color) {
       case 'dark-blue':
@@ -135,7 +135,7 @@ const getTextColor = (props: ITextProps) => {
       return theme.lightText
   }
 }
-const BaseText = styled.span<ITextProps>`
+const BaseText = styled.span<TextProps>`
   font-family: Manrope;
   font-size: ${getTextSize};
   font-weight: ${getTextWeight};
