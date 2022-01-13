@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from 'react'
+import React, { ChangeEvent, useState } from 'react'
 import styled from 'styled-components'
 import { ProcessDetails, EntityMetadata } from 'dvote-js'
 import { useTranslation } from 'react-i18next'
@@ -27,6 +27,7 @@ interface IFormProps {
   secretKey: string
   submitEnabled?: boolean
   checkingCredentials?: boolean
+  invalidCredentials?: boolean
   processInfo: ProcessDetails
   entity: EntityMetadata
   onChange: (field: string, value) => void
@@ -43,10 +44,13 @@ export const SignInForm = ({
   processInfo,
   entity,
   checkingCredentials,
+  invalidCredentials,
   onSubmit,
   onChange,
 }: IFormProps) => {
   const { i18n } = useTranslation()
+  const [sameInput, setSameInput] = useState(false)
+  const showError = sameInput && invalidCredentials
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault()
     onSubmit()
