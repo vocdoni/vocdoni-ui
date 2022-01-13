@@ -23,6 +23,7 @@ type IAuthForm = {
   processInfo?: ProcessDetails,
   fieldNames: string[],
   formValues: { [k: string]: string },
+  invalidCredentials: boolean
 
   methods: {
     setFormValue: (key: string, value: string) => void,
@@ -41,7 +42,7 @@ export const useAuthForm = () => {
   const { loading: loadingInfo, error: loadingInfoError, process: processInfo } = useProcess(processId)
   const { setAlertMessage } = useMessageAlert()
   const [formValues, setFormValues] = useState<{ [k: string]: string }>({})
-
+  const [invalidCredentials, setInvalidCredentials] = useState(false)
   const fieldNames: string[] = processInfo?.metadata?.meta?.formFieldTitles || []
 
   const setFormValue = (key: string, value: string) => {
@@ -102,17 +103,19 @@ export const useAuthForm = () => {
         return true
       })
       localStorage.setItem('voterData', anonymizedAuthFields.join(" / "))
-
+      setInvalidCredentials(false)
       // Go there
       router.push(VOTING_PATH + "#/" + processId)
     }).catch(err => {
-      setAlertMessage(i18n.t("errors.the_contents_you_entered_may_be_incorrect"))
+      setInvalidCredentials(true)
+      // setAlertMessage(i18n.t("errors.the_contents_you_entered_may_be_incorrect"))
     })
   }
 
   const emptyFields = !formValues || Object.values(formValues).some(v => !v)
 
   const value: IAuthForm = {
+    invalidCredentials,
     loadingInfo,
     loadingInfoError,
     processInfo,
