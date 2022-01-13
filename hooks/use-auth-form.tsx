@@ -159,6 +159,7 @@ export const useAuthForm = () => {
   const emptyFields = !formValues || Object.values(formValues).some(v => !v)
 
   const value: IAuthForm = {
+    invalidCredentials,
     loadingInfo,
     loadingInfoError,
     processInfo,
