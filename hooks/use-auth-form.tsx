@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useBlockHeight, usePool, useProcess } from '@vocdoni/react-hooks'
 import { useRouter } from 'next/router'
 import {
@@ -54,7 +54,7 @@ export const useAuthForm = () => {
   const setZKCensusProof = useSetRecoilState<ZKCensusPoof>(ZKcensusProofState)
   const processId = useUrlHash().slice(1) // Skip /
   const invalidProcessId = processId && !processId.match(/^0x[0-9a-fA-F]{64}$/)
-  const { loading: loadingInfo, error: loadingInfoError, process: processInfo } = useProcess(processId)
+  const { loading: loadingInfo, error: loadingInfoError, process: processInfo, refresh: refreshProcessInfo } = useProcess(processId)
   const { blockHeight } = useBlockHeight()
   const processStarted = blockHeight >= processInfo?.state?.startBlock
   const userRequirePreregister = processInfo?.state?.processMode?.preRegister && !processStarted
@@ -66,6 +66,10 @@ export const useAuthForm = () => {
   const { methods: votingMethods } = useVoting(processId)
 
   const fieldNames: string[] = processInfo?.metadata?.meta?.formFieldTitles || []
+
+  useEffect(() => {
+    refreshProcessInfo(processId)
+  }, [processStarted])
 
   const setFormValue = (key: string, value: string) => {
     if (!fieldNames.includes(key)) return
