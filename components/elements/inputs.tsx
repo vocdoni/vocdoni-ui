@@ -6,6 +6,7 @@ import {
   OptionTypeBase,
 } from 'react-select'
 import { useTranslation } from 'react-i18next'
+import { colors } from '@theme/colors'
 
 interface IInputProps {
   wide?: boolean
@@ -20,20 +21,30 @@ export interface ISelectOption {
 
 export type Input = typeof Input
 export const Input = styled.input<IInputProps>`
-  padding: ${({ type }) => (type == 'color' ? '0px' : '11px')};
   margin-top: 8px;
-  color: ${({ error, theme }) => (error ? '#FF2929' : theme.blueText)};
-  border: 2px solid ${({ theme, error }) => (error ? '#FF2929' : '#EFF1F7;')};
-  box-shadow: ${({ error }) =>
+  padding: ${({ type }) => (type == 'color' ? '0px' : '11px')};
+  color: ${({ theme }) => theme.blueText};
+  border: 2px solid ${({ theme, error }) => (error ? theme.danger : theme.lightBg2)};
+  box-shadow: inset 0px 2px 3px ${({ error }) =>
     error
-      ? 'inset 0px 2px 3px rgba(180, 193, 228, 0.35)'
-      : 'inset 0px 2px 3px rgba(180, 193, 228, 0.35)'};
+      ? 'rgba(180, 193, 228, 0.35)'
+      : 'rgba(180, 193, 228, 0.35)'};
   box-sizing: border-box;
   border-radius: 8px;
   outline-width: 0;
   margin-bottom: 10px;
+  font-weight: 400;
   ${({ wide }) => (wide ? 'width: 100%;' : '')}
   ${({ type }) => (type == 'color' ? 'height: 40px' : '')};
+
+  &:focus,
+  &:active {
+    border-color: ${({ theme }) => theme.textAccent1};
+  }
+
+  ::placeholder {
+    color: ${({ theme }) => theme.lightText};
+  }
 
   @media ${({ theme }) => theme.screenMax.mobileL} {
     padding: 11px 16px;
@@ -95,7 +106,7 @@ export const Textarea = styled.textarea<IInputProps>`
   margin-top: 8px;
   border: 2px solid #eff1f7;
   box-sizing: border-box;
-  border: 2px solid ${({ theme, error }) => (error ? '#FF2929' : '#EFF1F7;')};
+  border: 2px solid ${({ theme, error }) => (error ? theme.danger : '#EFF1F7')};
   box-shadow: ${({ error }) =>
     error
       ? 'inset 0px 2px 3px rgba(180, 193, 228, 0.35)'
@@ -122,6 +133,10 @@ const selectStyles = {
     '&:hover': {
       boxShadow: 'inherit',
     },
+  }),
+  singleValue: (provided) => ({
+    ...provided,
+    color: colors.blueText,
   }),
   indicatorSeparator: (provided) => ({
     display: 'none',

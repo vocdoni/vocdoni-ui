@@ -8,8 +8,7 @@ import { useTranslation } from 'react-i18next'
 import { Account } from '../../../lib/types'
 import { ACCOUNT_RECOVER_PATH } from '../../../const/routes'
 
-import { Fieldset, InputFormGroup } from '../../blocks/form'
-import { Input, Select } from '../../elements/inputs'
+import { Fieldset, InputPasswordFormGroup, SelectFormGroup } from '../../blocks/form'
 import { SectionTitle, SectionText } from '../../elements/text'
 import { Button } from '../../elements/button'
 import { usePool } from '@vocdoni/react-hooks'
@@ -71,8 +70,8 @@ export const SignInForm = ({
       </HeaderSection>
 
       <FormGroup>
-        <label>{i18n.t('sign_in.select_the_account')}</label>
-        <Select
+        <SelectFormGroup
+          label={i18n.t('sign_in.select_the_account')}
           options={selectOptions}
           value={{
             value: account.name,
@@ -90,9 +89,8 @@ export const SignInForm = ({
 
       <form onSubmit={handlerSubmit}>
         <FormGroup>
-          <InputFormGroup 
+          <InputPasswordFormGroup 
             label={i18n.t('sign_in.passphrase')}
-            helpText={i18n.t('sign_in.write_your_passphrase')}
             type="password"
             error={error}
             value={passphrase}
