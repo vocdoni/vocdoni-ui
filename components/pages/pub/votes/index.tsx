@@ -230,16 +230,6 @@ export const VotingPageView = () => {
             <BodyContainer >
               <Row gutter='2xl'>
                 {/* NOT AUTHENTICATED BANNER */}
-
-                <Col xs={12}>
-                  <WaitingBanner messages={i18n.t('entity.waiting_messages', { returnObjects: true })} />
-                </Col>
-                <Col xs={12}>
-                  <WaitingBanner messages={i18n.t('votes.new.waiting_messages', { returnObjects: true })} />
-                </Col>
-                <Col xs={12}>
-                  <WaitingBanner messages={i18n.t('vote.waiting_messages', { returnObjects: true })} intervalTime={15000} />
-                </Col>
                 {showNotAuthenticatedBanner &&
                   <Col xs={12}>
                     <Banner
