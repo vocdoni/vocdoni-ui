@@ -1,60 +1,42 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, Children } from 'react'
 import { useRecoilValue } from 'recoil'
 import styled from 'styled-components'
 import { useTranslation } from 'react-i18next'
-import ReactPlayer from 'react-player'
 
 import { useBlockStatus, useEntity, useProcess } from '@vocdoni/react-hooks'
 import { useRouter } from 'next/router'
 import { If, Then, Else, When } from 'react-if'
 
-import { Question, VotingType } from '@lib/types'
-
+import { VotingType } from '@lib/types'
 import { useTheme } from '@hooks/use-theme'
 import { useVoting } from '@hooks/use-voting'
 import { useWallet, WalletRoles } from '@hooks/use-wallet'
-
-import { Column, Grid } from '@components/elements/grid'
-import { Card, CardDiv, PageCard } from '@components/elements/cards'
-// import { Button } from '@components/elements/button'
+import { PageCard } from '@components/elements/cards'
 import { Button } from '@components/elements-v2/button'
 import { FlexContainer } from '@components/elements/flex'
-import { VoteQuestionCard } from '@components/blocks/vote-question-card'
-import { MetadataFields } from '@components/pages/votes/new/metadata'
-
 import { CardImageHeader } from '@components/blocks/card/image-header'
 import { VoteDescription } from '@components/blocks/vote-description'
-
 import { ConfirmModal } from './components/confirm-modal'
 import { VoteActionCard } from './components/vote-action-card'
 import { VoteStatus, getVoteStatus } from '@lib/util'
 import { useUrlHash } from 'use-url-hash'
-import { VotingApi, EntityMetadata } from 'dvote-js'
-import { DateDiffType, localizedStrDateDiff } from '@lib/date'
-import { Body1, TextAlign, Typography, TypographyVariant } from '@components/elements/typography'
+import { EntityMetadata } from 'dvote-js'
+import { Body1 } from '@components/elements/typography'
 import { QuestionsList } from './components/questions-list'
 import { censusProofState } from '@recoil/atoms/census-proof'
 import { VoteRegisteredCard } from './components/vote-registered-card'
 import RouterService from '@lib/router'
 import { VOTING_AUTH_FORM_PATH } from '@const/routes'
-import { useProcessWrapper } from '@hooks/use-process-wrapper'
 import { ExpandableCard } from '@components/blocks/expandable-card'
-import { NoResultsCard } from '@components/blocks/NoResultsCard'
-import { Banner } from '@components/elements-v2/banner'
-import { Col, Row, IColProps } from '@components/elements-v2/grid'
-import { Spacer } from '@components/elements-v2/spacer'
-import { QuestionResults } from '@components/blocks/question-results'
-import { TotalVotesCard } from '@components/blocks/total-votes-card'
+import { Banner } from '@components/blocks-v2/banner'
+import { Spacer,Col,Row,IColProps, Text, TextButton } from '@components/elements-v2'
 import { useCalendar } from '@hooks/use-calendar'
-import { Text } from '@components/elements-v2/text'
-import { LinkButton } from '@components/elements-v2/link-button'
-import { TextButton } from '@components/elements-v2/text-button'
 
-import Modal from 'react-rainbow-components/components/Modal'
-import { DisconnectModal } from '@components/elements-v2/disconnect-modal'
+import { DisconnectModal } from '@components/blocks-v2'
 import { ResultsCard } from './components/results-card'
 import { useProcessInfo } from '@hooks/use-process-info'
 import { useIsMobile } from '@hooks/use-window-size'
+import { WaitingBanner } from '@components/blocks-v2/waiting-banner'
 export enum UserVoteStatus {
   /**
    * User is voting right now
@@ -246,8 +228,18 @@ export const VotingPageView = () => {
         <If condition={userVoteStatus !== UserVoteStatus.InProgress}>
           <Then>
             <BodyContainer >
-              <Row gutter='xxl'>
+              <Row gutter='2xl'>
                 {/* NOT AUTHENTICATED BANNER */}
+
+                <Col xs={12}>
+                  <WaitingBanner messages={i18n.t('entity.waiting_messages', { returnObjects: true })} />
+                </Col>
+                <Col xs={12}>
+                  <WaitingBanner messages={i18n.t('votes.new.waiting_messages', { returnObjects: true })} />
+                </Col>
+                <Col xs={12}>
+                  <WaitingBanner messages={i18n.t('vote.waiting_messages', { returnObjects: true })} intervalTime={15000} />
+                </Col>
                 {showNotAuthenticatedBanner &&
                   <Col xs={12}>
                     <Banner
@@ -289,7 +281,7 @@ export const VotingPageView = () => {
                       }
                     >
                       {i18n.t('vote.you_are_autenticated')}
-                      <Spacer size="xxs" direction="horizontal" />
+                      <Spacer size="2xs" direction="horizontal" />
                       <b> {localStorage.getItem('voterData')}</b>
                     </Banner>
                   </Col>
@@ -308,9 +300,9 @@ export const VotingPageView = () => {
                 </StickyCol>
               </Row>
             </BodyContainer>
-            <Spacer direction='vertical' size='xxxl' />
+            <Spacer direction='vertical' size='3xl' />
             {/* RESULTS CARD */}
-            <Row gutter='xxl'>
+            <Row gutter='2xl'>
               <Col xs={12}>
                 <ExpandableCard
                   ref={resultsCardRef}
@@ -378,11 +370,11 @@ export const VotingPageView = () => {
                 </Button>
               </Col>
               <Col xs={12} justify='center'>
-                <Spacer direction='vertical' size='xxs' />
+                <Spacer direction='vertical' size='2xs' />
                 <TextButton iconRight={seeResultsIcon} onClick={handleSeeResultsClick}>
                   {i18n.t("vote.see_results")}
                 </TextButton>
-                <Spacer direction='vertical' size='xxs' />
+                <Spacer direction='vertical' size='2xs' />
               </Col>
             </VoteNowFixedContainer>
           </>

@@ -66,7 +66,7 @@ export const QuestionResults = (props: QuestionsResultsProps) => {
               </Text>
             </Col>
             <Col xs={12}>
-              <Text size="xxl" color="dark-blue" weight="bold">
+              <Text size="2xl" color="dark-blue" weight="bold">
                 {props.results.title.default}
               </Text>
             </Col>
