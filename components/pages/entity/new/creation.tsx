@@ -19,6 +19,8 @@ import { EntityNameAlreadyExistError } from '@lib/validators/errors/entity-name-
 import { StoreMediaError } from '@lib/validators/errors/store-media-error'
 import { VocdoniConnectionError } from '@lib/validators/errors/vocdoni-connection-error'
 import { useTranslation } from 'react-i18next'
+import { WaitingBanner } from '@components/blocks-v2'
+import { Col, Row, Spacer } from '@components/elements-v2'
 
 
 export const FormCreation = () => {
@@ -99,6 +101,14 @@ export const FormCreation = () => {
             title={i18n.t('vote.your_entity_is_being_registered')}
             subtitle={i18n.t('vote.we_are_using_a_decentralized_secure_system')}
           />
+          <Row justify='center' gutter='none'>
+            <Col xs={12}>
+              <Spacer direction='vertical' size='3xl' />
+            </Col>
+            <Col xs={12} md={8}>
+              <WaitingBanner messages={i18n.t('entity.waiting_messages', { returnObjects: true })} />
+            </Col>
+          </Row>
         </Then>
       </If>
 

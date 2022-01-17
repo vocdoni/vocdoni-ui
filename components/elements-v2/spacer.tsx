@@ -2,13 +2,13 @@ import styled from "styled-components"
 
 type SpacerDirection = 'vertical' | 'horizontal'
 
-type SpacerSize = 'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl' | 'xxxl'
+export type SpacerSize = '2xs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl'
 
 export type ISpacerProps = {
   direction: SpacerDirection
   /**
    *
-   * xxs > adds a 4px spacer
+   * 2xs > adds a 4px spacer
    *
    * xs > adds a 8px spacer
    *
@@ -20,9 +20,9 @@ export type ISpacerProps = {
    *
    * xl > adds a 32px spacer
    *
-   * xxl > adds a 40px spacer
+   * 2xl > adds a 40px spacer
    *
-   * xxxl > adds a 48px spacer
+   * 3xl > adds a 48px spacer
    *
    */
   size: SpacerSize
@@ -30,7 +30,7 @@ export type ISpacerProps = {
 
 const getSpacerMargin = (props: ISpacerProps) => {
   switch (props.size) {
-    case 'xxs':
+    case '2xs':
       if (props.direction === 'vertical') {
         return '2px 0px'
       }
@@ -60,12 +60,12 @@ const getSpacerMargin = (props: ISpacerProps) => {
         return '16px 0px'
       }
       return '0px 16px'
-    case 'xxl':
+    case '2xl':
       if (props.direction === 'vertical') {
         return '20px 0px'
       }
       return '0px 20px'
-    case 'xxxl':
+    case '3xl':
       if (props.direction === 'vertical') {
         return '24px 0px'
       }

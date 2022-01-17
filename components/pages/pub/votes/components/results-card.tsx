@@ -20,7 +20,7 @@ export const ResultsCard = () => {
       <If condition={(status === VoteStatus.Ended || liveResults) && totalVotes > 0 && questions.length > 0}>
         {/* IF RESULTS */}
         <Then>
-          <Row gutter='xxl'>
+          <Row gutter='2xl'>
             <Col xs={12}>
               <TotalVotesCard />
             </Col>

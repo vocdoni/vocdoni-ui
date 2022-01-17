@@ -1,13 +1,13 @@
 import { theme } from "@theme/global"
 import { ReactNode } from "react"
 import styled from "styled-components"
-
+import parse from 'html-react-parser'
 
 export type TextProps = {
   children?: ReactNode
   variant?: TextVariant
   /**
-   * xxs > 12px
+   * 2xs > 12px
    *
    * xs > 14px
    *
@@ -19,7 +19,7 @@ export type TextProps = {
    *
    * xl > 22px
    *
-   * xxl > 24px
+   * 2xl > 24px
    *
    * display-1 > 32px
    */
@@ -27,18 +27,23 @@ export type TextProps = {
   weight?: TextWeight
   color?: TextColor
   align?: TextAlign
+  innerHTML?: string
 }
 
 type TextVariant = 'title' | 'subtitle' | 'body'
-type TextSize = 'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl' | 'display-1'
+type TextSize = '2xs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | 'display-1'
 type TextWeight = 'light' | 'regular' | 'medium' | 'bold'
-type TextColor = 'primary' | 'dark-blue' | 'dark-gray' | 'white' | 'error'
+type TextColor = 'primary' | 'dark-blue' | 'dark-gray' | 'white' | 'error' | 'secondary'
 type TextAlign = 'center' | 'right' | 'left' | 'justify'
 
 export const Text = (props: TextProps) => {
+  let html
+  if (props.innerHTML) {
+    html = parse(props.innerHTML)
+  }
   return (
     <BaseText {...props} >
-      {props.children}
+      <span>{props.innerHTML ? html : props.children}</span>
     </BaseText>
   )
 }
@@ -60,7 +65,7 @@ const getTextAlign = (props: TextProps) => {
 const getTextSize = (props: TextProps) => {
   if (props.size) {
     switch (props.size) {
-      case 'xxs':
+      case '2xs':
         return '12px'
       case 'xs':
         return '14px'
@@ -72,7 +77,7 @@ const getTextSize = (props: TextProps) => {
         return '20px'
       case 'xl':
         return '22px'
-      case 'xxl':
+      case '2xl':
         return '24px'
       case 'display-1':
         return '32px'
@@ -118,6 +123,8 @@ const getTextColor = (props: TextProps) => {
         return theme.blueText
       case 'primary':
         return theme.accent1
+      case 'secondary':
+        return theme.textAccent1
       case 'dark-gray':
         return theme.lightText
       case 'error':
@@ -141,4 +148,5 @@ const BaseText = styled.span<TextProps>`
   font-weight: ${getTextWeight};
   color:  ${getTextColor};
   text-align: ${getTextAlign};
+  white-space: pre-wrap;
 `

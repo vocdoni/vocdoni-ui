@@ -1,24 +1,28 @@
 import { useIsMobile } from "@hooks/use-window-size"
 import { theme } from "@theme/global"
 import { forwardRef, ReactNode } from "react"
-import { isMobileDevice } from "react-select/src/utils"
 import styled from "styled-components"
 
 
 interface CardProps {
   borderRadius?: CardBorderRadiusSize
-  padding?: CardPadding | string
+  padding?: CardPaddingSize | string
   variant?: CardVariant
-  backgroundColor?: string
+  backgroundColor?: CardBackgroundColor | string
   children?: ReactNode
   flat?: boolean
   hover?: boolean
   height?: number | string
+  borderWidth?: CardBorderSize | number
+  borderColor?: CardBorderColor | string
 }
 
 type CardBorderRadiusSize = 'sm' | 'md' | 'lg'
-type CardPadding = 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl'
-export type CardVariant = 'white' | 'primary' | 'gray'
+type CardPaddingSize = 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl'
+type CardBorderSize = 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl'
+type CardBorderColor = 'light-gray' | 'gray'
+export type CardVariant = 'white' | 'primary' | 'gray' | 'white-flat'
+type CardBackgroundColor = 'white' | 'primary' | 'gray'
 
 interface StyledCardProps extends CardProps {
   isMobile: boolean
@@ -64,48 +68,103 @@ const getPadding = (props: StyledCardProps) => {
   }
 }
 const getBackgroundColor = (props: StyledCardProps) => {
+  // Override
   if (props.backgroundColor) {
     return props.backgroundColor
   }
+  // Variants
   switch (props.variant) {
-    case 'white':
-      return theme.white
     case 'gray':
       return theme.lightBg
     case 'primary':
       return `linear-gradient(110.89deg, ${theme.accentLight1B} 0%, ${theme.accentLight1} 100%)`
-    default:
-      return theme.white
   }
+  // default
+  return theme.white
 }
 const getShadow = (props: StyledCardProps) => {
+  // override
   if (props.flat) {
     return ''
   }
+  // variants
   switch (props.variant) {
-    case 'white':
-      return '0px 6px 6px rgba(180, 193, 228, 0.35)'
+    case 'white-flat':
+      return ''
     case 'primary':
       return ''
     case 'gray':
       return ''
+    // default variant white
     default:
       return '0px 6px 6px rgba(180, 193, 228, 0.35)'
   }
 }
-const getBorder = (props: StyledCardProps) => {
-  if (props.flat) {
-    return ''
+// solid ${theme.lightBorder}
+const getBorderColor = (props: StyledCardProps) => {
+  // override
+  if (props.borderColor) {
+    // switch border sizes
+    switch (props.borderColor) {
+      case 'light-gray':
+        // ADD me to colors
+        return '#DEEFFF'
+      case 'gray':
+        return theme.lightBorder
+    }
+    // custom border
+    return props.borderColor
   }
+
+  // variants
   switch (props.variant) {
     case 'white':
-      return `2px solid ${theme.lightBorder}`
+      return theme.lightBorder
     case 'primary':
-      return ''
+      return 'transparent'
     case 'gray':
-      return ''
+      return 'transparent'
+    case 'white-flat':
+      // TODO add me to colors
+      return '#DEEFFF'
+    // default variant white
+  }
+  return theme.lightBorder
+}
+const getBorderWidth = (props: StyledCardProps) => {
+  // override
+  if (props.borderWidth) {
+    // switch borderWidth
+    switch (props.borderWidth) {
+      case 'none':
+        return '0px'
+      case 'xs':
+        return '1px'
+      case 'sm':
+        return '2px'
+      case 'md':
+        return '4px'
+      case 'lg':
+        return '6px'
+      case 'xl':
+        return '8px'
+    }
+    // custom borderWidth
+    return `${props.borderWidth}px`
+  }
+  // variants
+  switch (props.variant) {
+    case 'white':
+      return `2px`
+    case 'primary':
+      return '0px'
+    case 'gray':
+      return '0px'
+    case 'white-flat':
+      return '4px'
+    // default variant white
     default:
-      return `2px solid ${theme.lightBorder}`
+      return '2px'
   }
 }
 const getHover = (props: StyledCardProps) => {
@@ -113,8 +172,6 @@ const getHover = (props: StyledCardProps) => {
     return ''
   }
   switch (props.variant) {
-    case 'white':
-      return `${theme.lightBg}`
     default:
       return `${theme.lightBg}`
   }
@@ -131,7 +188,9 @@ export const StyledCard = styled.div<StyledCardProps>`
   background: ${getBackgroundColor};
   padding: ${getPadding};
   box-shadow: ${getShadow};
-  border: ${getBorder};
+  border: solid;
+  border-width: ${getBorderWidth};
+  border-color: ${getBorderColor};
   min-height: ${getHeight};
   box-sizing: border-box;
   flex:1;
