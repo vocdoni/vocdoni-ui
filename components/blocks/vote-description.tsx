@@ -38,7 +38,7 @@ export const VoteDescription = () => {
 
   return (
     // MAIN ROW
-    <Row gutter='xxxl'>
+    <Row gutter='3xl'>
       {/* TAG AND DESCRIPCTION */}
       <Col xs={12}>
         {/* INSIDE ROW TO AJUST GUTTER */}

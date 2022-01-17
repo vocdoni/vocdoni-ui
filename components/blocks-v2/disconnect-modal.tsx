@@ -1,16 +1,12 @@
 import { Modal } from "react-rainbow-components"
 import { ModalProps } from "react-rainbow-components/components/Modal"
-import { borderRadius } from "react-select/src/theme"
 import styled from "styled-components"
-import { Col, Row } from "./grid"
 import { useRef } from "react"
 import { useIsMobile } from "@hooks/use-window-size"
-import { Text } from "./text"
-import { Button } from "./button"
-import { Spacer } from "./spacer"
+import { Spacer, Button, Text, Col, Row } from "@components/elements-v2"
 import { theme } from "@theme/global"
 import { useTranslation } from "react-i18next"
-import { LogOutIcon } from "./icons"
+import { LogOutIcon } from "@components/elements-v2/icons"
 type StyledModalProps = {
   isMobile: boolean
 }
@@ -41,7 +37,7 @@ export const DisconnectModal = (props: DisconnectModalProps) => {
               </Row>
             </Col>
             <Col xs={12} justify="center">
-              <Text size="xxl" weight="medium" color="error">
+              <Text size="2xl" weight="medium" color="error">
                 {i18n.t("vote.disconnect_modal_title")}
               </Text>
             </Col>

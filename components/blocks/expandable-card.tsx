@@ -23,7 +23,7 @@ export const ExpandableCard = forwardRef<HTMLDivElement, ExpandableCardProps>((p
   if (isMobile) {
     return (
       <div ref={ref}>
-        <Row gutter='xxxl'>
+        <Row gutter='3xl'>
           <Col xs={12}>
             <Row justify='center' gutter='md'>
               {props.icon !== undefined &&
@@ -47,7 +47,7 @@ export const ExpandableCard = forwardRef<HTMLDivElement, ExpandableCardProps>((p
   }
   return (
     <Card ref={ref} padding='md'>
-      <Row gutter="xxxl">
+      <Row gutter="3xl">
         <Col xs={12} >
           <Row align='center' justify='space-between'>
             {/* OUTER COL */}

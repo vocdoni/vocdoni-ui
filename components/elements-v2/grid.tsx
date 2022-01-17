@@ -3,35 +3,37 @@ import { theme } from "@theme/global"
 import { ReactNode } from "react"
 import styled from "styled-components"
 
-type justifyOptions = 'start' | 'end' | 'center' | 'space-between' | 'space-around'
-type alignOptions = 'start' | 'end' | 'center'
-type textAlignOptions = 'start' | 'end' | 'center' | 'justify'
+export type JustifyOptions = 'start' | 'end' | 'center' | 'space-between' | 'space-around'
+export type AlignOptions = 'start' | 'end' | 'center'
 export type IRowProps = {
   children?: ReactNode
   /**
-   * none > 0px
+   * none -> 0px
    *
-   * xxs > 2px, total 4px
+   * 2xs -> 2px, total 4px
    *
-   * xs > 4px, total 8px
+   * xs -> 4px, total 8px
    *
-   * sm > 6px, total 12pxx
+   * sm -> 6px, total 12pxx
    *
-   * md > 8px, total 16px
+   * md -> 8px, total 16px
    *
-   * lg > 12px, total 24px
+   * lg -> 12px, total 24px
    *
-   * xl > 16px, total 32px
+   * xl -> 16px, total 32px
    *
-   * xxl > 20px, total 40px
+   * 2xl -> 20px, total 40px
    *
-   * xxxl > 24px, total 48px
+   * 3xl -> 24px, total 48px
+   *
+   * 4xl -> 24px, total 48px
    */
-  gutter?: 'none' | 'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl' | 'xxxl'
+  gutter?: RowGutter
   wrap?: boolean
-  justify?: justifyOptions
-  align?: alignOptions
+  justify?: JustifyOptions
+  align?: AlignOptions
 }
+export type RowGutter = 'none' | '2xs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl'
 
 export type IColProps = {
   xs?: number | string
@@ -57,15 +59,15 @@ export type IColProps = {
   hiddenLgAndDown?: boolean
   hiddenXlAndDown?: boolean
   disableFlex?: boolean
-  justify?: justifyOptions
-  align?: alignOptions
+  justify?: JustifyOptions
+  align?: AlignOptions
 }
 
 const getRowMargin = (props: IRowProps) => {
   switch (props.gutter) {
     case 'none':
       return 0
-    case 'xxs':
+    case '2xs':
       return 2
     case 'xs':
       return 4
@@ -77,10 +79,12 @@ const getRowMargin = (props: IRowProps) => {
       return 12
     case 'xl':
       return 16
-    case 'xxl':
+    case '2xl':
       return 20
-    case 'xxxl':
+    case '3xl':
       return 24
+    case '4xl':
+      return 28
     default:
       return 4
   }
@@ -272,23 +276,23 @@ export const Col = styled.div<IColProps>`
   box-sizing: border-box;
   @media ${theme.screenMin.desktop} {
     display: ${getColDisplayXL};
-    width: ${(props)=>getColsWidth(props).xl}
+    width: ${(props) => getColsWidth(props).xl}
   }
   @media ${theme.screenMin.laptopL} and ${theme.screenMax.desktop} {
     display: ${getColDisplayLg};
-    width: ${(props)=>getColsWidth(props).lg}
+    width: ${(props) => getColsWidth(props).lg}
   }
   @media ${theme.screenMin.tablet} and ${theme.screenMax.laptopL}{
     display: ${getColDisplayMd};
-    width: ${(props)=>getColsWidth(props).md}
+    width: ${(props) => getColsWidth(props).md}
   }
   @media ${theme.screenMin.mobileL} and ${theme.screenMax.tablet}{
     display: ${getColDisplaySm};
-    width: ${(props)=>getColsWidth(props).sm}
+    width: ${(props) => getColsWidth(props).sm}
   }
   @media ${theme.screenMax.mobileL} {
     display: ${getColDisplayXs};
-    width: ${(props)=>getColsWidth(props).xs}
+    width: ${(props) => getColsWidth(props).xs}
   }
   & > *{
     display: ${getColChildFlex};
