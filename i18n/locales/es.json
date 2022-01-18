@@ -715,5 +715,24 @@
       "next_question": "Siguiente pregunta",
       "question": "Pregunta {{questionIndex}}/{{totalQuestions}}"
     }
+  },
+  "waiting_banner":{
+    "title": "Sabias qué...",
+    "voting_process":[
+      "Cada vosto se almacena intividualmente en la blockchain por motivos de seguridad, verificabilidad universar y resistencia a la censura. Este proceso puede tardar hasta 20 segundos.",
+      "Somos el unico proveedor de un servicio de votación 100% anónimo verificable gracias a una tecnología revolucionaria llamada zk-SNARKS. Lee más <a href='todo.please.change.me' target='_blank'>aquí</a>",
+      "Todo el software desarollado por Aragon y Vocdoni es open-source en su totalidad y todo el código puede verse en <a href='https://github.com/vocdoni' target='_blank'>Github</a>. Por lo tanto somos capaces de ofrecer una transparencia absoluta.",
+      "Una votacion descentralizada es buena porque no hay una organización centralizada"
+    ],
+    "create_voting_process": [
+      "La informacion de tu proceso de votacion esta siendo enviada a la blockchain pra su registro y verificación, esto puede tardar unos momentos. Esto nos permite hacer el proceso de votación seguro e íntegro",
+      "Los administradores puden motiorizar en tiempo real los resultados de la votación pero esto es puede desactivar en la configuración",
+      "Puedes activar la votación anónima o ponderada en la configuración del proceso"
+    ],
+    "create_entity": [
+      "Usamos una tecnología descentralizada y segura llamada blockchain para crear y registrar tu entidad. Esto asegura que nadie puede corromper tus detalles o comprometer tus procesos de votación. Esto puede tardar unos minutos",
+      "Los sistemas de votación decntralizada, basados en blockchain, son mejores que los centralizados puesto que no ofrecen un único punto de fallo vulnerable a ataques y por lo tanto son también libres de censura",
+      "Somos uno de los pocos proveedores de servicios de votación y governanza en blockchain, y la <strong>única</strong> solución verificable universalmente y libre de censura."
+    ]
   }
 }
