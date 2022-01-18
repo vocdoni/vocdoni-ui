@@ -100,13 +100,13 @@ export const Banner = (props: BannerProps) => {
                     {props.children}
                   </Text>
                 </Col>
-                <Col xs={12} hidden={!props.subtitleProps}>
+                <Col xs={12} hidden={props.subtitleProps === undefined}>
                   <Text
                     weight={props?.subtitleProps?.weight ? props?.subtitleProps?.weight : 'regular'}
                     size={props?.subtitleProps?.size ? props?.subtitleProps?.size : 'sm'}
                     color={props?.subtitleProps?.color ? props?.subtitleProps?.color : 'dark-blue'}
                   >
-                    {props.subtitleProps.children}
+                    {props?.subtitleProps?.children}
                   </Text>
                 </Col>
               </Row>

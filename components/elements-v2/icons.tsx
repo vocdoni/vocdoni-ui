@@ -1,3 +1,5 @@
+import styled, { keyframes } from "styled-components"
+
 export const CalendarIcon = ({ size }: { size?: string }) => (
   <img
     src="/images/vote/calendar-outlined.svg"
@@ -18,6 +20,14 @@ export const ChevronRightIcon = ({ size }: { size?: string }) => (
   <img
     src="/images/vote/chevron-right.svg"
     alt='calendar'
+    width={size}
+    height={size}
+  />
+)
+export const LoadingIcon = ({ size }: { size?: string }) => (
+  <img
+    src="/images/common/spinner.png"
+    alt='loading'
     width={size}
     height={size}
   />
@@ -71,3 +81,16 @@ export const DocumentOutlinedIcon = ({ size }: { size?: string }) => (
     width={size}
   />
 )
+
+const rotate = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+`
+export const Rotate = styled.div`
+  animation: ${rotate} 2s linear infinite;
+`
