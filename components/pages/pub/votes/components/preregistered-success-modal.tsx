@@ -10,6 +10,7 @@ import {
 import { ImageContainer } from '@components/elements/images'
 import { TextAlign, Typography, TypographyVariant } from '@components/elements/typography'
 import { useTranslation } from 'react-i18next'
+import { Button } from '@components/elements/button'
 
 interface IPreregisteredSuccessModalProps {
   isOpen: boolean
@@ -26,10 +27,10 @@ export const PreregisteredSuccessModal = ({
 
   return (
     <Modal isOpen={isOpen} onRequestClose={onClose} hideCloseButton={true}>
-      <FlexContainer direction={FlexDirection.Column}>
+      <FlexContainer direction={FlexDirection.Column} alignItem={FlexAlignItem.Center}>
         <ImageContainer width="332px" smWidth="165px">
           <img
-            src="/images/preregistered-success.svg"
+            src="/images/vote/preregister-success.svg"
             alt="Preregistered Success"
           />
         </ImageContainer>
@@ -45,6 +46,10 @@ export const PreregisteredSuccessModal = ({
             )}
           </Typography>
         </TextContainer>
+
+        <Button positive onClick={onClose}>
+          {i18n.t('pub.votes.close_preregister_modal')}
+        </Button>
       </FlexContainer>
     </Modal>
   )

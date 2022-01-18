@@ -138,7 +138,7 @@ export const parseDate = (date: Date, format = 'dd/mm/yyyy'): string => {
 
   stringDate = stringDate.replace(
     'mm',
-    date.getMonth().toLocaleString('en-US', { minimumIntegerDigits: 2 })
+    (date.getMonth() + 1).toLocaleString('en-US', { minimumIntegerDigits: 2 })
   )
 
   stringDate = stringDate.replace('yyyy', date.getFullYear().toString())

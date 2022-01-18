@@ -431,8 +431,9 @@
     },
     "pub": {
         "votes": {
-            "preregister_completed": "",
-            "your_password_was_set_successfully_to_allow_you_participate_on": ""
+          "close_preregister_modal": "Ok",
+          "preregister_completed": "Pre-registration complete!",
+          "your_password_was_set_successfully_to_allow_you_participate_on": "Your password was set successfully to allow you to participate when the vote starts on"
         }
     },
     "recover": {

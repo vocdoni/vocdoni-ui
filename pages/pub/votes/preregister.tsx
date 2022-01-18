@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useRecoilState } from 'recoil'
 import { useUrlHash } from 'use-url-hash'
-import { useEntity, usePool, useProcess } from '@vocdoni/react-hooks'
+import { useBlockStatus, useEntity, usePool, useProcess } from '@vocdoni/react-hooks'
 
 import { ViewContext, ViewStrategy } from '@lib/strategy'
 import { IPreregisterData, PreregisterFormFields, PreregisterView } from '@components/pages/pub/votes/preregister-view'
@@ -10,7 +10,7 @@ import { Loader } from '@components/blocks/loader'
 import { preregisterProofState } from '@recoil/atoms/preregister-proof'
 import { CensusPoof } from '@lib/types'
 import { censusProofState } from '@recoil/atoms/census-proof'
-import { CensusOnChainApi, Voting} from 'dvote-js'
+import { CensusOnChainApi, Voting, VotingApi } from 'dvote-js'
 import { ProcessCensusOrigin } from 'dvote-solidity/build/data-wrappers'
 import { IProofArbo } from '@vocdoni/data-models'
 import { useWallet, WalletRoles } from '@hooks/use-wallet'
@@ -18,6 +18,9 @@ import { useAuthForm } from '@hooks/use-auth-form'
 import { PreregisteredSuccessModal } from '@components/pages/pub/votes/components/preregistered-success-modal'
 import { useMessageAlert } from '@hooks/message-alert'
 import i18n from '@i18n'
+import { VOTING_PATH } from '@const/routes'
+import { useRouter } from 'next/router'
+import { parseDate } from '@lib/date'
 
 const PreregisterPage = () => {
   const [data, setData] = useState<IPreregisterData>({
@@ -30,19 +33,33 @@ const PreregisterPage = () => {
   const preregisterProof = useRecoilState(preregisterProofState)
   const { process, loading: loadingProcess } = useProcess(processId)
   const { pool } = usePool()
+  const router = useRouter()
   const { wallet } = useWallet({ role: WalletRoles.VOTER })
   const { metadata: entity, loading: loadingEntity } = useEntity(
     process?.state?.entityId
   )
+  const { blockStatus } = useBlockStatus()
+  const processStartDate = VotingApi.estimateDateAtBlockSync(
+    process?.state?.startBlock,
+    blockStatus
+  )
+  let parsedStartDate
+  if (processStartDate) {
+    parsedStartDate = parseDate(processStartDate, 'dd/mm/yyyy')
+  }
+
   const useCensusProof = useRecoilState<CensusPoof>(censusProofState)
   const { setAlertMessage } = useMessageAlert()
 
+  useEffect(() => {
+    if (!wallet) {
+      router.push(VOTING_PATH + "#/" + processId)
+    }
+  }, [])
 
   const handleDataChange = (dataFields: IPreregisterData) => {
     setData(dataFields)
   }
-
-
 
   const handleSubmit = async () => {
 
@@ -83,8 +100,8 @@ const PreregisterPage = () => {
       <>
         <PreregisteredSuccessModal
           isOpen={preregisterSent}
-          processStartDate={"TEST DATE"}
-          onClose={() => console.log("closed")}
+          processStartDate={parsedStartDate}
+          onClose={() => router.push(VOTING_PATH + "#/" + processId)}
         />
       </>
     )
