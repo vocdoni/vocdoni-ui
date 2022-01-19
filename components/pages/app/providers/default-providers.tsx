@@ -31,8 +31,8 @@ export const DefaultProviders = ({ children }: IDefaultProvidersProps) => {
 
   return (
     <UseWalletContextProvider>
-      <UseRudderStackProvider>
-        <UseCookiesProvider hideInPaths={PATH_WITHOUT_COOKIES}>
+      <UseCookiesProvider hideInPaths={PATH_WITHOUT_COOKIES}>
+        <UseRudderStackProvider>
           <UseMessageAlertProvider>
             <UseLoadingAlertProvider>
               <UsePoolProvider
@@ -58,8 +58,8 @@ export const DefaultProviders = ({ children }: IDefaultProvidersProps) => {
               </UsePoolProvider>
             </UseLoadingAlertProvider>
           </UseMessageAlertProvider>
-        </UseCookiesProvider>
-      </UseRudderStackProvider>
+        </UseRudderStackProvider>
+      </UseCookiesProvider>
     </UseWalletContextProvider>
   )
 }

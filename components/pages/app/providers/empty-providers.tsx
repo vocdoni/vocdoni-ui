@@ -8,9 +8,9 @@ interface IEmptyProvidersProps {
 }
 
 export const EmptyProviders = ({ children }: IEmptyProvidersProps) => (
-  <UseRudderStackProvider>
     <UseCookiesProvider hideInPaths={PATH_WITHOUT_COOKIES}>
-    {children}
+      <UseRudderStackProvider>
+        {children}
+      </UseRudderStackProvider>
     </UseCookiesProvider>
-  </UseRudderStackProvider>
 )
