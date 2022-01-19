@@ -57,7 +57,7 @@ export const VotingPageView = () => {
   const router = useRouter()
   const { updateAppTheme } = useTheme()
   const censusProof = useRecoilValue(censusProofState)
-  const { methods: votingMethods, choices, hasVoted, results, nullifier } = useVoting(
+  const { methods: votingMethods, choices, hasVoted, results, explorerLink } = useVoting(
     processId
   )
   const { process: processInfo } = useProcess(processId)
@@ -71,7 +71,6 @@ export const VotingPageView = () => {
   const { blockStatus } = useBlockStatus()
   const blockHeight = blockStatus?.blockNumber
   const voteStatus: VoteStatus = getVoteStatus(processInfo?.state, blockHeight)
-  const explorerLink = process.env.EXPLORER_URL + '/envelope/' + nullifier
   const entityMetadata = metadata as EntityMetadata
   const descriptionVideoContainerRef = useRef<HTMLDivElement>(null)
   const votingVideoContainerRef = useRef<HTMLDivElement>(null)

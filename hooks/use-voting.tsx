@@ -32,6 +32,7 @@ export interface VotingContext {
   statusText: string,
   processId: string,
   nullifier: string | bigint,
+  explorerLink: string,
   invalidProcessId: boolean,
   refreshingVotedStatus: boolean,
   results: IProcessResults,
@@ -86,6 +87,7 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
   const { setAlertMessage } = useMessageAlert()
   const { blockHeight } = useBlockHeight()
   const [nullifier, setNullifier] = useState<string | bigint>()
+  const [explorerLink, setExplorerLink] = useState<string>()
   const [censusProof, setCensusProof] = useState<CensusPoof>()
   const [hasVoted, setHasVoted] = useState(false)
   const [refreshingVotedStatus, setRefreshingVotedStatus] = useState(false)
@@ -111,13 +113,16 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
 
     // Future: adapt to the zk snark case
     let nullifier: string | bigint
+    const baseExplorerLink = process.env.EXPLORER_URL + '/envelope/'
     if (processInfo?.state?.envelopeType.anonymous) {
       if (!anonymousKey) return
       nullifier = Voting.getAnonymousVoteNullifier(anonymousKey, processId)
       setNullifier(nullifier)
+      setExplorerLink(baseExplorerLink + Voting.getAnonymousHexNullifier(anonymousKey, processId, true))
     } else {
       nullifier = Voting.getSignedVoteNullifier(wallet.address, processId)
       setNullifier(nullifier)
+      setExplorerLink(baseExplorerLink + nullifier)
     }
   }, [wallet?.address, processId])
 
@@ -353,6 +358,7 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
     hasStarted,
     hasEnded,
     nullifier,
+    explorerLink,
     processId,
     canVote,
     remainingTime,
