@@ -32,6 +32,7 @@ import { VotingApi, EntityMetadata } from 'dvote-js'
 import { DateDiffType, localizedStrDateDiff } from '@lib/date'
 import { Body1, TextAlign, Typography, TypographyVariant } from '@components/elements/typography'
 import { QuestionsList } from './components/questions-list'
+import { QuestionsListInline } from './components/questions-list-inline'
 import { censusProofState } from '@recoil/atoms/census-proof'
 import { VoteRegisteredCard } from './components/vote-registered-card'
 import RouterService from '@lib/router'
@@ -205,7 +206,9 @@ export const VotingPageView = () => {
   }
 
   const handleBackToVoting = () => {
-    setVotingState(VotingState.Started)
+    if(!showInlineQuestions){
+      setVotingState(VotingState.Started)
+    }
     setConfirmModalOpened(false)
   }
 
@@ -244,6 +247,10 @@ export const VotingPageView = () => {
     votingState === VotingState.NotStarted ||
     votingState === VotingState.Ended ||
     votingState === VotingState.Guest
+
+  const showInlineQuestions = 
+    votingState !== VotingState.Guest &&
+    voteStatus === 0
 
   const showResults =
     votingState === VotingState.Guest || voteStatus === VoteStatus.Ended
@@ -364,11 +371,24 @@ export const VotingPageView = () => {
           </FixedButtonContainer>
         )}
 
+        <If condition={showInlineQuestions && !hasVoted}>
+          <Then>
+            <QuestionsListInline
+              onComponentMounted={handleVideoPosition}
+              ref={votingVideoContainerRef}
+              results={choices}
+              questions={processInfo?.metadata?.questions}
+              voteWeight={voteWeight}
+              onSelect={votingMethods.onSelect}
+              onFinishVote={handleFinishVote}
+            />
+          </Then>
+        </If>
+
         <If condition={hasVoted && !showResults}>
           <Then>
             <VoteRegisteredLgContainer>
-              <br /><br />
-              <Typography align={TextAlign.Center} variant={TypographyVariant.Body2}>{i18n.t('vote.you_vote_has_been_submit_successfully_the_results_will_be_available')}</Typography>
+              <Typography align={TextAlign.Center} variant={TypographyVariant.Body3}>{i18n.t('vote.you_vote_has_been_submit_successfully_the_results_will_be_available')}</Typography>
             </VoteRegisteredLgContainer>
           </Then>
         </If>
@@ -393,7 +413,7 @@ export const VotingPageView = () => {
             )
           )}
 
-        <If condition={showDescription && totalVotes > 0}>
+        <If condition={showDescription && totalVotes > 0 && !showInlineQuestions}>
           <Then>
             <Grid>
               <Card sm={12}>
@@ -430,6 +450,11 @@ const VotingCard = styled(PageCard)`
 
 const VoteRegisteredLgContainer = styled.div`
   display: block;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-top:50px;
+  padding:20px;
+  font-weight:600;
 
   @media ${({ theme }) => theme.screenMax.tablet} {
     display: block;

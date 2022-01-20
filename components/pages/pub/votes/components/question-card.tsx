@@ -18,11 +18,12 @@ export const QuestionCard = ({
   questionIndex,
   onSelectChoice,
   selectedIndex,
+  number,
 }: IQuestionProps) => {
   return (
     <QuestionCardContainer border>
       <Typography variant={TypographyVariant.H4} margin="0">
-        {question.title.default}
+        {number}. {question.title.default}
       </Typography>
       {question.description && (
         <Typography variant={TypographyVariant.Small}>

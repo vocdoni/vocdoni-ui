@@ -56,13 +56,6 @@ export const VoteDescription = forwardRef<HTMLDivElement, IVotePageProps>(
         src="/images/vote/pdf.png" width="26" alt={i18n.t('vote.question_image_alt')}
       />
     )
-    const inscripcionsIcon = (
-      <img
-        src="/images/vote/play.png" width="32" alt={i18n.t('vote.question_image_alt')}
-      />
-    )
-
-    const inscripcionsUrl = "https://inscripcions.omnium.cat"
 
     return (
       <Grid>
@@ -116,22 +109,6 @@ export const VoteDescription = forwardRef<HTMLDivElement, IVotePageProps>(
             </Button>
           </Column>
         </When>
-
-        <Separator>&nbsp;</Separator>
-
-        <Column sm={12} md={7}>
-          <Button
-            border
-            wide
-            icon={inscripcionsIcon}
-            href={inscripcionsUrl}
-            target={LinkTarget.Blank}
-            justify={JustifyContent.Left}
-            omnium
-          >
-            <ButtonText>Inscripcions</ButtonText>
-          </Button>
-        </Column>
 
         <Separator>&nbsp;</Separator>
 
