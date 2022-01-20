@@ -1216,18 +1216,18 @@
   },
   "waiting_banner":{
     "title": "Did you know...",
-    "voting_process":[
+    "vote_submitting":[
       "Every vote is individually recorded on the blockchain to ensure security, universal verifiability and censorship-resistance. This process may take up to 20 seconds.",
       "We are the only provider of universally verifiable and auditable anonymous voting, via a revolutionary technology called zk-SNARKS. Read more <a href='todo.please.change.me' target='_blank'>here</a>",
       "All software in the Aragon and Vocdoni stack is entirely open-source, and all code can be viewed and forked on <a href='https://github.com/vocdoni' target='_blank'>Github</a>. We are thus able to offer complete transparency.",
       "Decentralized voting is good as no centralized party"
     ],
-    "create_voting_process": [
+    "vote_creation": [
       "Your voting process information is being sent to the blockchain for verification and registration, which could take some time. This is to ensure the security and integrity of the process.",
       "Vote administrators and voters can monitor the results, as percentages of the total, in real-time by default, but this can be deactivated in settings.",
       "You can enable anonymous voting or holding a ranked-choice or weighted vote in the vote process settings"
     ],
-    "create_entity": [
+    "entity_creation": [
       "We use a secure, decentralized technology called blockchain to create and register your entity. This ensures that no one can corrupt your details or tamper with your voting processes. This may take some time.",
       "Decentralized voting systems, based on blockchain tech, are better than centralized databases as they do not have one single point of failure vulnerable to attack, and are thus censorship-resistant.",
       "We are one of the few providers of blockchain voting and governance, and the<strong>only</strong>&nbsp;censorship-resistant and universally verifiable solution"

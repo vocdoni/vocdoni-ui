@@ -4,7 +4,7 @@ import ReactPlayer from 'react-player'
 import { useTranslation } from 'react-i18next'
 import { colors } from 'theme/colors'
 import { SectionText, TextSize } from '@components/elements/text'
-import { ProcessStatusLabelV2 } from '@components/blocks/process-status-label-v2'
+import { ProcessStatusLabel } from '@components/blocks-v2/process-status-label'
 import { CalendarCard } from '@components/blocks/calendar-card'
 import { SettingsCard } from '@components/blocks/settings-card'
 import { LinkButton } from '@components/elements-v2/link-button'
@@ -44,7 +44,7 @@ export const VoteDescription = () => {
         {/* INSIDE ROW TO AJUST GUTTER */}
         <Row gutter='xl'>
           <Col xs={12}>
-            <ProcessStatusLabelV2 />
+            <ProcessStatusLabel />
           </Col>
           {description &&
             <Col xs={12}>

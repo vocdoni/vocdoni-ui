@@ -16,7 +16,7 @@ export const WaitingBanner = (props: WaitingBannerProps) => {
   const [showMessage, setShowMessage] = useState(true)
   const [messageIndex, setMessageIndex] = useState(Math.floor(Math.floor(Math.random() * props.messages.length)))
   const isMobile = useIsMobile()
-  const intervalTime = props.intervalTime !== undefined ? props.intervalTime : 7000
+  const intervalTime = props.intervalTime !== undefined ? props.intervalTime : 14000
   const { i18n } = useTranslation()
   useEffect(() => {
     // set as a varaible to avoid a memory leak
@@ -40,9 +40,9 @@ export const WaitingBanner = (props: WaitingBannerProps) => {
   if (isMobile || props.forceMobile) {
     return (
       <Card variant="white-flat" padding='24px 32px'>
-        <Row gutter='xs' align='center'>
+        <Row gutter='xs'>
           <Col xs={12}>
-            <Row gutter='md'>
+            <Row gutter='md' align='center'>
               <Col>
                 <QuestionOutlinedIcon size="24px" />
               </Col>
@@ -68,7 +68,7 @@ export const WaitingBanner = (props: WaitingBannerProps) => {
   }
   return (
     <Card variant="white-flat" padding='32px 48px'>
-      <Row gutter='4xl' wrap={false} align='center'>
+      <Row gutter='4xl' wrap={false} >
         <Col>
           <img src='/images/common/waiting-banner/head.svg'></img>
         </Col>
