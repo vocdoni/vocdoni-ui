@@ -8,41 +8,51 @@ import styled, { keyframes } from "styled-components"
 export const VoteSubmitting = () => {
   const { i18n } = useTranslation()
   return (
-    <Row gutter="2xl">
-      <Col xs={12}>
-        <Row justify="center" gutter="md" align="center">
-          <Col justify="center">
-            <img
-              src='/images/vote/vote-now.png'
-              alt="vote"
-              height={100}
-              width={92}
-            />
-            <AbsoluteDiv>
-              <Rotate>
-                <LoadingIcon size="20" />
-              </Rotate>
-            </AbsoluteDiv>
-          </Col>
-          <Col xs={12} justify="center">
-            <Text size="2xl" weight='medium' color="dark-blue" align="center">
-              Your vote is being submitted...
-            </Text>
-          </Col>
-          <Col xs={12} justify="center">
-            <Text size="sm" color="dark-gray" align="center" >
-              Please don’t close the window, this action may take a few minutes.
-            </Text>
-          </Col>
-        </Row>
-      </Col>
-      <Col xs={12}>
-        <WaitingBanner forceMobile messages={i18n.t("vote.waiting_messages", { returnObjects: true })} />
-      </Col>
-    </Row>
+    <ModalContainer>
+      <Row gutter="2xl">
+        <Col xs={12}>
+          <Row justify="center" gutter="md" align="center">
+            <Col justify="center">
+              <img
+                src='/images/vote/vote-now.png'
+                alt="vote"
+                height={100}
+                width={92}
+              />
+              <AbsoluteDiv>
+                <Rotate>
+                  <LoadingIcon size="20" />
+                </Rotate>
+              </AbsoluteDiv>
+            </Col>
+            <Col xs={12} justify="center">
+              <Text size="2xl" weight='medium' color="dark-blue" align="center">
+                Your vote is being submitted...
+              </Text>
+            </Col>
+            <Col xs={12} justify="center">
+              <Text size="sm" color="dark-gray" align="center" >
+                Please don’t close the window, this action may take a few minutes.
+              </Text>
+            </Col>
+          </Row>
+        </Col>
+        <Col xs={12}>
+          <WaitingBanner forceMobile messages={i18n.t("waiting_banner.vote_submitting", { returnObjects: true })} />
+        </Col>
+      </Row>
+    </ModalContainer>
   )
 }
 const AbsoluteDiv = styled.div`
 position: absolute;
   transform: translateY(-35px) translateX(35px);
+`
+// This is a hot fix for
+// for some reason the
+// modal shows a scroll
+// bar independently of
+// the content inside
+const ModalContainer = styled.div`
+min-height: 438px;
 `
