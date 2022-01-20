@@ -36,7 +36,6 @@ import { DisconnectModal } from '@components/blocks-v2'
 import { ResultsCard } from './components/results-card'
 import { useProcessInfo } from '@hooks/use-process-info'
 import { useIsMobile } from '@hooks/use-window-size'
-import { WaitingBanner } from '@components/blocks-v2/waiting-banner'
 export enum UserVoteStatus {
   /**
    * User is voting right now

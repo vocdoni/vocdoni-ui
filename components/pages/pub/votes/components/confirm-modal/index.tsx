@@ -25,6 +25,12 @@ export const ConfirmModal = ({ isOpen, onClose, onVoted }: IConfigModal) => {
   const handleSendVote = async () => {
     await methods.submitVote()
   }
+  const handleOnRequestClose = async () => {
+    if(!hasVoted && pleaseWait){
+      return
+    }
+    onClose()
+  }
 
   const renderResponsesList = new ViewStrategy(
     () => !hasVoted && !pleaseWait,
@@ -58,7 +64,7 @@ export const ConfirmModal = ({ isOpen, onClose, onVoted }: IConfigModal) => {
     renderVoteSubmitted,
   ])
   return (
-    <Modal isOpen={isOpen} onRequestClose={onClose} hideCloseButton={true}>
+    <Modal isOpen={isOpen} onRequestClose={handleOnRequestClose} hideCloseButton={true}>
       <ModalContainer>{viewContext.getView()}</ModalContainer>
     </Modal>
   )

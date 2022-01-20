@@ -41,5 +41,6 @@ export const colors: Colors = {
   lightBg: "#F6F9FC",
   lightBg2: "#EFF1F7",
   lightBorder: "#EFF1F7",
-  error: "#B31B35"
+  error: "#B31B35",
+  errorV2: "#FF2929"
 }

@@ -54,6 +54,8 @@ export interface Colors {
   success: Color;
 
   error: Color;
+  /* Error color updated */
+  errorV2: Color;
 
 
   white: Color;

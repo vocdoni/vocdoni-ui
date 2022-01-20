@@ -2,9 +2,9 @@ import styled from "styled-components"
 
 type SpacerDirection = 'vertical' | 'horizontal'
 
-export type SpacerSize = '2xs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl'
+export type SpacerSize = '2xs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl' | string
 
-export type ISpacerProps = {
+export type SpacerProps = {
   direction: SpacerDirection
   /**
    *
@@ -26,9 +26,10 @@ export type ISpacerProps = {
    *
    */
   size: SpacerSize
+  showDivider?: boolean
 }
 
-const getSpacerMargin = (props: ISpacerProps) => {
+const getSpacerMargin = (props: SpacerProps) => {
   switch (props.size) {
     case '2xs':
       if (props.direction === 'vertical') {
@@ -70,11 +71,37 @@ const getSpacerMargin = (props: ISpacerProps) => {
         return '24px 0px'
       }
       return '0px 24px'
-    default:
+    case '4xl':
+      if (props.direction === 'vertical') {
+        return '32px 0px'
+      }
+      return '0px 24px'
+    case '5xl':
+      if (props.direction === 'vertical') {
+        return '40px 0px'
+      }
+      return '0px 24px'
+    case undefined:
       return '4px 0px'
+
+    default:
+      if (props.direction === 'vertical') {
+        return `${props.size}px 0px`
+      }
+      return `0px ${props.size}px`
   }
 }
+const getSpacerBorder = (props: SpacerProps) => {
+  if (props.showDivider) {
+    // todo add to colors
+    return '1.5px solid #EEF4FB'
+  }
+  return 'none'
+}
 
-export const Spacer = styled.div<ISpacerProps>`
-  margin : ${getSpacerMargin}
+export const Spacer = styled.div<SpacerProps>`
+  margin:${getSpacerMargin};
+  border: ${getSpacerBorder};
+  box-sizing: border-box;
+
 `

@@ -7,7 +7,7 @@ import { useUrlHash } from 'use-url-hash'
 import { useProcessWrapper } from '@hooks/use-process-wrapper'
 import { useProcessInfo } from '@hooks/use-process-info'
 
-export const ProcessStatusLabelV2 = () => {
+export const ProcessStatusLabel = () => {
   const { i18n } = useTranslation()
   const { getDateDiffString, getDateDiff } = useCalendar()
   const processId = useUrlHash().slice(1)
