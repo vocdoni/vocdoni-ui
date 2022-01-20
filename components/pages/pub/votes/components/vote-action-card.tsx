@@ -30,23 +30,18 @@ export const VoteActionCard = ({
   const { i18n } = useTranslation()
 
   const getTitleFromState = (status: VotingState) => {
-    console.log("STATUS: "+status)
     switch (status) {
       case VotingState.Ended:
         return i18n.t('vote.your_vote_has_been_registered')
-        break;
 
       case VotingState.Expired:
         return i18n.t('vote.the_voting_process_has_endded')
-        break;
 
       case VotingState.NotStarted:
         return i18n.t('vote.you_can_vote_on_this_proposal')
-        break;
 
       case VotingState.Guest:
         return i18n.t('vote.you_need_authenticate_to_vote')
-        break;
     }
   }
 

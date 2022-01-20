@@ -16,7 +16,7 @@ import { VoteWeightCard } from './vote-weight-card'
 import { If, Then } from 'react-if'
 
 interface IQuesListInlineProps {
-  hasVideo: boolean
+  hasVideo?: boolean
   questions: Question[]
   results: number[]
   voteWeight?: string

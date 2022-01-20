@@ -10,7 +10,8 @@ interface IQuestionProps {
   question: Question
   questionIndex: number
   onSelectChoice: (choiceIndex: number) => void
-  selectedIndex: number
+  selectedIndex: number,
+  number?: number
 }
 
 export const QuestionCard = ({
