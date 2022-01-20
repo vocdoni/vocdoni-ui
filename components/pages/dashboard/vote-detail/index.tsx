@@ -34,6 +34,12 @@ import { MarkDownViewer } from '@components/blocks/mark-down-viewer'
 import { TextAlign, Typography, TypographyVariant } from '@components/elements/typography'
 
 import { GeneratePdfCard } from './generate-pdf-card'
+import { Col, Row, Text, LinkButton } from '@components/elements-v2'
+import { ProcessStatusLabel as ProcessStatusLabelV2 } from '@components/blocks-v2'
+import { theme } from '@theme/global'
+import { DocumentOutlinedIcon, LightningSlashIcon, QuestionOutlinedIcon } from '@components/elements-v2/icons'
+import { ExpandableContainer } from '@components/blocks/expandable-container'
+import { DetailsCard } from './details-card'
 
 interface IProcessDetailProps {
   process: ProcessDetails
@@ -187,46 +193,108 @@ export const ViewDetail = ({
               </SectionText>
             </div>
 
-            <When
-              condition={
-                voteActive &&
-                (process.state?.status === VochainProcessStatus.READY ||
-                  process.state?.status === VochainProcessStatus.PAUSED)
-              }
-            >
-              <FlexContainer height="100px" alignItem={FlexAlignItem.Center}>
-                <ButtonContainer>
-                  <Button
-                    color={colors.accent2B}
-                    border
-                    wide
-                    disabled={!canCancelorEnd}
-                    spinner={cancelingVote}
-                    onClick={handleCancelVote}
-                  >
-                    {i18n.t('vote_detail.cancel_vote')}
-                  </Button>
-                </ButtonContainer>
+            </CardV2>
+          </Col>
+        </Row>
+        <Spacer size='2xl' direction='vertical' />
+        <Row gutter='lg'>
+          <Col xs={4}>
+            <DetailsCard
+              title='Calendar'
+              options={[
+                {
+                  title: 'Start',
+                  value: '7-8-1995(20:00)'
+                },
+                {
+                  title: 'End',
+                  value: '7-8-1995(20:00)'
+                }
+              ]}
+            />
+          </Col>
+          <Col xs={4}>
+            <DetailsCard
+              title='Settings'
+              options={[
+                {
+                  title: 'Type',
+                  value: 'Normal Voting'
+                },
+                {
+                  title: 'Options',
+                  value: 'anonymous/abstain'
+                }
+              ]}
+            />
+          </Col>
+          <Col xs={4}>
+            <DetailsCard
+              title='Census details'
+              options={[
+                {
+                  title: 'Size',
+                  value: '17.523 voters'
+                },
+                {
+                  title: 'Name',
+                  value: 'list_of_voters.csv'
+                }
+              ]}
+            />
+          </Col>
+        </Row>
+        <Spacer size='2xl' direction='vertical' />
 
-                <ButtonContainer>
-                  <Button
-                    color={colors.accent1}
-                    disabled={!canCancelorEnd}
-                    spinner={endingVote}
-                    wide
-                    border
-                    onClick={handleEndVote}
-                  >
-                    {i18n.t('vote_detail.end_vote')}
-                  </Button>
-                </ButtonContainer>
-              </FlexContainer>
-            </When>
-          </FlexContainer>
-        </Column>
-      </Grid>
+        <Row gutter='lg'>
+          <Col xs={5}>
+            <Row gutter='md'>
+              <Col xs={12}>
+                <Text size='md' color='dark-blue' weight='regular'>
+                  Voting Link
+                </Text>
+              </Col>
+              <Col xs={12}>
+                <CardV2 padding='16px' flat>
+                  <Row justify='space-between' align="center">
+                    <Col>
+                <a href="voting link"> https://plaza.vocdoni.app/the/vote</a>
+                    </Col>
+                    <Col>
+                <ButtonV2 variant='light'>
+                  Copy
+                </ButtonV2>
+                    </Col>
+                  </Row>
+                </CardV2>
+              </Col>
+            </Row>
+          </Col>
+          <Col xs={7}>
+            <Row gutter='md'>
+              <Col xs={12}>
+                <Text size='md' color='dark-blue' weight='regular'>
+                  External Links
+                </Text>
+              </Col>
+              <Col xs={12}>
+                <Row gutter='lg'>
+                  <Col xs={4}>
+                    <LinkButton href='https://da.docs' target='_blank' icon={<DocumentOutlinedIcon />}>Document</LinkButton>
+                  </Col>
+                  <Col xs={4}>
+                  <LinkButton href='https://da.qya' target='_blank' icon={<QuestionOutlinedIcon />}>Q&A</LinkButton>
+                  </Col>
+                  <Col xs={4}>
+                  <LinkButton href='https://da.stream' target='_blank' icon={<DocumentOutlinedIcon />}>Stream</LinkButton>
+                  </Col>
+                </Row>
+              </Col>
+            </Row>
+          </Col>
+        </Row>
 
-      <Line color={colors.lightBorder} />
+      </CardV2>
 
       <Grid>
         <Column md={9} sm={12}>
