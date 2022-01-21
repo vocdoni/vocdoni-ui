@@ -342,7 +342,7 @@ export const VotingPageView = () => {
           />
         )}
 
-        {showVotingButton && (
+        {showVotingButton && false && (
           <FixedButtonContainer>
             <div>
               <Button

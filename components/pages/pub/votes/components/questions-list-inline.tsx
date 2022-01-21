@@ -66,12 +66,11 @@ export const QuestionsListInline = forwardRef<HTMLDivElement, IQuesListInlinePro
 
         <div>
           <Column>
-
             <Separator>&nbsp;</Separator>
             <Separator>&nbsp;</Separator>
             <Separator>&nbsp;</Separator>
 
-            <Typography>
+            <Typography color='#434548' variant={TypographyVariant.Small}>
               A continuació hi ha un total de 22 preguntes. Per poder emetre el vostre vot cal que les respongueu totes tot seleccionant una resposta, d’entre les possibles de cada pregunta. Per emetre el votre vot cal que premeu el botó “Envia el teu vot” que hi ha al final d’aquesta pàgina a l’esquerra i que confirmeu aquesta acció a la finestra emergent que us apereixarà a continuació. El vostre vot només serà emès correctament si feu totes aquestes passes amb l’odre indicat, és a dir: 
               <QuestionUl>
                 <li>1) respondre totes les preguntes,</li>
@@ -87,7 +86,7 @@ export const QuestionsListInline = forwardRef<HTMLDivElement, IQuesListInlinePro
               <h1>Eleccions a la Junta Nacional</h1>              
             </SubBanner>
 
-            <Typography>
+            <Typography color='#434548' variant={TypographyVariant.Small}>
               A continuació hi ha un total de 18 preguntes, una per cada càrrec de la Junta que es posa a votació. Per poder emetre el vostre vot, cal que les respongeu totes tot seleccionant una resposta, d'entre les possibles de cada pregunta.
             </Typography>
           </Column>
@@ -119,7 +118,7 @@ export const QuestionsListInline = forwardRef<HTMLDivElement, IQuesListInlinePro
                 <If condition={index == 18}>
                   <SubBanner>                  
                     <H1WithPaddingTop>Preguntes Assamblea</H1WithPaddingTop>
-                    <Typography>
+                    <Typography color='#434548' variant={TypographyVariant.Small}>
                       A continuació hi ha un total de 4 preguntes, una per punt de l'Assemblea que es posa a votació. Per poder emetre el vostre vot cal que les respongueu totes seleccionant una respota, d'entre les possibles de cada apregunta. Un cop hàgiu acabat la tria, recordeu que cal que emeteu el vostre vot prement el botó "Envia el meu vot" i confirmant-ne l'emissió a la finestra emergent un cop hàgiu comprovat que les opcions mostrades corresponen a les que desitjeu.
                     </Typography>
                   </SubBanner>
@@ -204,9 +203,9 @@ const FixedButtonsActionContainer = styled.div`
   box-shadow: 1px 1px 9px #8f8f8f;
   & > div {
     margin: 0 auto;
-    max-width: 330px;
+    max-width: 430px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     & > * {
       width: 48%;
     }
@@ -249,6 +248,11 @@ const QuestionLiTwoColumns = styled.li<{ active: boolean }>`
   width:48%;
   float:left;
   margin-right:1%;
+
+  @media ${({ theme }) => theme.screenMax.tabletL} {
+    width:100%;
+    margin-right:0%;
+  }
 `
 
 const Separator = styled.div`
@@ -258,7 +262,7 @@ const Separator = styled.div`
 
 const SubBanner = styled.div`
   color: #FF6320;
-  text-align: justify;
+  text-align: left;
 `
 const H1WithPaddingTop = styled.h1`
   padding-top:120px;
