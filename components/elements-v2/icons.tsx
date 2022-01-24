@@ -12,6 +12,7 @@ const getIconColor = (props: SVGProps) => {
 
 const StyledIcon = styled(SVG)`
 & path {
+  transition: 0.3s;
   stroke: ${getIconColor};
 }
 `
@@ -20,16 +21,31 @@ export interface IconProps {
   name: AvailableIcons
   size?: number
 }
-type AvailableIcons = 'chevron-right'
+export interface SpecificIconProps {
+  color?: string
+  size?: number
+}
+
+type AvailableIcons =
+  'chevron-right' |
+  'pie-chart' |
+  'download' |
+  'trash' |
+  'shutdown'|
+  'pencil'|
+  'lightning-slash'
+
 const getIconSource = (name: AvailableIcons) => {
-  return `/images/vote/${name}.svg`
+  return `/icons/common/${name}.svg`
 }
 const getIconSize = (size: number) => {
   if (size) {
     return `${size}px`
   }
-  return '12px'
+  return '24px'
 }
+
+// GENERAL ICON
 export const Icon = (props: IconProps) => {
   return (
     <StyledIcon
@@ -41,6 +57,56 @@ export const Icon = (props: IconProps) => {
 }
 
 // SPECIFIC ICONS
+export const TrashIcon = (props: SpecificIconProps) => (
+  <StyledIcon
+    src="/icons/common/trash.svg"
+    height={getIconSize(props.size)}
+    width={getIconSize(props.size)}
+    color={props.color}
+  />
+)
+export const ChevronRightIcon = (props: SpecificIconProps) => (
+  <StyledIcon
+    src="/icons/common/chevron-right.svg"
+    height={getIconSize(props.size)}
+    width={getIconSize(props.size)}
+    color={props.color}
+  />
+)
+export const ChevronUpDownIcon = (props: SpecificIconProps) => (
+  <StyledIcon
+    src="/icons/common/chevron-up-down.svg"
+    height={getIconSize(props.size)}
+    width={getIconSize(props.size)}
+    color={props.color}
+  />
+)
+export const PieChartIcon = (props: SpecificIconProps) => (
+  <StyledIcon
+    src="/icons/common/pie-chart.svg"
+    height={getIconSize(props.size)}
+    width={getIconSize(props.size)}
+    color={props.color}
+  />
+)
+export const QuestionCircleIcon = (props: SpecificIconProps) => (
+  <StyledIcon
+    src="/icons/common/question-circle.svg"
+    height={getIconSize(props.size)}
+    width={getIconSize(props.size)}
+    color={props.color}
+  />
+)
+export const DownloadIcon = (props: SpecificIconProps) => (
+  <StyledIcon
+    src="/icons/common/download.svg"
+    height={getIconSize(props.size)}
+    width={getIconSize(props.size)}
+    color={props.color}
+  />
+)
+
+// old
 export const CalendarIcon = ({ size }: { size?: string }) => (
   <img
     src="/images/vote/calendar-outlined.svg"
@@ -57,15 +123,6 @@ export const SettingsIcon = ({ size }: { size?: string }) => (
   />
 )
 
-export const ChevronRightIcon = ({ size }: { size?: string }) => (
-  // <img
-  //   src="/images/vote/chevron-right.svg"
-  //   alt='calendar'
-  //   width={size}
-  //   height={size}
-  // />
-  <StyledIcon width={size} height={size} src="/images/vote/chevron-right.svg" color />
-)
 export const LoadingIcon = ({ size }: { size?: string }) => (
   <img
     src="/images/common/spinner.png"
@@ -82,14 +139,14 @@ export const LinkIcon = ({ size }: { size?: string }) => (
     height={size}
   />
 )
-export const TrashIcon = ({ size }: { size?: string }) => (
-  <img
-    src="/images/vote/trash-icon.svg"
-    alt='trash-icon'
-    width={size}
-    height={size}
-  />
-)
+// export const TrashIcon = ({ size }: { size?: string }) => (
+//   <img
+//     src="/images/vote/trash-icon.svg"
+//     alt='trash-icon'
+//     width={size}
+//     height={size}
+//   />
+// )
 export const LightningSlashIcon = ({ size }: { size?: string }) => (
   <img
     src="/images/vote/disconnect-icon.svg"

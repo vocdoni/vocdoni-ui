@@ -23,7 +23,7 @@ export const LinkButton = (props: LinkButtonProps) => {
   const i18n = useTranslation()
   return (
     <Anchor href={props.href} target={props.target} disabled={props.disabled}>
-      <Card hover padding='xs' >
+      <Card hover padding='xs' shadow borderWidth="sm" borderColor='light-gray'>
         <Row align='center' justify='space-between'>
           <Col>
             <Row align='center' gutter='md'>

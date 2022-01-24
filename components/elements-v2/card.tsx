@@ -10,7 +10,7 @@ interface CardProps {
   variant?: CardVariant
   backgroundColor?: CardBackgroundColor | string
   children?: ReactNode
-  flat?: boolean
+  shadow?: boolean
   hover?: boolean
   height?: number | string
   borderWidth?: CardBorderSize | number
@@ -21,7 +21,7 @@ type CardBorderRadiusSize = 'sm' | 'md' | 'lg'
 type CardPaddingSize = 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 type CardBorderSize = 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 type CardBorderColor = 'light-gray' | 'gray'
-export type CardVariant = 'white' | 'primary' | 'gray' | 'white-flat' | 'dashed'
+export type CardVariant = 'white' | 'primary' | 'gray' | 'dashed' | 'white-elevated'
 type CardBackgroundColor = 'white' | 'primary' | 'gray'
 
 interface StyledCardProps extends CardProps {
@@ -68,7 +68,6 @@ const getPadding = (props: StyledCardProps) => {
   }
 }
 const getBackgroundColor = (props: StyledCardProps) => {
-  // Override
   if (props.backgroundColor) {
     return props.backgroundColor
   }
@@ -78,28 +77,13 @@ const getBackgroundColor = (props: StyledCardProps) => {
       return theme.lightBg
     case 'primary':
       return `linear-gradient(110.89deg, ${theme.accentLight1B} 0%, ${theme.accentLight1} 100%)`
+    default:
+      return theme.white
   }
-  // default
-  return theme.white
 }
 const getShadow = (props: StyledCardProps) => {
-  // override
-  if (props.flat) {
-    return ''
-  }
-  // variants
-  switch (props.variant) {
-    case 'white-flat':
-      return ''
-    case 'primary':
-      return ''
-    case 'gray':
-      return ''
-    case 'dashed':
-      return ''
-    // default variant white
-    default:
-      return '0px 6px 6px rgba(180, 193, 228, 0.35)'
+  if (props.shadow) {
+    return '0px 6px 6px rgba(180, 193, 228, 0.35)'
   }
 }
 // solid ${theme.lightBorder}
@@ -108,10 +92,10 @@ const getBorderColor = (props: StyledCardProps) => {
   if (props.borderColor) {
     // switch border sizes
     switch (props.borderColor) {
-      case 'light-gray':
-        // ADD me to colors
-        return '#DEEFFF'
       case 'gray':
+        // TODO COLORS  me to colors
+        return '#DEEFFF'
+      case 'light-gray':
         return theme.lightBorder
     }
     // custom border
@@ -120,20 +104,11 @@ const getBorderColor = (props: StyledCardProps) => {
 
   // variants
   switch (props.variant) {
-    case 'white':
-      return theme.lightBorder
-    case 'primary':
-      return 'transparent'
-    case 'gray':
-      return 'transparent'
     case 'dashed':
       return theme.accent1
-    case 'white-flat':
-      // TODO add me to colors
-      return '#DEEFFF'
-    // default variant white
+    default:
+      return 'transparent'
   }
-  return theme.lightBorder
 }
 const getBorderWidth = (props: StyledCardProps) => {
   // override
@@ -158,19 +133,10 @@ const getBorderWidth = (props: StyledCardProps) => {
   }
   // variants
   switch (props.variant) {
-    case 'white':
-      return `2px`
-    case 'primary':
-      return '0px'
-    case 'gray':
-      return '0px'
-    case 'white-flat':
-      return '4px'
     case 'dashed':
       return '2px'
-    // default variant white
     default:
-      return '2px'
+      return '0px'
   }
 }
 const getBorderType = (props: StyledCardProps) => {

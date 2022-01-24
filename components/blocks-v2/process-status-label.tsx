@@ -37,7 +37,7 @@ export const ProcessStatusLabel = () => {
       )
 
     case VoteStatus.Ended:
-      return <Tag variant='info'>{i18n.t('vote.ended_vote')}</Tag>
+      return <Tag variant='warning'>{i18n.t('vote.ended_vote')}</Tag>
 
     case VoteStatus.Paused:
       return <Tag variant='info'>{i18n.t('vote.paused_vote')}</Tag>

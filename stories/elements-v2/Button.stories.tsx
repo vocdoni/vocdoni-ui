@@ -4,6 +4,7 @@ import { Row, Col, Card, Text, Button } from "@components/elements-v2";
 import { LightningSlashIcon, PenOutlinedIcon } from '@components/elements-v2/icons'
 import { ComponentStory } from "@storybook/react";
 import { isMobileDevice } from "react-select/src/utils";
+import { Disabled } from "./LinkButton.stories";
 export default {
   title: 'Elements V2/Button',
   component: Button,
@@ -85,7 +86,7 @@ const LightArgs = {
 const LightColorArgs = {
   variant: 'light',
   children: 'Light Button w color',
-  color: '#a1a'
+  color: '#a1a',
 }
 const PrimaryArgs = {
   variant: 'primary',
@@ -99,7 +100,7 @@ const PrimarySizeArgs = {
 const PrimaryIconRightArgs = {
   variant: 'primary',
   children: 'Primary Button w-icon',
-  iconRight: <PenOutlinedIcon />
+  iconLeft: { name: 'download', size: 24}
 }
 const PrimaryIconLeftArgs = {
   variant: 'primary',
@@ -118,7 +119,8 @@ const OutlinedArgs = {
 const OutlinedColorArgs = {
   variant: 'outlined',
   children: 'Outlined w color',
-  color: '#a1a'
+  color: '#a1a',
+  iconLeft: { name: 'download', size: 24}
 }
 const WhiteArgs = {
   variant: 'white',
@@ -127,7 +129,9 @@ const WhiteArgs = {
 const WhiteColorArgs = {
   variant: 'white',
   children: 'White Button w color',
-  color: '#a1a'
+  color: '#a1a',
+  iconLeft: { name: 'download', size: 24},
+  // disabled: true
 }
 const PlaygroundArgs = {
   children: 'The Button',

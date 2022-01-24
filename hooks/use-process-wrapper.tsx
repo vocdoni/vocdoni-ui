@@ -12,6 +12,7 @@ import { IProcessResults, VotingType } from '@lib/types'
 import { Question } from '@lib/types'
 import { VoteStatus } from '@lib/util'
 import { MetadataFields } from '@components/pages/votes/new/metadata'
+import { MultiLanguage } from '@vocdoni/react-hooks/node_modules/dvote-js'
 
 export interface ProcessWrapperContext {
   loadingInfo: boolean,
@@ -35,6 +36,7 @@ export interface ProcessWrapperContext {
   discussionUrl: string
   attachmentUrl: string
   questions: Question[]
+  title: string
   methods: {
     refreshProcessInfo: (processId: string) => Promise<ProcessDetails>
     refreshResults: () => Promise<any>
@@ -146,7 +148,7 @@ export const useProcessWrapper = (processId: string) => {
     try {
       const pool = await poolPromise
       let size = "1"
-      if(processInfo?.state?.censusRoot){
+      if (processInfo?.state?.censusRoot) {
         size = await CensusOffChainApi.getSize(processInfo?.state?.censusRoot, pool)
       }
       setCensusSize(parseInt(size))
@@ -225,7 +227,7 @@ export const useProcessWrapper = (processId: string) => {
   const totalVotes = VotingType.Weighted === votingType
     ? results?.totalWeightedVotes
     : results?.totalVotes
-
+  const title = processInfo?.metadata?.title.default
   const remainingTime = (startBlock && startDate)
     ? hasStarted
       ? localizedStrDateDiff(DateDiffType.End, endDate)
@@ -255,6 +257,7 @@ export const useProcessWrapper = (processId: string) => {
     discussionUrl,
     attachmentUrl,
     questions,
+    title,
     methods: {
       cancelProcess,
       pauseProcess,

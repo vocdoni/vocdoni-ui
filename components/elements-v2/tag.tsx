@@ -5,7 +5,7 @@ import { Col, Row } from './grid'
 
 
 interface ITagProps {
-  variant?: "neutral" | "success" | "error" | "info"
+  variant?: "neutral" | "success" | "error" | "info" | 'warning'
   size?: 'regular' | 'large'
   fontWeight?: 'regular' | 'bold'
   label?: string
@@ -68,13 +68,15 @@ const getTagColor = (props: ITagProps) => {
     case 'error':
       return theme.white
     case 'info':
-      return theme.white
+      return '#1588B9'
     case 'neutral':
-      return theme.blueText
+      return '#52606D'
     case 'success':
-      return theme.white
+      return '#74AF07'
+    case 'warning':
+      return '#DB7D24'
     default:
-      return theme.blueText
+      return '#52606D'
   }
 }
 const getTagBackgroundColor = (props: ITagProps) => {
@@ -82,11 +84,13 @@ const getTagBackgroundColor = (props: ITagProps) => {
     case 'error':
       return theme.error
     case 'info':
-      return theme.blueText
+      return '#D1FDFA'
     case 'neutral':
       return '#E4E7EB'
     case 'success':
-      return theme.success
+      return '#F3FCCC'
+    case 'warning':
+      return '#FFF3D6'
     default:
       return '#E4E7EB'
   }
@@ -105,8 +109,8 @@ const StyledTag = styled.div<ITagProps>`
 `
 const StyledLabel = styled.span`
   font-family: Manrope;
-  font-weight: 600;
-  font-size: 16px;
-  color: #7A859F;
+  font-weight: 500;
+  font-size: 14px;
+  color: #52606D;
   margin-left: 16px;
 `
