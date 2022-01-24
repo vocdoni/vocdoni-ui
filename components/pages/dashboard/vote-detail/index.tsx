@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import styled from 'styled-components'
 import { useTranslation } from 'react-i18next'
 import { Else, If, Then, When } from 'react-if'
@@ -33,12 +33,13 @@ import { HelpText } from '@components/blocks/help-text'
 import { MarkDownViewer } from '@components/blocks/mark-down-viewer'
 import { TextAlign, Typography, TypographyVariant } from '@components/elements/typography'
 
+import { Button as ButtonV2, Card as CardV2, Spacer } from '@components/elements-v2'
 import { GeneratePdfCard } from './generate-pdf-card'
 import { GeneratePdfCard as GeneratePdfCardV2 } from './generate-pdf-card-v2'
 import { Col, Row, Text, LinkButton } from '@components/elements-v2'
 import { ProcessStatusLabel as ProcessStatusLabelV2 } from '@components/blocks-v2'
 import { theme } from '@theme/global'
-import { DocumentOutlinedIcon, LightningSlashIcon, QuestionOutlinedIcon, TrashIcon } from '@components/elements-v2/icons'
+import { ChevronRightIcon, ChevronUpDownIcon, DocumentOutlinedIcon, LightningSlashIcon, PieChartIcon, QuestionCircleIcon, QuestionOutlinedIcon, TrashIcon } from '@components/elements-v2/icons'
 import { ExpandableContainer } from '@components/blocks/expandable-container'
 import { DetailsCard } from './details-card'
 import { CopyLinkCard } from './copy-link-card'
@@ -46,6 +47,9 @@ import { useProcessInfo } from '@hooks/use-process-info'
 import { useUrlHash } from 'use-url-hash'
 import { useCalendar } from '@hooks/use-calendar'
 import { stream } from 'xlsx/types'
+import { ExpandableCard } from '@components/blocks/expandable-card'
+import { ResultsCard } from '@components/pages/pub/votes/components/results-card'
+import { QuestionsCard } from '@components/blocks-v2/questions-card'
 
 interface IProcessDetailProps {
   process: ProcessDetails
@@ -69,20 +73,12 @@ export const ViewDetail = ({
   const { wallet } = useWallet({ role: WalletRoles.ADMIN })
   const { setAlertMessage } = useMessageAlert()
   const linkCensus = !process?.metadata?.meta?.formFieldTitles
-  const voteLink = linkCensus
-    ? RouterService.instance.get(VOTING_AUTH_LINK_PATH, {
-        processId: process.id,
-        key: 'PRIVATE_KEY',
-      })
-    : RouterService.instance.get(VOTING_AUTH_FORM_PATH, {
-        processId: process.id,
-      })
   const menmonicUrl = linkCensus
     ? RouterService.instance.get(VOTING_AUTH_MNEMONIC_PATH, {
-        processId: process.id,
-      })
+      processId: process.id,
+    })
     : ''
-  
+
   const processVotingType: VotingType = process?.state?.censusOrigin as any
 
   const totalVotes =
@@ -184,8 +180,13 @@ export const ViewDetail = ({
       dateDiffStr = localizedStrDateDiff(DateDiffType.End, date)
     }
   }
+  // Hooks
   const processId = useUrlHash().slice(1) // Skip "/"
+  const [isResultsCardOpen, setIsResultsCardOpen] = useState<boolean>(false)
+  const [isQuestionsCardOpen, setIsQuestionsCardOpen] = useState<boolean>(false)
+  const resultsCardRef = useRef(null)
   const {
+    title,
     censusSize,
     description,
     startDate,
@@ -196,9 +197,19 @@ export const ViewDetail = ({
     attachmentUrl
   } = useProcessInfo(processId)
   const { toCalendarFormat } = useCalendar()
+
+  // Constants
+  const voteLink = linkCensus
+    ? RouterService.instance.get(VOTING_AUTH_LINK_PATH, {
+      processId: processId,
+      key: 'PRIVATE_KEY',
+    })
+    : RouterService.instance.get(VOTING_AUTH_FORM_PATH, {
+      processId: processId,
+    })
   // compute voting type string
   const voteTypeString = () => {
-    if(votingType === VotingType.Weighted) {
+    if (votingType === VotingType.Weighted) {
       return i18n.t('vote_detail.settings_card.weighted_voting')
     }
     return i18n.t('vote_detail.settings_card.normal_voting')
@@ -251,10 +262,25 @@ export const ViewDetail = ({
     }
   ]
 
+  // Handlers
+  const handleSeeResultsClick = () => {
+    setIsResultsCardOpen(true)
+    setTimeout(() => {
+      resultsCardRef.current.scrollIntoView({ block: 'start', behavior: 'smooth' })
+    }, 200)
+  }
+  const handleResultsCardButtonClick = () => {
+    setIsResultsCardOpen(!isResultsCardOpen)
+  }
+  const handleQuestionsCardButtonClick = () => {
+    setIsQuestionsCardOpen(!isQuestionsCardOpen)
+  }
+
   return (
     <>
-      <CardV2 padding="48px 72px" flat>
+      <CardV2 padding="48px 72px" variant='white' flat>
         <Row wrap={false} justify='space-between'>
+          {/* TITLES */}
           <Col>
             <Row gutter='xs'>
               <Col xs={12}>
@@ -269,238 +295,311 @@ export const ViewDetail = ({
               </Col>
             </Row>
           </Col>
+          {/* BUTTONS */}
           <Col>
-            <ButtonV2 variant='outlined' color={theme.errorV2} iconRight={<TrashIcon />}>
-              {i18n.t('vote_detail.cancel_vote')}
-            </ButtonV2>
+            <Row gutter='lg'>
+              <Col>
+                <ButtonV2
+                  variant='outlined'
+                  color={theme.errorV2}
+                  iconRight={{ name: 'trash', size: 24 }}
+                >
+                  {i18n.t('vote_detail.cancel_vote')}
+                </ButtonV2>
+              </Col>
+              <Col>
+                <ButtonV2
+                  variant='outlined'
+                  color={theme.blueText}
+                  iconRight={{ name: 'shutdown', size: 24 }}
+                >
+                  {i18n.t('vote_detail.end_vote')}
+                </ButtonV2>
+              </Col>
+            </Row>
           </Col>
         </Row>
         <Spacer showDivider size='5xl' direction='vertical' />
-        <Row>
-          <Col xs={8}>
-            <Row gutter='xl'>
-              <Col xs={12}>
-                <ProcessStatusLabelV2 />
+        <Row gutter='2xl'>
+          <Col xs={12}>
+            <Row gutter='2xl'>
+              {/* LABEL AND DESCRIPTION */}
+              <Col xs={8}>
+                <Row gutter='xl'>
+                  <Col xs={12}>
+                    <ProcessStatusLabelV2 />
+                  </Col>
+                  <Col xs={12}>
+                    <Row gutter='md'>
+                      <Col xs={12}>
+                        <Text size='lg' >
+                          {title}
+                        </Text>
+                      </Col>
+                      <Col xs={12}>
+                        <ExpandableContainer
+                          lines={5}
+                          buttonText={i18n.t('vote.show_more')}
+                          buttonExpandedText={i18n.t('vote.show_less')}
+                        >
+                          {description}
+                        </ExpandableContainer>
+                      </Col>
+                    </Row>
+                  </Col>
+                </Row>
               </Col>
-              <Col xs={12}>
+              {/* SIDE BAR */}
+              <StickyCol xs={12} md={4} hiddenSmAndDown disableFlex>
+                <GeneratePdfCardV2 onSeeResultsClick={handleSeeResultsClick} />
+              </StickyCol>
+            </Row>
+          </Col>
+          {/* <Spacer size='2xl' direction='vertical' /> */}
+          {/* VOTE DETAILS */}
+          <Col xs={12}>
+            <Row gutter='lg'>
+              {
+                voteDetails.map((detail) => (
+                  <Col xs={4}>
+                    <DetailsCard
+                      title={detail.title}
+                      options={detail.options}
+                    />
+                  </Col>
+                ))
+              }
+            </Row>
+          </Col>
+          <Col xs={12}>
+
+            <Row gutter='lg'>
+              {/* VOTING LINK */}
+              <Col xs={5}>
                 <Row gutter='md'>
                   <Col xs={12}>
-                    <Text size='lg' >
-                      { }
+                    <Text size='md' color='dark-blue' weight='regular'>
+                      {i18n.t('vote_detail.voting_link.title')}
                     </Text>
                   </Col>
                   <Col xs={12}>
-                    <ExpandableContainer
-                      lines={5}
-                      buttonText={i18n.t('vote.show_more')}
-                      buttonExpandedText={i18n.t('vote.show_less')}
-                    >
-                      {description}
-                    </ExpandableContainer>
+                    <CopyLinkCard url={voteLink} />
+                  </Col>
+                </Row>
+              </Col>
+              <Col xs={7}>
+                {/* EXTERNAL LINKS */}
+                <Row gutter='md'>
+                  <Col xs={12}>
+                    <Text size='md' color='dark-blue' weight='regular'>
+                      {i18n.t('vote_detail.external_links.title')}
+                    </Text>
+                  </Col>
+                  <Col xs={12}>
+                    <Row gutter='lg'>
+                      <Col xs={4}>
+                        <LinkButton
+                          href={attachmentUrl}
+                          disabled={!attachmentUrl}
+                          target='_blank'
+                          icon={<DocumentOutlinedIcon />}
+                        >
+                          {i18n.t('vote_detail.external_links.document')}
+                        </LinkButton>
+                      </Col>
+                      <Col xs={4}>
+                        <LinkButton
+                          href={discussionUrl}
+                          disabled={!discussionUrl}
+                          target='_blank'
+                          icon={<QuestionOutlinedIcon />}
+                        >
+                          {i18n.t('vote_detail.external_links.q_and_a')}
+                        </LinkButton>
+                      </Col>
+                      <Col xs={4}>
+                        <LinkButton
+                          href={liveStreamUrl}
+                          disabled={!liveStreamUrl}
+                          target='_blank'
+                          icon={<DocumentOutlinedIcon />}
+                        >
+                          {i18n.t('vote_detail.external_links.stream')}
+                        </LinkButton>
+                      </Col>
+                    </Row>
                   </Col>
                 </Row>
               </Col>
             </Row>
           </Col>
-          <Col xs={4}>
-            <GeneratePdfCardV2>
 
-            </GeneratePdfCardV2>
-            <CardV2 variant='gray'>
-
-            </CardV2>
-          </Col>
-        </Row>
-        <Spacer size='2xl' direction='vertical' />
-        {/* VOTE DETAILS */}
-        <Row gutter='lg'>
-          {
-            voteDetails.map((detail) => (
-              <Col xs={4}>
-                <DetailsCard
-                  title={detail.title}
-                  options={detail.options}
-                />
-              </Col>
-            ))
-          }
-        </Row>
-        <Spacer size='2xl' direction='vertical' />
-
-        <Row gutter='lg'>
-          {/* VOTING LINK */}
-          <Col xs={5}>
+          <Col xs={12}>
             <Row gutter='md'>
+              {/* RESULTS CARD */}
               <Col xs={12}>
-                <Text size='md' color='dark-blue' weight='regular'>
-                  {i18n.t('vote_detail.voting_link.title')}
-                </Text>
+                <ExpandableCard
+                  ref={resultsCardRef}
+                  isOpen={isResultsCardOpen}
+                  onButtonClick={handleResultsCardButtonClick}
+                  title={i18n.t("vote_detail.results_card.title")}
+                  icon={<PieChartIcon size={40} />}
+                  buttonProps={{
+                    variant: 'light',
+                    iconRight: <ChevronUpDownIcon size={24} />,
+                    children: i18n.t("vote_detail.results_card.show")
+                  }}
+                  buttonPropsOpen={{
+                    variant: 'outlined',
+                    iconRight: <ChevronUpDownIcon size={24} />,
+                    children: i18n.t("vote_detail.results_card.hide")
+                  }}
+                >
+                  <ResultsCard />
+                </ExpandableCard>
               </Col>
+              {/* QUESTIONS CARD */}
               <Col xs={12}>
-                <CopyLinkCard url="https://akjdaskljjdsakljdsakljdklsajdklasjkldajskldjklasjdklasjskldajdlkjaskldjakjdksajdaksurl" />
-              </Col>
-            </Row>
-          </Col>
-          <Col xs={7}>
-            {/* EXTERNAL LINKS */}
-            <Row gutter='md'>
-              <Col xs={12}>
-                <Text size='md' color='dark-blue' weight='regular'>
-                  {i18n.t('vote_detail.external_links.title')}
-                </Text>
-              </Col>
-              <Col xs={12}>
-                <Row gutter='lg'>
-                  <Col xs={4}>
-                    <LinkButton
-                      href={attachmentUrl}
-                      disabled={!attachmentUrl}
-                      target='_blank'
-                      icon={<DocumentOutlinedIcon />}
-                    >
-                      {i18n.t('vote_detail.external_links.document')}
-                    </LinkButton>
-                  </Col>
-                  <Col xs={4}>
-                    <LinkButton
-                      href={discussionUrl}
-                      disabled={!discussionUrl}
-                      target='_blank'
-                      icon={<QuestionOutlinedIcon />}
-                    >
-                      {i18n.t('vote_detail.external_links.q_and_a')}
-                    </LinkButton>
-                  </Col>
-                  <Col xs={4}>
-                    <LinkButton
-                      href={liveStreamUrl}
-                      disabled={!liveStreamUrl}
-                      target='_blank'
-                      icon={<DocumentOutlinedIcon />}
-                    >
-                      {i18n.t('vote_detail.external_links.stream')}
-                    </LinkButton>
-                  </Col>
-                </Row>
+                <ExpandableCard
+                  isOpen={isQuestionsCardOpen}
+                  onButtonClick={handleQuestionsCardButtonClick}
+                  title={i18n.t("vote_detail.questions_card.title")}
+                  icon={<QuestionCircleIcon size={40} />}
+                  buttonProps={{
+                    variant: 'light',
+                    iconRight: <ChevronUpDownIcon size={24} />,
+                    children: i18n.t("vote_detail.questions_card.show")
+                  }}
+                  buttonPropsOpen={{
+                    variant: 'outlined',
+                    iconRight: <ChevronUpDownIcon size={24} />,
+                    children: i18n.t("vote_detail.questions_card.hide")
+                  }}
+                >
+                  <QuestionsCard />
+                </ExpandableCard>
               </Col>
             </Row>
           </Col>
         </Row>
-
       </CardV2>
 
-      <Grid>
-        <Column md={9} sm={12}>
-          <SectionContainer>
-            <If condition={!linkCensus}>
-              <Then>
-                <SectionSpacer>
-                  <SectionText color={colors.blueText} size={TextSize.Big}>
-                    {i18n.t('vote_detail.link')}
-                  </SectionText>
-                </SectionSpacer>
-                <DashedLink link={voteLink} />
-              </Then>
-              <Else>
-                <SectionContainer>
-                  <SectionText color={colors.blueText}>
-                    {i18n.t(
-                      'vote.this_is_the_link_that_you_need_to_send_your_community_members_replacing_the_corresponding_private_key'
-                    )}
-                    <HelpText
-                      text={i18n.t(
-                        'vote.this_is_the_link_that_you_need_to_send_your_community_members_replacing_the_corresponding_private_key_helper'
-                      )}
-                    />
-                  </SectionText>
 
+
+      <PageCard>
+        <Grid>
+          <Column md={9} sm={12}>
+            <SectionContainer>
+              <If condition={!linkCensus}>
+                <Then>
+                  <SectionSpacer>
+                    <SectionText color={colors.blueText} size={TextSize.Big}>
+                      {i18n.t('vote_detail.link')}
+                    </SectionText>
+                  </SectionSpacer>
                   <DashedLink link={voteLink} />
-                </SectionContainer>
-
-                <SectionContainer>
-                  <SectionText color={colors.blueText}>
-                    {i18n.t(
-                      'vote.this_is_the_link_that_your_community_members_can_use_to_access_via_mnemonic'
-                    )}
-                    <HelpText
-                      text={i18n.t(
-                        'vote.this_is_the_link_that_your_community_members_can_use_to_access_via_mnemonic_helper'
+                </Then>
+                <Else>
+                  <SectionContainer>
+                    <SectionText color={colors.blueText}>
+                      {i18n.t(
+                        'vote.this_is_the_link_that_you_need_to_send_your_community_members_replacing_the_corresponding_private_key'
                       )}
-                    />
-                  </SectionText>
-                  <DashedLink link={menmonicUrl} />
-                </SectionContainer>
-              </Else>
-            </If>
-          </SectionContainer>
+                      <HelpText
+                        text={i18n.t(
+                          'vote.this_is_the_link_that_you_need_to_send_your_community_members_replacing_the_corresponding_private_key_helper'
+                        )}
+                      />
+                    </SectionText>
 
-          <SectionSpacer>
-            <SectionText color={colors.blueText} size={TextSize.Big}>
-              {i18n.t('vote_detail.details')}
-            </SectionText>
-          </SectionSpacer>
+                    <DashedLink link={voteLink} />
+                  </SectionContainer>
 
-          <SectionContainer>
-            <DateContainer>
-              <ProcessStatusLabel status={status}></ProcessStatusLabel>
-              <DateDiffText>{dateDiffStr}</DateDiffText>
-            </DateContainer>
-          </SectionContainer>
+                  <SectionContainer>
+                    <SectionText color={colors.blueText}>
+                      {i18n.t(
+                        'vote.this_is_the_link_that_your_community_members_can_use_to_access_via_mnemonic'
+                      )}
+                      <HelpText
+                        text={i18n.t(
+                          'vote.this_is_the_link_that_your_community_members_can_use_to_access_via_mnemonic_helper'
+                        )}
+                      />
+                    </SectionText>
+                    <DashedLink link={menmonicUrl} />
+                  </SectionContainer>
+                </Else>
+              </If>
+            </SectionContainer>
 
-          <SectionContainer>
-            <TitleText>{process?.metadata?.title.default}</TitleText>
-            <MarkDownViewer content={process?.metadata?.description.default} />
-          </SectionContainer>
-
-          <div>
             <SectionSpacer>
               <SectionText color={colors.blueText} size={TextSize.Big}>
-                {i18n.t('vote_detail.results')}
+                {i18n.t('vote_detail.details')}
               </SectionText>
             </SectionSpacer>
 
-            {process?.metadata && process?.metadata?.questions.map(
-              (question: Question, index: number) => (
-                <VoteQuestionCard
-                  key={index}
-                  question={question}
-                  questionIdx={index}
-                  hasVoted={true}
-                  totalVotes={totalVotes}
-                  processStatus={process?.state?.status}
-                  result={results?.questions[index]}
-                  selectedChoice={0}
-                />
-              )
-            )}
-          </div>
+            <SectionContainer>
+              <DateContainer>
+                <ProcessStatusLabel status={status}></ProcessStatusLabel>
+                <DateDiffText>{dateDiffStr}</DateDiffText>
+              </DateContainer>
+            </SectionContainer>
 
-          <Grid>
+            <SectionContainer>
+              <TitleText>{process?.metadata?.title.default}</TitleText>
+              <MarkDownViewer content={process?.metadata?.description.default} />
+            </SectionContainer>
+
+            <div>
+              <SectionSpacer>
+                <SectionText color={colors.blueText} size={TextSize.Big}>
+                  {i18n.t('vote_detail.results')}
+                </SectionText>
+              </SectionSpacer>
+
+              {process?.metadata && process?.metadata?.questions.map(
+                (question: Question, index: number) => (
+                  <VoteQuestionCard
+                    key={index}
+                    question={question}
+                    questionIdx={index}
+                    hasVoted={true}
+                    totalVotes={totalVotes}
+                    processStatus={process?.state?.status}
+                    result={results?.questions[index]}
+                    selectedChoice={0}
+                  />
+                )
+              )}
+            </div>
+
+            <Grid>
               <Card sm={12}>
                 <Typography align={TextAlign.Center} margin='margin: 12px 0' variant={TypographyVariant.Body1}>
                   {processVotingType === VotingType.Weighted
                     ? i18n.t('vote.total_weighted_votes', {
-                        totalVotes: results?.totalVotes,
-                        totalWeightedVotes: results?.totalWeightedVotes,
-                      })
+                      totalVotes: results?.totalVotes,
+                      totalWeightedVotes: results?.totalWeightedVotes,
+                    })
                     : i18n.t('vote.total_votes', {
-                        totalVotes: results?.totalVotes,
-                      })}
+                      totalVotes: results?.totalVotes,
+                    })}
                 </Typography>
               </Card>
             </Grid>
-        </Column>
+          </Column>
 
-        <Column md={3} sm={12}>
-          <GeneratePdfCard 
-            process={process} 
-            results={results} 
-            entityMetadata={entityMetadata}
-          />
-        </Column>
-      </Grid>
-      {/* </Loader> */}
-    </PageCard>
+          <Column md={3} sm={12}>
+            <GeneratePdfCard
+              process={process}
+              results={results}
+              entityMetadata={entityMetadata}
+            />
+          </Column>
+        </Grid>
+        {/* </Loader> */}
+      </PageCard>
+    </>
   )
 }
 
@@ -529,4 +628,9 @@ const DescriptionText = styled.div`
 `
 const DateDiffText = styled.div`
   font-style: italic;
+`
+
+const StickyCol = styled(Col) <IColProps>`
+  position: sticky;
+  top: 20px;
 `

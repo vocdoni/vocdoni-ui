@@ -1,11 +1,11 @@
-import { MetadataFields } from "@components/pages/votes/new/metadata"
 import { Question, VotingType,IProcessResults } from "@lib/types"
 import { VoteStatus } from "@lib/util"
-import { usePool } from "@vocdoni/react-hooks"
+import { ProcessDetails } from "dvote-js"
 import { createContext, useContext, useEffect, useState, ReactNode } from "react"
 import { useProcessWrapper } from "./use-process-wrapper"
 
 export interface ProcessInfoContext {
+  processInfo: ProcessDetails
   censusSize: number
   totalVotes: number
   processId: string
@@ -19,7 +19,8 @@ export interface ProcessInfoContext {
   discussionUrl: string
   attachmentUrl: string
   questions: Question[]
-  results: IProcessResults,
+  results: IProcessResults
+  title: string
   methods: {
     setProcessId: (processId: string) => void
   }
@@ -50,6 +51,7 @@ export const UseProcessInfoProvider = ({ children }: { children: ReactNode }) =>
     if (invalidProcessId) return
   }, [processId])
   const {
+    processInfo,
     censusSize,
     votingType,
     startDate,
@@ -62,9 +64,11 @@ export const UseProcessInfoProvider = ({ children }: { children: ReactNode }) =>
     attachmentUrl,
     status,
     questions,
-    results
+    results,
+    title,
   } = useProcessWrapper(processId)
   const value: ProcessInfoContext = {
+    processInfo,
     censusSize,
     processId,
     votingType,
@@ -79,6 +83,7 @@ export const UseProcessInfoProvider = ({ children }: { children: ReactNode }) =>
     status,
     questions,
     results,
+    title,
     methods: {
       setProcessId
     }

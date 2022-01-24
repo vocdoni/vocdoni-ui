@@ -29,7 +29,7 @@ import RouterService from '@lib/router'
 import { VOTING_AUTH_FORM_PATH } from '@const/routes'
 import { ExpandableCard } from '@components/blocks/expandable-card'
 import { Banner } from '@components/blocks-v2/banner'
-import { Spacer,Col,Row,IColProps, Text, TextButton } from '@components/elements-v2'
+import { Spacer, Col, Row, IColProps, Text, TextButton } from '@components/elements-v2'
 import { useCalendar } from '@hooks/use-calendar'
 
 import { DisconnectModal } from '@components/blocks-v2'
@@ -244,7 +244,7 @@ export const VotingPageView = () => {
                         {
                           variant: 'primary',
                           children: i18n.t('vote.auth.auth_button'),
-                          iconRight: authenticateIcon,
+                          iconRight: isMobile ? undefined : { name: 'pencil' },
                           onClick: () => handleGotoAuth()
                         }
                       }
@@ -263,7 +263,7 @@ export const VotingPageView = () => {
                         {
                           variant: 'white',
                           children: i18n.t('vote.auth.disconnect_button'),
-                          iconRight: disconnectIcon,
+                          iconRight: isMobile ? undefined : { name: 'lightning-slash' },
                           onClick: () => setDisconnectModalOpened(true)
                         }
                       }
@@ -300,13 +300,11 @@ export const VotingPageView = () => {
                   buttonProps={{
                     variant: 'light',
                     iconRight: showMoreIcon,
-                    width: 124,
                     children: i18n.t("vote.voting_results_show")
                   }}
                   buttonPropsOpen={{
                     variant: 'outlined',
                     iconRight: showMoreIcon,
-                    width: 124,
                     children: i18n.t("vote.voting_results_hide")
                   }}
                 >

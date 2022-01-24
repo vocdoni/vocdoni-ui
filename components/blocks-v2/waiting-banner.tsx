@@ -39,7 +39,12 @@ export const WaitingBanner = (props: WaitingBannerProps) => {
   }, [])
   if (isMobile || props.forceMobile) {
     return (
-      <Card variant="white-flat" padding='24px 32px'>
+      <Card
+        padding='24px 32px'
+        variant="white"
+        borderColor='light-gray'
+        borderWidth='md'
+      >
         <Row gutter='xs'>
           <Col xs={12}>
             <Row gutter='md' align='center'>
@@ -67,7 +72,12 @@ export const WaitingBanner = (props: WaitingBannerProps) => {
     )
   }
   return (
-    <Card variant="white-flat" padding='32px 48px'>
+    <Card
+      variant="white"
+      borderColor='light-gray'
+      borderWidth='md'
+      padding='32px 48px'
+    >
       <Row gutter='4xl' wrap={false} >
         <Col>
           <img src='/images/common/waiting-banner/head.svg'></img>
@@ -76,7 +86,7 @@ export const WaitingBanner = (props: WaitingBannerProps) => {
           <Row gutter='xs'>
             <Col xs={12}>
               <Text size='lg' color='secondary' weight='bold'>
-              {i18n.t('waiting_banner.title')}
+                {i18n.t('waiting_banner.title')}
               </Text>
             </Col>
             <Col xs={12}>

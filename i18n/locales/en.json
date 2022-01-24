@@ -738,11 +738,28 @@
       "stream":"Stream"
     },
     "generate_pdf": "Generate PDF",
+    "generate_pdf_card": {
+      "title": "Total votes submited",
+      "see_results": "See results",
+      "generate_pdf": "Generate PDF"
+    },
     "generate_pdf_with_results": "Generate a PDF with results",
     "link": "Link",
     "options": "Options",
     "q_and_a": "Q&A",
+    "questions_card": {
+      "title": "Voting Results",
+      "show":   "Show",
+      "hide": "Hide",
+      "question": "Question {{ number }}",
+      "options": "Options"
+    },
     "results": "Results",
+    "results_card": {
+      "title": "Voting Results",
+      "show":   "Show",
+      "hide": "Hide"
+    },
     "settings_card": {
       "title": "Settings",
       "type": "Type",
@@ -783,6 +800,7 @@
     "calendar_start_label": "Start",
     "calendar_title": "Calendar",
     "canceled_vote": "Canceled",
+    "end_vote": "End vote",
     "cannot_connect_to_the_blockchain_to_check_the_account_balance": "Cannot connect to the blockchain network",
     "cannot_connect_to_the_vocdoni_chain": "Cannot connect to the vocdoni chain",
     "census_root_value": "Census root value",
