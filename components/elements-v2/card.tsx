@@ -21,7 +21,7 @@ type CardBorderRadiusSize = 'sm' | 'md' | 'lg'
 type CardPaddingSize = 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 type CardBorderSize = 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 type CardBorderColor = 'light-gray' | 'gray'
-export type CardVariant = 'white' | 'primary' | 'gray' | 'white-flat'
+export type CardVariant = 'white' | 'primary' | 'gray' | 'white-flat' | 'dashed'
 type CardBackgroundColor = 'white' | 'primary' | 'gray'
 
 interface StyledCardProps extends CardProps {
@@ -95,6 +95,8 @@ const getShadow = (props: StyledCardProps) => {
       return ''
     case 'gray':
       return ''
+    case 'dashed':
+      return ''
     // default variant white
     default:
       return '0px 6px 6px rgba(180, 193, 228, 0.35)'
@@ -124,6 +126,8 @@ const getBorderColor = (props: StyledCardProps) => {
       return 'transparent'
     case 'gray':
       return 'transparent'
+    case 'dashed':
+      return theme.accent1
     case 'white-flat':
       // TODO add me to colors
       return '#DEEFFF'
@@ -162,10 +166,18 @@ const getBorderWidth = (props: StyledCardProps) => {
       return '0px'
     case 'white-flat':
       return '4px'
+    case 'dashed':
+      return '2px'
     // default variant white
     default:
       return '2px'
   }
+}
+const getBorderType = (props: StyledCardProps) => {
+  if (props.variant === 'dashed') {
+    return 'dashed'
+  }
+  return 'solid'
 }
 const getHover = (props: StyledCardProps) => {
   if (!props.hover) {
@@ -188,7 +200,7 @@ export const StyledCard = styled.div<StyledCardProps>`
   background: ${getBackgroundColor};
   padding: ${getPadding};
   box-shadow: ${getShadow};
-  border: solid;
+  border: ${getBorderType};
   border-width: ${getBorderWidth};
   border-color: ${getBorderColor};
   min-height: ${getHeight};

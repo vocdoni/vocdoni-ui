@@ -716,14 +716,46 @@
   },
   "vote_detail": {
     "cancel_vote": "Cancel vote",
+    "calendar_card": {
+      "title": "Calendar",
+      "end_date": "End",
+      "start_date": "Start"
+    },
+    "census_card": {
+      "title": "Census details",
+      "size": "Size",
+      "filename": "Name",
+      "voters":"{{ censusSize }} voters"
+    },
+    "stream": "Stream",
     "details": "Details",
+    "document": "Document",
     "end_vote": "End vote",
+    "external_links": {
+      "title":"External links",
+      "document":"Document",
+      "q_and_a":"Q&A",
+      "stream":"Stream"
+    },
     "generate_pdf": "Generate PDF",
     "generate_pdf_with_results": "Generate a PDF with results",
     "link": "Link",
+    "options": "Options",
+    "q_and_a": "Q&A",
     "results": "Results",
+    "settings_card": {
+      "title": "Settings",
+      "type": "Type",
+      "options": "Options",
+      "normal_voting":"Normal voting",
+      "weighted_voting":"Weighted voting"
+    },
+    "type": "Type",
     "view_and_manage_the_status_of_the_process": "View and manage the status of the process",
-    "vote_details": "Vote details"
+    "vote_details": "Vote details",
+    "voting_link": {
+      "title":"Voting link"
+    }
   },
   "vote_question_card": {
     "no_results_available": "No results available",

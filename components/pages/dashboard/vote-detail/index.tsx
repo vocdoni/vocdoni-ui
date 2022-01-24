@@ -34,12 +34,18 @@ import { MarkDownViewer } from '@components/blocks/mark-down-viewer'
 import { TextAlign, Typography, TypographyVariant } from '@components/elements/typography'
 
 import { GeneratePdfCard } from './generate-pdf-card'
+import { GeneratePdfCard as GeneratePdfCardV2 } from './generate-pdf-card-v2'
 import { Col, Row, Text, LinkButton } from '@components/elements-v2'
 import { ProcessStatusLabel as ProcessStatusLabelV2 } from '@components/blocks-v2'
 import { theme } from '@theme/global'
-import { DocumentOutlinedIcon, LightningSlashIcon, QuestionOutlinedIcon } from '@components/elements-v2/icons'
+import { DocumentOutlinedIcon, LightningSlashIcon, QuestionOutlinedIcon, TrashIcon } from '@components/elements-v2/icons'
 import { ExpandableContainer } from '@components/blocks/expandable-container'
 import { DetailsCard } from './details-card'
+import { CopyLinkCard } from './copy-link-card'
+import { useProcessInfo } from '@hooks/use-process-info'
+import { useUrlHash } from 'use-url-hash'
+import { useCalendar } from '@hooks/use-calendar'
+import { stream } from 'xlsx/types'
 
 interface IProcessDetailProps {
   process: ProcessDetails
@@ -178,115 +184,202 @@ export const ViewDetail = ({
       dateDiffStr = localizedStrDateDiff(DateDiffType.End, date)
     }
   }
+  const processId = useUrlHash().slice(1) // Skip "/"
+  const {
+    censusSize,
+    description,
+    startDate,
+    endDate,
+    votingType,
+    liveStreamUrl,
+    discussionUrl,
+    attachmentUrl
+  } = useProcessInfo(processId)
+  const { toCalendarFormat } = useCalendar()
+  // compute voting type string
+  const voteTypeString = () => {
+    if(votingType === VotingType.Weighted) {
+      return i18n.t('vote_detail.settings_card.weighted_voting')
+    }
+    return i18n.t('vote_detail.settings_card.normal_voting')
+  }
+  // compute options stringg
+  const voteOptionsString = () => {
+    // here goes the logic to check if is anonymous, can abstanin, etc...
+    return '-'
+  }
+  // compute vote details
+  const voteDetails = [
+    {
+      title: i18n.t('vote_detail.calendar_card.title'),
+      options: [
+        {
+          title: i18n.t('vote_detail.calendar_card.start_date'),
+          value: toCalendarFormat(startDate)
+        },
+        {
+          title: i18n.t('vote_detail.calendar_card.end_date'),
+          value: toCalendarFormat(endDate)
+        }
+      ]
+    },
+    {
+      title: i18n.t('vote_detail.settings_card.title'),
+      options: [
+        {
+          title: i18n.t('vote_detail.settings_card.type'),
+          value: voteTypeString()
+        },
+        {
+          title: i18n.t('vote_detail.settings_card.options'),
+          value: voteOptionsString()
+        }
+      ]
+    },
+    {
+      title: i18n.t('vote_detail.census_card.title'),
+      options: [
+        {
+          title: i18n.t('vote_detail.census_card.size'),
+          value: i18n.t('vote_detail.census_card.voters', { censusSize: censusSize.toLocaleString(i18n.language) })
+        },
+        {
+          title: i18n.t('vote_detail.census_card.filename'),
+          value: 'list_of_voters.csv'
+        }
+      ]
+    }
+  ]
 
   return (
-    <PageCard>
-      <Grid>
-        <Column>
-          <FlexContainer justify={FlexJustifyContent.SpaceBetween} wrap={FlexWrap.Wrap}>
-            <div>
-              <SectionTitle>{i18n.t('vote_detail.vote_details')}</SectionTitle>
-              <SectionText color={colors.accent1}>
-                {i18n.t(
-                  'vote_detail.view_and_manage_the_status_of_the_process'
-                )}
-              </SectionText>
-            </div>
+    <>
+      <CardV2 padding="48px 72px" flat>
+        <Row wrap={false} justify='space-between'>
+          <Col>
+            <Row gutter='xs'>
+              <Col xs={12}>
+                <Text size='display-1' color='dark-blue' weight='medium'>
+                  {i18n.t('vote_detail.vote_details')}
+                </Text>
+              </Col>
+              <Col xs={12}>
+                <Text size='lg' color='dark-gray' weight='regular'>
+                  {i18n.t('vote_detail.view_and_manage_the_status_of_the_process')}
+                </Text>
+              </Col>
+            </Row>
+          </Col>
+          <Col>
+            <ButtonV2 variant='outlined' color={theme.errorV2} iconRight={<TrashIcon />}>
+              {i18n.t('vote_detail.cancel_vote')}
+            </ButtonV2>
+          </Col>
+        </Row>
+        <Spacer showDivider size='5xl' direction='vertical' />
+        <Row>
+          <Col xs={8}>
+            <Row gutter='xl'>
+              <Col xs={12}>
+                <ProcessStatusLabelV2 />
+              </Col>
+              <Col xs={12}>
+                <Row gutter='md'>
+                  <Col xs={12}>
+                    <Text size='lg' >
+                      { }
+                    </Text>
+                  </Col>
+                  <Col xs={12}>
+                    <ExpandableContainer
+                      lines={5}
+                      buttonText={i18n.t('vote.show_more')}
+                      buttonExpandedText={i18n.t('vote.show_less')}
+                    >
+                      {description}
+                    </ExpandableContainer>
+                  </Col>
+                </Row>
+              </Col>
+            </Row>
+          </Col>
+          <Col xs={4}>
+            <GeneratePdfCardV2>
+
+            </GeneratePdfCardV2>
+            <CardV2 variant='gray'>
 
             </CardV2>
           </Col>
         </Row>
         <Spacer size='2xl' direction='vertical' />
+        {/* VOTE DETAILS */}
         <Row gutter='lg'>
-          <Col xs={4}>
-            <DetailsCard
-              title='Calendar'
-              options={[
-                {
-                  title: 'Start',
-                  value: '7-8-1995(20:00)'
-                },
-                {
-                  title: 'End',
-                  value: '7-8-1995(20:00)'
-                }
-              ]}
-            />
-          </Col>
-          <Col xs={4}>
-            <DetailsCard
-              title='Settings'
-              options={[
-                {
-                  title: 'Type',
-                  value: 'Normal Voting'
-                },
-                {
-                  title: 'Options',
-                  value: 'anonymous/abstain'
-                }
-              ]}
-            />
-          </Col>
-          <Col xs={4}>
-            <DetailsCard
-              title='Census details'
-              options={[
-                {
-                  title: 'Size',
-                  value: '17.523 voters'
-                },
-                {
-                  title: 'Name',
-                  value: 'list_of_voters.csv'
-                }
-              ]}
-            />
-          </Col>
+          {
+            voteDetails.map((detail) => (
+              <Col xs={4}>
+                <DetailsCard
+                  title={detail.title}
+                  options={detail.options}
+                />
+              </Col>
+            ))
+          }
         </Row>
         <Spacer size='2xl' direction='vertical' />
 
         <Row gutter='lg'>
+          {/* VOTING LINK */}
           <Col xs={5}>
             <Row gutter='md'>
               <Col xs={12}>
                 <Text size='md' color='dark-blue' weight='regular'>
-                  Voting Link
+                  {i18n.t('vote_detail.voting_link.title')}
                 </Text>
               </Col>
               <Col xs={12}>
-                <CardV2 padding='16px' flat>
-                  <Row justify='space-between' align="center">
-                    <Col>
-                <a href="voting link"> https://plaza.vocdoni.app/the/vote</a>
-                    </Col>
-                    <Col>
-                <ButtonV2 variant='light'>
-                  Copy
-                </ButtonV2>
-                    </Col>
-                  </Row>
-                </CardV2>
+                <CopyLinkCard url="https://akjdaskljjdsakljdsakljdklsajdklasjkldajskldjklasjdklasjskldajdlkjaskldjakjdksajdaksurl" />
               </Col>
             </Row>
           </Col>
           <Col xs={7}>
+            {/* EXTERNAL LINKS */}
             <Row gutter='md'>
               <Col xs={12}>
                 <Text size='md' color='dark-blue' weight='regular'>
-                  External Links
+                  {i18n.t('vote_detail.external_links.title')}
                 </Text>
               </Col>
               <Col xs={12}>
                 <Row gutter='lg'>
                   <Col xs={4}>
-                    <LinkButton href='https://da.docs' target='_blank' icon={<DocumentOutlinedIcon />}>Document</LinkButton>
+                    <LinkButton
+                      href={attachmentUrl}
+                      disabled={!attachmentUrl}
+                      target='_blank'
+                      icon={<DocumentOutlinedIcon />}
+                    >
+                      {i18n.t('vote_detail.external_links.document')}
+                    </LinkButton>
                   </Col>
                   <Col xs={4}>
-                  <LinkButton href='https://da.qya' target='_blank' icon={<QuestionOutlinedIcon />}>Q&A</LinkButton>
+                    <LinkButton
+                      href={discussionUrl}
+                      disabled={!discussionUrl}
+                      target='_blank'
+                      icon={<QuestionOutlinedIcon />}
+                    >
+                      {i18n.t('vote_detail.external_links.q_and_a')}
+                    </LinkButton>
                   </Col>
                   <Col xs={4}>
-                  <LinkButton href='https://da.stream' target='_blank' icon={<DocumentOutlinedIcon />}>Stream</LinkButton>
+                    <LinkButton
+                      href={liveStreamUrl}
+                      disabled={!liveStreamUrl}
+                      target='_blank'
+                      icon={<DocumentOutlinedIcon />}
+                    >
+                      {i18n.t('vote_detail.external_links.stream')}
+                    </LinkButton>
                   </Col>
                 </Row>
               </Col>
