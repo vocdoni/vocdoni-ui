@@ -8,7 +8,7 @@ import { theme } from "@theme/global";
 
 
 type ButtonVariant = 'light' | 'primary' | 'outlined' | 'white'
-type ButtonSize = 'md' | 'lg'
+type ButtonSize = 'sm' | 'md' | 'lg'
 export interface ButtonProps {
   children?: string
   onClick?: () => void
@@ -92,7 +92,7 @@ const getBorderColor = (props: StyledButtonProps) => {
     case 'outlined':
       return `2px solid ${props.color ? props.color : theme.accent1}`
     case 'white':
-      return `2px solid ${theme.lightBorder}`
+      return `2px solid #E4E7EB`
     default:
       return ''
   }
@@ -102,6 +102,14 @@ const getWidth = (props: StyledButtonProps) => {
     return 'auto'
   }
   return `${props.width}px`
+}
+const getPadding = (props: StyledButtonProps) => {
+  switch (props.size) {
+    case 'sm':
+      return '8px 20px'
+    default:
+      return '12px 20px'
+  }
 }
 const getBoxShadow = (props: StyledButtonProps) => {
   switch (props.variant) {
@@ -129,7 +137,7 @@ cursor: pointer;
 box-sizing: border-box;
 border-radius: 8px;
 font-family: Manrope;
-padding: 12px 20px;
+padding: ${getPadding};
 font-weight: 600;
 font-size: ${getButtonFontSize};
 text-align: center;
