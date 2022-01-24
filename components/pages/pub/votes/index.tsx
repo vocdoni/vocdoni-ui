@@ -1,48 +1,64 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, Children } from 'react'
 import { useRecoilValue } from 'recoil'
 import styled from 'styled-components'
 import { useTranslation } from 'react-i18next'
-import ReactPlayer from 'react-player'
 
 import { useBlockStatus, useEntity, useProcess } from '@vocdoni/react-hooks'
 import { useRouter } from 'next/router'
-import { If, Then } from 'react-if'
+import { If, Then, Else, When } from 'react-if'
 
-import { Question, VotingType } from '@lib/types'
-
+import { VotingType } from '@lib/types'
 import { useTheme } from '@hooks/use-theme'
 import { useVoting } from '@hooks/use-voting'
 import { useWallet, WalletRoles } from '@hooks/use-wallet'
-
-import { Column, Grid } from '@components/elements/grid'
-import { Card, CardDiv, PageCard } from '@components/elements/cards'
-import { Button } from '@components/elements/button'
+import { PageCard } from '@components/elements/cards'
+import { Button } from '@components/elements-v2/button'
 import { FlexContainer } from '@components/elements/flex'
-import { VoteQuestionCard } from '@components/blocks/vote-question-card'
-import { MetadataFields } from '@components/pages/votes/new/metadata'
-
 import { CardImageHeader } from '@components/blocks/card/image-header'
 import { VoteDescription } from '@components/blocks/vote-description'
-
 import { ConfirmModal } from './components/confirm-modal'
 import { VoteActionCard } from './components/vote-action-card'
 import { VoteStatus, getVoteStatus } from '@lib/util'
 import { useUrlHash } from 'use-url-hash'
-import { VotingApi, EntityMetadata } from 'dvote-js'
-import { DateDiffType, localizedStrDateDiff } from '@lib/date'
-import { Body1, TextAlign, Typography, TypographyVariant } from '@components/elements/typography'
+import { EntityMetadata } from 'dvote-js'
+import { Body1 } from '@components/elements/typography'
 import { QuestionsList } from './components/questions-list'
 import { censusProofState } from '@recoil/atoms/census-proof'
 import { VoteRegisteredCard } from './components/vote-registered-card'
 import RouterService from '@lib/router'
 import { VOTING_AUTH_FORM_PATH } from '@const/routes'
+import { ExpandableCard } from '@components/blocks/expandable-card'
+import { Banner } from '@components/blocks-v2/banner'
+import { Spacer,Col,Row,IColProps, Text, TextButton } from '@components/elements-v2'
+import { useCalendar } from '@hooks/use-calendar'
 
-export enum VotingState {
-  NotStarted = 'notStarted',
-  Started = 'started',
-  Ended = 'ended',
-  Guest = 'guest',
+import { DisconnectModal } from '@components/blocks-v2'
+import { ResultsCard } from './components/results-card'
+import { useProcessInfo } from '@hooks/use-process-info'
+import { useIsMobile } from '@hooks/use-window-size'
+export enum UserVoteStatus {
+  /**
+   * User is voting right now
+   */
+  InProgress = 'inProgress',
+  /**
+   * User vote has expired due to external
+   * things like the vote is clossed
+   */
   Expired = 'expired',
+  /**
+   * User is not authenticated
+   */
+  Guest = 'guest',
+  /**
+   * User hase emitted its vote
+   */
+  Emitted = 'emitted',
+  /**
+   * User is authenticated but hasn't
+   * emitted a vote
+   */
+  NotEmitted = 'notEmitted',
 }
 
 interface IVideoStyle {
@@ -55,77 +71,47 @@ export const VotingPageView = () => {
   const { i18n } = useTranslation()
   const processId = useUrlHash().slice(1) // Skip "/"
   const router = useRouter()
+  const [disconnectModalOpened, setDisconnectModalOpened] = useState(false)
   const { updateAppTheme } = useTheme()
+  const isMobile = useIsMobile()
   const censusProof = useRecoilValue(censusProofState)
+  const { getDateDiffString } = useCalendar()
   const { methods: votingMethods, choices, hasVoted, results, nullifier } = useVoting(
     processId
   )
   const { process: processInfo } = useProcess(processId)
+  const { startDate, endDate, status, liveResults, votingType } = useProcessInfo(processId)
   const { wallet, setWallet } = useWallet({ role: WalletRoles.VOTER })
   const { metadata } = useEntity(processInfo?.state?.entityId)
   const [confirmModalOpened, setConfirmModalOpened] = useState<boolean>(false)
-  const [votingState, setVotingState] = useState<VotingState>(
-    VotingState.NotStarted
-  )
-
+  const [isExpandableCardOpen, setIsExpandableCardOpen] = useState<boolean>(false)
+  /**
+   * used to manage if the status of the user vote
+   * see `UserVoteStatus` for a description of each
+   * status
+   */
+  const [userVoteStatus, setUserVoteStatus] = useState<UserVoteStatus>(UserVoteStatus.NotEmitted)
   const { blockStatus } = useBlockStatus()
   const blockHeight = blockStatus?.blockNumber
   const voteStatus: VoteStatus = getVoteStatus(processInfo?.state, blockHeight)
   const explorerLink = process.env.EXPLORER_URL + '/envelope/' + nullifier
   const entityMetadata = metadata as EntityMetadata
-  const descriptionVideoContainerRef = useRef<HTMLDivElement>(null)
-  const votingVideoContainerRef = useRef<HTMLDivElement>(null)
-
-  const timeoutRef = useRef<any>()
-  const intervalRef = useRef<any>()
-  const [videosStyle, setVideoStyle] = useState<IVideoStyle>({
-    height: 0,
-    width: 0,
-    top: 0,
-  })
-
-  const handleVideoPosition = () => {
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current)
-    }
-
-    timeoutRef.current = setTimeout(() => {
-      const currentRef =
-        descriptionVideoContainerRef.current || votingVideoContainerRef.current
-
-      if (currentRef) {
-        const newVideoStyle = {
-          top: currentRef.offsetTop,
-          height: currentRef.offsetHeight,
-          width: currentRef.offsetWidth,
-        }
-
-        setVideoStyle(newVideoStyle)
-      }
-    }, 100)
-  }
-
+  const resultsCardRef = useRef(null)
+  // used for getting the ending in and starting in string
+  const [now, setNow] = useState(new Date)
   useEffect(() => {
-    intervalRef.current = setInterval(() => {
-      handleVideoPosition()
+    setInterval(() => {
+      setNow(new Date)
     }, 1000)
-
-    return () => {
-      clearInterval(intervalRef.current)
-    }
   }, [])
-
-  useEffect(() => {
-    window.addEventListener('resize', handleVideoPosition)
-
-    return () => {
-      window.removeEventListener('resize', handleVideoPosition)
-    }
-  }, [votingState])
-
+  const endingString = getDateDiffString(now, endDate)
+  const startingString = getDateDiffString(now, startDate)
+  /**
+   * effect to set the user vote status
+   */
   useEffect(() => {
     if (hasVoted) {
-      return setVotingState(VotingState.Ended)
+      return setUserVoteStatus(UserVoteStatus.Emitted)
     }
 
     if (
@@ -133,67 +119,33 @@ export const VotingPageView = () => {
       voteStatus === VoteStatus.Canceled ||
       voteStatus === VoteStatus.Upcoming
     ) {
-      return setVotingState(VotingState.Expired)
+      return setUserVoteStatus(UserVoteStatus.Expired)
     }
 
     if (!wallet) {
-      return setVotingState(VotingState.Guest)
+      return setUserVoteStatus(UserVoteStatus.Guest)
     }
 
-    setVotingState(VotingState.NotStarted)
+    setUserVoteStatus(UserVoteStatus.NotEmitted)
   }, [wallet, hasVoted])
 
-  useEffect(() => {
-    if (
-      processInfo?.metadata?.meta?.[MetadataFields.BrandColor] ||
-      entityMetadata?.meta?.[MetadataFields.BrandColor]
-    ) {
-      const brandColor =
-        processInfo?.metadata?.meta?.[MetadataFields.BrandColor] ||
-        entityMetadata?.meta?.[MetadataFields.BrandColor]
 
-      updateAppTheme({
-        accent1: brandColor,
-        accent1B: brandColor,
-        accent2: brandColor,
-        accent2B: brandColor,
-        textAccent1: brandColor,
-        textAccent1B: brandColor,
-        customLogo: entityMetadata?.media?.logo,
-      })
-    }
-  }, [processInfo, entityMetadata])
-
-  let dateDiffStr = ''
-
-  if (
-    processInfo?.state?.startBlock &&
-    (voteStatus == VoteStatus.Active ||
-      voteStatus == VoteStatus.Paused ||
-      voteStatus == VoteStatus.Ended)
-  ) {
-    if (processInfo?.state?.startBlock > blockHeight) {
-      const date = VotingApi.estimateDateAtBlockSync(
-        processInfo?.state?.startBlock,
-        blockStatus
-      )
-      dateDiffStr = localizedStrDateDiff(DateDiffType.Start, date)
-    } else {
-      // starting in the past
-      const date = VotingApi.estimateDateAtBlockSync(
-        processInfo?.state?.endBlock,
-        blockStatus
-      )
-      dateDiffStr = localizedStrDateDiff(DateDiffType.End, date)
-    }
-  }
 
   const handleVoteNow = () => {
-    if (votingState == VotingState.NotStarted) {
-      setVotingState(VotingState.Started)
-    } else if (votingState == VotingState.Guest) {
+    if (userVoteStatus === UserVoteStatus.NotEmitted) {
+      setUserVoteStatus(UserVoteStatus.InProgress)
+    } else if (userVoteStatus === UserVoteStatus.Guest) {
       handleGotoAuth()
     }
+  }
+  const handleSeeResultsClick = () => {
+    setIsExpandableCardOpen(true)
+    setTimeout(() => {
+      resultsCardRef.current.scrollIntoView({ block: 'start', behavior: 'smooth' })
+    }, 200)
+  }
+  const handleExpandableCardButtonClick = () => {
+    setIsExpandableCardOpen(!isExpandableCardOpen)
   }
 
   const handleFinishVote = () => {
@@ -201,16 +153,16 @@ export const VotingPageView = () => {
   }
 
   const handleBackToDescription = () => {
-    setVotingState(VotingState.NotStarted)
+    setUserVoteStatus(UserVoteStatus.NotEmitted)
   }
 
   const handleBackToVoting = () => {
-    setVotingState(VotingState.Started)
+    setUserVoteStatus(UserVoteStatus.InProgress)
     setConfirmModalOpened(false)
   }
 
   const handleOnVoted = () => {
-    setVotingState(VotingState.Ended)
+    setUserVoteStatus(UserVoteStatus.Emitted)
     setConfirmModalOpened(false)
   }
 
@@ -226,40 +178,43 @@ export const VotingPageView = () => {
   }
 
   const handleLogOut = () => {
-    const confirmMsg = i18n.t('confirm.do_you_want_to_continue')
-    if (!confirm(confirmMsg)) return
-
     setWallet(null)
     votingMethods.cleanup()
 
     setTimeout(() => {
       // Force window unload after the wallet is wiped
+      setDisconnectModalOpened(false)
       window.location.href = RouterService.instance.get(VOTING_AUTH_FORM_PATH, { processId })
     }, 50)
   }
-
   const processVotingType: VotingType = processInfo?.state?.censusOrigin as any
 
-  const showDescription =
-    votingState === VotingState.NotStarted ||
-    votingState === VotingState.Ended ||
-    votingState === VotingState.Guest
+  const showAuthBanner = (
+    status === VoteStatus.Upcoming ||
+    status === VoteStatus.Active ||
+    status === VoteStatus.Ended
+  )
+  const showDisconnectBanner = wallet && showAuthBanner
+  const showNotAuthenticatedBanner = !wallet && showAuthBanner
 
-  const showResults =
-    votingState === VotingState.Guest || votingState === VotingState.Ended
-
-  const showVotingButton = votingState == VotingState.NotStarted
-
-  const showLogInButton = votingState == VotingState.Guest
-
-  const voteWeight =
-    VotingType.Weighted === processVotingType ? censusProof?.weight : null
-
-  const totalVotes =
-    VotingType.Weighted === processVotingType
-      ? results?.totalWeightedVotes
-      : results?.totalVotes
-
+  const showMoreIcon = (
+    makeShowMoreIcon(i18n.t('vote.question_image_alt'))
+  )
+  const voteResultsIcon = (
+    makeVoteResultsIcon(i18n.t('vote.question_image_alt'))
+  )
+  const authenticateIcon = (
+    makeAuthenticateIcon(i18n.t('vote.question_image_alt'))
+  )
+  const authenticateBannerImage = (
+    makeAuthenticateBannerImage(i18n.t('vote.question_image_alt'), isMobile ? 56 : 88)
+  )
+  const disconnectIcon = (
+    makeDisconnectIcon(i18n.t('vote.question_image_alt'))
+  )
+  const seeResultsIcon = (
+    makeSeeResultsIcon(i18n.t('vote.pdf_image_alt'))
+  )
   return (
     <>
       <VotingCard>
@@ -269,154 +224,215 @@ export const VotingPageView = () => {
           subtitle={metadata?.name.default}
           entityImage={metadata?.media.avatar}
         />
-        <BodyContainer>
-          {showDescription && (
-            <Grid>
-              <Column sm={12} md={9}>
-                <VoteDescription
-                  onComponentMounted={handleVideoPosition}
-                  ref={descriptionVideoContainerRef}
-                  description={processInfo?.metadata?.description.default}
-                  hasVideo={!!processInfo?.metadata?.media.streamUri}
-                  onLogOut={handleLogOut}
-                  discussionUrl={
-                    processInfo?.metadata?.meta[MetadataFields.DiscussionLink]
-                  }
-                  attachmentUrl={
-                    processInfo?.metadata?.meta[MetadataFields.AttachmentLink]
-                  }
-                  timeComment={dateDiffStr}
-                  voteStatus={voteStatus}
-                />
-              </Column>
-
-              <Column sm={12} md={3} hiddenSm hiddenMd>
-                <VoteNowCardContainer>
+        <If condition={userVoteStatus !== UserVoteStatus.InProgress}>
+          <Then>
+            <BodyContainer >
+              <Row gutter='2xl'>
+                {/* NOT AUTHENTICATED BANNER */}
+                {showNotAuthenticatedBanner &&
+                  <Col xs={12}>
+                    <Banner
+                      variant='primary'
+                      image={authenticateBannerImage}
+                      subtitleProps={
+                        {
+                          size: isMobile ? 'xs' : 'md',
+                          children: i18n.t('vote.auth.with_credentials')
+                        }
+                      }
+                      titleProps={{ size: 'sm' }}
+                      buttonProps={
+                        {
+                          variant: 'primary',
+                          children: i18n.t('vote.auth.auth_button'),
+                          iconRight: authenticateIcon,
+                          onClick: () => handleGotoAuth()
+                        }
+                      }
+                    >
+                      {i18n.t('vote.auth.not_authenticated')}
+                    </Banner>
+                  </Col>
+                }
+                {/* DISCONNECT BANNER */}
+                {showDisconnectBanner &&
+                  <Col xs={12} disableFlex>
+                    <Banner
+                      variant='primary'
+                      titleProps={{ weight: 'regular' }}
+                      buttonProps={
+                        {
+                          variant: 'white',
+                          children: i18n.t('vote.auth.disconnect_button'),
+                          iconRight: disconnectIcon,
+                          onClick: () => setDisconnectModalOpened(true)
+                        }
+                      }
+                    >
+                      {i18n.t('vote.you_are_autenticated')}
+                      <b> {localStorage.getItem('voterData')}</b>
+                    </Banner>
+                  </Col>
+                }
+                {/* DESCIRPTION */}
+                <Col xs={12} md={9}>
+                  <VoteDescription />
+                </Col>
+                {/* VOTE CARD */}
+                <StickyCol xs={12} md={3} hiddenSmAndDown disableFlex>
                   <VoteActionCard
+                    userVoteStatus={userVoteStatus}
                     onClick={handleVoteNow}
-                    onLogOut={handleLogOut}
-                    votingState={votingState}
-                    explorerLink={explorerLink}
-                    disabled={voteStatus !== VoteStatus.Active}
+                    onSeeResults={handleSeeResultsClick}
                   />
-                </VoteNowCardContainer>
-              </Column>
-            </Grid>
-          )}
+                </StickyCol>
+              </Row>
+            </BodyContainer>
+            <Spacer direction='vertical' size='3xl' />
+            {/* RESULTS CARD */}
+            <Row gutter='2xl'>
+              <Col xs={12}>
+                <ExpandableCard
+                  ref={resultsCardRef}
+                  isOpen={isExpandableCardOpen}
+                  onButtonClick={handleExpandableCardButtonClick}
+                  title={i18n.t("vote.voting_results_title")}
+                  icon={voteResultsIcon}
+                  buttonProps={{
+                    variant: 'light',
+                    iconRight: showMoreIcon,
+                    width: 124,
+                    children: i18n.t("vote.voting_results_show")
+                  }}
+                  buttonPropsOpen={{
+                    variant: 'outlined',
+                    iconRight: showMoreIcon,
+                    width: 124,
+                    children: i18n.t("vote.voting_results_hide")
+                  }}
+                >
+                  <ResultsCard />
+                </ExpandableCard>
+              </Col>
+            </Row>
+          </Then>
+          <Else>
+            <QuestionsList
+              results={choices}
+              questions={processInfo?.metadata?.questions}
+              voteWeight={votingType === VotingType.Weighted ? censusProof?.weight : null}
+              onSelect={votingMethods.onSelect}
+              onFinishVote={handleFinishVote}
+              onBackDescription={handleBackToDescription}
+            />
+          </Else>
+        </If>
 
-          {processInfo?.metadata?.media.streamUri && (
-            <PlayerFixedContainer
-              top={videosStyle.top}
-              height={videosStyle.height}
-              width={videosStyle.width}
-            >
-              <PlayerContainer>
-                <ReactPlayer
-                  url={processInfo?.metadata?.media.streamUri}
-                  width="100%"
-                  height="100%"
-                />
-              </PlayerContainer>
-            </PlayerFixedContainer>
-          )}
-        </BodyContainer>
+        {/* FIXED CARDS ON MOBILE VERSION */}
 
-        {votingState == VotingState.Started && (
-          <QuestionsList
-            onComponentMounted={handleVideoPosition}
-            ref={votingVideoContainerRef}
-            hasVideo={!!processInfo?.metadata?.media.streamUri}
-            results={choices}
-            questions={processInfo?.metadata?.questions}
-            voteWeight={voteWeight}
-            onSelect={votingMethods.onSelect}
-            onFinishVote={handleFinishVote}
-            onBackDescription={handleBackToDescription}
-          />
-        )}
+        {voteStatus === VoteStatus.Upcoming &&
+          <>
+            <MobileSpacer />
+            <FixedContainerRow align='center' justify='center'>
+              <Col>
+                <Text size='lg' color='white'>
+                  {i18n.t('vote.vote_will_start')}&nbsp;<b>{startingString}</b>
+                </Text>
+              </Col>
+            </FixedContainerRow>
+          </>
+        }
 
-        {showVotingButton && (
-          <FixedButtonContainer>
-            <div>
-              <Button
-                large
-                positive
-                wide
-                onClick={handleVoteNow}
-                disabled={voteStatus !== VoteStatus.Active}
-              >
-                {i18n.t('vote.vote_now')}
-              </Button>
-            </div>
-          </FixedButtonContainer>
-        )}
+        {voteStatus === VoteStatus.Active &&
+          <>
+            <MobileSpacer />
+            <VoteNowFixedContainer justify='center' align='center' gutter='md'>
+              <Col xs={12} justify='center'>
+                <Text size='lg' color='white'>
+                  {i18n.t('vote.vote_will_close')}&nbsp;<b>{endingString}</b>
+                </Text>
+              </Col>
+              <Col xs={12} disableFlex>
+                <Button variant='primary' size='lg'>
+                  {i18n.t("vote.vote_now")}
+                </Button>
+              </Col>
+              <Col xs={12} justify='center'>
+                <Spacer direction='vertical' size='2xs' />
+                <TextButton iconRight={seeResultsIcon} onClick={handleSeeResultsClick}>
+                  {i18n.t("vote.see_results")}
+                </TextButton>
+                <Spacer direction='vertical' size='2xs' />
+              </Col>
+            </VoteNowFixedContainer>
+          </>
+        }
 
-        {showLogInButton && (
-          <FixedButtonContainer>
-            <div>
-              <Typography variant={TypographyVariant.Body2}>
-                {i18n.t('vote.you_need_authenticate_to_vote')}
-              </Typography>
-              <Button large positive wide onClick={handleVoteNow}>
-                {i18n.t('vote.vote_now')}
-              </Button>
-            </div>
-          </FixedButtonContainer>
-        )}
 
+        {/* HAS VOTED CARD */}
         {hasVoted && (
           <VoteRegisteredLgContainer>
             <VoteRegisteredCard explorerLink={explorerLink} />
           </VoteRegisteredLgContainer>
         )}
-        {showResults &&
-          processInfo?.metadata?.questions.map(
-            (question: Question, index: number) => (
-              <VoteQuestionCard
-                questionIdx={index}
-                key={index}
-                question={question}
-                hasVoted={hasVoted}
-                totalVotes={totalVotes}
-                result={results?.questions[index]}
-                processStatus={processInfo?.state?.status}
-                selectedChoice={choices.length > index ? choices[index] : -1}
-                readOnly={true}
-                onSelectChoice={(selectedChoice) => {
-                  votingMethods.onSelect(index, selectedChoice)
-                }}
-              />
-            )
-          )}
-
-        <If condition={showDescription && totalVotes > 0}>
-          <Then>
-            <Grid>
-              <Card sm={12}>
-                <TextContainer align={TextAlign.Center}>
-                  {processVotingType === VotingType.Weighted
-                    ? i18n.t('vote.total_weighted_votes', {
-                      totalVotes: results?.totalVotes,
-                      totalWeightedVotes: results?.totalWeightedVotes,
-                    })
-                    : i18n.t('vote.total_votes', {
-                      totalVotes: results?.totalVotes,
-                    })}
-                </TextContainer>
-              </Card>
-            </Grid>
-          </Then>
-        </If>
       </VotingCard>
 
+      {/* MODALS */}
       <ConfirmModal
         isOpen={confirmModalOpened}
         onVoted={handleOnVoted}
         onClose={handleBackToVoting}
       />
+      <DisconnectModal
+        hideCloseButton
+        isOpen={disconnectModalOpened}
+        onRequestClose={() => setDisconnectModalOpened(false)}
+        onDisconnect={handleLogOut}
+      />
     </>
   )
 }
+const makeShowMoreIcon = (alt: string) => (
+  <img
+    src="/images/vote/show-more.svg"
+    alt={alt}
+  />
+)
+const makeVoteResultsIcon = (alt: string) =>
+(
+  <img
+    src="/images/vote/vote-results.svg"
+    alt={alt}
+  />
+)
+const makeAuthenticateIcon = (alt: string) => (
+  <img
+    src="/images/vote/authenticate-icon.svg"
+    alt={alt}
+  />
+)
+const makeAuthenticateBannerImage = (alt: string, size: number) => (
+  <img
+    src="/images/vote/authenticate-banner-image.svg"
+    width={size}
+    height={size}
+    alt={alt}
+  />
+)
+const makeDisconnectIcon = (alt: string) => (
+  <img
+    src="/images/vote/disconnect-icon.svg"
+    alt={alt}
+  />
+)
+const makeSeeResultsIcon = (alt: string) => (
+  <img
+    src="/images/vote/chevron-right.svg"
+    alt={alt}
+    height="10px"
+    width="10px"
+  />
+)
 
 const VotingCard = styled(PageCard)`
   @media ${({ theme }) => theme.screenMax.mobileL} {
@@ -435,6 +451,7 @@ const VoteRegisteredLgContainer = styled.div`
 const PlayerFixedContainer = styled.div<IVideoStyle>`
   position: absolute;
   margin-bottom: 20px;
+  margin:0;
   z-index: 30;
   transition: all 0.4s ease-in-out;
   top: ${({ top }) => top || 0}px;
@@ -445,7 +462,6 @@ const PlayerFixedContainer = styled.div<IVideoStyle>`
 const PlayerContainer = styled.div`
   width: 100%;
   height: 100%;
-  max-width: 800px;
   border-radius: 10px;
   overflow: hidden;
   margin: 0 auto;
@@ -475,7 +491,7 @@ const FixedButtonContainer = styled.div`
   }
 `
 
-const VoteNowCardContainer = styled.div`
+const StickyCol = styled(Col) <IColProps>`
   position: sticky;
   top: 20px;
 `
@@ -486,3 +502,29 @@ const SubmitButtonContainer = styled(FlexContainer)`
 const TextContainer = styled(Body1)`
   margin: 12px 0;
 `
+
+const FixedContainerRow = styled(Row)`
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 31;
+  background-color: rgba(13, 71, 82, 0.85);
+  min-height: 72px;
+  backdrop-filter: blur(8px);
+  @media ${({ theme }) => theme.screenMin.tablet} {
+    display: none;
+  }
+`
+const VoteNowFixedContainer = styled(FixedContainerRow)`
+  padding: 24px;
+`
+const MobileSpacer = styled.div`
+min-height: 72px;
+@media ${({ theme }) => theme.screenMin.tablet} {
+  display: none;
+}
+`
+// const StyledTextButton = styled(TextButton)`
+//   margin: 4px;
+// `

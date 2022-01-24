@@ -32,6 +32,7 @@ const VoteAuthLogin = () => {
     formValues,
     processInfo,
     methods,
+    invalidCredentials,
   } = useAuthForm()
   const { methods: votingMethods } = useVoting(processInfo?.id)
   const { metadata, loading, error } = useEntity(processInfo?.state?.entityId)
@@ -114,6 +115,7 @@ const VoteAuthLogin = () => {
           onChange={methods.setFormValue}
           onSubmit={handleSubmit}
           submitEnabled={!emptyFields}
+          invalidCredentials={invalidCredentials}
         />
       </div>
     )

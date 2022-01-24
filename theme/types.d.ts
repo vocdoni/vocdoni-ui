@@ -6,7 +6,7 @@ export interface Colors {
   lighterText: Color;
   blueText: Color;
   warningText: Color;
-  
+
   /** Background color of the body */
   background: Color;
 
@@ -52,6 +52,11 @@ export interface Colors {
   danger: Color;
   /** Success color */
   success: Color;
+
+  error: Color;
+  /* Error color updated */
+  errorV2: Color;
+
 
   white: Color;
   darkFg: Color;

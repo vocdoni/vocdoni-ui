@@ -21,6 +21,8 @@ export type CensusPoof = {
 export enum VotingType{
   Normal = ProcessCensusOrigin.OFF_CHAIN_TREE,
   Weighted = ProcessCensusOrigin.OFF_CHAIN_TREE_WEIGHTED,
+  // TODO add anonymous Voting
+  Anonymous = -1,
 }
 
 
