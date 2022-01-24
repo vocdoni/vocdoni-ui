@@ -454,18 +454,24 @@ const defaultCensusRoot = "0x000000000000000000000000000000000000000000000000000
 const defaultCensusUri = "ipfs://"
 
 const useProcessParameters = () => {
+  const initialEnvelopeType = new ProcessEnvelopeType(ProcessEnvelopeType.make({
+    serial: false, uniqueValues: false, encryptedVotes: false, anonymousVoters: false,
+  }))
+  const initialMode = new ProcessMode(ProcessMode.make({
+    autoStart: true, interruptible: true, dynamicCensus: false, encryptedMetadata: false, preregister: false
+  }))
   const [parameters] = useState<ProcessContractParameters>(() => ProcessContractParameters.fromParams({
     startBlock: 0,
     blockCount: 10000,
     censusOrigin: ProcessCensusOrigin.OFF_CHAIN_TREE,
     censusRoot: defaultCensusRoot,
     costExponent: 1,
-    envelopeType: ProcessEnvelopeType.make({ serial: false, uniqueValues: false, encryptedVotes: false, anonymousVoters: false }),
+    envelopeType: initialEnvelopeType,
     maxCount: 1,
     maxTotalCost: 0,
     maxValue: 1,
     maxVoteOverwrites: 0,
-    mode: ProcessMode.make({ autoStart: true, interruptible: true, dynamicCensus: false, encryptedMetadata: false, preregister: false }),
+    mode: initialMode,
     metadata: JSON.parse(JSON.stringify(ProcessMetadataTemplate)),
     censusUri: defaultCensusUri,
     paramsSignature: "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -576,19 +582,15 @@ const useProcessParameters = () => {
     forceUpdate()
   }
   const setAnonymousVoting = (anonymousVoting: boolean) => {
-    setEnvelopeType(ProcessEnvelopeType.make({
-      serial: false,
-      uniqueValues: false,
-      encryptedVotes: false,
-      anonymousVoters: anonymousVoting,
-    }) as unknown as ProcessEnvelopeType)
-    setMode(ProcessMode.make({
-      autoStart: true,
-      interruptible: true,
-      dynamicCensus: false,
-      encryptedMetadata: false,
-      preregister: anonymousVoting,
-    }) as unknown as ProcessMode)
+    // Setting envelope type if needed
+    if((anonymousVoting && !parameters.envelopeType.hasAnonymousVoters) || (!anonymousVoting && parameters.envelopeType.hasAnonymousVoters)) {
+      setEnvelopeType(new ProcessEnvelopeType(ProcessEnvelopeType.ANONYMOUS ^ parameters.envelopeType.value))
+    }
+
+    // Setting process mode if needed
+    if((anonymousVoting && !parameters.mode.hasPreregister) || (!anonymousVoting && parameters.mode.hasPreregister)) {
+      setMode(new ProcessMode(ProcessMode.PREREGISTER ^ parameters.mode.value))
+    }
   }
 
 
