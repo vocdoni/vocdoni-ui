@@ -1,13 +1,13 @@
-import React, { ChangeEvent, useRef, useState } from 'react'
+import React, { ChangeEvent, useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 import { Case, Default, Switch, When } from 'react-if'
-import { Trans, useTranslation } from 'react-i18next'
+import { useTranslation } from 'react-i18next'
 
 import { useProcessCreation } from '@hooks/process-creation'
 
 import { Column, Grid } from '@components/elements/grid'
 import { Button } from '@components/elements/button'
-import { SectionTitle, SectionText, TextSize } from '@components/elements/text'
+import { SectionText, SectionTitle } from '@components/elements/text'
 
 import { ProcessCreationPageSteps } from '.'
 import { CensusFileSelector } from './census-file-selector'
@@ -26,7 +26,7 @@ import { ImportVoterListNormal } from './components/import-voter-list-normal'
 import { ImportVoterListWeighted } from './components/import-voter-list-wighted'
 import { DisclaimerBanner } from './components/disclaimer-banner'
 import { VotingType } from '@lib/types'
-
+import { AnonymousCard } from './components/anonymous-card'
 
 export const FormCensus = () => {
   const { i18n } = useTranslation()
@@ -35,6 +35,7 @@ export const FormCensus = () => {
   const [censusRootError, setCensusRootError] = useState<string>()
   const [censusUriError, setCensusUriError] = useState<string>()
   const [showConfirmModal, setShowConfirmModal] = useState<boolean>(false)
+  const [showAnonymous, setShowAnonymous] = useState<boolean>(false)
   const changeVotingTypeRef = useRef<VotingType>()
   const advancedCensusEnabled = !!process.env.ADVANCED_CENSUS || false
 
@@ -43,12 +44,17 @@ export const FormCensus = () => {
     spreadSheetReader,
     processTerms,
     parameters,
-    votingType
+    votingType,
+    anonymousVoting,
   } = useProcessCreation()
   const { trackEvent } = useRudderStack()
 
   const continueDisabled =
     !spreadSheetReader && !methods.checkValidCensusParameters()
+
+  useEffect(() => {
+    setShowAnonymous(votingType === VotingType.Normal)
+  }, [votingType])
 
   const handleOnXlsUpload = (spreadSheet: SpreadSheetReader) => {
     methods.setSpreadSheetReader(spreadSheet)
@@ -113,13 +119,20 @@ export const FormCensus = () => {
     methods.setSpreadSheetReader(null)
   }
 
+  const handleChangeAnonymous = (anonymous: boolean) => {
+    methods.setAnonymousVoting(anonymous)
+  }
+
   return (
     <>
       <Grid>
         <When condition={!showAdvanced}>
           <>
             <Column>
-              <Typography variant={TypographyVariant.Body1} margin="10px 0 20px 0">
+              <Typography
+                variant={TypographyVariant.Body1}
+                margin="10px 0 20px 0"
+              >
                 1. {i18n.t('votes.new.select_voting_options')}
               </Typography>
             </Column>
@@ -131,9 +144,30 @@ export const FormCensus = () => {
               />
             </Column>
 
+            <When condition={showAnonymous}>
+              <Column>
+                <Typography
+                  variant={TypographyVariant.Body1}
+                  margin="18px 0 22px 0"
+                >
+                  2. {i18n.t('votes.new.select_')}
+                </Typography>
+              </Column>
+
+              <Column>
+                <AnonymousCard
+                  onChange={handleChangeAnonymous}
+                  anonymous={anonymousVoting}
+                />
+              </Column>
+            </When>
+
             <Column>
-              <Typography variant={TypographyVariant.Body1} margin="18px 0 22px 0">
-                2. {i18n.t('votes.new.import_the_list_of_voters')}
+              <Typography
+                variant={TypographyVariant.Body1}
+                margin="18px 0 22px 0"
+              >
+                {showAnonymous ? '3' : '2'}. {i18n.t('votes.new.import_the_list_of_voters')}
               </Typography>
 
               {votingType === VotingType.Normal && <ImportVoterListNormal />}

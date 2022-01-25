@@ -17,11 +17,13 @@ import { LayoutVoter } from '@components/pages/app/layout/voter'
 import { MetadataFields } from '@components/pages/votes/new/metadata'
 import { useVoting } from '@hooks/use-voting'
 
+import { useRouter } from 'next/router'
+import { PREREGISTER_PATH, VOTING_PATH } from '@const/routes'
+import { VotingType } from '@lib/types'
 // NOTE: This page uses a custom Layout. See below.
 
 const VoteAuthLogin = () => {
   const { i18n } = useTranslation()
-
   const [checkingCredentials, setCheckingCredentials] = useState<boolean>(false)
   const {
     invalidProcessId,
@@ -31,6 +33,7 @@ const VoteAuthLogin = () => {
     fieldNames,
     formValues,
     processInfo,
+    secretKey,
     methods,
   } = useAuthForm()
   const { methods: votingMethods } = useVoting(processInfo?.id)
@@ -59,7 +62,7 @@ const VoteAuthLogin = () => {
     }
   }, [processInfo, entityMetadata])
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     setCheckingCredentials(true)
 
     methods.onLogin()
@@ -112,6 +115,8 @@ const VoteAuthLogin = () => {
           processInfo={processInfo}
           entity={metadata}
           onChange={methods.setFormValue}
+          onChangeSecretKey={methods.setSecretKey}
+          secretKey={secretKey}
           onSubmit={handleSubmit}
           submitEnabled={!emptyFields}
         />

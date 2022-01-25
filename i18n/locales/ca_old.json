@@ -31,7 +31,11 @@
     },
     "votes": {
         "number_votes": "",
-        "show": {}
+        "show": {},
+        "preregister": {
+            "insert_password": "",
+            "password": ""
+        }
     },
     "results": {
         "no_results_available": "",
@@ -116,7 +120,11 @@
     },
     "voter": {
         "i_have_read_and_accept_the_entity_terms": "",
-        "accept_entity_terms": "Estic d'accord"
+        "accept_entity_terms": "Estic d'accord",
+        "preregister_view": {
+            "important": "",
+            "the_password_that_you_set_will_not_be_possible": ""
+        }
     },
     "actions": {
         "check_terms_and_conditions": ""

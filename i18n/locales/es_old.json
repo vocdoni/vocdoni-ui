@@ -1,6 +1,10 @@
 {
     "votes": {
-        "show": {}
+        "show": {},
+        "preregister": {
+            "insert_password": "",
+            "password": ""
+        }
     },
     "error": {
         "process_already_ended": "El proceso ha finalizado",
@@ -63,7 +67,11 @@
     },
     "voter": {
         "i_have_read_and_accept_the_entity_terms": "",
-        "accept_entity_terms": "Estoy de acuerdo"
+        "accept_entity_terms": "Estoy de acuerdo",
+        "preregister_view": {
+            "important": "",
+            "the_password_that_you_set_will_not_be_possible": ""
+        }
     },
     "actions": {
         "check_terms_and_conditions": ""

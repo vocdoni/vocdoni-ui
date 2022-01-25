@@ -19,6 +19,8 @@ module.exports = {
       config.resolve.alias['pdfkit'] = 'pdfkit/js/pdfkit.standalone.js'
     }
 
+    config.node = {...config.node, fs: 'empty'}
+
     return config
   }
 }

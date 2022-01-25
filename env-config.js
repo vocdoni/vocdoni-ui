@@ -21,6 +21,7 @@ switch (VOCDONI_ENVIRONMENT) {
 if (VOCDONI_ENVIRONMENT !== 'prod') {
   bootnodes = bootnodes.replace('.json', `.${VOCDONI_ENVIRONMENT}.json`)
   backend = backend.replace('manager.', `manager.${VOCDONI_ENVIRONMENT}.`)
+  explorer = `https://explorer.${VOCDONI_ENVIRONMENT}.vocdoni.net`
 } else {
   backend = 'backend.vocdoni.net'
 }

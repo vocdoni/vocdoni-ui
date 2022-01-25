@@ -61,8 +61,7 @@ export const useAuthKey = () => {
 
         const censusProof = await CensusOffChainApi.generateProof(
           processInfo.state?.censusRoot,
-          digestedHexClaim,
-          false,
+          { key: digestedHexClaim },
           pool
         )
 

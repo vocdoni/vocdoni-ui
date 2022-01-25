@@ -47,6 +47,7 @@ export interface ProcessCreationContext {
   startDate: Date,
   endDate: Date,
   votingType: VotingType,
+  anonymousVoting: boolean,
   spreadSheetReader,
   processTerms,
   methods: {
@@ -80,6 +81,7 @@ export interface ProcessCreationContext {
     setStringMetadata: (metadataOrigin: string) => void,
     setSpreadSheetReader: (metadata: SpreadSheetReader) => void,
     setVotingType: (votingType: VotingType) => void,
+    setAnonymousVoting: (anonymousVoting: boolean) => void,
     setHeaderFile,
     setHeaderURL,
     setStartRightAway,
@@ -116,6 +118,7 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
   const [startDate, setStartDate] = useState<Date>()
   const [endDate, setEndDate] = useState<Date>()
   const [votingType, setVotingType] = useState<VotingType>(VotingType.Normal)
+  const [anonymousVoting, setAnonymousVoting] = useState<boolean>(false)
   const { wallet } = useWallet()
   const { blockStatus } = useBlockStatus()
   const { pool, poolPromise } = usePool()
@@ -124,8 +127,13 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
   useEffect(() => {
     paramsMethods.setCensusOrigin(
       new ProcessCensusOrigin(votingType as IProcessCensusOrigin)
-    )    
+    )
   }, [votingType])
+
+  useEffect(() => {
+    paramsMethods.setAnonymousVoting(anonymousVoting)
+  }, [anonymousVoting])
+
   // STEPPER OPERATIONS
 
   const stepEnsureMedia: StepperFunc = () => {
@@ -174,14 +182,14 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
         const payload = importedRowToString(normalizedRow, entityId)
         const voterWallet = digestedWalletFromString(payload)
         const key = CensusOffChain.Public.encodePublicKey(voterWallet.publicKey)
-        
+
         resolve({ key, value: weight })
       }, 50)
     }))) as { key: string, value?: string }[]
 
     // Create the census
     const { censusId } = await CensusOffChainApi.addCensus(name, [wallet.publicKey], wallet, pool)
-    const { censusRoot, invalidClaims } = await CensusOffChainApi.addClaimBulk(censusId, claims, false, wallet, pool)
+    const { censusRoot, invalidClaims } = await CensusOffChainApi.addClaimBulk(censusId, claims, wallet, pool)
     if (invalidClaims.length) {
       return Promise.reject(new Error(i18n.t('error.num_entries_could_not_be_added_to_the_census', { total: invalidClaims.length })))
     }
@@ -371,6 +379,7 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
     startDate,
     endDate,
     votingType,
+    anonymousVoting,
     metadata,
     parameters,
     spreadSheetReader,
@@ -387,6 +396,7 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
       setPageStep,
       createProcess,
       setVotingType,
+      setAnonymousVoting,
       continueProcessCreation: doMainActionSteps,
       setProcessTerms,
       checkValidCensusParameters
@@ -444,18 +454,24 @@ const defaultCensusRoot = "0x000000000000000000000000000000000000000000000000000
 const defaultCensusUri = "ipfs://"
 
 const useProcessParameters = () => {
+  const initialEnvelopeType = new ProcessEnvelopeType(ProcessEnvelopeType.make({
+    serial: false, uniqueValues: false, encryptedVotes: false, anonymousVoters: false,
+  }))
+  const initialMode = new ProcessMode(ProcessMode.make({
+    autoStart: true, interruptible: true, dynamicCensus: false, encryptedMetadata: false, preregister: false
+  }))
   const [parameters] = useState<ProcessContractParameters>(() => ProcessContractParameters.fromParams({
     startBlock: 0,
     blockCount: 10000,
     censusOrigin: ProcessCensusOrigin.OFF_CHAIN_TREE,
     censusRoot: defaultCensusRoot,
     costExponent: 1,
-    envelopeType: ProcessEnvelopeType.make({ serial: false, uniqueValues: false, encryptedVotes: false, anonymousVoters: false }),
+    envelopeType: initialEnvelopeType,
     maxCount: 1,
     maxTotalCost: 0,
     maxValue: 1,
     maxVoteOverwrites: 0,
-    mode: ProcessMode.make({ autoStart: true, interruptible: true, dynamicCensus: false, encryptedMetadata: false }),
+    mode: initialMode,
     metadata: JSON.parse(JSON.stringify(ProcessMetadataTemplate)),
     censusUri: defaultCensusUri,
     paramsSignature: "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -565,6 +581,18 @@ const useProcessParameters = () => {
     parameters.metadata = metadataOrigin
     forceUpdate()
   }
+  const setAnonymousVoting = (anonymousVoting: boolean) => {
+    // Setting envelope type if needed
+    if((anonymousVoting && !parameters.envelopeType.hasAnonymousVoters) || (!anonymousVoting && parameters.envelopeType.hasAnonymousVoters)) {
+      setEnvelopeType(new ProcessEnvelopeType(ProcessEnvelopeType.ANONYMOUS ^ parameters.envelopeType.value))
+    }
+
+    // Setting process mode if needed
+    if((anonymousVoting && !parameters.mode.hasPreregister) || (!anonymousVoting && parameters.mode.hasPreregister)) {
+      setMode(new ProcessMode(ProcessMode.PREREGISTER ^ parameters.mode.value))
+    }
+  }
+
 
   // parameters.paramsSignature
   // parameters.questionCount  (computed automatically by dvote-js)
@@ -587,6 +615,7 @@ const useProcessParameters = () => {
     setMaxValue,
     setMaxVoteOverwrites,
     setStringMetadata,
+    setAnonymousVoting
   }
   return { parameters, methods }
 }

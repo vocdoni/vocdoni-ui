@@ -1,5 +1,5 @@
 import { usePool, useBlockHeight } from '@vocdoni/react-hooks'
-import { ProcessDetails, CensusOffChain, CensusOffChainApi, ProcessResultsSingleChoice, VotingApi } from 'dvote-js'
+import { ProcessDetails, CensusOffChain, CensusOffChainApi, AnonymousEnvelopeParams, VotingApi, Voting, ZkInputs, ZkSnarks, Keccak256, Poseidon } from 'dvote-js'
 import { createContext, ReactNode, useContext, useEffect, useState } from 'react'
 
 import { useWallet, WalletRoles } from './use-wallet'
@@ -9,6 +9,8 @@ import { useStepper } from './use-stepper'
 import { useMessageAlert } from './message-alert'
 import { areAllNumbers, waitBlockFraction } from '../lib/util'
 import { useProcessWrapper } from '@hooks/use-process-wrapper'
+import { useRecoilState } from 'recoil'
+import { ZKcensusProofState } from '@recoil/atoms/zk-census-proof'
 
 
 export interface VotingContext {
@@ -25,12 +27,12 @@ export interface VotingContext {
   remainingTime: string,
   hasVoted: boolean,
   canVote: boolean,
-  // isInCensus: boolean,
   choices: number[],
   allQuestionsChosen: boolean,
   statusText: string,
   processId: string,
-  nullifier: string,
+  nullifier: string | bigint,
+  explorerLink: string,
   invalidProcessId: boolean,
   refreshingVotedStatus: boolean,
   results: IProcessResults,
@@ -41,6 +43,7 @@ export interface VotingContext {
     setProcessId: (processId: string) => void,
     onSelect: (questionIdx: number, choiceValue: number) => void,
     cleanup: () => void,
+    setAnonymousKey,
 
     submitVote: () => Promise<void>,
     continueSubmitVote: () => Promise<void>
@@ -80,15 +83,17 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
     results,
     methods
   } = useProcessWrapper(processId)
-  // const censusProof = useRecoilStateLoadable(censusProofState)
+  const [anonymousKey, setAnonymousKey] = useState<bigint>()
   const { wallet } = useWallet({ role: WalletRoles.VOTER })
   const { setAlertMessage } = useMessageAlert()
   const { blockHeight } = useBlockHeight()
-  const [nullifier, setNullifier] = useState("")
+  const [nullifier, setNullifier] = useState<string | bigint>()
+  const [explorerLink, setExplorerLink] = useState<string>()
   const [censusProof, setCensusProof] = useState<CensusPoof>()
   const [hasVoted, setHasVoted] = useState(false)
   const [refreshingVotedStatus, setRefreshingVotedStatus] = useState(false)
   const [choices, setChoices] = useState([] as number[])
+  const [censusProofZK, _] = useRecoilState(ZKcensusProofState)
 
   // Effects
 
@@ -108,9 +113,18 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
     if (!wallet?.address || !processId || invalidProcessId) return
 
     // Future: adapt to the zk snark case
-
-    const nullifier = VotingApi.getSignedVoteNullifier(wallet.address, processId)
-    setNullifier(nullifier)
+    let nullifier: string | bigint
+    const baseExplorerLink = process.env.EXPLORER_URL + '/envelope/'
+    if (processInfo?.state?.envelopeType.anonymous) {
+      if (!anonymousKey) return
+      nullifier = Voting.getAnonymousVoteNullifier(anonymousKey, processId)
+      setNullifier(nullifier)
+      setExplorerLink(baseExplorerLink + Voting.getAnonymousHexNullifier(anonymousKey, processId, true))
+    } else {
+      nullifier = Voting.getSignedVoteNullifier(wallet.address, processId)
+      setNullifier(nullifier)
+      setExplorerLink(baseExplorerLink + nullifier)
+    }
   }, [wallet?.address, processId])
 
   // Loaders
@@ -122,13 +136,11 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
     try {
       const pool = await poolPromise
 
-      const isDigested = false
       const digestedHexClaim = CensusOffChain.Public.encodePublicKey(wallet.publicKey)
 
       const censusProof = await CensusOffChainApi.generateProof(
         processInfo.state?.censusRoot,
-        digestedHexClaim,
-        isDigested,
+        { key: digestedHexClaim },
         pool
       )
       if (!censusProof) return setAlertMessage(i18n.t("errors.you_are_not_part_of_the_census"))
@@ -203,14 +215,22 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
     try {
       const pool = await poolPromise
 
+      let processKeys = null
       // Detect encryption
       if (processInfo.state?.envelopeType.encryptedVotes) {
-        const processKeys = await VotingApi.getProcessKeys(processId, pool)
-        const envelope = await VotingApi.packageSignedEnvelope({ censusOrigin: processInfo.state?.censusOrigin, votes: choices, censusProof, processId, walletOrSigner: wallet, processKeys })
-        await VotingApi.submitEnvelope(envelope, wallet, pool)
+        processKeys = await VotingApi.getProcessKeys(processId, pool)
       }
-      else {
-        const envelope = await VotingApi.packageSignedEnvelope({ censusOrigin: processInfo.state?.censusOrigin, votes: choices, censusProof, processId, walletOrSigner: wallet })
+
+      if (processInfo.state?.envelopeType?.anonymous) {
+        await anonymousVote(anonymousKey, choices, processId, processKeys, pool)
+      } else {
+        const envelope = await Voting.packageSignedEnvelope({
+          censusOrigin: processInfo.state?.censusOrigin,
+          votes: choices,
+          censusProof,
+          processId,
+          processKeys
+        })
         await VotingApi.submitEnvelope(envelope, wallet, pool)
       }
 
@@ -276,6 +296,55 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
 
   const canVote = processInfo && nullifier && isInCensus && !hasVoted && hasStarted && !hasEnded
 
+
+
+
+  const anonymousVote = async (secretKey, choices, processId, processKeys, pool) => {
+    const state = await VotingApi.getProcessState(processId, pool)
+    // const censusProofZK = await CensusOnChainApi.generateProof(state.rollingCensusRoot, secretKey, pool)
+
+    const circuitInfo = await VotingApi.getProcessCircuitInfo(processId, pool)
+    const witnessGeneratorWasm = await VotingApi.fetchAnonymousWitnessGenerator(circuitInfo)
+    const zKey = await VotingApi.fetchAnonymousVotingZKey(circuitInfo)
+
+    // Prepare ZK Proof
+    const nullifier = Voting.getAnonymousVoteNullifier(secretKey, processId)
+    const { votePackage, keyIndexes } = Voting.packageVoteContent(choices, processKeys)
+
+    const inputs: ZkInputs = {
+      censusRoot: state.rollingCensusRoot,
+      censusSiblings: censusProofZK.siblings,
+      maxSize: circuitInfo.maxSize,
+      keyIndex: censusProofZK.index,
+      nullifier,
+      secretKey: secretKey,
+      processId: Voting.getSnarkProcessId(processId),
+      votePackage
+    }
+
+    const zkProof = await ZkSnarks.computeProof(inputs, witnessGeneratorWasm, zKey)
+    // Only for verifying
+    // const vKey = await VotingApi.fetchAnonymousVotingVerificationKey(circuitInfo)
+    // const verifyProof = await ZkSnarks.verifyProof(JSON.parse(Buffer.from(vKey).toString()), zkProof.publicSignals as any, zkProof.proof as any)
+
+    zkProof.publicSignals = [nullifier.toString()]
+
+    const envelopeParams: AnonymousEnvelopeParams = {
+      votePackage,
+      processId,
+      zkProof,
+      nullifier,
+      circuitIndex: circuitInfo.index,
+      encryptionKeyIndexes: keyIndexes
+    }
+
+    // Package and submit
+    const envelope = Voting.packageAnonymousEnvelope(envelopeParams)
+
+    return VotingApi.submitEnvelope(envelope, null, pool)
+  }
+
+
   // RETURN VALUES
   const value: VotingContext = {
     actionStep,
@@ -289,8 +358,8 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
     hasVoted,
     hasStarted,
     hasEnded,
-    // isInCensus,
     nullifier,
+    explorerLink,
     processId,
     canVote,
     remainingTime,
@@ -304,6 +373,7 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
       setProcessId,
       onSelect,
       cleanup,
+      setAnonymousKey,
 
       submitVote: doMainActionSteps,
       continueSubmitVote: doMainActionSteps
