@@ -117,7 +117,7 @@ jobs:
             ETH_NETWORK_ID=xdai
             BLOCK_TIME=12
             BOOTNODES_URL=https://bootnodes.vocdoni.net/gateways.priv.json
-            BACKEND_URL=https://manager.vocdoni.net/api/manager
+            BACKEND_URL=https://backend.vocdoni.net/api/manager
             BACKEND_PUB_KEY=03cd13285ea116b9093a47364b29ddb09eccf50aa2f0112b6084a0b10943964d4e
             DISCOVERY_POOL_SIZE=1
           push: true
@@ -156,7 +156,7 @@ jobs:
           ETH_NETWORK_ID: "xdai"
           BLOCK_TIME: "12"
           BOOTNODES_URL: "https://bootnodes.vocdoni.net/gateways.priv.json"
-          BACKEND_URL: "https://manager.vocdoni.net/api/manager"
+          BACKEND_URL: "https://backend.vocdoni.net/api/manager"
           BACKEND_PUB_KEY: "03cd13285ea116b9093a47364b29ddb09eccf50aa2f0112b6084a0b10943964d4e"
           DISCOVERY_POOL_SIZE: "1"
           ANALYTICS_KEY: '202ZI3WhmcYBnY1Bre6umCcmK9Y'
