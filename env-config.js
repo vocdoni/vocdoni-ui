@@ -21,6 +21,8 @@ switch (VOCDONI_ENVIRONMENT) {
 if (VOCDONI_ENVIRONMENT !== 'prod') {
   bootnodes = bootnodes.replace('.json', `.${VOCDONI_ENVIRONMENT}.json`)
   backend = backend.replace('manager.', `manager.${VOCDONI_ENVIRONMENT}.`)
+} else {
+  backend = 'backend.vocdoni.net'
 }
 
 module.exports = {
