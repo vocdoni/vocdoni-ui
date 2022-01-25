@@ -43,6 +43,7 @@ export interface VotingContext {
     setProcessId: (processId: string) => void,
     onSelect: (questionIdx: number, choiceValue: number) => void,
     cleanup: () => void,
+    setAnonymousKey,
 
     submitVote: () => Promise<void>,
     continueSubmitVote: () => Promise<void>
@@ -372,6 +373,7 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
       setProcessId,
       onSelect,
       cleanup,
+      setAnonymousKey,
 
       submitVote: doMainActionSteps,
       continueSubmitVote: doMainActionSteps
