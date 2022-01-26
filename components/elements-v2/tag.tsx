@@ -1,7 +1,10 @@
+import { colorsV2 } from '@theme/colors-v2'
 import { theme } from '@theme/global'
 import { ReactNode } from 'react'
+import { colors } from 'react-select/src/theme'
 import styled from 'styled-components'
 import { Col, Row } from './grid'
+import { Text } from '.'
 
 
 interface ITagProps {
@@ -25,7 +28,9 @@ export const Tag = (props: ITagProps) => {
       </Col>
       {props.label &&
         <StyledLabel>
-          {props.label}
+          <Text size='xs' weight='medium' color='dark-blue'>
+            {props.label}
+          </Text>
         </StyledLabel>
       }
     </Row>
@@ -66,33 +71,31 @@ const getTagFontWeight = (props: ITagProps) => {
 const getTagColor = (props: ITagProps) => {
   switch (props.variant) {
     case 'error':
-      return theme.white
+      return colorsV2.support.critical[600]
     case 'info':
-      return '#1588B9'
-    case 'neutral':
-      return '#52606D'
+      return colorsV2.support.info[600]
     case 'success':
-      return '#74AF07'
+      return colorsV2.support.success[600]
     case 'warning':
-      return '#DB7D24'
+      return colorsV2.support.warning[600]
     default:
-      return '#52606D'
+      // default is neutral
+      return colorsV2.neutral[600]
   }
 }
 const getTagBackgroundColor = (props: ITagProps) => {
   switch (props.variant) {
     case 'error':
-      return theme.error
+      return colorsV2.support.critical[100]
     case 'info':
-      return '#D1FDFA'
-    case 'neutral':
-      return '#E4E7EB'
+      return colorsV2.support.info[100]
     case 'success':
-      return '#F3FCCC'
+      return colorsV2.support.success[100]
     case 'warning':
-      return '#FFF3D6'
+      return colorsV2.support.warning[100]
     default:
-      return '#E4E7EB'
+      // default is neutral
+      return colorsV2.neutral[100]
   }
 }
 
@@ -108,9 +111,9 @@ const StyledTag = styled.div<ITagProps>`
   color:${getTagColor};
 `
 const StyledLabel = styled.span`
-  font-family: Manrope;
-  font-weight: 500;
-  font-size: 14px;
-  color: #52606D;
+  // font-family: Manrope;
+  // font-weight: 500;
+  // font-size: 14px;
+  // color: #52606D;
   margin-left: 16px;
 `

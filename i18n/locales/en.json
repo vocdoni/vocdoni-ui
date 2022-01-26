@@ -716,6 +716,12 @@
   },
   "vote_detail": {
     "cancel_vote": "Cancel vote",
+    "cancel_dialog": {
+      "title": "Cancel vote",
+      "subtitle": "This action is irreverseable.<br /> Are you sure you want to cancel this vote?",
+      "acceptText": "Yes, Cancel vote",
+      "backText": "No, go back"
+    },
     "calendar_card": {
       "title": "Calendar",
       "end_date": "End",
@@ -731,6 +737,12 @@
     "details": "Details",
     "document": "Document",
     "end_vote": "End vote",
+    "end_dialog": {
+      "title": "End vote",
+      "subtitle": "This action is irreverseable.<br /> Are you sure you want to end this vote?",
+      "acceptText": "Yes, End vote",
+      "backText": "No, go back"
+    },
     "external_links": {
       "title":"External links",
       "document":"Document",
@@ -746,6 +758,7 @@
     "generate_pdf_with_results": "Generate a PDF with results",
     "link": "Link",
     "options": "Options",
+    "preview": "Preview",
     "q_and_a": "Q&A",
     "questions_card": {
       "title": "Voting Results",
@@ -808,6 +821,7 @@
     "change_entity_name": "Change entity name",
     "checking_details": "Checking the details",
     "confirm_your_vote": "Confirm your vote",
+    "copied": "Copied!",
     "copy": "Copy",
     "creating_census": "Creating census",
     "creating_process": "Creating process",

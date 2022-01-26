@@ -5,6 +5,7 @@ import copy from 'copy-to-clipboard'
 import { useMessageAlert } from '@hooks/message-alert'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
+import { useState } from 'react'
 
 interface CopyLinkCardProps {
   url: string
@@ -13,12 +14,20 @@ interface CopyLinkCardProps {
 export const CopyLinkCard = (props: CopyLinkCardProps) => {
   const { i18n } = useTranslation()
   const { setAlertMessage } = useMessageAlert()
+  const [buttonText, setButtontext] = useState<string>(i18n.t('vote.copy'))
+  const [disabled, setDisabled] = useState(false)
   const handleCopy = () => {
+    setButtontext(i18n.t('vote.copied'))
+    setDisabled(true)
+    setTimeout(() => {
+      setDisabled(false)
+      setButtontext(i18n.t('vote.copy'))
+    }, 2000)
     copy(props.url)
     setAlertMessage(i18n.t("copy.the_link_has_been_copied_to_the_clipboard"))
   }
   return (
-    <Card padding='16px' flat variant='dashed'>
+    <Card padding='16px' variant='dashed'>
       <Row align="center" justify='space-between' wrap={false} gutter='md'>
         <Col xs="auto">
           <LinkIcon />
@@ -28,9 +37,15 @@ export const CopyLinkCard = (props: CopyLinkCardProps) => {
             <Col xs={9}>
               <EllipsisText size='sm' color='dark-blue'> {props.url} </EllipsisText>
             </Col>
-            <Col xs={4}>
-              <Button variant='white' color={theme.accent1} size='sm' onClick={handleCopy}>
-                {i18n.t('vote.copy')}
+            <Col xs={6} md={4}>
+              <Button
+                variant='white'
+                color={theme.accent1}
+                size='sm'
+                disabled={disabled}
+                onClick={handleCopy}
+              >
+                {buttonText}
               </Button>
             </Col>
           </Row>
@@ -46,4 +61,19 @@ const EllipsisText = styled(Text)`
   max-width: 296px;
   display: block;
   white-space: nowrap;
+  @media ${theme.screenMin.desktop} {
+    max-width: 300px;
+  }
+  @media ${theme.screenMin.laptopL} and ${theme.screenMax.desktop} {
+    max-width: 256px;
+  }
+  @media ${theme.screenMin.tablet} and ${theme.screenMax.laptopL}{
+    max-width: 150px;
+  }
+  @media ${theme.screenMin.mobileL} and ${theme.screenMax.tablet}{
+    max-width: 128px;
+  }
+  @media ${theme.screenMax.mobileL} {
+    max-width: 128px;
+  }
 `

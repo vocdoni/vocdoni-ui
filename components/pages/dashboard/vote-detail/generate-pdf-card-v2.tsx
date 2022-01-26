@@ -10,6 +10,7 @@ import { useUrlHash } from "use-url-hash"
 import { ResultPdfGenerator } from '@lib/result-pdf-generator'
 import { useEntity } from "@vocdoni/react-hooks"
 import { useWallet, WalletRoles } from "@hooks/use-wallet"
+import styled from "styled-components"
 
 interface GeneratePdfCardProps {
   onSeeResultsClick?: () => void
@@ -25,6 +26,9 @@ export const GeneratePdfCard = (props: GeneratePdfCardProps) => {
   // compute constants
   const votesPercent = (totalVotes / censusSize) * 100 | 0
   const resultsAvailable = status === VoteStatus.Ended || liveResults
+  // disabled buttons
+  const generatePdfEnabled = [VoteStatus.Ended, VoteStatus.Active].includes(status)
+  const seeResultsEnabled = [VoteStatus.Ended, VoteStatus.Active].includes(status)
   // download PDF
   const handleDownloadPDF = () => {
     const resultPdfGenerator = new ResultPdfGenerator({ process: processInfo, processResults: results })
@@ -37,7 +41,7 @@ export const GeneratePdfCard = (props: GeneratePdfCardProps) => {
       })
   }
   return (
-    <Card variant="gray" padding="32px 78px">
+    <StyledCard variant="gray" padding="32px 78px">
       <Row gutter="lg">
         <Col xs={12} justify="center">
           <Row gutter="xs">
@@ -61,8 +65,9 @@ export const GeneratePdfCard = (props: GeneratePdfCardProps) => {
             <Col xs={12}>
               <Button
                 variant="primary"
-                disabled={!resultsAvailable}
+                disabled={!generatePdfEnabled}
                 onClick={props.onSeeResultsClick}
+                icon
                 iconRight={{ name: 'chevron-right', size: 16 }}
               >
                 {i18n.t('vote_detail.generate_pdf_card.see_results')}
@@ -71,7 +76,7 @@ export const GeneratePdfCard = (props: GeneratePdfCardProps) => {
             <Col xs={12}>
               {/* TODO COLORS */}
               <Button
-                disabled={!resultsAvailable}
+                disabled={!seeResultsEnabled}
                 onClick={handleDownloadPDF}
                 variant="white"
                 iconLeft={{ name: 'download', size: 24 }}
@@ -82,6 +87,15 @@ export const GeneratePdfCard = (props: GeneratePdfCardProps) => {
           </Row>
         </Col>
       </Row>
-    </Card>
+    </StyledCard>
   )
 }
+
+const StyledCard = styled(Card)`
+@media ${theme.screenMin.laptopL}  {
+  padding:32px 78px
+}
+@media ${theme.screenMin.tablet} and ${theme.screenMax.laptopL}{
+  padding: 32px
+}
+`

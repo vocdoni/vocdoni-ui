@@ -3,7 +3,18 @@ import SVG, { Props as SVGProps } from "react-inlinesvg";
 import { theme } from "@theme/global";
 
 // GENERAL ICON DEFINITION
-const getIconColor = (props: SVGProps) => {
+const getFillColor = (props: SVGProps) => {
+  const fillIcons = ['alert-circle', 'spinner']
+  const hasFill = fillIcons.includes(props.name)
+  if (hasFill) {
+    if (props.color) {
+      return props.color
+    }
+    return theme.accent1
+  }
+  return ''
+}
+const getStrokeColor = (props: SVGProps) => {
   if (props.color) {
     return props.color
   }
@@ -13,8 +24,10 @@ const getIconColor = (props: SVGProps) => {
 const StyledIcon = styled(SVG)`
 & path {
   transition: 0.3s;
-  stroke: ${getIconColor};
+  stroke: ${getStrokeColor};
+  fill: ${getFillColor};
 }
+
 `
 export interface IconProps {
   color?: string
@@ -26,14 +39,18 @@ export interface SpecificIconProps {
   size?: number
 }
 
-type AvailableIcons =
+export type AvailableIcons =
   'chevron-right' |
   'pie-chart' |
   'download' |
   'trash' |
-  'shutdown'|
-  'pencil'|
-  'lightning-slash'
+  'shutdown' |
+  'pencil' |
+  'lightning-slash' |
+  'chevron-up-down' |
+  'eye' |
+  'alert-circle'|
+  'spinner'
 
 const getIconSource = (name: AvailableIcons) => {
   return `/icons/common/${name}.svg`
@@ -49,6 +66,7 @@ const getIconSize = (size: number) => {
 export const Icon = (props: IconProps) => {
   return (
     <StyledIcon
+      name={props.name}
       src={getIconSource(props.name)}
       height={getIconSize(props.size)}
       width={getIconSize(props.size)}
@@ -73,9 +91,25 @@ export const ChevronRightIcon = (props: SpecificIconProps) => (
     color={props.color}
   />
 )
+export const AlertCircleIcon = (props: SpecificIconProps) => (
+  <StyledIcon
+    src="/icons/common/alert-circle.svg"
+    height={getIconSize(props.size)}
+    width={getIconSize(props.size)}
+    color={props.color}
+  />
+)
 export const ChevronUpDownIcon = (props: SpecificIconProps) => (
   <StyledIcon
     src="/icons/common/chevron-up-down.svg"
+    height={getIconSize(props.size)}
+    width={getIconSize(props.size)}
+    color={props.color}
+  />
+)
+export const EyeIcon = (props: SpecificIconProps) => (
+  <StyledIcon
+    src="/icons/common/eye.svg"
     height={getIconSize(props.size)}
     width={getIconSize(props.size)}
     color={props.color}
@@ -207,7 +241,12 @@ const rotate = keyframes`
   }
 `
 export const Rotate = styled.div`
-  animation: ${rotate} 2s linear infinite;
+
+  -webkit-animation: ${rotate} 1s infinite linear;
+  -o-animation: ${rotate} 1s infinite  linear;
+   animation: ${rotate} 1s infinite linear;
+  transform-origin: center center;
+  transform-box: fill-box;
 `
 export interface IconProps {
 
