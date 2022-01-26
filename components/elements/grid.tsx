@@ -50,7 +50,7 @@ export const Column = (props: ColumnProps) => {
 }
 
 export const ColumnDiv = styled.div<ColumnProps>`
-  margin: ${GRID_GUTTER / 2}px;
+  padding: ${GRID_GUTTER / 2}px;
   box-sizing: border-box;
   width: calc(${props => resolveResponsiveSpan(props).xs * 100 / GRID_COLUMNS}% - ${GRID_GUTTER}px);
 

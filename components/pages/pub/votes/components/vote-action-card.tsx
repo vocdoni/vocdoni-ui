@@ -134,7 +134,7 @@ const BannerDiv = styled.div<{ positive?: boolean }>`
   padding: 16px;
   box-shadow: 0px 3px 3px rgba(180, 193, 228, 0.35);
   border-radius: 16px;
-  background-color: #D3D3D3;
+  background-color: #F0F0F0;
 
   @media ${({ theme }) => theme.screenMax.mobileL} {
     padding: 12px;

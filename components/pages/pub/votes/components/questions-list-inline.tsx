@@ -68,15 +68,14 @@ export const QuestionsListInline = forwardRef<HTMLDivElement, IQuesListInlinePro
           <Column>
             <Separator>&nbsp;</Separator>
             <Separator>&nbsp;</Separator>
-            <Separator>&nbsp;</Separator>
 
             <Typography color='#434548' variant={TypographyVariant.Small}>
               A continuació hi ha un total de 22 preguntes. Per poder emetre el vostre vot cal que les respongueu totes tot seleccionant una resposta, d’entre les possibles de cada pregunta. Per emetre el votre vot cal que premeu el botó “Envia el teu vot” que hi ha al final d’aquesta pàgina a l’esquerra i que confirmeu aquesta acció a la finestra emergent que us apereixarà a continuació. El vostre vot només serà emès correctament si feu totes aquestes passes amb l’odre indicat, és a dir: 
-              <QuestionUl>
-                <li>1) respondre totes les preguntes,</li>
+              <DescriptionUl>
+                <li>1) Respondre totes les preguntes,</li>
                 <li>2) prémer el botó “Envia el teu vot” i</li>
                 <li>3) confirmar l’enviament del vot a la finestra emergent.</li>
-              </QuestionUl>
+              </DescriptionUl>
             </Typography>
 
             <Separator>&nbsp;</Separator>
@@ -237,6 +236,10 @@ const QuestionUl = styled.ul`
   padding: 0;
   position: relative;
   padding-bottom: 12px;
+  line-height: 25px;
+  display:flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 `
 
 const QuestionLi = styled.li<{ active: boolean }>`
@@ -246,12 +249,19 @@ const QuestionLi = styled.li<{ active: boolean }>`
 const QuestionLiTwoColumns = styled.li<{ active: boolean }>`
   margin-top:20px;
   width:48%;
-  float:left;
   margin-right:1%;
 
   @media ${({ theme }) => theme.screenMax.tabletL} {
     width:100%;
     margin-right:0%;
+  }
+
+  & > div {
+    min-height: 135px;
+
+    @media ${({ theme }) => theme.screenMax.tabletL} {
+      min-height: auto;
+    }
   }
 `
 
@@ -267,4 +277,9 @@ const SubBanner = styled.div`
 const H1WithPaddingTop = styled.h1`
   padding-top:120px;
   clear:both;
+`
+
+const DescriptionUl = styled.ul`
+  line-height: 25px;
+  list-style: none;
 `

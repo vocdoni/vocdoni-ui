@@ -33,11 +33,15 @@ export const CardImageHeader = ({
   const { i18n } = useTranslation()
   const { accent1 } = useTheme()
 
-  const headerImageSrc = processImage || FALLBACK_VOTE_HEADER_IMAGE
-  const entityImageSrc = entityImage || FALLBACK_ACCOUNT_ICON
+  const headerImageSrc = '/media/header.jpeg'
+  const entityImageSrc = '/media/logo.png'
 
   return (
     <CardImageHeaderContainer>
+      <EntityLogoWrapper>
+        <Image src={entityImageSrc} alt={i18n.t('vote.entity_logo_alt')} />
+      </EntityLogoWrapper>
+
       <PageCardHeader>
         <Image
           src={headerImageSrc}
@@ -80,12 +84,11 @@ const CardBody = styled(Body1)`
 
 const EntityLogoWrapper = styled.div`
   overflow: hidden;
-  border-radius: 50%;
-  width: 84px;
   height: 84px;
   display: flex;
-  margin: -62px auto 0px;
+  margin: 0px auto 0px;
   border: solid 1px ${({ theme }) => theme.white};
+  margin-bottom:40px;
 
   & > img {
     max-height: 100%;
