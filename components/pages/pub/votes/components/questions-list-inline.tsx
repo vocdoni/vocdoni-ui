@@ -244,6 +244,7 @@ const QuestionUl = styled.ul`
 
 const QuestionLi = styled.li<{ active: boolean }>`
   margin-top:20px;
+  width: 100%;
 `
 
 const QuestionLiTwoColumns = styled.li<{ active: boolean }>`
