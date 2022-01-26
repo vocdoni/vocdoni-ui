@@ -1,6 +1,5 @@
 import { useRef, useLayoutEffect } from 'react'
 import { TextButton } from '@components/elements-v2/text-button'
-import { Button } from '@components/elements/button'
 import { colors } from '@theme/colors'
 import { initial, set } from 'lodash'
 import { ReactNode, useState } from 'react'
@@ -8,7 +7,7 @@ import styled from 'styled-components'
 import { CalendarCard } from './calendar-card'
 import { MarkDownViewer } from './mark-down-viewer'
 import { When } from 'react-if'
-import { Col, Row, Spacer, Text } from '@components/elements-v2'
+import { Col, Row, Spacer, Text, Button } from '@components/elements-v2'
 
 
 interface ExpandableContainerProps {
@@ -36,7 +35,7 @@ export const ExpandableContainer = (props: ExpandableContainerProps) => {
     }
   })
   return (
-    <Row gutter='none'>
+    <Row gutter='xs'>
       {/* <Col xs={12}> */}
       <TextContainer
         ref={ref}
@@ -44,36 +43,43 @@ export const ExpandableContainer = (props: ExpandableContainerProps) => {
         {...props}
       >
         <Text size='sm' weight='light' color='dark-blue'>
-          <MarkDownViewer content={props.children} />
+          {props.children}
+          {/* <MarkDownViewer content={props.children} /> */}
         </Text>
       </TextContainer>
       {/* </Col> */}
       {height > lineHeight &&
-        <Col xs={12}>
-          <Spacer direction='vertical' size='xs' />
-          <TextButton onClick={() => setIsExpanded(!isExpanded)} >
+        <Col justify='start'>
+          <Button onClick={() => setIsExpanded(!isExpanded)} variant='text' >
             {isExpanded ? props.buttonExpandedText : props.buttonText}
-          </TextButton>
+          </Button>
         </Col>
       }
     </Row>
   )
 }
-const getLineClamp = (props:IContainerProps) => {
-  if(!props.isExpanded && props.lines) {
+const getLineClamp = (props: IContainerProps) => {
+  if (!props.isExpanded && props.lines) {
     return props.lines
   }
   return 'initial'
 }
-const getMaxHeight = (props:IContainerProps) => {
-  if(!props.isExpanded && props.maxHeight) {
+const getMaxHeight = (props: IContainerProps) => {
+  if (!props.isExpanded && props.maxHeight) {
     return props.maxHeight
   }
   return undefined
 }
+const getTransition = (props: IContainerProps) => {
+  if (!props.isExpanded) {
+    return 'max-height 0.15s ease-out'
+  }
+  return 'max-height 0.25s ease-in'
+}
 const TextContainer = styled.div <IContainerProps>`
   margin-bottom: 8px;
   display: -webkit-box;
+  transition: ${getTransition};
   -webkit-line-clamp: ${getLineClamp};
   -webkit-box-orient: vertical;
   overflow: hidden;

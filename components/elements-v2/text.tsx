@@ -2,6 +2,7 @@ import { theme } from "@theme/global"
 import { ReactNode } from "react"
 import styled from "styled-components"
 import parse from 'html-react-parser'
+import { colorsV2 } from "@theme/colors-v2"
 
 export type TextProps = {
   children?: ReactNode
@@ -126,9 +127,10 @@ const getTextColor = (props: TextProps) => {
       case 'secondary':
         return theme.textAccent1
       case 'dark-gray':
-        return theme.lightText
+        return colorsV2.neutral[600]
+        // return theme.lightText
       case 'error':
-        return theme.warningText
+        return colorsV2.support.critical[600]
       case 'white':
         return theme.white
     }

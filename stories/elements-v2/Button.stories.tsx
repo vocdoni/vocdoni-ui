@@ -29,6 +29,9 @@ export const Showcase = (args) => (
       <Col>
         <Light {...LightColorArgs} />
       </Col>
+      <Col>
+        <Light {...LightDisabledArgs} />
+      </Col>
     </Row>
     <Row gutter="xl">
       <Col xs={12}>
@@ -49,6 +52,9 @@ export const Showcase = (args) => (
       <Col>
         <Primary  {...PrimaryIconRightArgs} />
       </Col>
+      <Col>
+        <Primary  {...PrimaryDisabledArgs} />
+      </Col>
     </Row>
     <Row gutter="xl">
       <Col xs={12}>
@@ -60,6 +66,9 @@ export const Showcase = (args) => (
       <Col>
         <Outlined  {...OutlinedColorArgs} />
       </Col>
+      <Col>
+        <Outlined  {...OutlinedDisabledArgs} />
+      </Col>
     </Row>
     <Row gutter="xl">
       <Col xs={12}>
@@ -70,6 +79,9 @@ export const Showcase = (args) => (
       </Col>
       <Col>
         <White  {...WhiteColorArgs} />
+      </Col>
+      <Col>
+        <White  {...WhiteDisabledArgs} />
       </Col>
     </Row >
   </>
@@ -88,6 +100,12 @@ const LightColorArgs = {
   children: 'Light Button w color',
   color: '#a1a',
 }
+const LightDisabledArgs = {
+  variant: 'light',
+  children: 'Light Button w color',
+  disabled: true,
+  color: '#a1a',
+}
 const PrimaryArgs = {
   variant: 'primary',
   children: 'Primary Button'
@@ -100,18 +118,18 @@ const PrimarySizeArgs = {
 const PrimaryIconRightArgs = {
   variant: 'primary',
   children: 'Primary Button w-icon',
-  iconLeft: { name: 'download', size: 24}
+  iconRight: { name: 'download', size: 24 }
 }
 const PrimaryIconLeftArgs = {
   variant: 'primary',
   children: 'Primary Button w icon',
-  iconLeft: <PenOutlinedIcon />
+  iconLeft: { name: 'download', size: 24 }
 }
-// const PrimaryDisabledArgs = {
-//   variant: 'primary',
-//   children: 'Primary Button disbled',
-//   disabled: true,
-// }
+const PrimaryDisabledArgs = {
+  variant: 'primary',
+  children: 'Primary Button disbled',
+  disabled: true,
+}
 const OutlinedArgs = {
   variant: 'outlined',
   children: 'Outlined Button'
@@ -120,17 +138,29 @@ const OutlinedColorArgs = {
   variant: 'outlined',
   children: 'Outlined w color',
   color: '#a1a',
-  iconLeft: { name: 'download', size: 24}
+  iconLeft: { name: 'download', size: 24 }
+}
+const OutlinedDisabledArgs = {
+  variant: 'outlined',
+  children: 'Outlined disabled',
+  color: '#a1a',
+  disabled: true,
+  iconRight: { name: 'download', size: 24 }
 }
 const WhiteArgs = {
   variant: 'white',
   children: 'White Button',
 }
+const WhiteDisabledArgs = {
+  variant: 'white',
+  children: 'White disabled',
+  disabled: true
+}
 const WhiteColorArgs = {
   variant: 'white',
   children: 'White Button w color',
   color: '#a1a',
-  iconLeft: { name: 'download', size: 24},
+  iconLeft: { name: 'download', size: 24 },
   // disabled: true
 }
 const PlaygroundArgs = {

@@ -1,6 +1,7 @@
 import { Question, VotingType,IProcessResults } from "@lib/types"
 import { VoteStatus } from "@lib/util"
 import { ProcessDetails } from "dvote-js"
+import { Wallet } from "ethers"
 import { createContext, useContext, useEffect, useState, ReactNode } from "react"
 import { useProcessWrapper } from "./use-process-wrapper"
 
@@ -23,6 +24,8 @@ export interface ProcessInfoContext {
   title: string
   methods: {
     setProcessId: (processId: string) => void
+    cancelProcess: (processId: string, wallet: Wallet) => Promise<void>
+    pauseProcess: (processId: string, wallet: Wallet) => Promise<void>
   }
 }
 
@@ -66,6 +69,7 @@ export const UseProcessInfoProvider = ({ children }: { children: ReactNode }) =>
     questions,
     results,
     title,
+    methods
   } = useProcessWrapper(processId)
   const value: ProcessInfoContext = {
     processInfo,
@@ -85,7 +89,8 @@ export const UseProcessInfoProvider = ({ children }: { children: ReactNode }) =>
     results,
     title,
     methods: {
-      setProcessId
+      setProcessId,
+      ...methods
     }
   }
   return (

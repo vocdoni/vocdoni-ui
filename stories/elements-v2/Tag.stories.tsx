@@ -14,22 +14,25 @@ const Template: ComponentStory<typeof Tag> = (args) => <Tag {...args} />;
 export const Playground = Template.bind({})
 export const Showcase = (args) => (
   <Row gutter="lg">
-    <Col >
+    <Col xs={12} >
       <Neutral {...NeutralArgs} />
     </Col>
-    <Col >
+    <Col xs={12}>
       <Success {...SuccessArgs} />
     </Col>
-    <Col>
+    <Col xs={12}>
       <Error {...ErrorArgs} />
     </Col>
-    <Col>
+    <Col xs={12}>
       <Info {...InfoArgs} />
     </Col>
-    <Col>
+    <Col xs={12}>
+      <Warning {...WarningArgs} />
+    </Col>
+    <Col xs={12}>
       <WithLabel {...WithLabelArgs} />
     </Col>
-    <Col>
+    <Col xs={12}>
       <Large {...LargeArgs} />
     </Col>
   </Row>
@@ -37,6 +40,7 @@ export const Showcase = (args) => (
 export const Default = Template.bind({})
 export const Neutral = Template.bind({})
 export const Success = Template.bind({})
+export const Warning = Template.bind({})
 export const Error = Template.bind({})
 export const Info = Template.bind({})
 export const WithLabel = Template.bind({})
@@ -56,6 +60,12 @@ const NeutralArgs = {
 const SuccessArgs = {
   variant: 'success',
   children: 'Success tag',
+  size: 'regular',
+  fontWeight: 'bold'
+}
+const WarningArgs = {
+  variant: 'warning',
+  children: 'Warning tag',
   size: 'regular',
   fontWeight: 'bold'
 }

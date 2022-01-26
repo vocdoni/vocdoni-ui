@@ -3,18 +3,16 @@ import { colors } from "@theme/colors";
 import { ReactNode, useState } from "react";
 import { When } from "react-if";
 import styled from "styled-components";
-import { Col, Row } from "./grid";
+import { Col, Row, IColProps } from "./grid";
 import { theme } from "@theme/global";
-import { Icon, IconProps } from "./icons";
+import { Icon, IconProps, Rotate } from "./icons";
 
 // Review download in case the button its used in more places
-type ButtonVariant = 'light' | 'primary' | 'outlined' | 'white'
+type ButtonVariant = 'light' | 'primary' | 'outlined' | 'white' | 'text'
 type ButtonSize = 'sm' | 'md' | 'lg'
 export interface ButtonProps {
   children?: string
   onClick?: () => void
-  // iconLeft?: ReactNode
-  // iconRight?: ReactNode
   iconRight?: IconProps
   iconLeft?: IconProps
   variant?: ButtonVariant
@@ -23,6 +21,8 @@ export interface ButtonProps {
   backgroundColor?: string
   width?: number
   size?: ButtonSize
+  icon?: boolean
+  loading?: boolean
 }
 
 interface StyledButtonProps {
@@ -32,6 +32,12 @@ interface StyledButtonProps {
   width?: number
   variant?: ButtonVariant
   size?: ButtonSize
+  icon?: boolean
+  loading?: boolean
+}
+
+interface LoadingColProps extends IColProps {
+  loading: boolean
 }
 
 export const Button = (props: ButtonProps) => {
@@ -45,70 +51,100 @@ export const Button = (props: ButtonProps) => {
       variant={props.variant}
       size={props.size}
       disabled={props.disabled}
+      icon={props.icon}
+      loading={props.loading}
       // used to update the icon color when the button is hovered
       onMouseOver={() => setIconColor(getTextColorHover(props))}
       onMouseLeave={() => setIconColor(getTextColor(props))}
     >
+      {/* {props.loading ?
+        <Row
+          align="center"
+          justify="center"
+        >
+          <Col>
+            <Rotate>
+              <Icon
+                name="spinner"
+                color={getTextColor(props)}
+                size={24}
+              />
+            </Rotate>
+          </Col>
+        </Row>
+        : */}
+
       <Row
         gutter="md"
         align="center"
         justify="center"
       >
+        <LoadingCol loading={props.loading}>
+          <Rotate>
+            <Icon
+              name="spinner"
+              color={getTextColor(props)}
+              size={24}
+            />
+          </Rotate>
+        </LoadingCol>
         {props.iconLeft &&
-          <Col>
+          <StyledCol loading={props.loading}>
             <Icon
               name={props.iconLeft.name}
               size={props.iconLeft.size}
               color={iconColor}
             />
-          </Col>
+          </StyledCol>
         }
 
-        <Col>
+        <StyledCol loading={props.loading}>
           {props.children}
-        </Col>
+        </StyledCol>
         {props.iconRight &&
-          <Col>
+          <StyledCol loading={props.loading}>
             <Icon
               name={props.iconRight.name}
               size={props.iconRight.size}
               color={iconColor}
             />
-          </Col>
+          </StyledCol>
         }
       </Row>
+      {/* } */}
     </BaseButton>
   )
 }
 const getTextColor = (props: StyledButtonProps) => {
   // TODO colors
-  if (props.disabled) {
-    return "#7B8794"
-  }
   if (props.color) {
     return props.color
   }
   switch (props.variant) {
     case 'light':
       return theme.blueText
+    case 'text':
+      return theme.accent1
     case 'outlined':
       return theme.accent1
     case 'primary':
       return theme.white
     case 'white':
+      if (props.disabled) {
+        return "#7B8794"
+      }
       return theme.accent1
   }
 }
 const getBackgroundColor = (props: StyledButtonProps) => {
-  if (props.disabled) {
-    return theme.white
-  }
   if (props.backgroundColor) {
     return props.backgroundColor
   }
   switch (props.variant) {
     case 'light':
       return theme.white
+    case 'text':
+      return 'transparent'
     case 'outlined':
       return theme.white
     case 'primary':
@@ -122,6 +158,9 @@ const getBorderColor = (props: StyledButtonProps) => {
     case 'light':
       return `2px solid ${theme.lightBorder}`
     case 'outlined':
+      if (props.disabled) {
+        return `2px solid #E4E7EB`
+      }
       return `2px solid ${props.color ? props.color : theme.accent1}`
     case 'white':
       // TODO Colors
@@ -133,7 +172,17 @@ const getBorderColor = (props: StyledButtonProps) => {
 const getBorderColorHover = (props: StyledButtonProps) => {
   // TODO Colors
   if (props.disabled) {
-    return '2px solid #E4E7EB'
+    switch (props.variant) {
+      case 'light':
+        return `2px solid ${theme.lightBorder}`
+      case 'outlined':
+        return `2px solid #E4E7EB`
+      case 'white':
+        // TODO Colors
+        return `2px solid #E4E7EB`
+      default:
+        return ''
+    }
   }
   switch (props.variant) {
     case 'white':
@@ -141,19 +190,24 @@ const getBorderColorHover = (props: StyledButtonProps) => {
   }
 }
 const getBackgroundColorHover = (props: StyledButtonProps) => {
-  switch (props.variant) {
-    case 'outlined':
-      return getTextColor(props)
+  if (!props.disabled && !props.loading) {
+    switch (props.variant) {
+      case 'outlined':
+        return getTextColor(props)
+    }
   }
 }
 
 const getTextColorHover = (props: StyledButtonProps) => {
-  switch (props.variant) {
-    case 'outlined':
-      return theme.white
-    default:
-      return getTextColor(props)
+  if (!props.disabled) {
+    switch (props.variant) {
+      case 'outlined':
+        return theme.white
+      default:
+        return getTextColor(props)
+    }
   }
+  return getTextColor(props)
 }
 
 const getWidth = (props: StyledButtonProps) => {
@@ -163,6 +217,20 @@ const getWidth = (props: StyledButtonProps) => {
   return `${props.width}px`
 }
 const getPadding = (props: StyledButtonProps) => {
+  if (props.variant === 'text') {
+    return '0px'
+  }
+  // TODO
+  // for some unknown reason the  padding when there is an
+  // icon in the button grows from 12 to 14
+  // the prop icon is used to make and equal size
+  // button when an icon is not shown and should be
+  // 13px 20px since the linke heigght of the text is 22 and
+  // the icon normal size is 24 but since it ggrows a total of 2px
+  // more it is switched to 15px 20px
+  if (props.icon) {
+    return '15px 20px'
+  }
   switch (props.size) {
     case 'sm':
       return '8px 20px'
@@ -179,6 +247,17 @@ const getBoxShadow = (props: StyledButtonProps) => {
     default:
       return ''
   }
+}
+const getOpacity = (props: StyledButtonProps) => {
+  if (props.disabled) {
+    switch (props.variant) {
+      case 'primary':
+        return 0.65
+      case 'outlined':
+        return 0.25
+    }
+  }
+  return 1
 }
 const getButtonFontSize = (props: StyledButtonProps) => {
   switch (props.size) {
@@ -198,7 +277,7 @@ const getPointerEvents = (props: StyledButtonProps) => {
   return 'auto'
 }
 const getCursor = (props: StyledButtonProps) => {
-  if (props.disabled) {
+  if (props.disabled || props.loading) {
     return 'not-allowed'
   }
   return 'pointer'
@@ -218,6 +297,7 @@ background: ${getBackgroundColor};
 width: ${getWidth};
 box-shadow: ${getBoxShadow};
 transition: 0.3s;
+opacity: ${getOpacity};
 &:hover {
   border: ${getBorderColorHover};
   background: ${getBackgroundColorHover};
@@ -226,4 +306,11 @@ transition: 0.3s;
 & > * {
   pointer-events: ${getPointerEvents};
 }
+`
+const StyledCol = styled(Col) <LoadingColProps> `
+  visibility: ${(props) => props.loading ? 'hidden' : 'visible'};
+`
+const LoadingCol = styled(Col) <LoadingColProps> `
+  display: ${(props) => props.loading ? '' : 'none'};
+  position: absolute;
 `
