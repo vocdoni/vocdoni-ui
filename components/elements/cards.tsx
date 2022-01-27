@@ -44,12 +44,14 @@ export const PageCard = styled.div`
 
 export const PageCardHeader = styled.div<{ variant?: PageCardHeaderVariant }>`
   margin: -32px -32px 20px;
+  max-height: 340px;
   overflow: hidden;
   max-height: 250px;
 
   & > img {
     margin: -45px;
     margin-left: 0px;
+    min-height: 210px;
   }
 
   ${({ theme, variant }) =>

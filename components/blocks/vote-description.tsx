@@ -189,6 +189,8 @@ const SimpleUl = styled.ul`
 
 const DescriptionText = styled.div`
   font-size: 16px;
+  text-align: justify;
+  margin-right: -30px;
 
   & > p {
     font-size: 16px;
