@@ -11,6 +11,7 @@ interface IQuestionProps {
   questionIndex: number
   onSelectChoice: (choiceIndex: number) => void
   selectedIndex: number
+  randomAnswersOrder: boolean
 }
 
 let shuffle = []
@@ -21,6 +22,7 @@ export const QuestionCard = ({
   questionIndex,
   onSelectChoice,
   selectedIndex,
+  randomAnswersOrder,
 }: IQuestionProps) => {
 
   function shuffleArray(array) {
@@ -40,8 +42,7 @@ export const QuestionCard = ({
 
     return array;
   }
-  
-  let randomAnswersOrder = true
+    
   if (randomAnswersOrder && typeof isShuffled[questionIndex] === 'undefined' && isShuffled[questionIndex] !== true) {
     shuffle[questionIndex] = [...question.choices]
     shuffleArray(shuffle[questionIndex])

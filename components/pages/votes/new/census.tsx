@@ -39,7 +39,7 @@ export const FormCensus = () => {
   const [showAnonymous, setShowAnonymous] = useState<boolean>(false)
   const changeVotingTypeRef = useRef<VotingType>()
   const advancedCensusEnabled = !!process.env.ADVANCED_CENSUS || false
-
+  
   const {
     methods,
     spreadSheetReader,
@@ -48,8 +48,10 @@ export const FormCensus = () => {
     votingType,
     anonymousVoting,
     randomAnswersOrder
+    metadata
   } = useProcessCreation()
   const { trackEvent } = useRudderStack()
+  const randomAnswersOrderSelection = metadata?.randomAnswersOrder?.default || false
 
   const continueDisabled =
     !spreadSheetReader && !methods.checkValidCensusParameters()
@@ -171,7 +173,7 @@ export const FormCensus = () => {
             <Column>
               <VotingOptions
                 onClick={handleChangeRandomAnswers}
-                randomAnswersOrder={randomAnswersOrder}
+                randomAnswersOrder={randomAnswersOrderSelection}
               />
             </Column> 
 

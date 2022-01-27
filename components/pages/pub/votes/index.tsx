@@ -238,7 +238,7 @@ export const VotingPageView = () => {
   }
 
   const processVotingType: VotingType = processInfo?.state?.censusOrigin as any
-
+  
   const showDescription =
     votingState === VotingState.NotStarted ||
     votingState === VotingState.Ended ||
@@ -331,6 +331,7 @@ export const VotingPageView = () => {
             onSelect={votingMethods.onSelect}
             onFinishVote={handleFinishVote}
             onBackDescription={handleBackToDescription}
+            randomAnswersOrder={processInfo?.metadata?.randomAnswersOrder.default}
           />
         )}
 
