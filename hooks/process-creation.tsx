@@ -49,7 +49,6 @@ export interface ProcessCreationContext {
   votingType: VotingType,
   spreadSheetReader,
   processTerms,
-  randomAnswersOrder: boolean,
   methods: {
     setPageStep: (s: ProcessCreationPageSteps) => void,
 
@@ -122,13 +121,6 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
   const { blockStatus } = useBlockStatus()
   const { pool, poolPromise } = usePool()
   const { trackEvent } = useRudderStack()
-  const [randomAnswersOrder, setRandomAnswersOrder] = useState<boolean>(false)
-
-  /*
-  useEffect(() => {
-    paramsMethods.setRandomAnswersOrder(randomAnswersOrder)
-  }, [randomAnswersOrder])
-  */
   
   useEffect(() => {
     paramsMethods.setCensusOrigin(
@@ -383,8 +375,7 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
     metadata,
     parameters,
     spreadSheetReader,
-    processTerms,
-    randomAnswersOrder,
+    processTerms,    
     methods: {
       ...metadataMethods,
       ...paramsMethods,
@@ -399,8 +390,7 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
       setVotingType,
       continueProcessCreation: doMainActionSteps,
       setProcessTerms,
-      checkValidCensusParameters,
-      setRandomAnswersOrder
+      checkValidCensusParameters
     }
   }
 
@@ -438,6 +428,10 @@ const useProcessMetadata = () => {
     setRawMetadata({ ...metadata, questions })
   }
 
+  const setRandomAnswersOrder = (randomAnswersOrder: boolean) => {
+    setRawMetadata({ ...metadata, randomAnswersOrder: {default: randomAnswersOrder} })
+  }
+
   const methods = {
     setTitle,
     setDescription,
@@ -446,7 +440,8 @@ const useProcessMetadata = () => {
     setMediaStreamURI,
     setMetaFields,
     setQuestions,
-    setRawMetadata
+    setRawMetadata,
+    setRandomAnswersOrder
   }
   return { metadata, methods }
 }

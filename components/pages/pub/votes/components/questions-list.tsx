@@ -22,6 +22,7 @@ interface IQuesListProps {
   onFinishVote: (results: number[]) => void
   onBackDescription: () => void
   onComponentMounted?: (ref: ForwardedRef<HTMLDivElement>) => void
+  randomAnswersOrder: boolean
 }
 
 export const QuestionsList = forwardRef<HTMLDivElement, IQuesListProps>(
@@ -35,6 +36,7 @@ export const QuestionsList = forwardRef<HTMLDivElement, IQuesListProps>(
       onFinishVote,
       onBackDescription,
       onComponentMounted,
+      randomAnswersOrder,
     }: IQuesListProps,
     ref
   ) => {
@@ -105,6 +107,7 @@ export const QuestionsList = forwardRef<HTMLDivElement, IQuesListProps>(
                     question={question}
                     questionIndex={index}
                     selectedIndex={results[index]}
+                    randomAnswersOrder={randomAnswersOrder}
                   />
                 </QuestionLi>
               ))}
