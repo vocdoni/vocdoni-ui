@@ -12,7 +12,6 @@ import { IProcessResults, VotingType } from '@lib/types'
 import { Question } from '@lib/types'
 import { VoteStatus } from '@lib/util'
 import { MetadataFields } from '@components/pages/votes/new/metadata'
-import { MultiLanguage } from '@vocdoni/react-hooks/node_modules/dvote-js'
 
 export interface ProcessWrapperContext {
   loadingInfo: boolean,
@@ -119,7 +118,7 @@ export const useProcessWrapper = (processId: string) => {
         setStatus(VoteStatus.Ended)
         break
     }
-  }, [processInfo?.state?.status])
+  }, [processInfo?.state])
 
   const waitUntilStatusUpdated = (processId: string, status: IProcessStatus): Promise<ProcessState> => {
     return new Promise(async (resolve, reject) => {
@@ -219,6 +218,7 @@ export const useProcessWrapper = (processId: string) => {
   const hasEnded = endDate && endDate.getTime() < Date.now()
   const liveResults = !processInfo?.state?.envelopeType?.encryptedVotes
   const votingType: VotingType = processInfo?.state?.censusOrigin as any
+  const isAnonymous = processInfo?.state?.envelopeType?.anonymous
   const description = processInfo?.metadata?.description.default
   const liveStreamUrl = processInfo?.metadata?.media.streamUri
   const discussionUrl = processInfo?.metadata?.meta[MetadataFields.DiscussionLink]
@@ -228,9 +228,10 @@ export const useProcessWrapper = (processId: string) => {
     ? results?.totalWeightedVotes
     : results?.totalVotes
   const title = processInfo?.metadata?.title.default
+  const date = new Date(1643284337023 + (3600 * 1000 * 24))
   const remainingTime = (startBlock && startDate)
     ? hasStarted
-      ? localizedStrDateDiff(DateDiffType.End, endDate)
+      ? localizedStrDateDiff(DateDiffType.End, date)
       : localizedStrDateDiff(DateDiffType.Start, startDate)
     : ''
 
@@ -258,6 +259,7 @@ export const useProcessWrapper = (processId: string) => {
     attachmentUrl,
     questions,
     title,
+    isAnonymous,
     methods: {
       cancelProcess,
       pauseProcess,

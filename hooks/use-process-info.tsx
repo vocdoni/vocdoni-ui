@@ -1,4 +1,4 @@
-import { Question, VotingType,IProcessResults } from "@lib/types"
+import { Question, VotingType, IProcessResults } from "@lib/types"
 import { VoteStatus } from "@lib/util"
 import { ProcessDetails } from "dvote-js"
 import { Wallet } from "ethers"
@@ -22,6 +22,8 @@ export interface ProcessInfoContext {
   questions: Question[]
   results: IProcessResults
   title: string
+  isAnonymous: boolean
+  remainingTime: string
   methods: {
     setProcessId: (processId: string) => void
     cancelProcess: (processId: string, wallet: Wallet) => Promise<void>
@@ -69,7 +71,9 @@ export const UseProcessInfoProvider = ({ children }: { children: ReactNode }) =>
     questions,
     results,
     title,
-    methods
+    isAnonymous,
+    methods,
+    remainingTime
   } = useProcessWrapper(processId)
   const value: ProcessInfoContext = {
     processInfo,
@@ -88,6 +92,8 @@ export const UseProcessInfoProvider = ({ children }: { children: ReactNode }) =>
     questions,
     results,
     title,
+    isAnonymous,
+    remainingTime,
     methods: {
       setProcessId,
       ...methods

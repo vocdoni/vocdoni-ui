@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useRef, Children } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useRecoilValue } from 'recoil'
 import styled from 'styled-components'
 import { useTranslation } from 'react-i18next'
 
 import { useBlockStatus, useEntity, useProcess } from '@vocdoni/react-hooks'
 import { useRouter } from 'next/router'
-import { If, Then, Else, When } from 'react-if'
+import { If, Then, Else } from 'react-if'
 
 import { VotingType } from '@lib/types'
 import { useTheme } from '@hooks/use-theme'
@@ -26,16 +26,17 @@ import { QuestionsList } from './components/questions-list'
 import { censusProofState } from '@recoil/atoms/census-proof'
 import { VoteRegisteredCard } from './components/vote-registered-card'
 import RouterService from '@lib/router'
-import { VOTING_AUTH_FORM_PATH } from '@const/routes'
+import { VOTING_AUTH_FORM_PATH, PREREGISTER_PATH } from '@const/routes'
 import { ExpandableCard } from '@components/blocks/expandable-card'
 import { Banner } from '@components/blocks-v2/banner'
 import { Spacer, Col, Row, IColProps, Text, TextButton } from '@components/elements-v2'
-import { useCalendar } from '@hooks/use-calendar'
 
 import { DisconnectModal } from '@components/blocks-v2'
 import { ResultsCard } from './components/results-card'
 import { useProcessInfo } from '@hooks/use-process-info'
 import { useIsMobile } from '@hooks/use-window-size'
+import { PieChartIcon } from '@components/elements-v2/icons'
+import { dateDiffStr, DateDiffType } from '@lib/date-moment'
 export enum UserVoteStatus {
   /**
    * User is voting right now
@@ -72,15 +73,13 @@ export const VotingPageView = () => {
   const processId = useUrlHash().slice(1) // Skip "/"
   const router = useRouter()
   const [disconnectModalOpened, setDisconnectModalOpened] = useState(false)
-  const { updateAppTheme } = useTheme()
   const isMobile = useIsMobile()
   const censusProof = useRecoilValue(censusProofState)
   const { methods: votingMethods, choices, hasVoted, results, explorerLink } = useVoting(
-  const { getDateDiff } = useCalendar()
     processId
   )
   const { process: processInfo } = useProcess(processId)
-  const { startDate, endDate, status, liveResults, votingType } = useProcessInfo(processId)
+  const { startDate, endDate, status, liveResults, votingType, isAnonymous } = useProcessInfo(processId)
   const { wallet, setWallet } = useWallet({ role: WalletRoles.VOTER })
   const { metadata } = useEntity(processInfo?.state?.entityId)
   const [confirmModalOpened, setConfirmModalOpened] = useState<boolean>(false)
@@ -94,17 +93,18 @@ export const VotingPageView = () => {
   const { blockStatus } = useBlockStatus()
   const blockHeight = blockStatus?.blockNumber
   const voteStatus: VoteStatus = getVoteStatus(processInfo?.state, blockHeight)
-  const entityMetadata = metadata as EntityMetadata
+  // const entityMetadata = metadata as EntityMetadata
   const resultsCardRef = useRef(null)
   // used for getting the ending in and starting in string
   const [now, setNow] = useState(new Date)
   useEffect(() => {
-    setInterval(() => {
+    const interval = setInterval(() => {
       setNow(new Date)
     }, 1000)
+    return () => clearInterval(interval);
   }, [])
-  const endingString = getDateDiffString(now, endDate)
-  const startingString = getDateDiffString(now, startDate)
+  const endingString = dateDiffStr(DateDiffType.Countdown, endDate)
+  const startingString = dateDiffStr(DateDiffType.Countdown, startDate)
   /**
    * effect to set the user vote status
    */
@@ -176,6 +176,7 @@ export const VotingPageView = () => {
     }, 50)
   }
 
+
   const handleLogOut = () => {
     setWallet(null)
     votingMethods.cleanup()
@@ -196,23 +197,11 @@ export const VotingPageView = () => {
   const showDisconnectBanner = wallet && showAuthBanner
   const showNotAuthenticatedBanner = !wallet && showAuthBanner
 
-  const showMoreIcon = (
-    makeShowMoreIcon(i18n.t('vote.question_image_alt'))
-  )
   const voteResultsIcon = (
     makeVoteResultsIcon(i18n.t('vote.question_image_alt'))
   )
-  const authenticateIcon = (
-    makeAuthenticateIcon(i18n.t('vote.question_image_alt'))
-  )
   const authenticateBannerImage = (
     makeAuthenticateBannerImage(i18n.t('vote.question_image_alt'), isMobile ? 56 : 88)
-  )
-  const disconnectIcon = (
-    makeDisconnectIcon(i18n.t('vote.question_image_alt'))
-  )
-  const seeResultsIcon = (
-    makeSeeResultsIcon(i18n.t('vote.pdf_image_alt'))
   )
   return (
     <>
@@ -236,20 +225,21 @@ export const VotingPageView = () => {
                       subtitleProps={
                         {
                           size: isMobile ? 'xs' : 'md',
-                          children: i18n.t('vote.auth.with_credentials')
+                          children: isAnonymous ? i18n.t('vote.auth.with_preregistration') : i18n.t('vote.auth.with_credentials')
                         }
                       }
                       titleProps={{ size: 'sm' }}
                       buttonProps={
                         {
                           variant: 'primary',
-                          children: i18n.t('vote.auth.auth_button'),
-                          iconRight: isMobile ? undefined : { name: 'pencil' },
+                          children: isAnonymous ? i18n.t('vote.auth.preregister_button') : i18n.t('vote.auth.auth_button'),
+                          iconRight: isMobile ? undefined : { name: isAnonymous ? 'paper-check' : 'pencil', size: 24 },
                           onClick: () => handleGotoAuth()
                         }
                       }
                     >
-                      {i18n.t('vote.auth.not_authenticated')}
+
+                      {isAnonymous ? i18n.t('vote.auth.not_preregistered') : i18n.t('vote.auth.not_authenticated')}
                     </Banner>
                   </Col>
                 }
@@ -296,15 +286,15 @@ export const VotingPageView = () => {
                   isOpen={isExpandableCardOpen}
                   onButtonClick={handleExpandableCardButtonClick}
                   title={i18n.t("vote.voting_results_title")}
-                  icon={voteResultsIcon}
+                  icon={<PieChartIcon size={40} />}
                   buttonProps={{
-                    variant: 'light',
-                    iconRight: showMoreIcon,
+                    variant: 'white',
+                    iconRight: { name: 'chevron-up-down', size: 24 },
                     children: i18n.t("vote.voting_results_show")
                   }}
                   buttonPropsOpen={{
-                    variant: 'outlined',
-                    iconRight: showMoreIcon,
+                    variant: 'white',
+                    iconRight: { name: 'chevron-up-down', size: 24 },
                     children: i18n.t("vote.voting_results_hide")
                   }}
                 >
@@ -317,7 +307,7 @@ export const VotingPageView = () => {
             <QuestionsList
               results={choices}
               questions={processInfo?.metadata?.questions}
-              voteWeight={votingType === VotingType.Weighted ? censusProof?.weight : null}
+              voteWeight={votingType === VotingType.Weighted ? censusProof?.weight?.toString() : null}
               onSelect={votingMethods.onSelect}
               onFinishVote={handleFinishVote}
               onBackDescription={handleBackToDescription}
@@ -356,9 +346,13 @@ export const VotingPageView = () => {
               </Col>
               <Col xs={12} justify='center'>
                 <Spacer direction='vertical' size='2xs' />
-                <TextButton iconRight={seeResultsIcon} onClick={handleSeeResultsClick}>
+                <Button
+                  variant='text'
+                  iconRight={{ name: 'chevron-right', size: 16 }}
+                  onClick={handleSeeResultsClick}
+                >
                   {i18n.t("vote.see_results")}
-                </TextButton>
+                </Button>
                 <Spacer direction='vertical' size='2xs' />
               </Col>
             </VoteNowFixedContainer>

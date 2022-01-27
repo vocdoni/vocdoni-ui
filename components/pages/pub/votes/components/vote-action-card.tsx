@@ -12,15 +12,14 @@ import {
 } from '@components/elements/typography'
 import { VoteStatus } from '@lib/util'
 import { colors } from '@theme/colors'
-import { useCalendar } from '@hooks/use-calendar'
 import { TextButton } from '@components/elements-v2/text-button'
 import { useVoting } from '@hooks/use-voting'
 import { useUrlHash } from 'use-url-hash'
-import { useProcessWrapper } from '@hooks/use-process-wrapper'
 import { Else, If, Then } from 'react-if'
 import { useProcessInfo } from '@hooks/use-process-info'
 import { ChevronRightIcon } from '@components/elements-v2/icons'
 import { UserVoteStatus } from '..'
+import { dateDiffStr, DateDiffType } from '@lib/date-moment'
 
 interface IVoteActionCardProps {
   userVoteStatus: UserVoteStatus
@@ -34,23 +33,16 @@ export const VoteActionCard = ({
   onSeeResults,
 }: IVoteActionCardProps) => {
   const { i18n } = useTranslation()
-  const { getDateDiffString, getDateDiff } = useCalendar()
+  // const { getDateDiffString, getDateDiff } = useCalendar()
   const processId = useUrlHash().slice(1)
   const { startDate, endDate, totalVotes, status, censusSize, liveResults } = useProcessInfo(processId)
-  const { hasVoted, nullifier } = useVoting(processId)
-
+  const { nullifier } = useVoting(processId)
   const disabled = (status !== VoteStatus.Active || userVoteStatus === UserVoteStatus.Emitted)
   const explorerLink = process.env.EXPLORER_URL + '/envelope/' + nullifier
-  const [now, setNow] = useState(new Date)
-  useEffect(() => {
-    setInterval(() => {
-      setNow(new Date)
-    }, 1000)
-  }, [])
 
   const getTitleFromState = (status: VoteStatus) => {
-    const endingString = getDateDiffString(now, endDate)
-    const startingString = getDateDiffString(now, startDate)
+    const endingString = dateDiffStr(DateDiffType.Countdown, endDate)
+    const startingString = dateDiffStr(DateDiffType.Countdown, startDate)
     if (userVoteStatus === UserVoteStatus.Emitted) {
       return i18n.t('vote.your_vote_has_been_registered')
     } else if (userVoteStatus === UserVoteStatus.Expired || status === VoteStatus.Ended) {
@@ -159,7 +151,7 @@ export const VoteActionCard = ({
           {i18n.t('vote.total_votes_submited')}
         </Text>
         <Text large>
-          <If condition={liveResults}>
+          <If condition={liveResults && totalVotes && censusSize}>
             <Then>
               {totalVotes} ({(totalVotes / (censusSize || 1) * 100).toFixed(2)}%)
             </Then>

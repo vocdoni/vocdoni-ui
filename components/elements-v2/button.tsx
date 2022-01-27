@@ -6,6 +6,7 @@ import styled from "styled-components";
 import { Col, Row, IColProps } from "./grid";
 import { theme } from "@theme/global";
 import { Icon, IconProps, Rotate } from "./icons";
+import { colorsV2 } from "@theme/colors-v2";
 
 // Review download in case the button its used in more places
 type ButtonVariant = 'light' | 'primary' | 'outlined' | 'white' | 'text'
@@ -57,22 +58,6 @@ export const Button = (props: ButtonProps) => {
       onMouseOver={() => setIconColor(getTextColorHover(props))}
       onMouseLeave={() => setIconColor(getTextColor(props))}
     >
-      {/* {props.loading ?
-        <Row
-          align="center"
-          justify="center"
-        >
-          <Col>
-            <Rotate>
-              <Icon
-                name="spinner"
-                color={getTextColor(props)}
-                size={24}
-              />
-            </Rotate>
-          </Col>
-        </Row>
-        : */}
 
       <Row
         gutter="md"
@@ -116,7 +101,9 @@ export const Button = (props: ButtonProps) => {
   )
 }
 const getTextColor = (props: StyledButtonProps) => {
-  // TODO colors
+  if (props.disabled) {
+    return colorsV2.neutral[400]
+  }
   if (props.color) {
     return props.color
   }
@@ -137,6 +124,9 @@ const getTextColor = (props: StyledButtonProps) => {
   }
 }
 const getBackgroundColor = (props: StyledButtonProps) => {
+  if (props.disabled) {
+    return colorsV2.neutral[50]
+  }
   if (props.backgroundColor) {
     return props.backgroundColor
   }
@@ -164,6 +154,9 @@ const getBorderColor = (props: StyledButtonProps) => {
       return `2px solid ${props.color ? props.color : theme.accent1}`
     case 'white':
       // TODO Colors
+      if (props.disabled) {
+        return ''
+      }
       return `2px solid #E4E7EB`
     default:
       return ''
@@ -179,6 +172,9 @@ const getBorderColorHover = (props: StyledButtonProps) => {
         return `2px solid #E4E7EB`
       case 'white':
         // TODO Colors
+        if (props.disabled) {
+          return ''
+        }
         return `2px solid #E4E7EB`
       default:
         return ''
@@ -249,12 +245,14 @@ const getBoxShadow = (props: StyledButtonProps) => {
   }
 }
 const getOpacity = (props: StyledButtonProps) => {
-  if (props.disabled) {
+  if (!props.disabled) {
     switch (props.variant) {
       case 'primary':
         return 0.65
-      case 'outlined':
-        return 0.25
+    }
+  } else {
+    if (props.variant === 'outlined') {
+      return 0.25
     }
   }
   return 1
@@ -297,11 +295,12 @@ background: ${getBackgroundColor};
 width: ${getWidth};
 box-shadow: ${getBoxShadow};
 transition: 0.3s;
-opacity: ${getOpacity};
+// opacity: ${getOpacity};
 &:hover {
   border: ${getBorderColorHover};
   background: ${getBackgroundColorHover};
   color: ${getTextColorHover};
+  opacity: ${getOpacity};
 }
 & > * {
   pointer-events: ${getPointerEvents};

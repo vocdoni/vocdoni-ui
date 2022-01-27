@@ -1,7 +1,7 @@
-import React, { Children } from "react";
+import React from "react";
 
-import { Row, Col, Banner } from "@components/elements-v2";
-import { CalendarCard } from "@components/blocks/calendar-card";
+import { Row, Col } from "@components/elements-v2";
+import { CalendarCard } from "@components/pages/pub/votes/components/calendar-card";
 import { ComponentStory } from "@storybook/react";
 export default {
   title: 'Blocks V2/CalendarCard',

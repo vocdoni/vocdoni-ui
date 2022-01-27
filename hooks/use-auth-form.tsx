@@ -36,6 +36,7 @@ type IAuthForm = {
   authFields: string[],
   formValues: { [k: string]: string },
   secretKey: string,
+  invalidCredentials: boolean
 
   methods: {
     setFormValue: (key: string, value: string) => void,
@@ -61,6 +62,7 @@ export const useAuthForm = () => {
   const requireSecretKey = processInfo?.state?.processMode?.preRegister && processStarted
   const { setAlertMessage } = useMessageAlert()
   const [formValues, setFormValues] = useState<{ [k: string]: string }>({})
+  const [invalidCredentials, setInvalidCredentials] = useState(false)
   const [authFields, setAuthFields] = useState<string[]>([])
   const [secretKey, setSecretKey] = useState<string>()
   const { methods: votingMethods } = useVoting(processId)
@@ -82,6 +84,7 @@ export const useAuthForm = () => {
 
   const onLogin = (): Promise<void | number> => {
     let authFieldsData: string[] = []
+    // validate all fields are not empty
     for (const fieldName of fieldNames) {
       if (!formValues[fieldName]) {
         setAlertMessage(i18n.t("errors.please_fill_in_all_the_fields"))
@@ -95,8 +98,9 @@ export const useAuthForm = () => {
     setAuthFields(authFieldsData)
 
     const voterWallet = walletFromAuthData(authFieldsData, entityId)
-
+    // if voting is anonymous
     if (requireSecretKey) {
+      // if is anonymous and the key field is empty return
       if (secretKey.length == 0) {
         setAlertMessage(i18n.t("errors.please_fill_in_all_the_fields"))
         return Promise.resolve()
@@ -132,6 +136,9 @@ export const useAuthForm = () => {
         setCensusProof(censusProof)
         // Set the voter wallet recovered
         setWallet(voterWallet)
+        // store auth data in local storage for disconnect banner
+        const anonymizedFormValues = anonymizeFormValues(authFieldsData)
+        localStorage.setItem('voterData', anonymizedFormValues.join(" / "))
 
         if (userRequirePreregister) {
           router.push(PREREGISTER_PATH + "#/" + processInfo?.id)
@@ -139,11 +146,46 @@ export const useAuthForm = () => {
           router.push(VOTING_PATH + "#/" + processInfo?.id)
         }
       }).catch(err => {
+
+        setInvalidCredentials(true)
         setAlertMessage(i18n.t("errors.the_contents_you_entered_may_be_incorrect"))
       })
     }
   }
-
+  /**
+   *
+   * @param formValues
+   * @returns string[]
+   * Given an array of string values returns the same array but with de values
+   * "anonymized" this_is_a@mail.com will becomoe thi...@mail.com
+   * and so on
+   */
+  const anonymizeFormValues = (formValues: string[]): string[] => {
+    let anonymizedFormValues = []
+    let iter = 0
+    formValues.every((formValue) => {
+      if (iter >= 3) {
+        return false
+      }
+      let anonymizedFormValue
+      iter = iter + 1
+      const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      // check if is an email to preserve the domain
+      if (formValue.toLocaleLowerCase().match(emailRegex)) {
+        anonymizedFormValue = `${formValue[0]}...${formValue.split('@')[1]}`
+        // if is no email and length > 3 compute visible string length
+      } else if (formValue.length >= 3) {
+        const visibleStrLength = Math.floor(Math.sqrt(formValue.length))
+        anonymizedFormValue = `${formValue.substring(0, visibleStrLength)}...${formValue.substring(formValue.length - visibleStrLength - 1, visibleStrLength)}`
+        // if length is lowhe than 3 use the full string
+      } else {
+        anonymizedFormValue = formValue
+      }
+      anonymizedFormValues.push(anonymizedFormValue)
+      return true
+    })
+    return anonymizedFormValues
+  }
   const walletFromAuthData = (authFieldsData: string[], entityId: string): Wallet => {
     authFieldsData = authFieldsData.map(x => normalizeText(x))
     const strPayload = importedRowToString(authFieldsData, entityId)

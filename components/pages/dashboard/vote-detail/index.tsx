@@ -7,7 +7,7 @@ import { VotingType } from '@lib/types'
 import { VoteStatus } from '@lib/util'
 import { useWallet, WalletRoles } from '@hooks/use-wallet'
 import { useMessageAlert } from '@hooks/message-alert'
-import { Button , Card, Spacer } from '@components/elements-v2'
+import { Button, Card, Spacer } from '@components/elements-v2'
 import { GeneratePdfCard } from './generate-pdf-card-v2'
 import { IColProps, Col, Row, Text, LinkButton } from '@components/elements-v2'
 import { ProcessStatusLabel } from '@components/blocks-v2'
@@ -18,64 +18,16 @@ import { DetailsCard } from './details-card'
 import { CopyLinkCard } from './copy-link-card'
 import { useProcessInfo } from '@hooks/use-process-info'
 import { useUrlHash } from 'use-url-hash'
-import { useCalendar } from '@hooks/use-calendar'
 import { ExpandableCard } from '@components/blocks/expandable-card'
 import { ResultsCard } from '@components/pages/pub/votes/components/results-card'
 import { QuestionsCard } from '@components/blocks-v2/questions-card'
 import { useIsMobile } from '@hooks/use-window-size'
 import { colorsV2 } from '@theme/colors-v2'
 import { Modal } from '@components/blocks-v2/modal'
+import moment from 'moment'
 
 
 export const ViewDetail = () => {
-  // const [cancelingVote, setCancelingVote] = useState<boolean>(false)
-  // const [endingVote, setEndingVote] = useState<boolean>(false)
-  // const [endedOrCanceled, setEndedOrCanceled] = useState<boolean>(false)
-  // const linkCensus = !process?.metadata?.meta?.formFieldTitles
-  // const menmonicUrl = linkCensus
-  //   ? RouterService.instance.get(VOTING_AUTH_MNEMONIC_PATH, {
-  //     processId: process.id,
-  //   })
-  //   : ''
-
-  // const processVotingType: VotingType = process?.state?.censusOrigin as any
-
-  // const totalVotes =
-  //   VotingType.Weighted === processVotingType
-  //     ? results?.totalWeightedVotes
-  //     : results?.totalVotes
-
-  // const { blockStatus } = useBlockStatus()
-  // const blockHeight = blockStatus?.blockNumber || 0
-
-  // const status: VoteStatus = getVoteStatus(process?.state, blockHeight)
-  // const voteActive = status == VoteStatus.Active
-
-
-
-  // let dateDiffStr = ''
-  // if (
-  //   process?.state?.startBlock &&
-  //   (status == VoteStatus.Active ||
-  //     status == VoteStatus.Paused ||
-  //     status == VoteStatus.Upcoming ||
-  //     status == VoteStatus.Ended)
-  // ) {
-  //   if (process?.state?.startBlock > blockHeight) {
-  //     const date = VotingApi.estimateDateAtBlockSync(
-  //       process?.state?.startBlock,
-  //       blockStatus
-  //     )
-  //     dateDiffStr = localizedStrDateDiff(DateDiffType.Start, date)
-  //   } else {
-  //     // starting in the past
-  //     const date = VotingApi.estimateDateAtBlockSync(
-  //       process?.state?.endBlock,
-  //       blockStatus
-  //     )
-  //     dateDiffStr = localizedStrDateDiff(DateDiffType.End, date)
-  //   }
-  // }
   // Hooks
   const processId = useUrlHash().slice(1) // Skip "/"
   const { wallet } = useWallet({ role: WalletRoles.ADMIN })
@@ -101,9 +53,13 @@ export const ViewDetail = () => {
     liveStreamUrl,
     discussionUrl,
     attachmentUrl,
-    methods
+    methods,
+    isAnonymous
   } = useProcessInfo(processId)
-  const { toCalendarFormat } = useCalendar()
+  const toCalendarFormat = (date: Date) => {
+    let momentDate = moment(date).locale('es').format("MMM DD - YYYY (HH:mm)")
+    return momentDate.charAt(0).toUpperCase() + momentDate.slice(1)
+  }
 
   // Constants
   const linkCensus = !processInfo?.metadata?.meta?.formFieldTitles
@@ -132,7 +88,13 @@ export const ViewDetail = () => {
   }
   // compute options stringg
   const voteOptionsString = () => {
-    // here goes the logic to check if is anonymous, can abstanin, etc...
+    const strArray = []
+    if (isAnonymous) {
+      strArray.push(i18n.t('vote_detail.settings_card.anonymous_voting'))
+    }
+    if (strArray.length > 0) {
+      return strArray.join(' / ')
+    }
     return '-'
   }
   // compute vote details
@@ -342,7 +304,7 @@ export const ViewDetail = () => {
             <Row gutter='lg'>
               {
                 voteDetails.map((detail, index) => (
-                  <Col xs={12} md={4}>
+                  <Col xs={12} md={4} lg={index === 2 ? 2 : 5}>
                     <DetailsCard
                       title={detail.title}
                       options={detail.options}

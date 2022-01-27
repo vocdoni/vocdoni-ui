@@ -1,13 +1,7 @@
 import { useRef, useLayoutEffect } from 'react'
-import { TextButton } from '@components/elements-v2/text-button'
-import { colors } from '@theme/colors'
-import { initial, set } from 'lodash'
 import { ReactNode, useState } from 'react'
 import styled from 'styled-components'
-import { CalendarCard } from './calendar-card'
-import { MarkDownViewer } from './mark-down-viewer'
-import { When } from 'react-if'
-import { Col, Row, Spacer, Text, Button } from '@components/elements-v2'
+import { Col, Row, Text, Button } from '@components/elements-v2'
 
 
 interface ExpandableContainerProps {

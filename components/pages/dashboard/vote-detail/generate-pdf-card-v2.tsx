@@ -74,7 +74,6 @@ export const GeneratePdfCard = (props: GeneratePdfCardProps) => {
               </Button>
             </Col>
             <Col xs={12}>
-              {/* TODO COLORS */}
               <Button
                 disabled={!seeResultsEnabled}
                 onClick={handleDownloadPDF}

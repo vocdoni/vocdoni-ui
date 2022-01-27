@@ -1,4 +1,3 @@
-import { CalendarCard } from "@components/blocks/calendar-card"
 import { theme } from "@theme/global"
 import { ReactNode } from "react"
 import styled from "styled-components"
