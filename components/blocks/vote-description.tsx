@@ -129,7 +129,7 @@ export const VoteDescription = forwardRef<HTMLDivElement, IVotePageProps>(
           </Button>
         </Column>        
 
-        <When condition={hasVideo}>
+        <When condition={hasVideo && false}>
           <Column>
             <LiveStreamVideoContainer ref={ref}>
               {liveStreamUrl && (
