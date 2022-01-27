@@ -1,38 +1,32 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { VoteStatus } from '@lib/util'
 import { Tag } from '../elements-v2/tag'
-import { useCalendar } from '@hooks/use-calendar'
 import { useUrlHash } from 'use-url-hash'
-import { useProcessWrapper } from '@hooks/use-process-wrapper'
 import { useProcessInfo } from '@hooks/use-process-info'
+import { dateDiffStr, DateDiffType } from '@lib/date-moment'
 
 export const ProcessStatusLabel = () => {
   const { i18n } = useTranslation()
-  const { getDateDiffString, getDateDiff } = useCalendar()
   const processId = useUrlHash().slice(1)
   const { status, endDate, startDate } = useProcessInfo(processId)
-  const [now, setNow] = useState(new Date)
-  useEffect(() => {
-    setInterval(() => {
-      setNow(new Date)
-    }, 1000)
-  }, [])
-  const startingString = getDateDiffString(now, startDate, true)
-
+  const endingInDiffString = dateDiffStr(DateDiffType.CountdownV2, endDate)
+  const startingInDiffString = dateDiffStr(DateDiffType.CountdownV2, startDate)
   switch (status) {
     case VoteStatus.Active:
       return (
-        <Tag variant='success' label={getDateDiff(now, endDate, 'countdownV2').value}>
-          {i18n.t('vote.active_vote')}
-        </Tag>
+          <Tag
+            variant='success'
+            label={i18n.t('vote.ending_in') + ' ' + endingInDiffString}
+          >
+            {i18n.t('vote.active_vote')}
+          </Tag>
       )
 
     case VoteStatus.Upcoming:
       return (
         <Tag variant='neutral'>
-
-          {i18n.t('vote.starting_in') + ' ' + startingString}
+          {i18n.t('vote.starting_in')} {startingInDiffString}
         </Tag>
       )
 

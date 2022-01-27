@@ -51,11 +51,11 @@ const PreregisterPage = () => {
   const useCensusProof = useRecoilState<CensusPoof>(censusProofState)
   const { setAlertMessage } = useMessageAlert()
 
-  useEffect(() => {
-    if (!wallet) {
-      router.push(VOTING_PATH + "#/" + processId)
-    }
-  }, [])
+  // useEffect(() => {
+  //   if (!wallet) {
+  //     router.push(VOTING_PATH + "#/" + processId)
+  //   }
+  // }, [])
 
   const handleDataChange = (dataFields: IPreregisterData) => {
     setData(dataFields)

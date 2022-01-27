@@ -4,7 +4,7 @@ import { theme } from "@theme/global";
 
 // GENERAL ICON DEFINITION
 const getFillColor = (props: SVGProps) => {
-  const fillIcons = ['alert-circle', 'spinner']
+  const fillIcons = ['alert-circle', 'spinner', 'cog']
   const hasFill = fillIcons.includes(props.name)
   if (hasFill) {
     if (props.color) {
@@ -50,7 +50,10 @@ export type AvailableIcons =
   'chevron-up-down' |
   'eye' |
   'alert-circle'|
-  'spinner'
+  'spinner'|
+  'cog'|
+  'calendar'|
+  'paper-check'
 
 const getIconSource = (name: AvailableIcons) => {
   return `/icons/common/${name}.svg`
@@ -78,6 +81,34 @@ export const Icon = (props: IconProps) => {
 export const TrashIcon = (props: SpecificIconProps) => (
   <StyledIcon
     src="/icons/common/trash.svg"
+    name="trash"
+    height={getIconSize(props.size)}
+    width={getIconSize(props.size)}
+    color={props.color}
+  />
+)
+export const PaperCheckIcon = (props: SpecificIconProps) => (
+  <StyledIcon
+    src="/icons/common/paper-check.svg"
+    name="paper-check"
+    height={getIconSize(props.size)}
+    width={getIconSize(props.size)}
+    color={props.color}
+  />
+)
+export const CalendarIcon = (props: SpecificIconProps) => (
+  <StyledIcon
+    src="/icons/common/calendar.svg"
+    name="calendar"
+    height={getIconSize(props.size)}
+    width={getIconSize(props.size)}
+    color={props.color}
+  />
+)
+export const CogIcon = (props: SpecificIconProps) => (
+  <StyledIcon
+    src="/icons/common/cog.svg"
+    name="cog"
     height={getIconSize(props.size)}
     width={getIconSize(props.size)}
     color={props.color}
@@ -141,21 +172,6 @@ export const DownloadIcon = (props: SpecificIconProps) => (
 )
 
 // old
-export const CalendarIcon = ({ size }: { size?: string }) => (
-  <img
-    src="/images/vote/calendar-outlined.svg"
-    alt='calendar'
-    width={size}
-    height={size}
-  />
-)
-export const SettingsIcon = ({ size }: { size?: string }) => (
-  <img
-    src="/images/vote/settings.svg"
-    alt='calendar'
-    height={size} width={size}
-  />
-)
 
 export const LoadingIcon = ({ size }: { size?: string }) => (
   <img
