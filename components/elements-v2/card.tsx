@@ -4,7 +4,7 @@ import { forwardRef, ReactNode } from "react"
 import styled from "styled-components"
 
 
-interface CardProps {
+export interface CardProps {
   borderRadius?: CardBorderRadiusSize
   padding?: CardPaddingSize | string
   variant?: CardVariant
@@ -15,13 +15,14 @@ interface CardProps {
   height?: number | string
   borderWidth?: CardBorderSize | number
   borderColor?: CardBorderColor | string
+  onClick?: () => void;
 }
 
 type CardBorderRadiusSize = 'sm' | 'md' | 'lg'
 type CardPaddingSize = 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 type CardBorderSize = 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 type CardBorderColor = 'light-gray' | 'gray'
-export type CardVariant = 'white' | 'primary' | 'gray' | 'dashed' | 'white-elevated'
+export type CardVariant = 'white' | 'primary' | 'gray' | 'dashed' | 'white-elevated' | 'outlined'
 type CardBackgroundColor = 'white' | 'primary' | 'gray'
 
 interface StyledCardProps extends CardProps {
@@ -31,7 +32,7 @@ interface StyledCardProps extends CardProps {
 export const Card = forwardRef<HTMLDivElement, CardProps>((props: CardProps, ref) => {
   const isMobile = useIsMobile()
   return (
-    <StyledCard ref={ref} isMobile={isMobile} {...props} />
+    <StyledCard onClick={props.onClick} ref={ref} isMobile={isMobile} {...props} />
   )
 })
 const cosmeticProps = ['borderRadius', 'padding', 'variant', 'backgroundColor', 'shadow', 'hover', 'height', 'borderWidth', 'borderColor', 'isMobile']
@@ -130,6 +131,9 @@ function getBorderColor  (props: StyledCardProps) {
   switch (props.variant) {
     case 'dashed':
       return theme.accent1
+    case 'outlined':
+      // TODO COLORS?
+      return '#DEEFFF'
     default:
       return 'transparent'
   }
@@ -158,6 +162,8 @@ function getBorderWidth  (props: StyledCardProps) {
   // variants
   switch (props.variant) {
     case 'dashed':
+      return '2px'
+    case 'outlined':
       return '2px'
     default:
       return '0px'

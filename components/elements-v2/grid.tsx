@@ -25,7 +25,7 @@ export type IRowProps = {
    *
    * 3xl -> 24px, total 48px
    *
-   * 4xl -> 24px, total 48px
+   * 4xl -> 24px, total 56px
    */
   gutter?: RowGutter
   wrap?: boolean
@@ -135,8 +135,10 @@ function getRowMargin(props: IRowProps) {
       return 20
     case '3xl':
       return 24
-    case '4xl':
-      return 28
+      case '4xl':
+        return 28
+        case '4xl':
+          return 28
     default:
       return 4
   }

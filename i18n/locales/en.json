@@ -764,6 +764,11 @@
   "votes": {
     "new": {
       "all_the_voters_has_the_same_power": "All voters will have the same voting power",
+      "anonymous_messages": [
+        "• It will be impossible for a third-party to see which vote a user has cast.",
+        "• <strong>Voters will need to pre-register before the starting date</strong> in order to get an authentication password.",
+        "• Voters will be required to then authenticate with their credentials and password once they wish to vote."
+      ],
       "anonymous_voting": "Anonymous voting",
       "by_activating_the_anonymous_voting_option": "By activating the anonymous voting option, the following will be applied:",
       "disclaimer": "Disclaimer",
@@ -779,6 +784,7 @@
       "requirements": "Requirements",
       "select_": "Select",
       "select_voting_options": "Select voting options",
+      "select_voting_type": "Select voting type",
       "set_different_power_to_each_voter": "Set different voting power to each voter",
       "supported_formats_csv_xls": "(Supported formats: CSV, XLSX and ODS)",
       "the_document_name_that_you_updated_do_not_fill": "The document \"{{ documentName }}\" that you uploaded do not fill some of the requirements.",

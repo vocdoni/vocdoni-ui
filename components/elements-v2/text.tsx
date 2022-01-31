@@ -23,6 +23,10 @@ export type TextProps = {
    * 2xl > 24px
    *
    * display-1 > 32px
+   *
+   * display-2 > 38px
+   *
+   * display-3 > 44px
    */
   size?: TextSize
   weight?: TextWeight
@@ -32,9 +36,9 @@ export type TextProps = {
 }
 
 type TextVariant = 'title' | 'subtitle' | 'body'
-export type TextSize = '2xs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | 'display-1'
-export type TextWeight = 'light' | 'regular' | 'medium' | 'bold'
-export type TextColor = 'primary' | 'dark-blue' | 'dark-gray' | 'white' | 'error' | 'secondary'
+type TextSize = '2xs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | 'display-1' | 'display-2' | 'display-3'
+type TextWeight = 'light' | 'regular' | 'medium' | 'bold'
+type TextColor = 'primary' | 'dark-blue' | 'dark-gray' | 'white' | 'error' | 'secondary' | 'light-gray' | string
 type TextAlign = 'center' | 'right' | 'left' | 'justify'
 
 export const Text = (props: TextProps) => {
@@ -96,6 +100,10 @@ function getTextSize(props: TextProps) {
         return '24px'
       case 'display-1':
         return '32px'
+      case 'display-2':
+        return '38px'
+      case 'display-3':
+        return '44px'
       default:
         return '18px'
     }
@@ -142,18 +150,21 @@ function getTextColor(props: TextProps) {
         return theme.textAccent1
       case 'dark-gray':
         return colorsV2.neutral[600]
+      case 'light-gray':
+        return colorsV2.neutral[400]
       // return theme.lightText
       case 'error':
         return colorsV2.support.critical[600]
       case 'white':
         return theme.white
     }
+    return props.color
   }
   switch (props.variant) {
     case 'title':
       return theme.blueText
     case 'subtitle':
-      return theme.blueText
+      return colorsV2.neutral[400]
     case 'body':
       return theme.lightText
   }
