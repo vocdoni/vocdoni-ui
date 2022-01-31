@@ -32,13 +32,15 @@ export const ProcessStatusLabel = ({status}: IProcessStatusLabelProps) => {
 }
 
 const BaseProcessStatusLabel = styled.span`
-  line-height: 20px;
-  box-shadow: rgba(180, 193, 228, 0.35) 0px 3px 3px;
+  line-height: 36px;
+  box-shadow: rgba(180,193,228,0.35) 0px 3px 3px;
   border-radius: 4px;
-  height: 18px;
+  height: 36px;
   padding: 2px 12px;
   font-size: 12px;
   font-weight: 500;
+  min-width: 120px;
+  text-align: center;
   color: ${({theme}) => theme.white}
 `
 

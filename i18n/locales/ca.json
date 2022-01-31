@@ -504,7 +504,7 @@
         "vote_details": "Detalls del procés de votació"
     },
     "vote_question_card": {
-        "no_results_available": "Els resultats estaran disponibles el 17 de Gener.",
+        "no_results_available": "Els resultats estaran disponibles el 26 de Febrer.",
         "number_votes": "{{ number }} vots",
         "question": "Pregunta {{ number }}"
     },
@@ -641,7 +641,7 @@
         "you_vote_has_been_submit_successfully_the_results_will_be_available": "El teu vot ha estat registrat correctament. Els resultats es faran públics durant l’Assemblea General.",
         "your_choice": "La teva selecció",
         "your_entity_is_being_registered": "La teva entitat ha estat registrada",
-        "your_vote_has_been_registered": "El teu vot ha estat registrat",
+        "your_vote_has_been_registered": "El teu vot ha estat registrat correctament",
         "your_vote_is_set_up": "La votació s'ha creat",
         "your_vote_process_is_being_created": "Has creat el procés de votació"
     },

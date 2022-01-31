@@ -51,7 +51,6 @@ export const PageCardHeader = styled.div<{ variant?: PageCardHeaderVariant }>`
   & > img {
     margin: -45px;
     margin-left: 0px;
-    min-height: 210px;
   }
 
   ${({ theme, variant }) =>

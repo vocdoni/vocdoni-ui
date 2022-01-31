@@ -27,7 +27,7 @@ export const VoteSubmitted = ({ onAccept }: IVoteSubmittedProps) => {
         <SectionText size={TextSize.Big} align={TextAlign.Center}>
           {i18n.t('vote.your_vote_has_been_registered')}
         </SectionText>
-        <SectionText color={colors.lightText}>
+        <SectionText color={colors.lightText} align={TextAlign.Center}>
           {i18n.t('vote.thanks_for_participate_on_this_AGM')}
         </SectionText>
       </TextContainer>

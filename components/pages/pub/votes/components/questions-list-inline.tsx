@@ -66,9 +66,6 @@ export const QuestionsListInline = forwardRef<HTMLDivElement, IQuesListInlinePro
 
         <div>
           <Column>
-            <Separator>&nbsp;</Separator>
-            <Separator>&nbsp;</Separator>
-
             <Typography color='#434548' variant={TypographyVariant.Small}>
               A continuació hi ha un total de 22 preguntes. Per poder emetre el vostre vot cal que les respongueu totes tot seleccionant una resposta, d’entre les possibles de cada pregunta. Per emetre el votre vot cal que premeu el botó “Envia el teu vot” que hi ha al final d’aquesta pàgina a l’esquerra i que confirmeu aquesta acció a la finestra emergent que us apereixarà a continuació. El vostre vot només serà emès correctament si feu totes aquestes passes amb l’odre indicat, és a dir: 
               

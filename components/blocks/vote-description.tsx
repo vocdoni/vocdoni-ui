@@ -76,7 +76,7 @@ export const VoteDescription = forwardRef<HTMLDivElement, IVotePageProps>(
 
             <Separator>&nbsp;</Separator>
 
-            <p>Ordre del dia:</p>
+            <VerticalSpace>Ordre del dia:</VerticalSpace>
             <SimpleUl>
               <li>1) Benvinguda</li>
               <li>2) Aprovació, si escau, de l’acta de l’Assemblea General Ordinària del 18 de juny de 2021</li>
@@ -176,7 +176,7 @@ const Separator = styled.div`
 `
 
 const TimeComment = styled.div`
-  line-height: 22px;
+  line-height: 36px;
   margin-left: 20px;
 `
 const SimpleUl = styled.ul`
@@ -195,4 +195,8 @@ const DescriptionText = styled.div`
   & > p {
     font-size: 16px;
   }
+`
+
+const VerticalSpace = styled.p`
+  margin-top:6px;
 `
