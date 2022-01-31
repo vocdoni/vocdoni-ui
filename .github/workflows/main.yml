@@ -202,6 +202,8 @@ jobs:
           DISCOVERY_POOL_SIZE: "1"
           #ANALYTICS_KEY: '202ZI3WhmcYBnY1Bre6umCcmK9Y'
           #ANALYTICS_URL: 'https://rudderstack.aragon.org'
+          COLOR_PICKER: "1"
+          ADVANCED_CENSUS: "1"
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@master
         with:
