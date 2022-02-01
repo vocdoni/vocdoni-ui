@@ -163,7 +163,7 @@ const SpinnerContainer = styled.div`
 export const PositiveButton = styled(BaseButton)`
     cursor: pointer;
 
-    background: linear-gradient(106.26deg, ${props => hexToRgbA(props.theme.accent1B)} 5.73%, ${props => hexToRgbA(props.theme.accent1)} 93.83%);
+    background: #FF6320;
 
     &:hover {
         background: linear-gradient(106.26deg, ${props => hexToRgbA(props.theme.accent1B, 0.9)} 5.73%, ${props => hexToRgbA(props.theme.accent1, 0.9)} 93.83%);

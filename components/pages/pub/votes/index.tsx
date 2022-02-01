@@ -215,6 +215,9 @@ export const VotingPageView = () => {
   const handleOnVoted = () => {
     setVotingState(VotingState.Ended)
     setConfirmModalOpened(false)
+
+    setWallet(null)
+    votingMethods.cleanup()
   }
 
   const handleGotoAuth = () => {
@@ -366,9 +369,6 @@ export const VotingPageView = () => {
               <Typography variant={TypographyVariant.Body2}>
                 {i18n.t('vote.you_need_authenticate_to_vote')}
               </Typography>
-              <Button large positive wide onClick={handleVoteNow}>
-                {i18n.t('vote.vote_now')}
-              </Button>
             </div>
           </FixedButtonContainer>
         )}

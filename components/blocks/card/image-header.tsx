@@ -34,7 +34,7 @@ export const CardImageHeader = ({
   const { accent1 } = useTheme()
 
   const headerImageSrc = '/media/header.jpeg'
-  const entityImageSrc = '/media/logo.png'
+  const entityImageSrc = '/media/logo_sm.png'
 
   return (
     <CardImageHeaderContainer>

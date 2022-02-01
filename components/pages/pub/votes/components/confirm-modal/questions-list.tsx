@@ -96,7 +96,7 @@ const QuestionsContainer = styled.div`
   max-height: 300px;
   -webkit-overflow-scrolling:touch;
 
-  @media ${({ theme }) => theme.screenMax.mobileL} {
+  @media ${({ theme }) => theme.screenMax.tablet} {
     max-height: 260px;
     overflow-x: hidden;
     overflow-y: scroll;
@@ -105,6 +105,8 @@ const QuestionsContainer = styled.div`
 
   ::-webkit-scrollbar {
       width: 10px;
+      -webkit-appearance: scrollbartrack-vertical;
+      -webkit-appearance: scrollbarthumb-vertical;
   }
    
   ::-webkit-scrollbar-track {

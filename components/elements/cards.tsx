@@ -58,10 +58,18 @@ export const PageCardHeader = styled.div<{ variant?: PageCardHeaderVariant }>`
       theme,
     )}
   
-  @media ${({ theme }) => theme.screenMax.mobileL} {
+  @media ${({ theme }) => theme.screenMax.tablet} {
     border-radius: 0;
+    margin: 0px auto;
+    text-align: center;
+    margin-top:-50px;
+
+    & > img {
+      width: 100%;
+      margin: 0px;
+    }
   }
-    
+
 `
 
 export const Card = ({ span, sm, md, lg, xl, border, ...props }: CardProps) => (

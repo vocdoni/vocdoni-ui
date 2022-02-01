@@ -66,8 +66,6 @@ export const VoteDescription = forwardRef<HTMLDivElement, IVotePageProps>(
           </FlexContainer>
         </Column>
 
-        <Separator>&nbsp;</Separator>
-
         <Column>
           <DescriptionText>
             <p>L’Assemblea General Ordinària es convoca per presentar i validar, si escau, el Pla de Treball i el Pressupost del 2022. També ha de renovar bona part de la Junta Directiva.</p> 
@@ -178,6 +176,7 @@ const Separator = styled.div`
 const TimeComment = styled.div`
   line-height: 36px;
   margin-left: 20px;
+  margin-right: -40px;
 `
 const SimpleUl = styled.ul`
   list-style: none;
