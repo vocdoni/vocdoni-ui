@@ -28,7 +28,7 @@ export const ModalQuestionList = ({
     <div key={index}>
       <QuestionGroup>
         <SectionText color="#7E89AC">
-          {i18n.t('vote.question', { number: index + 1 })}
+          <strong>{i18n.t('vote.question', { number: index + 1 })}</strong>
         </SectionText>
         <QuestionText>{question?.title.default}</QuestionText>
       </QuestionGroup>
@@ -85,9 +85,30 @@ const QuestionsContainer = styled.div`
   overflow-y: scroll;
   overflow-x: hidden;
   max-height: 300px;
+  -webkit-overflow-scrolling:touch;
 
-  @media ${({theme}) => theme.screenMax.mobileL} {
+  @media ${({ theme }) => theme.screenMax.mobileL} {
     max-height: 260px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling:touch;
+  }
+
+  ::-webkit-scrollbar {
+      width: 10px;
+  }
+   
+  ::-webkit-scrollbar-track {
+      -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.4); 
+      border-radius: 8px;
+      -webkit-border-radius: 8px;
+  }
+   
+  ::-webkit-scrollbar-thumb {
+      -webkit-border-radius: 10px;
+      border-radius: 10px;
+      background: rgba(100,100,100,0.8); 
+      -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
   }
 `
 

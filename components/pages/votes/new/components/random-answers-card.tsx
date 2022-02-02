@@ -5,20 +5,14 @@ import { Typography, TypographyVariant } from '@components/elements/typography'
 import { colors } from 'theme/colors'
 import styled from 'styled-components'
 import { Ul, Li } from '@components/elements/list'
+import { BtnGroup, BtnGroupContainer } from './btn-group'
 
-import {
-  BtnGroup,
-  BtnGroupContainer,
-  BtnGroupSubText,
-  BtnGroupText,
-} from './btn-group'
-
-interface VotingOptionsProps {
+interface IRandomAnswersCardProps {
   onClick: (type: VotingType) => void
   randomAnswersOrder: boolean
 }
 
-export const VotingOptions = ({ onClick, randomAnswersOrder }: VotingOptionsProps) => {
+export const RandomAnswersCard = ({ onClick, randomAnswersOrder }: IRandomAnswersCardProps) => {
   const { i18n } = useTranslation()
 
   return (
@@ -36,24 +30,24 @@ export const VotingOptions = ({ onClick, randomAnswersOrder }: VotingOptionsProp
         <Column sm={12} md={4}>        
           <BtnGroupContainer size='small'>
             <BtnGroup
-              active={randomAnswersOrder === true}
-              onClick={() => onClick(true)}
-              size='small'
-            >
-              <BtnGroupSubText>
-                <strong>{i18n.t('votes.new.yes')}</strong>
-              </BtnGroupSubText>
-            </BtnGroup>
-
-            <BtnGroup
               active={randomAnswersOrder === false}
               onClick={() => onClick(false)}              
               size='small'
             >
-              <BtnGroupSubText>
+              <Btn>
                 <strong>{i18n.t('votes.new.no')}</strong>
-              </BtnGroupSubText>
-            </BtnGroup>        
+              </Btn>
+            </BtnGroup>
+
+            <BtnGroup
+              active={randomAnswersOrder === true}
+              onClick={() => onClick(true)}
+              size='small'
+            >
+              <Btn>
+                <strong>{i18n.t('votes.new.yes')}</strong>
+              </Btn>
+            </BtnGroup>     
           </BtnGroupContainer>
         </Column>
         
@@ -77,7 +71,6 @@ export const VotingOptions = ({ onClick, randomAnswersOrder }: VotingOptionsProp
   )
 }
 
-
 const DescriptionContainer = styled.div`
   background-color: ${({ theme }) => theme.lightBg};
   padding: 10px 20px;
@@ -86,9 +79,23 @@ const DescriptionContainer = styled.div`
 `
 
 const ContainerBox = styled.div`
-  border: 2px solid #EEE;
+  border: 2px solid #DEEFFF;
   border-radius: 16px;
   padding:0px 20px 20px;
   box-sizing: border-box;
-  margin-top:20px;
+`
+
+const Btn = styled.button<{ active?: boolean }>`
+  width: 140px;
+  height: 48px;
+  background-color: ${({ theme, active }) => active ? theme.white : 'transparent'};
+  text-align: center;
+  border-radius: 16px;
+  border: ${({ active, theme }) => active ? '2px solid ' + theme.lightText : 'none'};
+  color: ${({ active, theme }) => (active ? theme.lightText : theme.blueText)};
+`
+
+const BtnPositive = styled(Btn)`
+  border: ${({ active, theme }) => active ? '2px solid ' + theme.accent1 : 'none'};
+  color: ${({ active, theme }) => (active ? theme.accent1 : theme.blueText)};
 `
