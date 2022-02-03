@@ -16,7 +16,7 @@ export const dateDiffStr = (type: DateDiffType, target: Date): string => {
   if (diff > 3) return strDiff(diff)
   else if (diff < -3) return strDiff(-diff)
   // show message
-  else if (type == DateDiffType.Start) return i18n.t('dates.starting_right_now')
+  else if (type !== DateDiffType.End) return i18n.t('dates.starting_right_now')
   return i18n.t('dates.ending_right_now')
 
 }
@@ -33,8 +33,8 @@ const strDiffCountdown = (type: DateDiffType, secondDiff: number): string => {
     hours = `0${hours}`
   }
   let mins = duration.minutes().toString()
-  if (hours.length < 2) {
-    hours = `0${hours}`
+  if (mins.length < 2) {
+    mins = `0${mins}`
   }
   let secs = duration.seconds().toString()
   if (secs.length < 2) {

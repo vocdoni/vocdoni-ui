@@ -5,15 +5,17 @@ import { Col, Row } from '@components/elements-v2/grid'
 import { Text } from '@components/elements-v2/text'
 import { Card } from "@components/elements-v2/card"
 import { useUrlHash } from 'use-url-hash'
-import { useProcessInfo } from '@hooks/use-process-info'
+import { useProcessWrapper } from '@hooks/use-process-wrapper'
 import { CalendarIcon } from '@components/elements-v2/icons'
 import moment from 'moment'
 
+interface CalendarCardProps {
+  startDate: Date,
+  endDate: Date
+}
 
-export const CalendarCard = () => {
+export const CalendarCard = (props: CalendarCardProps) => {
   const { i18n } = useTranslation()
-  const processId = useUrlHash().slice(1)
-  const { endDate, startDate } = useProcessInfo(processId)
   const isMobile = useIsMobile()
   const toCalendarFormat = (date: Date) => {
     let momentDate = moment(date).locale('es').format("MMM DD - YYYY (HH:mm)")
@@ -41,7 +43,7 @@ export const CalendarCard = () => {
             {i18n.t('vote.calendar_start_label')}:
           </Label>
           <Text size='md' color='dark-blue'>
-            {startDate && toCalendarFormat(startDate)}
+            {props.startDate && toCalendarFormat(props.startDate)}
           </Text>
         </Col>
         <Col xs={6}>
@@ -49,7 +51,7 @@ export const CalendarCard = () => {
             {i18n.t('vote.calendar_end_label')}:
           </Label>
           <Text size='md' color='dark-blue'>
-            {endDate && toCalendarFormat(endDate)}
+            {props.endDate && toCalendarFormat(props.endDate)}
           </Text>
         </Col>
       </Row>

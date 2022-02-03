@@ -16,10 +16,11 @@ import { TextButton } from '@components/elements-v2/text-button'
 import { useVoting } from '@hooks/use-voting'
 import { useUrlHash } from 'use-url-hash'
 import { Else, If, Then } from 'react-if'
-import { useProcessInfo } from '@hooks/use-process-info'
+import { useProcessWrapper } from '@hooks/use-process-wrapper'
 import { ChevronRightIcon } from '@components/elements-v2/icons'
 import { UserVoteStatus } from '..'
 import { dateDiffStr, DateDiffType } from '@lib/date-moment'
+import { BigNumber } from 'ethers'
 
 interface IVoteActionCardProps {
   userVoteStatus: UserVoteStatus
@@ -33,9 +34,8 @@ export const VoteActionCard = ({
   onSeeResults,
 }: IVoteActionCardProps) => {
   const { i18n } = useTranslation()
-  // const { getDateDiffString, getDateDiff } = useCalendar()
   const processId = useUrlHash().slice(1)
-  const { startDate, endDate, totalVotes, status, censusSize, liveResults } = useProcessInfo(processId)
+  const { startDate, endDate, votesWeight, status, censusSize, liveResults } = useProcessWrapper(processId)
   const { nullifier } = useVoting(processId)
   const disabled = (status !== VoteStatus.Active || userVoteStatus === UserVoteStatus.Emitted)
   const explorerLink = process.env.EXPLORER_URL + '/envelope/' + nullifier
@@ -151,9 +151,9 @@ export const VoteActionCard = ({
           {i18n.t('vote.total_votes_submited')}
         </Text>
         <Text large>
-          <If condition={liveResults && totalVotes && censusSize}>
+          <If condition={liveResults && votesWeight && censusSize}>
             <Then>
-              {totalVotes} ({(totalVotes / (censusSize || 1) * 100).toFixed(2)}%)
+              {votesWeight?.toString()} ({getPercent(votesWeight, BigNumber.from(censusSize || 1))}%)
             </Then>
             <Else>
               0 (0%)
@@ -168,6 +168,10 @@ export const VoteActionCard = ({
       </BannerMainDiv>
     </BannerDiv>
   )
+}
+const getPercent = (votes: BigNumber, totalVotes: BigNumber): number => {
+  const ratio = votes?.div(totalVotes)
+  return ratio?.mul(100).toNumber()
 }
 
 const BannerDiv = styled.div<{ positive?: boolean }>`

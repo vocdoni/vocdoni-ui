@@ -2,33 +2,6 @@ import styled, { keyframes } from "styled-components"
 import SVG, { Props as SVGProps } from "react-inlinesvg";
 import { theme } from "@theme/global";
 
-// GENERAL ICON DEFINITION
-const getFillColor = (props: SVGProps) => {
-  const fillIcons = ['alert-circle', 'spinner', 'cog']
-  const hasFill = fillIcons.includes(props.name)
-  if (hasFill) {
-    if (props.color) {
-      return props.color
-    }
-    return theme.accent1
-  }
-  return ''
-}
-const getStrokeColor = (props: SVGProps) => {
-  if (props.color) {
-    return props.color
-  }
-  return theme.accent1
-}
-
-const StyledIcon = styled(SVG)`
-& path {
-  transition: 0.3s;
-  stroke: ${getStrokeColor};
-  fill: ${getFillColor};
-}
-
-`
 export interface IconProps {
   color?: string
   name: AvailableIcons
@@ -38,7 +11,6 @@ export interface SpecificIconProps {
   color?: string
   size?: number
 }
-
 export type AvailableIcons =
   'chevron-right' |
   'pie-chart' |
@@ -49,23 +21,16 @@ export type AvailableIcons =
   'lightning-slash' |
   'chevron-up-down' |
   'eye' |
-  'alert-circle'|
-  'spinner'|
-  'cog'|
-  'calendar'|
+  'alert-circle' |
+  'spinner' |
+  'cog' |
+  'calendar' |
   'paper-check'
 
-const getIconSource = (name: AvailableIcons) => {
-  return `/icons/common/${name}.svg`
-}
-const getIconSize = (size: number) => {
-  if (size) {
-    return `${size}px`
-  }
-  return '24px'
-}
+// ============= //
+// GENERAL ICONS //
+// ============= //
 
-// GENERAL ICON
 export const Icon = (props: IconProps) => {
   return (
     <StyledIcon
@@ -76,8 +41,18 @@ export const Icon = (props: IconProps) => {
       color={props.color}
     />)
 }
+const StyledIcon = styled(SVG)`
+& path {
+  transition: 0.3s;
+  stroke: ${getStrokeColor};
+  fill: ${getFillColor};
+}
+`
 
-// SPECIFIC ICONS
+// ============== //
+// SPECIFIC ICONS //
+// ============== //
+
 export const TrashIcon = (props: SpecificIconProps) => (
   <StyledIcon
     src="/icons/common/trash.svg"
@@ -247,6 +222,44 @@ export const DocumentOutlinedIcon = ({ size }: { size?: string }) => (
   />
 )
 
+// ======= //
+// HELPERS //
+// ======= //
+
+function getFillColor(props: SVGProps) {
+  const fillIcons = ['alert-circle', 'spinner', 'cog']
+  const hasFill = fillIcons.includes(props.name)
+  if (hasFill) {
+    if (props.color) {
+      return props.color
+    }
+    return theme.accent1
+  }
+  return ''
+}
+
+function getStrokeColor(props: SVGProps) {
+  if (props.color) {
+    return props.color
+  }
+  return theme.accent1
+}
+
+function getIconSource(name: AvailableIcons) {
+  return `/icons/common/${name}.svg`
+}
+
+function getIconSize(size: number) {
+  if (size) {
+    return `${size}px`
+  }
+  return '24px'
+}
+
+// ========== //
+// ANIMATIONS //
+// ========== //
+
 const rotate = keyframes`
   from {
     transform: rotate(0deg);
@@ -257,23 +270,9 @@ const rotate = keyframes`
   }
 `
 export const Rotate = styled.div`
-
   -webkit-animation: ${rotate} 1s infinite linear;
   -o-animation: ${rotate} 1s infinite  linear;
    animation: ${rotate} 1s infinite linear;
   transform-origin: center center;
   transform-box: fill-box;
 `
-export interface IconProps {
-
-}
-export const Color = styled.span`
-& path {
-  fill: red;
-}
-&:hover {
-  line {
-    stroke: orange;
-  }
-}
-`;

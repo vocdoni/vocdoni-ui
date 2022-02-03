@@ -1,6 +1,6 @@
 import { FlexContainer, FlexAlignItem, FlexJustifyContent } from "@components/elements/flex";
 import { colors } from "@theme/colors";
-import { ReactNode, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { When } from "react-if";
 import styled from "styled-components";
 import { Col, Row, IColProps } from "./grid";
@@ -42,7 +42,11 @@ interface LoadingColProps extends IColProps {
 }
 
 export const Button = (props: ButtonProps) => {
-  const [iconColor, setIconColor] = useState(getTextColor(props))
+  const textColor = getTextColor(props)
+  const [iconColor, setIconColor] = useState(textColor)
+  useEffect(()=>{
+    setIconColor(textColor)
+  },[textColor])
   return (
     <BaseButton
       onClick={props.onClick}
@@ -100,7 +104,48 @@ export const Button = (props: ButtonProps) => {
     </BaseButton>
   )
 }
-const getTextColor = (props: StyledButtonProps) => {
+const BaseButton = styled.div<StyledButtonProps>`
+cursor: ${getCursor};
+box-sizing: border-box;
+border-radius: 8px;
+font-family: Manrope;
+padding: ${getPadding};
+font-weight: 600;
+font-size: ${getButtonFontSize};
+text-align: center;
+border: ${getBorderColor};
+color: ${getTextColor};
+background: ${getBackgroundColor};
+width: ${getWidth};
+box-shadow: ${getBoxShadow};
+transition: 0.3s;
+// opacity: ${getOpacity};
+&:hover {
+  div{props}{
+
+  }
+  border: ${getBorderColorHover};
+  background: ${getBackgroundColorHover};
+  color: ${getTextColorHover};
+  opacity: ${getOpacity};
+}
+& > * {
+  pointer-events: ${getPointerEvents};
+}
+`
+const StyledCol = styled(Col) <LoadingColProps> `
+  visibility: ${(props) => props.loading ? 'hidden' : 'visible'};
+`
+const LoadingCol = styled(Col) <LoadingColProps> `
+  display: ${(props) => props.loading ? '' : 'none'};
+  position: absolute;
+`
+
+// ======= //
+// HELPERS //
+// ======= //
+
+function getTextColor(props: StyledButtonProps) {
   if (props.disabled) {
     return colorsV2.neutral[400]
   }
@@ -123,7 +168,7 @@ const getTextColor = (props: StyledButtonProps) => {
       return theme.accent1
   }
 }
-const getBackgroundColor = (props: StyledButtonProps) => {
+function getBackgroundColor(props: StyledButtonProps) {
   if (props.disabled) {
     return colorsV2.neutral[50]
   }
@@ -143,7 +188,7 @@ const getBackgroundColor = (props: StyledButtonProps) => {
       return theme.white
   }
 }
-const getBorderColor = (props: StyledButtonProps) => {
+function getBorderColor(props: StyledButtonProps) {
   switch (props.variant) {
     case 'light':
       return `2px solid ${theme.lightBorder}`
@@ -162,7 +207,7 @@ const getBorderColor = (props: StyledButtonProps) => {
       return ''
   }
 }
-const getBorderColorHover = (props: StyledButtonProps) => {
+function getBorderColorHover(props: StyledButtonProps) {
   // TODO Colors
   if (props.disabled) {
     switch (props.variant) {
@@ -185,7 +230,7 @@ const getBorderColorHover = (props: StyledButtonProps) => {
       return `2px solid ${getTextColor(props)}`
   }
 }
-const getBackgroundColorHover = (props: StyledButtonProps) => {
+function getBackgroundColorHover(props: StyledButtonProps) {
   if (!props.disabled && !props.loading) {
     switch (props.variant) {
       case 'outlined':
@@ -194,7 +239,7 @@ const getBackgroundColorHover = (props: StyledButtonProps) => {
   }
 }
 
-const getTextColorHover = (props: StyledButtonProps) => {
+function getTextColorHover(props: StyledButtonProps) {
   if (!props.disabled) {
     switch (props.variant) {
       case 'outlined':
@@ -206,13 +251,13 @@ const getTextColorHover = (props: StyledButtonProps) => {
   return getTextColor(props)
 }
 
-const getWidth = (props: StyledButtonProps) => {
+function getWidth(props: StyledButtonProps) {
   if (!props.width) {
     return 'auto'
   }
   return `${props.width}px`
 }
-const getPadding = (props: StyledButtonProps) => {
+function getPadding(props: StyledButtonProps) {
   if (props.variant === 'text') {
     return '0px'
   }
@@ -234,7 +279,7 @@ const getPadding = (props: StyledButtonProps) => {
       return '12px 20px'
   }
 }
-const getBoxShadow = (props: StyledButtonProps) => {
+function getBoxShadow(props: StyledButtonProps) {
   switch (props.variant) {
     case 'primary':
       return '0px 3px 3px rgba(180, 193, 228, 0.2)'
@@ -244,7 +289,7 @@ const getBoxShadow = (props: StyledButtonProps) => {
       return ''
   }
 }
-const getOpacity = (props: StyledButtonProps) => {
+function getOpacity(props: StyledButtonProps) {
   if (!props.disabled) {
     switch (props.variant) {
       case 'primary':
@@ -257,7 +302,7 @@ const getOpacity = (props: StyledButtonProps) => {
   }
   return 1
 }
-const getButtonFontSize = (props: StyledButtonProps) => {
+function getButtonFontSize(props: StyledButtonProps) {
   switch (props.size) {
     case 'md':
       return '16px'
@@ -268,48 +313,15 @@ const getButtonFontSize = (props: StyledButtonProps) => {
   }
 }
 
-const getPointerEvents = (props: StyledButtonProps) => {
+function getPointerEvents(props: StyledButtonProps) {
   if (props.disabled) {
     return 'none'
   }
   return 'auto'
 }
-const getCursor = (props: StyledButtonProps) => {
+function getCursor(props: StyledButtonProps) {
   if (props.disabled || props.loading) {
     return 'not-allowed'
   }
   return 'pointer'
 }
-const BaseButton = styled.div<StyledButtonProps>`
-cursor: ${getCursor};
-box-sizing: border-box;
-border-radius: 8px;
-font-family: Manrope;
-padding: ${getPadding};
-font-weight: 600;
-font-size: ${getButtonFontSize};
-text-align: center;
-border: ${getBorderColor};
-color: ${getTextColor};
-background: ${getBackgroundColor};
-width: ${getWidth};
-box-shadow: ${getBoxShadow};
-transition: 0.3s;
-// opacity: ${getOpacity};
-&:hover {
-  border: ${getBorderColorHover};
-  background: ${getBackgroundColorHover};
-  color: ${getTextColorHover};
-  opacity: ${getOpacity};
-}
-& > * {
-  pointer-events: ${getPointerEvents};
-}
-`
-const StyledCol = styled(Col) <LoadingColProps> `
-  visibility: ${(props) => props.loading ? 'hidden' : 'visible'};
-`
-const LoadingCol = styled(Col) <LoadingColProps> `
-  display: ${(props) => props.loading ? '' : 'none'};
-  position: absolute;
-`
