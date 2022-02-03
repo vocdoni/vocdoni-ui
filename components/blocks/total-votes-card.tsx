@@ -1,11 +1,11 @@
 import { Col, Row } from "@components/elements-v2/grid"
 import { Tag } from "@components/elements-v2/tag"
 import { Text } from "@components/elements-v2/text"
-import { useProcessInfo } from "@hooks/use-process-info"
 import { useProcessWrapper } from "@hooks/use-process-wrapper"
 import { useIsMobile } from "@hooks/use-window-size"
 import { VotingType } from "@lib/types"
 import { useProcess } from "@vocdoni/react-hooks"
+import { useEffect } from "react"
 import { useTranslation } from "react-i18next"
 import { When } from "react-if"
 import { useUrlHash } from "use-url-hash"
@@ -14,7 +14,8 @@ export const TotalVotesCard = () => {
   const isMobile = useIsMobile()
   const processId = useUrlHash().slice(1)
   const { i18n } = useTranslation()
-  const { censusSize, totalVotes } = useProcessInfo(processId)
+  const { results, censusSize } = useProcessWrapper(processId)
+  const totalVotes = results.totalVotes
   return (
     <Row gutter={isMobile ? 'sm' : 'md'} align="center" justify={isMobile ? 'center' : 'start'}>
       <Col>

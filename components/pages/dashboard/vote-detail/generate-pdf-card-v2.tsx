@@ -1,7 +1,7 @@
 import { Card, Col, Row, Text, Button } from "@components/elements-v2"
 import { ChevronRightIcon, DownloadIcon, Icon } from "@components/elements-v2/icons"
 import { } from "@components/elements/button"
-import { useProcessInfo } from "@hooks/use-process-info"
+import { useProcessWrapper } from "@hooks/use-process-wrapper"
 import { VoteStatus } from "@lib/util"
 import { theme } from "@theme/global"
 import votes from "pages/votes"
@@ -19,7 +19,7 @@ export const GeneratePdfCard = (props: GeneratePdfCardProps) => {
   const { i18n } = useTranslation()
   // get process data
   const processId = useUrlHash().slice(1)
-  const { status, totalVotes, censusSize, liveResults, results, processInfo, title } = useProcessInfo(processId)
+  const { status, totalVotes, censusSize, liveResults, results, processInfo, title } = useProcessWrapper(processId)
   // geet entity data
   const { wallet } = useWallet({ role: WalletRoles.ADMIN })
   const { metadata: entityMetadata } = useEntity(wallet?.address)

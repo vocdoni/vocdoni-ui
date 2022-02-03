@@ -20,7 +20,7 @@ export const WaitingBanner = (props: WaitingBannerProps) => {
   const { i18n } = useTranslation()
   useEffect(() => {
     // set as a varaible to avoid a memory leak
-    const interval = setInterval(async () => {
+    const interval = setInterval(() => {
       setShowMessage(false)
       setTimeout(() => {
         setShowMessage(true)

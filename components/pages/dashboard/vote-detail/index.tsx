@@ -16,7 +16,7 @@ import { DocumentOutlinedIcon, PieChartIcon, QuestionCircleIcon, QuestionOutline
 import { ExpandableContainer } from '@components/blocks/expandable-container'
 import { DetailsCard } from './details-card'
 import { CopyLinkCard } from './copy-link-card'
-import { useProcessInfo } from '@hooks/use-process-info'
+import { useProcessWrapper } from '@hooks/use-process-wrapper'
 import { useUrlHash } from 'use-url-hash'
 import { ExpandableCard } from '@components/blocks/expandable-card'
 import { ResultsCard } from '@components/pages/pub/votes/components/results-card'
@@ -36,6 +36,7 @@ export const ViewDetail = () => {
   const { i18n } = useTranslation()
   const [isCancelModalOpen, setIsCancelModalOpen] = useState<boolean>(false)
   const [isEndModalOpen, setIsEndModalOpen] = useState<boolean>(false)
+  const [isCancellledOrEnded, setIsCancelledOrEnded] = useState<boolean>(false)
   const [isCancelLoading, setIsCancelLoading] = useState<boolean>(false)
   const [isEndLoading, setIsEndLoading] = useState<boolean>(false)
   const [isResultsCardOpen, setIsResultsCardOpen] = useState<boolean>(false)
@@ -55,7 +56,7 @@ export const ViewDetail = () => {
     attachmentUrl,
     methods,
     isAnonymous
-  } = useProcessInfo(processId)
+  } = useProcessWrapper(processId)
   const toCalendarFormat = (date: Date) => {
     let momentDate = moment(date).locale('es').format("MMM DD - YYYY (HH:mm)")
     return momentDate.charAt(0).toUpperCase() + momentDate.slice(1)
@@ -71,7 +72,12 @@ export const ViewDetail = () => {
     : RouterService.instance.get(VOTING_AUTH_FORM_PATH, {
       processId: processId,
     })
-
+  const canCancelorEnd =
+    wallet?.address &&
+    !isCancelLoading &&
+    !isEndLoading &&
+    !isCancellledOrEnded &&
+    (processStatus == VoteStatus.Active || processStatus == VoteStatus.Paused)
   // Show conditions
   const showPreviewButton = [VoteStatus.Upcoming, VoteStatus.Active, VoteStatus.Ended].includes(processStatus)
   const showCancelButton = [VoteStatus.Upcoming, VoteStatus.Active].includes(processStatus)
@@ -157,19 +163,28 @@ export const ViewDetail = () => {
   }
   // end vote
   const handleEndVote = async () => {
+    // If not wallet return
     if (!wallet) {
       setAlertMessage(i18n.t('error.wallet_not_available'))
       return
     }
+    // If process is already ended return
     if (processStatus === VoteStatus.Ended) return
-    try {
-      setIsEndLoading(true)
-      await methods.pauseProcess(processId, wallet)
+    // show confirmation dialog
+    const warning = `${i18n.t('confirm.by_ending_a_process_no_new_votes_will_be_accepted_and_results_will_be_computed')}. ${i18n.t('confirm.this_action_cannot_be_undone')}.\n\n ${i18n.t('confirm.do_you_want_to_continue')} `
+    if (!confirm(warning)) return
+    // set loading to true
+    setIsEndLoading(true)
+    methods.pauseProcess(processId, wallet).then(() => {
+      // if every thing goes well set loading to false and close the modal
       setIsEndLoading(false)
       setIsEndModalOpen(false)
-    } catch {
-      setAlertMessage(i18n.t('error.wallet_not_available'))
-    }
+    }).catch(() => {
+      // if not set loading to false, close the modal and show an error message
+      setIsEndLoading(false)
+      setIsEndModalOpen(false)
+      setAlertMessage(i18n.t('error.we_cant_check_the_new_status_process'))
+    })
   }
   // cancel vote
   const handleCancelVote = async () => {
@@ -178,14 +193,21 @@ export const ViewDetail = () => {
       return
     }
     if (processStatus === VoteStatus.Ended) return
-    try {
-      setIsCancelLoading(true)
-      await methods.cancelProcess(processId, wallet)
+    // show confirmation dialog
+    const warning = `${i18n.t('confirm.by_canceling_a_process_you_will_unlist_it_and_drop_all_of_its_votes_and_results')}. ${i18n.t('confirm.this_action_cannot_be_undone')}.\n\n ${i18n.t('confirm.do_you_want_to_continue')} `
+    if (!confirm(warning)) return
+    // set is loading to true
+    setIsCancelLoading(true)
+    methods.cancelProcess(processId, wallet).then(() => {
+      // if every thing goes well set loading to false and close the modal
       setIsCancelLoading(false)
       setIsCancelModalOpen(false)
-    } catch {
-      setAlertMessage(i18n.t('error.wallet_not_available'))
-    }
+    }).catch(() => {
+      // if not set loading to false, close the modal and show an error message
+      setIsCancelLoading(false)
+      setIsCancelModalOpen(false)
+      setAlertMessage(i18n.t('error.we_cant_check_the_new_status_process'))
+    })
   }
 
   const handleCloseCancelModal = () => {
@@ -242,6 +264,7 @@ export const ViewDetail = () => {
                     onClick={() => setIsCancelModalOpen(true)}
                     color={colorsV2.support.critical[600]}
                     iconLeft={{ name: 'trash', size: 24 }}
+                    disabled={!canCancelorEnd}
                   >
                     {i18n.t('vote_detail.cancel_vote')}
                   </Button>
@@ -253,7 +276,8 @@ export const ViewDetail = () => {
                     variant='outlined'
                     onClick={() => setIsEndModalOpen(true)}
                     color={theme.blueText}
-                    iconRight={{ name: 'shutdown', size: 24 }}
+                    iconLeft={{ name: 'shutdown', size: 24 }}
+                    disabled={!canCancelorEnd}
                   >
                     {i18n.t('vote_detail.end_vote')}
                   </Button>

@@ -25,7 +25,8 @@ export const ExpandableContainer = (props: ExpandableContainerProps) => {
   const lineHeight = 22 * props.lines
   useLayoutEffect(() => {
     if (ref.current) {
-      setHeight(ref.current.scrollHeight)
+      const element = ref.current as Element
+      setHeight(element.scrollHeight)
     }
   })
   return (

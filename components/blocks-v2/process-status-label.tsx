@@ -3,13 +3,13 @@ import { useTranslation } from 'react-i18next'
 import { VoteStatus } from '@lib/util'
 import { Tag } from '../elements-v2/tag'
 import { useUrlHash } from 'use-url-hash'
-import { useProcessInfo } from '@hooks/use-process-info'
+import { useProcessWrapper } from '@hooks/use-process-wrapper'
 import { dateDiffStr, DateDiffType } from '@lib/date-moment'
 
 export const ProcessStatusLabel = () => {
   const { i18n } = useTranslation()
   const processId = useUrlHash().slice(1)
-  const { status, endDate, startDate } = useProcessInfo(processId)
+  const { status, endDate, startDate } = useProcessWrapper(processId)
   const endingInDiffString = dateDiffStr(DateDiffType.CountdownV2, endDate)
   const startingInDiffString = dateDiffStr(DateDiffType.CountdownV2, startDate)
   switch (status) {

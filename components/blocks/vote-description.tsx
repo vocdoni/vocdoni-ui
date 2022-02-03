@@ -11,7 +11,7 @@ import { LinkButton } from '@components/elements-v2/link-button'
 import { ExpandableContainer } from './expandable-container'
 import { Col, Row } from '@components/elements-v2/grid'
 import { useUrlHash } from 'use-url-hash'
-import { useProcessInfo } from '@hooks/use-process-info'
+import { useProcessWrapper } from '@hooks/use-process-wrapper'
 import { When } from 'react-if'
 import { DocumentOutlinedIcon, QuestionOutlinedIcon } from '@components/elements-v2/icons'
 
@@ -19,7 +19,16 @@ import { DocumentOutlinedIcon, QuestionOutlinedIcon } from '@components/elements
 export const VoteDescription = () => {
   const { i18n } = useTranslation()
   const processId = useUrlHash().slice(1)
-  const { description, liveStreamUrl, discussionUrl, attachmentUrl } = useProcessInfo(processId)
+  const {
+    description,
+    liveStreamUrl,
+    discussionUrl,
+    attachmentUrl,
+    startDate,
+    endDate,
+    votingType,
+    isAnonymous
+  } = useProcessWrapper(processId)
 
   // This is used to make the video url have its own
   // lifecycle so it not rerenders the video automatically
@@ -64,10 +73,16 @@ export const VoteDescription = () => {
         {/* INSIDE ROW TO ADJUST GUTTER */}
         <Row gutter='lg'>
           <Col xs={12} md={6}>
-            <CalendarCard />
+            <CalendarCard
+              startDate={startDate}
+              endDate={endDate}
+            />
           </Col>
           <Col xs={12} md={6}>
-            <SettingsCard />
+            <SettingsCard
+              votingType={votingType}
+              isAnonymous={isAnonymous}
+            />
           </Col>
         </Row>
       </Col>

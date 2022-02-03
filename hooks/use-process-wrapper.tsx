@@ -2,7 +2,7 @@ import { usePool, useProcess, useBlockHeight, useDateAtBlock, UseProcessContext,
 import { ProcessDetails, ProcessResultsSingleChoice, VotingApi, ProcessStatus, VochainProcessStatus, IProcessStatus, ProcessState, Voting, CensusOffChainApi } from 'dvote-js'
 import { Wallet } from '@ethersproject/wallet'
 
-import { useContext } from 'react'
+import { createContext, ReactNode, useContext } from 'react'
 import { useEffect, useState } from 'react'
 
 import i18n from '../i18n'
@@ -12,6 +12,7 @@ import { IProcessResults, VotingType } from '@lib/types'
 import { Question } from '@lib/types'
 import { VoteStatus } from '@lib/util'
 import { MetadataFields } from '@components/pages/votes/new/metadata'
+import { BigNumber } from 'ethers'
 
 export interface ProcessWrapperContext {
   loadingInfo: boolean,
@@ -28,7 +29,7 @@ export interface ProcessWrapperContext {
   processId: string,
   results: IProcessResults,
   votingType: VotingType,
-  totalVotes: number,
+  votesWeight: BigNumber,
   liveResults: boolean,
   description: string
   liveStreamUrl: string
@@ -36,14 +37,36 @@ export interface ProcessWrapperContext {
   attachmentUrl: string
   questions: Question[]
   title: string
+  isAnonymous: boolean
   methods: {
-    refreshProcessInfo: (processId: string) => Promise<ProcessDetails>
+    // refreshProcessInfo: (processId: string) => Promise<ProcessDetails>
     refreshResults: () => Promise<any>
+    setProcessId: (processId: string) => void
+    waitUntilStatusUpdated: (processId: string, status: IProcessStatus) => Promise<ProcessState>
+    cancelProcess: (processId: string, wallet: Wallet) => Promise<void>
+    pauseProcess: (processId: string, wallet: Wallet) => Promise<void>
   }
 }
+const UseProcessWrapperContext = createContext<ProcessWrapperContext>({ censusSize: 0, processId: '', methods: {} } as any)
 
 
 export const useProcessWrapper = (processId: string) => {
+  const ctx = useContext(UseProcessWrapperContext)
+
+  if (ctx === null) {
+    throw new Error('useProcessWrapper() can only be used on the descendants of <UseProcesWrapperProvider />,')
+  }
+  useEffect(() => {
+    if (!processId) return
+    else if (ctx.processId == processId) return
+
+    ctx.methods.setProcessId(processId)
+  }, [processId])
+
+  return ctx
+}
+export const UseProcessWrapperProvider = ({ children }: { children: ReactNode }) => {
+  const [processId, setProcessId] = useState("")
   const invalidProcessId = !processId || !processId.match(/^0x[0-9a-fA-F]{64}$/)
   const processContext = useContext(UseProcessContext)
   const [censusSize, setCensusSize] = useState<number>()
@@ -62,7 +85,6 @@ export const useProcessWrapper = (processId: string) => {
   const [status, setStatus] = useState<VoteStatus>()
 
   const startBlock = processInfo?.state?.startBlock || 0
-  // console.log("eres")
   const endBlock = processInfo?.state?.endBlock || 0
   const { date: startDate, loading: dateLoading, error: dateError } = useDateAtBlock(startBlock)
   const { date: endDate } = useDateAtBlock(endBlock)
@@ -187,8 +209,12 @@ export const useProcessWrapper = (processId: string) => {
   }
   // Loaders
 
-  const countVotesWeight = (results: ProcessResultsSingleChoice): number => {
-    return results.questions.reduce((prev, curr) => prev + curr.voteResults.reduce((p, c) => p + c.votes.toNumber(), 0), 0) / results.questions.length
+  // const countVotesWeight = (results: ProcessResultsSingleChoice): number => {
+  //   return results.questions.reduce((prev, curr) => prev + curr.voteResults.reduce((p, c) => p + c.votes.toNumber(), 0), 0) / results.questions.length
+  // }
+  const countVotesWeight = (results: ProcessResultsSingleChoice): BigNumber => {
+    const weightSum = results.questions.reduce((prev, curr) => prev.add(curr.voteResults.reduce((p, c) => c.votes.add(p), BigNumber.from(0))), BigNumber.from(0))
+    return weightSum.div(results.questions.length)
   }
 
   const refreshResults = () => {
@@ -224,34 +250,33 @@ export const useProcessWrapper = (processId: string) => {
   const discussionUrl = processInfo?.metadata?.meta[MetadataFields.DiscussionLink]
   const attachmentUrl = processInfo?.metadata?.meta[MetadataFields.AttachmentLink]
   const questions = processInfo?.metadata?.questions
-  const totalVotes = VotingType.Weighted === votingType
+  const votesWeight = VotingType.Weighted === votingType
     ? results?.totalWeightedVotes
-    : results?.totalVotes
+    : results?.totalVotes ? BigNumber.from(results?.totalVotes) : undefined
   const title = processInfo?.metadata?.title.default
-  const date = new Date(1643284337023 + (3600 * 1000 * 24))
   const remainingTime = (startBlock && startDate)
     ? hasStarted
-      ? localizedStrDateDiff(DateDiffType.End, date)
+      ? localizedStrDateDiff(DateDiffType.End, endDate)
       : localizedStrDateDiff(DateDiffType.Start, startDate)
     : ''
 
   // RETURN VALUES
-  return {
-    loadingInfoError,
+  const value: ProcessWrapperContext = {
     loadingInfo,
+    loadingInfoError,
     processInfo,
     censusSize,
     hasStarted,
     hasEnded,
+    remainingTime,
     startDate,
     endDate,
-    processId,
-    remainingTime,
     status,
     statusText,
+    processId,
     results,
     votingType,
-    totalVotes,
+    votesWeight,
     liveResults,
     description,
     liveStreamUrl,
@@ -261,10 +286,17 @@ export const useProcessWrapper = (processId: string) => {
     title,
     isAnonymous,
     methods: {
-      cancelProcess,
-      pauseProcess,
+      // refreshProcessInfo,
+      refreshResults,
+      setProcessId,
       waitUntilStatusUpdated,
-      refreshResults
+      cancelProcess,
+      pauseProcess
     }
   }
+  return (
+    <UseProcessWrapperContext.Provider value={value}>
+      {children}
+    </UseProcessWrapperContext.Provider>
+  )
 }

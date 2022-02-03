@@ -7,14 +7,17 @@ import { Text } from "@components/elements-v2/text"
 import { Card } from "@components/elements-v2/card"
 import { useUrlHash } from "use-url-hash"
 import { VotingType } from "@lib/types"
-import { useProcessInfo } from "@hooks/use-process-info"
+import { useProcessWrapper } from "@hooks/use-process-wrapper"
 import { CogIcon } from "@components/elements-v2/icons"
 
-export const SettingsCard = () => {
+interface SettingsCardProps {
+  votingType: VotingType
+  isAnonymous: boolean
+}
+
+export const SettingsCard = (props: SettingsCardProps) => {
   const { i18n } = useTranslation()
   const isMobile = useIsMobile()
-  const processId = useUrlHash().slice(1)
-  const { votingType, isAnonymous } = useProcessInfo(processId)
   return (
     <Card padding="sm" variant="gray">
       <Row gutter={isMobile ? 'md' : 'lg'} >
@@ -32,21 +35,21 @@ export const SettingsCard = () => {
         </Col>
         <Col xs={12}>
           <Row justify='start' align='center' gutter='sm'>
-            {votingType === VotingType.Weighted &&
+            {props.votingType === VotingType.Weighted &&
               <Col>
                 <Tag variant="neutral" size="large" fontWeight="regular">
                   {i18n.t("vote.tag_is_weighted")}
                 </Tag>
               </Col>
             }
-            {votingType === VotingType.Normal &&
+            {props.votingType === VotingType.Normal &&
               <Col>
                 <Tag variant="neutral" size="large" fontWeight="regular">
                   {i18n.t("vote.tag_is_normal")}
                 </Tag>
               </Col>
             }
-            {isAnonymous &&
+            {props.isAnonymous &&
               <Col>
                 <Tag variant="neutral" size="large" fontWeight="regular">
                   {i18n.t("vote.tag_is_anonymous")}

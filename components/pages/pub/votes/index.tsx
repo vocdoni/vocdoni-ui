@@ -13,30 +13,28 @@ import { useVoting } from '@hooks/use-voting'
 import { useWallet, WalletRoles } from '@hooks/use-wallet'
 import { PageCard } from '@components/elements/cards'
 import { Button } from '@components/elements-v2/button'
-import { FlexContainer } from '@components/elements/flex'
 import { CardImageHeader } from '@components/blocks/card/image-header'
 import { VoteDescription } from '@components/blocks/vote-description'
 import { ConfirmModal } from './components/confirm-modal'
 import { VoteActionCard } from './components/vote-action-card'
 import { VoteStatus, getVoteStatus } from '@lib/util'
 import { useUrlHash } from 'use-url-hash'
-import { EntityMetadata } from 'dvote-js'
-import { Body1 } from '@components/elements/typography'
 import { QuestionsList } from './components/questions-list'
 import { censusProofState } from '@recoil/atoms/census-proof'
 import { VoteRegisteredCard } from './components/vote-registered-card'
 import RouterService from '@lib/router'
-import { VOTING_AUTH_FORM_PATH, PREREGISTER_PATH } from '@const/routes'
+import { VOTING_AUTH_FORM_PATH } from '@const/routes'
 import { ExpandableCard } from '@components/blocks/expandable-card'
 import { Banner } from '@components/blocks-v2/banner'
-import { Spacer, Col, Row, IColProps, Text, TextButton } from '@components/elements-v2'
+import { Spacer, Col, Row, IColProps, Text } from '@components/elements-v2'
 
 import { DisconnectModal } from '@components/blocks-v2'
 import { ResultsCard } from './components/results-card'
-import { useProcessInfo } from '@hooks/use-process-info'
+import { useProcessWrapper } from '@hooks/use-process-wrapper'
 import { useIsMobile } from '@hooks/use-window-size'
 import { PieChartIcon } from '@components/elements-v2/icons'
 import { dateDiffStr, DateDiffType } from '@lib/date-moment'
+import { MetadataFields } from '@components/pages/votes/new/metadata'
 export enum UserVoteStatus {
   /**
    * User is voting right now
@@ -44,7 +42,7 @@ export enum UserVoteStatus {
   InProgress = 'inProgress',
   /**
    * User vote has expired due to external
-   * things like the vote is clossed
+   * things like the vote is closed
    */
   Expired = 'expired',
   /**
@@ -71,6 +69,7 @@ interface IVideoStyle {
 export const VotingPageView = () => {
   const { i18n } = useTranslation()
   const processId = useUrlHash().slice(1) // Skip "/"
+  const { updateAppTheme } = useTheme()
   const router = useRouter()
   const [disconnectModalOpened, setDisconnectModalOpened] = useState(false)
   const isMobile = useIsMobile()
@@ -79,7 +78,7 @@ export const VotingPageView = () => {
     processId
   )
   const { process: processInfo } = useProcess(processId)
-  const { startDate, endDate, status, liveResults, votingType, isAnonymous } = useProcessInfo(processId)
+  const { startDate, endDate, status, liveResults, votingType, isAnonymous } = useProcessWrapper(processId)
   const { wallet, setWallet } = useWallet({ role: WalletRoles.VOTER })
   const { metadata } = useEntity(processInfo?.state?.entityId)
   const [confirmModalOpened, setConfirmModalOpened] = useState<boolean>(false)
@@ -127,13 +126,36 @@ export const VotingPageView = () => {
 
     setUserVoteStatus(UserVoteStatus.NotEmitted)
   }, [wallet, hasVoted])
+  /**
+   * watcher to update entity theming
+   */
+  useEffect(() => {
+    if (
+      processInfo?.metadata?.meta?.[MetadataFields.BrandColor] ||
+      metadata?.meta?.[MetadataFields.BrandColor]
+    ) {
+      const brandColor =
+        processInfo?.metadata?.meta?.[MetadataFields.BrandColor] ||
+        metadata?.meta?.[MetadataFields.BrandColor]
 
+      updateAppTheme({
+        accent1: brandColor,
+        accent1B: brandColor,
+        accent2: brandColor,
+        accent2B: brandColor,
+        textAccent1: brandColor,
+        textAccent1B: brandColor,
+        customLogo: metadata?.media?.logo,
+      })
+    }
+  }, [processInfo, metadata])
 
 
   const handleVoteNow = () => {
     if (userVoteStatus === UserVoteStatus.NotEmitted) {
       setUserVoteStatus(UserVoteStatus.InProgress)
-    } else if (userVoteStatus === UserVoteStatus.Guest) {
+    }
+    if (userVoteStatus === UserVoteStatus.Guest) {
       handleGotoAuth()
     }
   }
@@ -187,7 +209,7 @@ export const VotingPageView = () => {
       window.location.href = RouterService.instance.get(VOTING_AUTH_FORM_PATH, { processId })
     }, 50)
   }
-  const processVotingType: VotingType = processInfo?.state?.censusOrigin as any
+  // const processVotingType: VotingType = processInfo?.state?.censusOrigin as any
 
   const showAuthBanner = (
     status === VoteStatus.Upcoming ||
@@ -197,9 +219,6 @@ export const VotingPageView = () => {
   const showDisconnectBanner = wallet && showAuthBanner
   const showNotAuthenticatedBanner = !wallet && showAuthBanner
 
-  const voteResultsIcon = (
-    makeVoteResultsIcon(i18n.t('vote.question_image_alt'))
-  )
   const authenticateBannerImage = (
     makeAuthenticateBannerImage(i18n.t('vote.question_image_alt'), isMobile ? 56 : 88)
   )
@@ -383,45 +402,12 @@ export const VotingPageView = () => {
     </>
   )
 }
-const makeShowMoreIcon = (alt: string) => (
-  <img
-    src="/images/vote/show-more.svg"
-    alt={alt}
-  />
-)
-const makeVoteResultsIcon = (alt: string) =>
-(
-  <img
-    src="/images/vote/vote-results.svg"
-    alt={alt}
-  />
-)
-const makeAuthenticateIcon = (alt: string) => (
-  <img
-    src="/images/vote/authenticate-icon.svg"
-    alt={alt}
-  />
-)
 const makeAuthenticateBannerImage = (alt: string, size: number) => (
   <img
     src="/images/vote/authenticate-banner-image.svg"
     width={size}
     height={size}
     alt={alt}
-  />
-)
-const makeDisconnectIcon = (alt: string) => (
-  <img
-    src="/images/vote/disconnect-icon.svg"
-    alt={alt}
-  />
-)
-const makeSeeResultsIcon = (alt: string) => (
-  <img
-    src="/images/vote/chevron-right.svg"
-    alt={alt}
-    height="10px"
-    width="10px"
   />
 )
 
@@ -439,47 +425,9 @@ const VoteRegisteredLgContainer = styled.div`
   }
 `
 
-const PlayerFixedContainer = styled.div<IVideoStyle>`
-  position: absolute;
-  margin-bottom: 20px;
-  margin:0;
-  z-index: 30;
-  transition: all 0.4s ease-in-out;
-  top: ${({ top }) => top || 0}px;
-  height: ${({ height }) => height || 300}px;
-  width: ${({ width }) => width + 'px' || '100%'};
-`
-
-const PlayerContainer = styled.div`
-  width: 100%;
-  height: 100%;
-  border-radius: 10px;
-  overflow: hidden;
-  margin: 0 auto;
-`
 
 const BodyContainer = styled.div`
   position: relative;
-`
-
-const FixedButtonContainer = styled.div`
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 31;
-  background-color: ${(props) => props.theme.white};
-  padding: 28px 10px;
-  box-shadow: 1px 1px 9px #8f8f8f;
-
-  & > div {
-    margin: 0 auto;
-    max-width: 330px;
-  }
-
-  @media ${({ theme }) => theme.screenMin.tablet} {
-    display: none;
-  }
 `
 
 const StickyCol = styled(Col) <IColProps>`
@@ -487,12 +435,6 @@ const StickyCol = styled(Col) <IColProps>`
   top: 20px;
 `
 
-const SubmitButtonContainer = styled(FlexContainer)`
-  margin: 30px 0 20px;
-`
-const TextContainer = styled(Body1)`
-  margin: 12px 0;
-`
 
 const FixedContainerRow = styled(Row)`
   position: fixed;
