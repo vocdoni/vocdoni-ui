@@ -42,7 +42,7 @@ const NewVote = () => {
           <Col xs={12}>
             <Spacer size='md' direction='vertical' />
           </Col>
-          <Col xs={12}>
+          <Col xs={12} disableFlex>
             <ProcessCreationPageStep />
           </Col>
         </Row>

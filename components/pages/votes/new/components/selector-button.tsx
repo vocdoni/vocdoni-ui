@@ -32,13 +32,20 @@ export const SelectorButton = (props: SelectorButtonProps) => {
             >
               <Row gutter='xs'>
                 <Col xs={12} justify='center'>
-                  <Text align='center' size='md' weight='bold' color='primary'>
+
+                  <Text
+                    align='center'
+                    size='md'
+                    weight='bold'
+                    // check if active to change the text color
+                    color={props.value === item.value ? 'primary' : 'dark-gray'}
+                  >
                     {item.title}
                   </Text>
                 </Col>
                 {item.subtitle &&
                   <Col xs={12} justify='center'>
-                    <Text align='center' color='dark-gray'>
+                    <Text align='center' color='light-gray'>
                       {item.subtitle}
                     </Text>
                   </Col>

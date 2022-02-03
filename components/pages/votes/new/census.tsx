@@ -25,8 +25,10 @@ import { Col, Row, Text, Button } from '@components/elements-v2'
 import { SelectorButton } from './components/selector-button'
 import { BinaryCard } from './components/binary-card'
 import { AnonymousMessage } from './components/anonymous-message'
+import { useScrollTop } from '@hooks/use-scroll-top'
 
 export const FormCensus = () => {
+  useScrollTop()
   const { i18n } = useTranslation()
   const [showTermsModal, setShowTermsModal] = useState<boolean>(false)
   const [showAdvanced, setShowAdvanced] = useState<boolean>(false)
@@ -36,7 +38,6 @@ export const FormCensus = () => {
   const [showAnonymous, setShowAnonymous] = useState<boolean>(false)
   const changeVotingTypeRef = useRef<VotingType>()
   const advancedCensusEnabled = !!process.env.ADVANCED_CENSUS || false
-
   const {
     methods,
     spreadSheetReader,
@@ -135,7 +136,6 @@ export const FormCensus = () => {
   return (
     <>
       <Row gutter='2xl'>
-
         {/* MAIN NOT ADVANCED */}
         {!showAdvanced &&
           <Col xs={12}>

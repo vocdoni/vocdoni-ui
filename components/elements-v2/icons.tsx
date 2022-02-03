@@ -231,7 +231,7 @@ export const DocumentOutlinedIcon = ({ size }: { size?: string }) => (
 // ======= //
 
 function getFillColor(props: SVGProps) {
-  const fillIcons = ['alert-circle', 'spinner', 'cog']
+  const fillIcons = ['alert-circle', 'spinner', 'cog', 'calendar']
   const hasFill = fillIcons.includes(props.name)
   if (hasFill) {
     if (props.color) {
