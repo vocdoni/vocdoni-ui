@@ -24,7 +24,7 @@ export const QuestionCard = ({
   return (
     <QuestionCardContainer border>
       <Typography variant={TypographyVariant.H4} margin="0">
-        Votació {number}. {question.title.default}
+        {number}. {question.title.default}
       </Typography>
       {question.description && (
         <Typography variant={TypographyVariant.Small}>
