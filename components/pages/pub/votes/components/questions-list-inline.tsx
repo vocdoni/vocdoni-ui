@@ -67,31 +67,28 @@ export const QuestionsListInline = forwardRef<HTMLDivElement, IQuesListInlinePro
         <div>
           <Column>
             <Typography color='#434548' variant={TypographyVariant.Small}>
-              A continuació hi ha un total de 22 preguntes. Per poder emetre el vostre vot cal que les respongueu totes tot seleccionant una resposta, d’entre les possibles de cada pregunta. Per emetre el votre vot cal que premeu el botó “Envia el teu vot” que hi ha al final d’aquesta pàgina a l’esquerra i que confirmeu aquesta acció a la finestra emergent que us apereixarà a continuació. El vostre vot només serà emès correctament si feu totes aquestes passes amb l’odre indicat, és a dir: 
-              
-              <DescriptionUl>
-                <li>1) Respondre totes les preguntes,</li>
-                <li>2) prémer el botó “Envia el teu vot” i</li>
-                <li>3) confirmar l’enviament del vot a la finestra emergent.</li>
-              </DescriptionUl>
+              <p>A continuació hi ha les votacions en què han de participar els socis amb dret a vot, és a dir, els socis majors d’edat i al corrent de pagament.</p> 
+              <p>Hi trobareu dos apartats: un primer apartat sobre les eleccions a la Junta Directiva i un segon apartat sobre documents que també se sotmeten a votació.</p>
+              <p>Per poder emetre correctament els vostres vots cal que respongueu totes les votacions i cliqueu el botó “Finalitzar la votació” que trobareu al final d’aquesta pàgina.</p>              
             </Typography>
 
             <Separator>&nbsp;</Separator>
             <Separator>&nbsp;</Separator>
 
             <SubBanner>                  
-              <h1>Eleccions a la Junta Nacional</h1>              
+              <h1>Eleccions a la Junta Directiva</h1>              
             </SubBanner>
 
             <Typography color='#434548' variant={TypographyVariant.Small}>
-              A continuació hi ha un total de 18 preguntes, una per cada càrrec de la Junta que es posa a votació. Per poder emetre el vostre vot, cal que les respongeu totes tot seleccionant una resposta, d'entre les possibles de cada pregunta.
+              <p>S’ha presentat una sola candidatura per a les eleccions a la Junta Directiva, conformada per 16 persones. Les votacions es fan pel sistema de llistes obertes, és a dir, cal indicar el sentit de la votació persona a persona.</p>
+              <p>La informació de la candidatura està disponible al correu electrònic i a través del botó de documentació que podeu trobar més amunt.</p>
             </Typography>
           </Column>
 
           <QuestionUl>
             {questions &&
               questions.map((question, index) => (
-                <If condition={index < 18}>
+                <If condition={index < 16}>
                   <QuestionLiTwoColumns
                     key={`question-${index}`}
                     active={index === questionIndex}
@@ -112,11 +109,12 @@ export const QuestionsListInline = forwardRef<HTMLDivElement, IQuesListInlinePro
 
             {questions &&
               questions.map((question, index) => (
-                <If condition={index == 18}>
+                <If condition={index == 16}>
                   <SubBanner>                  
-                    <H1WithPaddingTop>Preguntes Assamblea</H1WithPaddingTop>
+                    <H1WithPaddingTop>Votació de documents</H1WithPaddingTop>
                     <Typography color='#434548' variant={TypographyVariant.Small}>
-                      A continuació hi ha un total de 4 preguntes, una per punt de l'Assemblea que es posa a votació. Per poder emetre el vostre vot cal que les respongueu totes seleccionant una respota, d'entre les possibles de cada apregunta. Un cop hàgiu acabat la tria, recordeu que cal que emeteu el vostre vot prement el botó "Envia el meu vot" i confirmant-ne l'emissió a la finestra emergent un cop hàgiu comprovat que les opcions mostrades corresponen a les que desitjeu.
+                      <p>Tot seguit podeu pronunciar-vos sobre diversos documents que es porten a consideració de l’Assemblea General: l’acta de l’Assemblea General anterior, la proposta de Pla de treball 2022 i la proposta de Pressupost 2022. Tota la documentació està disponible al correu electrònic i a través del botó de documentació que podeu trobar més amunt.</p>
+                      <p>Un cop completat, recordeu prémer el botó “Finalitzar la votació” que es troba al final d’aquesta pàgina i confirmeu l’elecció.</p>
                     </Typography>
                   </SubBanner>
                 </If>
@@ -127,7 +125,7 @@ export const QuestionsListInline = forwardRef<HTMLDivElement, IQuesListInlinePro
 
             {questions &&
               questions.map((question, index) => (
-                <If condition={index>=18}>
+                <If condition={index>=16}>
                   <QuestionLi
                     key={`question-${index}`}
                     active={index === questionIndex}

@@ -94,13 +94,13 @@ const QuestionsContainer = styled.div`
   overflow-y: scroll;
   overflow-x: hidden;
   max-height: 300px;
-  -webkit-overflow-scrolling:touch;
+  -webkit-overflow-scrolling: touch;
 
   @media ${({ theme }) => theme.screenMax.tablet} {
     max-height: 260px;
     overflow-x: hidden;
     overflow-y: scroll;
-    -webkit-overflow-scrolling:touch;
+    -webkit-overflow-scrolling: touch;
   }
 
   ::-webkit-scrollbar {

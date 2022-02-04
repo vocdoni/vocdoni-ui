@@ -68,22 +68,22 @@ export const VoteDescription = forwardRef<HTMLDivElement, IVotePageProps>(
 
         <Column>
           <DescriptionText>
-            <p>L’Assemblea General Ordinària es convoca per presentar i validar, si escau, el Pla de Treball i el Pressupost del 2022. També ha de renovar bona part de la Junta Directiva.</p> 
-            <p>L’Assemblea General se celebrarà presencialment el dissabte 26 de febrer a La Farga de l’Hospitalet de Llobregat (c/Barcelona número 2, l’Hospitalet de Llobregat).</p>
-            <p>A continuació, en tot cas, pots fer les teves votacions anticipades als punts sotmesos a votació dels socis i sòcies.</p>
+            <p>S’ha convocat l’Assemblea General Ordinària per presentar i validar, si s’escau, el Pla de treball i el pressupost del 2022. També s’ha de renovar bona part de la Junta Directiva de l’entitat.</p> 
+            <p>L’Assemblea General se celebrarà presencialment el dissabte 26 de febrer a La Farga de l’Hospitalet de Llobregat (c. Barcelona 2, l’Hospitalet de Llobregat).</p>
+            <p>Per participar en les votacions, heu de fer-ho de manera telemàtica en aquesta pàgina web.</p>
 
             <Separator>&nbsp;</Separator>
 
-            <VerticalSpace>Ordre del dia:</VerticalSpace>
+            <VerticalSpace><strong>Ordre del dia:</strong></VerticalSpace>
             <SimpleUl>
               <li>1) Benvinguda</li>
-              <li>2) Aprovació, si escau, de l’acta de l’Assemblea General Ordinària del 18 de juny de 2021</li>
+              <li>2) Aprovació, si s’escau, de l’acta de l’Assemblea General Ordinària del 18 de juny de 2021</li>
               <li>3) Presentació del Pla 26</li>
               <li>4) Breu memòria d’activitats 2021 i presentació i aprovació, si s’escau, del Pla de treball 2022</li>
-              <li>5) Presentació i aprovació, si s’escau, del pressupost 2022</li>
+              <li>5) Presentació i aprovació, si s’escau, del Pressupost 2022</li>
               <li>6) Proclamació de la candidatura guanyadora les eleccions a la Junta Directiva</li>
               <li>7) Torn obert de paraula</li>
-              <li>8) Cloenda amb discurs de presa de possessió i de la Junta Directiva amb presència d’autoritats i representants de la societat civil</li>
+              <li>8) Cloenda i presa de possessió de la nova Junta Directiva</li>
             </SimpleUl>
 
             <Separator>&nbsp;</Separator>

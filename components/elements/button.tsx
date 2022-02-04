@@ -166,10 +166,10 @@ export const PositiveButton = styled(BaseButton)`
     background: #FF6320;
 
     &:hover {
-        background: linear-gradient(106.26deg, ${props => hexToRgbA(props.theme.accent1B, 0.9)} 5.73%, ${props => hexToRgbA(props.theme.accent1, 0.9)} 93.83%);
+        background: #D23F00;
     }
     &:active {
-        background: linear-gradient(106.26deg, ${props => hexToRgbA(props.theme.accent1B, 0.8)} 5.73%, ${props => hexToRgbA(props.theme.accent1, 0.8)} 93.83%);
+        background: #D23F00;
     }
 `
 
