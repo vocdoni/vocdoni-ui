@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { Button } from '@components/elements/button'
 import styled, { useTheme } from 'styled-components'
 
-import { Typography, TypographyVariant } from '@components/elements/typography'
+import { Typography, TypographyVariant, TextAlign } from '@components/elements/typography'
 import { SectionText, TextSize } from '@components/elements/text'
 import ReactPlayer from 'react-player'
 import { Column } from '@components/elements/grid'
@@ -145,8 +145,7 @@ export const QuestionsListInline = forwardRef<HTMLDivElement, IQuesListInlinePro
             )}
           </QuestionUl>
 
-
-          <ButtonsActionContainer justify={FlexJustifyContent.Center}>
+          <ButtonsActionContainer justify={FlexJustifyContent.Center}>            
             <Button
               onClick={finishVote}
               positive
@@ -156,6 +155,10 @@ export const QuestionsListInline = forwardRef<HTMLDivElement, IQuesListInlinePro
               {i18n.t('votes.questions_list.finish_voting')}
             </Button>
           </ButtonsActionContainer>
+
+          <If condition={(results.length < questions?.length || results.includes(undefined))}>
+            <Typography margin='20px 0px' align={TextAlign.Center} color='#888' variant={TypographyVariant.ExtraSmall}>Has de contestar totes les votacions per poder finalitzar el procés. N'has respost {results.length} de {questions?.length}.</Typography>            
+          </If>  
         </div>
 
         <FixedButtonsActionContainer>

@@ -29,9 +29,9 @@
             "user_language": "Idioma: {{ lang }}"
         },
         "meta": {
-            "description": "Vocdoni és un sistema de votació segur, privat i universalment verificable per a qualsevol organització.",
+            "description": "Votacions de l'Assemblea General Ordinària per presentar i validar, si s’escau, el Pla de treball i el pressupost del 2022 i renovar bona part de la Junta Directiva de l’entitat.",
             "keywords": "Vot per cadena de blocs, vot mòbil, verificació universal, vot com a servei, governança descentralitzada, vot anònim, centrat en la privacitat, vot electrònic segur, vot digital a prova de manipulacions, sobirania de dades, governança resistent, eines de governança / coordinació",
-            "title": "La solució fàcil i segura per a totes les seves necessitats de govern"
+            "title": "Vota fins al 26 de febrer"
         }
     },
     "backup": {
@@ -506,7 +506,7 @@
     "vote_question_card": {
         "no_results_available": "Els resultats estaran disponibles el 26 de Febrer.",
         "number_votes": "{{ number }} vots",
-        "question": "Pregunta {{ number }}"
+        "question": "{{ number }}"
     },
     "vote": {
         "0x000": "0x00000000000000000000000000000000000000",
@@ -615,6 +615,7 @@
         "this_is_the_link_that_your_community_members_can_use_to_access_via_mnemonic_helper": "Aquest enllaç es pot utilitzar per votants que ja disposen wallets associats amb mnemonics",
         "this_is_weighted_voted": "",
         "this_type_of_vote_is_not_supported_on_the_current_page": "Aquest tipus de votació encara no està disponible",
+        "invalid_process_id_or_key": "L'ID de procés de votació o la clau usada per accedir-hi és erroni",
         "title": "Títol",
         "total_votes": "Nombre total de vots: {{totalVotes}}",
         "total_weighted_votes": "Número de participants: {{totalVotes}}. Pes total dels vots emesos: {{totalWeightedVotes}}",
@@ -638,7 +639,9 @@
         "you_cant_enter_contact_with_entity": "Problemes amb l'accés? contacta amb l'entitat",
         "you_got_attributed_a_voting_power_per_question": "",
         "you_need_authenticate_to_vote": "Utilitza l'enllaç que t'hem facilitar per votar o verificar el teu vot",
-        "you_vote_has_been_submit_successfully_the_results_will_be_available": "El teu vot ha estat registrat correctament. Els resultats es faran públics durant l’Assemblea General del dissabte 26 de febrer.",
+        "you_vote_has_been_submit_successfully_the_results_will_be_available1": "El teu vot ha estat registrat correctament.",
+        "you_vote_has_been_submit_successfully_the_results_will_be_available2": "Els resultats es faran públics durant l’Assemblea General del dissabte 26 de febrer.",
+        "you_vote_has_been_submit_successfully_the_results_will_be_available3": "Per assistir-hi, inscriu-te ",
         "your_choice": "La teva selecció",
         "your_entity_is_being_registered": "La teva entitat ha estat registrada",
         "your_vote_has_been_registered": "El teu vot ha estat registrat correctament",

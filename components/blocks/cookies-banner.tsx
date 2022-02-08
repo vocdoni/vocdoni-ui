@@ -18,7 +18,7 @@ export const CookiesBanner = () => {
   const { acceptCookies, hide } = useCookies()
 
   return (
-    <If condition={!hide}>
+    <If condition={false && !hide}>
       <CookiesContainer>
         <CookiesBannerContent>
           <TextContainer>

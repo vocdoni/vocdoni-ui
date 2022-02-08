@@ -21,19 +21,7 @@ export const HeroBanner = () => {
           <Title>
             <strong>{i18n.t('home.easy_and_secure')}</strong>{' '}
             {i18n.t('home.for_all_your_governance')}
-          </Title>
-
-          <ActionContainer>
-            <ButtonContainer>
-              <Button wide positive href={CREATE_ACCOUNT_PATH} onClick={() => trackEvent(TrackEvents.ENTITY_CREATION_BUTTON_CLICKED)}>
-                {i18n.t('home.try_it_for_free')}
-              </Button>
-            </ButtonContainer>
-
-            <Typography variant={TypographyVariant.ExtraSmall} margin='5px 0 0 0' color={colors.accent1}>
-              {i18n.t('home.free_until_end_2021')}
-            </Typography>
-          </ActionContainer>
+          </Title>          
         </LeftContainer>
       </ContentContainer>
       <RightContainer>

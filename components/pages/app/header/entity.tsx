@@ -207,9 +207,7 @@ export const EntityHeader = () => {
         </Then>
 
         <Else>
-          <Button positive small href={ENTITY_SIGN_IN_PATH} wide onClick={() => trackEvent(TrackEvents.LOGIN_BUTTON_CLICKED)}>
-            {i18n.t('action.sign_in')}
-          </Button>
+          
         </Else>
       </If>
     </Header>

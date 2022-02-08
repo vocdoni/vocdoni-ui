@@ -62,7 +62,7 @@ export const VoteDescription = forwardRef<HTMLDivElement, IVotePageProps>(
         <Column>
           <FlexContainer justify={FlexJustifyContent.Start}>
             <ProcessStatusLabel status={voteStatus} />
-            <TimeComment>{timeComment}</TimeComment>
+            <TimeComment>Fins al 26 de febrer a les 12 h.</TimeComment>
           </FlexContainer>
         </Column>
 
@@ -78,10 +78,10 @@ export const VoteDescription = forwardRef<HTMLDivElement, IVotePageProps>(
             <SimpleUl>
               <li>1) Benvinguda</li>
               <li>2) Aprovació, si s’escau, de l’acta de l’Assemblea General Ordinària del 18 de juny de 2021</li>
-              <li>3) Presentació del Pla 26</li>
-              <li>4) Breu memòria d’activitats 2021 i presentació i aprovació, si s’escau, del Pla de treball 2022</li>
+              <li>3) Breu memòria d’activitats 2021 i presentació i aprovació, si s’escau, del Pla de treball 2022</li>
+              <li>4) Presentació del Pla 26</li>
               <li>5) Presentació i aprovació, si s’escau, del Pressupost 2022</li>
-              <li>6) Proclamació de la candidatura guanyadora les eleccions a la Junta Directiva</li>
+              <li>6) Proclamació de la candidatura guanyadora a les eleccions a la Junta Directiva</li>
               <li>7) Torn obert de paraula</li>
               <li>8) Cloenda i presa de possessió de la nova Junta Directiva</li>
             </SimpleUl>
@@ -177,6 +177,12 @@ const TimeComment = styled.div`
   line-height: 36px;
   margin-left: 20px;
   margin-right: -40px;
+
+  @media ${({ theme }) => theme.screenMax.mobileL} {
+    line-height:20px;
+    margin-left: 20px;
+    margin-right: -30px;
+  }
 `
 const SimpleUl = styled.ul`
   list-style: none;

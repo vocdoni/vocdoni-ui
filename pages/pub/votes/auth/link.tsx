@@ -43,7 +43,7 @@ const VoteAuthLogin = () => {
     (
       <VotingErrorPage
         message={i18n.t(
-          'vote.this_type_of_vote_is_not_supported_on_the_current_page'
+          'vote.invalid_process_id_or_key'
         )}
       />
     )
