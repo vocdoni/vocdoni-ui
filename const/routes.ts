@@ -17,8 +17,8 @@ export const VOTING_AUTH_MNEMONIC_PATH = '/pub/votes/auth/mnemonic/#/{processId}
 export const VOTING_AUTH_LINK_PATH = '/pub/votes/auth/link/#/{processId}/{key}' // + processId + key
 export const VOTING_PATH = '/pub/votes' // + processId
 export const PROCESS_PATH = '/pub/votes/#/{processId}' // + processId
-// export const PREREGISTER_PATH = '/pub/votes/preregister' // + processId
-export const PREREGISTER_PATH = '/pub/votes/preregister/#/{processId}' // + processId
+export const PREREGISTER_PATH = '/pub/votes/preregister' // + processId
+// export const PREREGISTER_PATH = '/pub/votes/preregister/#/{processId}' // + processId
 
 // GENERAL
 // export const PRICING_PATH = '/pricing'

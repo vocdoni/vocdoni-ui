@@ -596,9 +596,15 @@
       "with_credentials": "Authenticate with your credentials to vote.",
       "auth_button": "Authenticate",
       "disconnect_button": "Disconnect",
+      "insert_your_credentials": "Insert your credentials",
+      "insert_your_credentials_and_password": "Insert your credentials and password",
       "not_authenticated": "You are not authenticated!",
       "not_preregistered": "Pre-registration required",
       "with_preregistration": "You will need to pre-register before starting date in order to submit your vote.",
+      "preregistration": {
+        "title": "Pre-registration",
+        "subtitle": "This is a pre-registration that is required in order to participate anonymously when the voting process starts ({{date}})."
+      },
       "preregister_button": "Pre-register"
     },
     "back_to_dashboard": "Back to the dashboard",
@@ -771,7 +777,7 @@
       ],
       "anonymous_voting": "Anonymous voting",
       "by_activating_the_anonymous_voting_option": "By activating the anonymous voting option, the following will be applied:",
-      "calendar":{
+      "calendar": {
         "title": "Calendar",
         "subtitle": "Set when and how you wish the voting process to start and end:"
       },
@@ -779,7 +785,7 @@
       "download_template": "Download template",
       "download_the_original_template_to_fill": "Download the original template to fill with your list of voters",
       "end": "End",
-      "end_on_a_specific_date":"End on a specific date",
+      "end_on_a_specific_date": "End on a specific date",
       "form_preview": "Form preview",
       "i_understand_and_i_agree_to_the_terms_and_conditions": "I understand and agree to the <0>Terms and Conditions</0> for organizing voting processes.",
       "if_change_the_type_of_vote_the_updated_census_will_be_lost": "If you change the type of vote, the current uploaded census will be lost",
@@ -788,7 +794,7 @@
       "no": "No",
       "normal_voting": "Normal voting",
       "requirements": "Requirements",
-      "results_availability":{
+      "results_availability": {
         "title": "Results Availability",
         "subtitle": "Select the voting type to be used on this process:"
       },
@@ -797,8 +803,8 @@
       "select_voting_type": "Select voting type",
       "set_different_power_to_each_voter": "Set different voting power to each voter",
       "start": "Start",
-      "start_inmediatly":"Start inmediatly",
-      "start_on_a_specific_date":"Start on selected date",
+      "start_inmediatly": "Start inmediatly",
+      "start_on_a_specific_date": "Start on selected date",
       "supported_formats_csv_xls": "(Supported formats: CSV, XLSX and ODS)",
       "the_document_name_that_you_updated_do_not_fill": "The document \"{{ documentName }}\" that you uploaded do not fill some of the requirements.",
       "the_fields_are_case_insensitive_blank_spaces_will_be_ignored": "The fields are case insensitive, blank spaces will be ignored and diacritics will be transformed into plain letters.",

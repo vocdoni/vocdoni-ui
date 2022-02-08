@@ -16,6 +16,7 @@ import { colors } from '@theme/colors'
 import { PasswordFeedbackSuccess } from '@components/blocks/password-feedback-success'
 import { Button } from '@components/elements/button'
 import { parseDate } from '@lib/date'
+import moment from 'moment'
 
 export enum PreregisterFormFields {
   Password = 'password',
@@ -54,7 +55,7 @@ export const PreregisterView = ({
   )
   const DATE_FORMAT = '(dd/mm/yyyy)'
 
-  const parsedStartDate = parseDate(processStartDate, DATE_FORMAT)
+  const parsedStartDate = moment(processStartDate).locale(i18n.language).format('l')
 
   useEffect((): void => {
     setErrorPassword(checkStrength(values.password))
