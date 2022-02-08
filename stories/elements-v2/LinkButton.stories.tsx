@@ -2,7 +2,7 @@ import React from "react";
 
 import { Col, LinkButton, Row } from "@components/elements-v2";
 import { ComponentStory } from "@storybook/react";
-import { SettingsIcon } from "@components/elements-v2/icons";
+import { Icon } from "@components/elements-v2/icons";
 export default {
   title: 'Elements V2/LinkButton',
   component: LinkButton,
@@ -48,13 +48,13 @@ const DisabledArgs = {
 const WithIconArgs = {
   children: 'Without icon',
   href: 'https://vocdoni.app',
-  icon: <SettingsIcon />,
+  icon: <Icon name='cog' />,
   target: "_blank"
 }
 const WithoutLinkIconArgs = {
   children: 'Without link icon',
   hideLinkIcon: true,
-  icon: <SettingsIcon />,
+  icon: <Icon name='cog' />,
   href: 'https://vocdoni.app',
   target: "_blank"
 }

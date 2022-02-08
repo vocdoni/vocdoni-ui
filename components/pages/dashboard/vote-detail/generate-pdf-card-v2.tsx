@@ -11,6 +11,7 @@ import { ResultPdfGenerator } from '@lib/result-pdf-generator'
 import { useEntity } from "@vocdoni/react-hooks"
 import { useWallet, WalletRoles } from "@hooks/use-wallet"
 import styled from "styled-components"
+import { BigNumber } from "ethers"
 
 interface GeneratePdfCardProps {
   onSeeResultsClick?: () => void
@@ -19,12 +20,12 @@ export const GeneratePdfCard = (props: GeneratePdfCardProps) => {
   const { i18n } = useTranslation()
   // get process data
   const processId = useUrlHash().slice(1)
-  const { status, totalVotes, censusSize, liveResults, results, processInfo, title } = useProcessWrapper(processId)
+  const { status, votesWeight, censusSize, liveResults, results, processInfo, title } = useProcessWrapper(processId)
   // geet entity data
   const { wallet } = useWallet({ role: WalletRoles.ADMIN })
   const { metadata: entityMetadata } = useEntity(wallet?.address)
   // compute constants
-  const votesPercent = (totalVotes / censusSize) * 100 | 0
+  const votesPercent = votesWeight ? (votesWeight?.div(BigNumber.from(censusSize))).toNumber() * 100 | 0 : 0
   const resultsAvailable = status === VoteStatus.Ended || liveResults
   // disabled buttons
   const generatePdfEnabled = [VoteStatus.Ended, VoteStatus.Active].includes(status)
@@ -52,7 +53,7 @@ export const GeneratePdfCard = (props: GeneratePdfCardProps) => {
             </Col>
             <Col xs={12} justify="center">
               <Text align="center" color="dark-blue" size="2xl">
-                {totalVotes} &nbsp;
+                {votesWeight} &nbsp;
                 <Text align="center" color="dark-gray">
                   ({votesPercent}%)
                 </Text>
