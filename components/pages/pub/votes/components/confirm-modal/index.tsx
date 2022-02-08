@@ -21,16 +21,19 @@ export const ConfirmModal = ({ isOpen, onClose, onVoted }: IConfigModal) => {
   const processId = useUrlHash().slice(1) // Skip "/"
   const { process: processInfo } = useProcess(processId)
   const { choices, hasVoted, methods, pleaseWait, actionError } = useVoting(processId)
+  const handleOnClose = () => {
+    if (hasVoted) {
+      onVoted()
+      return
+    }
+    if (pleaseWait) { return }
+    onClose()
+  }
 
   const handleSendVote = async () => {
     await methods.submitVote()
   }
-  const handleOnRequestClose = async () => {
-    if(!hasVoted && pleaseWait){
-      return
-    }
-    onClose()
-  }
+
 
   const renderResponsesList = new ViewStrategy(
     () => !hasVoted && !pleaseWait,
@@ -63,11 +66,10 @@ export const ConfirmModal = ({ isOpen, onClose, onVoted }: IConfigModal) => {
     renderVoteBeingSubmitted,
     renderVoteSubmitted,
   ])
-  return (
-    <Modal isOpen={isOpen} onRequestClose={handleOnRequestClose} hideCloseButton={true}>
-      <ModalContainer>{viewContext.getView()}</ModalContainer>
-    </Modal>
-  )
+
+  return <Modal isOpen={isOpen} onRequestClose={handleOnClose} hideCloseButton={true}>
+    <ModalContainer>{viewContext.getView()}</ModalContainer>
+  </Modal>
 }
 
 const ModalContainer = styled.div`
