@@ -35,6 +35,8 @@ import { useIsMobile } from '@hooks/use-window-size'
 import { PieChartIcon } from '@components/elements-v2/icons'
 import { dateDiffStr, DateDiffType } from '@lib/date-moment'
 import { MetadataFields } from '@components/pages/votes/new/metadata'
+import { useAuthForm } from '@hooks/use-auth-form'
+import { Symmetric } from 'dvote-js'
 export enum UserVoteStatus {
   /**
    * User is voting right now
@@ -96,6 +98,7 @@ export const VotingPageView = () => {
   const resultsCardRef = useRef(null)
   // used for getting the ending in and starting in string
   const [now, setNow] = useState(new Date)
+  const [anonymousFormData, setAnonymousFormData] = useState('')
   useEffect(() => {
     const interval = setInterval(() => {
       setNow(new Date)
@@ -126,6 +129,17 @@ export const VotingPageView = () => {
 
     setUserVoteStatus(UserVoteStatus.NotEmitted)
   }, [wallet, hasVoted])
+
+  useEffect(() => {
+    if (wallet) {
+      const voterData = localStorage.getItem('voterData')
+      if (voterData) {
+        const decryptedVoterdata = Symmetric.decryptString(voterData, wallet.publicKey)
+        const anonymizedVoterData = anonymizeStrings(decryptedVoterdata.split('/'))
+        setAnonymousFormData(anonymizedVoterData.join(' / '))
+      }
+    }
+  }, [wallet])
   /**
    * watcher to update entity theming
    */
@@ -278,7 +292,7 @@ export const VotingPageView = () => {
                       }
                     >
                       {i18n.t('vote.you_are_autenticated')}
-                      <b> {localStorage.getItem('voterData')}</b>
+                      <b> {anonymousFormData}</b>
                     </Banner>
                   </Col>
                 }
@@ -410,6 +424,32 @@ const makeAuthenticateBannerImage = (alt: string, size: number) => (
     alt={alt}
   />
 )
+function anonymizeStrings(strings: string[]): string[] {
+  let anonymizedStrings = []
+  let iter = 0
+  strings.every((str) => {
+    if (iter >= 3) {
+      return false
+    }
+    let anonymizedString
+    iter = iter + 1
+    const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    // check if is an email to preserve the domain
+    if (str.toLocaleLowerCase().match(emailRegex)) {
+      anonymizedString = `${str[0]}...${str.split('@')[1]}`
+      // if is no email and length > 3 compute visible string length
+    } else if (str.length >= 3) {
+      const visibleStrLength = Math.floor(Math.sqrt(str.length))
+      anonymizedString = `${str.substring(0, visibleStrLength)}...${str.substring(str.length - visibleStrLength - 1, visibleStrLength)}`
+      // if length is lowhe than 3 use the full string
+    } else {
+      anonymizedString = str
+    }
+    anonymizedStrings.push(anonymizedString)
+    return true
+  })
+  return anonymizedStrings
+}
 
 const VotingCard = styled(PageCard)`
   @media ${({ theme }) => theme.screenMax.mobileL} {

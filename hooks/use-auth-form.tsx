@@ -9,6 +9,7 @@ import {
   bufferToBigInt,
   CensusOnChainApi,
   Poseidon,
+  Symmetric,
 } from 'dvote-js'
 import { PREREGISTER_PATH, VOTING_PATH } from '../const/routes'
 import i18n from '../i18n'
@@ -23,6 +24,7 @@ import { censusProofState } from '@recoil/atoms/census-proof'
 import { ZKcensusProofState } from '@recoil/atoms/zk-census-proof'
 import { Wallet } from '@ethersproject/wallet'
 import { useVoting } from '@hooks/use-voting'
+import { walletState } from '@recoil/atoms/wallet'
 
 // CONTEXT
 
@@ -50,7 +52,7 @@ type IAuthForm = {
 export const useAuthForm = () => {
   const router = useRouter()
   const { poolPromise } = usePool()
-  const { setWallet } = useWallet({ role: WalletRoles.VOTER })
+  const { setWallet, wallet } = useWallet({ role: WalletRoles.VOTER })
   const setCensusProof = useSetRecoilState<CensusPoof>(censusProofState)
   const setZKCensusProof = useSetRecoilState<ZKCensusPoof>(ZKcensusProofState)
   const processId = useUrlHash().slice(1) // Skip /
@@ -136,9 +138,9 @@ export const useAuthForm = () => {
         setCensusProof(censusProof)
         // Set the voter wallet recovered
         setWallet(voterWallet)
+        const encryptedAuthfield = Symmetric.encryptString(authFieldsData.join("/"), voterWallet.publicKey)
         // store auth data in local storage for disconnect banner
-        const anonymizedFormValues = anonymizeFormValues(authFieldsData)
-        localStorage.setItem('voterData', anonymizedFormValues.join(" / "))
+        localStorage.setItem('voterData', encryptedAuthfield)
 
         if (userRequirePreregister) {
           router.push(PREREGISTER_PATH + "#/" + processInfo?.id)
@@ -146,45 +148,10 @@ export const useAuthForm = () => {
           router.push(VOTING_PATH + "#/" + processInfo?.id)
         }
       }).catch(err => {
-
         setInvalidCredentials(true)
         setAlertMessage(i18n.t("errors.the_contents_you_entered_may_be_incorrect"))
       })
     }
-  }
-  /**
-   *
-   * @param formValues
-   * @returns string[]
-   * Given an array of string values returns the same array but with de values
-   * "anonymized" this_is_a@mail.com will becomoe thi...@mail.com
-   * and so on
-   */
-  const anonymizeFormValues = (formValues: string[]): string[] => {
-    let anonymizedFormValues = []
-    let iter = 0
-    formValues.every((formValue) => {
-      if (iter >= 3) {
-        return false
-      }
-      let anonymizedFormValue
-      iter = iter + 1
-      const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-      // check if is an email to preserve the domain
-      if (formValue.toLocaleLowerCase().match(emailRegex)) {
-        anonymizedFormValue = `${formValue[0]}...${formValue.split('@')[1]}`
-        // if is no email and length > 3 compute visible string length
-      } else if (formValue.length >= 3) {
-        const visibleStrLength = Math.floor(Math.sqrt(formValue.length))
-        anonymizedFormValue = `${formValue.substring(0, visibleStrLength)}...${formValue.substring(formValue.length - visibleStrLength - 1, visibleStrLength)}`
-        // if length is lowhe than 3 use the full string
-      } else {
-        anonymizedFormValue = formValue
-      }
-      anonymizedFormValues.push(anonymizedFormValue)
-      return true
-    })
-    return anonymizedFormValues
   }
   const walletFromAuthData = (authFieldsData: string[], entityId: string): Wallet => {
     authFieldsData = authFieldsData.map(x => normalizeText(x))
