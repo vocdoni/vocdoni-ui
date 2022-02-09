@@ -9,7 +9,7 @@ import { Icon, IconProps, Rotate } from "./icons";
 import { colorsV2 } from "@theme/colors-v2";
 
 // Review download in case the button its used in more places
-type ButtonVariant = 'light' | 'primary' | 'outlined' | 'white' | 'text'
+type ButtonVariant = 'light' | 'primary' | 'outlined' | 'white' | 'text' | 'white-error'
 type ButtonSize = 'sm' | 'md' | 'lg'
 export interface ButtonProps {
   children?: string
@@ -44,9 +44,9 @@ interface LoadingColProps extends IColProps {
 export const Button = (props: ButtonProps) => {
   const textColor = getTextColor(props)
   const [iconColor, setIconColor] = useState(textColor)
-  useEffect(()=>{
+  useEffect(() => {
     setIconColor(textColor)
-  },[textColor])
+  }, [textColor])
   return (
     <BaseButton
       onClick={props.onClick}
@@ -161,6 +161,7 @@ function getTextColor(props: StyledButtonProps) {
       return theme.accent1
     case 'primary':
       return theme.white
+    case 'white-error':
     case 'white':
       if (props.disabled) {
         return "#7B8794"
@@ -168,6 +169,7 @@ function getTextColor(props: StyledButtonProps) {
       return theme.accent1
   }
 }
+
 function getBackgroundColor(props: StyledButtonProps) {
   if (props.disabled) {
     return colorsV2.neutral[50]
@@ -184,6 +186,7 @@ function getBackgroundColor(props: StyledButtonProps) {
       return theme.white
     case 'primary':
       return `linear-gradient(110.89deg, ${theme.accent1B} 0%, ${theme.accent1} 100%)`
+    case 'white-error':
     case 'white':
       return theme.white
   }
@@ -197,6 +200,7 @@ function getBorderColor(props: StyledButtonProps) {
         return `2px solid #E4E7EB`
       }
       return `2px solid ${props.color ? props.color : theme.accent1}`
+    case 'white-error':
     case 'white':
       // TODO Colors
       if (props.disabled) {
@@ -215,17 +219,18 @@ function getBorderColorHover(props: StyledButtonProps) {
         return `2px solid ${theme.lightBorder}`
       case 'outlined':
         return `2px solid #E4E7EB`
+      case 'white-error':
+        return ''
       case 'white':
         // TODO Colors
-        if (props.disabled) {
-          return ''
-        }
-        return `2px solid #E4E7EB`
+        return ''
       default:
         return ''
     }
   }
   switch (props.variant) {
+    case 'white-error':
+      return `2px solid ${colorsV2.support.critical[600]}`
     case 'white':
       return `2px solid ${getTextColor(props)}`
   }
@@ -235,6 +240,8 @@ function getBackgroundColorHover(props: StyledButtonProps) {
     switch (props.variant) {
       case 'outlined':
         return getTextColor(props)
+      case 'white-error':
+        return colorsV2.support.critical[600]
     }
   }
 }
@@ -242,6 +249,7 @@ function getBackgroundColorHover(props: StyledButtonProps) {
 function getTextColorHover(props: StyledButtonProps) {
   if (!props.disabled) {
     switch (props.variant) {
+      case 'white-error':
       case 'outlined':
         return theme.white
       default:
@@ -255,7 +263,7 @@ function getWidth(props: StyledButtonProps) {
   if (!props.width) {
     return 'auto'
   }
-  return `${props.width}px`
+  return `${props.width} px`
 }
 function getPadding(props: StyledButtonProps) {
   if (props.variant === 'text') {
@@ -283,6 +291,7 @@ function getBoxShadow(props: StyledButtonProps) {
   switch (props.variant) {
     case 'primary':
       return '0px 3px 3px rgba(180, 193, 228, 0.2)'
+    case 'white-error':
     case 'white':
       return '0px 3px 3px rgba(180, 193, 228, 0.2)'
     default:

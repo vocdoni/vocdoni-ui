@@ -507,7 +507,7 @@
     "cancel_vote": "Cancel vote",
     "cancel_dialog": {
       "title": "Cancel vote",
-      "subtitle": "This action is irreverseable.<br /> Are you sure you want to cancel this vote?",
+      "subtitle": "This action is irreversible.<br /> Are you sure you want to cancel this vote?",
       "acceptText": "Yes, Cancel vote",
       "backText": "No, go back"
     },
@@ -528,7 +528,7 @@
     "end_vote": "End vote",
     "end_dialog": {
       "title": "End vote",
-      "subtitle": "This action is irreverseable.<br /> Are you sure you want to end this vote?",
+      "subtitle": "This action is irreversible.<br /> Are you sure you want to end this vote?",
       "acceptText": "Yes, End vote",
       "backText": "No, go back"
     },
@@ -550,7 +550,7 @@
     "preview": "Preview",
     "q_and_a": "Q&A",
     "questions_card": {
-      "title": "Voting Results",
+      "title": "Voting Questions",
       "show": "Show",
       "hide": "Hide",
       "question": "Question {{ number }}",

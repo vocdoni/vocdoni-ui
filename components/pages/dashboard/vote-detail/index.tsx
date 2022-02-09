@@ -260,9 +260,9 @@ export const ViewDetail = () => {
               {showCancelButton &&
                 <Col xs={12} md="auto">
                   <Button
-                    variant='outlined'
+                    variant='white-error'
                     onClick={() => setIsCancelModalOpen(true)}
-                    color={colorsV2.support.critical[600]}
+                    color={theme.blueText}
                     iconLeft={{ name: 'trash', size: 24 }}
                     disabled={!canCancelorEnd}
                   >
@@ -273,10 +273,10 @@ export const ViewDetail = () => {
               {showEndButton &&
                 <Col xs={12} md="auto">
                   <Button
-                    variant='outlined'
+                    variant='white-error'
                     onClick={() => setIsEndModalOpen(true)}
                     color={theme.blueText}
-                    iconLeft={{ name: 'shutdown', size: 24 }}
+                    iconLeft={{ name: 'paper-check', size: 24 }}
                     disabled={!canCancelorEnd}
                   >
                     {i18n.t('vote_detail.end_vote')}

@@ -53,7 +53,7 @@ export const GeneratePdfCard = (props: GeneratePdfCardProps) => {
             </Col>
             <Col xs={12} justify="center">
               <Text align="center" color="dark-blue" size="2xl">
-                {votesWeight} &nbsp;
+                {votesWeight ? votesWeight.toNumber() : '-'} &nbsp;
                 <Text align="center" color="dark-gray">
                   ({votesPercent}%)
                 </Text>
