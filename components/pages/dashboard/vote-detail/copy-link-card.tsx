@@ -28,12 +28,12 @@ export const CopyLinkCard = (props: CopyLinkCardProps) => {
   }
   return (
     <Card padding='16px' variant='dashed'>
-      <Row align="center" justify='space-between' wrap={false} gutter='md'>
+      <Row align="center" justify='space-between' enableWrap={false} gutter='md'>
         <Col xs="auto">
           <LinkIcon />
         </Col>
         <Col xs={12}>
-          <Row align='center' justify='space-between' gutter='xs' wrap={false}>
+          <Row align='center' justify='space-between' gutter='xs' enableWrap={false}>
             <Col xs={9}>
               <EllipsisText size='sm' color='dark-blue'> {props.url} </EllipsisText>
             </Col>

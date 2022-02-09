@@ -78,7 +78,7 @@ export const WaitingBanner = (props: WaitingBannerProps) => {
       borderWidth='md'
       padding='32px 48px'
     >
-      <Row gutter='4xl' wrap={false} >
+      <Row gutter='4xl' enableWrap={false} >
         <Col>
           <img src='/images/common/waiting-banner/head.svg'></img>
         </Col>

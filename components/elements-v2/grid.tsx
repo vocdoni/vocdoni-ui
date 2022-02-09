@@ -28,7 +28,7 @@ export type IRowProps = {
    * 4xl -> 24px, total 56px
    */
   gutter?: RowGutter
-  wrap?: boolean
+  enableWrap?: boolean
   justify?: JustifyOptions
   align?: AlignOptions
 }

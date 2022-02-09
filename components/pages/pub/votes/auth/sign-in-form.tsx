@@ -108,7 +108,7 @@ export const SignInForm = ({
             <form onSubmit={handleSubmit}>
               <Row gutter='none'>
                 {fields.map((fieldName, i) =>
-                  <Col xs={12} disableFlex>
+                  <Col xs={12} disableFlex key={i}>
                     <InputFormGroup
                       label={fieldName}
                       id={fieldName}

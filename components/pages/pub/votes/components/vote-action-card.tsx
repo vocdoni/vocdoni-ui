@@ -194,6 +194,10 @@ const BannerDiv = styled.div<{ positive?: boolean }>`
 const VerticalSpacer = styled.div`
   margin: 10px 0px;
 `
+const TextContainer = styled.div`
+  margin-top:24px;
+  margin-bottom:24px;
+`
 
 const CheckImageContainer = styled.div`
   position: absolute;

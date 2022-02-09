@@ -75,7 +75,8 @@ const PreregisterPage = () => {
       .then(response => setPreregisterSent(true))
       .catch((err) => {
         console.log(err)
-        setAlertMessage(i18n.t("errors.register_the_voter_key"))
+        // Asume the error happens because it is already registered
+        setAlertMessage(i18n.t("errors.voter_key_already_registered"))
       })
 
     // generateProof(processId, data.passwordConfirm)

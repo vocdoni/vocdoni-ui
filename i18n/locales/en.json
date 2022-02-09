@@ -310,6 +310,7 @@
     "there_is_already_one_account_with_the_same_credentials": "There is already one account with the same credentials",
     "there_is_already_one_account_with_the_same_name": "There is already one account with the same name",
     "update_entity_data_error": "Update entity data error",
+    "voter_key_already_registered": "The password has already been set",
     "you_are_not_part_of_the_census": "You are not part of the census",
     "you_canceled_the_operation": "You canceled the operation",
     "your_vote_could_not_be_delivered": "Your vote could not be delivered"
@@ -793,6 +794,18 @@
       "it_will_be_impossible_for_a_third_party_to_see_witch_vote_a_use_has_cast": "It will be impossible for a third-party to see which vote a user has cast.",
       "no": "No",
       "normal_voting": "Normal voting",
+      "preregister_step_1":{
+        "title": "Pre-registration starts",
+        "subtitle": "Voters must pre-register during this period, in order to vote."
+      },
+      "preregister_step_2":{
+        "title": "Voting process starts",
+        "subtitle": "All pre-registered users will be able to submit their vote."
+      },
+      "preregister_step_3":{
+        "title": "Voting process ends",
+        "subtitle": "No more votes will be allowed and final results will be available."
+      },
       "requirements": "Requirements",
       "results_availability": {
         "title": "Results Availability",
