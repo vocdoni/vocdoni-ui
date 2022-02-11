@@ -56,6 +56,12 @@ export const QuestionsListInline = forwardRef<HTMLDivElement, IQuesListInlinePro
       onSelect(questionNumber, choice)
     }
 
+    const selectDefaultOption = () => {
+      for(let i=0;i<16;i++){
+        onSelect(i,0)
+      }
+    }
+
     return (
       <QuestionsContainer>
         {voteWeight && (
@@ -83,6 +89,14 @@ export const QuestionsListInline = forwardRef<HTMLDivElement, IQuesListInlinePro
               <p>S’ha presentat una sola candidatura per a les eleccions a la Junta Directiva, conformada per 16 persones. Les votacions es fan pel sistema de llistes obertes, és a dir, cal indicar el sentit de la votació persona a persona.</p>
               <p>La informació de la candidatura està disponible al correu electrònic i a través del botó de documentació que podeu trobar més amunt.</p>
             </Typography>
+
+            <Button
+              onClick={selectDefaultOption}
+              positive
+              large
+            >
+              Tota la candidatura Òmnium 26
+            </Button>
           </Column>
 
           <QuestionUl>
