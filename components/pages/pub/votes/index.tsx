@@ -387,7 +387,7 @@ export const VotingPageView = () => {
           </Then>
         </If>
 
-        <If condition={hasVoted && !showResults}>
+        <If condition={hasVoted}>
           <Then>
             <VoteRegisteredLgContainer>
               <Typography align={TextAlign.Center} variant={TypographyVariant.Body3}>
@@ -400,7 +400,7 @@ export const VotingPageView = () => {
           </Then>
         </If>
         
-        {showResults &&
+        {false && showResults &&
           processInfo?.metadata?.questions.map(
             (question: Question, index: number) => (
               <VoteQuestionCard
