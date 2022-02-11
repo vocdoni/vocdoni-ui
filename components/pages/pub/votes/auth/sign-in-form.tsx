@@ -103,11 +103,6 @@ export const SignInForm = ({
               />
             </FlexContainer>
           ) : (<div></div>)}
-          <FlexContainer justify={FlexJustifyContent.Center}>
-            <ContainerContainer>
-              {i18n.t('vote.you_cant_enter_contact_with_entity')}
-            </ContainerContainer>
-          </FlexContainer>
           <HiddenButton type="submit"></HiddenButton>
           <FlexContainer justify={FlexJustifyContent.Center}>
             <InputContainer>

@@ -42,7 +42,7 @@ export const CalendarCard = (props: CalendarCardProps) => {
           <Label size="xs" color='dark-gray' weight='bold'>
             {i18n.t('vote.calendar_start_label')}:
           </Label>
-          <Text size='md' color='dark-blue'>
+          <Text size='sm' color='dark-blue'>
             {props.startDate && toCalendarFormat(props.startDate)}
           </Text>
         </Col>
@@ -50,7 +50,7 @@ export const CalendarCard = (props: CalendarCardProps) => {
           <Label size="xs" color='dark-gray' weight='bold'>
             {i18n.t('vote.calendar_end_label')}:
           </Label>
-          <Text size='md' color='dark-blue'>
+          <Text size='sm' color='dark-blue'>
             {props.endDate && toCalendarFormat(props.endDate)}
           </Text>
         </Col>

@@ -373,7 +373,7 @@ export const VotingPageView = () => {
                 </Text>
               </Col>
               <Col xs={12} disableFlex>
-                <Button variant='primary' size='lg'>
+                <Button variant='primary' size='lg' onClick={handleVoteNow}>
                   {i18n.t("vote.vote_now")}
                 </Button>
               </Col>
