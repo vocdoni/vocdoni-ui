@@ -19,7 +19,7 @@ export const ResultsCard = () => {
     return null
   }
   return (
-    <If condition={(status === VoteStatus.Ended || liveResults) && votesWeight.gt(0) && questions.length > 0}>
+    <If condition={(status === VoteStatus.Ended || liveResults) && votesWeight && votesWeight.gt(0) && questions.length > 0}>
       {/* IF RESULTS */}
       <Then>
         <Row gutter='2xl'>
