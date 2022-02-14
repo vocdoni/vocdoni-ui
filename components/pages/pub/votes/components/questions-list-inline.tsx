@@ -86,16 +86,18 @@ export const QuestionsListInline = forwardRef<HTMLDivElement, IQuesListInlinePro
             </SubBanner>
 
             <Typography color='#434548' variant={TypographyVariant.Small}>
-              <p>S’ha presentat una sola candidatura per a les eleccions a la Junta Directiva, conformada per 16 persones. Les votacions es fan pel sistema de llistes obertes, és a dir, cal indicar el sentit de la votació persona a persona.</p>
+              <p>S’ha presentat una sola candidatura per a les eleccions a la Junta Directiva, conformada per 16 persones. Les votacions es fan pel sistema de llistes obertes, és a dir, cal indicar el sentit de la votació persona a persona (oferim també l’opció de seleccionar tota la candidatura en un sol clic).</p>
               <p>La informació de la candidatura està disponible al correu electrònic i a través del botó de documentació que podeu trobar més amunt.</p>
             </Typography>
 
+            <br />
+            
             <Button
               onClick={selectDefaultOption}
               positive
               large
             >
-              Tota la candidatura Òmnium 26
+              Tota la candidatura Òmnium 26 (16 persones)
             </Button>
           </Column>
 
