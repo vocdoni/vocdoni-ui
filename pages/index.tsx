@@ -116,17 +116,6 @@ const IndexPage = () => {
         </BlockContainer>
       </Section>
 
-      <Section background='#FEFEFF'>
-        <BlockContainer>
-          <SplitSection
-            imageSrc="/images/home/section-1/computer-device.png"
-            imageAltText={i18n.t('home.computer_device_alt')}
-            subtitle={i18n.t('home.connect_with_your_social_base')}
-            title={i18n.t('home.you_only_need_one_platform')}
-            textContent={i18n.t('home.tired_of_using_a_thousand')}
-          />
-        </BlockContainer>
-      </Section>
 
       <Section>
         <BlockContainer>
@@ -157,20 +146,6 @@ const IndexPage = () => {
         </BlockContainer>
       </Section>
 
-      <Section>
-        <BlockContainer>
-          <SplitSection
-            reverse
-            imageSrc="/images/home/section-4/easy-share.png"
-            imageAltText={i18n.t('home.easy_share_image_alt')}
-            subtitle={i18n.t('home.as_easy_as_drag_and_drop')}
-            title={i18n.t('home.easy_share_documents')}
-            textContent={i18n.t(
-              'home.make_sure_your_members_have_access_to_the_financial_report'
-            )}
-          />
-        </BlockContainer>
-      </Section>
 
       <Section>
         <BlockContainer>
@@ -266,13 +241,6 @@ const IndexPage = () => {
                 variant={TypographyVariant.H1}
               >
                 {i18n.t('home.a_cutting_edge_voting_protocol')}
-              </Typography>
-              <Typography
-                variant={TypographyVariant.Small}
-              >
-                {i18n.t(
-                  'home.a_fully_anonymous_voting_system_ensuring_data_availability'
-                )}
               </Typography>
               <Typography
                 variant={TypographyVariant.Small}
@@ -377,18 +345,6 @@ const IndexPage = () => {
                       'home.a_full_anonymous_voting_system_ensuring_data_availability_and_anti_censorship'
                     )}
                   </Typography>
-
-                  <ActionsContainer>
-                    <Button positive href={CREATE_ACCOUNT_PATH}>
-                      {i18n.t('home.get_started')}
-                    </Button>
-                    <Typography
-                      variant={TypographyVariant.Small}
-                      color={colors.accent1}
-                    >
-                      {i18n.t('home.free_until_end_2021')}
-                    </Typography>
-                  </ActionsContainer>
                 </ReadyTextContainer>
               </Column>
 

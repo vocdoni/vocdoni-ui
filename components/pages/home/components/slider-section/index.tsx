@@ -18,7 +18,7 @@ interface IQuotes {
 export const SliderSection = () => {
   const { i18n } = useTranslation()
   const [activeItem, setActiveItem] = useState<number>(0)
-  
+
   const quotes: IQuotes[] = [
     {
       image: "/images/home/slider/slider-1.png",
@@ -66,9 +66,9 @@ export const SliderSection = () => {
               image={quote.image}
               logo={quote.logo}
               backgroundImage={quote.backgroundImage}
-              quote={i18n.t(quote.content)}
+              quote={quote.content}
               authorName={quote.author}
-              authorPosition={i18n.t(quote.authorPosition)}
+              authorPosition={quote.authorPosition}
               authorImage={quote.authorImage}
             />
           </CardContainer>

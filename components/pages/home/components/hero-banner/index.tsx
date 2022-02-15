@@ -29,10 +29,6 @@ export const HeroBanner = () => {
                 {i18n.t('home.try_it_for_free')}
               </Button>
             </ButtonContainer>
-
-            <Typography variant={TypographyVariant.ExtraSmall} margin='5px 0 0 0' color={colors.accent1}>
-              {i18n.t('home.free_until_end_2021')}
-            </Typography>
           </ActionContainer>
         </LeftContainer>
       </ContentContainer>
