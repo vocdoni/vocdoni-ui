@@ -817,20 +817,35 @@
   "waiting_banner": {
     "title": "Did you know...",
     "vote_submitting": [
-      "Every vote is individually recorded on the blockchain to ensure security, universal verifiability and censorship-resistance. This process may take up to 20 seconds.",
-      "We are the only provider of universally verifiable and auditable anonymous voting, via a revolutionary technology called zk-SNARKS. Read more <a href='todo.please.change.me' target='_blank'>here</a>",
-      "All software in the Aragon and Vocdoni stack is entirely open-source, and all code can be viewed and forked on <a href='https://github.com/vocdoni' target='_blank'>Github</a>. We are thus able to offer complete transparency.",
-      "Decentralized voting is good as no centralized party"
+      "Every vote is individually recorded on the <strong>blockchain</strong> to ensure <strong>security</strong>, <strong>end-to-end verifiability</strong> and <strong>censorship-resistance</strong>. This process may take up to 20 seconds.",
+      "We are the only provider of <strong>end-to-end auditable & anonymous voting</strong>, through advanced cryptographic zero-knowledge proofs. Read more about zk-SNARKS & zkRollups <a href='todo.please.change.me' target='_blank'>here</a>.",
+      "All software in the Aragon and Vocdoni stack is entirely <strong>open-source</strong>, and all code can be viewed on <a href='https://github.com/vocdoni' target='_blank'>Github</a>. We are thus able to offer complete <strong>transparency</strong>.",
+      "You can monitor the vote <strong>results in real-time</strong>, if this setting is enabled by the vote administrator.",
+      "All voting processes are <strong>GDPR-compliant</strong>, respecting user privacy, and results are  <strong>end-to-end auditable</strong>, and thus <strong>legally compliant</strong>.",
+      "<strong>Decentralized voting</strong> systems, based on blockchain tech, are better than centralized databases as they do not have one single point of failure vulnerable to attack, and are thus <strong>censorship-resistant</strong>",
+      "We are <strong>committed to voter privacy</strong>. No personal information is recorded when participating in a vote or census, as the private keys that identify each user are generated and stored locally in each user’s terminal, along with the rest of their personal data. / private keys are generated on the entity manager’s device based on specific information about the voting participants.",
+      "Our cutting-edge voting protocol can process more than <strong>XXX votes per second</strong>, and we are always improving this and implementing new features.",
+      "Vocdoni leverages a multi-layer decentralized technology stack to ensure the <strong>integrity</strong> of the process and record votes, including the Ethereum-L2 Gnosis chain, <strong>Vochain</strong> – our custom Tendermint blockchain, and IPFS.",
+      "Your vote is being registered on the <strong>Vochain</strong> – our custom Tendermint blockchain, to ensure <strong>tamper-resistance</strong> and <strong>end-to-end auditability</strong>, which could take some time. Read our <a href='https://docs.vocdoni.io/' target='_blank'>documentation</a> or <a href='https://blog.aragon.org/vocdoni-technical-overview-v1/' target='_blank'>technical overview</a> to learn more."
     ],
     "vote_creation": [
-      "Your voting process information is being sent to the blockchain for verification and registration, which could take some time. This is to ensure the security and integrity of the process.",
-      "Vote administrators and voters can monitor the results, as percentages of the total, in real-time by default, but this can be deactivated in settings.",
-      "You can enable anonymous voting or holding a ranked-choice or weighted vote in the vote process settings"
+      "Your voting process information is being registered on the <strong>Vochain</strong> – our custom Tendermint blockchain, to ensure <strong>tamper-resistance</strong> and <strong>end-to-end auditability</strong>, which could take some time. Read our <a href='https://docs.vocdoni.io/' target='_blank'>documentation</a> or <a href='https://blog.aragon.org/vocdoni-technical-overview-v1/' target='_blank'>technical overview</a> to learn more.",
+      "Vote administrators and voters can monitor the <strong>results in real-time</strong> by default, or enable instant results after the vote, in the process settings.",
+      "You can enable single & multiple-choice, <strong>weighted, quadratic and/or anonymous</strong> voting, set the time frame of your vote, or end it manually in the process settings.",
+      "Organizations can <strong>customize</strong> voting processes with their corporate color, logo and other <strong>branding</strong>.",
+      "Admins can easily <strong>embed videos</strong> and <strong>livestreams</strong> in the vote process page, allowing members to be present in hybrid / online events, AGMs, and shareholder, board, and employee meetings live, boosting participation.",
+      "You can create a variety of different participatory processes with Vocdoni, including <strong>referendums, surveys, polls, binding votes</strong>, and <strong>budgets</strong>.",
+      "Decentralized voting systems, based on blockchain tech, are better than centralized databases as they do not have one single point of failure vulnerable to attack, and are thus <strong>censorship-resistant</strong>.",
+      "All voting processes are <strong>GDPR-compliant</strong>, as we respect user privacy and personal data, and <strong>legally compliant</strong>, as results are <strong>end-to-end auditable</strong>.",
+      "Our cutting-edge voting protocol can process more than <strong>XXX votes per second</strong>, and we are always improving this and implementing new features.",
+      "You can notify your community about a vote with our <strong>one-click email system</strong> that sends individualized links to members, enabling them to easily access the process."
     ],
     "entity_creation": [
-      "We use a secure, decentralized technology called blockchain to create and register your entity. This ensures that no one can corrupt your details or tamper with your voting processes. This may take some time.",
-      "Decentralized voting systems, based on blockchain tech, are better than centralized databases as they do not have one single point of failure vulnerable to attack, and are thus censorship-resistant.",
-      "We are one of the few providers of blockchain voting and governance, and the<strong>only</strong>&nbsp;censorship-resistant and universally verifiable solution"
+      "Vocdoni leverages a multi-layer decentralized technology stack to register your entity and record votes, including the Ethereum-L2 Gnosis chain, <strong>Vochain</strong> – our custom Tendermint blockchain, and IPFS. This ensures <strong>security</strong> and <strong>end-to-end auditability</strong>, and may take some time.",
+      "We are one of the few providers of blockchain voting, and the only end-to-end <strong>verifiable</strong> and <strong>anonymous-capable</strong> solution.",
+      "You can upload a spreadsheet or .csv of your voter census or member list via drag-and-drop, and easily <strong>manage your membership base</strong> from the Vocdoni dashboard.",
+      "A built-in consent mechanism generates a signature to indicate how voter data should be used, allowing organizations to manage processes in a <strong>legally and GDPR-compliant way</strong>.",
+      "Our cutting-edge voting protocol can process more than <strong>XXX votes per second</strong>, and we are always improving this and implementing new features."
     ]
   }
 }

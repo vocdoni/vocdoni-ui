@@ -10,11 +10,16 @@ export default {
 const Template: ComponentStory<typeof CalendarCard> = (args) => {
   return (
     <Row gutter="xl">
-      <Col xs={12} md={4} lg={2}>
-        <CalendarCard {...args} />
+      <Col xs={12} md={4} >
+        <CalendarCard {...args} {...showcaseArgs} />
       </Col>
     </Row>
   )
 }
 
 export const Showcase = Template.bind({})
+
+const showcaseArgs = {
+  startDate: new Date(),
+  endDate: new Date()
+}

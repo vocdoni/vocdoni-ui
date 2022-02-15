@@ -706,20 +706,35 @@
   "waiting_banner": {
     "title": "Sabias qué...",
     "vote_submitting": [
-      "Cada vosto se almacena intividualmente en la blockchain por motivos de seguridad, verificabilidad universar y resistencia a la censura. Este proceso puede tardar hasta 20 segundos.",
-      "Somos el unico proveedor de un servicio de votación 100% anónimo verificable gracias a una tecnología revolucionaria llamada zk-SNARKS. Lee más <a href='todo.please.change.me' target='_blank'>aquí</a>",
-      "Todo el software desarollado por Aragon y Vocdoni es open-source en su totalidad y todo el código puede verse en <a href='https://github.com/vocdoni' target='_blank'>Github</a>. Por lo tanto somos capaces de ofrecer una transparencia absoluta.",
-      "Una votacion descentralizada es buena porque no hay una organización centralizada"
+      "Cada voto se almacena individualmente <strong>blockchain</strong> para asegurar su <strong>seguridad</strong>, <strong>virificabilidad punto a punto</strong> y <strong>resistencia a la censura</strong>. Este proceso puede llevar hasta 20 segundos.",
+      "Somos el único proveedor de <strong>un sistema de votación anónimo y auditable</strong> a través de pruebas zero-knoledge. Lee más sobre zk-SNARKS y zkRollups <a href='todo.please.change.me' target='_blank'>aquí</a>.",
+      "Todo el software desarrollado por Aragon y Vocdoni es totalmente <strong>open-source</strong>,y todo el código se puede ver en <a href='https://github.com/vocdoni' target='_blank'>Github</a>. Por lo tanto, somos capaces de ofrecer <strong>transparencia total</strong>.",
+      "Puedes monitorizar los resultados de la votación <strong>en tiempo real</strong> si esta opción esta activada por el administrador de la votación.",
+      "Todos los procesos cumplen la legislación vigente en materia de <strong>protección de datos</strong>, respetando la privacidad del usuario. Los resultados son <strong>auditables</strong> y por lo tanto <strong>legales</strong>.",
+      "Lo sistema de <strong>votación descentralizada</strong> basados en tecnología blockchain, son mejores que las bases de datos centralizadas porque no tienen un único punto de fallo vulnerable a ataques y por lo tanto son más <strong>resistentes a la censura</strong>",
+      "Estamos <strong>compromentidos con la privacidad del votante</strong>. No se almacena información personal cuando se participa en una votación o censo, puesto que las claves privadas que identifican a cada usuario se generan y alamacenan localmente en el terminal del usuario junto al resto de su información personal / las claves privadas se generan en el dispositivo del gestor de la entidad basandose en información especifica sobre los participantes en la votación.",
+      "Nuestro inovador protocolo de votación puede procesar más de <strong>XXX votos por segundo</strong> y continuamos trabajando para mejorar estas cifras y añadir nuevas funcionalidades.",
+      "Vocdoni aprovecha un grupo de tecnologías descentralizadas para asegurar la <strong>integridad</strong> de la votacion y los resultados, incluyendo Ethereum-L2 Gnosis chain, <strong>Vochain</strong> – nuestra propia blockchain basada en Tendermint y IPFS.",
+      "Tu voto esta siendo registrado en <strong>Vochain</strong> – nuestra propia blockchain basada en Tendermint, para asegurar no <strong>no manipulación</strong> y <strong>auditabilidad punto a punto</strong>, esto puede llevar algún tiempo. Lee nuestra <a href='https://docs.vocdoni.io/' target='_blank'>documentación</a> o nuestro <a href='https://blog.aragon.org/vocdoni-technical-overview-v1/' target='_blank'>resumen téccnico</a> para saber más."
     ],
     "vote_creation": [
-      "La información de tu proceso de votación esta siendo enviada a blockchain para su registro y verificación, esto puede tardar unos minutos. Esto nos permite hacer el proceso de votación seguro e íntegro",
-      "Los administradores puden monitorizar en tiempo real los resultados de la votación pero esto es puede desactivar en la configuración",
-      "Puedes activar la votación anónima o ponderada en la configuración del proceso"
+      "Tu proceso de votación esta siendo registrado en <strong>Vochain</strong> – nuestra propia blockchain basada en Tendermint, para asegurar no <strong>no manipulación</strong> y <strong>auditabilidad punto a punto</strong>, esto puede llevar algún tiempo. Lee nuestra <a href='https://docs.vocdoni.io/' target='_blank'>documentación</a> o nuestro <a href='https://blog.aragon.org/vocdoni-technical-overview-v1/' target='_blank'>resumen téccnico</a> para saber más.",
+      "Los administradores de la votación y los votantes pueden monitorizar los <strong>resultados en tiempo real</strong> de manera predeterminada, también puedes activar los resultados al final de la votación en la configuración del proceso.",
+      "Puedes crear activar preguntas de seleccón simple o múltiple, <strong>ponderadas, cuadráticas y o anónimas</strong>, establecer el intervalo de tiempo de tu votación o terminarla manualmente en la sección de configuración.",
+      "Las organizaciones pueden <strong>customizar</strong> procesos de votación coin sus colores corporativos, logo y otras <strong>opciones</strong>.",
+      "Los administradores pueden <strong>añadir videos</strong> y <strong>transmisiones en vivo</strong> de manera fácil en la página de proceso, permitiendo a los miembros estar presentes en eventos online/hybridos, AGMs, reuniones de accionistas o juntas de empleados en vivo y impulsando así la participación.",
+      "Puedes crear una gran variedad de de diferentes procesos de participación con Vocdoni, incluyendo <strong>referendums, encuestas, votaciones</strong> y <strong>presupuestos</strong>.",
+      "Lo sistema de <strong>votación descentralizada</strong> basados en tecnología blockchain, son mejores que las bases de datos centralizadas porque no tienen un único punto de fallo vulnerable a ataques y por lo tanto son más <strong>resistentes a la censura</strong>",
+      "Todos los procesos cumplen la legislación vigente en materia de <strong>protección de datos</strong>, respetando la privacidad del usuario. Los resultados son <strong>auditables</strong> y por lo tanto <strong>legales</strong>.",
+      "Nuestro inovador protocolo de votación puede procesar más de <strong>XXX votos por segundo</strong> y continuamos trabajando para mejorar estas cifras y añadir nuevas funcionalidades.",
+      "Puedes avisar a tu comunidad sobre una votación gracias a nuestro sistema <strong>one-click email</strong> que envía links individualizados a los miembros permitiendoles acceder fácilmente al proceso de votación."
     ],
     "entity_creation": [
-      "Usamos una tecnología descentralizada y segura llamada blockchain para crear y registrar tu entidad. Esto asegura que nadie puede corromper tus detalles o comprometer tus procesos de votación. Esto puede tardar unos minutos",
-      "Los sistemas de votación decntralizada, basados en blockchain, son mejores que los centralizados puesto que no ofrecen un único punto de fallo vulnerable a ataques y por lo tanto son también libres de censura",
-      "Somos uno de los pocos proveedores de servicios de votación y governanza en blockchain, y la <strong>única</strong> solución verificable universalmente y libre de censura."
+      "Vocdoni aprovecha un grupo de tecnologías descentralizadas para asegurar la <strong>integridad</strong> de la votacion y los resultados, incluyendo Ethereum-L2 Gnosis chain, <strong>Vochain</strong> – nuestra propia blockchain basada en Tendermint y IPFS.",
+      "Somos uno de los pocos proveedores de votación con blockchain y el únicon con una solucionada <strong>verificable</strong> y <strong>100% anónima</strong>.",
+      "Puedes subir una hoja de cálculo o un archivo .csv con con tu censo de votantes o lista de miembros con drag-and-drop y <strong>gestionar tu lista de miembros</strong> de manera fácil desde el dashboard de Vocdoni.",
+      "Un mecanismo de consentimiento incorporado en Vocdoni genera una firma para indicar como se deben utilizar los datos del votante, esto permite a las organizaciones crear procesos de votación <strong>legales y nque cumplan la legislación en materia de protección de datos</strong>.",
+      "Nuestro inovador protocolo de votación puede procesar más de <strong>XXX votos por segundo</strong> y continuamos trabajando para mejorar estas cifras y añadir nuevas funcionalidades."
     ]
   }
 }
