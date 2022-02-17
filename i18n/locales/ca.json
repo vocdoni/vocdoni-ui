@@ -500,15 +500,78 @@
         "link": "Enllaç"
     },
     "vote_detail": {
-        "cancel_vote": "Cancel·la la votació",
+        "cancel_vote": "Cancelar votació",
+        "cancel_dialog": {
+          "title": "Cancelar votació",
+          "subtitle": "Aquesta acció es irreversible.<br /> Estàs segur que vols cancelar la votació?",
+          "acceptText": "Si, cancelar",
+          "backText": "No, tornar"
+        },
+        "calendar_card": {
+          "title": "Calendari",
+          "end_date": "Fi",
+          "start_date": "Inici"
+        },
+        "census_card": {
+          "title": "Cens",
+          "size": "Tamany",
+          "filename": "Nom",
+          "voters": "{{ censusSize }} votants"
+        },
+        "stream": "Stream",
         "details": "Detalls",
-        "end_vote": "Finalitza la votació",
-        "generate_pdf": "Generate PDF",
-        "generate_pdf_with_results": "Crea un PDF amb els resultats",
+        "document": "Document",
+        "end_vote": "Finalitzar votació",
+        "end_dialog": {
+          "title": "Finalitzar votació",
+          "subtitle": "Aquesta acció es irreversible.<br /> Estàs segur que vols finalitzar la votació?",
+          "acceptText": "Si, finalitzar",
+          "backText": "No, tornar"
+        },
+        "external_links": {
+          "title": "Enllaços externs",
+          "document": "Document",
+          "q_and_a": "Q&A",
+          "stream": "Stream"
+        },
+        "generate_pdf": "Generar PDF",
+        "generate_pdf_card": {
+          "title": "Total vots emesos",
+          "see_results": "Veure resultats",
+          "generate_pdf": "Generar PDF"
+        },
+        "generate_pdf_with_results": "Generar PDF amb resultats",
         "link": "Enllaç",
+        "options": "Opcions",
+        "preview": "Previsualitzar",
+        "q_and_a": "Q&A",
+        "questions_card": {
+          "title": "Preguntes de la Votació",
+          "show": "Mostrar",
+          "hide": "Amagar",
+          "question": "Pregunta {{ number }}",
+          "options": "Opcions"
+        },
         "results": "Resultats",
-        "view_and_manage_the_status_of_the_process": "Visualitza i gestiona l'estat del procés",
-        "vote_details": "Detalls del procés de votació"
+        "results_card": {
+          "title": "Resultats de la Votació",
+          "show": "Mostrar",
+          "hide": "Amagar"
+        },
+        "settings_card": {
+          "title": "Paràmetres",
+          "type": "Tipus",
+          "options": "Opcions",
+          "normal_voting": "Votació standard",
+          "weighted_voting": "Votació ponderada",
+          "anonymous_voting": "Votació anònima"
+        },
+        "type": "Tipus",
+        "view_and_manage_the_status_of_the_process": "Veure i gestionar el procés de votació",
+        "vote_details": "Detalls de la votació",
+        "voting_link": {
+          "title": "Enllaç de votació"
+        }
     },
     "vote_question_card": {
         "no_results_available": "Resultats no estan disponibles",
@@ -571,6 +634,9 @@
         "name": "Name",
         "new_vote": "Nou procés de votació",
         "no_back_to_login": "No, torna a la votació",
+        "no_results_title": "Resultats no disponibles",
+        "no_results_subtitle_live": "Els resultats es mostraràn quan comenci la votació.",
+        "no_results_subtitle_end": "Els resultats es mostraràn només al finalitzar la votació.",
         "option_n": "Opció {{ number }}",
         "optional_field": "Aquest camp és opcional",
         "paused_vote": "Votació aturada",
