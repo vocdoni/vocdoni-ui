@@ -11,13 +11,13 @@ import { EntityHeader } from '../header/entity'
 
 
 const LayoutContainer = styled.div`
-  ${({ theme }) => `padding: 110px ${theme.margins.mobile.horizontal} 120px;`}
+  ${({ theme }) => `padding: 32px ${theme.margins.mobile.horizontal} 96px;`}
   max-width: ${sizes.laptopL * 0.8}px;
   margin-left: auto;
   margin-right: auto;
 
   @media ${({ theme }) => theme.screenMin.tablet} {
-    ${({ theme }) => `padding: 110px ${theme.margins.desktop.horizontal} 120px;`}
+    ${({ theme }) => `padding: 32px ${theme.margins.desktop.horizontal} 96px;`}
   }
 `
 
