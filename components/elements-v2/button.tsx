@@ -47,9 +47,14 @@ export const Button = (props: ButtonProps) => {
   useEffect(() => {
     setIconColor(textColor)
   }, [textColor])
+  const handleOnClick = (props: ButtonProps) => {
+    if (!props.disabled && !props.loading) {
+      props.onClick()
+    }
+  }
   return (
     <BaseButton
-      onClick={props.onClick}
+      onClick={() => handleOnClick(props)}
       color={props.color}
       backgroundColor={props.backgroundColor}
       width={props.width}
@@ -104,12 +109,19 @@ export const Button = (props: ButtonProps) => {
     </BaseButton>
   )
 }
-const BaseButton = styled.div<StyledButtonProps>`
+
+const cosmeticProps = ['color', 'backgroundColor', 'width', 'variant', 'size', 'disabled', 'icon', 'loading']
+const styledConfig = {
+  shouldForwardProp: (prop) => !cosmeticProps.includes(prop)
+}
+
+const BaseButton = styled.div.withConfig(styledConfig) <StyledButtonProps>`
 cursor: ${getCursor};
 box-sizing: border-box;
 border-radius: 8px;
 font-family: Manrope;
-padding: ${getPadding};
+padding: 0px 24px;
+height: ${getHeight};
 font-weight: 600;
 font-size: ${getButtonFontSize};
 text-align: center;
@@ -133,10 +145,10 @@ transition: 0.3s;
   pointer-events: ${getPointerEvents};
 }
 `
-const StyledCol = styled(Col) <LoadingColProps> `
+const StyledCol = styled(Col).withConfig(styledConfig) <LoadingColProps> `
   visibility: ${(props) => props.loading ? 'hidden' : 'visible'};
 `
-const LoadingCol = styled(Col) <LoadingColProps> `
+const LoadingCol = styled(Col).withConfig(styledConfig) <LoadingColProps> `
   display: ${(props) => props.loading ? '' : 'none'};
   position: absolute;
 `
@@ -197,7 +209,7 @@ function getBorderColor(props: StyledButtonProps) {
       return `2px solid ${theme.lightBorder}`
     case 'outlined':
       if (props.disabled) {
-        return `2px solid #E4E7EB`
+        return `2px solid ${colorsV2.neutral[100]}`
       }
       return `2px solid ${props.color ? props.color : theme.accent1}`
     case 'white-error':
@@ -206,7 +218,7 @@ function getBorderColor(props: StyledButtonProps) {
       if (props.disabled) {
         return ''
       }
-      return `2px solid #E4E7EB`
+      return `2px solid ${colorsV2.neutral[100]}`
     default:
       return ''
   }
@@ -218,7 +230,7 @@ function getBorderColorHover(props: StyledButtonProps) {
       case 'light':
         return `2px solid ${theme.lightBorder}`
       case 'outlined':
-        return `2px solid #E4E7EB`
+        return `2px solid ${colorsV2.neutral[100]}`
       case 'white-error':
         return ''
       case 'white':
@@ -265,26 +277,15 @@ function getWidth(props: StyledButtonProps) {
   }
   return `${props.width} px`
 }
-function getPadding(props: StyledButtonProps) {
-  if (props.variant === 'text') {
-    return '0px'
-  }
-  // TODO
-  // for some unknown reason the  padding when there is an
-  // icon in the button grows from 12 to 14
-  // the prop icon is used to make and equal size
-  // button when an icon is not shown and should be
-  // 13px 20px since the linke heigght of the text is 22 and
-  // the icon normal size is 24 but since it ggrows a total of 2px
-  // more it is switched to 15px 20px
-  if (props.icon) {
-    return '15px 20px'
-  }
+
+function getHeight(props: StyledButtonProps) {
   switch (props.size) {
     case 'sm':
-      return '8px 20px'
+      return '40px'
+    case 'lg':
+      return '56px'
     default:
-      return '12px 20px'
+      return '48px'
   }
 }
 function getBoxShadow(props: StyledButtonProps) {
@@ -304,17 +305,11 @@ function getOpacity(props: StyledButtonProps) {
       case 'primary':
         return 0.65
     }
-  } else {
-    if (props.variant === 'outlined') {
-      return 0.25
-    }
   }
   return 1
 }
 function getButtonFontSize(props: StyledButtonProps) {
   switch (props.size) {
-    case 'md':
-      return '16px'
     case 'lg':
       return '20px'
     default:

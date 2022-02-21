@@ -99,6 +99,18 @@ export const VotingPageView = () => {
   // used for getting the ending in and starting in string
   const [now, setNow] = useState(new Date)
   const [anonymousFormData, setAnonymousFormData] = useState('')
+
+
+  // Effects
+
+  // If status is ended open the results card
+  // automatically
+  useEffect(() => {
+    if (status ==  VoteStatus.Ended) {
+      setIsExpandableCardOpen(true)
+    }
+  },[status])
+
   useEffect(() => {
     const interval = setInterval(() => {
       setNow(new Date)
@@ -372,7 +384,7 @@ export const VotingPageView = () => {
                   {i18n.t('vote.vote_will_close')}&nbsp;<b>{endingString}</b>
                 </Text>
               </Col>
-              <Col xs={12} disableFlex>
+              <Col xs={12}>
                 <Button variant='primary' size='lg' onClick={handleVoteNow}>
                   {i18n.t("vote.vote_now")}
                 </Button>

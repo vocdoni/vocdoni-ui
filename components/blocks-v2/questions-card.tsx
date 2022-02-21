@@ -10,7 +10,7 @@ export const QuestionsCard = () => {
   return (
     <Row gutter="md">
       {questions.map((question, index) => (
-        <Col xs={12}>
+        <Col xs={12} key={index}>
           <Card padding="24px 32px" variant="gray">
             <Row gutter="xl">
               <Col xs={12}>

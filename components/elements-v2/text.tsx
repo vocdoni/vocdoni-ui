@@ -48,7 +48,21 @@ export const Text = (props: TextProps) => {
     </BaseText>
   )
 }
-const getTextAlign = (props: TextProps) => {
+
+const cosmeticProps = ['size', 'weight', 'color', 'align', 'innerHtml']
+const styledConfig = {
+  shouldForwardProp: (prop) => !cosmeticProps.includes(prop)
+}
+const BaseText = styled.span.withConfig(styledConfig)<TextProps>`
+  font-family: Manrope;
+  font-size: ${getTextSize};
+  font-weight: ${getTextWeight};
+  color:  ${getTextColor};
+  text-align: ${getTextAlign};
+  white-space: pre-wrap;
+`
+
+function getTextAlign(props: TextProps) {
   switch (props.align) {
     case 'center':
       return 'center'
@@ -63,7 +77,7 @@ const getTextAlign = (props: TextProps) => {
   }
 }
 
-const getTextSize = (props: TextProps) => {
+function getTextSize(props: TextProps) {
   if (props.size) {
     switch (props.size) {
       case '2xs':
@@ -95,7 +109,7 @@ const getTextSize = (props: TextProps) => {
       return '16px'
   }
 }
-const getTextWeight = (props: TextProps) => {
+function getTextWeight(props: TextProps) {
   if (props.weight) {
     switch (props.weight) {
       case 'light':
@@ -117,7 +131,7 @@ const getTextWeight = (props: TextProps) => {
       return 600
   }
 }
-const getTextColor = (props: TextProps) => {
+function getTextColor(props: TextProps) {
   if (props.color) {
     switch (props.color) {
       case 'dark-blue':
@@ -128,7 +142,7 @@ const getTextColor = (props: TextProps) => {
         return theme.textAccent1
       case 'dark-gray':
         return colorsV2.neutral[600]
-        // return theme.lightText
+      // return theme.lightText
       case 'error':
         return colorsV2.support.critical[600]
       case 'white':
@@ -144,11 +158,3 @@ const getTextColor = (props: TextProps) => {
       return theme.lightText
   }
 }
-const BaseText = styled.span<TextProps>`
-  font-family: Manrope;
-  font-size: ${getTextSize};
-  font-weight: ${getTextWeight};
-  color:  ${getTextColor};
-  text-align: ${getTextAlign};
-  white-space: pre-wrap;
-`

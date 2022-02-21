@@ -34,14 +34,18 @@ export type AvailableIcons =
 export const Icon = (props: IconProps) => {
   return (
     <StyledIcon
-      name={props.name}
       src={getIconSource(props.name)}
       height={getIconSize(props.size)}
       width={getIconSize(props.size)}
       color={props.color}
     />)
 }
-const StyledIcon = styled(SVG)`
+const cosmeticProps = ['color']
+const styledConfig = {
+  shouldForwardProp: (prop) => !cosmeticProps.includes(prop)
+}
+
+const StyledIcon = styled(SVG).withConfig(styledConfig)`
 & path {
   transition: 0.3s;
   stroke: ${getStrokeColor};

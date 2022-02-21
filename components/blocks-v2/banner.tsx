@@ -50,7 +50,7 @@ export interface BannerProps {
   innerGutter?: RowGutter
 }
 type BannerPadding = 'md' | 'lg'
-const getBannerPadding = (isMobile: boolean, padding?: BannerPadding) => {
+function getBannerPadding(isMobile: boolean, padding?: BannerPadding) {
   switch (padding) {
     case 'lg':
       if (isMobile) {
@@ -65,7 +65,7 @@ const getBannerPadding = (isMobile: boolean, padding?: BannerPadding) => {
       return '24px 40px'
   }
 }
-const getInnerRowGutter = (isMobile: boolean, gutter?: RowGutter) => {
+function getInnerRowGutter(isMobile: boolean, gutter?: RowGutter) {
   if (gutter) {
     return gutter
   }

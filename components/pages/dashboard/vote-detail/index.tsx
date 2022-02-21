@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 import { useTranslation } from 'react-i18next'
 import { PROCESS_PATH, VOTING_AUTH_FORM_PATH, VOTING_AUTH_LINK_PATH } from '@const/routes'
@@ -61,6 +61,12 @@ export const ViewDetail = () => {
     let momentDate = moment(date).locale('es').format("MMM DD - YYYY (HH:mm)")
     return momentDate.charAt(0).toUpperCase() + momentDate.slice(1)
   }
+
+  useEffect(() => {
+    if (processStatus == VoteStatus.Ended) {
+      setIsResultsCardOpen(true)
+    }
+  }, [processStatus])
 
   // Constants
   const linkCensus = !processInfo?.metadata?.meta?.formFieldTitles

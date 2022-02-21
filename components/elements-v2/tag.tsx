@@ -18,7 +18,6 @@ interface ITagProps {
   children?: ReactNode
 }
 export const Tag = (props: ITagProps) => {
-
   return (
     <Row align='center'>
       <Col align='center'>
@@ -36,71 +35,12 @@ export const Tag = (props: ITagProps) => {
     </Row>
   )
 }
-
-const getTagHeigth = (props: ITagProps) => {
-  switch (props.size) {
-    case 'large':
-      return '32px'
-    case 'regular':
-      return '24px'
-    default:
-      return '24px'
-  }
-}
-const getTagFontSize = (props: ITagProps) => {
-  switch (props.size) {
-    case 'large':
-      return '16px'
-    case 'regular':
-      return '14px'
-    default:
-      return '14px'
-  }
-}
-const getTagFontWeight = (props: ITagProps) => {
-  switch (props.fontWeight) {
-    case 'bold':
-      return 700
-    case 'regular':
-      return 400
-    default:
-      return 700
-  }
+const cosmeticProps = ['variant', 'size', 'fontWeight', 'label']
+const styledConfig = {
+  shouldForwardProp: (prop) => !cosmeticProps.includes(prop)
 }
 
-const getTagColor = (props: ITagProps) => {
-  switch (props.variant) {
-    case 'error':
-      return colorsV2.support.critical[600]
-    case 'info':
-      return colorsV2.support.info[600]
-    case 'success':
-      return colorsV2.support.success[600]
-    case 'warning':
-      return colorsV2.support.warning[600]
-    default:
-      // default is neutral
-      return colorsV2.neutral[600]
-  }
-}
-const getTagBackgroundColor = (props: ITagProps) => {
-  switch (props.variant) {
-    case 'error':
-      return colorsV2.support.critical[100]
-    case 'info':
-      return colorsV2.support.info[100]
-    case 'success':
-      return colorsV2.support.success[100]
-    case 'warning':
-      return colorsV2.support.warning[100]
-    default:
-      // default is neutral
-      return colorsV2.neutral[100]
-  }
-}
-
-
-const StyledTag = styled.div<ITagProps>`
+const StyledTag = styled.div.withConfig(styledConfig)<ITagProps>`
   border-radius: 4px;
   padding: 0px 12px;
   font-family: Manrope;
@@ -117,3 +57,67 @@ const StyledLabel = styled.span`
   // color: #52606D;
   margin-left: 16px;
 `
+
+function getTagHeigth(props: ITagProps) {
+  switch (props.size) {
+    case 'large':
+      return '32px'
+    case 'regular':
+      return '24px'
+    default:
+      return '24px'
+  }
+}
+function getTagFontSize(props: ITagProps) {
+  switch (props.size) {
+    case 'large':
+      return '16px'
+    case 'regular':
+      return '14px'
+    default:
+      return '14px'
+  }
+}
+function getTagFontWeight(props: ITagProps) {
+  switch (props.fontWeight) {
+    case 'bold':
+      return 700
+    case 'regular':
+      return 400
+    default:
+      return 700
+  }
+}
+
+function getTagColor(props: ITagProps) {
+  switch (props.variant) {
+    case 'error':
+      return colorsV2.support.critical[600]
+    case 'info':
+      return colorsV2.support.info[600]
+    case 'success':
+      return colorsV2.support.success[600]
+    case 'warning':
+      return colorsV2.support.warning[600]
+    default:
+      // default is neutral
+      return colorsV2.neutral[600]
+  }
+}
+function getTagBackgroundColor(props: ITagProps) {
+  switch (props.variant) {
+    case 'error':
+      return colorsV2.support.critical[100]
+    case 'info':
+      return colorsV2.support.info[100]
+    case 'success':
+      return colorsV2.support.success[100]
+    case 'warning':
+      return colorsV2.support.warning[100]
+    default:
+      // default is neutral
+      return colorsV2.neutral[100]
+  }
+}
+
+

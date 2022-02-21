@@ -21,6 +21,7 @@ import { ChevronRightIcon } from '@components/elements-v2/icons'
 import { UserVoteStatus } from '..'
 import { dateDiffStr, DateDiffType } from '@lib/date-moment'
 import { BigNumber } from 'ethers'
+import { Spacer } from '@components/elements-v2'
 
 interface IVoteActionCardProps {
   userVoteStatus: UserVoteStatus
@@ -136,12 +137,8 @@ export const VoteActionCard = ({
         </BannerIcon>
 
         <BannerText>
-          <Typography
-            variant={TypographyVariant.Body2}
-            align={TextAlign.Center}
-          >
-            {getTitleFromState(status)}
-          </Typography>
+          {getTitleFromState(status)}
+          <Spacer direction='vertical' size='3xl'></Spacer>
           <div>{getButtonFromState(status)}</div>
         </BannerText>
       </BannerMainDiv>

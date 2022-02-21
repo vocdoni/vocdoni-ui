@@ -34,8 +34,32 @@ export const Card = forwardRef<HTMLDivElement, CardProps>((props: CardProps, ref
     <StyledCard ref={ref} isMobile={isMobile} {...props} />
   )
 })
+const cosmeticProps = ['borderRadius', 'padding', 'variant', 'backgroundColor', 'shadow', 'hover', 'height', 'borderWidth', 'borderColor', 'isMobile']
+const styledConfig = {
+  shouldForwardProp: (prop) => !cosmeticProps.includes(prop)
+}
+export const StyledCard = styled.div.withConfig(styledConfig)<StyledCardProps>`
+  border-radius:${getBorderRadius};
+  background: ${getBackgroundColor};
+  padding: ${getPadding};
+  box-shadow: ${getShadow};
+  border: ${getBorderType};
+  border-width: ${getBorderWidth};
+  border-color: ${getBorderColor};
+  min-height: ${getHeight};
+  box-sizing: border-box;
+  flex:1;
+  transition: 0.3s;
+  &:hover{
+    background: ${getHover}
+  }
+`
 
-const getBorderRadius = (props: StyledCardProps) => {
+// ======= //
+// HELPERS //
+// ======= //
+
+function getBorderRadius  (props: StyledCardProps) {
   switch (props.borderRadius) {
     case 'sm':
       return '8px'
@@ -47,7 +71,7 @@ const getBorderRadius = (props: StyledCardProps) => {
       return '16px'
   }
 }
-const getPadding = (props: StyledCardProps) => {
+function getPadding  (props: StyledCardProps) {
   switch (props.padding) {
     case 'xs':
       return props.isMobile ? '24px' : '20px 24px'
@@ -67,7 +91,7 @@ const getPadding = (props: StyledCardProps) => {
       return props.padding
   }
 }
-const getBackgroundColor = (props: StyledCardProps) => {
+function getBackgroundColor  (props: StyledCardProps) {
   if (props.backgroundColor) {
     return props.backgroundColor
   }
@@ -81,13 +105,13 @@ const getBackgroundColor = (props: StyledCardProps) => {
       return theme.white
   }
 }
-const getShadow = (props: StyledCardProps) => {
+function getShadow  (props: StyledCardProps) {
   if (props.shadow) {
     return '0px 6px 6px rgba(180, 193, 228, 0.35)'
   }
 }
 // solid ${theme.lightBorder}
-const getBorderColor = (props: StyledCardProps) => {
+function getBorderColor  (props: StyledCardProps) {
   // override
   if (props.borderColor) {
     // switch border sizes
@@ -110,7 +134,7 @@ const getBorderColor = (props: StyledCardProps) => {
       return 'transparent'
   }
 }
-const getBorderWidth = (props: StyledCardProps) => {
+function getBorderWidth  (props: StyledCardProps) {
   // override
   if (props.borderWidth) {
     // switch borderWidth
@@ -139,13 +163,13 @@ const getBorderWidth = (props: StyledCardProps) => {
       return '0px'
   }
 }
-const getBorderType = (props: StyledCardProps) => {
+function getBorderType  (props: StyledCardProps) {
   if (props.variant === 'dashed') {
     return 'dashed'
   }
   return 'solid'
 }
-const getHover = (props: StyledCardProps) => {
+function getHover  (props: StyledCardProps) {
   if (!props.hover) {
     return ''
   }
@@ -154,26 +178,10 @@ const getHover = (props: StyledCardProps) => {
       return `${theme.lightBg}`
   }
 }
-const getHeight = (props: StyledCardProps) => {
+function getHeight  (props: StyledCardProps) {
   if (props.height) {
     return props.height
   }
   return ''
 }
 
-export const StyledCard = styled.div<StyledCardProps>`
-  border-radius:${getBorderRadius};
-  background: ${getBackgroundColor};
-  padding: ${getPadding};
-  box-shadow: ${getShadow};
-  border: ${getBorderType};
-  border-width: ${getBorderWidth};
-  border-color: ${getBorderColor};
-  min-height: ${getHeight};
-  box-sizing: border-box;
-  flex:1;
-  transition: 0.3s;
-  &:hover{
-    background: ${getHover}
-  }
-`

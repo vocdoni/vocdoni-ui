@@ -93,7 +93,7 @@ export const QuestionResults = (props: QuestionsResultsProps) => {
           <Row gutter='lg'>
             {sortedChoices.map(
               (choice: ChoiceResult, index: number) =>
-                <Col xs={12}>
+                <Col xs={12} key={index}>
                   <Row gutter={isMobile ? 'xs' : 'lg'} align="center">
                     <Col xs={10} md={4}>
                       <Text
@@ -110,7 +110,7 @@ export const QuestionResults = (props: QuestionsResultsProps) => {
                         weight="bold"
                         color="dark-blue"
                       >
-                        {getPercent(choice.votes, votesWeight).toFixed(2)}%
+                        {getStringPercent(getPercent(choice.votes, votesWeight))}%
                       </Text>
                       <Text
                         size="sm"
@@ -135,7 +135,7 @@ export const QuestionResults = (props: QuestionsResultsProps) => {
                             weight="bold"
                             color="dark-blue"
                           >
-                            {getPercent(choice.votes, votesWeight).toFixed(2)}%
+                            {getStringPercent(getPercent(choice.votes, votesWeight))}%
                           </Text>
                         </Col>
                         <Col>
@@ -158,10 +158,6 @@ export const QuestionResults = (props: QuestionsResultsProps) => {
     </Card>
   )
 }
-
-const getTranslatedValue = (value: number, i18n: i18n): string => {
-  return value.toLocaleString(i18n.language)
-}
 const getBarPercent = (votes: BigNumber, totalVotes: BigNumber): number => {
   if (votes.eq(0)) {
     return 1.5
@@ -169,8 +165,16 @@ const getBarPercent = (votes: BigNumber, totalVotes: BigNumber): number => {
   return getPercent(votes, totalVotes)
 }
 const getPercent = (votes: BigNumber, totalVotes: BigNumber): number => {
-  const ratio = votes.div(totalVotes)
-  return ratio.mul(100).toNumber()
+  // used to avoid losing decimal precision
+  const ratio = votes.mul(10000)
+  return ratio.div(totalVotes).toNumber() /100
+}
+const getStringPercent = (percent: number): string => {
+  const decimal = percent % 1
+  if (decimal == 0) {
+    return percent.toFixed(0)
+  }
+  return percent.toFixed(2)
 }
 const getBarColor = (props: StyledProgressBarProps) => {
   if (props.disabled) {
@@ -184,7 +188,11 @@ const getPadding = (props: StyledCardProps) => {
   }
   return '40px'
 }
-const Card = styled.div<StyledCardProps>`
+const cosmeticProps = ['isMobile']
+const styledConfig = {
+  shouldForwardProp: (prop) => !cosmeticProps.includes(prop)
+}
+const Card = styled.div.withConfig(styledConfig)<StyledCardProps>`
   border-radius: 16px;
   background: ${theme.background};
   padding: ${getPadding};
