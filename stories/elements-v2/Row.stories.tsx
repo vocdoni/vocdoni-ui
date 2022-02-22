@@ -13,28 +13,28 @@ export const Playground = (args) => (
     <Row {...args}>
       <Col xs={8} md={3} >
         <Card>
-          <Text color="dark-blue" weight="bold">
+          <Text color="dark-blue" weight="semi-bold">
             xs-8   /   md-3
           </Text>
         </Card>
       </Col>
       <Col xs={4} md={6}>
         <Card>
-          <Text color="dark-blue" weight="bold">
+          <Text color="dark-blue" weight="semi-bold">
             xs-4   /   md-6
           </Text>
         </Card>
       </Col>
       <Col xs={6} md={5}>
         <Card>
-          <Text color="dark-blue" weight="bold">
+          <Text color="dark-blue" weight="semi-bold">
             xs-5   /   md-5
           </Text>
         </Card>
       </Col>
       <Col xs={6} md={4}>
         <Card>
-          <Text color="dark-blue" weight="bold">
+          <Text color="dark-blue" weight="semi-bold">
             xs-6   /   md-4
           </Text>
         </Card>
@@ -42,21 +42,21 @@ export const Playground = (args) => (
 
       <Col xs={5} md={5}>
         <Card>
-          <Text color="dark-blue" weight="bold">
+          <Text color="dark-blue" weight="semi-bold">
             xs-5   /   md-5
           </Text>
         </Card>
       </Col>
       <Col xs={3} md={5}>
         <Card>
-          <Text color="dark-blue" weight="bold">
+          <Text color="dark-blue" weight="semi-bold">
             xs-3   /   md-5
           </Text>
         </Card>
       </Col>
       <Col xs={4} md={2}>
         <Card>
-          <Text color="dark-blue" weight="bold">
+          <Text color="dark-blue" weight="semi-bold">
             xs-4   /   md-2
             <br/>
             This column has more heigth so align can be tested

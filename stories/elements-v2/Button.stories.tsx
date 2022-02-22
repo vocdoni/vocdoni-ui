@@ -21,7 +21,7 @@ export const Showcase = (args) => (
   <>
     <Row gutter="xl">
       <Col xs={12}>
-        <Text size="md" weight="bold" color="dark-blue"> Light variant </Text>
+        <Text size="md" weight="semi-bold" color="dark-blue"> Light variant </Text>
       </Col>
       <Col>
         <Light {...LightArgs} />
@@ -35,7 +35,7 @@ export const Showcase = (args) => (
     </Row>
     <Row gutter="xl">
       <Col xs={12}>
-        <Text size="md" weight="bold" color="dark-blue"> Primary variant </Text>
+        <Text size="md" weight="semi-bold" color="dark-blue"> Primary variant </Text>
       </Col>
       <Col>
         <Primary  {...PrimaryArgs} />
@@ -58,7 +58,7 @@ export const Showcase = (args) => (
     </Row>
     <Row gutter="xl">
       <Col xs={12}>
-        <Text size="md" weight="bold" color="dark-blue"> White variant </Text>
+        <Text size="md" weight="semi-bold" color="dark-blue"> White variant </Text>
       </Col>
       <Col>
         <Outlined  {...OutlinedArgs} />
@@ -72,7 +72,7 @@ export const Showcase = (args) => (
     </Row>
     <Row gutter="xl">
       <Col xs={12}>
-        <Text size="md" weight="bold" color="dark-blue"> White variant </Text>
+        <Text size="md" weight="semi-bold" color="dark-blue"> White variant </Text>
       </Col>
       <Col>
         <White  {...WhiteArgs} />

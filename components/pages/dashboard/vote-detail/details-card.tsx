@@ -15,7 +15,7 @@ export const DetailsCard = (props: DetailsCardProps) => {
     <Card variant='gray' padding={isMobile ? '20px' : '16px 24px'}>
       <Row gutter="xs">
         <Col xs={12}>
-          <Text size='md' weight='bold' color='dark-blue'>
+          <Text size='md' weight='semi-bold' color='dark-blue'>
             {props.title}
           </Text>
         </Col>

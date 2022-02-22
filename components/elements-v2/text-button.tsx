@@ -24,7 +24,7 @@ export const TextButton = (props: ITextButtonProps) => {
           />
         </Col>
       }
-      <Text weight='bold' size='sm' color='primary'>
+      <Text weight='semi-bold' size='sm' color='primary'>
         {props.children}
       </Text>
       {props.iconRight &&

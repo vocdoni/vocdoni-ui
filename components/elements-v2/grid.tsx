@@ -25,14 +25,16 @@ export type IRowProps = {
    *
    * 3xl -> 24px, total 48px
    *
-   * 4xl -> 24px, total 48px
+   * 4xl -> 28px, total 48px
+   *
+   * 5xl -> 32px, total 64px
    */
   gutter?: RowGutter
   wrap?: boolean
   justify?: JustifyOptions
   align?: AlignOptions
 }
-export type RowGutter = 'none' | '2xs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl'
+export type RowGutter = 'none' | '2xs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl'
 
 export type IColProps = {
   xs?: number | string
@@ -84,6 +86,8 @@ const getRowMargin = (props: IRowProps) => {
       return 24
     case '4xl':
       return 28
+    case '5xl':
+      return 32
     default:
       return 4
   }
@@ -256,7 +260,16 @@ const getColsWidth = (props: IColProps) => {
   }
 }
 
-export const Row = styled.div<IRowProps>`
+// this config objec is used by styled components
+// to knwo which props should be passed to the DOM
+// element and which ones are used for cosmetic
+// use. The array contains the props that are used
+// only for cosmetic stuff or to compute CSS
+const cosmeticRowProps = ['gutter', 'wrap', 'justify', 'align']
+const styledRowConfig = {
+  shouldForwardProp: (prop) => !cosmeticRowProps.includes(prop)
+}
+export const Row = styled.div.withConfig(styledRowConfig) <IRowProps>`
   margin: -${getRowMargin}px;
   display: flex;
   flex: 1;
@@ -271,7 +284,17 @@ export const Row = styled.div<IRowProps>`
   }
 `
 
-export const Col = styled.div<IColProps>`
+// this config objec is used by styled components
+// to knwo which props should be passed to the DOM
+// element and which ones are used for cosmetic
+// use. The array contains the props that are used
+// only for cosmetic stuff or to compute CSS
+let col: IColProps = {}
+const cosmeticColProps = Object.keys(col)
+const styledColConfig = {
+  shouldForwardProp: (prop) => !cosmeticColProps.includes(prop)
+}
+export const Col = styled.div.withConfig(styledColConfig) <IColProps>`
   box-sizing: border-box;
   @media ${theme.screenMin.desktop} {
     display: ${getColDisplayXL};

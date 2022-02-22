@@ -63,12 +63,12 @@ export const QuestionResults = (props: QuestionsResultsProps) => {
         <Col xs={12}>
           <Row gutter="xs">
             <Col xs={12}>
-              <Text size="md" color="primary" weight="bold">
+              <Text size="md" color="primary" weight="semi-bold">
                 {i18n.t('vote.results_question', { index: props.index + 1 })}
               </Text>
             </Col>
             <Col xs={12}>
-              <Text size="2xl" color="dark-blue" weight="bold">
+              <Text size="2xl" color="dark-blue" weight="semi-bold">
                 {props.results.title.default}
               </Text>
             </Col>
@@ -107,7 +107,7 @@ export const QuestionResults = (props: QuestionsResultsProps) => {
                     <Col hiddenSmAndDown md={2}>
                       <Text
                         size="lg"
-                        weight="bold"
+                        weight="semi-bold"
                         color="dark-blue"
                       >
                         {getPercent(choice.votes, votesWeight).toFixed(2)}%
@@ -132,7 +132,7 @@ export const QuestionResults = (props: QuestionsResultsProps) => {
                         <Col>
                           <Text
                             size="lg"
-                            weight="bold"
+                            weight="semi-bold"
                             color="dark-blue"
                           >
                             {getPercent(choice.votes, votesWeight).toFixed(2)}%

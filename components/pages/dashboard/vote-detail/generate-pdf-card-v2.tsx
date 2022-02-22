@@ -47,7 +47,7 @@ export const GeneratePdfCard = (props: GeneratePdfCardProps) => {
         <Col xs={12} justify="center">
           <Row gutter="xs">
             <Col xs={12} justify="center">
-              <Text align="center" color="dark-blue" size="xl" weight="bold">
+              <Text align="center" color="dark-blue" size="xl" weight="semi-bold">
                 {i18n.t('vote_detail.generate_pdf_card.title')}
               </Text>
             </Col>

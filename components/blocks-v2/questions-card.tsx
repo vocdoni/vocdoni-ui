@@ -16,7 +16,7 @@ export const QuestionsCard = () => {
               <Col xs={12}>
                 <Row gutter="xs">
                   <Col xs={12}>
-                    <Text size="md" color="primary" weight="bold">
+                    <Text size="md" color="primary" weight="semi-bold">
                       {i18n.t('vote_detail.questions_card.question', { number: index + 1 })}
                     </Text>
                   </Col>
@@ -30,7 +30,7 @@ export const QuestionsCard = () => {
               <Col xs={12}>
                 <Row gutter="xs">
                   <Col xs={12}>
-                    <Text size="md" color="primary" weight="bold">
+                    <Text size="md" color="primary" weight="semi-bold">
                       {i18n.t('vote_detail.questions_card.options')}
                     </Text>
                   </Col>

@@ -52,7 +52,7 @@ export const WaitingBanner = (props: WaitingBannerProps) => {
                 <QuestionOutlinedIcon size="24px" />
               </Col>
               <Col>
-                <Text weight='bold' size='sm' color='secondary'>
+                <Text weight='semi-bold' size='sm' color='secondary'>
                   {i18n.t('waiting_banner.title')}
                 </Text>
               </Col>
@@ -85,7 +85,7 @@ export const WaitingBanner = (props: WaitingBannerProps) => {
         <Col>
           <Row gutter='xs'>
             <Col xs={12}>
-              <Text size='lg' color='secondary' weight='bold'>
+              <Text size='lg' color='secondary' weight='semi-bold'>
                 {i18n.t('waiting_banner.title')}
               </Text>
             </Col>

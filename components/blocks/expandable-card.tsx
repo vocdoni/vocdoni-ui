@@ -32,7 +32,7 @@ export const ExpandableCard = forwardRef<HTMLDivElement, ExpandableCardProps>((p
                 </Col>
               }
               <Col xs={12} justify='center'>
-                <Text align='center' size='lg' color='dark-blue' weight='bold'>
+                <Text align='center' size='lg' color='dark-blue' weight='semi-bold'>
                   {props.title}
                 </Text>
               </Col>
@@ -60,7 +60,7 @@ export const ExpandableCard = forwardRef<HTMLDivElement, ExpandableCardProps>((p
                   }
                 </Col>
                 <Col>
-                  <Text size='lg' color='dark-blue' weight='bold'>
+                  <Text size='lg' color='dark-blue' weight='semi-bold'>
                     {props.title}
                   </Text>
                 </Col>

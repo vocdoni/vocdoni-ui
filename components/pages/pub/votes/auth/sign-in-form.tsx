@@ -136,7 +136,7 @@ export const SignInForm = ({
                     <Text
                       color='error'
                       size='sm'
-                      weight='bold'
+                      weight='semi-bold'
                     >
                       {i18n.t('vote.credentials_not_accepted')}
                     </Text>

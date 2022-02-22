@@ -49,7 +49,7 @@ export const Button = (props: ButtonProps) => {
   }, [textColor])
   return (
     <BaseButton
-      onClick={props.onClick}
+      onClick={!props.disabled && !props.loading ? props.onClick : null}
       color={props.color}
       backgroundColor={props.backgroundColor}
       width={props.width}
@@ -104,7 +104,18 @@ export const Button = (props: ButtonProps) => {
     </BaseButton>
   )
 }
-const BaseButton = styled.div<StyledButtonProps>`
+
+// this config objec is used by styled components
+// to knwo which props should be passed to the DOM
+// element and which ones are used for cosmetic
+// use. The array contains the props that are used
+// only for cosmetic stuff or to compute CSS
+const cosmeticProps = ['loading', 'color', 'backgroundColor', 'width', 'variant', 'size', 'icon']
+const styledConfig = {
+  shouldForwardProp: (prop) => !cosmeticProps.includes(prop)
+}
+
+const BaseButton = styled.div.withConfig(styledConfig) <StyledButtonProps>`
 cursor: ${getCursor};
 box-sizing: border-box;
 border-radius: 8px;
@@ -133,10 +144,10 @@ transition: 0.3s;
   pointer-events: ${getPointerEvents};
 }
 `
-const StyledCol = styled(Col) <LoadingColProps> `
+const StyledCol = styled(Col).withConfig(styledConfig) <LoadingColProps> `
   visibility: ${(props) => props.loading ? 'hidden' : 'visible'};
 `
-const LoadingCol = styled(Col) <LoadingColProps> `
+const LoadingCol = styled(Col).withConfig(styledConfig) <LoadingColProps> `
   display: ${(props) => props.loading ? '' : 'none'};
   position: absolute;
 `
@@ -299,7 +310,7 @@ function getBoxShadow(props: StyledButtonProps) {
   }
 }
 function getOpacity(props: StyledButtonProps) {
-  if (!props.disabled) {
+  if (!props.disabled && !props.loading) {
     switch (props.variant) {
       case 'primary':
         return 0.65

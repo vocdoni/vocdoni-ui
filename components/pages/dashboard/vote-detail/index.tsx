@@ -232,7 +232,7 @@ export const ViewDetail = () => {
           <Col xs={12} md={4}>
             <Row gutter='xs'>
               <Col xs={12}>
-                <Text size='display-1' color='dark-blue' weight='medium'>
+                <Text size='3xl' color='dark-blue' weight='medium'>
                   {i18n.t('vote_detail.vote_details')}
                 </Text>
               </Col>

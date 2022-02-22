@@ -79,6 +79,32 @@
     "this_action_cannot_be_undone": "This action cannot be undone",
     "you_are_about_to_submit_your_vote": "You are about to submit your vote"
   },
+  "contact_us": {
+    "title": "Contact Us",
+    "email": "contact@aragonlabs.com",
+    "or_send_us_a_message": "Or send us a message",
+    "name_field": {
+      "label": "Name *",
+      "placeholder": "Insert your name"
+    },
+    "email_field": {
+      "label": "Email *",
+      "placeholder": "Insert your email"
+    },
+    "subject_field": {
+      "label": "Subject *"
+    },
+    "message_field": {
+      "label": "Message *",
+      "placeholder": "Write your message here..."
+    },
+    "message_sent":{
+      "title":"Message sent!",
+      "subtitle": "Our team will make sure to reply as soon as possible."
+    },
+    "send": "Send",
+    "find_us_in_the_web": "Find us in the web"
+  },
   "cookies": {
     "accept": "Accept",
     "analytics": "Analytics",
@@ -252,11 +278,14 @@
     "invalid_passphrase_format_error": "The password must contain at least {{ length }} characters",
     "invalid_question_error": "Invalid question",
     "invalid_question_title": "The title must contain at least {{ length }} characters",
+    "min_length": "The field must contain at least {{ length }} characters",
+    "max_length": "The field must contain a maximum of {{ length }} characters",
     "invalid_row_length": "Please correct lines {{invalidRows}} of the document. Correct these errors & upload the document again.",
     "invalid_title": "The title must contain at least {{ length }} characters",
     "invalid_url": "Invalid URL",
     "invalid_weighted_row_length": "Invalid weight on lines {{invalidRows}} of the document. Correct these errors & upload the document again.",
     "num_entries_could_not_be_added_to_the_census": "{{num}} entries could not be added to the census",
+    "required_field": "This field is required",
     "retrieve_gas_time_out": "Could not determine the transaction price",
     "the_incognito_mode_is_not_supported": "The incognito mode is not supported",
     "the_passphrase_dont_match": "The password does not match",

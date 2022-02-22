@@ -28,7 +28,7 @@ export const TotalVotesCard = () => {
           {totalVotes && censusSize &&
             <Row gutter="xs" justify={isMobile ? 'center' : 'start'} >
               <Col>
-                <Text size="lg" color="dark-blue" weight="bold">
+                <Text size="lg" color="dark-blue" weight="semi-bold">
                   {totalVotes.toLocaleString(i18n.language)}
                 </Text>
               </Col>

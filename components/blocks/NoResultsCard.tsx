@@ -16,7 +16,7 @@ export const NoResultsCard = (props: INoResultsCardProps) => {
     <Card padding={isMobile ? '24px' : '40px'} variant="gray">
       <Row gutter="md">
         <Col justify="center" xs={12}>
-          <Text size={isMobile ? 'xl' : 'display-1'} color="dark-blue" align="center">
+          <Text size={isMobile ? 'xl' : '3xl'} color="dark-blue" align="center">
             {props.title}
           </Text>
         </Col>

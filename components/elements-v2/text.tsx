@@ -22,7 +22,7 @@ export type TextProps = {
    *
    * 2xl > 24px
    *
-   * display-1 > 32px
+   * 3xl > 32px
    */
   size?: TextSize
   weight?: TextWeight
@@ -32,9 +32,9 @@ export type TextProps = {
 }
 
 type TextVariant = 'title' | 'subtitle' | 'body'
-type TextSize = '2xs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | 'display-1'
-type TextWeight = 'light' | 'regular' | 'medium' | 'bold'
-type TextColor = 'primary' | 'dark-blue' | 'dark-gray' | 'white' | 'error' | 'secondary'
+type TextSize = '2xs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl'
+type TextWeight = 'light' | 'regular' | 'medium' | 'semi-bold' | 'bold'
+type TextColor = 'primary' | 'dark-blue' | 'dark-gray' | 'light-gray' | 'white' | 'error' | 'secondary' | 'success' | string
 type TextAlign = 'center' | 'right' | 'left' | 'justify'
 
 export const Text = (props: TextProps) => {
@@ -80,7 +80,7 @@ const getTextSize = (props: TextProps) => {
         return '22px'
       case '2xl':
         return '24px'
-      case 'display-1':
+      case '3xl':
         return '32px'
       default:
         return '18px'
@@ -104,8 +104,10 @@ const getTextWeight = (props: TextProps) => {
         return 400
       case 'medium':
         return 500
-      case 'bold':
+      case 'semi-bold':
         return 600
+      case 'bold':
+        return 700
     }
   }
   switch (props.variant) {
@@ -128,11 +130,17 @@ const getTextColor = (props: TextProps) => {
         return theme.textAccent1
       case 'dark-gray':
         return colorsV2.neutral[600]
-        // return theme.lightText
+      case 'light-gray':
+        return colorsV2.neutral[400]
+      // return theme.lightText
       case 'error':
         return colorsV2.support.critical[600]
       case 'white':
         return theme.white
+      case 'success':
+        return colorsV2.support.success[600]
+      default:
+        return props.color
     }
   }
   switch (props.variant) {

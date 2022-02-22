@@ -25,7 +25,13 @@ export type AvailableIcons =
   'spinner' |
   'cog' |
   'calendar' |
-  'paper-check'
+  'paper-check' |
+  'chevron-down' |
+  'external-link' |
+  'telegram' |
+  'twitter' |
+  'discord'|
+  'mail'
 
 // ============= //
 // GENERAL ICONS //
@@ -227,7 +233,7 @@ export const DocumentOutlinedIcon = ({ size }: { size?: string }) => (
 // ======= //
 
 function getFillColor(props: SVGProps) {
-  const fillIcons = ['alert-circle', 'spinner', 'cog']
+  const fillIcons = ['alert-circle', 'spinner', 'cog', 'calendar']
   const hasFill = fillIcons.includes(props.name)
   if (hasFill) {
     if (props.color) {
@@ -239,10 +245,15 @@ function getFillColor(props: SVGProps) {
 }
 
 function getStrokeColor(props: SVGProps) {
-  if (props.color) {
-    return props.color
+  const noStrokeIcons = ['telegram', 'discord', 'twitter']
+  const noStroke = noStrokeIcons.includes(props.name)
+  if (!noStroke) {
+    if (props.color) {
+      return props.color
+    }
+    return theme.accent1
   }
-  return theme.accent1
+  return 'transparent'
 }
 
 function getIconSource(name: AvailableIcons) {

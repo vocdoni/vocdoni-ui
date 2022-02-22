@@ -11,10 +11,10 @@ export const Playground = (args) => (
     {iter.map(index =>
       <Col {...args}>
         <Card height={index % 2 ? "250px" : ''}>
-          <Text color="dark-blue" weight="bold">
+          <Text color="dark-blue" weight="semi-bold">
             This is column &nbsp;
           </Text>
-          <Text color="dark-blue" weight="bold">
+          <Text color="dark-blue" weight="semi-bold">
             {index}
           </Text>
         </Card>
