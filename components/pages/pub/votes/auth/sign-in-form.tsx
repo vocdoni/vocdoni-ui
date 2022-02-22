@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from 'react'
+import React, { ChangeEvent, useState } from 'react'
 import styled from 'styled-components'
 import { ProcessDetails, EntityMetadata } from 'dvote-js'
 import { useTranslation } from 'react-i18next'
@@ -16,6 +16,7 @@ import { SignInFormCard } from '@components/elements/cards'
 import { FlexContainer, FlexJustifyContent } from '@components/elements/flex'
 import { CardImageHeader } from '@components/blocks/card/image-header'
 import { FormFieldsetContainer } from '../components/form-fieldset-container'
+import { Col, Row, Text } from '@components/elements-v2'
 
 interface IFieldValues {
   [field: string]: string
@@ -27,6 +28,7 @@ interface IFormProps {
   secretKey: string
   submitEnabled?: boolean
   checkingCredentials?: boolean
+  invalidCredentials?: boolean
   processInfo: ProcessDetails
   entity: EntityMetadata
   onChange: (field: string, value) => void
@@ -43,10 +45,13 @@ export const SignInForm = ({
   processInfo,
   entity,
   checkingCredentials,
+  invalidCredentials,
   onSubmit,
   onChange,
 }: IFormProps) => {
   const { i18n } = useTranslation()
+  const [sameInput, setSameInput] = useState(false)
+  const showError = sameInput && invalidCredentials
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault()
     onSubmit()
@@ -87,7 +92,7 @@ export const SignInForm = ({
           {(processInfo.state.processMode.preRegister && processStarted) ? (
             <FlexContainer justify={FlexJustifyContent.Center}>
               <InputPasswordFormGroup
-                label="secretKey"
+                label={i18n.t('vote.auth.secret_key_label')}
                 id="secretKey"
                 placeholder={i18n.t('vote.auth.insert_your_secret_key')}
                 onChange={(e: ChangeEvent<HTMLInputElement>) =>
@@ -98,14 +103,10 @@ export const SignInForm = ({
               />
             </FlexContainer>
           ) : (<div></div>)}
-          <FlexContainer justify={FlexJustifyContent.Center}>
-            <ContainerContainer>
-              {i18n.t('vote.you_cant_enter_contact_with_entity')}
-            </ContainerContainer>
-          </FlexContainer>
           <HiddenButton type="submit"></HiddenButton>
           <FlexContainer justify={FlexJustifyContent.Center}>
-            <Button
+            <InputContainer>
+              {/* <Button
               wide
               positive
               onClick={onSubmit}
@@ -113,7 +114,36 @@ export const SignInForm = ({
               disabled={!submitEnabled || checkingCredentials}
             >
               {i18n.t('action.continue')}
-            </Button>
+            </Button> */}
+              <Row align='center' justify='center' gutter='xl'>
+                <Col xs={12} md={6} align='center' justify='center'>
+                  <Button
+                    wide
+                    positive
+                    onClick={() => {
+                      onSubmit()
+                      setSameInput(true)
+                    }}
+                    spinner={submitEnabled && checkingCredentials}
+                    disabled={!submitEnabled || checkingCredentials || showError}
+                  >
+                    {i18n.t('action.continue')}
+                  </Button>
+                </Col>
+                <Col xs={12} md={6}>
+                  {/*Error MSG*/}
+                  {showError &&
+                    <Text
+                      color='error'
+                      size='sm'
+                      weight='semi-bold'
+                    >
+                      {i18n.t('vote.credentials_not_accepted')}
+                    </Text>
+                  }
+                </Col>
+              </Row>
+            </InputContainer>
           </FlexContainer>
         </form>
       </FormFieldsetContainer>

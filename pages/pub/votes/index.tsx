@@ -4,7 +4,8 @@ import { VotingPageView } from '@components/pages/pub/votes'
 import { useUrlHash } from 'use-url-hash'
 import { VotingErrorPage } from '@components/pages/pub/votes/voting-error-page'
 import { useProcess } from '@vocdoni/react-hooks'
-import { LayoutVoter } from '@components/pages/app/layout/voter'
+// import { LayoutVoter } from '@components/pages/app/layout/voter'
+import { LayoutVoter } from '@components/pages/app/layout-v2/voter'
 
 // NOTE: This page uses a custom Layout. See below.
 

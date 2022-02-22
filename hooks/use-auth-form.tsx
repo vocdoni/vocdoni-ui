@@ -9,6 +9,7 @@ import {
   bufferToBigInt,
   CensusOnChainApi,
   Poseidon,
+  Symmetric,
 } from 'dvote-js'
 import { PREREGISTER_PATH, VOTING_PATH } from '../const/routes'
 import i18n from '../i18n'
@@ -23,6 +24,7 @@ import { censusProofState } from '@recoil/atoms/census-proof'
 import { ZKcensusProofState } from '@recoil/atoms/zk-census-proof'
 import { Wallet } from '@ethersproject/wallet'
 import { useVoting } from '@hooks/use-voting'
+import { walletState } from '@recoil/atoms/wallet'
 
 // CONTEXT
 
@@ -36,6 +38,7 @@ type IAuthForm = {
   authFields: string[],
   formValues: { [k: string]: string },
   secretKey: string,
+  invalidCredentials: boolean
 
   methods: {
     setFormValue: (key: string, value: string) => void,
@@ -49,7 +52,7 @@ type IAuthForm = {
 export const useAuthForm = () => {
   const router = useRouter()
   const { poolPromise } = usePool()
-  const { setWallet } = useWallet({ role: WalletRoles.VOTER })
+  const { setWallet, wallet } = useWallet({ role: WalletRoles.VOTER })
   const setCensusProof = useSetRecoilState<CensusPoof>(censusProofState)
   const setZKCensusProof = useSetRecoilState<ZKCensusPoof>(ZKcensusProofState)
   const processId = useUrlHash().slice(1) // Skip /
@@ -61,6 +64,7 @@ export const useAuthForm = () => {
   const requireSecretKey = processInfo?.state?.processMode?.preRegister && processStarted
   const { setAlertMessage } = useMessageAlert()
   const [formValues, setFormValues] = useState<{ [k: string]: string }>({})
+  const [invalidCredentials, setInvalidCredentials] = useState(false)
   const [authFields, setAuthFields] = useState<string[]>([])
   const [secretKey, setSecretKey] = useState<string>()
   const { methods: votingMethods } = useVoting(processId)
@@ -82,6 +86,7 @@ export const useAuthForm = () => {
 
   const onLogin = (): Promise<void | number> => {
     let authFieldsData: string[] = []
+    // validate all fields are not empty
     for (const fieldName of fieldNames) {
       if (!formValues[fieldName]) {
         setAlertMessage(i18n.t("errors.please_fill_in_all_the_fields"))
@@ -95,8 +100,9 @@ export const useAuthForm = () => {
     setAuthFields(authFieldsData)
 
     const voterWallet = walletFromAuthData(authFieldsData, entityId)
-
+    // if voting is anonymous
     if (requireSecretKey) {
+      // if is anonymous and the key field is empty return
       if (secretKey.length == 0) {
         setAlertMessage(i18n.t("errors.please_fill_in_all_the_fields"))
         return Promise.resolve()
@@ -132,6 +138,9 @@ export const useAuthForm = () => {
         setCensusProof(censusProof)
         // Set the voter wallet recovered
         setWallet(voterWallet)
+        const encryptedAuthfield = Symmetric.encryptString(authFieldsData.join("/"), voterWallet.publicKey)
+        // store auth data in local storage for disconnect banner
+        localStorage.setItem('voterData', encryptedAuthfield)
 
         if (userRequirePreregister) {
           router.push(PREREGISTER_PATH + "#/" + processInfo?.id)
@@ -139,11 +148,11 @@ export const useAuthForm = () => {
           router.push(VOTING_PATH + "#/" + processInfo?.id)
         }
       }).catch(err => {
+        setInvalidCredentials(true)
         setAlertMessage(i18n.t("errors.the_contents_you_entered_may_be_incorrect"))
       })
     }
   }
-
   const walletFromAuthData = (authFieldsData: string[], entityId: string): Wallet => {
     authFieldsData = authFieldsData.map(x => normalizeText(x))
     const strPayload = importedRowToString(authFieldsData, entityId)
@@ -159,6 +168,7 @@ export const useAuthForm = () => {
   const emptyFields = !formValues || Object.values(formValues).some(v => !v)
 
   const value: IAuthForm = {
+    invalidCredentials,
     loadingInfo,
     loadingInfoError,
     processInfo,

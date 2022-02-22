@@ -63,12 +63,12 @@ export const PreviewModal = ({
           />
 
           <VoteDescription
-            voteStatus={voteStatus}
-            description={metadata.description.default}
-            liveStreamUrl={metadata.media[MetadataFields.StreamLink]}
-            discussionUrl={metadata.meta[PlazaMetadataKeys.DISCUSSION_URL]}
-            attachmentUrl={metadata.meta[PlazaMetadataKeys.ATTACHMENT_URI]}
-            timeComment={i18n.t('preview.ending_in_one_hour')}
+            // voteStatus={voteStatus}
+            // description={metadata.description.default}
+            // liveStreamUrl={metadata.media[MetadataFields.StreamLink]}
+            // discussionUrl={metadata.meta[PlazaMetadataKeys.DISCUSSION_URL]}
+            // attachmentUrl={metadata.meta[PlazaMetadataKeys.ATTACHMENT_URI]}
+            // timeComment={i18n.t('preview.ending_in_one_hour')}
           />
 
           {metadata.questions.map((question: Question, index: number) => (

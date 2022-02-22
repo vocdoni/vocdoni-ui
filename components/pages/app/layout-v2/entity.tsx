@@ -1,0 +1,39 @@
+import styled from 'styled-components'
+
+import { sizes } from '../../../../theme/sizes'
+import { useWallet } from '../../../../hooks/use-wallet'
+
+import { Footer } from '../footer'
+import { MessageAlert } from '../../../blocks/msg-alert'
+import { LoadingAlert } from '../../../blocks/loading-alert'
+import { Loader } from '../../../blocks/loader'
+import { EntityHeader } from '../header/entity'
+
+
+const LayoutContainer = styled.div`
+  ${({ theme }) => `padding: 110px ${theme.margins.mobile.horizontal} 120px;`}
+  max-width: ${sizes.laptopL}px;
+  margin-left: auto;
+  margin-right: auto;
+
+  @media ${({ theme }) => theme.screenMin.tablet} {
+    ${({ theme }) => `padding: 110px ${theme.margins.desktop.horizontal} 120px;`}
+  }
+`
+
+export const LayoutEntity = ({ children }) => {
+  const { checkingNeedsSignin } = useWallet();
+
+  return (
+    <>
+      <MessageAlert />
+      <LoadingAlert />
+      <EntityHeader />
+
+      <Loader visible={checkingNeedsSignin} />
+      <LayoutContainer>{children}</LayoutContainer>
+
+      <Footer />
+    </>
+  )
+}
