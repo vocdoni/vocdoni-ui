@@ -37,7 +37,7 @@ export async function getProcessList(entityId: string, pool: IGatewayClient): Pr
   let from = 0
 
   while (true) {
-    const processList = await VotingApi.getProcessList({ entityId, from }, pool)
+    const processList = await VotingApi.getProcessList({ fromArchive: false, entityId, from }, pool)
     if (processList.length == 0) return result
 
     result = result.concat(processList.map(id => '0x' + id))
