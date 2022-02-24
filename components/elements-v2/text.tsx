@@ -36,9 +36,9 @@ export type TextProps = {
 }
 
 type TextVariant = 'title' | 'subtitle' | 'body'
-type TextSize = '2xs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | 'display-1' | 'display-2' | 'display-3'
-type TextWeight = 'light' | 'regular' | 'medium' | 'bold'
-type TextColor = 'primary' | 'dark-blue' | 'dark-gray' | 'white' | 'error' | 'secondary' | 'light-gray' | string
+export type TextSize = '2xs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | 'display-1' | 'display-2' | 'display-3'
+export type TextWeight = 'light' | 'regular' | 'medium' | 'bold'
+export type TextColor = 'primary' | 'dark-blue' | 'dark-gray' | 'white' | 'error' | 'secondary' | 'light-gray' | string
 type TextAlign = 'center' | 'right' | 'left' | 'justify'
 
 export const Text = (props: TextProps) => {

@@ -31,6 +31,7 @@ export type IRowProps = {
   enableWrap?: boolean
   justify?: JustifyOptions
   align?: AlignOptions
+  wrap?: boolean
 }
 export type RowGutter = 'none' | '2xs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl'
 
