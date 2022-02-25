@@ -13,7 +13,7 @@ import { useTheme } from '@hooks/use-theme'
 import { Loader } from '@components/blocks/loader'
 import { SignInForm } from '@components/pages/pub/votes/auth/sign-in-form'
 import { VotingErrorPage } from '@components/pages/pub/votes/voting-error-page'
-import { LayoutVoter } from '@components/pages/app/layout/voter'
+import { LayoutVoter } from '@components/pages/app/layout-v2/voter'
 import { MetadataFields } from '@components/pages/votes/new/metadata'
 import { useVoting } from '@hooks/use-voting'
 
@@ -35,6 +35,7 @@ const VoteAuthLogin = () => {
     processInfo,
     secretKey,
     methods,
+    invalidCredentials,
   } = useAuthForm()
   const { methods: votingMethods } = useVoting(processInfo?.id)
   const { metadata, loading, error } = useEntity(processInfo?.state?.entityId)
@@ -119,6 +120,7 @@ const VoteAuthLogin = () => {
           secretKey={secretKey}
           onSubmit={handleSubmit}
           submitEnabled={!emptyFields}
+          invalidCredentials={invalidCredentials}
         />
       </div>
     )

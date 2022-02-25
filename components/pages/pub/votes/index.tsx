@@ -2,47 +2,64 @@ import React, { useState, useEffect, useRef } from 'react'
 import { useRecoilValue } from 'recoil'
 import styled from 'styled-components'
 import { useTranslation } from 'react-i18next'
-import ReactPlayer from 'react-player'
 
 import { useBlockStatus, useEntity, useProcess } from '@vocdoni/react-hooks'
 import { useRouter } from 'next/router'
-import { If, Then } from 'react-if'
+import { If, Then, Else } from 'react-if'
 
-import { Question, VotingType } from '@lib/types'
-
+import { VotingType } from '@lib/types'
 import { useTheme } from '@hooks/use-theme'
 import { useVoting } from '@hooks/use-voting'
 import { useWallet, WalletRoles } from '@hooks/use-wallet'
-
-import { Column, Grid } from '@components/elements/grid'
-import { Card, CardDiv, PageCard } from '@components/elements/cards'
-import { Button } from '@components/elements/button'
-import { FlexContainer } from '@components/elements/flex'
-import { VoteQuestionCard } from '@components/blocks/vote-question-card'
-import { MetadataFields } from '@components/pages/votes/new/metadata'
-
+import { PageCard } from '@components/elements/cards'
+import { Button } from '@components/elements-v2/button'
 import { CardImageHeader } from '@components/blocks/card/image-header'
 import { VoteDescription } from '@components/blocks/vote-description'
-
 import { ConfirmModal } from './components/confirm-modal'
 import { VoteActionCard } from './components/vote-action-card'
 import { VoteStatus, getVoteStatus } from '@lib/util'
 import { useUrlHash } from 'use-url-hash'
-import { VotingApi, EntityMetadata } from 'dvote-js'
-import { DateDiffType, localizedStrDateDiff } from '@lib/date'
-import { Body1, TextAlign, Typography, TypographyVariant } from '@components/elements/typography'
 import { QuestionsList } from './components/questions-list'
 import { censusProofState } from '@recoil/atoms/census-proof'
 import { VoteRegisteredCard } from './components/vote-registered-card'
 import RouterService from '@lib/router'
 import { VOTING_AUTH_FORM_PATH } from '@const/routes'
+import { ExpandableCard } from '@components/blocks/expandable-card'
+import { Banner } from '@components/blocks-v2/banner'
+import { Spacer, Col, Row, IColProps, Text } from '@components/elements-v2'
 
-export enum VotingState {
-  NotStarted = 'notStarted',
-  Started = 'started',
-  Ended = 'ended',
-  Guest = 'guest',
+import { DisconnectModal } from '@components/blocks-v2'
+import { ResultsCard } from './components/results-card'
+import { useProcessWrapper } from '@hooks/use-process-wrapper'
+import { useIsMobile } from '@hooks/use-window-size'
+import { PieChartIcon } from '@components/elements-v2/icons'
+import { dateDiffStr, DateDiffType } from '@lib/date-moment'
+import { MetadataFields } from '@components/pages/votes/new/metadata'
+import { useAuthForm } from '@hooks/use-auth-form'
+import { Symmetric } from 'dvote-js'
+export enum UserVoteStatus {
+  /**
+   * User is voting right now
+   */
+  InProgress = 'inProgress',
+  /**
+   * User vote has expired due to external
+   * things like the vote is closed
+   */
   Expired = 'expired',
+  /**
+   * User is not authenticated
+   */
+  Guest = 'guest',
+  /**
+   * User hase emitted its vote
+   */
+  Emitted = 'emitted',
+  /**
+   * User is authenticated but hasn't
+   * emitted a vote
+   */
+  NotEmitted = 'notEmitted',
 }
 
 interface IVideoStyle {
@@ -54,77 +71,60 @@ interface IVideoStyle {
 export const VotingPageView = () => {
   const { i18n } = useTranslation()
   const processId = useUrlHash().slice(1) // Skip "/"
-  const router = useRouter()
   const { updateAppTheme } = useTheme()
+  const router = useRouter()
+  const [disconnectModalOpened, setDisconnectModalOpened] = useState(false)
+  const isMobile = useIsMobile()
   const censusProof = useRecoilValue(censusProofState)
   const { methods: votingMethods, choices, hasVoted, results, explorerLink } = useVoting(
     processId
   )
   const { process: processInfo } = useProcess(processId)
+  const { startDate, endDate, status, liveResults, votingType, isAnonymous } = useProcessWrapper(processId)
   const { wallet, setWallet } = useWallet({ role: WalletRoles.VOTER })
   const { metadata } = useEntity(processInfo?.state?.entityId)
   const [confirmModalOpened, setConfirmModalOpened] = useState<boolean>(false)
-  const [votingState, setVotingState] = useState<VotingState>(
-    VotingState.NotStarted
-  )
-
+  const [isExpandableCardOpen, setIsExpandableCardOpen] = useState<boolean>(false)
+  /**
+   * used to manage if the status of the user vote
+   * see `UserVoteStatus` for a description of each
+   * status
+   */
+  const [userVoteStatus, setUserVoteStatus] = useState<UserVoteStatus>(UserVoteStatus.NotEmitted)
   const { blockStatus } = useBlockStatus()
   const blockHeight = blockStatus?.blockNumber
   const voteStatus: VoteStatus = getVoteStatus(processInfo?.state, blockHeight)
-  const entityMetadata = metadata as EntityMetadata
-  const descriptionVideoContainerRef = useRef<HTMLDivElement>(null)
-  const votingVideoContainerRef = useRef<HTMLDivElement>(null)
+  // const entityMetadata = metadata as EntityMetadata
+  const resultsCardRef = useRef(null)
+  // used for getting the ending in and starting in string
+  const [now, setNow] = useState(new Date)
+  const [anonymousFormData, setAnonymousFormData] = useState('')
 
-  const timeoutRef = useRef<any>()
-  const intervalRef = useRef<any>()
-  const [videosStyle, setVideoStyle] = useState<IVideoStyle>({
-    height: 0,
-    width: 0,
-    top: 0,
-  })
 
-  const handleVideoPosition = () => {
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current)
+  // Effects
+
+  // If status is ended open the results card
+  // automatically
+  useEffect(() => {
+    if (status ==  VoteStatus.Ended) {
+      setIsExpandableCardOpen(true)
     }
-
-    timeoutRef.current = setTimeout(() => {
-      const currentRef =
-        descriptionVideoContainerRef.current || votingVideoContainerRef.current
-
-      if (currentRef) {
-        const newVideoStyle = {
-          top: currentRef.offsetTop,
-          height: currentRef.offsetHeight,
-          width: currentRef.offsetWidth,
-        }
-
-        setVideoStyle(newVideoStyle)
-      }
-    }, 100)
-  }
+  },[status])
 
   useEffect(() => {
-    intervalRef.current = setInterval(() => {
-      handleVideoPosition()
+    const interval = setInterval(() => {
+      setNow(new Date)
     }, 1000)
-
-    return () => {
-      clearInterval(intervalRef.current)
-    }
+    return () => clearInterval(interval);
   }, [])
-
-  useEffect(() => {
-    window.addEventListener('resize', handleVideoPosition)
-
-    return () => {
-      window.removeEventListener('resize', handleVideoPosition)
-    }
-  }, [votingState])
-
+  const endingString = dateDiffStr(DateDiffType.Countdown, endDate)
+  const startingString = dateDiffStr(DateDiffType.Countdown, startDate)
+  /**
+   * effect to set the user vote status
+   */
   useEffect(() => {
     if (hasVoted) {
-      return setVotingState(VotingState.Ended)
+      return setUserVoteStatus(UserVoteStatus.Emitted)
     }
 
     if (
@@ -132,24 +132,37 @@ export const VotingPageView = () => {
       voteStatus === VoteStatus.Canceled ||
       voteStatus === VoteStatus.Upcoming
     ) {
-      return setVotingState(VotingState.Expired)
+      return setUserVoteStatus(UserVoteStatus.Expired)
     }
 
     if (!wallet) {
-      return setVotingState(VotingState.Guest)
+      return setUserVoteStatus(UserVoteStatus.Guest)
     }
 
-    setVotingState(VotingState.NotStarted)
+    setUserVoteStatus(UserVoteStatus.NotEmitted)
   }, [wallet, hasVoted])
 
   useEffect(() => {
+    if (wallet) {
+      const voterData = localStorage.getItem('voterData')
+      if (voterData) {
+        const decryptedVoterdata = Symmetric.decryptString(voterData, wallet.publicKey)
+        const anonymizedVoterData = anonymizeStrings(decryptedVoterdata.split('/'))
+        setAnonymousFormData(anonymizedVoterData.join(' / '))
+      }
+    }
+  }, [wallet])
+  /**
+   * watcher to update entity theming
+   */
+  useEffect(() => {
     if (
       processInfo?.metadata?.meta?.[MetadataFields.BrandColor] ||
-      entityMetadata?.meta?.[MetadataFields.BrandColor]
+      metadata?.meta?.[MetadataFields.BrandColor]
     ) {
       const brandColor =
         processInfo?.metadata?.meta?.[MetadataFields.BrandColor] ||
-        entityMetadata?.meta?.[MetadataFields.BrandColor]
+        metadata?.meta?.[MetadataFields.BrandColor]
 
       updateAppTheme({
         accent1: brandColor,
@@ -158,41 +171,28 @@ export const VotingPageView = () => {
         accent2B: brandColor,
         textAccent1: brandColor,
         textAccent1B: brandColor,
-        customLogo: entityMetadata?.media?.logo,
+        customLogo: metadata?.media?.logo,
       })
     }
-  }, [processInfo, entityMetadata])
+  }, [processInfo, metadata])
 
-  let dateDiffStr = ''
-
-  if (
-    processInfo?.state?.startBlock &&
-    (voteStatus == VoteStatus.Active ||
-      voteStatus == VoteStatus.Paused ||
-      voteStatus == VoteStatus.Ended)
-  ) {
-    if (processInfo?.state?.startBlock > blockHeight) {
-      const date = VotingApi.estimateDateAtBlockSync(
-        processInfo?.state?.startBlock,
-        blockStatus
-      )
-      dateDiffStr = localizedStrDateDiff(DateDiffType.Start, date)
-    } else {
-      // starting in the past
-      const date = VotingApi.estimateDateAtBlockSync(
-        processInfo?.state?.endBlock,
-        blockStatus
-      )
-      dateDiffStr = localizedStrDateDiff(DateDiffType.End, date)
-    }
-  }
 
   const handleVoteNow = () => {
-    if (votingState == VotingState.NotStarted) {
-      setVotingState(VotingState.Started)
-    } else if (votingState == VotingState.Guest) {
+    if (userVoteStatus === UserVoteStatus.NotEmitted) {
+      setUserVoteStatus(UserVoteStatus.InProgress)
+    }
+    if (userVoteStatus === UserVoteStatus.Guest) {
       handleGotoAuth()
     }
+  }
+  const handleSeeResultsClick = () => {
+    setIsExpandableCardOpen(true)
+    setTimeout(() => {
+      resultsCardRef.current.scrollIntoView({ block: 'start', behavior: 'smooth' })
+    }, 200)
+  }
+  const handleExpandableCardButtonClick = () => {
+    setIsExpandableCardOpen(!isExpandableCardOpen)
   }
 
   const handleFinishVote = () => {
@@ -200,16 +200,16 @@ export const VotingPageView = () => {
   }
 
   const handleBackToDescription = () => {
-    setVotingState(VotingState.NotStarted)
+    setUserVoteStatus(UserVoteStatus.NotEmitted)
   }
 
   const handleBackToVoting = () => {
-    setVotingState(VotingState.Started)
+    setUserVoteStatus(UserVoteStatus.InProgress)
     setConfirmModalOpened(false)
   }
 
   const handleOnVoted = () => {
-    setVotingState(VotingState.Ended)
+    setUserVoteStatus(UserVoteStatus.Emitted)
     setConfirmModalOpened(false)
   }
 
@@ -224,41 +224,30 @@ export const VotingPageView = () => {
     }, 50)
   }
 
-  const handleLogOut = () => {
-    const confirmMsg = i18n.t('confirm.do_you_want_to_continue')
-    if (!confirm(confirmMsg)) return
 
+  const handleLogOut = () => {
     setWallet(null)
     votingMethods.cleanup()
 
     setTimeout(() => {
       // Force window unload after the wallet is wiped
+      setDisconnectModalOpened(false)
       window.location.href = RouterService.instance.get(VOTING_AUTH_FORM_PATH, { processId })
     }, 50)
   }
+  // const processVotingType: VotingType = processInfo?.state?.censusOrigin as any
 
-  const processVotingType: VotingType = processInfo?.state?.censusOrigin as any
+  const showAuthBanner = (
+    status === VoteStatus.Upcoming ||
+    status === VoteStatus.Active ||
+    status === VoteStatus.Ended
+  )
+  const showDisconnectBanner = wallet && showAuthBanner
+  const showNotAuthenticatedBanner = !wallet && showAuthBanner
 
-  const showDescription =
-    votingState === VotingState.NotStarted ||
-    votingState === VotingState.Ended ||
-    votingState === VotingState.Guest
-
-  const showResults =
-    votingState === VotingState.Guest || votingState === VotingState.Ended
-
-  const showVotingButton = votingState == VotingState.NotStarted
-
-  const showLogInButton = votingState == VotingState.Guest
-
-  const voteWeight =
-    VotingType.Weighted === processVotingType ? censusProof?.weight.toString() : null
-
-  const totalVotes =
-    VotingType.Weighted === processVotingType
-      ? results?.totalWeightedVotes
-      : results?.totalVotes
-
+  const authenticateBannerImage = (
+    makeAuthenticateBannerImage(i18n.t('vote.question_image_alt'), isMobile ? 56 : 88)
+  )
   return (
     <>
       <VotingCard>
@@ -268,153 +257,210 @@ export const VotingPageView = () => {
           subtitle={metadata?.name.default}
           entityImage={metadata?.media.avatar}
         />
-        <BodyContainer>
-          {showDescription && (
-            <Grid>
-              <Column sm={12} md={9}>
-                <VoteDescription
-                  onComponentMounted={handleVideoPosition}
-                  ref={descriptionVideoContainerRef}
-                  description={processInfo?.metadata?.description.default}
-                  hasVideo={!!processInfo?.metadata?.media.streamUri}
-                  onLogOut={handleLogOut}
-                  discussionUrl={
-                    processInfo?.metadata?.meta[MetadataFields.DiscussionLink]
-                  }
-                  attachmentUrl={
-                    processInfo?.metadata?.meta[MetadataFields.AttachmentLink]
-                  }
-                  timeComment={dateDiffStr}
-                  voteStatus={voteStatus}
-                />
-              </Column>
+        <If condition={userVoteStatus !== UserVoteStatus.InProgress}>
+          <Then>
+            <BodyContainer >
+              <Row gutter='2xl'>
+                {/* NOT AUTHENTICATED BANNER */}
+                {showNotAuthenticatedBanner &&
+                  <Col xs={12}>
+                    <Banner
+                      variant='primary'
+                      image={authenticateBannerImage}
+                      subtitleProps={
+                        {
+                          size: isMobile ? 'xs' : 'md',
+                          children: isAnonymous ? i18n.t('vote.auth.with_preregistration') : i18n.t('vote.auth.with_credentials')
+                        }
+                      }
+                      titleProps={{ size: 'sm' }}
+                      buttonProps={
+                        {
+                          variant: 'primary',
+                          children: isAnonymous ? i18n.t('vote.auth.preregister_button') : i18n.t('vote.auth.auth_button'),
+                          iconRight: isMobile ? undefined : { name: isAnonymous ? 'paper-check' : 'pencil', size: 24 },
+                          onClick: () => handleGotoAuth()
+                        }
+                      }
+                    >
 
-              <Column sm={12} md={3} hiddenSm hiddenMd>
-                <VoteNowCardContainer>
+                      {isAnonymous ? i18n.t('vote.auth.not_preregistered') : i18n.t('vote.auth.not_authenticated')}
+                    </Banner>
+                  </Col>
+                }
+                {/* DISCONNECT BANNER */}
+                {showDisconnectBanner &&
+                  <Col xs={12} disableFlex>
+                    <Banner
+                      variant='primary'
+                      titleProps={{ weight: 'regular' }}
+                      buttonProps={
+                        {
+                          variant: 'white',
+                          children: i18n.t('vote.auth.disconnect_button'),
+                          iconRight: isMobile ? undefined : { name: 'lightning-slash' },
+                          onClick: () => setDisconnectModalOpened(true)
+                        }
+                      }
+                    >
+                      {i18n.t('vote.you_are_autenticated')}
+                      <b> {anonymousFormData}</b>
+                    </Banner>
+                  </Col>
+                }
+                {/* DESCIRPTION */}
+                <Col xs={12} md={9}>
+                  <VoteDescription />
+                </Col>
+                {/* VOTE CARD */}
+                <StickyCol xs={12} md={3} hiddenSmAndDown disableFlex>
                   <VoteActionCard
+                    userVoteStatus={userVoteStatus}
                     onClick={handleVoteNow}
-                    onLogOut={handleLogOut}
-                    votingState={votingState}
-                    explorerLink={explorerLink}
-                    disabled={voteStatus !== VoteStatus.Active}
+                    onSeeResults={handleSeeResultsClick}
                   />
-                </VoteNowCardContainer>
-              </Column>
-            </Grid>
-          )}
+                </StickyCol>
+              </Row>
+            </BodyContainer>
+            <Spacer direction='vertical' size='3xl' />
+            {/* RESULTS CARD */}
+            <Row gutter='2xl'>
+              <Col xs={12}>
+                <ExpandableCard
+                  ref={resultsCardRef}
+                  isOpen={isExpandableCardOpen}
+                  onButtonClick={handleExpandableCardButtonClick}
+                  title={i18n.t("vote.voting_results_title")}
+                  icon={<PieChartIcon size={40} />}
+                  buttonProps={{
+                    variant: 'white',
+                    iconRight: { name: 'chevron-up-down', size: 24 },
+                    children: i18n.t("vote.voting_results_show")
+                  }}
+                  buttonPropsOpen={{
+                    variant: 'white',
+                    iconRight: { name: 'chevron-up-down', size: 24 },
+                    children: i18n.t("vote.voting_results_hide")
+                  }}
+                >
+                  <ResultsCard />
+                </ExpandableCard>
+              </Col>
+            </Row>
+          </Then>
+          <Else>
+            <QuestionsList
+              results={choices}
+              questions={processInfo?.metadata?.questions}
+              voteWeight={votingType === VotingType.Weighted ? censusProof?.weight?.toString() : null}
+              onSelect={votingMethods.onSelect}
+              onFinishVote={handleFinishVote}
+              onBackDescription={handleBackToDescription}
+            />
+          </Else>
+        </If>
 
-          {processInfo?.metadata?.media.streamUri && (
-            <PlayerFixedContainer
-              top={videosStyle.top}
-              height={videosStyle.height}
-              width={videosStyle.width}
-            >
-              <PlayerContainer>
-                <ReactPlayer
-                  url={processInfo?.metadata?.media.streamUri}
-                  width="100%"
-                  height="100%"
-                />
-              </PlayerContainer>
-            </PlayerFixedContainer>
-          )}
-        </BodyContainer>
+        {/* FIXED CARDS ON MOBILE VERSION */}
 
-        {votingState == VotingState.Started && (
-          <QuestionsList
-            onComponentMounted={handleVideoPosition}
-            ref={votingVideoContainerRef}
-            hasVideo={!!processInfo?.metadata?.media.streamUri}
-            results={choices}
-            questions={processInfo?.metadata?.questions}
-            voteWeight={voteWeight}
-            onSelect={votingMethods.onSelect}
-            onFinishVote={handleFinishVote}
-            onBackDescription={handleBackToDescription}
-          />
-        )}
+        {voteStatus === VoteStatus.Upcoming &&
+          <>
+            <MobileSpacer />
+            <FixedContainerRow align='center' justify='center'>
+              <Col>
+                <Text size='lg' color='white'>
+                  {i18n.t('vote.vote_will_start')}&nbsp;<b>{startingString}</b>
+                </Text>
+              </Col>
+            </FixedContainerRow>
+          </>
+        }
 
-        {showVotingButton && (
-          <FixedButtonContainer>
-            <div>
-              <Button
-                large
-                positive
-                wide
-                onClick={handleVoteNow}
-                disabled={voteStatus !== VoteStatus.Active}
-              >
-                {i18n.t('vote.vote_now')}
-              </Button>
-            </div>
-          </FixedButtonContainer>
-        )}
+        {voteStatus === VoteStatus.Active &&
+          <>
+            <MobileSpacer />
+            <VoteNowFixedContainer justify='center' align='center' gutter='md'>
+              <Col xs={12} justify='center'>
+                <Text size='lg' color='white'>
+                  {i18n.t('vote.vote_will_close')}&nbsp;<b>{endingString}</b>
+                </Text>
+              </Col>
+              <Col xs={12}>
+                <Button variant='primary' size='lg' onClick={handleVoteNow}>
+                  {i18n.t("vote.vote_now")}
+                </Button>
+              </Col>
+              <Col xs={12} justify='center'>
+                <Spacer direction='vertical' size='2xs' />
+                <Button
+                  variant='text'
+                  iconRight={{ name: 'chevron-right', size: 16 }}
+                  onClick={handleSeeResultsClick}
+                >
+                  {i18n.t("vote.see_results")}
+                </Button>
+                <Spacer direction='vertical' size='2xs' />
+              </Col>
+            </VoteNowFixedContainer>
+          </>
+        }
 
-        {showLogInButton && (
-          <FixedButtonContainer>
-            <div>
-              <Typography variant={TypographyVariant.Body2}>
-                {i18n.t('vote.you_need_authenticate_to_vote')}
-              </Typography>
-              <Button large positive wide onClick={handleVoteNow}>
-                {i18n.t('vote.vote_now')}
-              </Button>
-            </div>
-          </FixedButtonContainer>
-        )}
 
+        {/* HAS VOTED CARD */}
         {hasVoted && (
           <VoteRegisteredLgContainer>
             <VoteRegisteredCard explorerLink={explorerLink} />
           </VoteRegisteredLgContainer>
         )}
-        {showResults &&
-          processInfo?.metadata?.questions.map(
-            (question: Question, index: number) => (
-              <VoteQuestionCard
-                questionIdx={index}
-                key={index}
-                question={question}
-                hasVoted={hasVoted}
-                totalVotes={totalVotes}
-                result={results?.questions[index]}
-                processStatus={processInfo?.state?.status}
-                selectedChoice={choices.length > index ? choices[index] : -1}
-                readOnly={true}
-                onSelectChoice={(selectedChoice) => {
-                  votingMethods.onSelect(index, selectedChoice)
-                }}
-              />
-            )
-          )}
-
-        <If condition={showDescription && totalVotes > 0}>
-          <Then>
-            <Grid>
-              <Card sm={12}>
-                <TextContainer align={TextAlign.Center}>
-                  {processVotingType === VotingType.Weighted
-                    ? i18n.t('vote.total_weighted_votes', {
-                      totalVotes: results?.totalVotes,
-                      totalWeightedVotes: results?.totalWeightedVotes,
-                    })
-                    : i18n.t('vote.total_votes', {
-                      totalVotes: results?.totalVotes,
-                    })}
-                </TextContainer>
-              </Card>
-            </Grid>
-          </Then>
-        </If>
       </VotingCard>
 
+      {/* MODALS */}
       <ConfirmModal
         isOpen={confirmModalOpened}
         onVoted={handleOnVoted}
         onClose={handleBackToVoting}
       />
+      <DisconnectModal
+        hideCloseButton
+        isOpen={disconnectModalOpened}
+        onRequestClose={() => setDisconnectModalOpened(false)}
+        onDisconnect={handleLogOut}
+      />
     </>
   )
+}
+const makeAuthenticateBannerImage = (alt: string, size: number) => (
+  <img
+    src="/images/vote/authenticate-banner-image.svg"
+    width={size}
+    height={size}
+    alt={alt}
+  />
+)
+function anonymizeStrings(strings: string[]): string[] {
+  let anonymizedStrings = []
+  let iter = 0
+  strings.every((str) => {
+    if (iter >= 3) {
+      return false
+    }
+    let anonymizedString
+    iter = iter + 1
+    const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    // check if is an email to preserve the domain
+    if (str.toLocaleLowerCase().match(emailRegex)) {
+      anonymizedString = `${str[0]}...${str.split('@')[1]}`
+      // if is no email and length > 3 compute visible string length
+    } else if (str.length >= 3) {
+      const visibleStrLength = Math.floor(Math.sqrt(str.length))
+      anonymizedString = `${str.substring(0, visibleStrLength)}...${str.substring(str.length - visibleStrLength - 1, visibleStrLength)}`
+      // if length is lowhe than 3 use the full string
+    } else {
+      anonymizedString = str
+    }
+    anonymizedStrings.push(anonymizedString)
+    return true
+  })
+  return anonymizedStrings
 }
 
 const VotingCard = styled(PageCard)`
@@ -431,57 +477,39 @@ const VoteRegisteredLgContainer = styled.div`
   }
 `
 
-const PlayerFixedContainer = styled.div<IVideoStyle>`
-  position: absolute;
-  margin-bottom: 20px;
-  z-index: 30;
-  transition: all 0.4s ease-in-out;
-  top: ${({ top }) => top || 0}px;
-  height: ${({ height }) => height || 300}px;
-  width: ${({ width }) => width + 'px' || '100%'};
-`
-
-const PlayerContainer = styled.div`
-  width: 100%;
-  height: 100%;
-  max-width: 800px;
-  border-radius: 10px;
-  overflow: hidden;
-  margin: 0 auto;
-`
 
 const BodyContainer = styled.div`
   position: relative;
 `
 
-const FixedButtonContainer = styled.div`
+const StickyCol = styled(Col) <IColProps>`
+  position: sticky;
+  top: 20px;
+`
+
+
+const FixedContainerRow = styled(Row)`
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
   z-index: 31;
-  background-color: ${(props) => props.theme.white};
-  padding: 28px 10px;
-  box-shadow: 1px 1px 9px #8f8f8f;
-
-  & > div {
-    margin: 0 auto;
-    max-width: 330px;
-  }
-
+  background-color: rgba(13, 71, 82, 0.85);
+  min-height: 72px;
+  backdrop-filter: blur(8px);
   @media ${({ theme }) => theme.screenMin.tablet} {
     display: none;
   }
 `
-
-const VoteNowCardContainer = styled.div`
-  position: sticky;
-  top: 20px;
+const VoteNowFixedContainer = styled(FixedContainerRow)`
+  padding: 24px;
 `
-
-const SubmitButtonContainer = styled(FlexContainer)`
-  margin: 30px 0 20px;
+const MobileSpacer = styled.div`
+min-height: 72px;
+@media ${({ theme }) => theme.screenMin.tablet} {
+  display: none;
+}
 `
-const TextContainer = styled(Body1)`
-  margin: 12px 0;
-`
+// const StyledTextButton = styled(TextButton)`
+//   margin: 4px;
+// `

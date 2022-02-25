@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from 'react'
+import React, { ChangeEvent, useState } from 'react'
 import styled from 'styled-components'
 import { ProcessDetails, EntityMetadata } from 'dvote-js'
 import { useTranslation } from 'react-i18next'
@@ -16,6 +16,11 @@ import { SignInFormCard } from '@components/elements/cards'
 import { FlexContainer, FlexJustifyContent } from '@components/elements/flex'
 import { CardImageHeader } from '@components/blocks/card/image-header'
 import { FormFieldsetContainer } from '../components/form-fieldset-container'
+import { Col, Input, Row, Text } from '@components/elements-v2'
+import { useProcessWrapper } from '@hooks/use-process-wrapper'
+import { useUrlHash } from "use-url-hash"
+import { VoteStatus } from '@lib/util'
+import moment from 'moment'
 
 interface IFieldValues {
   [field: string]: string
@@ -27,6 +32,7 @@ interface IFormProps {
   secretKey: string
   submitEnabled?: boolean
   checkingCredentials?: boolean
+  invalidCredentials?: boolean
   processInfo: ProcessDetails
   entity: EntityMetadata
   onChange: (field: string, value) => void
@@ -43,10 +49,17 @@ export const SignInForm = ({
   processInfo,
   entity,
   checkingCredentials,
+  invalidCredentials,
   onSubmit,
   onChange,
 }: IFormProps) => {
   const { i18n } = useTranslation()
+  const [sameInput, setSameInput] = useState(false)
+  const showError = sameInput && invalidCredentials
+  const processId = useUrlHash().slice(1)
+  const { isAnonymous, status, startDate } = useProcessWrapper(processId)
+  const showPreregisterTitle = isAnonymous && status === VoteStatus.Upcoming
+  const showPasswordInput = isAnonymous && status === VoteStatus.Active
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault()
     onSubmit()
@@ -64,76 +77,116 @@ export const SignInForm = ({
         subtitle={entity?.name.default}
         entityImage={entity?.media.avatar}
       />
+      <StyledFieldset disabled={checkingCredentials}>
+        <Row gutter='xl'>
+          {
+            showPreregisterTitle &&
+            <Col xs={12}>
+              <Row gutter='xs'>
+                <Col xs={12}>
+                  <Text size='lg' weight='bold' color='dark-blue'>
+                    {i18n.t('vote.auth.preregistration.title')}
+                  </Text>
+                </Col>
+                <Col xs={12}>
+                  <Text size='xs' color="dark-blue">
+                    {i18n.t('vote.auth.preregistration.subtitle', { date: moment(startDate).locale(i18n.language).format('l') })}
+                  </Text>
+                </Col>
+              </Row>
+            </Col>
+          }
+          <Col xs={12}>
+            <Text size='sm' weight='bold' color='dark-blue'>
+              {showPasswordInput ?
+                i18n.t('vote.auth.insert_your_credentials_and_password') :
+                i18n.t('vote.auth.insert_your_credentials')
+              }
+            </Text>
+          </Col>
+          <Col xs={12}>
+            <form onSubmit={handleSubmit}>
+              <Row gutter='none'>
+                {fields.map((fieldName, i) =>
+                  <Col xs={12} disableFlex key={i}>
+                    <InputFormGroup
+                      label={fieldName}
+                      id={fieldName}
+                      placeholder={i18n.t('vote.auth.insert_your', { field: fieldName })}
+                      onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                        onChange(fieldName, e.target.value)
+                        setSameInput(false)
+                      }
+                      }
+                      value={values[fieldName]}
+                      variant={FormGroupVariant.Small}
+                    />
+                  </Col>
+                )}
 
-      <FormFieldsetContainer disabled={checkingCredentials}>
-        <form onSubmit={handleSubmit}>
-          {fields.map((fieldName, i) => {
-            const isLastItem = i === fields.length - 1
-            return (
-              <FlexContainer justify={FlexJustifyContent.Center} key={i}>
-                <InputFormGroup
-                  label={fieldName}
-                  id={fieldName}
-                  placeholder={i18n.t('vote.auth.insert_your', { field: fieldName })}
-                  onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                    onChange(fieldName, e.target.value)
-                  }
-                  value={values[fieldName]}
-                  variant={FormGroupVariant.Small}
-                />
-              </FlexContainer>
-            )
-          })}
-          {(processInfo.state.processMode.preRegister && processStarted) ? (
-            <FlexContainer justify={FlexJustifyContent.Center}>
-              <InputPasswordFormGroup
-                label="secretKey"
-                id="secretKey"
-                placeholder={i18n.t('vote.auth.insert_your_secret_key')}
-                onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                  onChangeSecretKey(e.target.value)
+                {showPasswordInput &&
+                  <Col xs={12}>
+                    <InputPasswordFormGroup
+                      label={i18n.t('vote.auth.secret_key_label')}
+                      id="secretKey"
+                      placeholder={i18n.t('vote.auth.insert_your_secret_key')}
+                      onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                        onChangeSecretKey(e.target.value)
+                        setSameInput(false)
+                      }
+                      }
+                      value={secretKey}
+                      variant={FormGroupVariant.Small}
+                    />
+                  </Col>
                 }
-                value={secretKey}
-                variant={FormGroupVariant.Small}
-              />
-            </FlexContainer>
-          ) : (<div></div>)}
-          <FlexContainer justify={FlexJustifyContent.Center}>
-            <ContainerContainer>
-              {i18n.t('vote.you_cant_enter_contact_with_entity')}
-            </ContainerContainer>
-          </FlexContainer>
-          <HiddenButton type="submit"></HiddenButton>
-          <FlexContainer justify={FlexJustifyContent.Center}>
-            <Button
-              wide
-              positive
-              onClick={onSubmit}
-              spinner={submitEnabled && checkingCredentials}
-              disabled={!submitEnabled || checkingCredentials}
-            >
-              {i18n.t('action.continue')}
-            </Button>
-          </FlexContainer>
-        </form>
-      </FormFieldsetContainer>
+              </Row>
+              <HiddenButton type="submit"></HiddenButton>
+            </form>
+          </Col>
+          <Col xs={12}>
+            <Row align='center' justify='center' gutter='xl'>
+              <Col xs={12} md={5} align='center' justify='center'>
+                <Button
+                  wide
+                  positive
+                  onClick={() => {
+                    onSubmit()
+                    setSameInput(true)
+                  }}
+                  spinner={submitEnabled && checkingCredentials}
+                  disabled={!submitEnabled || checkingCredentials || showError}
+                >
+                  {i18n.t('action.continue')}
+                </Button>
+              </Col>
+              <Col xs={12} md={7}>
+                {/*Error MSG*/}
+                {showError &&
+                  <Text
+                    color='error'
+                    size='sm'
+                    weight='bold'
+                  >
+                    {i18n.t('vote.credentials_not_accepted')}
+                  </Text>
+                }
+              </Col>
+            </Row>
+          </Col>
+        </Row>
+      </StyledFieldset>
     </SignInFormCard>
   )
 }
-
-const LoginFieldset = styled(Fieldset)`
-  margin-top: 20px;
-  margin-bottom: 26px;
-`
 
 const HiddenButton = styled.button`
   visibility: hidden;
 `
 
-const InputContainer = styled.div`
-  max-width: 400px;
+const StyledFieldset = styled.fieldset`
+  max-width: 490px;
   width: 100%;
-`
-const ContainerContainer = styled.div`
-  margin: -18px 0 40px;
+  border: none;
+  margin: auto;
 `

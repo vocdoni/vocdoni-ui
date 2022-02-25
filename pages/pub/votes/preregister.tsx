@@ -21,6 +21,7 @@ import i18n from '@i18n'
 import { VOTING_PATH } from '@const/routes'
 import { useRouter } from 'next/router'
 import { parseDate } from '@lib/date'
+import moment from 'moment'
 
 const PreregisterPage = () => {
   const [data, setData] = useState<IPreregisterData>({
@@ -45,7 +46,8 @@ const PreregisterPage = () => {
   )
   let parsedStartDate
   if (processStartDate) {
-    parsedStartDate = parseDate(processStartDate, 'dd/mm/yyyy')
+      let momentDate = moment(processStartDate).locale('es').format("MMM DD - YYYY (HH:mm)")
+      parsedStartDate =  momentDate.charAt(0).toUpperCase() + momentDate.slice(1)
   }
 
   const useCensusProof = useRecoilState<CensusPoof>(censusProofState)
@@ -73,7 +75,8 @@ const PreregisterPage = () => {
       .then(response => setPreregisterSent(true))
       .catch((err) => {
         console.log(err)
-        setAlertMessage(i18n.t("errors.register_the_voter_key"))
+        // Asume the error happens because it is already registered
+        setAlertMessage(i18n.t("errors.voter_key_already_registered"))
       })
 
     // generateProof(processId, data.passwordConfirm)

@@ -1,5 +1,6 @@
 import { EntityMetadata, ProcessSummary, MultiLanguage, ProcessMetadata, ProcessResultsSingleChoice } from 'dvote-js'
 import { ProcessCensusOrigin, IProcessCensusOrigin } from 'dvote-solidity'
+import { BigNumber } from 'ethers'
 // IndexDB types
 export enum AccountStatus {
   Wallet,
@@ -30,7 +31,7 @@ export enum VotingType{
 
 
 export interface IProcessResults extends ProcessResultsSingleChoice {
-  totalWeightedVotes?: number
+  totalWeightedVotes?: BigNumber
 }
 
 export type Account = {

@@ -11,7 +11,7 @@ import { useWallet, WalletRoles } from '@hooks/use-wallet'
 import { Redirect } from '@components/redirect'
 import { ENTITY_SIGN_IN_PATH } from '@const/routes'
 import { useScrollTop } from '@hooks/use-scroll-top'
-import { LayoutEntity } from '@components/pages/app/layout/entity'
+import { LayoutEntity } from '@components/pages/app/layout-v2/entity'
 
 // NOTE: This page uses a custom Layout. See below.
 
@@ -20,19 +20,10 @@ const VoteDetailPage = () => {
   const processId = useUrlHash().slice(1) // Skip "/"
   const {
     processInfo,
-    results,
-    methods,
   } = useProcessWrapper(processId)
   const { wallet } = useWallet({ role: WalletRoles.ADMIN })
   const { metadata: entityMetadata } = useEntity(wallet?.address)
 
-  const cancelProcess = async () => {
-    await methods.cancelProcess(processId, wallet)
-  }
-
-  const endProcess = async () => {
-    await methods.pauseProcess(processId, wallet)
-  }
 
   const redirectNoWallet = new ViewStrategy(
     () => !wallet?.address,
@@ -41,13 +32,7 @@ const VoteDetailPage = () => {
 
   const processDetailView = new ViewStrategy(
     () => !!processInfo && !!wallet?.address && !!entityMetadata,
-    <ViewDetail 
-      process={processInfo} 
-      results={results} 
-      endProcess={endProcess} 
-      entityMetadata={entityMetadata}
-      cancelProcess={cancelProcess} 
-    />
+    <ViewDetail />
   )
 
   const loadingView = new ViewStrategy(

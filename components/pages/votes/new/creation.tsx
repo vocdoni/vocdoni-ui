@@ -13,6 +13,8 @@ import { useScrollTop } from "@hooks/use-scroll-top"
 
 import { ProcessCreationPageSteps } from '.'
 import { useTranslation } from 'react-i18next'
+import { Col, Row, Spacer } from '@components/elements-v2'
+import { WaitingBanner } from '@components/blocks-v2'
 // import { CREATE_PROCESS_PATH, DASHBOARD_PATH } from '@../../const/routes'
 
 
@@ -57,6 +59,14 @@ export const FormCreation = () => {
               title={i18n.t('vote.your_vote_process_is_being_created')}
               subtitle={i18n.t('vote.we_are_using_a_decentralized_secure_system')}
             />
+            <Row justify='center' gutter='none'>
+              <Col xs={12}>
+                <Spacer direction='vertical' size='3xl' />
+              </Col>
+              <Col xs={12} md={8}>
+                <WaitingBanner messages={i18n.t('waiting_banner.vote_creation', { returnObjects: true })} />
+              </Col>
+            </Row>
           </Else>
         </If>
 

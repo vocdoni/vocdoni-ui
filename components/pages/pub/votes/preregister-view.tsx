@@ -5,7 +5,7 @@ import { EntityMetadata, ProcessDetails, VotingApi } from 'dvote-js'
 import { useTranslation } from 'react-i18next'
 import { CardImageHeader } from '@components/blocks/card'
 import { FormFieldsetContainer } from './components/form-fieldset-container'
-import { InputFormGroup, InputPasswordFormGroup } from '@components/blocks/form'
+import { InputPasswordFormGroup } from '@components/blocks/form'
 import { checkStrength } from '@lib/util'
 import { Typography, TypographyVariant } from '@components/elements/typography'
 import { useBlockStatus } from '@vocdoni/react-hooks'
@@ -15,7 +15,8 @@ import { ImageContainer } from '@components/elements/images'
 import { colors } from '@theme/colors'
 import { PasswordFeedbackSuccess } from '@components/blocks/password-feedback-success'
 import { Button } from '@components/elements/button'
-import { parseDate } from '@lib/date'
+import moment from 'moment'
+import { useRouter } from 'next/router'
 
 export enum PreregisterFormFields {
   Password = 'password',
@@ -48,13 +49,14 @@ export const PreregisterView = ({
   const [errorPassword, setErrorPassword] = useState<string>('')
   const { i18n } = useTranslation()
   const { blockStatus } = useBlockStatus()
+  const router = useRouter()
   const processStartDate = VotingApi.estimateDateAtBlockSync(
     process?.state?.startBlock,
     blockStatus
   )
   const DATE_FORMAT = '(dd/mm/yyyy)'
 
-  const parsedStartDate = parseDate(processStartDate, DATE_FORMAT)
+  const parsedStartDate = moment(processStartDate).locale(i18n.language).format('l')
 
   useEffect((): void => {
     setErrorPassword(checkStrength(values.password))
@@ -74,6 +76,9 @@ export const PreregisterView = ({
     const newData = { ...values, [fieldName]: fieldValue }
 
     onChange(newData)
+  }
+  const handleBackButton = () => {
+    router.back()
   }
 
   const passwordMatch =
@@ -155,7 +160,7 @@ export const PreregisterView = ({
 
         <FlexContainer justify={FlexJustifyContent.SpaceBetween}>
           <BackButtonContainer>
-            <Button color={colors.accent1} wide>
+            <Button color={colors.accent1} wide onClick={handleBackButton}>
               {i18n.t('votes.preregister_view.back')}
             </Button>
           </BackButtonContainer>

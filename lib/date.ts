@@ -16,6 +16,26 @@ export function localizedStrDateDiff(type: DateDiffType, target: Date): string {
 }
 
 // Helpers
+export const addOffsetToDate = (
+  date: Date,
+  days = 0,
+  hours = 0,
+  minutes = 0
+): Date => {
+  if (days) {
+    date.setDate(date.getDate() + days)
+  }
+
+  if (hours) {
+    date.setHours(date.getHours() + hours)
+  }
+
+  if (minutes) {
+    date.setMinutes(date.getMinutes() + minutes)
+  }
+
+  return date
+}
 
 function strDiffFuture(type: DateDiffType, secondDiff: number): string {
   let num: number

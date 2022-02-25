@@ -12,6 +12,8 @@ export type ColumnProps = {
   sm?: number
   /** [XS] Number of grid columns to use (1 to 12) */
   span?: number
+  /**  Remove the gutters from the columns */
+  noGutter?: boolean
   hiddenXl?: boolean
   hiddenLg?: boolean
   hiddenMd?: boolean
@@ -34,9 +36,13 @@ const breakpoints = {
 }
 
 // GRID
+export type GridProps = {
+  /**  Remove the gutters from the grid */
+  noGutter?: boolean
 
-export const Grid = styled.div`
-  margin: 0 -${GRID_GUTTER / 2}px 0;
+}
+export const Grid = styled.div<GridProps>`
+  margin: 0 -${({ noGutter }) => noGutter ? 0 : GRID_GUTTER / 2}px 0;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -50,34 +56,36 @@ export const Column = (props: ColumnProps) => {
 }
 
 export const ColumnDiv = styled.div<ColumnProps>`
-  margin: ${GRID_GUTTER / 2}px;
+  margin: ${({ noGutter }) => noGutter ? 0 : GRID_GUTTER / 2}px;
   box-sizing: border-box;
-  width: calc(${props => resolveResponsiveSpan(props).xs * 100 / GRID_COLUMNS}% - ${GRID_GUTTER}px);
+  display: flex; /** Added to allow same height columns */
+  flex-direction: column;
+  width: calc(${props => resolveResponsiveSpan(props).xs * 100 / GRID_COLUMNS}% - ${({ noGutter }) => noGutter ? 0 : GRID_GUTTER}px);
 
   @media ${({ theme }) => theme.screenMax.laptop} {
-    display: ${({hiddenLg}) => hiddenLg ? 'none' : 'block'};
+    display: ${({ hiddenLg }) => hiddenLg ? 'none' : 'block'};
   }
 
   @media ${({ theme }) => theme.screenMax.tablet} {
-    display: ${({hiddenMd}) => hiddenMd ? 'none' : 'block'};
+    display: ${({ hiddenMd }) => hiddenMd ? 'none' : 'block'};
   }
-  
+
   @media ${({ theme }) => theme.screenMax.mobileL} {
-    display: ${({hiddenSm}) => hiddenSm ? 'none' : 'block'};
+    display: ${({ hiddenSm }) => hiddenSm ? 'none' : 'block'};
   }
 
   @media ${({ theme }) => theme.screenMin.mobileL} {
-    width: calc(${props => resolveResponsiveSpan(props).sm * 100 / GRID_COLUMNS}% - ${GRID_GUTTER}px);
+    width: calc(${props => resolveResponsiveSpan(props).sm * 100 / GRID_COLUMNS}% - ${({ noGutter }) => noGutter ? 0 : GRID_GUTTER}px);
   }
   @media ${({ theme }) => theme.screenMin.tablet} {
-    width: calc(${props => resolveResponsiveSpan(props).md * 100 / GRID_COLUMNS}% - ${GRID_GUTTER}px);
+    width: calc(${props => resolveResponsiveSpan(props).md * 100 / GRID_COLUMNS}% - ${({ noGutter }) => noGutter ? 0 : GRID_GUTTER}px);
   }
   @media ${({ theme }) => theme.screenMin.laptop} {
-    width: calc(${props => resolveResponsiveSpan(props).lg * 100 / GRID_COLUMNS}% - ${GRID_GUTTER}px);
+    width: calc(${props => resolveResponsiveSpan(props).lg * 100 / GRID_COLUMNS}% - ${({ noGutter }) => noGutter ? 0 : GRID_GUTTER}px);
 
   }
   @media ${({ theme }) => theme.screenMin.laptopL} {
-    width: calc(${props => resolveResponsiveSpan(props).xl * 100 / GRID_COLUMNS}% - ${GRID_GUTTER}px);
+    width: calc(${props => resolveResponsiveSpan(props).xl * 100 / GRID_COLUMNS}% - ${({ noGutter }) => noGutter ? 0 : GRID_GUTTER}px);
   }
 `
 

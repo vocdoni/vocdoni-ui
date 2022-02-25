@@ -1,34 +1,34 @@
 import React, { ChangeEvent, useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
-import { Case, Default, Switch, When } from 'react-if'
+import { Case, Default, Switch } from 'react-if'
 import { useTranslation } from 'react-i18next'
 
 import { useProcessCreation } from '@hooks/process-creation'
 
-import { Column, Grid } from '@components/elements/grid'
-import { Button } from '@components/elements/button'
-import { SectionText, SectionTitle } from '@components/elements/text'
 
 import { ProcessCreationPageSteps } from '.'
 import { CensusFileSelector } from './census-file-selector'
 import { SpreadSheetReader } from '@lib/spread-sheet-reader'
-import { colors } from 'theme/colors'
 
 import { ProcessTermsModal } from './components/process-terms-modal'
 import { FlexAlignItem, FlexContainer } from '@components/elements/flex'
 
-import { Typography, TypographyVariant } from '@components/elements/typography'
 import { InputFormGroup } from '@components/blocks/form'
 import { TrackEvents, useRudderStack } from '@hooks/rudderstack'
-import { VotingTypeButtons } from './components/voting-type-buttons'
+// import { SelectorButton, VotingTypeButtons } from './components/voting-type-buttons'
 import { ConfirmModal } from '@components/blocks/confirm-modal'
 import { ImportVoterListNormal } from './components/import-voter-list-normal'
 import { ImportVoterListWeighted } from './components/import-voter-list-wighted'
 import { DisclaimerBanner } from './components/disclaimer-banner'
 import { VotingType } from '@lib/types'
-import { AnonymousCard } from './components/anonymous-card'
+import { Col, Row, Text, Button } from '@components/elements-v2'
+import { SelectorButton } from './components/selector-button'
+import { BinaryCard } from './components/binary-card'
+import { AnonymousMessage } from './components/anonymous-message'
+import { useScrollTop } from '@hooks/use-scroll-top'
 
 export const FormCensus = () => {
+  useScrollTop()
   const { i18n } = useTranslation()
   const [showTermsModal, setShowTermsModal] = useState<boolean>(false)
   const [showAdvanced, setShowAdvanced] = useState<boolean>(false)
@@ -38,7 +38,6 @@ export const FormCensus = () => {
   const [showAnonymous, setShowAnonymous] = useState<boolean>(false)
   const changeVotingTypeRef = useRef<VotingType>()
   const advancedCensusEnabled = !!process.env.ADVANCED_CENSUS || false
-
   const {
     methods,
     spreadSheetReader,
@@ -122,186 +121,215 @@ export const FormCensus = () => {
   const handleChangeAnonymous = (anonymous: boolean) => {
     methods.setAnonymousVoting(anonymous)
   }
-
+  const votingTypeOptions = [
+    {
+      title: i18n.t('votes.new.normal_voting'),
+      subtitle: i18n.t('votes.new.all_the_voters_has_the_same_power'),
+      value: VotingType.Normal
+    },
+    {
+      title: i18n.t('votes.new.weighted_voting'),
+      subtitle: i18n.t('votes.new.set_different_power_to_each_voter'),
+      value: VotingType.Weighted
+    }
+  ]
   return (
     <>
-      <Grid>
-        <When condition={!showAdvanced}>
+      <Row gutter='2xl'>
+        {/* MAIN NOT ADVANCED */}
+        {!showAdvanced &&
+          <Col xs={12}>
+            <Row gutter='4xl'>
+              {/* SELECT VOTE */}
+              <Col xs={12}>
+                <Row gutter='lg'>
+                  <Col xs={12}>
+                    <Text size='2xl' color='dark-blue' >
+                      1. {i18n.t('votes.new.select_voting_type')}
+                    </Text>
+                  </Col>
+                  <Col xs={12}>
+                    <SelectorButton
+                      onClick={handleChangeVotingType}
+                      options={votingTypeOptions} // const items: Options[] =
+                      value={votingType}
+                    />
+                  </Col>
+                </Row>
+              </Col>
+              {/* SELECT ANONYMOUS */}
+              {showAnonymous &&
+                <Col xs={12}>
+                  <Row gutter='lg'>
+                    <Col xs={12}>
+                      <Text size='2xl' color='dark-blue' >
+                        2. {i18n.t('votes.new.select_voting_options')}
+                      </Text>
+                    </Col>
+                    <Col xs={12}>
+                      <BinaryCard
+                        value={anonymousVoting}
+                        onChange={handleChangeAnonymous}
+                        title={i18n.t('votes.new.anonymous_voting')}
+                        subtitle={i18n.t('votes.new.would_you_like_this_voting_process_to_ensure_cryptographic_anonymity')}
+                      >
+                        <AnonymousMessage />
+                      </BinaryCard>
+                    </Col>
+                  </Row>
+                </Col>
+              }
+              {/* UPLOAD CENSUS */}
+              <Col xs={12}>
+                <Row gutter='lg'>
+                  <Col xs={12}>
+                    <Text size='2xl' color='dark-blue' >
+                      {showAnonymous ? '3' : '2'}. {i18n.t('votes.new.import_the_list_of_voters')}
+                    </Text>
+                  </Col>
+                  <Col>
+                    <Row gutter='xl'>
+                      <Col xs={12}>
+
+                        {votingType === VotingType.Normal &&
+                          <ImportVoterListNormal />
+                        }
+                        {votingType === VotingType.Weighted &&
+                          <ImportVoterListWeighted />
+                        }
+                      </Col>
+                      <Col xs={12} disableFlex>
+                        <CensusContainer>
+                          <CensusFileSelector
+                            onXlsLoad={handleOnXlsUpload}
+                            votingType={votingType}
+                            loadedXls={spreadSheetReader}
+                          />
+                        </CensusContainer>
+                      </Col>
+                    </Row>
+                  </Col>
+                </Row>
+              </Col>
+            </Row>
+          </Col>
+        }
+
+        {/* ADVANCED SETIINGS */}
+        {(showAdvanced && advancedCensusEnabled) &&
           <>
-            <Column>
-              <Typography
-                variant={TypographyVariant.Body1}
-                margin="10px 0 20px 0"
-              >
-                1. {i18n.t('votes.new.select_voting_options')}
-              </Typography>
-            </Column>
-
-            <Column>
-              <VotingTypeButtons
-                onClick={handleChangeVotingType}
-                votingType={votingType}
-              />
-            </Column>
-
-            <When condition={showAnonymous}>
-              <Column>
-                <Typography
-                  variant={TypographyVariant.Body1}
-                  margin="18px 0 22px 0"
-                >
-                  2. {i18n.t('votes.new.select_')}
-                </Typography>
-              </Column>
-
-              <Column>
-                <AnonymousCard
-                  onChange={handleChangeAnonymous}
-                  anonymous={anonymousVoting}
-                />
-              </Column>
-            </When>
-
-            <Column>
-              <Typography
-                variant={TypographyVariant.Body1}
-                margin="18px 0 22px 0"
-              >
-                {showAnonymous ? '3' : '2'}. {i18n.t('votes.new.import_the_list_of_voters')}
-              </Typography>
-
-              {votingType === VotingType.Normal && <ImportVoterListNormal />}
-              {votingType === VotingType.Weighted && (
-                <ImportVoterListWeighted />
-              )}
-            </Column>
-
-            <Column>
-              <CensusContainer>
-                <CensusFileSelector
-                  onXlsLoad={handleOnXlsUpload}
-                  votingType={votingType}
-                  loadedXls={spreadSheetReader}
-                />
-              </CensusContainer>
-            </Column>
+            <Col xs={12}>
+              <Row>
+                <Col xs={12} md={6} disableFlex>
+                  <InputFormGroup
+                    title="CensusRoot"
+                    label={i18n.t('vote.census_root_value')}
+                    placeholder={i18n.t('vote.0x000')}
+                    helpText={i18n.t('vote.stream_link_explanation')}
+                    error={censusRootError}
+                    value={parameters.censusRoot}
+                    onChange={handleOnChangeCensusRoot}
+                  />
+                </Col>
+                <Col>
+                </Col>
+                <Col xs={12} md={6} disableFlex>
+                  <InputFormGroup
+                    title={'CensusURI'}
+                    label={'CensusURI'}
+                    placeholder={'ipfs//:'}
+                    error={censusUriError}
+                    value={parameters.censusUri}
+                    onChange={handleOnChangeCensusUri}
+                  />
+                </Col>
+              </Row>
+            </Col>
           </>
-        </When>
-
-        <When condition={showAdvanced && advancedCensusEnabled}>
-          <>
-            <Column>
-              <SectionTitle>
-                {i18n.t('vote.import_the_list_of_voters')}
-              </SectionTitle>
-              <SectionText color={colors.lightText}>
-                {'Advanced options'}
-              </SectionText>
-            </Column>
-
-            <Column md={6} sm={12}>
-              <InputFormGroup
-                title="CensusRoot"
-                label={i18n.t('vote.census_root_value')}
-                placeholder={i18n.t('vote.0x000')}
-                helpText={i18n.t('vote.stream_link_explanation')}
-                error={censusRootError}
-                value={parameters.censusRoot}
-                onChange={handleOnChangeCensusRoot}
-              />
-            </Column>
-
-            <Column md={6} sm={12}>
-              <InputFormGroup
-                title={'CensusURI'}
-                label={'CensusURI'}
-                placeholder={'ipfs//:'}
-                error={censusUriError}
-                value={parameters.censusUri}
-                onChange={handleOnChangeCensusUri}
-              />
-            </Column>
-          </>
-        </When>
-
-        <Column>
-          <FlexContainer
-            alignItem={FlexAlignItem.Center}
-            onClick={handleOpenTermsModal}
-          ></FlexContainer>
-          <When condition={advancedCensusEnabled}>
+        }
+        {advancedCensusEnabled &&
+          <Col xs={12}>
+            <FlexContainer
+              alignItem={FlexAlignItem.Center}
+              onClick={handleOpenTermsModal}
+            ></FlexContainer>
+            {/* <When condition={advancedCensusEnabled}> */}
             <Button
-              positive
+              variant='primary'
               onClick={() => setShowAdvanced((a) => !a)}
-              // disabled={!spreadSheetReader}
+            // disabled={!spreadSheetReader}
             >
               {!showAdvanced
                 ? 'Show Advanced Options'
                 : 'Hide Advanced Options'}
             </Button>
-          </When>
-        </Column>
+          </Col>
+        }
 
-        <Column>
-          {spreadSheetReader && (
+        {/* DISCLAIMER BANNER */}
+        {spreadSheetReader && (
+          <Col xs={12}>
             <DisclaimerBanner
               onClickTerms={() => methods.setProcessTerms(!processTerms)}
               onOpenTerms={handleOpenTermsModal}
               termsAccepted={processTerms}
             />
-          )}
-        </Column>
-        <Column>
-          <BottomDiv>
-            <Button
-              border
-              color={colors.accent1}
-              onClick={() =>
-                methods.setPageStep(ProcessCreationPageSteps.METADATA)
-              }
-            >
-              {i18n.t('action.back')}
-            </Button>
+          </Col>
+        )}
 
-            <Switch>
-              <Case condition={!spreadSheetReader}>
-                <Button positive disabled>
-                  {i18n.t('action.upload_list_of_voters')}
-                </Button>
-              </Case>
+        {/* ACTIONS */}
+        <Col xs={12}>
+          <Row justify='space-between'>
+            <Col xs={2}>
+              <Button
+                variant='white'
+                onClick={() => methods.setPageStep(ProcessCreationPageSteps.METADATA)}
+              >
+                {i18n.t('action.back')}
+              </Button>
+            </Col>
+            <Col>
+              <Switch>
+                <Case condition={!spreadSheetReader}>
+                  <Button variant='primary' disabled>
+                    {i18n.t('action.upload_list_of_voters')}
+                  </Button>
+                </Case>
 
-              <Case condition={spreadSheetReader}>
-                <Button
-                  positive
-                  disabled={!processTerms}
-                  onClick={handleContinue}
-                >
-                  {processTerms
-                    ? i18n.t('action.continue')
-                    : i18n.t('action.review_process_terms_and_conditions')}
-                </Button>
-              </Case>
+                <Case condition={spreadSheetReader}>
+                  <Button
+                    variant='primary'
+                    disabled={!processTerms}
+                    onClick={handleContinue}
+                  >
+                    {processTerms
+                      ? i18n.t('action.continue')
+                      : i18n.t('action.review_process_terms_and_conditions')}
+                  </Button>
+                </Case>
+                <Default>
+                  <Button
+                    variant='primary'
+                    onClick={handleContinue}
+                    //TODO handle case where both EXcel and parameters exist
+                    disabled={continueDisabled}
+                  >
+                    {i18n.t('action.continue')}
+                  </Button>
+                </Default>
+              </Switch>
+            </Col>
+          </Row>
+        </Col>
+      </Row>
 
-              <Default>
-                <Button
-                  positive
-                  onClick={handleContinue}
-                  //TODO handle case where both EXcel and parameters exist
-                  disabled={continueDisabled}
-                >
-                  {i18n.t('action.continue')}
-                </Button>
-              </Default>
-            </Switch>
-          </BottomDiv>
-        </Column>
+      {/* TERMS MODAL */}
+      <ProcessTermsModal
+        visible={showTermsModal}
+        onCloseProcessTerms={handleCloseTermsModal}
+      />
 
-        <ProcessTermsModal
-          visible={showTermsModal}
-          onCloseProcessTerms={handleCloseTermsModal}
-        />
-      </Grid>
-
+      {/* CHANGE VOTINGG TYPE MODAL */}
       <ConfirmModal
         body={i18n.t(
           'votes.new.if_change_the_type_of_vote_the_updated_census_will_be_lost'
@@ -319,8 +347,3 @@ const CensusContainer = styled.div<{ disabled?: boolean }>`
   pointer-events: ${({ disabled }) => (disabled ? 'none' : 'auto')};
 `
 
-const BottomDiv = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-`
