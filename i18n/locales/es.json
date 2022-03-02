@@ -586,6 +586,7 @@
     "add_new_question": "Añade una nueva pregunta",
     "add_option": "Añade más opciones",
     "auth": {
+      "if_you_voted": "Si has votado tienes que autenticarte para ver tu voto",
       "insert_your": "Inserta tu {{ field }}"
     },
     "back_to_dashboard": "Vuelve al inicio",

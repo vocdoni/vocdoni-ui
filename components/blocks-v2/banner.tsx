@@ -83,7 +83,7 @@ export const Banner = (props: BannerProps) => {
     >
       <Row align='center' justify="space-between" gutter={props.gutter ? props.gutter : 'md'}>
         <Col xs={12} md={props.buttonProps ? 9 : 12}>
-          <Row gutter={getInnerRowGutter(isMobile, props.innerGutter)} align="center" enableWrap={false} >
+          <Row gutter={getInnerRowGutter(isMobile, props.innerGutter)} align="center" wrap={false} >
             {props.image &&
               <Col>
                 {props.image}
