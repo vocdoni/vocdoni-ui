@@ -45,9 +45,17 @@ export const VoteActionCard = ({
     const endingString = dateDiffStr(DateDiffType.Countdown, endDate)
     const startingString = dateDiffStr(DateDiffType.Countdown, startDate)
     if (userVoteStatus === UserVoteStatus.Emitted) {
-      return i18n.t('vote.your_vote_has_been_registered')
+      return (
+        <Text bold large>
+          {i18n.t('vote.your_vote_has_been_registered')}
+        </Text>
+      )
     } else if (userVoteStatus === UserVoteStatus.Expired || status === VoteStatus.Ended) {
-      return i18n.t('vote.the_voting_process_has_endded')
+      return (
+        <Text bold large>
+          {i18n.t('vote.the_voting_process_has_endded')}
+        </Text>
+      )
     } else if (status === VoteStatus.Active) {
       return (
         <>
@@ -137,7 +145,7 @@ export const VoteActionCard = ({
         </BannerIcon>
 
         <BannerText>
-          {getTitleFromState(status)}
+            {getTitleFromState(status)}
           <Spacer direction='vertical' size='3xl'></Spacer>
           <div>{getButtonFromState(status)}</div>
         </BannerText>

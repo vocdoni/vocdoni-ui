@@ -591,6 +591,7 @@
     "add_new_question": "Add a question",
     "add_option": "Add an option",
     "auth": {
+      "if_you_voted": "If you voted, you need to authenticate to review your vote",
       "insert_your": "Insert you {{ field }}",
       "insert_your_secret_key": "Insert your secret key",
       "secret_key_label": "Secret key",

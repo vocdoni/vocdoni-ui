@@ -18,7 +18,7 @@ export const DateTimePicker = (props: DateTimePickerProps) => {
   const { i18n } = useTranslation()
   return (
     <StyledCard variant="outlined" isFocused={isFocused} diasbled={props.disabled} padding="6px 16px">
-      <Row align="center" gutter="sm" enableWrap={false}>
+      <Row align="center" gutter="sm" wrap={false}>
         <StyledCol align="center" justify="center">
           <Icon name='calendar' size={16} color={props.disabled ? colorsV2.neutral[300] : theme.accent1} />
         </StyledCol>

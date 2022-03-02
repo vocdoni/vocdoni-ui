@@ -106,10 +106,10 @@ export const VotingPageView = () => {
   // If status is ended open the results card
   // automatically
   useEffect(() => {
-    if (status ==  VoteStatus.Ended) {
+    if (status == VoteStatus.Ended) {
       setIsExpandableCardOpen(true)
     }
-  },[status])
+  }, [status])
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -270,7 +270,7 @@ export const VotingPageView = () => {
                       subtitleProps={
                         {
                           size: isMobile ? 'xs' : 'md',
-                          children: isAnonymous ? i18n.t('vote.auth.with_preregistration') : i18n.t('vote.auth.with_credentials')
+                          children: isAnonymous ? i18n.t('vote.auth.with_preregistration') : voteStatus === VoteStatus.Ended ? i18n.t('vote.auth.if_you_voted') : i18n.t('vote.auth.with_credentials')
                         }
                       }
                       titleProps={{ size: 'sm' }}
