@@ -97,65 +97,68 @@ export const AccountImportView = ({
   }
 
   return (
-    <AccountBackupPageCard
-      title={i18n.t('import.import_an_account')}
-      subtitle={i18n.t('import.select_the_backup_file_of_your_account')}
-    >
-      <MaxWidth width={600}>
-        <SectionText size={TextSize.Big} color={colors.blueText}>
-          {i18n.t('import.backup_file')}
-        </SectionText>
-        <BlockContainer>
-          <BackupFileSelector onBackupLoad={handleOnBackupUpload} />
-
-          <SectionText size={TextSize.Small} color={colors.lightText}>
-            {i18n.t('import.backup_file_explanation')}
+    <>
+      <AccountBackupPageCard
+        title={i18n.t('import.import_an_account')}
+        subtitle={i18n.t('import.select_the_backup_file_of_your_account')}
+      >
+        <MaxWidth width={600}>
+          <SectionText size={TextSize.Big} color={colors.blueText}>
+            {i18n.t('import.backup_file')}
           </SectionText>
-        </BlockContainer>
+          <BlockContainer>
+            <BackupFileSelector onBackupLoad={handleOnBackupUpload} />
 
-        <BlockContainer>
-          {/* <SectionText size={TextSize.Big} color={colors.blueText}>
-            {i18n.t('import.passphrase')}
-          </SectionText> */}
-          <InputFormGroup
-            title={i18n.t('import.passphrase')}
-            type="password"
-            error={invalidPassphrase}
-            value={passphrase}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => setPassphrase(e.target.value)}
-          />
-
-
-          <DescriptionContainer hasError={!!invalidPassphrase}>
-            <Link href={ACCOUNT_RECOVER_PATH}>
-              {i18n.t('sign_in.forgot_your_password_restore_from_a_backup')}
-            </Link>
-            <br /><br />
             <SectionText size={TextSize.Small} color={colors.lightText}>
-              {i18n.t('import.confirm_your_passphrase')}
+              {i18n.t('import.backup_file_explanation')}
             </SectionText>
-          </DescriptionContainer>
-        </BlockContainer>
+          </BlockContainer>
 
-        <BlockContainer>
-          <FlexContainer alignItem={FlexAlignItem.Center}>
-            <Checkbox
-              id="accept-terms"
-              checked={ack}
-              onChange={(ack: boolean) => setAck(ack)}
-              text={i18n.t('import.i_acknowledge_passphrase_implications')}
-              labelColor={colors.lightText}
+          <BlockContainer>
+            {/* <SectionText size={TextSize.Big} color={colors.blueText}>
+              {i18n.t('import.passphrase')}
+            </SectionText> */}
+            <InputFormGroup
+              title={i18n.t('import.passphrase')}
+              type="password"
+              error={invalidPassphrase}
+              value={passphrase}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => setPassphrase(e.target.value)}
             />
-          </FlexContainer>
-        </BlockContainer>
 
-        <FlexContainer justify={FlexJustifyContent.End}>
-          <Button positive disabled={!isCompleted} onClick={onContinue}>
-            {i18n.t('import.import_account')}
-          </Button>
-        </FlexContainer>
-      </MaxWidth>
-    </AccountBackupPageCard>
+
+            <DescriptionContainer hasError={!!invalidPassphrase}>
+              <Link href={ACCOUNT_RECOVER_PATH}>
+                {i18n.t('sign_in.forgot_your_password_restore_from_a_backup')}
+              </Link>
+              <br /><br />
+              <SectionText size={TextSize.Small} color={colors.lightText}>
+                {i18n.t('import.confirm_your_passphrase')}
+              </SectionText>
+            </DescriptionContainer>
+          </BlockContainer>
+
+          <BlockContainer>
+            <FlexContainer alignItem={FlexAlignItem.Center}>
+              <Checkbox
+                id="accept-terms"
+                checked={ack}
+                onChange={(ack: boolean) => setAck(ack)}
+                text={i18n.t('import.i_acknowledge_passphrase_implications')}
+                labelColor={colors.lightText}
+              />
+            </FlexContainer>
+          </BlockContainer>
+
+          <FlexContainer justify={FlexJustifyContent.End}>
+            <Button positive disabled={!isCompleted} onClick={onContinue}>
+              {i18n.t('import.import_account')}
+            </Button>
+          </FlexContainer>
+        </MaxWidth>
+      </AccountBackupPageCard>
+      <FooterSeparator></FooterSeparator>
+    </>
   )
 }
 
@@ -170,4 +173,8 @@ const MaxWidth = styled.div<{ width: number }>`
 
 const BlockContainer = styled.div`
   margin-bottom: 40px;
+`
+
+const FooterSeparator = styled.div`
+  margin-bottom: 96px;
 `
