@@ -387,20 +387,15 @@ export const VotingPageView = () => {
           </Then>
         </If>
 
-        <If condition={hasVoted}>
+        <If condition={hasVoted && !showResults}>
           <Then>
             <VoteRegisteredLgContainer>
-              <Typography align={TextAlign.Center} variant={TypographyVariant.Body3}>
-                {i18n.t('vote.you_vote_has_been_submit_successfully_the_results_will_be_available1')}<br />
-                {i18n.t('vote.you_vote_has_been_submit_successfully_the_results_will_be_available2')}<br />
-                {i18n.t('vote.you_vote_has_been_submit_successfully_the_results_will_be_available3')}
-                <a target='_blank' href='https://form.jotform.com/220123230447340'>aquí</a>.
-                </Typography>
+              <Typography align={TextAlign.Center} variant={TypographyVariant.Body3}>{i18n.t('vote.you_vote_has_been_submit_successfully_the_results_will_be_available')}</Typography>
             </VoteRegisteredLgContainer>
           </Then>
         </If>
         
-        {false && showResults &&
+        {showResults &&
           processInfo?.metadata?.questions.map(
             (question: Question, index: number) => (
               <VoteQuestionCard

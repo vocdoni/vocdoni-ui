@@ -62,72 +62,58 @@ export const VoteDescription = forwardRef<HTMLDivElement, IVotePageProps>(
         <Column>
           <FlexContainer justify={FlexJustifyContent.Start}>
             <ProcessStatusLabel status={voteStatus} />
-            <TimeComment>Fins al 26 de febrer a les 12 h.</TimeComment>
+            <TimeComment>{timeComment}</TimeComment>
           </FlexContainer>
+
+          <LogOutContainer>
+            { onLogOut && <Button small border onClick={() => onLogOut()}>{i18n.t('app.header.disconnect_account')}</Button>}
+          </LogOutContainer>
         </Column>
 
         <Column>
-          <DescriptionText>
-            <p>S’ha convocat l’Assemblea General Ordinària per presentar i validar, si s’escau, el Pla de treball i el pressupost del 2022. També s’ha de renovar bona part de la Junta Directiva de l’entitat.</p> 
-            <p>L’Assemblea General se celebrarà presencialment el dissabte 26 de febrer a La Farga de l’Hospitalet de Llobregat (c. Barcelona 2, l’Hospitalet de Llobregat).</p>
-            <p>Per participar en les votacions, heu de fer-ho de manera telemàtica en aquesta pàgina web.</p>
-
-            <Separator>&nbsp;</Separator>
-
-            <VerticalSpace><strong>Ordre del dia:</strong></VerticalSpace>
-            <SimpleUl>
-              <li>1) Benvinguda</li>
-              <li>2) Aprovació, si s’escau, de l’acta de l’Assemblea General Ordinària del 18 de juny de 2021</li>
-              <li>3) Breu memòria d’activitats 2021 i presentació i aprovació, si s’escau, del Pla de treball 2022</li>
-              <li>4) Presentació del Pla 26</li>
-              <li>5) Presentació i aprovació, si s’escau, del Pressupost 2022</li>
-              <li>6) Proclamació de la candidatura guanyadora a les eleccions a la Junta Directiva</li>
-              <li>7) Torn obert de paraula</li>
-              <li>8) Cloenda i presa de possessió de la nova Junta Directiva</li>
-            </SimpleUl>
-
-            <Separator>&nbsp;</Separator>
-          </DescriptionText>
-
-          <When condition={false}>
-            <MarkDownViewer content={description} />
-          </When>
+          <MarkDownViewer content={description} />
         </Column>
 
         <Separator>&nbsp;</Separator>
         <Separator>&nbsp;</Separator>
         
-        <Column sm={12} md={6}>
-          <Button
-            border
-            wide
-            icon={questionIcon}
-            href=" https://www.omnium.cat/ca/area-socis/assemblea-general-2022/"
-            target={LinkTarget.Blank}
-            justify={JustifyContent.Left}
-            omnium
-          >
-            <ButtonText>
-              {i18n.t('vote.access_to_the_documentation')}
-            </ButtonText>
-          </Button>
-        </Column>        
-      
-        <Column sm={12} md={6}>
-          <Button
-            border
-            wide
-            icon={pdfIcon}
-            href="https://form.jotform.com/220242395353350"
-            target={LinkTarget.Blank}
-            justify={JustifyContent.Left}
-            omnium
-          >
-            <ButtonText>{i18n.t('vote.questions_and_answers')}</ButtonText>
-          </Button>
-        </Column>        
+        <When condition={attachmentUrl}>
+          <Column sm={12} md={7}>
+            <Button
+              border
+              wide
+              icon={questionIcon}
+              href={attachmentUrl}
+              target={LinkTarget.Blank}
+              justify={JustifyContent.Left}
+              omnium
+            >
+              <ButtonText>
+                {i18n.t('vote.access_to_the_documentation')}
+              </ButtonText>
+            </Button>
+          </Column>
+        </When>
 
-        <When condition={hasVideo && false}>
+        <Separator>&nbsp;</Separator>
+
+        <When condition={discussionUrl}>
+          <Column sm={12} md={7}>
+            <Button
+              border
+              wide
+              icon={pdfIcon}
+              href={discussionUrl}
+              target={LinkTarget.Blank}
+              justify={JustifyContent.Left}
+              omnium
+            >
+              <ButtonText>{i18n.t('vote.questions_and_answers')}</ButtonText>
+            </Button>
+          </Column>
+        </When>       
+
+        <When condition={hasVideo}>
           <Column>
             <LiveStreamVideoContainer ref={ref}>
               {liveStreamUrl && (

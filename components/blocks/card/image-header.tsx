@@ -33,8 +33,8 @@ export const CardImageHeader = ({
   const { i18n } = useTranslation()
   const { accent1 } = useTheme()
 
-  const headerImageSrc = '/media/header.jpeg'
-  const entityImageSrc = '/media/logo_sm.png'
+  const headerImageSrc = processImage || FALLBACK_VOTE_HEADER_IMAGE
+  const entityImageSrc = entityImage || FALLBACK_ACCOUNT_ICON
 
   return (
     <CardImageHeaderContainer>
@@ -48,6 +48,28 @@ export const CardImageHeader = ({
           alt={i18n.t('vote.vote_process_image_alt')}
         />
       </PageCardHeader>
+      
+      <EntityLogoWrapper>
+        <Image src={entityImageSrc} alt={i18n.t('vote.entity_logo_alt')} />
+      </EntityLogoWrapper>
+
+      <Grid>
+        <Column>
+          <CardH2 align={TextAlign.Center} margin="0 0 5px 0">
+            {title}
+          </CardH2>
+
+          {subtitle && (
+            <CardBody
+              color={accent1}
+              align={TextAlign.Center}
+              margin="0 0 20px 0"
+            >
+              {subtitle}
+            </CardBody>
+          )}
+        </Column>
+      </Grid>
     </CardImageHeaderContainer>
   )
 }

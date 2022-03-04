@@ -13,7 +13,18 @@ export const VoterFooter = () => {
   const { theme } = useTheme()
 
   return (
-    <FooterContainer></FooterContainer>
+    <FooterContainer>
+      <Typography variant={TypographyVariant.ExtraSmall} color={colors.lightText}>
+        {i18n.t('app.footer.powered_by')}
+      </Typography>
+      <VoterIconContainer>
+        {theme.customLogo ? (
+          <Image src={theme.customLogo} />
+        ) : (
+          <img src="/images/app/logo-mid.svg" alt="Vocdoni" />
+        )}
+      </VoterIconContainer>
+    </FooterContainer>
   )
 }
 

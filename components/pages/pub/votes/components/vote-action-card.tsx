@@ -57,7 +57,7 @@ export const VoteActionCard = ({
       case VotingState.NotStarted:
         return (
           <>
-            <Button wide disabled={disabled} omnium onClick={onClick}>
+            <Button wide disabled={disabled} positive onClick={onClick}>
               {i18n.t('vote.vote_now')}
             </Button>
           </>
@@ -65,7 +65,7 @@ export const VoteActionCard = ({
 
       case VotingState.Guest:
         return (
-          <Button wide omnium onClick={onClick}>
+          <Button wide positive onClick={onClick}>
             {i18n.t('vote.vote_now')}
           </Button>
         )
@@ -134,7 +134,7 @@ const BannerDiv = styled.div<{ positive?: boolean }>`
   padding: 16px;
   box-shadow: 0px 3px 3px rgba(180, 193, 228, 0.35);
   border-radius: 16px;
-  background-color: #F0F0F0;
+  background-color: #D3D3D3;
 
   @media ${({ theme }) => theme.screenMax.mobileL} {
     padding: 12px;
