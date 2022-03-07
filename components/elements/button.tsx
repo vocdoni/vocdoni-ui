@@ -149,10 +149,10 @@ const DefaultButton = styled(BaseButton)`
                     (border ? "padding: 9px 18px;" : "padding: 11px 20px;")}
 
     &:hover {
-        background-color: ${({omnium}) => omnium ? '#D23F00': '#F6F9FC'};
+        background-color: ${({omnium}) => omnium ? '#F4D500': '#F6F9FC'};
     }
     &:active {
-        background-color: ${({omnium}) => omnium ? '#D23F00': '#EFF1F7'};
+        background-color: ${({omnium}) => omnium ? '#F4D500': '#EFF1F7'};
     }
 `
 
@@ -163,13 +163,13 @@ const SpinnerContainer = styled.div`
 export const PositiveButton = styled(BaseButton)`
     cursor: pointer;
 
-    background: #FF6320;
+    background: #F4D500;
 
     &:hover {
-        background: #D23F00;
+        background: #F4D500;
     }
     &:active {
-        background: #D23F00;
+        background: #F4D500;
     }
 `
 

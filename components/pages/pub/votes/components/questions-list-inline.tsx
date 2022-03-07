@@ -95,7 +95,7 @@ export const QuestionsListInline = forwardRef<HTMLDivElement, IQuesListInlinePro
             {questions &&
               questions.map((question, index) => (
                 <If condition={index < 5}>
-                  <QuestionLiTwoColumns
+                  <QuestionLi
                     key={`question-${index}`}
                     active={index === questionIndex}
                   >
@@ -108,7 +108,7 @@ export const QuestionsListInline = forwardRef<HTMLDivElement, IQuesListInlinePro
                       selectedIndex={results[index]}
                       number={index+1}
                     />
-                  </QuestionLiTwoColumns>
+                  </QuestionLi>
                 </If>              
               )
             )}
@@ -116,6 +116,8 @@ export const QuestionsListInline = forwardRef<HTMLDivElement, IQuesListInlinePro
             <SubBanner>                  
               <H1WithPaddingTop>Votacions de l’elecció de membes de l’Executiva </H1WithPaddingTop>                    
             </SubBanner>
+
+            <Separator>&nbsp;</Separator>
 
             <Button onClick={selectCandidaturaA} positive large>Tota la candidatura A</Button>
             <HoritzontalSpace />
