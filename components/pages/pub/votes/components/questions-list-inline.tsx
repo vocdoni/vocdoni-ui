@@ -56,9 +56,21 @@ export const QuestionsListInline = forwardRef<HTMLDivElement, IQuesListInlinePro
       onSelect(questionNumber, choice)
     }
 
-    const selectDefaultOption = () => {
-      for(let i=0;i<16;i++){
+    const selectCandidaturaA = () => {
+      for(let i=5;i<18;i++){
         onSelect(i,0)
+      }
+    }
+
+    const selectBlanc = () => {
+      for(let i=5;i<18;i++){
+        onSelect(i,1)
+      }
+    }
+
+    const selectAbstencio = () => {
+      for(let i=5;i<18;i++){
+        onSelect(i,2)
       }
     }
 
@@ -73,20 +85,10 @@ export const QuestionsListInline = forwardRef<HTMLDivElement, IQuesListInlinePro
         <div>
           <Column>
             <SubBanner>
-              <h1>AGO</h1>
+              <h1>Votacions de l’Assemblea General Ordinaria</h1>
             </SubBanner>
 
             <br />
-
-            <If condition={false}>
-              <Button
-                onClick={selectDefaultOption}
-                positive
-                large
-              >
-                Tota la candidatura A
-              </Button>
-            </If>
           </Column>
 
           <QuestionUl>
@@ -110,16 +112,14 @@ export const QuestionsListInline = forwardRef<HTMLDivElement, IQuesListInlinePro
                 </If>              
               )
             )}
+            
+            <SubBanner>                  
+              <H1WithPaddingTop>Votacions de l’elecció de membes de l’Executiva </H1WithPaddingTop>                    
+            </SubBanner>
 
-            {questions &&
-              questions.map((question, index) => (
-                <If condition={index == 5}>
-                  <SubBanner>                  
-                    <H1WithPaddingTop>Eleccions</H1WithPaddingTop>                    
-                  </SubBanner>
-                </If>
-              )
-            )}
+            <Button onClick={selectCandidaturaA} positive large>Tota la candidatura A</Button>
+            <Button onClick={selectBlanc} positive large>Tot en Blanc</Button>
+            <Button onClick={selectAbstencio} positive large>Tot amb Abstenció</Button>
 
             <Separator>&nbsp;</Separator>
 
@@ -144,15 +144,9 @@ export const QuestionsListInline = forwardRef<HTMLDivElement, IQuesListInlinePro
               )
             )}
 
-            {questions &&
-              questions.map((question, index) => (
-                <If condition={index == 18}>
-                  <SubBanner>                  
-                    <H1WithPaddingTop>AGE</H1WithPaddingTop>                    
-                  </SubBanner>
-                </If>
-              )
-            )}
+            <SubBanner>                  
+              <H1WithPaddingTop>Votacions de l’Assemblea General Extraordiària</H1WithPaddingTop>                    
+            </SubBanner>
 
             <Separator>&nbsp;</Separator>
 

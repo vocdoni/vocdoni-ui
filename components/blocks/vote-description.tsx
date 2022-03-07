@@ -71,7 +71,27 @@ export const VoteDescription = forwardRef<HTMLDivElement, IVotePageProps>(
         </Column>
 
         <Column>
-          <MarkDownViewer content={description} />
+          <h5>Ordre del dia de l’<strong>Assemblea General Ordinaria</strong></h5>
+
+          <SimpleUl>
+            <li>1. Aprovació, si escau, de l'<strong>acta de l'anterior assemblea.</strong></li>
+            <li>2. Aprovació, si escau, de la <strong>memòria d'activitats 2021.</strong></li>
+            <li>3. Aprovació, si escau, de l'<strong>estat de comptes 2021.</strong></li>
+            <li>4. Aprovació, si escau, del <strong>projecte d'activitats 2022.</strong></li>
+            <li>5. Aprovació, si escau, del <strong>pressupost de l'entitat 2022.</strong></li>
+            <li>6. Tancament de l’urna electrònica del procés d’<strong>elecció de membres de l'Executiva</strong> que han esgotat el seu mandat (vicepresidència, secretaria i una part dels vocals)</li>
+          </SimpleUl>
+
+          <h5>Ordre del dia de l’<strong>Assemblea General Extraordinària</strong></h5>
+
+          <SimpleUl>
+            <li>1. Aprovació, si escau, de la proposta de modificació de l'<strong>article 11</strong>.</li>
+            <li>2. Aprovació, si escau, de la proposta de modificació de l'<strong>article 18</strong>.</li>
+            <li>3. Aprovació, si escau, de la proposta de modificació de l'<strong>article 41</strong>.</li>
+            <li>4. Aprovació, si escau, de la proposta de modificació de l'<strong>article 42</strong>.</li>
+            <li>5. Aprovació, si escau, de la proposta de modificació de l'<strong>article 43</strong>.</li>
+            <li>6. Aprovació, si escau, de la proposta d’incorporació de l'<strong>article 44</strong>.</li>
+          </SimpleUl>
         </Column>
 
         <Separator>&nbsp;</Separator>

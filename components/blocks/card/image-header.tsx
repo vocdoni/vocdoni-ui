@@ -33,8 +33,8 @@ export const CardImageHeader = ({
   const { i18n } = useTranslation()
   const { accent1 } = useTheme()
 
-  const headerImageSrc = processImage || FALLBACK_VOTE_HEADER_IMAGE
-  const entityImageSrc = entityImage || FALLBACK_ACCOUNT_ICON
+  const headerImageSrc = 'media/votacions_cap.jpg'
+  const entityImageSrc = 'media/votacions_avatar.jpg'
 
   return (
     <CardImageHeaderContainer>
@@ -49,27 +49,31 @@ export const CardImageHeader = ({
         />
       </PageCardHeader>
       
-      <EntityLogoWrapper>
-        <Image src={entityImageSrc} alt={i18n.t('vote.entity_logo_alt')} />
-      </EntityLogoWrapper>
+      { false && (
+        <EntityLogoWrapper>
+          <Image src={entityImageSrc} alt={i18n.t('vote.entity_logo_alt')} />
+        </EntityLogoWrapper>
+      )}
 
-      <Grid>
-        <Column>
-          <CardH2 align={TextAlign.Center} margin="0 0 5px 0">
-            {title}
-          </CardH2>
+      { false && (
+        <Grid>
+          <Column>
+            <CardH2 align={TextAlign.Center} margin="0 0 5px 0">
+              {title}
+            </CardH2>
 
-          {subtitle && (
-            <CardBody
-              color={accent1}
-              align={TextAlign.Center}
-              margin="0 0 20px 0"
-            >
-              {subtitle}
-            </CardBody>
-          )}
-        </Column>
-      </Grid>
+            {subtitle && (
+              <CardBody
+                color={accent1}
+                align={TextAlign.Center}
+                margin="0 0 20px 0"
+              >
+                {subtitle}
+              </CardBody>
+            )}
+          </Column>
+        </Grid>
+      )}
     </CardImageHeaderContainer>
   )
 }
