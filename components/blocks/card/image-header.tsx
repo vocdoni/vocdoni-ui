@@ -33,14 +33,16 @@ export const CardImageHeader = ({
   const { i18n } = useTranslation()
   const { accent1 } = useTheme()
 
-  const headerImageSrc = 'media/votacions_cap.jpg'
-  const entityImageSrc = 'media/votacions_avatar.jpg'
+  const headerImageSrc = '/media/votacions_cap.jpg'
+  const entityImageSrc = '/media/votacions_avatar.jpg'
 
   return (
     <CardImageHeaderContainer>
-      <EntityLogoWrapper>
-        <Image src={entityImageSrc} alt={i18n.t('vote.entity_logo_alt')} />
-      </EntityLogoWrapper>
+      { false && (
+        <EntityLogoWrapper>
+          <Image src={entityImageSrc} alt={i18n.t('vote.entity_logo_alt')} />
+        </EntityLogoWrapper>
+      )}
 
       <PageCardHeader>
         <Image

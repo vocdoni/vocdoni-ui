@@ -117,9 +117,9 @@ export const QuestionsListInline = forwardRef<HTMLDivElement, IQuesListInlinePro
               <H1WithPaddingTop>Votacions de l’elecció de membes de l’Executiva </H1WithPaddingTop>                    
             </SubBanner>
 
-            <Button onClick={selectCandidaturaA} positive large>Tota la candidatura A</Button>
-            <Button onClick={selectBlanc} positive large>Tot en Blanc</Button>
-            <Button onClick={selectAbstencio} positive large>Tot amb Abstenció</Button>
+            <SimpleButton onClick={selectCandidaturaA} positive>Tota la candidatura A</SimpleButton>
+            <SimpleButton onClick={selectBlanc} positive>Tot en Blanc</SimpleButton>
+            <SimpleButton onClick={selectAbstencio} positive>Tot amb Abstenció</SimpleButton>
 
             <Separator>&nbsp;</Separator>
 
@@ -309,4 +309,8 @@ const H1WithPaddingTop = styled.h1`
 const DescriptionUl = styled.ul`
   line-height: 25px;
   list-style: none;
+`
+
+const SimpleButton = styled.button`
+  margin-left: 10px;
 `

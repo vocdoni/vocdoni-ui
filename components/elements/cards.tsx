@@ -48,10 +48,6 @@ export const PageCardHeader = styled.div<{ variant?: PageCardHeaderVariant }>`
   overflow: hidden;
   max-height: 250px;
 
-  & > img {
-    margin: -45px;
-    margin-left: 0px;
-  }
 
   ${({ theme, variant }) =>
     PageCardHeaderVariantStyle[variant || PageCardHeaderVariant.Image](

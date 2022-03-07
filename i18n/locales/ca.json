@@ -29,9 +29,9 @@
             "user_language": "Idioma: {{ lang }}"
         },
         "meta": {
-            "description": "Votacions de l'Assemblea General Ordinària per presentar i validar, si s’escau, el Pla de treball i el pressupost del 2022 i renovar bona part de la Junta Directiva de l’entitat.",
+            "description": "Plataforma per la Llengua",
             "keywords": "Vot per cadena de blocs, vot mòbil, verificació universal, vot com a servei, governança descentralitzada, vot anònim, centrat en la privacitat, vot electrònic segur, vot digital a prova de manipulacions, sobirania de dades, governança resistent, eines de governança / coordinació",
-            "title": "Vota fins al 26 de febrer"
+            "title": "Votació"
         }
     },
     "backup": {
