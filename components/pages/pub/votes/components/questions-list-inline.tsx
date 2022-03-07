@@ -87,8 +87,6 @@ export const QuestionsListInline = forwardRef<HTMLDivElement, IQuesListInlinePro
             <SubBanner>
               <h1>Votacions de l’Assemblea General Ordinaria</h1>
             </SubBanner>
-
-            <br />
           </Column>
 
           <QuestionUl>

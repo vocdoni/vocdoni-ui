@@ -139,7 +139,7 @@ const DefaultButton = styled(BaseButton)`
     cursor: pointer;
     ${({ border, borderColor, theme }) => border ? "border: 2px solid " + (borderColor? borderColor: theme.lightBorder)+ ";" : ""}
     
-    background: ${({omnium}) => omnium ? '#FF6320': '#fff'};
+    background: ${({omnium}) => omnium ? '#F4D500': '#fff'};
     color: #fff;
 
     // Compensate 2px border (if applicable)

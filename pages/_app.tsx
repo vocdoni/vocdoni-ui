@@ -67,7 +67,7 @@ const VocdoniApp: FC<NextAppProps> = ({ Component, pageProps }) => {
               sizes="32x32"
             />
             <Helpscout />
-            <title>Òmnium Cultural</title>
+            <title>Plataforma per la Llengua</title>
           </Head>
 
           <Layout>
