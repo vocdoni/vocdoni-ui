@@ -117,11 +117,61 @@ export const QuestionsListInline = forwardRef<HTMLDivElement, IQuesListInlinePro
 
             <Separator>&nbsp;</Separator>
 
-            <SimpleButton onClick={selectCandidaturaA} positive large>Tota la candidatura A</SimpleButton>
-            <HoritzontalSpace />
-            <SimpleButton onClick={selectBlanc} positive large>Tot en Blanc</SimpleButton>
-            <HoritzontalSpace />
-            <SimpleButton onClick={selectAbstencio} positive large>Tot amb Abstenció</SimpleButton>
+            {( false && 
+              <div>
+                <SimpleButton onClick={selectCandidaturaA} positive large>Tota la candidatura A</SimpleButton>
+                <HoritzontalSpace />
+                <SimpleButton onClick={selectBlanc} positive large>Tot en Blanc</SimpleButton>
+                <HoritzontalSpace />
+                <SimpleButton onClick={selectAbstencio} positive large>Tot amb Abstenció</SimpleButton>
+              </div>
+            )}
+
+            <Column sm={12} md={7}>
+              <Button
+                border
+                wide
+                justify={JustifyContent.Left}
+                omnium
+                onClick={selectCandidaturaA}
+              >
+                <ButtonText>
+                  Tota la candidatura A
+                </ButtonText>
+              </Button>
+            </Column>
+
+            <Separator>&nbsp;</Separator>
+
+            <Column sm={12} md={7}>
+              <Button
+                border
+                wide
+                justify={JustifyContent.Left}
+                omnium
+                onClick={selectBlanc}
+              >
+                <ButtonText>
+                  Tot en Blanc
+                </ButtonText>
+              </Button>
+            </Column>
+
+            <Separator>&nbsp;</Separator>
+
+            <Column sm={12} md={7}>
+              <Button
+                border
+                wide
+                justify={JustifyContent.Left}
+                omnium
+                onClick={selectAbstencio}
+              >
+                <ButtonText>
+                  Tot amb Abstenció
+                </ButtonText>
+              </Button>
+            </Column>
 
             <Separator>&nbsp;</Separator>
 
@@ -315,11 +365,11 @@ const DescriptionUl = styled.ul`
 
 const SimpleButton = styled(Button)`
   @media ${({ theme }) => theme.screenMax.mobileL} {
-    min-width: 200px;
-    margin-bottom: 10px;
+    min-width: 200px !important;
+    margin-bottom: 10px !important;
     font-size: 12px !important;
     padding: 10px !important;
-    margin-left: 0px;
+    margin-left: 0px !important;
   }
 `
 

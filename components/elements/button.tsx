@@ -166,10 +166,10 @@ export const PositiveButton = styled(BaseButton)`
     background: #F4D500;
 
     &:hover {
-        background: #F4D500;
+        background: #FFC504;
     }
     &:active {
-        background: #F4D500;
+        background: #FFC504;
     }
 `
 
