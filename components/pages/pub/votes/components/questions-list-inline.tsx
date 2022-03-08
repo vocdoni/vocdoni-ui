@@ -117,16 +117,6 @@ export const QuestionsListInline = forwardRef<HTMLDivElement, IQuesListInlinePro
 
             <Separator>&nbsp;</Separator>
 
-            {( false && 
-              <div>
-                <SimpleButton onClick={selectCandidaturaA} positive large>Tota la candidatura A</SimpleButton>
-                <HoritzontalSpace />
-                <SimpleButton onClick={selectBlanc} positive large>Tot en Blanc</SimpleButton>
-                <HoritzontalSpace />
-                <SimpleButton onClick={selectAbstencio} positive large>Tot amb Abstenció</SimpleButton>
-              </div>
-            )}
-
             <Column sm={12} md={7}>
               <Button
                 border
@@ -141,8 +131,6 @@ export const QuestionsListInline = forwardRef<HTMLDivElement, IQuesListInlinePro
               </Button>
             </Column>
 
-            <Separator>&nbsp;</Separator>
-
             <Column sm={12} md={7}>
               <Button
                 border
@@ -156,8 +144,6 @@ export const QuestionsListInline = forwardRef<HTMLDivElement, IQuesListInlinePro
                 </ButtonText>
               </Button>
             </Column>
-
-            <Separator>&nbsp;</Separator>
 
             <Column sm={12} md={7}>
               <Button
