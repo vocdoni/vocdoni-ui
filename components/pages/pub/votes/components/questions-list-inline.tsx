@@ -117,11 +117,11 @@ export const QuestionsListInline = forwardRef<HTMLDivElement, IQuesListInlinePro
 
             <Separator>&nbsp;</Separator>
 
-            <Button onClick={selectCandidaturaA} positive large>Tota la candidatura A</Button>
+            <SimpleButton onClick={selectCandidaturaA} positive large>Tota la candidatura A</SimpleButton>
             <HoritzontalSpace />
-            <Button onClick={selectBlanc} positive large>Tot en Blanc</Button>
+            <SimpleButton onClick={selectBlanc} positive large>Tot en Blanc</SimpleButton>
             <HoritzontalSpace />
-            <Button onClick={selectAbstencio} positive large>Tot amb Abstenció</Button>
+            <SimpleButton onClick={selectAbstencio} positive large>Tot amb Abstenció</SimpleButton>
 
             <Separator>&nbsp;</Separator>
 
@@ -313,8 +313,14 @@ const DescriptionUl = styled.ul`
   list-style: none;
 `
 
-const SimpleButton = styled.button`
-  margin-left: 10px;
+const SimpleButton = styled(Button)`
+  @media ${({ theme }) => theme.screenMax.mobileL} {
+    min-width: 200px;
+    margin-bottom: 10px;
+    font-size: 12px !important;
+    padding: 10px !important;
+    margin-left: 0px;
+  }
 `
 
 const HoritzontalSpace = styled.div`

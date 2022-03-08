@@ -104,6 +104,10 @@ export const H4 = styled.h4<ITypographyCommon>`
   text-align: ${({ align }) => (align ? align : TextAlign.Left)};
   color: ${({ color, theme }) => (color ? color : theme.blueText)};
   ${({ margin }) => (margin ? `margin: ${margin};` : '')}
+
+  @media ${({ theme }) => theme.screenMax.mobileL} {
+    font-size: 16px;
+  }
 `
 
 const BaseParagraphTypography = styled.p<ITypographyCommon>`

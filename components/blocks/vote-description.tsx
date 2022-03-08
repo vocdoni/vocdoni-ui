@@ -65,9 +65,11 @@ export const VoteDescription = forwardRef<HTMLDivElement, IVotePageProps>(
             <TimeComment>{timeComment}</TimeComment>
           </FlexContainer>
 
-          <LogOutContainer>
-            { onLogOut && <Button small border onClick={() => onLogOut()}>{i18n.t('app.header.disconnect_account')}</Button>}
-          </LogOutContainer>
+          { false && ( 
+            <LogOutContainer>
+              { onLogOut && <Button small border onClick={() => onLogOut()}>{i18n.t('app.header.disconnect_account')}</Button>}
+            </LogOutContainer>
+          )}
         </Column>
 
         <Column>
@@ -185,7 +187,6 @@ const TimeComment = styled.div`
   margin-right: -40px;
 
   @media ${({ theme }) => theme.screenMax.mobileL} {
-    line-height:20px;
     margin-left: 20px;
     margin-right: -30px;
   }

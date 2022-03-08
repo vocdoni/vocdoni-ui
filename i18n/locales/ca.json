@@ -366,7 +366,7 @@
         "manage_your_member_base": "Gestiona els teus membres",
         "notify_image_alt": "Notifica",
         "notify_your_community": "Notifica a la teva comunitat",
-        "omnium_logo_alt": "Logo Òmnium",
+        "omnium_logo_alt": "Logo PxLl",
         "one_of_the_decisive_facts_that_let_use": "One of the decisive facts that led us to choose Vocdoni was that its platform guaranteed the participation and vote of all our members, with security, reliability and transparency in the whole process, including access and participation in the Annual General Meeting.",
         "open_source_image_alt": "Programari lliure",
         "organize_your_amg_or_board_meetings_and_results": "Organitza les teves assemblees o juntes amb la confiança que els resultats són totalment legals i la privacitat dels usuaris és respectada. Som respectuosos amb la normativa RGPD!",
@@ -504,7 +504,7 @@
         "vote_details": "Detalls del procés de votació"
     },
     "vote_question_card": {
-        "no_results_available": "Els resultats estaran disponibles el 26 de Febrer.",
+        "no_results_available": "Els resultats estaran disponibles al finalitzar la votació.",
         "number_votes": "{{ number }} vots",
         "question": "{{ number }}"
     },
