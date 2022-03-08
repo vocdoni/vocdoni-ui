@@ -2,7 +2,7 @@ import React, { forwardRef, ForwardedRef, useEffect, useState } from 'react'
 import { Choice, Question } from '@lib/types'
 import { FlexContainer, FlexJustifyContent } from '@components/elements/flex'
 import { useTranslation } from 'react-i18next'
-import { Button } from '@components/elements/button'
+import { Button, JustifyContent } from '@components/elements/button'
 import styled, { useTheme } from 'styled-components'
 
 import { Typography, TypographyVariant, TextAlign } from '@components/elements/typography'
@@ -376,4 +376,11 @@ const SimpleButton = styled(Button)`
 const HoritzontalSpace = styled.div`
   display:inline;
   margin-left: 10px;
+`
+
+const ButtonText = styled.p`
+  color: #fff;
+  font-size: 18px;
+  font-weight: 500;
+  margin: 0 20px;
 `
