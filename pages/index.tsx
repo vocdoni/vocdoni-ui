@@ -21,6 +21,7 @@ import { SliderSection } from '@components/pages/home/components/slider-section'
 import { SplitSection } from '@components/pages/home/components/section'
 import { CardDiv } from '@components/elements/cards'
 import { EmptyProviders } from '@components/pages/app/providers/empty-providers'
+import { TrackEvents, useRudderStack } from '@hooks/rudderstack'
 
 import { sizes } from 'theme/sizes'
 
@@ -28,6 +29,7 @@ import { sizes } from 'theme/sizes'
 const IndexPage = () => {
   const { i18n } = useTranslation()
   const isMobile = useIsMobile()
+  const { trackEvent } = useRudderStack()
 
   return (
     <div>
@@ -116,17 +118,6 @@ const IndexPage = () => {
         </BlockContainer>
       </Section>
 
-      <Section background='#FEFEFF'>
-        <BlockContainer>
-          <SplitSection
-            imageSrc="/images/home/section-1/computer-device.png"
-            imageAltText={i18n.t('home.computer_device_alt')}
-            subtitle={i18n.t('home.connect_with_your_social_base')}
-            title={i18n.t('home.you_only_need_one_platform')}
-            textContent={i18n.t('home.tired_of_using_a_thousand')}
-          />
-        </BlockContainer>
-      </Section>
 
       <Section>
         <BlockContainer>
@@ -157,20 +148,6 @@ const IndexPage = () => {
         </BlockContainer>
       </Section>
 
-      <Section>
-        <BlockContainer>
-          <SplitSection
-            reverse
-            imageSrc="/images/home/section-4/easy-share.png"
-            imageAltText={i18n.t('home.easy_share_image_alt')}
-            subtitle={i18n.t('home.as_easy_as_drag_and_drop')}
-            title={i18n.t('home.easy_share_documents')}
-            textContent={i18n.t(
-              'home.make_sure_your_members_have_access_to_the_financial_report'
-            )}
-          />
-        </BlockContainer>
-      </Section>
 
       <Section>
         <BlockContainer>
@@ -266,13 +243,6 @@ const IndexPage = () => {
                 variant={TypographyVariant.H1}
               >
                 {i18n.t('home.a_cutting_edge_voting_protocol')}
-              </Typography>
-              <Typography
-                variant={TypographyVariant.Small}
-              >
-                {i18n.t(
-                  'home.a_fully_anonymous_voting_system_ensuring_data_availability'
-                )}
               </Typography>
               <Typography
                 variant={TypographyVariant.Small}
@@ -378,18 +348,14 @@ const IndexPage = () => {
                     )}
                   </Typography>
 
-                  <ActionsContainer>
-                    <Button positive href={CREATE_ACCOUNT_PATH}>
-                      {i18n.t('home.get_started')}
-                    </Button>
-                    <Typography
-                      variant={TypographyVariant.Small}
-                      color={colors.accent1}
-                    >
-                      {i18n.t('home.free_until_end_2021')}
-                    </Typography>
-                  </ActionsContainer>
-                </ReadyTextContainer>
+                  <ActionContainer>
+                    <ButtonContainer>
+                      <Button wide positive href={CREATE_ACCOUNT_PATH} onClick={() => trackEvent(TrackEvents.ENTITY_CREATION_BUTTON_CLICKED)}>
+                        {i18n.t('home.try_it_for_free')}
+                      </Button>
+                    </ButtonContainer>
+                  </ActionContainer>
+                </ReadyTextContainer>                
               </Column>
 
               <Column sm={12} md={6}>
@@ -399,7 +365,7 @@ const IndexPage = () => {
                     alt={i18n.t('home.computer_with_vocdoni_alt')}
                   />
                 </ImageContainer>
-              </Column>
+              </Column>              
             </Grid>
           </ReadyToStartCard>
         </BlockContainer>
@@ -459,7 +425,6 @@ const BlockContainer = styled.div`
   padding: 0 15px;
 `
 
-
 const CuttingEdgeFeaturesContainer = styled.div`
   margin-top: 40px;
   display: flex;
@@ -469,4 +434,23 @@ const CuttingEdgeFeaturesContainer = styled.div`
     margin-right: 20px;
   }
 `
+
+const ActionContainer = styled.div`
+  display: flex;
+  align-items: center;
+
+  @media ${({ theme }) => theme.screenMax.mobileL} {
+    flex-direction: column;
+    align-items:  start;
+  }
+`
+
+const ButtonContainer = styled.div`
+  margin-right: 10px;
+
+  @media ${({ theme }) => theme.screenMax.mobileL} {
+    width: 100%;
+  }
+`
+
 export default IndexPage
