@@ -85,7 +85,7 @@ export const QuestionsListInline = forwardRef<HTMLDivElement, IQuesListInlinePro
         <div>
           <Column>
             <SubBanner>
-              <h1>Votacions de l’Assemblea General Ordinaria</h1>
+              <h1>Votacions de l’Assemblea General Ordinària</h1>
             </SubBanner>
           </Column>
 
@@ -112,7 +112,7 @@ export const QuestionsListInline = forwardRef<HTMLDivElement, IQuesListInlinePro
             )}
             
             <SubBanner>                  
-              <H1WithPaddingTop>Votacions de l’elecció de membes de l’Executiva </H1WithPaddingTop>                    
+              <H1WithPaddingTop>Votacions de l’elecció de membres de l’Executiva </H1WithPaddingTop>                    
             </SubBanner>
 
             <Separator>&nbsp;</Separator>
@@ -126,7 +126,7 @@ export const QuestionsListInline = forwardRef<HTMLDivElement, IQuesListInlinePro
                 onClick={selectCandidaturaA}
               >
                 <ButtonText>
-                  Tota la candidatura A
+                  Marca tots els noms
                 </ButtonText>
               </Button>
             </Column>
@@ -140,7 +140,7 @@ export const QuestionsListInline = forwardRef<HTMLDivElement, IQuesListInlinePro
                 onClick={selectBlanc}
               >
                 <ButtonText>
-                  Tot en Blanc
+                  Marca tota la llista en blanc
                 </ButtonText>
               </Button>
             </Column>
@@ -154,10 +154,14 @@ export const QuestionsListInline = forwardRef<HTMLDivElement, IQuesListInlinePro
                 onClick={selectAbstencio}
               >
                 <ButtonText>
-                  Tot amb Abstenció
+                  Marca tota la llista com abstenció
                 </ButtonText>
               </Button>
             </Column>
+
+            <Separator>&nbsp;</Separator>
+
+            <p>O bé selecciona manualment la teva opció preferida per a cada un dels membres de la llista.</p>
 
             <Separator>&nbsp;</Separator>
 

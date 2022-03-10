@@ -73,7 +73,7 @@ export const VoteDescription = forwardRef<HTMLDivElement, IVotePageProps>(
         </Column>
 
         <Column>
-          <h5>Ordre del dia de l’<strong>Assemblea General Ordinaria</strong></h5>
+          <h5>Ordre del dia de l’<strong>Assemblea General Ordinària</strong></h5>
 
           <SimpleUl>
             <li>1. Aprovació, si escau, de l'<strong>acta de l'anterior assemblea.</strong></li>

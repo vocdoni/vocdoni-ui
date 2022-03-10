@@ -14,7 +14,7 @@
     },
     "app": {
         "footer": {
-            "powered_by": "Powered by"
+            "powered_by": "Desenvolupat per"
         },
         "header": {
             "create_account_backup": "Copia de Seguretat",
@@ -639,7 +639,7 @@
         "you_cant_enter_contact_with_entity": "Problemes amb l'accés? contacta amb l'entitat",
         "you_got_attributed_a_voting_power_per_question": "",
         "you_need_authenticate_to_vote": "T'has d'autenticar per votar o verificar el teu vot",
-        "you_vote_has_been_submit_successfully_the_results_will_be_available": "El teu vot ha estat registrat correctament. Els resultats es faràn disponibles quan finalitzi la votació.",
+        "you_vote_has_been_submit_successfully_the_results_will_be_available": "El teu vot ha estat registrat correctament. Els resultats es faran disponibles quan finalitzi la votació.",
         "your_choice": "La teva selecció",
         "your_entity_is_being_registered": "La teva entitat ha estat registrada",
         "your_vote_has_been_registered": "El teu vot ha estat registrat correctament",

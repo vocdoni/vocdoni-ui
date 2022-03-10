@@ -14,7 +14,7 @@
     },
     "app": {
         "footer": {
-            "powered_by": "Powered by"
+            "powered_by": "Developed by"
         },
         "header": {
             "create_account_backup": "Create account backup",
