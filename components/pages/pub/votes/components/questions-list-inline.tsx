@@ -115,6 +115,8 @@ export const QuestionsListInline = forwardRef<HTMLDivElement, IQuesListInlinePro
               <H1WithPaddingTop>Votacions de l’elecció de membres de l’Executiva </H1WithPaddingTop>                    
             </SubBanner>
 
+            <p>Llista “Horitzó Llengua Normal"</p>
+
             <Separator>&nbsp;</Separator>
 
             <Column sm={12} md={7}>
@@ -167,7 +169,7 @@ export const QuestionsListInline = forwardRef<HTMLDivElement, IQuesListInlinePro
 
             {questions &&
               questions.map((question, index) => (
-                <If condition={index>=5 && index<18}>
+                <If condition={index>=5 && index<15}>
                   <QuestionLi
                     key={`question-${index}`}
                     active={index === questionIndex}
@@ -194,7 +196,7 @@ export const QuestionsListInline = forwardRef<HTMLDivElement, IQuesListInlinePro
 
             {questions &&
               questions.map((question, index) => (
-                <If condition={index>=18}>
+                <If condition={index>=15}>
                   <QuestionLi
                     key={`question-${index}`}
                     active={index === questionIndex}
