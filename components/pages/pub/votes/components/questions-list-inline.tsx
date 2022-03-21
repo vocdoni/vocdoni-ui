@@ -57,19 +57,19 @@ export const QuestionsListInline = forwardRef<HTMLDivElement, IQuesListInlinePro
     }
 
     const selectCandidaturaA = () => {
-      for(let i=5;i<18;i++){
+      for(let i=5;i<15;i++){
         onSelect(i,0)
       }
     }
 
     const selectBlanc = () => {
-      for(let i=5;i<18;i++){
+      for(let i=5;i<15;i++){
         onSelect(i,1)
       }
     }
 
     const selectAbstencio = () => {
-      for(let i=5;i<18;i++){
+      for(let i=5;i<15;i++){
         onSelect(i,2)
       }
     }
@@ -114,6 +114,8 @@ export const QuestionsListInline = forwardRef<HTMLDivElement, IQuesListInlinePro
             <SubBanner>                  
               <H1WithPaddingTop>Votacions de l’elecció de membres de l’Executiva </H1WithPaddingTop>                    
             </SubBanner>
+
+            <Separator>&nbsp;</Separator>
 
             <p>Llista “Horitzó Llengua Normal"</p>
 
