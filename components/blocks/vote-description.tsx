@@ -56,9 +56,6 @@ export const VoteDescription = forwardRef<HTMLDivElement, IVotePageProps>(
       switch (status) {
         case VotingState.Ended:
           return i18n.t('vote.your_vote_has_been_registered')
-
-        case VotingState.NotStarted:
-          return i18n.t('vote.you_can_vote_on_this_proposal')
       }
     }
 
@@ -74,7 +71,7 @@ export const VoteDescription = forwardRef<HTMLDivElement, IVotePageProps>(
     return (
       <Grid>
         <Column>
-          <FlexContainer justify={FlexJustifyContent.Start}>
+          <FlexContainer justify={FlexJustifyContent.SpaceBetween}>
             <ProcessStatusLabel status={voteStatus} />
             <TimeComment>{timeComment}</TimeComment>
             <VoteStatusText>{getTitleFromState(votingState)}</VoteStatusText>
