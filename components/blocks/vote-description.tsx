@@ -5,9 +5,6 @@ import { useTranslation } from 'react-i18next'
 
 import { VoteStatus } from '@lib/util'
 
-import { colors } from 'theme/colors'
-
-import { SectionText, TextSize } from '@components/elements/text'
 import { Button, JustifyContent, LinkTarget } from '@components/elements/button'
 import { Column, Grid } from '@components/elements/grid'
 import { ProcessStatusLabel } from '@components/blocks/process-status-label'
@@ -77,7 +74,7 @@ export const VoteDescription = forwardRef<HTMLDivElement, IVotePageProps>(
             <VoteStatusText>{getTitleFromState(votingState)}</VoteStatusText>
           </FlexContainer>
 
-          { false && ( 
+          { false && (
             <LogOutContainer>
               { onLogOut && <Button small border onClick={() => onLogOut()}>{i18n.t('app.header.disconnect_account')}</Button>}
             </LogOutContainer>
@@ -110,7 +107,7 @@ export const VoteDescription = forwardRef<HTMLDivElement, IVotePageProps>(
 
         <Separator>&nbsp;</Separator>
         <Separator>&nbsp;</Separator>
-        
+
         <When condition={attachmentUrl}>
           <Column sm={12} md={7}>
             <Button
@@ -145,7 +142,7 @@ export const VoteDescription = forwardRef<HTMLDivElement, IVotePageProps>(
               <ButtonText>{i18n.t('vote.questions_and_answers')}</ButtonText>
             </Button>
           </Column>
-        </When>       
+        </When>
 
         <When condition={hasVideo}>
           <Column>

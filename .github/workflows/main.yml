@@ -252,7 +252,7 @@ jobs:
           COLOR_PICKER: "1"
           ADVANCED_CENSUS: "1"
       - name: Set up Cloud SDK
-        uses: google-github-actions/setup-gcloud@master
+        uses: google-github-actions/setup-gcloud@v0
         with:
           service_account_key: ${{ secrets.GCP_PRODUCTION }}
           export_default_credentials: true
