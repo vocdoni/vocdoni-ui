@@ -16,6 +16,8 @@ import { When } from 'react-if'
 import { MarkDownViewer } from './mark-down-viewer'
 import { FlexContainer, FlexJustifyContent } from '@components/elements/flex'
 
+import { VotingState } from '@components/pages/pub/votes/index'
+
 interface IVotePageProps {
   description: string
   hasVideo?: boolean
@@ -26,6 +28,7 @@ interface IVotePageProps {
   timeComment: string
   onLogOut?: () => void
   onComponentMounted?: (ref: ForwardedRef<HTMLDivElement>) => void
+  votingState?: VotingState
 }
 
 export const VoteDescription = forwardRef<HTMLDivElement, IVotePageProps>(
@@ -40,6 +43,7 @@ export const VoteDescription = forwardRef<HTMLDivElement, IVotePageProps>(
       timeComment,
       onLogOut,
       onComponentMounted,
+      votingState
     }: IVotePageProps,
     ref
   ) => {
@@ -47,6 +51,16 @@ export const VoteDescription = forwardRef<HTMLDivElement, IVotePageProps>(
     useEffect(() => {
       onComponentMounted && onComponentMounted(ref)
     }, [ref])
+
+    const getTitleFromState = (status: VotingState) => {
+      switch (status) {
+        case VotingState.Ended:
+          return i18n.t('vote.your_vote_has_been_registered')
+
+        case VotingState.NotStarted:
+          return i18n.t('vote.you_can_vote_on_this_proposal')
+      }
+    }
 
     const pdfIcon = (
       <img src="/images/vote/faq.png" width="32" alt={i18n.t('vote.pdf_image_alt')} />
@@ -63,6 +77,7 @@ export const VoteDescription = forwardRef<HTMLDivElement, IVotePageProps>(
           <FlexContainer justify={FlexJustifyContent.Start}>
             <ProcessStatusLabel status={voteStatus} />
             <TimeComment>{timeComment}</TimeComment>
+            <VoteStatusText>{getTitleFromState(votingState)}</VoteStatusText>
           </FlexContainer>
 
           { false && ( 
@@ -191,6 +206,12 @@ const TimeComment = styled.div`
     margin-right: -30px;
   }
 `
+
+const VoteStatusText = styled.div`
+  line-height: 36px;
+  margin-left: 20px;
+`
+
 const SimpleUl = styled.ul`
   list-style: none;
 

@@ -297,6 +297,7 @@ export const VotingPageView = () => {
                   }
                   timeComment={dateDiffStr}
                   voteStatus={voteStatus}
+                  votingState={votingState}
                 />
               </Column>
 
