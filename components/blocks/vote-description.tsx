@@ -196,7 +196,8 @@ const TimeComment = styled.div`
   line-height: 36px;
   margin-left: 20px;
   margin-right: -40px;
-  float:left;
+  float:right;
+  margin-bottom: 20px;
 
   @media ${({ theme }) => theme.screenMax.mobileL} {
     margin-left: 20px;
