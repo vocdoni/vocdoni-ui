@@ -69,8 +69,10 @@ export const VoteDescription = forwardRef<HTMLDivElement, IVotePageProps>(
       <Grid>
         <Column>
           <FlexContainer justify={FlexJustifyContent.SpaceBetween}>
-            <ProcessStatusLabel status={voteStatus} />
-            <TimeComment>{timeComment}</TimeComment>
+            <div>
+              <ProcessStatusLabel status={voteStatus} />
+              <TimeComment>{timeComment}</TimeComment>
+            </div>
             <VoteStatusText>{getTitleFromState(votingState)}</VoteStatusText>
           </FlexContainer>
 
@@ -81,6 +83,16 @@ export const VoteDescription = forwardRef<HTMLDivElement, IVotePageProps>(
           )}
         </Column>
 
+        <When condition={hasVideo}>
+          <Column>
+            <LiveStreamVideoContainer ref={ref}>
+              {liveStreamUrl && (
+                <ReactPlayer url={liveStreamUrl} width="100%" />
+              )}
+            </LiveStreamVideoContainer>
+          </Column>
+        </When>
+
         <Column>
           <h5>Ordre del dia de l’<strong>Assemblea General Ordinària</strong></h5>
 
@@ -90,7 +102,7 @@ export const VoteDescription = forwardRef<HTMLDivElement, IVotePageProps>(
             <li>3. Aprovació, si escau, de l'<strong>estat de comptes 2021.</strong></li>
             <li>4. Aprovació, si escau, del <strong>projecte d'activitats 2022.</strong></li>
             <li>5. Aprovació, si escau, del <strong>pressupost de l'entitat 2022.</strong></li>
-            <li>6. Tancament de l’urna electrònica del procés d’<strong>elecció de membres de l'Executiva</strong> que han esgotat el seu mandat (vicepresidència, secretaria i una part dels vocals)</li>
+            <li>6. Tancament de l’urna electrònica del procés d’<strong>elecció de membres de l'Executiva</strong> que han esgotat el seu mandat (vicepresidència, secretaria i una part dels vocals).</li>
           </SimpleUl>
 
           <h5>Ordre del dia de l’<strong>Assemblea General Extraordinària</strong></h5>
@@ -143,16 +155,6 @@ export const VoteDescription = forwardRef<HTMLDivElement, IVotePageProps>(
             </Button>
           </Column>
         </When>
-
-        <When condition={hasVideo}>
-          <Column>
-            <LiveStreamVideoContainer ref={ref}>
-              {liveStreamUrl && (
-                <ReactPlayer url={liveStreamUrl} width="100%" />
-              )}
-            </LiveStreamVideoContainer>
-          </Column>
-        </When>
       </Grid>
     )
   }
@@ -194,6 +196,7 @@ const TimeComment = styled.div`
   line-height: 36px;
   margin-left: 20px;
   margin-right: -40px;
+  float:left;
 
   @media ${({ theme }) => theme.screenMax.mobileL} {
     margin-left: 20px;

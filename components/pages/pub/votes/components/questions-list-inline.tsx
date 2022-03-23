@@ -117,7 +117,7 @@ export const QuestionsListInline = forwardRef<HTMLDivElement, IQuesListInlinePro
 
             <Separator>&nbsp;</Separator>
 
-            <p>Llista “Horitzó Llengua Normal"</p>
+            <h5>Llista “Horitzó Llengua Normal"</h5>
 
             <Separator>&nbsp;</Separator>
 
@@ -190,8 +190,8 @@ export const QuestionsListInline = forwardRef<HTMLDivElement, IQuesListInlinePro
               )
             )}
 
-            <SubBanner>                  
-              <H1WithPaddingTop>Votacions de l’Assemblea General Extraordiària</H1WithPaddingTop>                    
+            <SubBanner>
+              <H1WithPaddingTop>Votacions de l’Assemblea General Extraordinària</H1WithPaddingTop>                    
             </SubBanner>
 
             <Separator>&nbsp;</Separator>

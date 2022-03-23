@@ -42,6 +42,7 @@ const BaseProcessStatusLabel = styled.span`
   min-width: 120px;
   text-align: center;
   color: ${({theme}) => theme.white}
+  float:left;
 `
 
 const ActiveProcessStatusLabel = styled(BaseProcessStatusLabel)`
