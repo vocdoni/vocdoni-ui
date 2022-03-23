@@ -97,7 +97,6 @@
     "create_new_proposal_in_only_5_minutes": "Create a voting process in only 5 minutes",
     "create_proposal": "Create a voting process",
     "entity": "Entity",
-    "if_you_lose_access_to_your_passphrase_you_will_not_be_able_to_manage_your_entity_anymore": "If you lose access to your password, you will not be able to manage your entity anymore",
     "loading": "Loading",
     "manage_your_community_and_schedule_new_votes": "Manage your entity and schedule votes",
     "no_proposals_yet": "No voting processes yet!",
@@ -105,9 +104,7 @@
     "process_ended": "Process ended",
     "process_paused": "Process paused",
     "upcoming_votes": "Upcoming votes",
-    "vote_results": "Ended votes",
-    "your_account_is_unsafe": "Your entity's account is unsafe!"
-  },
+    "vote_results": "Ended votes"  },
   "dates": {
     "ended_a_minute_ago": "Ended a minute ago",
     "ended_an_hour_ago": "Ended an hour ago",
@@ -878,13 +875,6 @@
       "All voting processes are <strong>GDPR-compliant</strong>, as we respect user privacy and personal data, and <strong>legally compliant</strong>, as results are <strong>end-to-end auditable</strong>.",
       "Our cutting-edge voting protocol can process more than <strong>40k votes per minute</strong>, and we are always improving this and implementing new features.",
       "You can notify your community about a vote with our <strong>one-click email system</strong> that sends individualized links to members, enabling them to easily access the process."
-    ],
-    "entity_creation": [
-      "Vocdoni leverages a multi-layer decentralized technology stack to register your entity and record votes, including the Ethereum-L2 Gnosis chain, <strong>Vochain</strong> – our custom Tendermint blockchain, and IPFS. This ensures <strong>security</strong> and <strong>end-to-end auditability</strong>, and may take some time.",
-      "We are one of the few providers of blockchain voting, and the only end-to-end <strong>verifiable</strong> and <strong>anonymous-capable</strong> solution.",
-      "You can upload a spreadsheet or .csv of your voter census or member list via drag-and-drop, and easily <strong>manage your membership base</strong> from the Vocdoni dashboard.",
-      "A built-in consent mechanism generates a signature to indicate how voter data should be used, allowing organizations to manage processes in a <strong>legally and GDPR-compliant way</strong>.",
-      "Our cutting-edge voting protocol can process more than <strong>40k votes per minute</strong>, and we are always improving this and implementing new features."
     ]
   }
 }

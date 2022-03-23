@@ -86,7 +86,6 @@
         "create_new_proposal_in_only_5_minutes": "Create a voting process in only 5 minutes",
         "create_proposal": "Create a voting process",
         "entity": "Entity",
-        "if_you_lose_access_to_your_passphrase_you_will_not_be_able_to_manage_your_entity_anymore": "If you lose access to your password, you will not be able to manage your entity anymore",
         "loading": "Loading",
         "manage_your_community_and_schedule_new_votes": "Manage your entity and schedule votes",
         "no_proposals_yet": "No voting processes yet!",
@@ -94,8 +93,7 @@
         "process_ended": "Process ended",
         "process_paused": "Process paused",
         "upcoming_votes": "Upcoming votes",
-        "vote_results": "Ended votes",
-        "your_account_is_unsafe": "Your entity's account is unsafe!"
+        "vote_results": "Ended votes"
     },
     "dates": {
         "ended_a_minute_ago": "Ended a minute ago",

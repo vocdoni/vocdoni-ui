@@ -6,7 +6,7 @@ import i18n from '../../i18n'
 
 import { Column, Grid } from '@components/elements/grid'
 import { PageCard } from '@components/elements/cards'
-import { SignInForm, SignInImport } from '@components/pages/login'
+import { SignInForm } from '@components/pages/login'
 import { Account, AccountStatus } from '@lib/types'
 import { useDbAccounts } from '@hooks/use-db-accounts'
 import { useWallet } from '@hooks/use-wallet'
@@ -20,14 +20,16 @@ const SignInPage = () => {
   const [loginError, setLoginError] = useState<string | null>(null)
   const router = useRouter()
 
-  const [verifyingCredentials, setVerifyingCredentials] = useState<boolean>(
-    false
-  )
+  const [verifyingCredentials, setVerifyingCredentials] =
+    useState<boolean>(false)
 
   const hasAccounts = !!dbAccounts?.length
   const colSmSize = hasAccounts ? 6 : 12
 
-  const handlerSubmit = (account: Account, passphrase: string): Promise<any> => {
+  const handlerSubmit = (
+    account: Account,
+    passphrase: string
+  ): Promise<any> => {
     setVerifyingCredentials(true)
     setLoginError(null)
     try {
@@ -64,10 +66,6 @@ const SignInPage = () => {
             {!laptop && <LoginDivider />}
           </Column>
         ) : null}
-
-        <Column lg={colSmSize}>
-          <SignInImport hasAccount={hasAccounts} />
-        </Column>
       </Grid>
     </PageCard>
   )

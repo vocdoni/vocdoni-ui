@@ -8,7 +8,6 @@ import React, {
 import { COOKIES_PATH, VOTING_PATH } from '@const/routes'
 import { useRouter } from 'next/router'
 
-import { useHelpCenter } from './help-center'
 import { useRudderStack } from '@hooks/rudderstack'
 
 const COOKIES_STORE_KEY = 'cookies-acceptance'
@@ -33,9 +32,8 @@ enum CookiesStatus {
 }
 
 export function useCookies() {
-  const { accepted, hide, acceptCookies, rejectCookies } = useContext(
-    CookiesContext
-  )
+  const { accepted, hide, acceptCookies, rejectCookies } =
+    useContext(CookiesContext)
 
   return { acceptCookies, rejectCookies, accepted, hide }
 }
@@ -54,7 +52,6 @@ export const UseCookiesProvider: React.FC<IUseCookiesProvider> = ({
 
   const router = useRouter()
   const { trackLoad, trackReset, trackPage } = useRudderStack()
-  const { show } = useHelpCenter()
 
   useEffect(() => {
     if (router.pathname.includes(COOKIES_PATH)) setHide(true)
@@ -82,8 +79,7 @@ export const UseCookiesProvider: React.FC<IUseCookiesProvider> = ({
   }, [router.pathname])
 
   const acceptCookies = () => {
-    if (!router.pathname.includes(VOTING_PATH)) show()
-    setAccepted(true)
+    if (!router.pathname.includes(VOTING_PATH)) setAccepted(true)
     trackLoad()
     trackPage()
     setHide(true)

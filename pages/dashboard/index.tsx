@@ -15,7 +15,6 @@ import { useWallet } from '@hooks/use-wallet'
 import { useProcessesFromAccount } from '@hooks/use-processes'
 import { getVoteStatus, VoteStatus } from '@lib/util'
 
-
 // NOTE: This page uses a custom Layout. See below.
 
 const DashboardPage = () => {
@@ -24,27 +23,27 @@ const DashboardPage = () => {
   const { blockHeight } = useBlockHeight()
   const { metadata: entityMetadata } = useEntity(wallet?.address)
 
-  const {
-    processes,
-    loadingProcessList,
-    loadingProcessesDetails,
-  } = useProcessesFromAccount(wallet?.address)
+  const { processes, loadingProcessList, loadingProcessesDetails } =
+    useProcessesFromAccount(wallet?.address)
   // NOTE: processes is a singleton map (for efficiency reasons). This means that no re-render will occur based on `processes`.
   //       Use processIds and loadingProcessList + loadingProcessesDetails instead.
 
   const hasDbAccountAndWallet = wallet?.address && dbAccounts.length
   const account: Account | null = hasDbAccountAndWallet
     ? dbAccounts.find(
-      (iterateAccount) => iterateAccount.address == wallet.address
-    )
+        (iterateAccount) => iterateAccount.address == wallet.address
+      )
     : null
-  let initialActiveItem = useRef<ProcessTypes>(ProcessTypes.ActiveVotes);
+  let initialActiveItem = useRef<ProcessTypes>(ProcessTypes.ActiveVotes)
   const sortEndBlock = (process1: SummaryProcess, process2: SummaryProcess) => {
     return process1.summary.endBlock - process2.summary.endBlock
-  } 
-  const sortEndDescBlock = (process1: SummaryProcess, process2: SummaryProcess) => {
+  }
+  const sortEndDescBlock = (
+    process1: SummaryProcess,
+    process2: SummaryProcess
+  ) => {
     return process2.summary.endBlock - process1.summary.endBlock
-  } 
+  }
 
   const activeVotes: SummaryProcess[] = []
   const votesResults: SummaryProcess[] = []
@@ -59,7 +58,7 @@ const DashboardPage = () => {
     switch (voteStatus) {
       case VoteStatus.Canceled:
         continue
-        
+
       case VoteStatus.Active:
         activeVotes.push(proc)
         break
@@ -73,10 +72,10 @@ const DashboardPage = () => {
         break
 
       default:
-        break;
+        break
     }
   }
-  
+
   activeVotes.sort(sortEndBlock)
   votesResults.sort(sortEndDescBlock)
   upcomingVotes.sort(sortEndDescBlock)
@@ -87,16 +86,15 @@ const DashboardPage = () => {
     initialActiveItem.current = activeVotes.length
       ? ProcessTypes.ActiveVotes
       : votesResults.length
-        ? ProcessTypes.VoteResults
-        : upcomingVotes.length
-          ? ProcessTypes.UpcomingVotes
-          : ProcessTypes.ActiveVotes
-
+      ? ProcessTypes.VoteResults
+      : upcomingVotes.length
+      ? ProcessTypes.UpcomingVotes
+      : ProcessTypes.ActiveVotes
   }, [loadingProcessList, loadingProcessesDetails])
 
   return (
     <>
-      <DashboardHeader entity={entityMetadata} hasBackup={account?.hasBackup} />
+      <DashboardHeader entity={entityMetadata} />
 
       <DashboardActivitySummary
         loading={loadingProcessList || loadingProcessesDetails}
@@ -119,6 +117,6 @@ const DashboardPage = () => {
 }
 
 // Defining the custom layout to use
-DashboardPage["Layout"] = LayoutEntity
+DashboardPage['Layout'] = LayoutEntity
 
 export default DashboardPage

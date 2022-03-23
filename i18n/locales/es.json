@@ -97,7 +97,6 @@
     "create_new_proposal_in_only_5_minutes": "Crear un nuevo proceso de votación en tan solo 5 minutos",
     "create_proposal": "Crear un nuevo proceso de votación",
     "entity": "Entidad",
-    "if_you_lose_access_to_your_passphrase_you_will_not_be_able_to_manage_your_entity_anymore": "Si pierdes la contraseña no podrás volver a acceder a tu entidad",
     "loading": "Cargando",
     "manage_your_community_and_schedule_new_votes": "Gestiona tu entidad y programa votaciones fácilmente",
     "no_proposals_yet": "Todavía no hay procesos de votación activos!",
@@ -105,9 +104,7 @@
     "process_ended": "Proceso finalizado",
     "process_paused": "Proceso pausado",
     "upcoming_votes": "Próximas votaciones",
-    "vote_results": "Votaciones con resultados",
-    "your_account_is_unsafe": "Tu cuenta de organización no está protegida!"
-  },
+    "vote_results": "Votaciones con resultados"  },
   "dates": {
     "ended_a_minute_ago": "Finalizado hace un minuto",
     "ended_an_hour_ago": "Finalizado hace una hora",
@@ -793,13 +790,6 @@
       "Todos los procesos cumplen la legislación vigente en materia de <strong>protección de datos</strong>, respetando la privacidad del usuario. Los resultados son <strong>auditables</strong> y por lo tanto <strong>legales</strong>.",
       "Nuestro inovador protocolo de votación puede procesar más de <strong>40k votos por minuto</strong> y continuamos trabajando para mejorar estas cifras y añadir nuevas funcionalidades.",
       "Puedes avisar a tu comunidad sobre una votación gracias a nuestro sistema <strong>one-click email</strong> que envía links individualizados a los miembros permitiendoles acceder fácilmente al proceso de votación."
-    ],
-    "entity_creation": [
-      "Vocdoni aprovecha un grupo de tecnologías descentralizadas para asegurar la <strong>integridad</strong> de la votacion y los resultados, incluyendo Ethereum-L2 Gnosis chain, <strong>Vochain</strong> – nuestra propia blockchain basada en Tendermint y IPFS.",
-      "Somos uno de los pocos proveedores de votación con blockchain y el únicon con una solucionada <strong>verificable</strong> y <strong>100% anónima</strong>.",
-      "Puedes subir una hoja de cálculo o un archivo .csv con con tu censo de votantes o lista de miembros con drag-and-drop y <strong>gestionar tu lista de miembros</strong> de manera fácil desde el dashboard de Vocdoni.",
-      "Un mecanismo de consentimiento incorporado en Vocdoni genera una firma para indicar como se deben utilizar los datos del votante, esto permite a las organizaciones crear procesos de votación <strong>legales y nque cumplan la legislación en materia de protección de datos</strong>.",
-      "Nuestro inovador protocolo de votación puede procesar más de <strong>40k votos por minuto</strong> y continuamos trabajando para mejorar estas cifras y añadir nuevas funcionalidades."
     ]
   }
 }

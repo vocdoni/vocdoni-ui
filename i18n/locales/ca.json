@@ -97,7 +97,6 @@
         "create_new_proposal_in_only_5_minutes": "Crea un procés de votació en només 5 minuts",
         "create_proposal": "Crea un procés de votació",
         "entity": "Entitat",
-        "if_you_lose_access_to_your_passphrase_you_will_not_be_able_to_manage_your_entity_anymore": "Si perds la contrasenya, no podràs tornar a accedir a la teva entitat",
         "loading": "Carregant",
         "manage_your_community_and_schedule_new_votes": "Gestiona la teva entitat i programa processos de votació fàcilment",
         "no_proposals_yet": "Encara no hi ha processos de votació!",
@@ -105,9 +104,7 @@
         "process_ended": "Procés finalitzat",
         "process_paused": "Procés aturat",
         "upcoming_votes": "Properes votacions",
-        "vote_results": "Resultats del procés de votació",
-        "your_account_is_unsafe": "El teu compte d'entitat no està protegit!"
-    },
+        "vote_results": "Resultats del procés de votació"    },
     "dates": {
         "ended_a_minute_ago": "Finalitzat fa un minut",
         "ended_an_hour_ago": "Finalitzat fa una hora",
@@ -793,13 +790,6 @@
           "Tots els processos compleixen la legislació vigent en matèria de <strong>protecció de dades</strong>, respectant la privadesa de l'usuari. Els resultats són <strong>auditables</strong> i per tant <strong>legals</strong >.",
           "El nostre protocol de votació innovador pot processar més de <strong>40k vots per minut</strong> i continuem treballant per millorar aquestes xifres i afegir noves funcionalitats.",
           "Pots avisar la teva comunitat sobre una votació gràcies al nostre sistema <strong>one-click email</strong> que envia links individualitzats als membres permetent accedir fàcilment al procés de votació."
-        ],
-        "entity_creation": [
-          "Vocdoni aprofita un grup de tecnologies descentralitzades per assegurar la <strong>integritat</strong> de la votació i els resultats, incloent Ethereum-L2 Gnosis chain, <strong>Vochain</strong> – la nostra pròpia blockchain basada en Tendermint i IPFS .",
-          "Som un dels pocs proveïdors de votació amb blockchain i l'únic amb una solucionada <strong>verificable</strong> i <strong>100% anònima</strong>.",
-          "Pots pujar un full de càlcul o un fitxer .csv amb el teu cens de votants o llista de membres amb drag-and-drop i <strong>gestionar la teva llista de membres</strong> de manera fàcil des del dashboard de Vocdoni. ",
-          "Un mecanisme de consentiment incorporat a Vocdoni genera una signatura per indicar com s'han d'utilitzar les dades del votant, això permet a les organitzacions crear processos de votació <strong>legals i que compleixin la legislació en matèria de protecció de dades</strong> .",
-          "El nostre protocol de votació innovador pot processar més de <strong>40k vots per minut</strong> i continuem treballant per millorar aquestes xifres i afegir noves funcionalitats."
         ]
     }
 }

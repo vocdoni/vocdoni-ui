@@ -10,14 +10,13 @@ import { Router } from 'next/router'
 import 'react-circular-progressbar/dist/styles.css'
 import 'react-datetime/css/react-datetime.css'
 
-import { ThemeContextProvider } from '@hooks/use-theme';
+import { ThemeContextProvider } from '@hooks/use-theme'
 
 import { ANALYTICS_KEY } from '@const/env'
 import { FixedGlobalStyle, theme } from '../theme'
 
 import { DefaultLayout } from '@components/pages/app/layout/default'
 import { DefaultProviders } from '@components/pages/app/providers/default-providers'
-import { Helpscout } from '@components/pages/app/external-dependencies/helpscout'
 import { Ruddlestack } from '@components/pages/app/external-dependencies/ruddlestack'
 import { CookiesBanner } from '@components/blocks/cookies-banner'
 import { useTranslation } from 'react-i18next'
@@ -30,7 +29,8 @@ type NextAppProps = AppInitialProps & {
 const VocdoniApp: FC<NextAppProps> = ({ Component, pageProps }) => {
   const { i18n } = useTranslation()
   const appFullTitle = process.env.APP_TITLE + ' - ' + i18n.t('app.meta.title')
-  const appImage = 'https://vocdoni.app/images/home/section-1/computer-device.png'
+  const appImage =
+    'https://vocdoni.app/images/home/section-1/computer-device.png'
   const commitSHA = process.env.COMMIT_SHA
 
   // If the current page component defined a custom layout, use it
@@ -66,7 +66,6 @@ const VocdoniApp: FC<NextAppProps> = ({ Component, pageProps }) => {
               href="/images/common/favicon.ico"
               sizes="16x16"
             />
-            <Helpscout />
             <title>{appFullTitle}</title>
           </Head>
 
