@@ -23,7 +23,7 @@ if (VOCDONI_ENVIRONMENT !== 'prod') {
   backend = backend.replace('manager.', `manager.${VOCDONI_ENVIRONMENT}.`)
   explorer = `https://explorer.${VOCDONI_ENVIRONMENT}.vocdoni.net`
 } else {
-  backend = 'backend.vocdoni.net'
+  backend = 'backend.vocdoni.net/api/manager'
 }
 
 module.exports = {
