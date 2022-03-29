@@ -139,7 +139,7 @@ const DefaultButton = styled(BaseButton)`
     cursor: pointer;
     ${({ border, borderColor, theme }) => border ? "border: 2px solid " + (borderColor? borderColor: theme.lightBorder)+ ";" : ""}
     
-    background: ${({omnium}) => omnium ? '#F4D500': '#fff'};
+    background: rgba(0, 0, 0, 0) linear-gradient(106.26deg, rgb(163, 236, 147) 5.73%, rgb(70, 196, 194) 93.83%) repeat scroll 0% 0%;
     color: #fff;
 
     // Compensate 2px border (if applicable)
@@ -149,10 +149,10 @@ const DefaultButton = styled(BaseButton)`
                     (border ? "padding: 9px 18px;" : "padding: 11px 20px;")}
 
     &:hover {
-        background-color: ${({omnium}) => omnium ? '#F4D500': '#F6F9FC'};
+        background-color: rgba(0, 0, 0, 0) linear-gradient(106.26deg, rgba(163, 236, 147, 0.9) 5.73%, rgba(70, 196, 194, 0.9) 93.83%) repeat scroll 0% 0%;
     }
     &:active {
-        background-color: ${({omnium}) => omnium ? '#F4D500': '#EFF1F7'};
+        background-color: rgba(0, 0, 0, 0) linear-gradient(106.26deg, rgba(163, 236, 147, 0.8) 5.73%, rgba(70, 196, 194, 0.8) 93.83%) repeat scroll 0% 0%;
     }
 `
 
@@ -163,13 +163,13 @@ const SpinnerContainer = styled.div`
 export const PositiveButton = styled(BaseButton)`
     cursor: pointer;
 
-    background: #F4D500;
+    background: rgba(0, 0, 0, 0) linear-gradient(106.26deg, rgb(163, 236, 147) 5.73%, rgb(70, 196, 194) 93.83%) repeat scroll 0% 0%;
 
     &:hover {
-        background: #FFC504;
+        background: rgba(0, 0, 0, 0) linear-gradient(106.26deg, rgba(163, 236, 147, 0.9) 5.73%, rgba(70, 196, 194, 0.9) 93.83%) repeat scroll 0% 0%;
     }
     &:active {
-        background: #FFC504;
+        background: rgba(0, 0, 0, 0) linear-gradient(106.26deg, rgba(163, 236, 147, 0.8) 5.73%, rgba(70, 196, 194, 0.8) 93.83%) repeat scroll 0% 0%;
     }
 `
 

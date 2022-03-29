@@ -56,24 +56,6 @@ export const QuestionsListInline = forwardRef<HTMLDivElement, IQuesListInlinePro
       onSelect(questionNumber, choice)
     }
 
-    const selectCandidaturaA = () => {
-      for(let i=5;i<15;i++){
-        onSelect(i,0)
-      }
-    }
-
-    const selectBlanc = () => {
-      for(let i=5;i<15;i++){
-        onSelect(i,1)
-      }
-    }
-
-    const selectAbstencio = () => {
-      for(let i=5;i<15;i++){
-        onSelect(i,2)
-      }
-    }
-
     return (
       <QuestionsContainer>
         {voteWeight && (
@@ -85,14 +67,13 @@ export const QuestionsListInline = forwardRef<HTMLDivElement, IQuesListInlinePro
         <div>
           <Column>
             <SubBanner>
-              <h1>Votacions de l’Assemblea General Ordinària</h1>
+              <h1>Pregunta</h1>
             </SubBanner>
           </Column>
 
           <QuestionUl>
             {questions &&
               questions.map((question, index) => (
-                <If condition={index < 5}>
                   <QuestionLi
                     key={`question-${index}`}
                     active={index === questionIndex}
@@ -107,113 +88,6 @@ export const QuestionsListInline = forwardRef<HTMLDivElement, IQuesListInlinePro
                       number={index+1}
                     />
                   </QuestionLi>
-                </If>              
-              )
-            )}
-            
-            <SubBanner>                  
-              <H1WithPaddingTop>Votacions de l’elecció de membres de l’Executiva </H1WithPaddingTop>                    
-            </SubBanner>
-
-            <Separator>&nbsp;</Separator>
-
-            <h3>Llista “Horitzó Llengua Normal"</h3>
-
-            <Separator>&nbsp;</Separator>
-
-            <Column sm={12} md={7}>
-              <Button
-                border
-                wide
-                justify={JustifyContent.Left}
-                omnium
-                onClick={selectCandidaturaA}
-              >
-                <ButtonText>
-                  Marca tots els noms
-                </ButtonText>
-              </Button>
-            </Column>
-
-            <Column sm={12} md={7}>
-              <Button
-                border
-                wide
-                justify={JustifyContent.Left}
-                omnium
-                onClick={selectBlanc}
-              >
-                <ButtonText>
-                  Marca tota la llista en blanc
-                </ButtonText>
-              </Button>
-            </Column>
-
-            <Column sm={12} md={7}>
-              <Button
-                border
-                wide
-                justify={JustifyContent.Left}
-                omnium
-                onClick={selectAbstencio}
-              >
-                <ButtonText>
-                  Marca tota la llista com abstenció
-                </ButtonText>
-              </Button>
-            </Column>
-
-            <Separator>&nbsp;</Separator>
-
-            <p>O bé selecciona manualment la teva opció preferida per a cada un dels membres de la llista.</p>
-
-            <Separator>&nbsp;</Separator>
-
-            {questions &&
-              questions.map((question, index) => (
-                <If condition={index>=5 && index<15}>
-                  <QuestionLi
-                    key={`question-${index}`}
-                    active={index === questionIndex}
-                  >
-                    <QuestionCard
-                      onSelectChoice={(selectedValue) =>
-                        handleChoice(index, selectedValue)
-                      }
-                      question={question}
-                      questionIndex={index}
-                      selectedIndex={results[index]}
-                      number={index+1}
-                    />
-                  </QuestionLi>
-                </If>
-              )
-            )}
-
-            <SubBanner>
-              <H1WithPaddingTop>Votacions de l’Assemblea General Extraordinària</H1WithPaddingTop>                    
-            </SubBanner>
-
-            <Separator>&nbsp;</Separator>
-
-            {questions &&
-              questions.map((question, index) => (
-                <If condition={index>=15}>
-                  <QuestionLi
-                    key={`question-${index}`}
-                    active={index === questionIndex}
-                  >
-                    <QuestionCard
-                      onSelectChoice={(selectedValue) =>
-                        handleChoice(index, selectedValue)
-                      }
-                      question={question}
-                      questionIndex={index}
-                      selectedIndex={results[index]}
-                      number={index+1}
-                    />
-                  </QuestionLi>
-                </If>
               )
             )}
           </QuestionUl>
@@ -344,7 +218,7 @@ const Separator = styled.div`
 `
 
 const SubBanner = styled.div`
-  color: #F4D500;
+  color: #4ac6bf;
   text-align: left;
 `
 const H1WithPaddingTop = styled.h1`
