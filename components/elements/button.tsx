@@ -139,7 +139,7 @@ const DefaultButton = styled(BaseButton)`
     cursor: pointer;
     ${({ border, borderColor, theme }) => border ? "border: 2px solid " + (borderColor? borderColor: theme.lightBorder)+ ";" : ""}
     
-    background: rgba(0, 0, 0, 0) linear-gradient(106.26deg, rgb(163, 236, 147) 5.73%, rgb(70, 196, 194) 93.83%) repeat scroll 0% 0%;
+    background: #fff;
     color: #fff;
 
     // Compensate 2px border (if applicable)

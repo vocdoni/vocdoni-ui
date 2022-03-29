@@ -29,7 +29,7 @@
             "user_language": "Idioma: {{ lang }}"
         },
         "meta": {
-            "description": "Plataforma per la Llengua",
+            "description": "Bellpuig",
             "keywords": "Vot per cadena de blocs, vot mòbil, verificació universal, vot com a servei, governança descentralitzada, vot anònim, centrat en la privacitat, vot electrònic segur, vot digital a prova de manipulacions, sobirania de dades, governança resistent, eines de governança / coordinació",
             "title": "Votació"
         }
