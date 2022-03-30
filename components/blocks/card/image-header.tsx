@@ -60,16 +60,6 @@ export const CardImageHeader = ({
           <CardH2 align={TextAlign.Center} margin="0 0 5px 0">
             {title}
           </CardH2>
-
-          {subtitle && (
-            <CardBody
-              color={accent1}
-              align={TextAlign.Center}
-              margin="0 0 20px 0"
-            >
-              {subtitle}
-            </CardBody>
-          )}
         </Column>
       </Grid>
     </CardImageHeaderContainer>
@@ -80,19 +70,25 @@ const CardImageHeaderContainer = styled.div``
 
 const CardH2 = styled(H2)`
   margin: 0 0 8px 0;
+  font-size: 32px;
+  line-heihgt: 44px;
+  font-weight: 400;
+
 
   @media ${({ theme }) => theme.screenMax.tabletL} {
-    font-size: 30px;
+    font-size: 28px;
     line-height: 36px;
   }
 
   @media ${({ theme }) => theme.screenMax.tablet} {
-    font-size: 24px;
-    line-height: 28px;
+    font-size: 18px;
+    line-height: 26px;
   }
 
   @media ${({ theme }) => theme.screenMax.mobileL} {
-    text-align: left;
+    font-size: 16px;
+    line-heihgt: 22px;
+    font-weight: 600;
   }
 `
 
@@ -110,7 +106,7 @@ const EntityLogoWrapper = styled.div`
   overflow: hidden;
   height: 84px;
   display: flex;
-  margin: -72px auto 40px;
+  margin: -72px auto 0px;
   border: solid 1px ${({ theme }) => theme.white};
   margin-bottom:40px;
   text-align: center;

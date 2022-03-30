@@ -137,6 +137,9 @@ export const VoteDescription = forwardRef<HTMLDivElement, IVotePageProps>(
             </LiveStreamVideoContainer>
           </Column>
         </When>
+
+        <Separator>&nbsp;</Separator>
+        <Separator>&nbsp;</Separator>
       </Grid>
     )
   }
