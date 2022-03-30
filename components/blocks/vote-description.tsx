@@ -119,7 +119,7 @@ export const VoteDescription = forwardRef<HTMLDivElement, IVotePageProps>(
               href={discussionUrl}
               target={LinkTarget.Blank}
               justify={JustifyContent.Left}
-              positve
+              positive
             >
               <ButtonText>{i18n.t('vote.questions_and_answers')}</ButtonText>
             </Button>
