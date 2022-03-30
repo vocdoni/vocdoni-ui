@@ -50,32 +50,28 @@ export const CardImageHeader = ({
           alt={i18n.t('vote.vote_process_image_alt')}
         />
       </PageCardHeader>
-      
     
       <EntityLogoWrapper>
         <Image src={entityImageSrc} alt={i18n.t('vote.entity_logo_alt')} />
       </EntityLogoWrapper>
       
+      <Grid>
+        <Column>
+          <CardH2 align={TextAlign.Center} margin="0 0 5px 0">
+            {title}
+          </CardH2>
 
-      { false && (
-        <Grid>
-          <Column>
-            <CardH2 align={TextAlign.Center} margin="0 0 5px 0">
-              {title}
-            </CardH2>
-
-            {subtitle && (
-              <CardBody
-                color={accent1}
-                align={TextAlign.Center}
-                margin="0 0 20px 0"
-              >
-                {subtitle}
-              </CardBody>
-            )}
-          </Column>
-        </Grid>
-      )}
+          {subtitle && (
+            <CardBody
+              color={accent1}
+              align={TextAlign.Center}
+              margin="0 0 20px 0"
+            >
+              {subtitle}
+            </CardBody>
+          )}
+        </Column>
+      </Grid>
     </CardImageHeaderContainer>
   )
 }
@@ -114,14 +110,15 @@ const EntityLogoWrapper = styled.div`
   overflow: hidden;
   height: 84px;
   display: flex;
-  margin: 0px auto 0px;
+  margin: -72px auto 40px;
   border: solid 1px ${({ theme }) => theme.white};
   margin-bottom:40px;
+  text-align: center;
+  display: block;
 
   & > img {
     max-height: 100%;
     max-width: 100%;
-    background-color: #fff;
   }
 
   @media ${({ theme }) => theme.screenMax.mobileL} {

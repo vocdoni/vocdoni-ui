@@ -81,9 +81,7 @@ export const VoteDescription = forwardRef<HTMLDivElement, IVotePageProps>(
               { onLogOut && <Button small border onClick={() => onLogOut()}>{i18n.t('app.header.disconnect_account')}</Button>}
             </LogOutContainer>
           )}
-        </Column>
-
-        
+        </Column>        
 
         <Column>
           <MarkDownViewer content={description} />

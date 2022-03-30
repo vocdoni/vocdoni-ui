@@ -30,9 +30,10 @@ const MarkdownWrapper = styled.div`
   }
 
   & p {
-    margin: 0 0.4em;
+    margin: 0 0.4em 24px;
     font-size: 16px;
-    line-height: 24px;
+    line-height: 32px;
+    text-align: justify;
   }
 
   & blockquote {
