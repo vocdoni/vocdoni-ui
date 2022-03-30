@@ -66,7 +66,9 @@ export const CardImageHeader = ({
   )
 }
 
-const CardImageHeaderContainer = styled.div``
+const CardImageHeaderContainer = styled.div`
+  border-radius: 25px;
+`
 
 const CardH2 = styled(H2)`
   margin: 0 0 8px 0;

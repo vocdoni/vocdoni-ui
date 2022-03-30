@@ -101,6 +101,10 @@ const LoginFieldset = styled(Fieldset)`
 `
 
 const SignInFormCard = styled(PageCard)`
+  border-radius: 25px;
+  border: 1px solid rgba(204, 204, 204, 0.10);
+  box-shadow: rgba(223, 223, 223, 0.5) -1px 0px 15px 0px;
+
   @media ${({ theme }) => theme.screenMax.mobileL} {
     margin: -21px -16px 0 -16px;
   }
