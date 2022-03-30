@@ -99,7 +99,7 @@ export const VoteDescription = forwardRef<HTMLDivElement, IVotePageProps>(
               href={attachmentUrl}
               target={LinkTarget.Blank}
               justify={JustifyContent.Left}
-              omnium
+              positive
             >
               <ButtonText>
                 {i18n.t('vote.access_to_the_documentation')}
@@ -119,7 +119,7 @@ export const VoteDescription = forwardRef<HTMLDivElement, IVotePageProps>(
               href={discussionUrl}
               target={LinkTarget.Blank}
               justify={JustifyContent.Left}
-              omnium
+              positve
             >
               <ButtonText>{i18n.t('vote.questions_and_answers')}</ButtonText>
             </Button>

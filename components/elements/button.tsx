@@ -139,8 +139,7 @@ const DefaultButton = styled(BaseButton)`
     cursor: pointer;
     ${({ border, borderColor, theme }) => border ? "border: 2px solid " + (borderColor? borderColor: theme.lightBorder)+ ";" : ""}
     
-    background: rgba(0, 0, 0, 0) linear-gradient(106.26deg, rgba(163, 236, 147, 0.9) 5.73%, rgba(70, 196, 194, 0.9) 93.83%) repeat scroll 0% 0%;
-    color: #fff;
+    background: ${props => props.theme.white};
 
     // Compensate 2px border (if applicable)
     ${({ large, small, border }) =>
@@ -149,10 +148,10 @@ const DefaultButton = styled(BaseButton)`
                     (border ? "padding: 9px 18px;" : "padding: 11px 20px;")}
 
     &:hover {
-        background-color: rgba(0, 0, 0, 0) linear-gradient(106.26deg, rgba(163, 236, 147, 0.9) 5.73%, rgba(70, 196, 194, 0.9) 93.83%) repeat scroll 0% 0%;
+        background-color: ${props => props.theme.lightBg};
     }
     &:active {
-        background-color: rgba(0, 0, 0, 0) linear-gradient(106.26deg, rgba(163, 236, 147, 0.8) 5.73%, rgba(70, 196, 194, 0.8) 93.83%) repeat scroll 0% 0%;
+        background-color: ${props => props.theme.lightBg2};
     }
 `
 
