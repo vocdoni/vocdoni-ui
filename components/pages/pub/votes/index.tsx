@@ -253,7 +253,7 @@ export const VotingPageView = () => {
 
   const showInlineQuestions = 
     votingState !== VotingState.Guest &&
-    (voteStatus === 0 || voteStatus === VoteStatus.Upcoming)
+    voteStatus === 0
 
   const showResults =
     votingState === VotingState.Guest || voteStatus === VoteStatus.Ended
@@ -384,10 +384,30 @@ export const VotingPageView = () => {
               voteWeight={voteWeight}
               onSelect={votingMethods.onSelect}
               onFinishVote={handleFinishVote}
-              isEnabled={voteStatus === 0}
             />
           </Then>
         </If>
+        
+        {(voteStatus === VoteStatus.Upcoming && !hasVoted && votingState !== VotingState.Guest) &&
+          processInfo?.metadata?.questions.map(
+            (question: Question, index: number) => (
+              <VoteQuestionCard
+                questionIdx={index}
+                key={index}
+                question={question}
+                hasVoted={hasVoted}
+                totalVotes={totalVotes}
+                result={results?.questions[index]}
+                processStatus={processInfo?.state?.status}
+                selectedChoice={choices.length > index ? choices[index] : -1}
+                readOnly={true}
+                onSelectChoice={(selectedChoice) => {
+                  votingMethods.onSelect(index, selectedChoice)
+                }}
+              />
+            )
+          )
+        }
 
         <If condition={hasVoted && !showResults}>
           <Then>
@@ -415,7 +435,8 @@ export const VotingPageView = () => {
                 }}
               />
             )
-          )}
+          )
+        }
 
         <If condition={showDescription && totalVotes > 0 && !showInlineQuestions}>
           <Then>

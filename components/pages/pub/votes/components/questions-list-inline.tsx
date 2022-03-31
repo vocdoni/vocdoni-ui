@@ -23,7 +23,6 @@ interface IQuesListInlineProps {
   onSelect: (questionIndex: number, value: number) => void
   onFinishVote: (results: number[]) => void
   onComponentMounted?: (ref: ForwardedRef<HTMLDivElement>) => void
-  isEnabled?: boolean
 }
 
 //export const QuestionsListInline = (HTMLDivElement, IQuesListInlineProps) => {
@@ -35,8 +34,7 @@ export const QuestionsListInline = forwardRef<HTMLDivElement, IQuesListInlinePro
       voteWeight,
       onSelect,
       onFinishVote,
-      onComponentMounted,
-      isEnabled
+      onComponentMounted
     }: IQuesListInlineProps,
     ref
   ) => {
@@ -88,28 +86,25 @@ export const QuestionsListInline = forwardRef<HTMLDivElement, IQuesListInlinePro
                       questionIndex={index}
                       selectedIndex={results[index]}
                       number={index+1}
-                      isEnabled
                     />
                   </QuestionLi>
               )
             )}
           </QuestionUl>
+          
+          <ButtonsActionContainer justify={FlexJustifyContent.Center}>            
+            <Button
+              onClick={finishVote}
+              positive
+              disabled={(results.length < questions?.length || results.includes(undefined))}
+              large
+            >
+              {i18n.t('votes.questions_list.finish_voting')}
+            </Button>
+          </ButtonsActionContainer>
 
-          <If condition={isEnabled}>
-            <ButtonsActionContainer justify={FlexJustifyContent.Center}>            
-              <Button
-                onClick={finishVote}
-                positive
-                disabled={(results.length < questions?.length || results.includes(undefined))}
-                large
-              >
-                {i18n.t('votes.questions_list.finish_voting')}
-              </Button>
-            </ButtonsActionContainer>
-
-            <If condition={(results.length < questions?.length || results.includes(undefined) || false)}>
-              <Typography margin='20px 0px' align={TextAlign.Center} color='#888' variant={TypographyVariant.ExtraSmall}>Has de contestar totes les votacions per poder finalitzar el procés. N'has respost {results.filter(x => x !== undefined).length} de {questions?.length}.</Typography>            
-            </If>
+          <If condition={(results.length < questions?.length || results.includes(undefined) || false)}>
+            <Typography margin='20px 0px' align={TextAlign.Center} color='#888' variant={TypographyVariant.ExtraSmall}>Has de contestar totes les votacions per poder finalitzar el procés. N'has respost {results.filter(x => x !== undefined).length} de {questions?.length}.</Typography>            
           </If>
         </div>
 
