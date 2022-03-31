@@ -12,6 +12,7 @@ interface IQuestionProps {
   onSelectChoice: (choiceIndex: number) => void
   selectedIndex: number,
   number?: number
+  disabled?: boolean
 }
 
 export const QuestionCard = ({
@@ -20,31 +21,51 @@ export const QuestionCard = ({
   onSelectChoice,
   selectedIndex,
   number,
+  disabled
 }: IQuestionProps) => {
   return (
     <QuestionCardContainer border>
+
       <Typography variant={TypographyVariant.H4} margin="0">
         {number}. {question.title.default}
       </Typography>
+
       {question.description && (
         <Typography variant={TypographyVariant.Small}>
           {question.description.default}
         </Typography>
       )}
 
-      <OptionsContainer>
-        {question.choices.map((option: Choice, index) => (
-          <Radio
-            name={`question-${questionIndex}`}
-            key={index}
-            // value={option.value.toString()}
-            checked={option.value === selectedIndex}
-            onClick={() => onSelectChoice(option.value)}
-          >
-            {option.title.default}
-          </Radio>
-        ))}
-      </OptionsContainer>
+      {!disabled && (
+        <OptionsContainer>
+          {question.choices.map((option: Choice, index) => (        
+              <Radio
+                name={`question-${questionIndex}`}
+                key={index}
+                // value={option.value.toString()}
+                checked={option.value === selectedIndex}
+                onClick={() => onSelectChoice(option.value)}
+              >
+                {option.title.default}
+              </Radio>
+          ))}
+        </OptionsContainer>
+      )}
+
+      {disabled && (
+        <OptionsContainer>
+          {question.choices.map((option: Choice, index) => (        
+              <input type='radio'
+                name={`question-${questionIndex}`}
+                key={index}
+                disabled
+              >
+                <label>{option.title.default}</label>
+              </input>
+          ))}
+        </OptionsContainer>
+      )}
+
     </QuestionCardContainer>
   )
 }
