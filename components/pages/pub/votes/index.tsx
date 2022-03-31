@@ -372,6 +372,20 @@ export const VotingPageView = () => {
             </div>
           </FixedButtonContainer>
         )}
+
+        <If condition={showInlineQuestions && !hasVoted}>
+          <Then>
+            <QuestionsListInline
+              onComponentMounted={handleVideoPosition}
+              ref={votingVideoContainerRef}
+              results={choices}
+              questions={processInfo?.metadata?.questions}
+              voteWeight={voteWeight}
+              onSelect={votingMethods.onSelect}
+              onFinishVote={handleFinishVote}
+            />
+          </Then>
+        </If>
         
         {(voteStatus === VoteStatus.Upcoming && !hasVoted && votingState !== VotingState.Guest) &&
           processInfo?.metadata?.questions.map(
