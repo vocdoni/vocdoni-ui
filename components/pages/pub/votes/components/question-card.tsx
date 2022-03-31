@@ -12,7 +12,7 @@ interface IQuestionProps {
   onSelectChoice: (choiceIndex: number) => void
   selectedIndex: number,
   number?: number
-  disabled?: boolean
+  isDisabled?: boolean
 }
 
 export const QuestionCard = ({
@@ -21,7 +21,7 @@ export const QuestionCard = ({
   onSelectChoice,
   selectedIndex,
   number,
-  disabled
+  isDisabled
 }: IQuestionProps) => {
   return (
     <QuestionCardContainer border>
@@ -36,7 +36,7 @@ export const QuestionCard = ({
         </Typography>
       )}
 
-      {!disabled && (
+      {!isDisabled && (
         <OptionsContainer>
           {question.choices.map((option: Choice, index) => (        
               <Radio
@@ -52,16 +52,10 @@ export const QuestionCard = ({
         </OptionsContainer>
       )}
 
-      {disabled && (
+      {isDisabled && (
         <OptionsContainer>
           {question.choices.map((option: Choice, index) => (        
-              <input type='radio'
-                name={`question-${questionIndex}`}
-                key={index}
-                disabled
-              >
-                <label>{option.title.default}</label>
-              </input>
+              <label>{option.title.default}</label>
           ))}
         </OptionsContainer>
       )}

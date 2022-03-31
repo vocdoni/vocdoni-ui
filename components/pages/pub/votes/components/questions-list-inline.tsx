@@ -23,7 +23,7 @@ interface IQuesListInlineProps {
   onSelect: (questionIndex: number, value: number) => void
   onFinishVote: (results: number[]) => void
   onComponentMounted?: (ref: ForwardedRef<HTMLDivElement>) => void
-  disabled: boolean
+  isDisabled?: boolean
 }
 
 //export const QuestionsListInline = (HTMLDivElement, IQuesListInlineProps) => {
@@ -36,7 +36,7 @@ export const QuestionsListInline = forwardRef<HTMLDivElement, IQuesListInlinePro
       onSelect,
       onFinishVote,
       onComponentMounted,
-      disabled
+      isDisabled
     }: IQuesListInlineProps,
     ref
   ) => {
@@ -88,7 +88,7 @@ export const QuestionsListInline = forwardRef<HTMLDivElement, IQuesListInlinePro
                       questionIndex={index}
                       selectedIndex={results[index]}
                       number={index+1}
-                      disabled
+                      isDisabled
                     />
                   </QuestionLi>
               )
