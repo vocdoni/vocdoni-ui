@@ -384,7 +384,7 @@ export const VotingPageView = () => {
               voteWeight={voteWeight}
               onSelect={votingMethods.onSelect}
               onFinishVote={handleFinishVote}
-              isDisabled={voteStatus !== 0}
+              isEnabled={voteStatus === 0}
             />
           </Then>
         </If>
