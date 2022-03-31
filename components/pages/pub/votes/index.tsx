@@ -252,8 +252,7 @@ export const VotingPageView = () => {
     votingState === VotingState.Guest
 
   const showInlineQuestions = 
-    votingState !== VotingState.Guest &&
-    voteStatus === 0
+    votingState !== VotingState.Guest && voteStatus === 0
 
   const showResults =
     votingState === VotingState.Guest || voteStatus === VoteStatus.Ended
@@ -373,21 +372,28 @@ export const VotingPageView = () => {
             </div>
           </FixedButtonContainer>
         )}
-
-        <If condition={showInlineQuestions && !hasVoted}>
-          <Then>
-            <QuestionsListInline
-              onComponentMounted={handleVideoPosition}
-              ref={votingVideoContainerRef}
-              results={choices}
-              questions={processInfo?.metadata?.questions}
-              voteWeight={voteWeight}
-              onSelect={votingMethods.onSelect}
-              onFinishVote={handleFinishVote}
-            />
-          </Then>
-        </If>
         
+        {(voteStatus === VoteStatus.Upcoming && !hasVoted && votingState !== VotingState.Guest) &&
+          processInfo?.metadata?.questions.map(
+            (question: Question, index: number) => (
+              <VoteQuestionCard
+                questionIdx={index}
+                key={index}
+                question={question}
+                hasVoted={hasVoted}
+                totalVotes={totalVotes}
+                result={results?.questions[index]}
+                processStatus={processInfo?.state?.status}
+                selectedChoice={choices.length > index ? choices[index] : -1}
+                readOnly={true}
+                onSelectChoice={(selectedChoice) => {
+                  votingMethods.onSelect(index, selectedChoice)
+                }}
+              />
+            )
+          )
+        }
+
         <If condition={hasVoted && !showResults}>
           <Then>
             <VoteRegisteredLgContainer>
