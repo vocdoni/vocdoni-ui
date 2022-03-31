@@ -33,7 +33,6 @@ export const QuestionCard = ({
           {question.description.default}
         </Typography>
       )}
-
     
       <OptionsContainer>
         {question.choices.map((option: Choice, index) => (        
@@ -48,7 +47,6 @@ export const QuestionCard = ({
             </Radio>
         ))}
       </OptionsContainer>
-
     </QuestionCardContainer>
   )
 }

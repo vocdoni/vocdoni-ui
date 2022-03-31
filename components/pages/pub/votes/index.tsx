@@ -388,27 +388,6 @@ export const VotingPageView = () => {
           </Then>
         </If>
         
-        {(voteStatus === VoteStatus.Upcoming && !hasVoted && votingState !== VotingState.Guest) &&
-          processInfo?.metadata?.questions.map(
-            (question: Question, index: number) => (
-              <VoteQuestionCard
-                questionIdx={index}
-                key={index}
-                question={question}
-                hasVoted={hasVoted}
-                totalVotes={totalVotes}
-                result={results?.questions[index]}
-                processStatus={processInfo?.state?.status}
-                selectedChoice={choices.length > index ? choices[index] : -1}
-                readOnly={true}
-                onSelectChoice={(selectedChoice) => {
-                  votingMethods.onSelect(index, selectedChoice)
-                }}
-              />
-            )
-          )
-        }
-
         <If condition={hasVoted && !showResults}>
           <Then>
             <VoteRegisteredLgContainer>
