@@ -139,7 +139,7 @@ const DefaultButton = styled(BaseButton)`
     cursor: pointer;
     ${({ border, borderColor, theme }) => border ? "border: 2px solid " + (borderColor? borderColor: theme.lightBorder)+ ";" : ""}
     
-    background: ${props => props.theme.white};
+    background: ${({omnium}) => omnium ? 'rgba(0, 0, 0, 0) linear-gradient(206.26deg, rgb(121, 196, 105) 5.73%, rgb(70, 196, 194) 93.83%) repeat scroll 0% 0%' : '#fff'};
 
     // Compensate 2px border (if applicable)
     ${({ large, small, border }) =>
@@ -148,10 +148,10 @@ const DefaultButton = styled(BaseButton)`
                     (border ? "padding: 9px 18px;" : "padding: 11px 20px;")}
 
     &:hover {
-        background-color: ${props => props.theme.lightBg};
+        background-color: ${({omnium}) => omnium ? 'rgba(0, 0, 0, 0) linear-gradient(206.26deg, rgba(163, 236, 147, 0.9) 5.73%, rgba(70, 196, 194, 0.9) 93.83%) repeat scroll 0% 0%': '#F6F9FC'};
     }
     &:active {
-        background-color: ${props => props.theme.lightBg2};
+        background-color: ${({omnium}) => omnium ? 'rgba(0, 0, 0, 0) linear-gradient(206.26deg, rgba(163, 236, 147, 0.9) 5.73%, rgba(70, 196, 194, 0.9) 93.83%) repeat scroll 0% 0%': '#EFF1F7'};
     }
 `
 

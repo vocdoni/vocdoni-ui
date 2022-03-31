@@ -108,9 +108,8 @@ const EntityLogoWrapper = styled.div`
   overflow: hidden;
   height: 84px;
   display: flex;
-  margin: -72px auto 0px;
+  margin: -72px auto 10px;
   border: solid 1px ${({ theme }) => theme.white};
-  margin-bottom:40px;
   text-align: center;
   display: block;
 

@@ -99,7 +99,7 @@ export const VoteDescription = forwardRef<HTMLDivElement, IVotePageProps>(
               href={attachmentUrl}
               target={LinkTarget.Blank}
               justify={JustifyContent.Left}
-              positive
+              omnium
             >
               <ButtonText>
                 {i18n.t('vote.access_to_the_documentation')}

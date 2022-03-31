@@ -253,7 +253,7 @@ export const VotingPageView = () => {
 
   const showInlineQuestions = 
     votingState !== VotingState.Guest &&
-    voteStatus === 0
+    (voteStatus === 0 || voteStatus === VoteStatus.Upcoming)
 
   const showResults =
     votingState === VotingState.Guest || voteStatus === VoteStatus.Ended
