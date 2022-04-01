@@ -5,9 +5,7 @@ import { MessageAlert } from '../../../blocks/msg-alert'
 import { LoadingAlert } from '../../../blocks/loading-alert'
 
 import { VoteHeader } from '../header/voter'
-import { VoterFooter } from '../footer/voter'
 // import { useRouter } from 'next/router'
-
 
 const LayoutContainer = styled.div`
   ${({ theme }) => `padding: 20px ${theme.margins.mobile.horizontal} 120px;`}
@@ -31,8 +29,6 @@ export const LayoutVoter = ({ children }) => {
       <VoteHeader />
 
       <LayoutContainer>{children}</LayoutContainer>
-
-      <VoterFooter />
     </>
   )
 }

@@ -37,7 +37,7 @@ const PageCardHeaderVariantStyle = {
 
 export const PageCard = styled.div`
   background-color: ${({ theme }) => theme.white};
-  padding: 32px;
+  padding: 50px;
   border-radius: 16px;
 `
 
@@ -55,14 +55,11 @@ export const PageCardHeader = styled.div<{ variant?: PageCardHeaderVariant }>`
   max-height: 250px;
 
   ${({ theme, variant }) =>
-    PageCardHeaderVariantStyle[variant || PageCardHeaderVariant.Image](
-      theme,
-    )}
-  
+    PageCardHeaderVariantStyle[variant || PageCardHeaderVariant.Image](theme)}
+
   @media ${({ theme }) => theme.screenMax.mobileL} {
     border-radius: 0;
   }
-    
 `
 
 export const Card = ({ span, sm, md, lg, xl, border, ...props }: CardProps) => (

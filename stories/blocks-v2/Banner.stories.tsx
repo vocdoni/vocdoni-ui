@@ -1,8 +1,8 @@
-import React, { Children } from "react";
+import React, { Children } from 'react'
 
-import { Row, Col, Card, Text, Banner } from "@components/elements-v2";
+import { Row, Col, Card, Text, Banner } from '@components/elements-v2'
 import { LightningSlashIcon } from '@components/elements-v2/icons'
-import { ComponentStory } from "@storybook/react";
+import { ComponentStory } from '@storybook/react'
 export default {
   title: 'Blocks V2/Banner',
   component: Banner,
@@ -24,17 +24,17 @@ Playground.args = {
   children: 'This is the banner title',
   titleProps: {
     size: 'md',
-    weight: 'bold'
+    weight: 'bold',
   },
   subtitleProps: {
     size: 'xs',
     weight: 'regular',
-    children: "This is the the subtitle"
+    children: 'This is the the subtitle',
   },
-  image: <img src="/images/vote/authenticate-banner-image.svg" />,
+  image: <img src="/images/vote/authenticate-banner-image.jpg" />,
   buttonProps: {
-    variant: "primary",
-    children: "Button",
+    variant: 'primary',
+    children: 'Button',
   },
 }
 Authenticate.args = {
@@ -42,17 +42,17 @@ Authenticate.args = {
   children: 'You are not authenticated!',
   titleProps: {
     size: 'sm',
-    weight: 'bold'
+    weight: 'bold',
   },
   subtitleProps: {
     size: 'md',
     weight: 'regular',
-    children: "Authenticate with your credentials to vote."
+    children: 'Authenticate with your credentials to vote.',
   },
-  image: <img src="/images/vote/authenticate-banner-image.svg" />,
+  image: <img src="/images/vote/authenticate-banner-image.jpg" />,
   buttonProps: {
-    variant: "primary",
-    children: "Authenticate",
+    variant: 'primary',
+    children: 'Authenticate',
   },
 }
 Disconnect.args = {
@@ -60,13 +60,13 @@ Disconnect.args = {
   children: `You are connected as: <b>aa...aa / bb...bb / c...@dddd.ee</b>`,
   titleProps: {
     size: 'sm',
-    weight: 'regular'
+    weight: 'regular',
   },
-  image: <img src="/images/vote/authenticate-banner-image.svg" />,
+  image: <img src="/images/vote/authenticate-banner-image.jpg" />,
   buttonProps: {
-    variant: "white",
-    children: "Disconnect",
-    iconRight: <LightningSlashIcon />
+    variant: 'white',
+    children: 'Disconnect',
+    iconRight: <LightningSlashIcon />,
   },
 }
 
@@ -76,22 +76,20 @@ Playground.argTypes = {
       type: 'select',
       options: {
         noImage: '',
-        withImage: <img src="/images/vote/authenticate-banner-image.svg" />
-      }
-    }
+        withImage: <img src="/images/vote/authenticate-banner-image.jpg" />,
+      },
+    },
   },
   buttonProps: {
     control: {
       type: 'select',
       options: {
-        "No Button": '',
-        "With Button": {
-          variant: "primary",
-          children: "Button",
-        }
-      }
-    }
+        'No Button': '',
+        'With Button': {
+          variant: 'primary',
+          children: 'Button',
+        },
+      },
+    },
   },
 }
-
-

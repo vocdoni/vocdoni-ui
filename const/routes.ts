@@ -1,6 +1,6 @@
 // ADMIN
-export const ENTITY_SIGN_IN_PATH = '/login'
-export const ENTITY_FORGOT_PASSPHRASE_PATH = '/login'
+export const ENTITY_SIGN_IN_PATH = '/'
+export const ENTITY_FORGOT_PASSPHRASE_PATH = '/'
 export const DASHBOARD_PATH = '/dashboard'           // TODO: entity/dashboard
 export const PAGE_ENTITY = '/entity/#/{entityId}'
 export const EDIT_ENTITY = '/entity/edit'

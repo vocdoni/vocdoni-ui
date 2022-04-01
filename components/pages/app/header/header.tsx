@@ -12,7 +12,6 @@ import { sizes } from '../../../../theme/sizes'
 import { Typography, TypographyVariant } from '@components/elements/typography'
 import { useTranslation } from 'react-i18next'
 
-
 interface IHeaderProps {
   hasReadyAccount: boolean
   children?: ReactNode
@@ -21,23 +20,23 @@ interface IHeaderProps {
 export const Header = ({ hasReadyAccount, children }: IHeaderProps) => {
   const isMobile = useIsMobile()
   const { i18n } = useTranslation()
-  const [openMobileMenu, setOpenMobileMenu] = useState(false);
+  const [openMobileMenu, setOpenMobileMenu] = useState(false)
 
   const LINKS: HeaderLink[] = [
     {
       url: DASHBOARD_PATH,
-      name: i18n.t("links.dashboard"),
+      name: i18n.t('links.dashboard'),
       external: false,
       logged: true,
-      guest: false
+      guest: false,
     },
-    {
-      url: 'https://blog.vocdoni.io',
-      name: i18n.t("links.blog"),
-      external: true,
-      logged: true,
-      guest: true
-    },
+    // {
+    //   url: 'https://blog.vocdoni.io',
+    //   name: i18n.t("links.blog"),
+    //   external: true,
+    //   logged: true,
+    //   guest: true
+    // },
     // {
     //   url: PRICING_PATH,
     //   name: i18n.t("links.pricing"),
@@ -45,51 +44,57 @@ export const Header = ({ hasReadyAccount, children }: IHeaderProps) => {
     //   logged: false,
     //   guest: true
     // },
-    {
-      url: 'https://docs.vocdoni.io',
-      name: i18n.t("links.docs"),
-      external: true,
-      logged: true,
-      guest: true
-    },
-    {
-      // url: ABOUT_PATH,
-      url: "https://vocdoni.io",
-      name: i18n.t("links.about"),
-      external: false,
-      logged: false,
-      guest: true
-    },
-    {
-      url: 'https://help.aragon.org/collection/54-vocdoni-user-guide',
-      name: i18n.t("links.help"),
-      external: true,
-      logged: true,
-      guest: true
-    },
-    {
-      url: 'https://discord.gg/8p8NSD4e2n',
-      name: i18n.t("links.support"),
-      external: true,
-      logged: false,
-      guest: false
-    },
+    // {
+    //   url: 'https://docs.vocdoni.io',
+    //   name: i18n.t("links.docs"),
+    //   external: true,
+    //   logged: true,
+    //   guest: true
+    // },
+    // {
+    //   // url: ABOUT_PATH,
+    //   url: "https://vocdoni.io",
+    //   name: i18n.t("links.about"),
+    //   external: false,
+    //   logged: false,
+    //   guest: true
+    // },
+    // {
+    //   url: 'https://help.aragon.org/collection/54-vocdoni-user-guide',
+    //   name: i18n.t("links.help"),
+    //   external: true,
+    //   logged: true,
+    //   guest: true
+    // },
+    // {
+    //   url: 'https://discord.gg/8p8NSD4e2n',
+    //   name: i18n.t("links.support"),
+    //   external: true,
+    //   logged: false,
+    //   guest: false
+    // },
   ]
 
-  const links = hasReadyAccount ? LINKS.filter(link => link.logged) : LINKS.filter(link => link.guest)
+  const links = hasReadyAccount
+    ? LINKS.filter((link) => link.logged)
+    : LINKS.filter((link) => link.guest)
 
   return (
     <>
       <HeaderContainer>
         <ListContainer>
-          <Link href={hasReadyAccount ? DASHBOARD_PATH : "/"} passHref>
-            <HomeLink target='_self'><img src="/media/logo-full.svg" alt="Vocdoni" /></HomeLink>
+          <Link href={hasReadyAccount ? DASHBOARD_PATH : '/'} passHref>
+            <HomeLink target="_self">
+              <img src="/media/logo_coec.svg" alt="Coec" />
+            </HomeLink>
           </Link>
 
           <MenuItemsContainer>
             <Unless condition={isMobile}>
               {links.map((link) => (
-                <LinkItem {...link} key={link.name}>{link.name}</LinkItem>
+                <LinkItem {...link} key={link.name}>
+                  {link.name}
+                </LinkItem>
               ))}
             </Unless>
           </MenuItemsContainer>
@@ -98,24 +103,26 @@ export const Header = ({ hasReadyAccount, children }: IHeaderProps) => {
         <MobileMenuContainer showMenu={openMobileMenu}>
           {links.map((link) => (
             <MenuItem key={link.name}>
-              <LinkItem
-                {...link}
-                onClick={() => setOpenMobileMenu(false)}
-              >
-                <Typography variant={TypographyVariant.Subtitle1}>{link.name}</Typography>
+              <LinkItem {...link} onClick={() => setOpenMobileMenu(false)}>
+                <Typography variant={TypographyVariant.Subtitle1}>
+                  {link.name}
+                </Typography>
               </LinkItem>
             </MenuItem>
           ))}
-          <MobileMenuActionsContainer onClick={() => setOpenMobileMenu(false)}>{children}</MobileMenuActionsContainer>
+          <MobileMenuActionsContainer onClick={() => setOpenMobileMenu(false)}>
+            {children}
+          </MobileMenuActionsContainer>
         </MobileMenuContainer>
 
-        {isMobile && <MenuIcon menuState={openMobileMenu} onClickMenu={setOpenMobileMenu} />}
-
-        {!isMobile && (
-          <RightContainer>
-            {children}
-          </RightContainer>
+        {isMobile && (
+          <MenuIcon
+            menuState={openMobileMenu}
+            onClickMenu={setOpenMobileMenu}
+          />
         )}
+
+        {!isMobile && <RightContainer>{children}</RightContainer>}
       </HeaderContainer>
     </>
   )
@@ -180,7 +187,7 @@ const ListItem = styled.div`
   margin: 0 16px;
 
   a {
-    color: ${({ theme }) => theme.text}
+    color: ${({ theme }) => theme.text};
   }
 `
 
@@ -189,7 +196,7 @@ const HomeLink = styled.a`
 
   & > img {
     margin-top: 6px;
-    height: 45px;
+    height: 30px;
   }
 `
 const MobileMenuActionsContainer = styled.div`
@@ -198,14 +205,14 @@ const MobileMenuActionsContainer = styled.div`
   right: 0;
   left: 0;
   padding: 20px;
-  
+
   & > a {
     width: 100%;
   }
 `
-const MobileMenuContainer = styled.div<{ showMenu: boolean, }>`
+const MobileMenuContainer = styled.div<{ showMenu: boolean }>`
   display: none;
-  background: linear-gradient(180deg, #f0ffde 20.98%,#e0ffff 73.1%);
+  background: linear-gradient(180deg, #cde2f1 20.98%, #e0ffff 73.1%);
   position: fixed;
   width: 100%;
   top: 0;
@@ -218,11 +225,11 @@ const MobileMenuContainer = styled.div<{ showMenu: boolean, }>`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    visibility: ${({ showMenu }) => showMenu ? 'visible' : 'hidden'};
-    height: ${({ showMenu }) => showMenu ? '100vh' : '0'};;
-    top: ${({ showMenu }) => showMenu ? '0' : '-100%'};
-  
-    -webkit-transition: all  0.5s ease-in-out;
+    visibility: ${({ showMenu }) => (showMenu ? 'visible' : 'hidden')};
+    height: ${({ showMenu }) => (showMenu ? '100vh' : '0')};
+    top: ${({ showMenu }) => (showMenu ? '0' : '-100%')};
+
+    -webkit-transition: all 0.5s ease-in-out;
     -moz-transition: all 0.5s ease-in-out;
     -o-transition: all 0.5s ease-in-out;
     transition: all 0.5s ease-in-out;
@@ -241,32 +248,24 @@ const Section = styled.div`
 `
 
 interface HeaderLink {
-  name: string;
-  url: string;
-  external?: boolean;
-  logged?: boolean;
-  guest?: boolean;
+  name: string
+  url: string
+  external?: boolean
+  logged?: boolean
+  guest?: boolean
 }
 
 interface ILinkItemProps {
-  url: string;
-  children: ReactNode;
-  external?: boolean;
-  onClick?: (event: MouseEvent<HTMLAnchorElement>) => void;
+  url: string
+  children: ReactNode
+  external?: boolean
+  onClick?: (event: MouseEvent<HTMLAnchorElement>) => void
 }
 
-const LinkItem = ({
-  url,
-  external,
-  onClick,
-  children
-}: ILinkItemProps) => (
+const LinkItem = ({ url, external, onClick, children }: ILinkItemProps) => (
   <ListItem>
     <Link href={url} passHref>
-      <a
-        onClick={onClick}
-        target={external ? '_blank' : '_self'}
-      >
+      <a onClick={onClick} target={external ? '_blank' : '_self'}>
         {children}
       </a>
     </Link>

@@ -5,7 +5,13 @@ import { useTranslation } from 'react-i18next'
 import { HelpText } from './help-text'
 import FileLoader from './FileLoader'
 
-import { Input, InputPassword, ISelectOption, Select, Textarea } from '../elements/inputs'
+import {
+  Input,
+  InputPassword,
+  ISelectOption,
+  Select,
+  Textarea,
+} from '../elements/inputs'
 import { SectionTitle } from '../elements/text'
 
 type BaseForGroupProps = {
@@ -173,42 +179,50 @@ export const InputFormGroup = formGroupHOC(Input)
 export const InputPasswordFormGroup = formGroupHOC(InputPassword)
 export const TextareaFormGroup = formGroupHOC(Textarea)
 
-export const FileLoaderFormGroup = forwardRef<HTMLDivElement, FileFormGroupProps>(({
-  title,
-  label,
-  id,
-  file,
-  accept,
-  url,
-  error,
-  success,
-  info,
-  maxMbSize,
-  onChange,
-  onSelect,
-  variant = FormGroupVariant.Regular,
-}: FileFormGroupProps, ref) => {
-  const fileInputId = id || `file-${generateRandomId()}`
+export const FileLoaderFormGroup = forwardRef<
+  HTMLDivElement,
+  FileFormGroupProps
+>(
+  (
+    {
+      title,
+      label,
+      id,
+      file,
+      accept,
+      url,
+      error,
+      success,
+      info,
+      maxMbSize,
+      onChange,
+      onSelect,
+      variant = FormGroupVariant.Regular,
+    }: FileFormGroupProps,
+    ref
+  ) => {
+    const fileInputId = id || `file-${generateRandomId()}`
 
-  return (
-    <FormGroup variant={variant} ref={ref}>
-      {title && <InputTitle>{title}</InputTitle>}
-      {label && <InputLabel>{label}</InputLabel>}
+    return (
+      <FormGroup variant={variant} ref={ref}>
+        {title && <InputTitle>{title}</InputTitle>}
+        {label && <InputLabel>{label}</InputLabel>}
 
-      <FileLoader
-        onSelect={onSelect}
-        onChange={onChange}
-        maxMbSize={maxMbSize}
-        file={file}
-        error={error}
-        url={url}
-        accept={accept}
-      />
-      {info && <InputFeedback>{info}</InputFeedback>}
-      {success && <InputFeedbackSuccess>{success}</InputFeedbackSuccess>}
-    </FormGroup>
-  )
-})
+        <FileLoader
+          onSelect={onSelect}
+          onChange={onChange}
+          maxMbSize={maxMbSize}
+          file={file}
+          error={error}
+          url={url}
+          accept={accept}
+        />
+        {info && <InputFeedback>{info}</InputFeedback>}
+        {success && <InputFeedbackSuccess>{success}</InputFeedbackSuccess>}
+      </FormGroup>
+    )
+  }
+)
 
 const InputContainer = styled.div`
   position: relative;

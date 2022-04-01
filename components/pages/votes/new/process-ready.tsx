@@ -6,7 +6,12 @@ import { colors } from '@theme/colors'
 
 import RouterService from '@lib/router'
 
-import { DASHBOARD_PATH, VOTING_AUTH_FORM_PATH, VOTING_AUTH_LINK_PATH, VOTING_AUTH_MNEMONIC_PATH } from '@const/routes'
+import {
+  DASHBOARD_PATH,
+  VOTING_AUTH_FORM_PATH,
+  VOTING_AUTH_LINK_PATH,
+  VOTING_AUTH_MNEMONIC_PATH,
+} from '@const/routes'
 
 import { useProcessCreation } from '@hooks/process-creation'
 
@@ -26,7 +31,10 @@ export const ProcessReady = () => {
 
   const linkCensus = !metadata?.meta?.formFieldTitles
   const voteUrl = linkCensus
-    ? RouterService.instance.get(VOTING_AUTH_LINK_PATH, { processId, key: 'PRIVATE_KEY' })
+    ? RouterService.instance.get(VOTING_AUTH_LINK_PATH, {
+        processId,
+        key: 'PRIVATE_KEY',
+      })
     : RouterService.instance.get(VOTING_AUTH_FORM_PATH, { processId })
 
   const menmonicUrl = linkCensus
@@ -36,13 +44,12 @@ export const ProcessReady = () => {
   return (
     <ProcessReadyContainer>
       <ImageContainer width="500px" justify={FlexJustifyContent.Center}>
-        <img src="/images/vote/create-proposal.png" />
+        <img src="/images/vote/create-proposal.jpg" />
       </ImageContainer>
 
       <SectionTitle align={TextAlign.Center}>
         {i18n.t('vote.your_vote_is_set_up')}
       </SectionTitle>
-
 
       <If condition={!linkCensus}>
         <Then>
@@ -58,23 +65,26 @@ export const ProcessReady = () => {
             {i18n.t(
               'vote.this_is_the_link_that_you_need_to_send_your_community_members_replacing_the_corresponding_private_key'
             )}
-            <HelpText text={i18n.t(
-              'vote.this_is_the_link_that_you_need_to_send_your_community_members_replacing_the_corresponding_private_key_helper'
-            )} />
+            <HelpText
+              text={i18n.t(
+                'vote.this_is_the_link_that_you_need_to_send_your_community_members_replacing_the_corresponding_private_key_helper'
+              )}
+            />
           </SectionText>
           <DashedLink link={voteUrl} />
           <SectionText align={TextAlign.Center}>
             {i18n.t(
               'vote.this_is_the_link_that_your_community_members_can_use_to_access_via_mnemonic'
             )}
-            <HelpText text={i18n.t(
-              'vote.this_is_the_link_that_your_community_members_can_use_to_access_via_mnemonic_helper'
-            )} />
+            <HelpText
+              text={i18n.t(
+                'vote.this_is_the_link_that_your_community_members_can_use_to_access_via_mnemonic_helper'
+              )}
+            />
           </SectionText>
           <DashedLink link={menmonicUrl} />
         </Else>
       </If>
-
 
       <BackButtonContainer justify={FlexJustifyContent.Center}>
         <Button color={colors.textAccent1} href={DASHBOARD_PATH} border>

@@ -15,7 +15,7 @@ export const EmptyProposalCard = () => {
         <div>
           <ImageContainer width="400px" justify={FlexJustifyContent.Center}>
             <img
-              src="/images/dashboard/empty-proposal.png"
+              src="/images/dashboard/empty-proposal.jpg"
               alt={i18n.t('dashboard.no_proposals_yet')}
             />
           </ImageContainer>

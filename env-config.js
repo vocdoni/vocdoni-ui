@@ -9,6 +9,8 @@ let bootnodes = 'https://bootnodes.vocdoni.net/gateways.json'
 let backend = 'https://manager.vocdoni.net/api/manager'
 let explorer = 'https://explorer.vote'
 
+
+
 switch (VOCDONI_ENVIRONMENT) {
   case 'dev':
     explorer = `https://explorer.${VOCDONI_ENVIRONMENT}.vocdoni.net`
@@ -23,7 +25,7 @@ if (VOCDONI_ENVIRONMENT !== 'prod') {
   backend = backend.replace('manager.', `manager.${VOCDONI_ENVIRONMENT}.`)
   explorer = `https://explorer.${VOCDONI_ENVIRONMENT}.vocdoni.net`
 } else {
-  backend = 'backend.vocdoni.net'
+  backend = 'backend.vocdoni.net/api/manager'
 }
 
 module.exports = {
@@ -53,7 +55,7 @@ module.exports = {
   COLOR_PICKER: 0,
   ADVANCED_CENSUS: 0,
   ANALYTICS_KEY:  process.env.ANALYTICS_KEY,
-  ANALYTICS_URL:  process.env.ANALYTICS_URL
+  ANALYTICS_URL:  process.env.ANALYTICS_URL,
 }
 
 console.log('Building the frontend with ENV:', module.exports)

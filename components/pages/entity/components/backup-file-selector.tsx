@@ -3,8 +3,6 @@ import { useTranslation } from 'react-i18next'
 import FileSelector from 'react-rainbow-components/components/FileSelector'
 import styled from 'styled-components'
 
-
-
 const containerStyles = {
   height: 260,
   marginBottom: 14,
@@ -16,7 +14,10 @@ interface IBackupFileSelector {
   onCleanFile?: () => void
 }
 
-export const BackupFileSelector = ({ onBackupLoad, onCleanFile }: IBackupFileSelector) => {
+export const BackupFileSelector = ({
+  onBackupLoad,
+  onCleanFile,
+}: IBackupFileSelector) => {
   const { i18n } = useTranslation()
   const [invalidFileType, setInvalidFileType] = useState<string | null>()
 
@@ -47,7 +48,7 @@ export const BackupFileSelector = ({ onBackupLoad, onCleanFile }: IBackupFileSel
         error={invalidFileType}
         uploadIcon={
           <ImportImageContainer>
-            <img src="/images/common/logo.svg" alt="Backup" />
+            <img src="/images/common/logo_coec.svg" alt="Backup" />
           </ImportImageContainer>
         }
         placeholder={i18n.t('import.account_backup_file')}

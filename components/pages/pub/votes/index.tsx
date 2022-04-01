@@ -76,30 +76,37 @@ export const VotingPageView = () => {
   const [disconnectModalOpened, setDisconnectModalOpened] = useState(false)
   const isMobile = useIsMobile()
   const censusProof = useRecoilValue(censusProofState)
-  const { methods: votingMethods, choices, hasVoted, results, explorerLink } = useVoting(
-    processId
-  )
+  const {
+    methods: votingMethods,
+    choices,
+    hasVoted,
+    results,
+    explorerLink,
+  } = useVoting(processId)
   const { process: processInfo } = useProcess(processId)
-  const { startDate, endDate, status, liveResults, votingType, isAnonymous } = useProcessWrapper(processId)
+  const { startDate, endDate, status, liveResults, votingType, isAnonymous } =
+    useProcessWrapper(processId)
   const { wallet, setWallet } = useWallet({ role: WalletRoles.VOTER })
   const { metadata } = useEntity(processInfo?.state?.entityId)
   const [confirmModalOpened, setConfirmModalOpened] = useState<boolean>(false)
-  const [isExpandableCardOpen, setIsExpandableCardOpen] = useState<boolean>(false)
+  const [isExpandableCardOpen, setIsExpandableCardOpen] =
+    useState<boolean>(false)
   /**
    * used to manage if the status of the user vote
    * see `UserVoteStatus` for a description of each
    * status
    */
-  const [userVoteStatus, setUserVoteStatus] = useState<UserVoteStatus>(UserVoteStatus.NotEmitted)
+  const [userVoteStatus, setUserVoteStatus] = useState<UserVoteStatus>(
+    UserVoteStatus.NotEmitted
+  )
   const { blockStatus } = useBlockStatus()
   const blockHeight = blockStatus?.blockNumber
   const voteStatus: VoteStatus = getVoteStatus(processInfo?.state, blockHeight)
   // const entityMetadata = metadata as EntityMetadata
   const resultsCardRef = useRef(null)
   // used for getting the ending in and starting in string
-  const [now, setNow] = useState(new Date)
+  const [now, setNow] = useState(new Date())
   const [anonymousFormData, setAnonymousFormData] = useState('')
-
 
   // Effects
 
@@ -113,9 +120,9 @@ export const VotingPageView = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setNow(new Date)
+      setNow(new Date())
     }, 1000)
-    return () => clearInterval(interval);
+    return () => clearInterval(interval)
   }, [])
   const endingString = dateDiffStr(DateDiffType.Countdown, endDate)
   const startingString = dateDiffStr(DateDiffType.Countdown, startDate)
@@ -146,8 +153,13 @@ export const VotingPageView = () => {
     if (wallet) {
       const voterData = localStorage.getItem('voterData')
       if (voterData) {
-        const decryptedVoterdata = Symmetric.decryptString(voterData, wallet.publicKey)
-        const anonymizedVoterData = anonymizeStrings(decryptedVoterdata.split('/'))
+        const decryptedVoterdata = Symmetric.decryptString(
+          voterData,
+          wallet.publicKey
+        )
+        const anonymizedVoterData = anonymizeStrings(
+          decryptedVoterdata.split('/')
+        )
         setAnonymousFormData(anonymizedVoterData.join(' / '))
       }
     }
@@ -176,7 +188,6 @@ export const VotingPageView = () => {
     }
   }, [processInfo, metadata])
 
-
   const handleVoteNow = () => {
     if (userVoteStatus === UserVoteStatus.NotEmitted) {
       setUserVoteStatus(UserVoteStatus.InProgress)
@@ -188,7 +199,10 @@ export const VotingPageView = () => {
   const handleSeeResultsClick = () => {
     setIsExpandableCardOpen(true)
     setTimeout(() => {
-      resultsCardRef.current.scrollIntoView({ block: 'start', behavior: 'smooth' })
+      resultsCardRef.current.scrollIntoView({
+        block: 'start',
+        behavior: 'smooth',
+      })
     }, 200)
   }
   const handleExpandableCardButtonClick = () => {
@@ -226,7 +240,6 @@ export const VotingPageView = () => {
     }, 50)
   }
 
-
   const handleLogOut = () => {
     setWallet(null)
     votingMethods.cleanup()
@@ -234,21 +247,23 @@ export const VotingPageView = () => {
     setTimeout(() => {
       // Force window unload after the wallet is wiped
       setDisconnectModalOpened(false)
-      window.location.href = RouterService.instance.get(VOTING_AUTH_FORM_PATH, { processId })
+      window.location.href = RouterService.instance.get(VOTING_AUTH_FORM_PATH, {
+        processId,
+      })
     }, 50)
   }
   // const processVotingType: VotingType = processInfo?.state?.censusOrigin as any
 
-  const showAuthBanner = (
+  const showAuthBanner =
     status === VoteStatus.Upcoming ||
     status === VoteStatus.Active ||
     status === VoteStatus.Ended
-  )
   const showDisconnectBanner = wallet && showAuthBanner
   const showNotAuthenticatedBanner = !wallet && showAuthBanner
 
-  const authenticateBannerImage = (
-    makeAuthenticateBannerImage(i18n.t('vote.question_image_alt'), isMobile ? 56 : 88)
+  const authenticateBannerImage = makeAuthenticateBannerImage(
+    i18n.t('vote.question_image_alt'),
+    isMobile ? 56 : 88
   )
   return (
     <>
@@ -261,55 +276,63 @@ export const VotingPageView = () => {
         />
         <If condition={userVoteStatus !== UserVoteStatus.InProgress}>
           <Then>
-            <BodyContainer >
-              <Row gutter='2xl'>
+            <BodyContainer>
+              <Row gutter="2xl">
                 {/* NOT AUTHENTICATED BANNER */}
-                {showNotAuthenticatedBanner &&
+                {showNotAuthenticatedBanner && (
                   <Col xs={12}>
                     <Banner
-                      variant='primary'
+                      variant="primary"
                       image={authenticateBannerImage}
-                      subtitleProps={
-                        {
-                          size: isMobile ? 'xs' : 'md',
-                          children: isAnonymous ? i18n.t('vote.auth.with_preregistration') : voteStatus === VoteStatus.Ended ? i18n.t('vote.auth.if_you_voted') : i18n.t('vote.auth.with_credentials')
-                        }
-                      }
+                      subtitleProps={{
+                        size: isMobile ? 'xs' : 'md',
+                        children: isAnonymous
+                          ? i18n.t('vote.auth.with_preregistration')
+                          : voteStatus === VoteStatus.Ended
+                          ? i18n.t('vote.auth.if_you_voted')
+                          : i18n.t('vote.auth.with_credentials'),
+                      }}
                       titleProps={{ size: 'sm' }}
-                      buttonProps={
-                        {
-                          variant: 'primary',
-                          children: isAnonymous ? i18n.t('vote.auth.preregister_button') : i18n.t('vote.auth.auth_button'),
-                          iconRight: isMobile ? undefined : { name: isAnonymous ? 'paper-check' : 'pencil', size: 24 },
-                          onClick: () => handleGotoAuth()
-                        }
-                      }
+                      buttonProps={{
+                        variant: 'primary',
+                        children: isAnonymous
+                          ? i18n.t('vote.auth.preregister_button')
+                          : i18n.t('vote.auth.auth_button'),
+                        iconRight: isMobile
+                          ? undefined
+                          : {
+                              name: isAnonymous ? 'paper-check' : 'pencil',
+                              size: 24,
+                            },
+                        onClick: () => handleGotoAuth(),
+                      }}
                     >
-
-                      {isAnonymous ? i18n.t('vote.auth.not_preregistered') : i18n.t('vote.auth.not_authenticated')}
+                      {isAnonymous
+                        ? i18n.t('vote.auth.not_preregistered')
+                        : i18n.t('vote.auth.not_authenticated')}
                     </Banner>
                   </Col>
-                }
+                )}
                 {/* DISCONNECT BANNER */}
-                {showDisconnectBanner &&
+                {showDisconnectBanner && (
                   <Col xs={12} disableFlex>
                     <Banner
-                      variant='primary'
+                      variant="primary"
                       titleProps={{ weight: 'regular' }}
-                      buttonProps={
-                        {
-                          variant: 'white',
-                          children: i18n.t('vote.auth.disconnect_button'),
-                          iconRight: isMobile ? undefined : { name: 'lightning-slash' },
-                          onClick: () => setDisconnectModalOpened(true)
-                        }
-                      }
+                      buttonProps={{
+                        variant: 'white',
+                        children: i18n.t('vote.auth.disconnect_button'),
+                        iconRight: isMobile
+                          ? undefined
+                          : { name: 'lightning-slash' },
+                        onClick: () => setDisconnectModalOpened(true),
+                      }}
                     >
                       {i18n.t('vote.you_are_autenticated')}
                       <b> {anonymousFormData}</b>
                     </Banner>
                   </Col>
-                }
+                )}
                 {/* DESCIRPTION */}
                 <Col xs={12} md={9}>
                   <VoteDescription />
@@ -324,25 +347,25 @@ export const VotingPageView = () => {
                 </StickyCol>
               </Row>
             </BodyContainer>
-            <Spacer direction='vertical' size='3xl' />
+            <Spacer direction="vertical" size="3xl" />
             {/* RESULTS CARD */}
-            <Row gutter='2xl'>
+            <Row gutter="2xl">
               <Col xs={12}>
                 <ExpandableCard
                   ref={resultsCardRef}
                   isOpen={isExpandableCardOpen}
                   onButtonClick={handleExpandableCardButtonClick}
-                  title={i18n.t("vote.voting_results_title")}
+                  title={i18n.t('vote.voting_results_title')}
                   icon={<PieChartIcon size={40} />}
                   buttonProps={{
                     variant: 'white',
                     iconRight: { name: 'chevron-up-down', size: 24 },
-                    children: i18n.t("vote.voting_results_show")
+                    children: i18n.t('vote.voting_results_show'),
                   }}
                   buttonPropsOpen={{
                     variant: 'white',
                     iconRight: { name: 'chevron-up-down', size: 24 },
-                    children: i18n.t("vote.voting_results_hide")
+                    children: i18n.t('vote.voting_results_hide'),
                   }}
                 >
                   <ResultsCard />
@@ -354,7 +377,11 @@ export const VotingPageView = () => {
             <QuestionsList
               results={choices}
               questions={processInfo?.metadata?.questions}
-              voteWeight={votingType === VotingType.Weighted ? censusProof?.weight?.toString() : null}
+              voteWeight={
+                votingType === VotingType.Weighted
+                  ? censusProof?.weight?.toString()
+                  : null
+              }
               onSelect={votingMethods.onSelect}
               onFinishVote={handleFinishVote}
               onBackDescription={handleBackToDescription}
@@ -364,48 +391,47 @@ export const VotingPageView = () => {
 
         {/* FIXED CARDS ON MOBILE VERSION */}
 
-        {voteStatus === VoteStatus.Upcoming &&
+        {voteStatus === VoteStatus.Upcoming && (
           <>
             <MobileSpacer />
-            <FixedContainerRow align='center' justify='center'>
+            <FixedContainerRow align="center" justify="center">
               <Col>
-                <Text size='lg' color='white'>
+                <Text size="lg" color="white">
                   {i18n.t('vote.vote_will_start')}&nbsp;<b>{startingString}</b>
                 </Text>
               </Col>
             </FixedContainerRow>
           </>
-        }
+        )}
 
-        {voteStatus === VoteStatus.Active &&
+        {voteStatus === VoteStatus.Active && (
           <>
             <MobileSpacer />
-            <VoteNowFixedContainer justify='center' align='center' gutter='md'>
-              <Col xs={12} justify='center'>
-                <Text size='lg' color='white'>
+            <VoteNowFixedContainer justify="center" align="center" gutter="md">
+              <Col xs={12} justify="center">
+                <Text size="lg" color="white">
                   {i18n.t('vote.vote_will_close')}&nbsp;<b>{endingString}</b>
                 </Text>
               </Col>
               <Col xs={12}>
-                <Button variant='primary' size='lg' onClick={handleVoteNow}>
-                  {i18n.t("vote.vote_now")}
+                <Button variant="primary" size="lg" onClick={handleVoteNow}>
+                  {i18n.t('vote.vote_now')}
                 </Button>
               </Col>
-              <Col xs={12} justify='center'>
-                <Spacer direction='vertical' size='2xs' />
+              <Col xs={12} justify="center">
+                <Spacer direction="vertical" size="2xs" />
                 <Button
-                  variant='text'
+                  variant="text"
                   iconRight={{ name: 'chevron-right', size: 16 }}
                   onClick={handleSeeResultsClick}
                 >
-                  {i18n.t("vote.see_results")}
+                  {i18n.t('vote.see_results')}
                 </Button>
-                <Spacer direction='vertical' size='2xs' />
+                <Spacer direction="vertical" size="2xs" />
               </Col>
             </VoteNowFixedContainer>
           </>
-        }
-
+        )}
 
         {/* HAS VOTED CARD */}
         {hasVoted && (
@@ -432,7 +458,7 @@ export const VotingPageView = () => {
 }
 const makeAuthenticateBannerImage = (alt: string, size: number) => (
   <img
-    src="/images/vote/authenticate-banner-image.svg"
+    src="/images/vote/authenticate-banner-image.jpg"
     width={size}
     height={size}
     alt={alt}
@@ -447,14 +473,21 @@ function anonymizeStrings(strings: string[]): string[] {
     }
     let anonymizedString
     iter = iter + 1
-    const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    const emailRegex =
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     // check if is an email to preserve the domain
     if (str.toLocaleLowerCase().match(emailRegex)) {
       anonymizedString = `${str[0]}...${str.split('@')[1]}`
       // if is no email and length > 3 compute visible string length
     } else if (str.length >= 3) {
       const visibleStrLength = Math.floor(Math.sqrt(str.length))
-      anonymizedString = `${str.substring(0, visibleStrLength)}...${str.substring(str.length - visibleStrLength - 1, visibleStrLength)}`
+      anonymizedString = `${str.substring(
+        0,
+        visibleStrLength
+      )}...${str.substring(
+        str.length - visibleStrLength - 1,
+        visibleStrLength
+      )}`
       // if length is lowhe than 3 use the full string
     } else {
       anonymizedString = str
@@ -479,16 +512,14 @@ const VoteRegisteredLgContainer = styled.div`
   }
 `
 
-
 const BodyContainer = styled.div`
   position: relative;
 `
 
-const StickyCol = styled(Col) <IColProps>`
+const StickyCol = styled(Col)<IColProps>`
   position: sticky;
   top: 20px;
 `
-
 
 const FixedContainerRow = styled(Row)`
   position: fixed;
@@ -496,7 +527,7 @@ const FixedContainerRow = styled(Row)`
   left: 0;
   right: 0;
   z-index: 31;
-  background-color: rgba(13, 71, 82, 0.85);
+  background-color: #0066b633;
   min-height: 72px;
   backdrop-filter: blur(8px);
   @media ${({ theme }) => theme.screenMin.tablet} {
@@ -507,10 +538,10 @@ const VoteNowFixedContainer = styled(FixedContainerRow)`
   padding: 24px;
 `
 const MobileSpacer = styled.div`
-min-height: 72px;
-@media ${({ theme }) => theme.screenMin.tablet} {
-  display: none;
-}
+  min-height: 72px;
+  @media ${({ theme }) => theme.screenMin.tablet} {
+    display: none;
+  }
 `
 // const StyledTextButton = styled(TextButton)`
 //   margin: 4px;

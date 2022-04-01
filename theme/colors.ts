@@ -10,27 +10,27 @@ export const colors: Colors = {
 
   background: "#F6F9FC",
 
-  textAccent1: "#46C4C2",
+  textAccent1: "#003881",
   textAccent1B: "#A3EC93",
   textAccent1C: "#4BDD7C",
   textAccent1Grayed: "#B8C2F6",
 
-  textAccent2: "#FF5442",
-  textAccent2B: "#FF9E6D",
+  textAccent2: "#003881",
+  textAccent2B: "#003881",
 
-  accent1: "#46C4C2",
-  accent1B: "#A3EC93",
+  accent1: "#1d559f",
+  accent1B: "#1B4B95",
   accent1C: "#4BDD7C",
   accent1Grayed: "#B8C2F6",
 
   accent2: "#FF5442",
   accent2B: "#FF9E6D",
 
-  accentLight1: "#E0FFFF",
-  accentLight1B: "#F0FFDE",
+  accentLight1: "#0066b633",
+  accentLight1B: "#0066b633",
 
-  accentLight2: "#FFE0E0",
-  accentLight2B: "#FFFEDE",
+  accentLight2: "#029bba24",
+  accentLight2B: "#029bba24",
   danger: "#ce2020",
   success: '#8ECC0A',
 

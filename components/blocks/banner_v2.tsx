@@ -25,7 +25,9 @@ export const Banner = ({ icon, variant, size, children }: IBannerPros) => {
   return (
     <BannerContainer variant={variant} size={size || BannerSize.Normal}>
       <FlexContainer alignItem={FlexAlignItem.Center}>
-        {icon && <IconContainer size={size || BannerSize.Normal}>{icon}</IconContainer>}
+        {icon && (
+          <IconContainer size={size || BannerSize.Normal}>{icon}</IconContainer>
+        )}
         <BannerContent>{children}</BannerContent>
       </FlexContainer>
     </BannerContainer>
@@ -55,7 +57,6 @@ const getBannerPaddingSize = ({ size }) => {
   }
 }
 
-
 const getBannerIconSize = ({ size }) => {
   switch (size) {
     case BannerSize.Small:
@@ -66,7 +67,10 @@ const getBannerIconSize = ({ size }) => {
   }
 }
 
-const BannerContainer = styled.div<{ variant: BannerVariant, size: BannerSize }>`
+const BannerContainer = styled.div<{
+  variant: BannerVariant
+  size: BannerSize
+}>`
   background: ${getBackgroundColor};
   border-radius: 16px;
   padding: ${getBannerPaddingSize};
@@ -80,7 +84,7 @@ const IconContainer = styled.div<{ size: BannerSize }>`
   max-width: ${getBannerIconSize};
   width: 100%;
   margin-right: 20px;
-  
+
   & > img {
     max-width: 100%;
   }

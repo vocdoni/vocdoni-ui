@@ -2,7 +2,6 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
-
 interface ILoaderProps {
   visible: boolean
 }
@@ -14,7 +13,7 @@ export const Loader = ({ visible }: ILoaderProps) => {
     <AppLoader visible={visible}>
       <LoaderContainer>
         <LogoContainer>
-          <img src="/images/common/logo.svg" alt="Vocdoni Logo" />
+          <img src="/images/common/logo_coec.svg" alt="COEC Logo" />
         </LogoContainer>
 
         <TextContainer>{i18n.t('dashboard.loading')}</TextContainer>

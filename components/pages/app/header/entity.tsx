@@ -130,15 +130,15 @@ export const EntityHeader = () => {
         </Typography>
       </DropdownItem>
 
-      <DropdownSeparator />
-
+      {/* <DropdownSeparator /> */}
+      {/* 
       <DropdownItem href={entityPublicPath}>
         <Typography variant={TypographyVariant.Small} margin="0">
           {i18n.t('app.header.public_page')}
         </Typography>
-      </DropdownItem>
+      </DropdownItem> */}
 
-      <DropdownSeparator />
+      {/* <DropdownSeparator /> */}
 
       <DropdownItem href={EDIT_ENTITY}>
         <Typography variant={TypographyVariant.Small} margin="0">
@@ -160,7 +160,7 @@ export const EntityHeader = () => {
             <DropdownSeparator />
           </>
         )}
-
+      {/* 
       <DropdownItem href={ACCOUNT_BACKUP_PATH}>
         <Typography variant={TypographyVariant.Small} margin="0">
           {i18n.t('app.header.create_account_backup')}
@@ -178,7 +178,7 @@ export const EntityHeader = () => {
         </Typography>
       </DropdownItem>
 
-      <DropdownSeparator />
+      <DropdownSeparator /> */}
 
       <DropdownItem onClick={() => setShowLanguageSelector(true)} preventClose>
         <RelativeContainer>

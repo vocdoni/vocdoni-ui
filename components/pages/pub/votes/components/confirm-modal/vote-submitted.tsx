@@ -18,7 +18,7 @@ export const VoteSubmitted = ({ onAccept }: IVoteSubmittedProps) => {
     <>
       <ImageContainer width="320px" justify={FlexJustifyContent.Center}>
         <img
-          src="/images/vote/voted-submitted.png"
+          src="/images/vote/voted-submitted.jpg"
           alt={i18n.t('vote.vote_submitted_image_alt')}
         />
       </ImageContainer>
@@ -33,7 +33,9 @@ export const VoteSubmitted = ({ onAccept }: IVoteSubmittedProps) => {
       </TextContainer>
 
       <FlexContainer justify={FlexJustifyContent.Center}>
-        <Button positive onClick={onAccept}>{i18n.t('vote.go_back_to_home_page')}</Button>
+        <Button positive onClick={onAccept}>
+          {i18n.t('vote.go_back_to_home_page')}
+        </Button>
       </FlexContainer>
     </>
   )

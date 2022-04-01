@@ -28,9 +28,8 @@ type NextAppProps = AppInitialProps & {
 
 const VocdoniApp: FC<NextAppProps> = ({ Component, pageProps }) => {
   const { i18n } = useTranslation()
-  const appFullTitle = process.env.APP_TITLE + ' - ' + i18n.t('app.meta.title')
-  const appImage =
-    'https://vocdoni.app/images/home/section-1/computer-device.png'
+  const appFullTitle = i18n.t('app.meta.title')
+  const appImage = 'https://vocdoni.app/images/media/logo_coec.png'
   const commitSHA = process.env.COMMIT_SHA
 
   // If the current page component defined a custom layout, use it
@@ -63,7 +62,7 @@ const VocdoniApp: FC<NextAppProps> = ({ Component, pageProps }) => {
             <link
               rel="icon"
               type="image/ico"
-              href="/images/common/favicon.ico"
+              href="https://www.coec.cat/wp-content/themes/twentyfourteen/favicon.ico"
               sizes="16x16"
             />
             <title>{appFullTitle}</title>

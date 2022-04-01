@@ -266,9 +266,14 @@ export const FormMetadata = () => {
           </Typography>
           <TextEditor
             content={metadata.description.default}
-            deps={[metadata.title, metadata.media, metadata.meta, metadata.questions]}
+            deps={[
+              metadata.title,
+              metadata.media,
+              metadata.meta,
+              metadata.questions,
+            ]}
             onChange={(content) => {
-              methods.setDescription( content)
+              methods.setDescription(content)
             }}
             markdown
           />
@@ -314,7 +319,11 @@ export const FormMetadata = () => {
 
       <Button
         icon={
-          <img src="/images/vote/plus.svg" alt={i18n.t('vote.plus_icon_alt')} />
+          <img
+            src="/images/vote/plus.svg"
+            alt={i18n.t('vote.plus_icon_alt')}
+            color={colors.textAccent2}
+          />
         }
         justify={JustifyContent.Left}
         border

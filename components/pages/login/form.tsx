@@ -4,7 +4,6 @@ import styled from 'styled-components'
 import Link from 'next/link'
 import { useTranslation } from 'react-i18next'
 
-
 import { Account } from '../../../lib/types'
 import { ACCOUNT_RECOVER_PATH } from '../../../const/routes'
 
@@ -32,7 +31,7 @@ export const SignInForm = ({
   const [passphrase, setPassphrase] = useState<string>('')
   const [account, setAccount] = useState<Account>(accounts[0])
   const [loading, setLoading] = useState(false)
-  
+
   const buttonDisabled = !passphrase || !account
 
   const handlerSubmit = (event: FormEvent) => {
@@ -57,7 +56,6 @@ export const SignInForm = ({
     value: opt.name,
     label: opt.name,
   }))
-
 
   return (
     <Fieldset disabled={disabled}>
@@ -90,13 +88,15 @@ export const SignInForm = ({
 
       <form onSubmit={handlerSubmit}>
         <FormGroup>
-          <InputFormGroup 
+          <InputFormGroup
             label={i18n.t('sign_in.passphrase')}
             helpText={i18n.t('sign_in.write_your_passphrase')}
             type="password"
             error={error}
             value={passphrase}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => setPassphrase(e.target.value)}
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setPassphrase(e.target.value)
+            }
             placeholder={i18n.t('sign_in.passphrase')}
           />
         </FormGroup>
@@ -129,10 +129,14 @@ const HeaderSection = styled.div`
 const FormGroup = styled.div`
   padding-bottom: 18px;
   padding-top: 18px;
+  
+  }
 `
 
 const ButtonContainer = styled.div`
   margin-top: 56px;
+  display: flex;
+  justify-content: center;
 
   @media ${({ theme }) => theme.screenMax.laptop} {
     display: flex;

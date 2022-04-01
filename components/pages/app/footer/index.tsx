@@ -16,68 +16,43 @@ export const Footer = () => {
   const { theme } = useTheme()
 
   const LINKS: HeaderLink[] = [
-    {
-      url: 'https://tally.so/r/w8dqxw',
-      name: i18n.t("links.requests_and_bugs"),
-      external: true,
-      logged: true,
-      guest: true
-    },
-    {
-      url: PRIVACY_PATH,
-      name: i18n.t("links.privacy_policy"),
-      external: true,
-      logged: true,
-      guest: true
-    },
-    {
-      url: 'https://blog.vocdoni.io',
-      name: i18n.t("links.blog"),
-      external: true,
-      logged: true,
-      guest: true
-    },
     // {
-    //   url: PRICING_PATH,
-    //   name: i18n.t("links.pricing"),
-    //   external: false,
-    //   logged: false,
-    //   guest: true
+    //   url: 'https://tally.so/r/w8dqxw',
+    //   name: i18n.t('links.requests_and_bugs'),
+    //   external: true,
+    //   logged: true,
+    //   guest: true,
     // },
     {
-      url: 'https://docs.vocdoni.io',
-      name: i18n.t("links.docs"),
+      url: PRIVACY_PATH,
+      name: i18n.t('links.privacy_policy'),
       external: true,
       logged: true,
-      guest: true
+      guest: true,
     },
     {
-      url: 'https://help.aragon.org/collection/54-vocdoni-user-guide',
-      name: i18n.t("links.help"),
+      url: 'https://www.coec.cat/ca/',
+      name: i18n.t('links.coec_web'),
       external: true,
       logged: true,
-      guest: true
-    },
-    {
-      url: 'https://discord.gg/8p8NSD4e2n',
-      name: i18n.t("links.support"),
-      external: true,
-      logged: true,
-      guest: false
+      guest: true,
     },
   ]
 
-  const links = wallet ? LINKS.filter(link => link.logged) : LINKS.filter(link => link.guest)
+  const links = wallet
+    ? LINKS.filter((link) => link.logged)
+    : LINKS.filter((link) => link.guest)
 
   return (
     <FooterContainer>
       <LogoSection>
-        <Link href={wallet ? DASHBOARD_PATH : "/"} passHref>
-          <HomeLink target='_self'>
-            {theme.customLogo ?
-              <Image src={theme.customLogo} /> :
-              <img src="/media/logo-full.svg" alt="Vocdoni" />
-            }
+        <Link href={wallet ? DASHBOARD_PATH : '/'} passHref>
+          <HomeLink target="_self">
+            {theme.customLogo ? (
+              <Image src={theme.customLogo} />
+            ) : (
+              <img src="/media/logo_coec.svg" alt="Vocdoni" />
+            )}
           </HomeLink>
         </Link>
       </LogoSection>
@@ -94,29 +69,35 @@ export const Footer = () => {
         ))}
 
         <SocialLinksSection>
-          <SocialLinkContainer href="https://www.youtube.com/channel/UCt4ZGAb5S8KKZlkdH0P7OzA" target="_blank">
+          <SocialLinkContainer
+            href="https://www.youtube.com/channel/UCfQ3JmnAvXYJn4Ms_S1N1OQ"
+            target="_blank"
+          >
             <img src="/images/home/footer/youtube.svg" alt="Youtube" />
           </SocialLinkContainer>
 
-          <SocialLinkContainer href="https://discord.gg/8p8NSD4e2n" target="_blank">
-            <img src="/images/home/footer/discord.svg" alt="Discord" />
-          </SocialLinkContainer>
-
-          <SocialLinkContainer href="https://twitter.com/vocdoni" target="_blank">
+          <SocialLinkContainer
+            href="https://twitter.com/COECoficial?s=20&t=UPAo9jPEZWql9__m4k8ATw"
+            target="_blank"
+          >
             <img src="/images/home/footer/twitter.svg" alt="Twitter" />
           </SocialLinkContainer>
-
-          <SocialLinkContainer href="https://t.me/vocdoni_community" target="_blank">
-            <img src="/images/home/footer/telegram.svg" alt="telegram" />
+          <SocialLinkContainer
+            href="https://www.facebook.com/COECCatalunya/?ref=page_internal"
+            target="_blank"
+          >
+            <img src="/images/home/footer/facebook.svg" alt="Facebook" />
           </SocialLinkContainer>
         </SocialLinksSection>
       </LinksSection>
 
-      {!theme.customLogo && 
-        <Link href='https://aragon.org/' passHref>
-          <AragonLink target='_blank'><img src="/images/common/powered.svg" alt="Aragon" /></AragonLink>
+      {!theme.customLogo && (
+        <Link href="https://aragon.org/" passHref>
+          <AragonLink target="_blank">
+            <img src="/images/common/powered.svg" alt="Aragon" />
+          </AragonLink>
         </Link>
-      }
+      )}
     </FooterContainer>
   )
 }
@@ -134,7 +115,7 @@ export const FooterContainer = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  @media ( max-width: 1124px ){
+  @media (max-width: 1124px) {
     height: auto;
     flex-direction: column;
     position: relative;
@@ -145,7 +126,7 @@ export const FooterContainer = styled.div`
 const NavItem = styled.div`
   margin-right: 30px;
 
-  @media ( max-width: 1124px ){
+  @media (max-width: 1124px) {
     text-align: center;
   }
 `
@@ -156,6 +137,10 @@ const SocialLinksSection = styled.div`
 `
 const SocialLinkContainer = styled.a`
   margin: 0 6px;
+
+  & > a {
+    color: 'blue';
+  }
 
   & > img {
     max-width: 20px;
@@ -172,7 +157,7 @@ const Section = styled.div`
 const LogoSection = styled.div`
   margin-left: 40px;
 
-  @media ( max-width: 1124px ){
+  @media (max-width: 1124px) {
     margin: 20px auto 0;
   }
 `
@@ -205,7 +190,7 @@ const HomeLink = styled.a`
 
   & > img {
     margin-right: 20px;
-    height: 54px;
+    height: 30px;
   }
 `
 
@@ -224,9 +209,9 @@ const AragonLink = styled.a`
 `
 
 interface HeaderLink {
-  name: string;
-  url: string;
-  external?: boolean;
-  logged?: boolean;
-  guest?: boolean;
+  name: string
+  url: string
+  external?: boolean
+  logged?: boolean
+  guest?: boolean
 }

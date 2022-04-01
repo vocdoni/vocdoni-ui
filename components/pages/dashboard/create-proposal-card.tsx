@@ -2,7 +2,6 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
-
 import { CREATE_PROCESS_PATH } from '../../../const/routes'
 import { Button } from '../../elements/button'
 
@@ -17,13 +16,15 @@ export const DashboardCreateProposalCard = () => {
   const { trackEvent } = useRudderStack()
 
   const handleRuddlestackEvent = () => {
-    trackEvent(TrackEvents.PROCESS_CREATION_BUTTON_CLICKED, { entity: wallet?.address })
+    trackEvent(TrackEvents.PROCESS_CREATION_BUTTON_CLICKED, {
+      entity: wallet?.address,
+    })
   }
 
   return (
     <Card md={4} sm={12}>
       <CreateProposalImageContainer>
-        <img src="/images/dashboard/create-proposal.png"></img>
+        <img src="/images/dashboard/create-proposal.jpg"></img>
       </CreateProposalImageContainer>
 
       <SectionText align={TextAlign.Center}>
@@ -31,7 +32,11 @@ export const DashboardCreateProposalCard = () => {
       </SectionText>
 
       <CreateProposalButtonContainer>
-        <Button href={CREATE_PROCESS_PATH} positive onClick={handleRuddlestackEvent}>
+        <Button
+          href={CREATE_PROCESS_PATH}
+          positive
+          onClick={handleRuddlestackEvent}
+        >
           {i18n.t('dashboard.create_proposal')}
         </Button>
       </CreateProposalButtonContainer>

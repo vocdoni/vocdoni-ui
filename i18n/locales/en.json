@@ -29,9 +29,9 @@
       "user_language": "Language: {{ lang }}"
     },
     "meta": {
-      "description": "Vocdoni is a secure, private & universally verifiable voting system for any organization.",
+      "description": "COEC secure voting system",
       "keywords": "Blockchain Voting, Mobile Voting, Universally Verifiable, Voting-As-A-Service, Decentralized Governance, Anonymous Voting, Privacy Centric, Secure Electronic Voting, Tamper-Proof Digital Voting, Data-Sovereignty, Resilient Governance, Governance/Coordination Tools",
-      "title": "Easy and secure solution for all your governance needs"
+      "title": "COEC secure voting system"
     }
   },
   "backup": {
@@ -425,7 +425,9 @@
     "pricing": "Pricing",
     "privacy_policy": "Privacy Policy",
     "requests_and_bugs": "Feature Request & Bugs",
-    "support": "Support"
+    "support": "Support",
+    "coec_web": "COEC.cat"
+
   },
   "preview": {
     "ending_in_one_hour": "Ending in 1h",
