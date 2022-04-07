@@ -71,7 +71,7 @@ export const VoteDescription = forwardRef<HTMLDivElement, IVotePageProps>(
           <FlexContainer justify={FlexJustifyContent.SpaceBetween}>
             <div>
               <ProcessStatusLabel status={voteStatus} />
-              <TimeComment>{timeComment}</TimeComment>
+              <TimeComment>El període de votació és del 21 d'abril al 4 de maig</TimeComment>
             </div>
             <VoteStatusText>{getTitleFromState(votingState)}</VoteStatusText>
           </FlexContainer>
