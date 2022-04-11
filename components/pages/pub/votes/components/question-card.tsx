@@ -25,7 +25,7 @@ export const QuestionCard = ({
     <QuestionCardContainer border>
 
       <Typography variant={TypographyVariant.H4} margin="0">
-        {number}. {question.title.default}
+        Voleu que es construeixi a Bellpuig un tanatori amb sala ecumènica i forn crematori a l’emplaçament proposat per l’empresa Gestió i Serveis Funeraris SL?
       </Typography>
 
       {question.description && (

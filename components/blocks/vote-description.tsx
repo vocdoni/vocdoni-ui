@@ -84,7 +84,13 @@ export const VoteDescription = forwardRef<HTMLDivElement, IVotePageProps>(
         </Column>        
 
         <Column>
-          <MarkDownViewer content={description} />
+          <DescriptionText>
+            <p>L’empresa Gestió i Serveis Funeraris de Bellpuig ha fet una proposta d’instal·lació d’un nou tanatori que inclou una sala ecumènica i un forn crematori per a incineracions de persones difuntes. El lloc on l’empresa té previst instal·lar aquest equipament és el carrer Puntaires que es troba al polígon industrial que hi ha al Camí del Bosc.</p>
+            <br />
+            <p>Per dur a terme aquesta instal·lació cal modificar l’actual POUM per permetre els usos funeraris en sòl industrial.</p>
+            <br />
+            <p>L’equip de govern de l’Ajuntament de Bellpuig va proposar el 5 d’octubre de 2020 al Ple Municipal un acord pel qual es consultés a la població de Bellpuig sobre si considera oportú que a Bellpuig hi hagi aquestes instal·lacions. Van votar a favor de celebrar aquesta consulta els 6 membres del grup Acord Municipal Republicà-Esquerra Republicana i les dues membres de CUP-Amunt; hi van votar en contra els 5 membres del grup Junts per Bellpuig. Tenint en compte el resultat de la votació del ple municipal se celebrarà la consulta a la població i el seu resultat serà vinculant.</p>
+          </DescriptionText>
         </Column>
 
         <Separator>&nbsp;</Separator>
@@ -203,16 +209,39 @@ const SimpleUl = styled.ul`
   }
 `
 
+const VerticalSpace = styled.p`
+  margin-top:6px;
+`
+
+
 const DescriptionText = styled.div`
   font-size: 16px;
   text-align: justify;
-  margin-right: -30px;
 
-  & > p {
-    font-size: 16px;
+  & li  {
+    white-space: initial;
   }
-`
 
-const VerticalSpace = styled.p`
-  margin-top:6px;
+  & p {
+    margin: 0 0.4em 24px;
+    font-size: 16px;
+    line-height: 32px;
+    text-align: justify;
+  }
+
+  & blockquote {
+    border-left: 1px solid #e0e0e0;
+    padding-left: 20px;
+    margin-left: 0px;
+  }
+  
+  & h1 {
+    font-size: 18px;
+    font-weight: 500;
+  }
+
+  & h2 {
+    font-size: 16px;
+    font-weight: 500;
+  }
 `

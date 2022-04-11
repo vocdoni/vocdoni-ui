@@ -65,12 +65,7 @@ export const QuestionsListInline = forwardRef<HTMLDivElement, IQuesListInlinePro
         )}
 
         <div>
-          <Column>
-            <SubBanner>
-              <h1>Pregunta</h1>
-            </SubBanner>
-          </Column>
-
+          
           <QuestionUl>
             {questions &&
               questions.map((question, index) => (
