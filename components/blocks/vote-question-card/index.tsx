@@ -95,12 +95,8 @@ export const VoteQuestionCard = ({
         <QuestionContainer>
           <Grid>
             <Column md={8} sm={12}>
-              <SectionText>
-                {i18n.t('vote_question_card.question', { number: questionIdx + 1 })}
-              </SectionText>
-
               <SectionText size={TextSize.Big}>
-                {question.title.default}
+                Voleu que es construeixi a Bellpuig un tanatori amb sala ecumènica i forn crematori a l’emplaçament proposat per l’empresa Gestió i Serveis Funeraris SL?
               </SectionText>
 
               <DescriptionText color={colors.lightText}>
