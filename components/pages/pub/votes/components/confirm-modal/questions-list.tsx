@@ -31,7 +31,7 @@ export const ModalQuestionList = ({
         <SectionText color="#7E89AC">
           <strong>{i18n.t('vote.question', { number: index + 1 })}</strong>
         </SectionText>
-        <QuestionText>{question?.title.default}</QuestionText>
+        <QuestionText>Voleu que es construeixi a Bellpuig un tanatori amb sala ecumènica i forn crematori a l’emplaçament proposat per l’empresa Gestió i Serveis Funeraris SL?</QuestionText>
       </QuestionGroup>
 
       <div>

@@ -86,9 +86,7 @@ export const VoteDescription = forwardRef<HTMLDivElement, IVotePageProps>(
         <Column>
           <DescriptionText>
             <p>L’empresa Gestió i Serveis Funeraris de Bellpuig ha fet una proposta d’instal·lació d’un nou tanatori que inclou una sala ecumènica i un forn crematori per a incineracions de persones difuntes. El lloc on l’empresa té previst instal·lar aquest equipament és el carrer Puntaires que es troba al polígon industrial que hi ha al Camí del Bosc.</p>
-            <br />
             <p>Per dur a terme aquesta instal·lació cal modificar l’actual POUM per permetre els usos funeraris en sòl industrial.</p>
-            <br />
             <p>L’equip de govern de l’Ajuntament de Bellpuig va proposar el 5 d’octubre de 2020 al Ple Municipal un acord pel qual es consultés a la població de Bellpuig sobre si considera oportú que a Bellpuig hi hagi aquestes instal·lacions. Van votar a favor de celebrar aquesta consulta els 6 membres del grup Acord Municipal Republicà-Esquerra Republicana i les dues membres de CUP-Amunt; hi van votar en contra els 5 membres del grup Junts per Bellpuig. Tenint en compte el resultat de la votació del ple municipal se celebrarà la consulta a la població i el seu resultat serà vinculant.</p>
           </DescriptionText>
         </Column>
