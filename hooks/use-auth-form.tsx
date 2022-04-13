@@ -59,7 +59,10 @@ export const useAuthForm = () => {
   const invalidProcessId = processId && !processId.match(/^0x[0-9a-fA-F]{64}$/)
   const { loading: loadingInfo, error: loadingInfoError, process: processInfo, refresh: refreshProcessInfo } = useProcess(processId)
   const { blockHeight } = useBlockHeight()
-  const processStarted = blockHeight >= processInfo?.state?.startBlock
+  // check if process started
+  // if the process is archived => current time greater thant process start date
+  // else use start block
+  const processStarted = processInfo?.state?.archived ? new Date().getTime() >= processInfo?.state?.startDate.getTime() : blockHeight >= processInfo?.state?.startBlock
   const userRequirePreregister = processInfo?.state?.processMode?.preRegister && !processStarted
   const requireSecretKey = processInfo?.state?.processMode?.preRegister && processStarted
   const { setAlertMessage } = useMessageAlert()
