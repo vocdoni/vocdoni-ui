@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { useEntity, useBlockHeight, SummaryProcess } from '@vocdoni/react-hooks'
+import { useEntity, useBlockHeight, SummaryProcess, useDateAtBlock } from '@vocdoni/react-hooks'
 
 import {
   DashboardActivitySummary,
@@ -40,11 +40,43 @@ const DashboardPage = () => {
     : null
   let initialActiveItem = useRef<ProcessTypes>(ProcessTypes.ActiveVotes);
   const sortEndBlock = (process1: SummaryProcess, process2: SummaryProcess) => {
-    return process1.summary.endBlock - process2.summary.endBlock
-  } 
+    // if both are archived
+    if (process1.summary.archived && process2.summary.archived) {
+      return process1.summary.endDate.getTime() - process2.summary.endDate.getTime()
+    }
+    // if the first process is not archived and the second one is archived
+    // it is assumed that the archived one is older
+    else if (!process1.summary.archived && process2.summary.archived){
+      return 1
+    }
+    // same but in the other order
+    else if (process1.summary.archived && !process2.summary.archived){
+      return -1
+    }
+    // if none of them are archived
+    else {
+      return process1.summary.endBlock -process2.summary.endBlock
+    }
+  }
   const sortEndDescBlock = (process1: SummaryProcess, process2: SummaryProcess) => {
-    return process2.summary.endBlock - process1.summary.endBlock
-  } 
+    // if both are archived
+    if (process1.summary.archived && process2.summary.archived) {
+      return process2.summary.endDate.getTime() - process1.summary.endDate.getTime()
+    }
+    // if the first process is not archived and the second one is archived
+    // it is assumed that the archived one is older
+    else if (!process2.summary.archived && process1.summary.archived){
+      return 1
+    }
+    // same but in the other order
+    else if (process2.summary.archived && !process1.summary.archived){
+      return -1
+    }
+    // if none of them are archived
+    else {
+      return process2.summary.endBlock -process1.summary.endBlock
+    }
+  }
 
   const activeVotes: SummaryProcess[] = []
   const votesResults: SummaryProcess[] = []
@@ -59,7 +91,7 @@ const DashboardPage = () => {
     switch (voteStatus) {
       case VoteStatus.Canceled:
         continue
-        
+
       case VoteStatus.Active:
         activeVotes.push(proc)
         break
@@ -76,7 +108,7 @@ const DashboardPage = () => {
         break;
     }
   }
-  
+
   activeVotes.sort(sortEndBlock)
   votesResults.sort(sortEndDescBlock)
   upcomingVotes.sort(sortEndDescBlock)

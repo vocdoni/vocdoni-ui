@@ -100,6 +100,8 @@ export const getVoteStatus = (state, currentBlock?): VoteStatus => {
 
   switch (processStatus) {
     case ProcessStatus.READY:
+      // it doesent make sense to check for archived processes here because
+      // an archived process will never have the ready status
       if (startBlock == undefined || currentBlock == undefined) return VoteStatus.Unknown
       if (startBlock > currentBlock) return VoteStatus.Upcoming
       if (currentBlock > endBlock) return VoteStatus.Ended

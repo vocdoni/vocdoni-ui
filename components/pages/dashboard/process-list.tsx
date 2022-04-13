@@ -84,7 +84,7 @@ export const DashboardProcessList = ({
         status={processList.status}
         accountName={account?.name}
         entityLogo={entityMetadata?.media?.avatar}
-        link={ SHOW_PROCESS_PATH + "#/" + process.id }      
+        link={ SHOW_PROCESS_PATH + "#/" + process.id }
       />
     </div>
   )

@@ -40,6 +40,10 @@ const PreregisterPage = () => {
     process?.state?.entityId
   )
   const { blockStatus } = useBlockStatus()
+
+  // checking if the proceess is archived does not make sense here
+  // because you can only preregister to a vote that is in upcoming
+  // state and all the archived prcesses are ended
   const processStartDate = VotingApi.estimateDateAtBlockSync(
     process?.state?.startBlock,
     blockStatus
