@@ -89,7 +89,7 @@ export class PdfGenerator {
   }
 
   public addImage(image: string, options?: IImageOptions): void {
-    this.pdf.image(image, options.left, options.top, options)
+    this.pdf.image(image, options.left, options.top,  options)
   }
 
   public addMdText(text: string, options: IPageOptions = PdfGenerator.defaultTextStyle): void {
@@ -126,7 +126,7 @@ export class PdfGenerator {
     const titleDefaultOptions = {
       fontSize: 18,
       align: 'center',
-      margin: 0.8,
+      margin: 1.2,
       ...options || {},
     }
 

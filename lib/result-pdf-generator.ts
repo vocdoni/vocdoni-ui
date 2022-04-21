@@ -38,8 +38,8 @@ export class ResultPdfGenerator extends PdfGenerator {
 
   private  generateHeader() {
       this.addHeaderStroke(colors.textAccent1)
-      this.addImage(this.logoHeader, { width: 100, top: 30, left: 20 })
-      this.addSpace(1)
+      this.addImage(this.logoHeader, { width: 100, top: 30, left: 20})
+      this.addSpace(3)
   }
 
   private async generatePdfContent() {
@@ -49,18 +49,15 @@ export class ResultPdfGenerator extends PdfGenerator {
         ? this.processResults?.totalWeightedVotes
         : this.processResults?.totalVotes
 
-    this.logoHeader = await this.fetchImageUri(RouterService.instance.get('/media/logo-full.png', {}))
+    this.logoHeader = await this.fetchImageUri(RouterService.instance.get('/media/logo_coec.png', {}))
     this.generateHeader()
-
-    this.addText(i18n.t('results.pdf.these_document_is_generate_by_vocdoni_these_are_a_summary_of_the_voting_process'), { fontSize: 14, margin: 2})
-
     this.addTitle(i18n.t('results.pdf.process_title'), { align: 'left', fontColor: colors.text, margin: 0.5 })
-    this.addText(this.process.metadata.title.default, { fontSize: 14, margin: 2, fontColor: colors.lighterText })
+    this.addText(this.process.metadata.title.default, { fontSize: 18, margin: 2, fontColor: colors.lighterText })
     this.addTitle(i18n.t('results.pdf.process_description'), { width: 400, align: 'left', fontColor: colors.text, margin: 0.5  })
     this.addMdText(this.process.metadata.description.default)
     this.addSpace(1)
     this.addSubTitle(i18n.t('results.pdf.total_votes', { votes: totalVotes }), { align: 'left' })
-    this.addTitle(i18n.t('results.pdf.questions'), { align: 'left', margin: 1 })
+    this.addTitle(i18n.t('results.pdf.questions'), { align: 'left', margin: 1, fontColor: colors.text  })
 
     this.addSeparator(colors.lightBorder)
 
@@ -70,11 +67,14 @@ export class ResultPdfGenerator extends PdfGenerator {
   }
 
   private async generateQuestion(question: SingleChoiceQuestionResults) {
-    this.addTitle(`${i18n.t('results.pdf.title')}: ${question.title.default}`, { align: 'left' })
-    this.addText(i18n.t('results.pdf.results'))
+    this.addTitle(`${i18n.t('results.pdf.title')}: ${question.title.default}`, { align: 'left', fontSize: 16 })
+    this.addText(i18n.t('results.pdf.results'), { fontSize: 14})
+    this.addSpace(1)
 
     for (const result of question.voteResults) {
-      this.addText(`${i18n.t('results.pdf.choice')}: ${result.title.default}, ${i18n.t('results.pdf.votes', { votes: result.votes.toString() })}`, { fontSize: 14, margin: 0 })
+      this.addText(`${i18n.t('results.pdf.choice')}: ${result.title.default}`)
+      this.addText(`${i18n.t('results.pdf.votes', { votes: result.votes.toString() })}`, { fontSize: 12, margin: 0 })
+      this.addSpace(1)
     }
     
     this.addSpace(2)
