@@ -11,7 +11,6 @@ import { Choice, Question } from '@lib/types'
 import { FlexAlignItem, FlexContainer } from '@components/elements/flex'
 import { SectionText } from '@components/elements/text'
 
-
 interface IQuestionResultsProps {
   question: Question
   result: SingleChoiceQuestionResults

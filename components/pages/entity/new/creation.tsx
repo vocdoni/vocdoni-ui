@@ -96,13 +96,13 @@ export const FormCreation = () => {
             <Col xs={12}>
               <Spacer direction="vertical" size="3xl" />
             </Col>
-            <Col xs={12} md={8}>
+            {/* <Col xs={12} md={8}>
               <WaitingBanner
                 messages={i18n.t('waiting_banner.entity_creation', {
                   returnObjects: true,
                 })}
               />
-            </Col>
+            </Col> */}
           </Row>
         </Then>
       </If>

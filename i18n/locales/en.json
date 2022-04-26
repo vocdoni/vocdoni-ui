@@ -831,7 +831,10 @@
       "vocdoni_currently_only_support_public_voting_process": "Vocdoni currently only supports public voting processes. The information on the process will be made publicly available and can’t be updated after submitting it. Please make sure all information is correct, you have read the Terms & Conditions before creating the voting process and that you are not sharing sensitive information.",
       "weighted_voting": "Weighted voting",
       "would_you_like_this_voting_process_to_ensure_cryptographic_anonymity": "Would you like this voting process to ensure cryptographic anonymity?",
-      "yes": "Yes"
+      "yes": "Yes",
+      "submitting": "Your vote is being submitted...",
+      "submitting_advertise": "Please don’t close the window, this action may take a few minutes."
+
     },
     "preregister_view": {
       "back": "Back",

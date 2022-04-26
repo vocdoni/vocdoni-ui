@@ -2,12 +2,7 @@ import React, { ChangeEvent, useState } from 'react'
 import styled from 'styled-components'
 import { useTranslation } from 'react-i18next'
 
-
-import {
-  AccountBackup,
-  Wallet_AuthMethod,
-} from 'dvote-js'
-
+import { AccountBackup, Wallet_AuthMethod } from 'dvote-js'
 
 import { useMessageAlert } from '@hooks/message-alert'
 
@@ -86,7 +81,9 @@ export const AccountBackupView = ({
         currentPassphrase: passphrase,
       })
 
-      downloadFile(backupBytes, { fileName: 'backup_vocdoni_' + account.name + '.bak' })
+      downloadFile(backupBytes, {
+        fileName: 'backup_vocdoni_' + account.name + '.bak',
+      })
 
       onBackup()
     } catch (err) {
@@ -130,7 +127,7 @@ export const AccountBackupView = ({
     >
       <Grid>
         <Column>
-          <MaxWidth width={600}>
+          <MaxWidth width={400}>
             {new Array(QUESTION_COUNT).fill(0).map((_, qIdx) => {
               const availableIdxs = ALL_RECOVER_QUESTIONS.map(() => true)
               // Mark the indexes for questions already being used
@@ -162,7 +159,9 @@ export const AccountBackupView = ({
               type="password"
               label={i18n.t('backup.confirm_your_passphrase')}
               value={passphrase}
-              onChange={(e: ChangeEvent<HTMLInputElement>) => setPassphrase(e.target.value)}
+              onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                setPassphrase(e.target.value)
+              }
             />
 
             <QuestionContainer>

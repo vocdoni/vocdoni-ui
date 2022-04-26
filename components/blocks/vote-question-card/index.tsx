@@ -1,6 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
-import { SingleChoiceQuestionResults, VochainProcessStatus, VochainProcessStatus as ProcessStatus } from 'dvote-js'
+import {
+  SingleChoiceQuestionResults,
+  VochainProcessStatus,
+  VochainProcessStatus as ProcessStatus,
+} from 'dvote-js'
 import { useTranslation } from 'react-i18next'
 
 import { colors } from 'theme/colors'
@@ -45,7 +49,7 @@ export const VoteQuestionCard = ({
   const { i18n } = useTranslation()
 
   const questionsView = new ViewStrategy(
-    () => (!hasVoted && !readOnly) && processStatus === ProcessStatus.READY,
+    () => !hasVoted && !readOnly && processStatus === ProcessStatus.READY,
     (
       <ChoiceSelector
         questionIdx={questionIdx}
@@ -62,7 +66,10 @@ export const VoteQuestionCard = ({
     hasVoted
 
   const resultsQuestionView = new ViewStrategy(
-    () => (showResults || readOnly) && !!result && typeof totalVotes !== 'undefined',
+    () =>
+      (showResults || readOnly) &&
+      !!result &&
+      typeof totalVotes !== 'undefined',
     (
       <QuestionResults
         question={question}
@@ -97,7 +104,9 @@ export const VoteQuestionCard = ({
           <Grid>
             <Column md={8} sm={12}>
               <SectionText>
-                {i18n.t('vote_question_card.question', { number: questionIdx + 1 })}
+                {i18n.t('vote_question_card.question', {
+                  number: questionIdx + 1,
+                })}
               </SectionText>
 
               <SectionText size={TextSize.Big}>

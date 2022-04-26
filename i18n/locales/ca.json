@@ -10,7 +10,7 @@
         "retry": "Torna-ho a intentar",
         "review_process_terms_and_conditions": "Revisar termes i condicions",
         "sign_in": "Accedeix-hi",
-        "upload_list_of_voters": ""
+        "upload_list_of_voters": "Importa llista de votants"
     },
     "app": {
         "footer": {
@@ -515,6 +515,7 @@
           "filename": "Nom",
           "voters": "{{ censusSize }} votants"
         },
+        
         "stream": "Stream",
         "details": "Detalls",
         "document": "Document",
@@ -555,6 +556,7 @@
           "show": "Mostrar",
           "hide": "Amagar"
         },
+        
         "settings_card": {
           "title": "Paràmetres",
           "type": "Tipus",
@@ -583,7 +585,14 @@
         "add_new_question": "Afegeix una nova pregunta",
         "add_option": "Afegeix una altra opció",
         "auth": {
-            "insert_your": ""
+            "if_you_voted": "Si has votat, necessites autenticar-te per revisar el teu vot",
+            "insert_your": "Inserta el {{ field }}",
+            "insert_your_credentials": "Afegeix les teves credencials",
+            "insert_your_credentials_and_password": "Afegeix les credencials i contrasenya",
+            "not_authenticated": "No estàs autenticat!",
+            "with_credentials": "Autenticat amb les teves credencials per votar.",
+            "auth_button": "Autentica't",
+            "disconnect_button": "Desconnectar"
         },
         "back_to_dashboard": "Torna a l'inici",
         "brand_color_used_on_the_voting_process": "Brand color used on the voting process",
@@ -597,9 +606,15 @@
         "checking_details": "Comprovant els detalls",
         "confirm_your_vote": "Confirma el teu vot",
         "copy": "Copia",
+        "calendar_end_label": "Final",
+        "calendar_start_label": "Inici",
+        "calendar_title": "Calendari",
+        "show_more": "Mostrar més",
+        "end_vote": "Finalitza votació",
         "creating_census": "Creant cens",
         "creating_process": "Creant procés",
         "creation": "Creació",
+        "see_results": "Veure resultats",
         "define_the_timeframe_of_the_proposal": "Definició del termini del procés de votació",
         "delete_option": "Elimina aquesta opció",
         "delete_question": "Elimina aquesta pregunta",
@@ -626,9 +641,13 @@
         "invalid_file_type": "Fitxer invàlid. Formats acceptats: XLS, XLSX, CSV, ODT",
         "invalid_mnemonic_value": "Valor mnemonic invàlid ",
         "invalid_process_id_link": "Enllaç invàlid",
+        "you_are_autenticated": "Estàs autenticat amb les credencials: ",
+        "tag_is_anonymous": "Anònima",
+        "tag_is_normal": "Votació normal",
+        "tag_is_weighted": "Votació ponderada",
         "log_out": "Tancar sessió",
         "login_title": "Inicia sessió",
-        "name": "Name",
+        "name": "Nom",
         "new_vote": "Nou procés de votació",
         "no_back_to_login": "No, torna a la votació",
         "no_results_title": "Resultats no disponibles",
@@ -679,11 +698,12 @@
         "this_is_the_link_that_you_need_to_send_your_community_members": "Aquest és l'enllaç de votació que has de compartir amb els votants:",
         "this_is_the_link_that_you_need_to_send_your_community_members_replacing_the_corresponding_private_key": "Aquest és l'enllaç de votació que hauràs de compartir amb els votants, per a cada votant has d'afegir la seva clau privada corresponent:",
         "this_is_the_link_that_you_need_to_send_your_community_members_replacing_the_corresponding_private_key_helper": "Recorda que cada enllaç serà únic per a cadascun dels votants, diferents votants han de tenir diferents enllaços diferenciats per la seva clau privada",
-        "this_is_the_link_that_your_community_members_can_use_to_access_via_mnemonic": "Aquest és l'enllaç de votació que hauràs de compartir amb els votants que volen accedir mitjançant su mnemonic:",
-        "this_is_the_link_that_your_community_members_can_use_to_access_via_mnemonic_helper": "Aquest enllaç es pot utilitzar per votants que ja disposen wallets associats amb mnemonics",
-        "this_is_weighted_voted": "",
+        "this_is_the_link_that_your_community_members_can_use_to_access_via_mnemonic": "Aquest és l'enllaç de votació que hauràs de compartir amb els votants que volen accedir mitjançant el seu mnemonic:",
+        "this_is_the_link_that_your_community_members_can_use_to_access_via_mnemonic_helper": "Aquest enllaç es pot utilitzar per votants que ja disposen de wallets associats amb mnemonics",
+        "this_is_weighted_voted": "Aquesta votació és ponderada",
         "this_type_of_vote_is_not_supported_on_the_current_page": "Aquest tipus de votació encara no està disponible",
         "title": "Títol",
+        "total_votes_submited": "Total vots emesos",
         "total_votes": "Nombre total de vots: {{totalVotes}}",
         "total_weighted_votes": "Número de participants: {{totalVotes}}. Pes total dels vots emesos: {{totalWeightedVotes}}",
         "upcoming_vote": "Propera votació",
@@ -704,13 +724,25 @@
         "yes_submit_the_vote": "Sí, envia el meu vot",
         "you_can_vote_on_this_proposal": "Ja pots votar en aquest procés",
         "you_cant_enter_contact_with_entity": "Problemes amb l'accés? contacta amb l'entitat",
-        "you_got_attributed_a_voting_power_per_question": "",
+        "you_got_attributed_a_voting_power_per_question": "El pes del teu vot per pregunta és:",
         "you_need_authenticate_to_vote": "Es necessita autenticar-te per votar",
         "your_choice": "La teva selecció",
         "your_entity_is_being_registered": "La teva entitat ha estat registrada",
         "your_vote_has_been_registered": "El teu vot ha estat registrat",
         "your_vote_is_set_up": "La votació s'ha creat",
-        "your_vote_process_is_being_created": "Has creat el procés de votació"
+        "your_vote_process_is_being_created": "Has creat el procés de votació",
+        "voting_results_title": "Resultats de la votació",
+        "voting_results_show": "Mostrar",
+        "voting_results_hide": "Amagar",
+        "vote_will_close": "La votació finalitza en:",
+        "vote_will_start": "La votació començarà en:",
+        "submitting": "El teu vot s'està enviant",
+        "submitting_advertise": "Si us plau, no tanquis aquesta finestra. El procés pot durar uns minuts",
+        "credentials_not_accepted": "Les credencials no s'han pogut verificar. Si us plau, contacta amb l'entitat",
+        "disconnect_modal_title": "Desconnectar",
+        "disconnect_modal_subtitle": "Estàs segur que vols desconnectar les teves credencials autenticades?",
+        "disconnect_modal_confirm_button": "Si, desconnectar",
+        "disconnect_modal_back_button": "No, tornar enrere"
     },
     "votes": {
         "new": {
@@ -727,8 +759,16 @@
             "it_will_be_impossible_for_a_third_party_to_see_witch_vote_a_use_has_cast": "",
             "no": "",
             "normal_voting": "Votació normal",
-            "requirements": "Requirements",
+            "requirements": "Requeriments",
             "select_": "",
+            "select_voting_type": "Seleccioneu el tipus de votació",
+            "start": "Inici",
+            "start_inmediatly": "Començar immediatament",
+            "end_on_a_specific_date": "Acabar en una data específica",
+            "real_time_results": "Resultats en temps real",
+            "results_after": "Revelar resultats al finalitzar la votació",
+            "results_live": "Resultats en temps real",
+            "start_on_a_specific_date": "Començar en una data específica",
             "select_voting_options": "Seleccioneu les opcions de votació",
             "set_different_power_to_each_voter": "Estableix un poder de vot diferent per a cada votant",
             "supported_formats_csv_xls": "(Formats compatibles: CSV, XLSX i ODS)",
@@ -741,10 +781,18 @@
             "the_weighted_voted_should_always_come_the_first_column": "La votació ponderada ha de ser sempre el primer camp.",
             "upload_new_document": "Carregueu una nova llista de votants",
             "upload_or_drag_and_drop_here_the_list": "Carregueu o arrossegueu i deixeu anar aquí la llista de votants",
-            "vocdoni_currently_only_support_public_voting_process": "Vocdoni actualment només admet processos de votació pública. La informació sobre el procés es posarà a disposició del públic i no es podrà actualitzar després d'enviar-la. Assegureu-vos que tota la informació sigui correcta, que hàgiu llegit els Termes i condicions abans de crear el procés de votació i que no esteu compartint informació sensible.",
+            "vocdoni_currently_only_support_public_voting_process": "Actualment només s'admeten processos de votació pública. La informació sobre el procés es posarà a disposició del públic i no es podrà actualitzar després d'enviar-la. Assegureu-vos que tota la informació sigui correcta, que hàgiu llegit els Termes i condicions abans de crear el procés de votació i que no esteu compartint informació sensible.",
             "weighted_voting": "Votació ponderada",
             "would_you_like_this_voting_process_to_ensure_cryptographic_anonymity": "",
-            "yes": ""
+            "yes": "",
+            "results_availability": {
+                "title": "Disponibilitat dels resultats",
+                "subtitle": "Selecciona el tipus de disponibilitat dels resultats utilitzat en aquest procés"
+            },
+            "calendar": {
+                "title": "Calendari",
+                "subtitle": "Defineix la data d'inici i final del procés"
+              }
         },
         "preregister_view": {
             "back": "",
@@ -764,6 +812,7 @@
             "next_question": "Pregunta següent",
             "question": "Pregunta {{questionIndex}}/{{totalQuestions}}"
         }
+   
     },
     "waiting_banner": {
         "title": "Sabias què...",

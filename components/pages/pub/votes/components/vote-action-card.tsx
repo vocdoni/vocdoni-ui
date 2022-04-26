@@ -36,9 +36,11 @@ export const VoteActionCard = ({
 }: IVoteActionCardProps) => {
   const { i18n } = useTranslation()
   const processId = useUrlHash().slice(1)
-  const { startDate, endDate, votesWeight, status, censusSize, liveResults } = useProcessWrapper(processId)
+  const { startDate, endDate, votesWeight, status, censusSize, liveResults } =
+    useProcessWrapper(processId)
   const { nullifier } = useVoting(processId)
-  const disabled = (status !== VoteStatus.Active || userVoteStatus === UserVoteStatus.Emitted)
+  const disabled =
+    status !== VoteStatus.Active || userVoteStatus === UserVoteStatus.Emitted
   const explorerLink = process.env.EXPLORER_URL + '/envelope/' + nullifier
 
   const getTitleFromState = (status: VoteStatus) => {
@@ -50,7 +52,10 @@ export const VoteActionCard = ({
           {i18n.t('vote.your_vote_has_been_registered')}
         </Text>
       )
-    } else if (userVoteStatus === UserVoteStatus.Expired || status === VoteStatus.Ended) {
+    } else if (
+      userVoteStatus === UserVoteStatus.Expired ||
+      status === VoteStatus.Ended
+    ) {
       return (
         <Text bold large>
           {i18n.t('vote.the_voting_process_has_endded')}
@@ -59,9 +64,7 @@ export const VoteActionCard = ({
     } else if (status === VoteStatus.Active) {
       return (
         <>
-          <Text>
-            {i18n.t('vote.vote_will_close')}
-          </Text>
+          <Text>{i18n.t('vote.vote_will_close')}</Text>
           <Text bold large>
             {endingString}
           </Text>
@@ -70,9 +73,7 @@ export const VoteActionCard = ({
     } else if (status === VoteStatus.Upcoming) {
       return (
         <>
-          <Text>
-            {i18n.t('vote.vote_will_start')}
-          </Text>
+          <Text>{i18n.t('vote.vote_will_start')}</Text>
           <Text bold large>
             {startingString}
           </Text>
@@ -128,13 +129,10 @@ export const VoteActionCard = ({
 
   return (
     <BannerDiv positive={status == VoteStatus.Ended}>
-      <BannerMainDiv radius='top'>
+      <BannerMainDiv radius="top">
         <BannerIcon>
           <ImageContainer width="80px">
-            <img
-              src={getVotingImage(status)}
-              alt={i18n.t('vote.voted_alt')}
-            />
+            <img src={getVotingImage(status)} alt={i18n.t('vote.voted_alt')} />
 
             {getVotingIcon(status) && (
               <CheckImageContainer>
@@ -145,29 +143,33 @@ export const VoteActionCard = ({
         </BannerIcon>
 
         <BannerText>
-            {getTitleFromState(status)}
-          <Spacer direction='vertical' size='3xl'></Spacer>
+          {getTitleFromState(status)}
+          <Spacer direction="vertical" size="3xl"></Spacer>
           <div>{getButtonFromState(status)}</div>
         </BannerText>
       </BannerMainDiv>
 
-      <BannerMainDiv radius='bottom' background={colors.lightBg} padding='large'>
-        <Text bold>
-          {i18n.t('vote.total_votes_submited')}
-        </Text>
+      <BannerMainDiv
+        radius="bottom"
+        background={colors.lightBg}
+        padding="large"
+      >
+        <Text bold>{i18n.t('vote.total_votes_submited')}</Text>
         <Text large>
           <If condition={liveResults && votesWeight && censusSize}>
             <Then>
-              {votesWeight?.toString()} ({getPercent(votesWeight, BigNumber.from(censusSize || 1))}%)
+              {votesWeight?.toString()} (
+              {getPercent(votesWeight, BigNumber.from(censusSize || 1))}%)
             </Then>
-            <Else>
-              0 (0%)
-            </Else>
+            <Else>0 (0%)</Else>
           </If>
         </Text>
 
         <VerticalSpacer />
-        <TextButton iconRight={<ChevronRightIcon />} onClick={() => onSeeResults()}>
+        <TextButton
+          iconRight={<ChevronRightIcon />}
+          onClick={() => onSeeResults()}
+        >
           {i18n.t('vote.see_results')}
         </TextButton>
       </BannerMainDiv>
@@ -203,8 +205,8 @@ const VerticalSpacer = styled.div`
   margin: 10px 0px;
 `
 const TextContainer = styled.div`
-  margin-top:24px;
-  margin-bottom:24px;
+  margin-top: 24px;
+  margin-bottom: 24px;
 `
 
 const CheckImageContainer = styled.div`
@@ -231,14 +233,25 @@ const BannerText = styled.div`
   margin: 0 10px;
 `
 
-const BannerMainDiv = styled.div<{ background?: string, radius?: 'top' | 'bottom' | 'all', padding?: 'large' }>`
+const BannerMainDiv = styled.div<{
+  background?: string
+  radius?: 'top' | 'bottom' | 'all'
+  padding?: 'large'
+}>`
   padding: 32px;
   display: flex;
-  background-color: ${({ background }) => background ? background : ''};
+  background-color: ${({ background }) => (background ? background : '')};
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  border-radius: ${({ radius }) => radius === 'all' ? '16px' : radius === 'top' ? '16px 16px 0px 0px' : radius === 'bottom' ? '0px 0px 16px 16px' : ''};
+  border-radius: ${({ radius }) =>
+    radius === 'all'
+      ? '16px'
+      : radius === 'top'
+      ? '16px 16px 0px 0px'
+      : radius === 'bottom'
+      ? '0px 0px 16px 16px'
+      : ''};
 `
 
 const BannerTitle = styled.h2<{ positive?: boolean }>`
@@ -248,10 +261,10 @@ const BannerTitle = styled.h2<{ positive?: boolean }>`
   margin: 0 0 10px;
   text-align: center;
 `
-const Text = styled.p<{ large?: boolean, bold?: boolean }>`
+const Text = styled.p<{ large?: boolean; bold?: boolean }>`
   font-family: Manrope;
-  font-weight: ${({ bold }) => bold ? '600' : '400;'};
-  font-size: ${({ large }) => large ? '24px' : '20px;'};
+  font-weight: ${({ bold }) => (bold ? '600' : '400;')};
+  font-size: ${({ large }) => (large ? '24px' : '20px;')};
   margin: 0;
   line-height: 28px;
   text-align: center;

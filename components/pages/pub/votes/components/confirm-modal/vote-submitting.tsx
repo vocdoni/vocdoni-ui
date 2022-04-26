@@ -1,9 +1,8 @@
-import { WaitingBanner } from "@components/blocks-v2"
-import { Col, Row, Text } from "@components/elements-v2"
-import { LoadingIcon, LogOutIcon, Rotate } from "@components/elements-v2/icons"
-import { useTranslation } from "react-i18next"
-import styled, { keyframes } from "styled-components"
-
+import { WaitingBanner } from '@components/blocks-v2'
+import { Col, Row, Text } from '@components/elements-v2'
+import { LoadingIcon, LogOutIcon, Rotate } from '@components/elements-v2/icons'
+import { useTranslation } from 'react-i18next'
+import styled, { keyframes } from 'styled-components'
 
 export const VoteSubmitting = () => {
   const { i18n } = useTranslation()
@@ -14,7 +13,7 @@ export const VoteSubmitting = () => {
           <Row justify="center" gutter="md" align="center">
             <Col justify="center">
               <img
-                src='/images/vote/vote-now.png'
+                src="/images/vote/vote-now.png"
                 alt="vote"
                 height={100}
                 width={92}
@@ -26,26 +25,23 @@ export const VoteSubmitting = () => {
               </AbsoluteDiv>
             </Col>
             <Col xs={12} justify="center">
-              <Text size="2xl" weight='medium' color="dark-blue" align="center">
-                Your vote is being submitted...
+              <Text size="2xl" weight="medium" color="dark-blue" align="center">
+                {i18n.t('submitting')}
               </Text>
             </Col>
             <Col xs={12} justify="center">
-              <Text size="sm" color="dark-gray" align="center" >
-                Please don’t close the window, this action may take a few minutes.
+              <Text size="sm" color="dark-gray" align="center">
+                {i18n.t('submitting_advertise')}
               </Text>
             </Col>
           </Row>
-        </Col>
-        <Col xs={12}>
-          <WaitingBanner forceMobile messages={i18n.t("waiting_banner.vote_submitting", { returnObjects: true })} />
         </Col>
       </Row>
     </ModalContainer>
   )
 }
 const AbsoluteDiv = styled.div`
-position: absolute;
+  position: absolute;
   transform: translateY(-35px) translateX(35px);
 `
 // This is a hot fix for
@@ -54,5 +50,5 @@ position: absolute;
 // bar independently of
 // the content inside
 const ModalContainer = styled.div`
-min-height: 438px;
+  min-height: 300px;
 `

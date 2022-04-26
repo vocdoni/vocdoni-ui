@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next'
 
 import { useProcessCreation } from '@hooks/process-creation'
 
-
 import { ProcessCreationPageSteps } from '.'
 import { CensusFileSelector } from './census-file-selector'
 import { SpreadSheetReader } from '@lib/spread-sheet-reader'
@@ -125,26 +124,26 @@ export const FormCensus = () => {
     {
       title: i18n.t('votes.new.normal_voting'),
       subtitle: i18n.t('votes.new.all_the_voters_has_the_same_power'),
-      value: VotingType.Normal
+      value: VotingType.Normal,
     },
     {
       title: i18n.t('votes.new.weighted_voting'),
       subtitle: i18n.t('votes.new.set_different_power_to_each_voter'),
-      value: VotingType.Weighted
-    }
+      value: VotingType.Weighted,
+    },
   ]
   return (
     <>
-      <Row gutter='2xl'>
+      <Row gutter="2xl">
         {/* MAIN NOT ADVANCED */}
-        {!showAdvanced &&
+        {!showAdvanced && (
           <Col xs={12}>
-            <Row gutter='4xl'>
+            <Row gutter="4xl">
               {/* SELECT VOTE */}
               <Col xs={12}>
-                <Row gutter='lg'>
+                <Row gutter="lg">
                   <Col xs={12}>
-                    <Text size='2xl' color='dark-blue' >
+                    <Text size="2xl" color="dark-blue">
                       1. {i18n.t('votes.new.select_voting_type')}
                     </Text>
                   </Col>
@@ -157,7 +156,7 @@ export const FormCensus = () => {
                   </Col>
                 </Row>
               </Col>
-              {/* SELECT ANONYMOUS */}
+              {/* SELECT ANONYMOUS
               {showAnonymous &&
                 <Col xs={12}>
                   <Row gutter='lg'>
@@ -178,25 +177,24 @@ export const FormCensus = () => {
                     </Col>
                   </Row>
                 </Col>
-              }
+              } */}
               {/* UPLOAD CENSUS */}
               <Col xs={12}>
-                <Row gutter='lg'>
+                <Row gutter="lg">
                   <Col xs={12}>
-                    <Text size='2xl' color='dark-blue' >
-                      {showAnonymous ? '3' : '2'}. {i18n.t('votes.new.import_the_list_of_voters')}
+                    <Text size="2xl" color="dark-blue">
+                      2. {i18n.t('votes.new.import_the_list_of_voters')}
                     </Text>
                   </Col>
                   <Col>
-                    <Row gutter='xl'>
+                    <Row gutter="xl">
                       <Col xs={12}>
-
-                        {votingType === VotingType.Normal &&
+                        {votingType === VotingType.Normal && (
                           <ImportVoterListNormal />
-                        }
-                        {votingType === VotingType.Weighted &&
+                        )}
+                        {votingType === VotingType.Weighted && (
                           <ImportVoterListWeighted />
-                        }
+                        )}
                       </Col>
                       <Col xs={12} disableFlex>
                         <CensusContainer>
@@ -213,10 +211,10 @@ export const FormCensus = () => {
               </Col>
             </Row>
           </Col>
-        }
+        )}
 
         {/* ADVANCED SETIINGS */}
-        {(showAdvanced && advancedCensusEnabled) &&
+        {showAdvanced && advancedCensusEnabled && (
           <>
             <Col xs={12}>
               <Row>
@@ -231,8 +229,7 @@ export const FormCensus = () => {
                     onChange={handleOnChangeCensusRoot}
                   />
                 </Col>
-                <Col>
-                </Col>
+                <Col></Col>
                 <Col xs={12} md={6} disableFlex>
                   <InputFormGroup
                     title={'CensusURI'}
@@ -246,8 +243,8 @@ export const FormCensus = () => {
               </Row>
             </Col>
           </>
-        }
-        {advancedCensusEnabled &&
+        )}
+        {advancedCensusEnabled && (
           <Col xs={12}>
             <FlexContainer
               alignItem={FlexAlignItem.Center}
@@ -255,16 +252,16 @@ export const FormCensus = () => {
             ></FlexContainer>
             {/* <When condition={advancedCensusEnabled}> */}
             <Button
-              variant='primary'
+              variant="primary"
               onClick={() => setShowAdvanced((a) => !a)}
-            // disabled={!spreadSheetReader}
+              // disabled={!spreadSheetReader}
             >
               {!showAdvanced
                 ? 'Show Advanced Options'
                 : 'Hide Advanced Options'}
             </Button>
           </Col>
-        }
+        )}
 
         {/* DISCLAIMER BANNER */}
         {spreadSheetReader && (
@@ -279,26 +276,28 @@ export const FormCensus = () => {
 
         {/* ACTIONS */}
         <Col xs={12}>
-          <Row justify='space-between'>
+          <Row justify="space-between">
             <Col xs={2}>
               <Button
-                variant='white'
-                onClick={() => methods.setPageStep(ProcessCreationPageSteps.METADATA)}
+                variant="white"
+                onClick={() =>
+                  methods.setPageStep(ProcessCreationPageSteps.METADATA)
+                }
               >
-                {i18n.t('action.back')}
+                {i18n.t('action.go_back')}
               </Button>
             </Col>
             <Col>
               <Switch>
                 <Case condition={!spreadSheetReader}>
-                  <Button variant='primary' disabled>
+                  <Button variant="primary" disabled>
                     {i18n.t('action.upload_list_of_voters')}
                   </Button>
                 </Case>
 
                 <Case condition={spreadSheetReader}>
                   <Button
-                    variant='primary'
+                    variant="primary"
                     disabled={!processTerms}
                     onClick={handleContinue}
                   >
@@ -309,7 +308,7 @@ export const FormCensus = () => {
                 </Case>
                 <Default>
                   <Button
-                    variant='primary'
+                    variant="primary"
                     onClick={handleContinue}
                     //TODO handle case where both EXcel and parameters exist
                     disabled={continueDisabled}
@@ -346,4 +345,3 @@ const CensusContainer = styled.div<{ disabled?: boolean }>`
   opacity: ${({ disabled }) => (disabled ? '0.6' : '1')};
   pointer-events: ${({ disabled }) => (disabled ? 'none' : 'auto')};
 `
-

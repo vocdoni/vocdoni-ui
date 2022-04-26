@@ -1,22 +1,25 @@
-import { Col, Row } from "@components/elements-v2/grid"
-import { Spacer } from "@components/elements-v2/spacer"
-import { Text } from "@components/elements-v2/text"
-import { Choice, Question } from "@lib/types"
-import { questionsValidator } from "@lib/validators/questions-validator"
-import { theme } from "@theme/global"
-import { JsonFeedTemplate, MultiLanguage, SingleChoiceQuestionResults } from "dvote-js"
-import { useTranslation } from "react-i18next"
-import { ProgressBar, } from "react-rainbow-components"
-import styled from "styled-components"
-import { useState, useEffect } from "react"
-import { ProgressBarProps } from "react-rainbow-components/components/ProgressBar"
-import { useIsMobile } from "@hooks/use-window-size"
-import { i18n } from "i18next"
-import { useProcessWrapper } from "@hooks/use-process-wrapper"
-import { useUrlHash } from "use-url-hash"
-import { BigNumber } from "ethers"
-import { colorsV2 } from "@theme/colors-v2"
-
+import { Col, Row } from '@components/elements-v2/grid'
+import { Spacer } from '@components/elements-v2/spacer'
+import { Text } from '@components/elements-v2/text'
+import { Choice, Question } from '@lib/types'
+import { questionsValidator } from '@lib/validators/questions-validator'
+import { theme } from '@theme/global'
+import {
+  JsonFeedTemplate,
+  MultiLanguage,
+  SingleChoiceQuestionResults,
+} from 'dvote-js'
+import { useTranslation } from 'react-i18next'
+import { ProgressBar } from 'react-rainbow-components'
+import styled from 'styled-components'
+import { useState, useEffect } from 'react'
+import { ProgressBarProps } from 'react-rainbow-components/components/ProgressBar'
+import { useIsMobile } from '@hooks/use-window-size'
+import { i18n } from 'i18next'
+import { useProcessWrapper } from '@hooks/use-process-wrapper'
+import { useUrlHash } from 'use-url-hash'
+import { BigNumber } from 'ethers'
+import { colorsV2 } from '@theme/colors-v2'
 
 export type QuestionsResultsProps = {
   question: Question
@@ -28,8 +31,8 @@ type StyledCardProps = {
   isMobile: boolean
 }
 type ChoiceResult = {
-  title: MultiLanguage<string>;
-  votes: BigNumber;
+  title: MultiLanguage<string>
+  votes: BigNumber
 }
 export const QuestionResults = (props: QuestionsResultsProps) => {
   const { i18n } = useTranslation()
@@ -64,7 +67,9 @@ export const QuestionResults = (props: QuestionsResultsProps) => {
           <Row gutter="xs">
             <Col xs={12}>
               <Text size="md" color="primary" weight="bold">
-                {i18n.t('vote.results_question', { index: props.index + 1 })}
+                {i18n.t('vote_detail.questions_card.question', {
+                  index: props.index + 1,
+                })}
               </Text>
             </Col>
             <Col xs={12}>
@@ -72,13 +77,13 @@ export const QuestionResults = (props: QuestionsResultsProps) => {
                 {props.results.title.default}
               </Text>
             </Col>
-            {props.question.description &&
+            {props.question.description && (
               <Col xs={12}>
                 <Text size="sm" color="dark-gray" weight="regular">
                   {props.question.description.default}
                 </Text>
               </Col>
-            }
+            )}
           </Row>
         </Col>
         {/* SPACING */}
@@ -90,68 +95,59 @@ export const QuestionResults = (props: QuestionsResultsProps) => {
         </Col>
         {/* QUESTIONS */}
         <Col xs={12}>
-          <Row gutter='lg'>
-            {sortedChoices.map(
-              (choice: ChoiceResult, index: number) =>
-                <Col xs={12} key={index}>
-                  <Row gutter={isMobile ? 'xs' : 'lg'} align="center">
-                    <Col xs={10} md={4}>
-                      <Text
-                        size="lg"
-                        weight={index === 0 && hasWinner ? 'bold' : 'regular'}
-                        color="dark-blue"
-                      >
-                        {choice.title.default}
-                      </Text>
-                    </Col>
-                    <Col hiddenSmAndDown md={2}>
-                      <Text
-                        size="lg"
-                        weight="bold"
-                        color="dark-blue"
-                      >
-                        {getStringPercent(getPercent(choice.votes, votesWeight))}%
-                      </Text>
-                      <Text
-                        size="sm"
-                        color="dark-gray"
-                        weight="regular"
-                      >
-                        {i18n.t('vote.vote_count', { count: choice.votes.toString() as any })}
-                      </Text>
-                    </Col>
-                    <Col xs={12} md={6}>
-                      <StyledProgressBar
-                        value={getBarPercent(choice.votes, votesWeight)}
-                        size={isMobile ? 'medium' : 'large'} style={{ background: colorsV2.neutral[100] }}
-                        disabled={choice.votes.eq(0)}
-                      />
-                    </Col>
-                    <Col xs={12} hiddenSmAndUp>
-                      <Row align="end" gutter="md">
-                        <Col>
-                          <Text
-                            size="lg"
-                            weight="bold"
-                            color="dark-blue"
-                          >
-                            {getStringPercent(getPercent(choice.votes, votesWeight))}%
-                          </Text>
-                        </Col>
-                        <Col>
-                          <Text
-                            size="sm"
-                            color="dark-gray"
-                            weight="regular"
-                          >
-                            {i18n.t('vote.vote_count', { count: choice.votes.toString() as any })}
-                          </Text>
-                        </Col>
-                      </Row>
-                    </Col>
-                  </Row>
-                </Col>
-            )}
+          <Row gutter="lg">
+            {sortedChoices.map((choice: ChoiceResult, index: number) => (
+              <Col xs={12} key={index}>
+                <Row gutter={isMobile ? 'xs' : 'lg'} align="center">
+                  <Col xs={10} md={4}>
+                    <Text
+                      size="lg"
+                      weight={index === 0 && hasWinner ? 'bold' : 'regular'}
+                      color="dark-blue"
+                    >
+                      {choice.title.default}
+                    </Text>
+                  </Col>
+                  <Col hiddenSmAndDown md={2}>
+                    <Text size="lg" weight="bold" color="dark-blue">
+                      {getStringPercent(getPercent(choice.votes, votesWeight))}%
+                    </Text>
+                    <Text size="sm" color="dark-gray" weight="regular">
+                      {i18n.t('vote.vote_count', {
+                        count: choice.votes.toString() as any,
+                      })}
+                    </Text>
+                  </Col>
+                  <Col xs={12} md={6}>
+                    <StyledProgressBar
+                      value={getBarPercent(choice.votes, votesWeight)}
+                      size={isMobile ? 'medium' : 'large'}
+                      style={{ background: colorsV2.neutral[100] }}
+                      disabled={choice.votes.eq(0)}
+                    />
+                  </Col>
+                  <Col xs={12} hiddenSmAndUp>
+                    <Row align="end" gutter="md">
+                      <Col>
+                        <Text size="lg" weight="bold" color="dark-blue">
+                          {getStringPercent(
+                            getPercent(choice.votes, votesWeight)
+                          )}
+                          %
+                        </Text>
+                      </Col>
+                      <Col>
+                        <Text size="sm" color="dark-gray" weight="regular">
+                          {i18n.t('vote.vote_count', {
+                            count: choice.votes.toString() as any,
+                          })}
+                        </Text>
+                      </Col>
+                    </Row>
+                  </Col>
+                </Row>
+              </Col>
+            ))}
           </Row>
         </Col>
       </Row>
@@ -167,7 +163,7 @@ const getBarPercent = (votes: BigNumber, totalVotes: BigNumber): number => {
 const getPercent = (votes: BigNumber, totalVotes: BigNumber): number => {
   // used to avoid losing decimal precision
   const ratio = votes.mul(10000)
-  return ratio.div(totalVotes).toNumber() /100
+  return ratio.div(totalVotes).toNumber() / 100
 }
 const getStringPercent = (percent: number): string => {
   const decimal = percent % 1
@@ -190,16 +186,16 @@ const getPadding = (props: StyledCardProps) => {
 }
 const cosmeticProps = ['isMobile']
 const styledConfig = {
-  shouldForwardProp: (prop) => !cosmeticProps.includes(prop)
+  shouldForwardProp: (prop) => !cosmeticProps.includes(prop),
 }
 const Card = styled.div.withConfig(styledConfig)<StyledCardProps>`
   border-radius: 16px;
   background: ${theme.background};
   padding: ${getPadding};
 `
-const StyledProgressBar = styled(ProgressBar) <StyledProgressBarProps>`
-  background: #E4E7EB;
-  & > span{
+const StyledProgressBar = styled(ProgressBar)<StyledProgressBarProps>`
+  background: #e4e7eb;
+  & > span {
     background: ${getBarColor};
   }
 `

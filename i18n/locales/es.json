@@ -586,7 +586,9 @@
     "add_option": "Añade más opciones",
     "auth": {
       "if_you_voted": "Si has votado tienes que autenticarte para ver tu voto",
-      "insert_your": "Inserta tu {{ field }}"
+      "insert_your": "Inserta tu {{ field }}",
+      "disconnect_button": "Desconectar"
+
     },
     "back_to_dashboard": "Vuelve al inicio",
     "brand_color_used_on_the_voting_process": "Brand color used on the voting process",
@@ -682,7 +684,7 @@
     "this_is_the_link_that_you_need_to_send_your_community_members_replacing_the_corresponding_private_key_helper": "Recuerda que cada enlace sera unico para cada uno de los votantes, diferentes votantes deben tener enlaces diferentes distinguidos por su llave privada",
     "this_is_the_link_that_your_community_members_can_use_to_access_via_mnemonic": "Este es el enlace de votación que deberás compartir con los votantes que quieren acceder utilizando su mnemonic:",
     "this_is_the_link_that_your_community_members_can_use_to_access_via_mnemonic_helper": "Este enlace se puede utilizar por votantes que ya disponen wallets associados con mnemonics",
-    "this_is_weighted_voted": "",
+    "this_is_weighted_voted": "Esta votación es ponderada",
     "this_type_of_vote_is_not_supported_on_the_current_page": "Este tipo de votación no está disponible todavía",
     "title": "Título",
     "total_votes": "Número total de votos: {{totalVotes}}",
@@ -706,13 +708,16 @@
     "yes_submit_the_vote": "Sí, envía mi voto",
     "you_can_vote_on_this_proposal": "Ya puedes votar en este proceso",
     "you_cant_enter_contact_with_entity": "Si no puedes acceder, contacta con la entidad",
-    "you_got_attributed_a_voting_power_per_question": "",
+    "you_got_attributed_a_voting_power_per_question": "El peso de tu votación por pregunta es de:",
     "you_need_authenticate_to_vote": "Es necesario autenticarte para votar",
     "your_choice": "Tu selección",
     "your_entity_is_being_registered": "Tu selección",
     "your_vote_has_been_registered": "Tu voto ha sido registrado",
     "your_vote_is_set_up": "Votación creada",
-    "your_vote_process_is_being_created": "Proceso de votación creado"
+    "your_vote_process_is_being_created": "Proceso de votación creado",
+    "submitting": "Tu voto se está enviando",
+    "submitting_advertise": "Por favor, no cierres esta ventana, el proceso puede durar unos minutos."
+
   },
   "votes": {
     "new": {
@@ -743,10 +748,22 @@
       "the_weighted_voted_should_always_come_the_first_column": "El peso de cada votante siempre debe aparecer como primer campo.",
       "upload_new_document": "Subir una nueva lista de votantes",
       "upload_or_drag_and_drop_here_the_list": "Sube o arrastra y suelta aquí la lista de votantes",
-      "vocdoni_currently_only_support_public_voting_process": "Actualmente, Vocdoni solo admite procesos de votación pública. La información sobre el proceso se pondrá a disposición del público y no se podrá actualizar después de enviarla. Asegúrese de que toda la información sea correcta, que haya leído los Términos y condiciones antes de crear el proceso de votación y que no esté compartiendo información confidencial.",
+      "vocdoni_currently_only_support_public_voting_process": "Actualmente, solo se admiten procesos de votación pública. La información sobre el proceso se pondrá a disposición del público y no se podrá actualizar después de enviarla. Asegúrese de que toda la información sea correcta, que haya leído los Términos y condiciones antes de crear el proceso de votación y que no esté compartiendo información confidencial.",
       "weighted_voting": "Votación ponderada",
       "would_you_like_this_voting_process_to_ensure_cryptographic_anonymity": "",
-      "yes": ""
+      "yes": "Si",
+      "disconnect_modal_title": "Desconectar",
+      "disconnect_modal_subtitle": "¿Estás seguro de que quieres desconectarte de tus credenciales autentificadas?",
+      "disconnect_modal_confirm_button": "Si, desconectar",
+      "disconnect_modal_back_button": "No, volver atrás",
+      "results_availability": {
+        "title": "Disponibilidad de los resultados",
+        "subtitle": "Selecciona el tipo de disponibilidad de los resultados para este proceso"
+    },
+    "calendar": {
+      "title": "Calendario",
+      "subtitle": "Define la fecha de inicio y final del proceso"
+    }
     },
     "preregister_view": {
       "back": "",

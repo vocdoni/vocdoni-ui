@@ -101,10 +101,6 @@ export const SignInForm = ({
           />
         </FormGroup>
 
-        <Link href={ACCOUNT_RECOVER_PATH}>
-          {i18n.t('sign_in.forgot_your_password_restore_from_a_backup')}
-        </Link>
-
         <ButtonContainer>
           <Button
             disabled={buttonDisabled}

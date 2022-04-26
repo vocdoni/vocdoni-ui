@@ -3,6 +3,7 @@ import React, { Children } from 'react'
 import { Row, Col, Card, Text, Banner } from '@components/elements-v2'
 import { LightningSlashIcon } from '@components/elements-v2/icons'
 import { ComponentStory } from '@storybook/react'
+import i18n from '@i18n'
 export default {
   title: 'Blocks V2/Banner',
   component: Banner,
@@ -39,7 +40,7 @@ Playground.args = {
 }
 Authenticate.args = {
   variant: 'primary',
-  children: 'You are not authenticated!',
+  children: i18n.t('not_authenticated'),
   titleProps: {
     size: 'sm',
     weight: 'bold',
@@ -47,12 +48,12 @@ Authenticate.args = {
   subtitleProps: {
     size: 'md',
     weight: 'regular',
-    children: 'Authenticate with your credentials to vote.',
+    children: i18n.t('with_credentials'),
   },
   image: <img src="/images/vote/authenticate-banner-image.jpg" />,
   buttonProps: {
     variant: 'primary',
-    children: 'Authenticate',
+    children: i18n.t('auth_button'),
   },
 }
 Disconnect.args = {

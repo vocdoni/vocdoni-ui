@@ -63,22 +63,24 @@ const SignInPage = () => {
   }
 
   return (
-    <PageCard>
-      <Grid>
-        <Row justify="center">
-          <Column lg={6}>
-            <SignInForm
-              accounts={accountCOEC}
-              error={loginError}
-              onSubmit={handlerSubmit}
-              disabled={verifyingCredentials}
-            />
+    <MaxWidth width={1200}>
+      <PageCard>
+        <Grid>
+          <Row justify="center">
+            <Column lg={6}>
+              <SignInForm
+                accounts={accountCOEC}
+                error={loginError}
+                onSubmit={handlerSubmit}
+                disabled={verifyingCredentials}
+              />
 
-            {!laptop && <LoginDivider />}
-          </Column>
-        </Row>
-      </Grid>
-    </PageCard>
+              {!laptop && <LoginDivider />}
+            </Column>
+          </Row>
+        </Grid>
+      </PageCard>
+    </MaxWidth>
   )
 }
 
@@ -88,4 +90,9 @@ const LoginDivider = styled.div`
   border-bottom: solid 2px ${({ theme }) => theme.lightBorder};
 `
 
+const MaxWidth = styled.div<{ width: number }>`
+  margin-left: auto;
+  margin-right: auto;
+  max-width: ${(props) => props.width + 'px'};
+`
 export default SignInPage
