@@ -5,7 +5,6 @@ import { EntityMetadata } from 'dvote-js'
 
 import { useEntity } from '@vocdoni/react-hooks'
 
-
 import { ViewContext, ViewStrategy } from '@lib/strategy'
 import { useAuthForm } from '@hooks/use-auth-form'
 import { useTheme } from '@hooks/use-theme'
@@ -26,10 +25,10 @@ const VoteAuthLogin = () => {
   const { i18n } = useTranslation()
   const [checkingCredentials, setCheckingCredentials] = useState<boolean>(false)
   const {
+    emptyFields,
     invalidProcessId,
     loadingInfo,
     loadingInfoError,
-    emptyFields,
     fieldNames,
     formValues,
     processInfo,
@@ -39,7 +38,7 @@ const VoteAuthLogin = () => {
   } = useAuthForm()
   const { methods: votingMethods } = useVoting(processInfo?.id)
   const { metadata, loading, error } = useEntity(processInfo?.state?.entityId)
-  const { updateAppTheme } = useTheme();
+  const { updateAppTheme } = useTheme()
 
   const entityMetadata = metadata as EntityMetadata
 
@@ -48,8 +47,13 @@ const VoteAuthLogin = () => {
   }, [])
 
   useEffect(() => {
-    if (processInfo?.metadata?.meta?.[MetadataFields.BrandColor] || entityMetadata?.meta?.[MetadataFields.BrandColor]) {
-      const brandColor = processInfo?.metadata?.meta?.[MetadataFields.BrandColor] || entityMetadata?.meta?.[MetadataFields.BrandColor]
+    if (
+      processInfo?.metadata?.meta?.[MetadataFields.BrandColor] ||
+      entityMetadata?.meta?.[MetadataFields.BrandColor]
+    ) {
+      const brandColor =
+        processInfo?.metadata?.meta?.[MetadataFields.BrandColor] ||
+        entityMetadata?.meta?.[MetadataFields.BrandColor]
 
       updateAppTheme({
         accent1: brandColor,
@@ -58,7 +62,7 @@ const VoteAuthLogin = () => {
         accent2B: brandColor,
         textAccent1: brandColor,
         textAccent1B: brandColor,
-        customLogo: entityMetadata?.media?.logo
+        customLogo: entityMetadata?.media?.logo,
       })
     }
   }, [processInfo, entityMetadata])
@@ -66,10 +70,9 @@ const VoteAuthLogin = () => {
   const handleSubmit = async () => {
     setCheckingCredentials(true)
 
-    methods.onLogin()
-      .finally(() => {
-        setCheckingCredentials(false)
-      })
+    methods.onLogin().finally(() => {
+      setCheckingCredentials(false)
+    })
   }
 
   const renderLoadingPage = new ViewStrategy(
@@ -78,7 +81,7 @@ const VoteAuthLogin = () => {
   )
 
   const renderVotingInvalidLink = new ViewStrategy(
-    () => (!loading && !loadingInfo) && invalidProcessId,
+    () => !loading && !loadingInfo && invalidProcessId,
     (
       <VotingErrorPage
         message={i18n.t(
@@ -94,7 +97,7 @@ const VoteAuthLogin = () => {
   )
 
   const renderVoteNotSupported = new ViewStrategy(
-    () => (!loading && !loadingInfo) && (!fieldNames || !fieldNames?.length),
+    () => !loading && !loadingInfo && (!fieldNames || !fieldNames?.length),
     (
       <VotingErrorPage
         message={i18n.t(
@@ -138,6 +141,6 @@ const VoteAuthLogin = () => {
 }
 
 // Defining the custom layout to use
-VoteAuthLogin["Layout"] = LayoutVoter
+VoteAuthLogin['Layout'] = LayoutVoter
 
 export default VoteAuthLogin

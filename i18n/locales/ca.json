@@ -586,6 +586,8 @@
         "add_option": "Afegeix una altra opció",
         "auth": {
             "if_you_voted": "Si has votat, necessites autenticar-te per revisar el teu vot",
+            "collegiate_number": "Núm. de Col·legiat",
+
             "insert_your": "Inserta el {{ field }}",
             "insert_your_credentials": "Afegeix les teves credencials",
             "insert_your_credentials_and_password": "Afegeix les credencials i contrasenya",

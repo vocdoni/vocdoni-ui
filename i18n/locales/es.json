@@ -587,6 +587,7 @@
     "auth": {
       "if_you_voted": "Si has votado tienes que autenticarte para ver tu voto",
       "insert_your": "Inserta tu {{ field }}",
+      "collegiate_number": "Número de Colegiado",
       "disconnect_button": "Desconectar"
 
     },

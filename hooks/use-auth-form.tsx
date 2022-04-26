@@ -29,22 +29,26 @@ import { walletState } from '@recoil/atoms/wallet'
 // CONTEXT
 
 type IAuthForm = {
-  emptyFields?: boolean,
-  invalidProcessId?: boolean,
-  loadingInfo?: boolean,
-  loadingInfoError?: string,
-  processInfo?: ProcessDetails,
-  fieldNames: string[],
-  authFields: string[],
-  formValues: { [k: string]: string },
-  secretKey: string,
+  emptyFields?: boolean
+  invalidProcessId?: boolean
+  loadingInfo?: boolean
+  loadingInfoError?: string
+  processInfo?: ProcessDetails
+  fieldNames: string[]
+  authFields: string[]
+  formValues: { [k: string]: string }
+  secretKey: string
   invalidCredentials: boolean
 
   methods: {
-    setFormValue: (key: string, value: string) => void,
+    setFormValue: (key: string, value: string) => void
     onLogin: () => Promise<void | number>
-    setSecretKey,
-    calculateAnonymousKey: (privKey: string, password: string, entityId) => bigint
+    setSecretKey
+    calculateAnonymousKey: (
+      privKey: string,
+      password: string,
+      entityId
+    ) => bigint
   }
 }
 
@@ -57,11 +61,17 @@ export const useAuthForm = () => {
   const setZKCensusProof = useSetRecoilState<ZKCensusPoof>(ZKcensusProofState)
   const processId = useUrlHash().slice(1) // Skip /
   const invalidProcessId = processId && !processId.match(/^0x[0-9a-fA-F]{64}$/)
-  const { loading: loadingInfo, error: loadingInfoError, process: processInfo, refresh: refreshProcessInfo } = useProcess(processId)
+  const {
+    loading: loadingInfo,
+    error: loadingInfoError,
+    process: processInfo,
+    refresh: refreshProcessInfo,
+  } = useProcess(processId)
   const { blockHeight } = useBlockHeight()
   const processStarted = blockHeight >= processInfo?.state?.startBlock
-  const userRequirePreregister = processInfo?.state?.processMode?.preRegister && !processStarted
-  const requireSecretKey = processInfo?.state?.processMode?.preRegister && processStarted
+  const userRequirePreregister =
+    processInfo?.state?.processMode?.preRegister && !processStarted
+  const requireSecretKey = true
   const { setAlertMessage } = useMessageAlert()
   const [formValues, setFormValues] = useState<{ [k: string]: string }>({})
   const [invalidCredentials, setInvalidCredentials] = useState(false)
@@ -69,7 +79,9 @@ export const useAuthForm = () => {
   const [secretKey, setSecretKey] = useState<string>()
   const { methods: votingMethods } = useVoting(processId)
 
-  const fieldNames: string[] = processInfo?.metadata?.meta?.formFieldTitles || []
+  const collegiate_number = i18n.t('vote.auth.collegiate_number')
+
+  const fieldNames: string[] = [collegiate_number] || []
 
   useEffect(() => {
     refreshProcessInfo(processId)
@@ -83,13 +95,12 @@ export const useAuthForm = () => {
     setFormValues(newValue)
   }
 
-
   const onLogin = (): Promise<void | number> => {
     let authFieldsData: string[] = []
     // validate all fields are not empty
     for (const fieldName of fieldNames) {
-      if (!formValues[fieldName]) {
-        setAlertMessage(i18n.t("errors.please_fill_in_all_the_fields"))
+      if (!formValues[fieldName] && secretKey.length !== 0) {
+        setAlertMessage(i18n.t('errors.please_fill_in_all_the_fields'))
         return Promise.resolve()
       }
 
@@ -104,68 +115,107 @@ export const useAuthForm = () => {
     if (requireSecretKey) {
       // if is anonymous and the key field is empty return
       if (secretKey.length == 0) {
-        setAlertMessage(i18n.t("errors.please_fill_in_all_the_fields"))
+        setAlertMessage(i18n.t('errors.please_fill_in_all_the_fields'))
         return Promise.resolve()
       }
 
-      const anonymousKey = calculateAnonymousKey(voterWallet.privateKey, secretKey, processInfo?.state?.entityId)
-      return poolPromise.then(pool =>
-        CensusOnChainApi.generateProof(processInfo?.state?.rollingCensusRoot, anonymousKey, pool)
-      ).then(anonymousProof => {
-        if (!anonymousProof) throw new Error("Invalid census proof")
-        setZKCensusProof(anonymousProof)
-        // Set the voter wallet recovered
-        votingMethods.setAnonymousKey(anonymousKey)
-        setWallet(voterWallet)
+      const anonymousKey = calculateAnonymousKey(
+        voterWallet.privateKey,
+        secretKey,
+        processInfo?.state?.entityId
+      )
+      return poolPromise
+        .then((pool) =>
+          CensusOnChainApi.generateProof(
+            processInfo?.state?.rollingCensusRoot,
+            anonymousKey,
+            pool
+          )
+        )
+        .then((anonymousProof) => {
+          if (!anonymousProof) throw new Error('Invalid census proof')
+          setZKCensusProof(anonymousProof)
+          // Set the voter wallet recovered
+          votingMethods.setAnonymousKey(anonymousKey)
+          setWallet(voterWallet)
 
-        if (userRequirePreregister) {
-          router.push(PREREGISTER_PATH + "#/" + processInfo?.id)
-        } else {
-          router.push(VOTING_PATH + "#/" + processInfo?.id)
-        }
-      }).catch(err => {
-        setAlertMessage(i18n.t("errors.the_contents_you_entered_may_be_incorrect"))
-      })
+          if (userRequirePreregister) {
+            router.push(PREREGISTER_PATH + '#/' + processInfo?.id)
+          } else {
+            router.push(VOTING_PATH + '#/' + processInfo?.id)
+          }
+        })
+        .catch((err) => {
+          setAlertMessage(
+            i18n.t('errors.the_contents_you_entered_may_be_incorrect')
+          )
+        })
     } else {
       // calculate plain census claim, perform generateProof and redirect
       // according to anonymous o plain census
-      const digestedHexClaim = CensusOffChain.Public.encodePublicKey(voterWallet.publicKey)
+      const digestedHexClaim = CensusOffChain.Public.encodePublicKey(
+        voterWallet.publicKey
+      )
 
-      return poolPromise.then(pool =>
-        CensusOffChainApi.generateProof(processInfo.state?.censusRoot, { key: digestedHexClaim }, pool)
-      ).then(censusProof => {
-        if (!censusProof) throw new Error("Invalid census proof")
-        setCensusProof(censusProof)
-        // Set the voter wallet recovered
-        setWallet(voterWallet)
-        const encryptedAuthfield = Symmetric.encryptString(authFieldsData.join("/"), voterWallet.publicKey)
-        // store auth data in local storage for disconnect banner
-        localStorage.setItem('voterData', encryptedAuthfield)
+      return poolPromise
+        .then((pool) =>
+          CensusOffChainApi.generateProof(
+            processInfo.state?.censusRoot,
+            { key: digestedHexClaim },
+            pool
+          )
+        )
+        .then((censusProof) => {
+          if (!censusProof) throw new Error('Invalid census proof')
+          setCensusProof(censusProof)
+          // Set the voter wallet recovered
+          setWallet(voterWallet)
+          const encryptedAuthfield = Symmetric.encryptString(
+            authFieldsData.join('/'),
+            voterWallet.publicKey
+          )
+          // store auth data in local storage for disconnect banner
+          localStorage.setItem('voterData', encryptedAuthfield)
 
-        if (userRequirePreregister) {
-          router.push(PREREGISTER_PATH + "#/" + processInfo?.id)
-        } else {
-          router.push(VOTING_PATH + "#/" + processInfo?.id)
-        }
-      }).catch(err => {
-        setInvalidCredentials(true)
-        setAlertMessage(i18n.t("errors.the_contents_you_entered_may_be_incorrect"))
-      })
+          if (userRequirePreregister) {
+            router.push(PREREGISTER_PATH + '#/' + processInfo?.id)
+          } else {
+            router.push(VOTING_PATH + '#/' + processInfo?.id)
+          }
+        })
+        .catch((err) => {
+          setInvalidCredentials(true)
+          setAlertMessage(
+            i18n.t('errors.the_contents_you_entered_may_be_incorrect')
+          )
+        })
     }
   }
-  const walletFromAuthData = (authFieldsData: string[], entityId: string): Wallet => {
-    authFieldsData = authFieldsData.map(x => normalizeText(x))
+  const walletFromAuthData = (
+    authFieldsData: string[],
+    entityId: string
+  ): Wallet => {
+    authFieldsData = authFieldsData.map((x) => normalizeText(x))
     const strPayload = importedRowToString(authFieldsData, entityId)
     return digestedWalletFromString(strPayload)
   }
 
-
-
-  const calculateAnonymousKey = (privKey: string, password: string, entityId): bigint => {
-    return bufferToBigInt(Buffer.from(importedRowToString([password, privKey], entityId), "utf-8")) % Poseidon.Q
+  const calculateAnonymousKey = (
+    privKey: string,
+    password: string,
+    entityId
+  ): bigint => {
+    return (
+      bufferToBigInt(
+        Buffer.from(importedRowToString([password, privKey], entityId), 'utf-8')
+      ) % Poseidon.Q
+    )
   }
 
-  const emptyFields = !formValues || Object.values(formValues).some(v => !v)
+  const emptyFields =
+    !formValues ||
+    Object.values(formValues).some((v) => !v) ||
+    secretKey?.length === 0
 
   const value: IAuthForm = {
     invalidCredentials,
@@ -180,12 +230,11 @@ export const useAuthForm = () => {
     secretKey,
 
     methods: {
-
       setFormValue,
       onLogin,
       setSecretKey,
-      calculateAnonymousKey
-    }
+      calculateAnonymousKey,
+    },
   }
   return value
 }

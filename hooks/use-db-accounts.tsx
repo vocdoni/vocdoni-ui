@@ -66,7 +66,6 @@ export const UseDbAccountsProvider = ({
 
   const loadAccounts = () => {
     return refreshAccounts().catch((err) => {
-      debugger
       setError(i18n.t('errors.please_ensure_no_incognito_mode'))
     })
   }

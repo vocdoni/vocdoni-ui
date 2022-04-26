@@ -606,7 +606,9 @@
         "title": "Pre-registration",
         "subtitle": "This is a pre-registration that is required in order to participate anonymously when the voting process starts ({{date}})."
       },
-      "preregister_button": "Pre-register"
+      "preregister_button": "Pre-register",
+      "collegiate_number": "Collegiate number"
+
     },
     "back_to_dashboard": "Back to the dashboard",
     "brand_color_used_on_the_voting_process": "Brand color used on the voting process",
