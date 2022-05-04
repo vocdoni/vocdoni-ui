@@ -13,11 +13,17 @@ import {
   IProcessCensusOrigin,
   ProcessCensusOrigin,
   IGatewayClient,
-  normalizeText
+  normalizeText,
 } from 'dvote-js'
-import { createContext, ReactNode, useContext, useEffect, useState } from 'react'
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from 'react'
 import { ProcessCreationPageSteps } from '@components/pages/votes/new'
-import { useForceUpdate } from "./use-force-update"
+import { useForceUpdate } from './use-force-update'
 import i18n from '../i18n'
 import { uploadFileToIpfs } from '../lib/file'
 import { StepperFunc, StepperFuncResult } from '../lib/types'
@@ -31,87 +37,99 @@ import { utils } from 'ethers'
 import { TrackEvents, useRudderStack } from '@hooks/rudderstack'
 import { VotingType } from '@lib/types'
 
-
 export interface ProcessCreationContext {
-  metadata: ProcessMetadata,
-  parameters: ProcessContractParameters,
-  pageStep: ProcessCreationPageSteps,
-  actionStep: number,
-  processId: string,
-  created: boolean,
-  pleaseWait: boolean,
-  creationError: string,
-  headerFile: File,
-  headerURL: string,
-  startRightAway: boolean,
-  startDate: Date,
-  endDate: Date,
-  votingType: VotingType,
-  anonymousVoting: boolean,
-  spreadSheetReader,
-  processTerms,
+  metadata: ProcessMetadata
+  parameters: ProcessContractParameters
+  pageStep: ProcessCreationPageSteps
+  actionStep: number
+  processId: string
+  created: boolean
+  pleaseWait: boolean
+  creationError: string
+  headerFile: File
+  optionFile: File
+  optionURL: string
+  headerURL: string
+  startRightAway: boolean
+  startDate: Date
+  endDate: Date
+  votingType: VotingType
+  anonymousVoting: boolean
+  spreadSheetReader
+  processTerms
   methods: {
-    setPageStep: (s: ProcessCreationPageSteps) => void,
+    setPageStep: (s: ProcessCreationPageSteps) => void
 
-    setTitle: (title: string) => void;
-    setDescription: (description: string) => void;
+    setTitle: (title: string) => void
+    setDescription: (description: string) => void
     // setMedia: (media: ProcessMetadata["media"]) => void;
     setMediaStreamURI: (streamUri: string) => void
-    setMetaFields: (values: {
-      [k: string]: any;
-    }) => void;
-    setQuestions: (questions: ProcessMetadata["questions"]) => void;
-    setRawMetadata: (metadata: ProcessMetadata) => void,
+    setMetaFields: (values: { [k: string]: any }) => void
+    setQuestions: (questions: ProcessMetadata['questions']) => void
+    setRawMetadata: (metadata: ProcessMetadata) => void
     //
-    setMode: (mode: ProcessMode) => void;
-    setEnvelopeType: (envelopeType: ProcessEnvelopeType) => void;
-    setStartBlock: (startBlock: number) => void;
-    setBlockCount: (blockCount: number) => void;
-    setCensusOrigin: (censusOrigin: ProcessCensusOrigin) => void;
-    setProcessTerms: (processTerms: boolean) => void;
+    setMode: (mode: ProcessMode) => void
+    setEnvelopeType: (envelopeType: ProcessEnvelopeType) => void
+    setStartBlock: (startBlock: number) => void
+    setBlockCount: (blockCount: number) => void
+    setCensusOrigin: (censusOrigin: ProcessCensusOrigin) => void
+    setProcessTerms: (processTerms: boolean) => void
     // TODO:
-    setCensusRoot: (censusRoot: string) => void,
-    setCensusUri: (censusUri: string) => void,
-    setCostExponent: (costExponent: number) => void,
+    setCensusRoot: (censusRoot: string) => void
+    setCensusUri: (censusUri: string) => void
+    setCostExponent: (costExponent: number) => void
     // setEntityAddress,
-    setMaxCount: (maxCount: number) => void,
-    setMaxTotalCost: (maxTotalCost: number) => void,
-    setMaxValue: (maxValue: number) => void,
-    setMaxVoteOverwrites: (maxVoteOverwrites: number) => void,
-    setStringMetadata: (metadataOrigin: string) => void,
-    setSpreadSheetReader: (metadata: SpreadSheetReader) => void,
-    setVotingType: (votingType: VotingType) => void,
-    setAnonymousVoting: (anonymousVoting: boolean) => void,
-    setHeaderFile,
-    setHeaderURL,
-    setStartRightAway,
-    setStartDate: (date: Date) => void,
-    setEndDate: (date: Date) => void,
-    createProcess(): void,
-    continueProcessCreation(): void,
-    checkValidCensusParameters(): boolean,
-  },
+    setMaxCount: (maxCount: number) => void
+    setMaxTotalCost: (maxTotalCost: number) => void
+    setMaxValue: (maxValue: number) => void
+    setMaxVoteOverwrites: (maxVoteOverwrites: number) => void
+    setStringMetadata: (metadataOrigin: string) => void
+    setSpreadSheetReader: (metadata: SpreadSheetReader) => void
+    setVotingType: (votingType: VotingType) => void
+    setAnonymousVoting: (anonymousVoting: boolean) => void
+    setHeaderFile
+    setOptionFile
+    setHeaderURL
+    setOptionURL
+    setStartRightAway
+    setStartDate: (date: Date) => void
+    setEndDate: (date: Date) => void
+    createProcess(): void
+    continueProcessCreation(): void
+    checkValidCensusParameters(): boolean
+  }
 }
 
-export const UseProcessCreationContext = createContext<ProcessCreationContext>({} as any)
+export const UseProcessCreationContext = createContext<ProcessCreationContext>(
+  {} as any
+)
 
 // Frontend
 export const useProcessCreation = () => {
   const voteCtx = useContext(UseProcessCreationContext)
   if (voteCtx === null) {
-    throw new Error('useAccount() can only be used on the descendants of <UseProcessCreationProvider />,')
+    throw new Error(
+      'useAccount() can only be used on the descendants of <UseProcessCreationProvider />,'
+    )
   }
 
   return voteCtx
 }
 
 // Backend
-export const UseProcessCreationProvider = ({ children }: { children: ReactNode }) => {
-  const [processId, setProcessId] = useState("")
+export const UseProcessCreationProvider = ({
+  children,
+}: {
+  children: ReactNode
+}) => {
+  const [processId, setProcessId] = useState('')
   const { metadata, methods: metadataMethods } = useProcessMetadata()
   const { parameters, methods: paramsMethods } = useProcessParameters()
-  const [spreadSheetReader, setSpreadSheetReader] = useState<SpreadSheetReader>()
+  const [spreadSheetReader, setSpreadSheetReader] =
+    useState<SpreadSheetReader>()
   const [headerFile, setHeaderFile] = useState<File>()
+  const [optionFile, setOptionFile] = useState<File>()
+  const [optionURL, setOptionURL] = useState<string>('')
   const [headerURL, setHeaderURL] = useState<string>('')
   const [processTerms, setProcessTerms] = useState<boolean>(false)
   const [startRightAway, setStartRightAway] = useState<boolean>(true)
@@ -138,62 +156,96 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
 
   const stepEnsureMedia: StepperFunc = () => {
     // Check if the metadata value is already updated
-    if (headerURL == metadata.media.header || !(headerFile || headerURL.length)) return Promise.resolve({ waitNext: false }) // next step
+    if (headerURL == metadata.media.header || !(headerFile || headerURL.length))
+      return Promise.resolve({ waitNext: false }) // next step
 
     return poolPromise
-      .then(pool => {
+      .then((pool) => {
         if (headerFile) return uploadFileToIpfs(headerFile, pool, wallet)
-        else if (!headerURL || !isUri(headerURL)) throw new Error(i18n.t("errors.the_header_image_link_is_not_valid"))
+        else if (!headerURL || !isUri(headerURL))
+          throw new Error(i18n.t('errors.the_header_image_link_is_not_valid'))
         return headerURL
       })
-      .then(header => {
+      .then((header) => {
         metadataMethods.setMediaHeader(header)
         return Promise.resolve({ waitNext: true })
       })
-      .catch(err => {
+      .catch((err) => {
         console.error(err)
-        return Promise.reject(new Error(i18n.t('errors.cannot_set_media_header')))
+        return Promise.reject(
+          new Error(i18n.t('errors.cannot_set_media_header'))
+        )
       })
   }
 
   const stepEnsureCensusCreated: StepperFunc = async () => {
     // TODO: Is it possible that the user re-uploads the spreadsheet? How this could be checked?
-    if (checkValidCensusParameters())
-      return { waitNext: false } // next step
+    if (checkValidCensusParameters()) return { waitNext: false } // next step
 
     const name = metadata.title.default + '_' + Math.floor(Date.now() / 1000)
     const entityId = utils.getAddress(wallet.address)
     const spreadsheetData = spreadSheetReader.data
-    metadataMethods.setMetaFields({ 'formFieldTitles': spreadSheetReader.getHeader(votingType) })
+    metadataMethods.setMetaFields({
+      formFieldTitles: spreadSheetReader.getHeader(votingType),
+    })
 
     // TODO: USE Bluebird to limit the concurrency and leave the UI thread some space
 
     // Process the CSV entries
-    const claims = await Promise.all(spreadsheetData.map((row: string[]) => new Promise((resolve) => {
-      setTimeout(() => {
-        // If voting type is weighted, the first column is the weight
-        const dataRow = votingType === VotingType.Weighted ? row.slice(1) : row
-        const weight = votingType === VotingType.Weighted ? row[0] : undefined
+    const claims = (await Promise.all(
+      spreadsheetData.map(
+        (row: string[]) =>
+          new Promise((resolve) => {
+            setTimeout(() => {
+              // If voting type is weighted, the first column is the weight
+              const dataRow =
+                votingType === VotingType.Weighted ? row.slice(1) : row
+              const weight =
+                votingType === VotingType.Weighted ? row[0] : undefined
 
-        // Clean uppercase and spaces
-        const normalizedRow = dataRow.map(x => normalizeText(x))
+              // Clean uppercase and spaces
+              const normalizedRow = dataRow.map((x) => normalizeText(x))
 
-        // Concatenate the row with the entityId to get the payload to generate the private key
-        const payload = importedRowToString(normalizedRow, entityId)
-        const voterWallet = digestedWalletFromString(payload)
-        const key = CensusOffChain.Public.encodePublicKey(voterWallet.publicKey)
+              // Concatenate the row with the entityId to get the payload to generate the private key
+              const payload = importedRowToString(normalizedRow, entityId)
+              const voterWallet = digestedWalletFromString(payload)
+              const key = CensusOffChain.Public.encodePublicKey(
+                voterWallet.publicKey
+              )
 
-        resolve({ key, value: weight })
-      }, 50)
-    }))) as { key: string, value?: string }[]
+              resolve({ key, value: weight })
+            }, 50)
+          })
+      )
+    )) as { key: string; value?: string }[]
 
     // Create the census
-    const { censusId } = await CensusOffChainApi.addCensus(name, [wallet.publicKey], wallet, pool)
-    const { censusRoot, invalidClaims } = await CensusOffChainApi.addClaimBulk(censusId, claims, wallet, pool)
+    const { censusId } = await CensusOffChainApi.addCensus(
+      name,
+      [wallet.publicKey],
+      wallet,
+      pool
+    )
+    const { censusRoot, invalidClaims } = await CensusOffChainApi.addClaimBulk(
+      censusId,
+      claims,
+      wallet,
+      pool
+    )
     if (invalidClaims.length) {
-      return Promise.reject(new Error(i18n.t('error.num_entries_could_not_be_added_to_the_census', { total: invalidClaims.length })))
+      return Promise.reject(
+        new Error(
+          i18n.t('error.num_entries_could_not_be_added_to_the_census', {
+            total: invalidClaims.length,
+          })
+        )
+      )
     }
-    const censusUri = await CensusOffChainApi.publishCensus(censusId, wallet, pool)
+    const censusUri = await CensusOffChainApi.publishCensus(
+      censusId,
+      wallet,
+      pool
+    )
 
     // Update the state
     // paramsMethods.setCensusOrigin(new ProcessCensusOrigin(ProcessCensusOrigin.OFF_CHAIN_TREE))
@@ -204,136 +256,170 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
   }
 
   const stepEnsureValidParams: StepperFunc = () => {
-
     // TODO: Do a synchronous check that the process params make sense and contain no incompatible values
 
     if (isNaN(parameters.startBlock) || isNaN(parameters.blockCount))
-      return Promise.reject(new Error(i18n.t('errors.process.invalid_start_date')))
+      return Promise.reject(
+        new Error(i18n.t('errors.process.invalid_start_date'))
+      )
 
     if (parameters.blockCount <= 0)
-      return Promise.reject(new Error(i18n.t('errors.process.the_vote_cannot_end_before_the_start')))
+      return Promise.reject(
+        new Error(i18n.t('errors.process.the_vote_cannot_end_before_the_start'))
+      )
 
     if (!startRightAway) {
-      const localStartDate = VotingApi.estimateDateAtBlockSync(parameters.startBlock, blockStatus)
+      const localStartDate = VotingApi.estimateDateAtBlockSync(
+        parameters.startBlock,
+        blockStatus
+      )
 
       if (Math.abs(moment(localStartDate).diff(moment.now(), 'minute')) < 7) {
-        return Promise.reject(new Error(i18n.t('errors.process.invalid_start_date')))
+        return Promise.reject(
+          new Error(i18n.t('errors.process.invalid_start_date'))
+        )
       }
     }
 
     return Promise.resolve({ waitNext: true })
   }
 
-  const stepEnsureProcessCreated: StepperFunc = (): Promise<StepperFuncResult> => {
-    let pool: IGatewayClient
+  const stepEnsureProcessCreated: StepperFunc =
+    (): Promise<StepperFuncResult> => {
+      let pool: IGatewayClient
 
-    return poolPromise
-      .then((p) => {
-        pool = p
+      return poolPromise
+        .then((p) => {
+          debugger
+          pool = p
 
-        // startBlock => now + 7 min
-        const startBlock = startRightAway ? 1 : parameters.startBlock
+          // startBlock => now + 7 min
+          const startBlock = startRightAway ? 1 : parameters.startBlock
 
-        // ProcessContractParameters !== INewProcessParams
-        // parameters.metadata = metadata
-        // Set proper maxValue and maxCount
-        let maxValue = 0, maxCount = 0
-        metadata.questions.forEach((question) => {
-          if (maxValue < question.choices.length) {
-            maxValue = question.choices.length - 1
-          }
-          maxCount++
-        })
-
-        // Since the ref does not change, we should not have to wait for propagation here
-        paramsMethods.setMaxValue(maxValue)
-        paramsMethods.setMaxCount(maxCount)
-
-        // Creation
-        const finalParams: INewProcessParams = {
-          startBlock: startBlock,
-          blockCount: parameters.blockCount,
-          censusOrigin: parameters.censusOrigin,
-          censusRoot: parameters.censusRoot,
-          costExponent: parameters.costExponent,
-          envelopeType: parameters.envelopeType,
-          maxCount: parameters.maxCount,
-          maxTotalCost: parameters.maxTotalCost,
-          maxValue: parameters.maxValue,
-          maxVoteOverwrites: parameters.maxVoteOverwrites,
-          mode: parameters.mode,
-          metadata,
-          censusUri: parameters.censusUri,
-          paramsSignature: "0x0000000000000000000000000000000000000000000000000000000000000000",
-        }
-
-        return VotingApi.newProcess(finalParams, wallet, pool)
-      }).then(processId => {
-        setProcessId(processId)
-        trackEvent(TrackEvents.PROCESS_CREATED, {
-          entity: wallet.address,
-          title: metadata?.title?.default,
-          id: processId
-        })
-
-        return {
-          waitNext: true,
-        }
-      })
-      .catch((error) => {
-        console.error(error)
-        return Promise.reject(new Error(i18n.t('error.the_process_could_not_be_registered')))
-      })
-  }
-
-  const stepEnsureProcessPublished: StepperFunc = (): Promise<StepperFuncResult> => {
-
-    return poolPromise
-      .then(async pool => {
-        let retries = 25
-        const trimProcId = processId.replace(/^0x/, "")
-        while (retries >= 0) {
-          try {
-            // the following getProcessInfo throws if no process is found with this id
-            let processInfo = await VotingApi.getProcessState(trimProcId, pool, {skipArchive: true})
-            if (typeof processInfo !== 'object') {
-              throw new Error("invalid process info")
+          // ProcessContractParameters !== INewProcessParams
+          // parameters.metadata = metadata
+          // Set proper maxValue and maxCount
+          let maxValue = 0,
+            maxCount = 0
+          metadata.questions.forEach((question) => {
+            if (maxValue < question.choices.length) {
+              maxValue = question.choices.length - 1
             }
-            setPageStep(pageStep + 1)
-            return {
-              waitNext: true,
-            }
-          } catch(err) {
-            await new Promise(r => setTimeout(r, 6100))// Wait 6s
-            retries--
-          }
-        }
+            maxCount++
+          })
 
-        // Nothing after timeout
-        return Promise.reject(new Error(i18n.t('error.the_vote_is_not_available_yet')))
-      })
-      .catch((error) => {
-        console.error(error)
-        return Promise.reject(new Error(i18n.t('error.the_process_could_not_be_registered')))
-      })
-  }
+          // Since the ref does not change, we should not have to wait for propagation here
+          paramsMethods.setMaxValue(maxValue)
+          paramsMethods.setMaxCount(maxCount)
+
+          // Creation
+          const finalParams: INewProcessParams = {
+            startBlock: startBlock,
+            blockCount: parameters.blockCount,
+            censusOrigin: parameters.censusOrigin,
+            censusRoot: parameters.censusRoot,
+            costExponent: parameters.costExponent,
+            envelopeType: parameters.envelopeType,
+            maxCount: parameters.maxCount,
+            maxTotalCost: parameters.maxTotalCost,
+            maxValue: parameters.maxValue,
+            maxVoteOverwrites: parameters.maxVoteOverwrites,
+            mode: parameters.mode,
+            metadata,
+            censusUri: parameters.censusUri,
+            paramsSignature:
+              '0x0000000000000000000000000000000000000000000000000000000000000000',
+          }
+
+          return VotingApi.newProcess(finalParams, wallet, pool)
+        })
+        .then((processId) => {
+          setProcessId(processId)
+          trackEvent(TrackEvents.PROCESS_CREATED, {
+            entity: wallet.address,
+            title: metadata?.title?.default,
+            id: processId,
+          })
+
+          return {
+            waitNext: true,
+          }
+        })
+        .catch((error) => {
+          console.error(error)
+          return Promise.reject(
+            new Error(i18n.t('error.the_process_could_not_be_registered'))
+          )
+        })
+    }
+
+  const stepEnsureProcessPublished: StepperFunc =
+    (): Promise<StepperFuncResult> => {
+      return poolPromise
+        .then(async (pool) => {
+          let retries = 25
+          const trimProcId = processId.replace(/^0x/, '')
+          while (retries >= 0) {
+            try {
+              // the following getProcessInfo throws if no process is found with this id
+              let processInfo = await VotingApi.getProcessState(
+                trimProcId,
+                pool,
+                { skipArchive: true }
+              )
+              if (typeof processInfo !== 'object') {
+                throw new Error('invalid process info')
+              }
+              setPageStep(pageStep + 1)
+              return {
+                waitNext: true,
+              }
+            } catch (err) {
+              await new Promise((r) => setTimeout(r, 6100)) // Wait 6s
+              retries--
+            }
+          }
+
+          // Nothing after timeout
+          return Promise.reject(
+            new Error(i18n.t('error.the_vote_is_not_available_yet'))
+          )
+        })
+        .catch((error) => {
+          console.error(error)
+          return Promise.reject(
+            new Error(i18n.t('error.the_process_could_not_be_registered'))
+          )
+        })
+    }
 
   // Callbacks
 
-  const checkValidCensusParameters = () : boolean => {
-    return ((parameters.censusRoot && parameters.censusRoot != defaultCensusRoot) &&
-    (parameters.censusUri && parameters.censusUri != defaultCensusUri))
+  const checkValidCensusParameters = (): boolean => {
+    return (
+      parameters.censusRoot &&
+      parameters.censusRoot != defaultCensusRoot &&
+      parameters.censusUri &&
+      parameters.censusUri != defaultCensusUri
+    )
   }
 
   const updateDateRange = () => {
-    const startBlock = VotingApi.estimateBlockAtDateTimeSync(startDate, blockStatus)
+    const startBlock = VotingApi.estimateBlockAtDateTimeSync(
+      startDate,
+      blockStatus
+    )
     const endBlock = VotingApi.estimateBlockAtDateTimeSync(endDate, blockStatus)
     const blockCount = endBlock - startBlock
 
     paramsMethods.setStartBlock(startBlock)
 
     if (blockCount < 0) {
-      console.error("Negative block count", blockCount, blockStatus?.blockNumber)
+      console.error(
+        'Negative block count',
+        blockCount,
+        blockStatus?.blockNumber
+      )
       return
     }
     paramsMethods.setBlockCount(blockCount)
@@ -359,7 +445,10 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
     setPageStep,
     resetActionStep,
     doMainActionSteps,
-  } = useStepper<ProcessCreationPageSteps>(creationStepFuncs, ProcessCreationPageSteps.METADATA)
+  } = useStepper<ProcessCreationPageSteps>(
+    creationStepFuncs,
+    ProcessCreationPageSteps.METADATA
+  )
 
   const createProcess = () => {
     resetActionStep() // Ensure that the index is zero (for retry)
@@ -372,7 +461,8 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
     created: actionStep >= creationStepFuncs.length,
     actionStep: actionStep,
     pleaseWait,
-    creationError: typeof creationError == "string" ? creationError : creationError?.message,
+    creationError:
+      typeof creationError == 'string' ? creationError : creationError?.message,
     headerFile,
     headerURL,
     startRightAway,
@@ -384,6 +474,8 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
     parameters,
     spreadSheetReader,
     processTerms,
+    optionFile,
+    optionURL,
     methods: {
       ...metadataMethods,
       ...paramsMethods,
@@ -399,8 +491,10 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
       setAnonymousVoting,
       continueProcessCreation: doMainActionSteps,
       setProcessTerms,
-      checkValidCensusParameters
-    }
+      checkValidCensusParameters,
+      setOptionFile,
+      setOptionURL,
+    },
   }
 
   return (
@@ -413,7 +507,9 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
 // HELPERS
 
 const useProcessMetadata = () => {
-  const [metadata, setRawMetadata] = useState<ProcessMetadata>(() => JSON.parse(JSON.stringify(ProcessMetadataTemplate)))
+  const [metadata, setRawMetadata] = useState<ProcessMetadata>(() =>
+    JSON.parse(JSON.stringify(ProcessMetadataTemplate))
+  )
 
   const setTitle = (title: string) => {
     setRawMetadata({ ...metadata, title: { default: title } })
@@ -430,10 +526,10 @@ const useProcessMetadata = () => {
   const setMediaStreamURI = (streamUri: string) => {
     setRawMetadata({ ...metadata, media: { ...metadata.media, streamUri } })
   }
-  const setMetaFields = (values: ({ [k: string]: any })) => {
+  const setMetaFields = (values: { [k: string]: any }) => {
     setRawMetadata({ ...metadata, meta: { ...metadata.meta, ...values } })
   }
-  const setQuestions = (questions: ProcessMetadata["questions"]) => {
+  const setQuestions = (questions: ProcessMetadata['questions']) => {
     setRawMetadata({ ...metadata, questions })
   }
 
@@ -445,38 +541,53 @@ const useProcessMetadata = () => {
     setMediaStreamURI,
     setMetaFields,
     setQuestions,
-    setRawMetadata
+    setRawMetadata,
   }
   return { metadata, methods }
 }
 
-const defaultCensusRoot = "0x0000000000000000000000000000000000000000000000000000000000000000"
-const defaultCensusUri = "ipfs://"
+const defaultCensusRoot =
+  '0x0000000000000000000000000000000000000000000000000000000000000000'
+const defaultCensusUri = 'ipfs://'
 
 const useProcessParameters = () => {
-  const initialEnvelopeType = new ProcessEnvelopeType(ProcessEnvelopeType.make({
-    serial: false, uniqueValues: false, encryptedVotes: false, anonymousVoters: false,
-  }))
-  const initialMode = new ProcessMode(ProcessMode.make({
-    autoStart: true, interruptible: true, dynamicCensus: false, encryptedMetadata: false, preregister: false
-  }))
-  const [parameters] = useState<ProcessContractParameters>(() => ProcessContractParameters.fromParams({
-    startBlock: 0,
-    blockCount: 10000,
-    censusOrigin: ProcessCensusOrigin.OFF_CHAIN_TREE,
-    censusRoot: defaultCensusRoot,
-    costExponent: 1,
-    envelopeType: initialEnvelopeType,
-    maxCount: 1,
-    maxTotalCost: 0,
-    maxValue: 1,
-    maxVoteOverwrites: 0,
-    mode: initialMode,
-    metadata: JSON.parse(JSON.stringify(ProcessMetadataTemplate)),
-    censusUri: defaultCensusUri,
-    paramsSignature: "0x0000000000000000000000000000000000000000000000000000000000000000",
-    questionCount: 1,
-  }))
+  const initialEnvelopeType = new ProcessEnvelopeType(
+    ProcessEnvelopeType.make({
+      serial: false,
+      uniqueValues: false,
+      encryptedVotes: false,
+      anonymousVoters: false,
+    })
+  )
+  const initialMode = new ProcessMode(
+    ProcessMode.make({
+      autoStart: true,
+      interruptible: true,
+      dynamicCensus: false,
+      encryptedMetadata: false,
+      preregister: false,
+    })
+  )
+  const [parameters] = useState<ProcessContractParameters>(() =>
+    ProcessContractParameters.fromParams({
+      startBlock: 0,
+      blockCount: 10000,
+      censusOrigin: ProcessCensusOrigin.OFF_CHAIN_TREE,
+      censusRoot: defaultCensusRoot,
+      costExponent: 1,
+      envelopeType: initialEnvelopeType,
+      maxCount: 1,
+      maxTotalCost: 0,
+      maxValue: 1,
+      maxVoteOverwrites: 0,
+      mode: initialMode,
+      metadata: JSON.parse(JSON.stringify(ProcessMetadataTemplate)),
+      censusUri: defaultCensusUri,
+      paramsSignature:
+        '0x0000000000000000000000000000000000000000000000000000000000000000',
+      questionCount: 1,
+    })
+  )
   // manually trigger updates without the need of creating instance clones
   const forceUpdate = useForceUpdate()
 
@@ -494,14 +605,14 @@ const useProcessParameters = () => {
   }
   const setStartBlock = (startBlock: number) => {
     if (!startBlock) return
-    else if (startBlock < 0) throw new Error("Invalid startBlock")
+    else if (startBlock < 0) throw new Error('Invalid startBlock')
 
     parameters.startBlock = startBlock
     forceUpdate()
   }
   const setBlockCount = (blockCount: number) => {
     if (!blockCount) return
-    else if (blockCount < 0) throw new Error("Invalid blockCount")
+    else if (blockCount < 0) throw new Error('Invalid blockCount')
 
     parameters.blockCount = blockCount
     forceUpdate()
@@ -515,21 +626,19 @@ const useProcessParameters = () => {
   const setCensusRoot = (censusRoot: string) => {
     if (parameters.censusRoot === censusRoot) return
 
-
     parameters.censusRoot = censusRoot
     forceUpdate()
   }
   const setCensusUri = (censusUri: string) => {
     if (parameters.censusUri === censusUri) return
 
-
     parameters.censusUri = censusUri
     forceUpdate()
   }
   const setCostExponent = (costExponent: number) => {
-    if (costExponent < 0 || costExponent >= 65535) throw new Error("Invalid cost exponent")
+    if (costExponent < 0 || costExponent >= 65535)
+      throw new Error('Invalid cost exponent')
     if (parameters.costExponent === costExponent) return
-
 
     parameters.costExponent = costExponent
     forceUpdate()
@@ -544,55 +653,60 @@ const useProcessParameters = () => {
   // parameters.evmBlockHeight
 
   const setMaxCount = (maxCount: number) => {
-    if (maxCount < 0) throw new Error("Invalid maxCount")
+    if (maxCount < 0) throw new Error('Invalid maxCount')
     if (parameters.maxCount === maxCount) return
-
 
     parameters.maxCount = maxCount
     forceUpdate()
   }
   const setMaxTotalCost = (maxTotalCost: number) => {
-    if (maxTotalCost < 0) throw new Error("Invalid maxTotalCost")
+    if (maxTotalCost < 0) throw new Error('Invalid maxTotalCost')
     if (parameters.maxTotalCost === maxTotalCost) return
-
 
     parameters.maxTotalCost = maxTotalCost
     forceUpdate()
   }
   const setMaxValue = (maxValue: number) => {
-    if (maxValue < 0) throw new Error("Invalid maxValue")
+    if (maxValue < 0) throw new Error('Invalid maxValue')
     if (parameters.maxValue === maxValue) return
-
 
     parameters.maxValue = maxValue
     forceUpdate()
   }
   const setMaxVoteOverwrites = (maxVoteOverwrites: number) => {
-    if (maxVoteOverwrites < 0) throw new Error("Invalid maxVoteOverwrites")
+    if (maxVoteOverwrites < 0) throw new Error('Invalid maxVoteOverwrites')
     if (parameters.maxVoteOverwrites === maxVoteOverwrites) return
-
 
     parameters.maxVoteOverwrites = maxVoteOverwrites
     forceUpdate()
   }
   const setStringMetadata = (metadataOrigin: string) => {
-    if (!metadataOrigin) throw new Error("Invalid metadataOrigin")
+    if (!metadataOrigin) throw new Error('Invalid metadataOrigin')
 
     parameters.metadata = metadataOrigin
     forceUpdate()
   }
   const setAnonymousVoting = (anonymousVoting: boolean) => {
     // Setting envelope type if needed
-    if((anonymousVoting && !parameters.envelopeType.hasAnonymousVoters) || (!anonymousVoting && parameters.envelopeType.hasAnonymousVoters)) {
-      setEnvelopeType(new ProcessEnvelopeType(ProcessEnvelopeType.ANONYMOUS ^ parameters.envelopeType.value))
+    if (
+      (anonymousVoting && !parameters.envelopeType.hasAnonymousVoters) ||
+      (!anonymousVoting && parameters.envelopeType.hasAnonymousVoters)
+    ) {
+      setEnvelopeType(
+        new ProcessEnvelopeType(
+          ProcessEnvelopeType.ANONYMOUS ^ parameters.envelopeType.value
+        )
+      )
     }
 
     // Setting process mode if needed
-    if((anonymousVoting && !parameters.mode.hasPreregister) || (!anonymousVoting && parameters.mode.hasPreregister)) {
+    if (
+      (anonymousVoting && !parameters.mode.hasPreregister) ||
+      (!anonymousVoting && parameters.mode.hasPreregister)
+    ) {
       setMode(new ProcessMode(ProcessMode.PREREGISTER ^ parameters.mode.value))
     }
   }
-
 
   // parameters.paramsSignature
   // parameters.questionCount  (computed automatically by dvote-js)
@@ -615,8 +729,7 @@ const useProcessParameters = () => {
     setMaxValue,
     setMaxVoteOverwrites,
     setStringMetadata,
-    setAnonymousVoting
+    setAnonymousVoting,
   }
   return { parameters, methods }
 }
-

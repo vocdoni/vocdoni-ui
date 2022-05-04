@@ -1,5 +1,3 @@
-
-
 import React, { ChangeEvent } from 'react'
 
 import cloneDeep from 'lodash/cloneDeep'
@@ -10,13 +8,19 @@ import { Choice, Question } from '@lib/types'
 import { QuestionError } from '@lib/validators/errors/invalid-question-error'
 import { DirtyFields } from '@lib/validators'
 
-import { FormGroupVariant, InputFormGroup, TextareaFormGroup } from '@components/blocks/form'
+import {
+  FileLoaderFormGroup,
+  FormGroupVariant,
+  InputFormGroup,
+  TextareaFormGroup,
+} from '@components/blocks/form'
 import { Button, ButtonColor } from '@components/elements/button'
 import { SectionText, TextSize } from '@components/elements/text'
 import { Card } from '@components/elements/cards'
 import { Grid } from '@components/elements/grid'
 
 import { colors } from 'theme/colors'
+import { useProcessCreation } from '@hooks/process-creation'
 
 interface IQuestionGroupProps {
   question: Question
@@ -52,6 +56,8 @@ export const QuestionGroup = ({
   onDeleteQuestion,
 }: IQuestionGroupProps) => {
   const { i18n } = useTranslation()
+  const { methods, optionFile, optionURL } = useProcessCreation()
+
   const handleUpdateQuestion = (field: QuestionFields, value) => {
     const clonedQuestion: Question = cloneDeep(question)
     clonedQuestion[field]['default'] = value
@@ -95,7 +101,9 @@ export const QuestionGroup = ({
   }
 
   const getErrorMessage = (field: QuestionFields): string => {
-    return dirtyFields.get(`question-${field}-${index}`) && error ? error[field]?.message : null
+    return dirtyFields.get(`question-${field}-${index}`) && error
+      ? error[field]?.message
+      : null
   }
 
   const getChoiceErrorMessage = (choiceIndex: number): string => {
@@ -175,6 +183,15 @@ export const QuestionGroup = ({
                   }}
                 />
               </FillSpaceWrapper>
+              <FileLoaderFormGroup
+                label={i18n.t('vote.optional_field')}
+                maxMbSize={2}
+                onSelect={(file) => methods.setOptionFile(file)}
+                onChange={methods.setOptionURL}
+                file={optionFile}
+                url={optionURL}
+                accept=".jpg,.jpeg,.png,.gif"
+              />
 
               <FormButtonWrapper>
                 {question.choices.length > 2 && (
