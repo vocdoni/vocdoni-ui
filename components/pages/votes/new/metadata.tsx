@@ -133,7 +133,6 @@ export const FormMetadata = () => {
   }
 
   const handleUpdateQuestion = (index: number, question: Question) => {
-    debugger
     metadata.questions[index] = question
     methods.setQuestions(metadata.questions)
   }

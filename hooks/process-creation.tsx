@@ -529,7 +529,6 @@ const useProcessMetadata = () => {
     setRawMetadata({ ...metadata, meta: { ...metadata.meta, ...values } })
   }
   const setQuestions = (questions: ProcessMetadata['questions']) => {
-    debugger
     setRawMetadata({ ...metadata, questions })
   }
 
