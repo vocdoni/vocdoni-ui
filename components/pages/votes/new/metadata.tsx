@@ -133,6 +133,7 @@ export const FormMetadata = () => {
   }
 
   const handleUpdateQuestion = (index: number, question: Question) => {
+    debugger
     metadata.questions[index] = question
     methods.setQuestions(metadata.questions)
   }
@@ -143,8 +144,6 @@ export const FormMetadata = () => {
 
     methods.setQuestions(newQuestions)
   }
-
-  "Yes#(ipfs://)#(date)"
 
   const handleDeleteQuestion = (index: number) => {
     const newQuestions = [...metadata.questions]

@@ -312,7 +312,6 @@ export const UseProcessCreationProvider = ({
           paramsMethods.setMaxCount(maxCount)
 
           // Creation
-          debugger
           const finalParams: INewProcessParams = {
             startBlock: startBlock,
             blockCount: parameters.blockCount,

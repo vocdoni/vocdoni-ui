@@ -45,6 +45,7 @@ export enum QuestionFields {
 export const createEmptyOption = (value: number): Choice => ({
   title: {
     default: '',
+    image: '',
   },
   value: value,
 })
@@ -61,13 +62,12 @@ export const QuestionGroup = ({
 }: IQuestionGroupProps) => {
   const { i18n } = useTranslation()
   const { methods, optionFile, optionURL } = useProcessCreation()
-  const { pool, poolPromise } = usePool()
+  const { pool } = usePool()
   const { wallet } = useWallet()
 
   const handleUpdateQuestion = (field: QuestionFields, value) => {
     const clonedQuestion: Question = cloneDeep(question)
     clonedQuestion[field]['default'] = value
-
     onUpdateQuestion(index, clonedQuestion)
   }
 
@@ -80,35 +80,32 @@ export const QuestionGroup = ({
   }
 
   const handleUpdateTitleChoice = (choiceIndex: number, value: string) => {
-    debugger
     const clonedQuestion: Question = cloneDeep(question)
     clonedQuestion.choices[choiceIndex][QuestionFields.Title]['default'] = value
 
     onUpdateQuestion(index, clonedQuestion)
   }
 
-  const handleUpdateOptionImage = (
+  const handleUpdateOptionImage = async (
     choiceIndex: number,
     value: string | File
   ) => {
-    debugger
     const clonedQuestion: Question = cloneDeep(question)
     let ipfsUri
     // Penjar a IPFS -> uri (ipfs://)
     if (value instanceof File) {
-      return poolPromise
-        .then(() => {
-          return (ipfsUri = uploadFileToIpfs(value, pool, wallet))
-        })
-        .catch((e) => console.log(e))
+      try {
+        ipfsUri = await uploadFileToIpfs(value, pool, wallet)
+        clonedQuestion.choices[choiceIndex][QuestionFields.Title]['image'] =
+          ipfsUri
+        return onUpdateQuestion(index, clonedQuestion)
+      } catch (e) {
+        console.log(e)
+      }
+    } else {
+      clonedQuestion.choices[choiceIndex][QuestionFields.Title]['image'] = value
+      return onUpdateQuestion(index, clonedQuestion)
     }
-
-    if (ipfsUri) {
-      debugger
-      clonedQuestion.choices[choiceIndex][QuestionFields.Title]['ipfs'] =
-        ipfsUri
-    }
-    onUpdateQuestion(index, clonedQuestion)
   }
 
   const handleCreateChoice = () => {
