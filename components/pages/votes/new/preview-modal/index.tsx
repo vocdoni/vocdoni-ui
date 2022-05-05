@@ -34,7 +34,7 @@ export const PreviewModal = ({
   onClose,
 }: PreviewModalProps) => {
   const { i18n } = useTranslation()
-  const { headerURL, metadata } = useProcessCreation()
+  const { headerURL, metadata, optionURL } = useProcessCreation()
   const processStatus = ProcessStatus.READY
   const voteStatus = VoteStatus.Active
 
@@ -46,7 +46,7 @@ export const PreviewModal = ({
         accent2: metadata.meta[MetadataFields.BrandColor],
         accent2B: metadata.meta[MetadataFields.BrandColor],
         textAccent1: metadata.meta[MetadataFields.BrandColor],
-        textAccent1B: metadata.meta[MetadataFields.BrandColor]
+        textAccent1B: metadata.meta[MetadataFields.BrandColor],
       })}
     >
       <ModalBackdrop visible={visible}>
@@ -62,14 +62,14 @@ export const PreviewModal = ({
             processImage={headerURL}
           />
 
-          <VoteDescription
+          {/* <VoteDescription
             // voteStatus={voteStatus}
-            // description={metadata.description.default}
-            // liveStreamUrl={metadata.media[MetadataFields.StreamLink]}
-            // discussionUrl={metadata.meta[PlazaMetadataKeys.DISCUSSION_URL]}
-            // attachmentUrl={metadata.meta[PlazaMetadataKeys.ATTACHMENT_URI]}
-            // timeComment={i18n.t('preview.ending_in_one_hour')}
-          />
+            description={metadata.description.default}
+            liveStreamUrl={metadata.media[MetadataFields.StreamLink]}
+            discussionUrl={metadata.meta[PlazaMetadataKeys.DISCUSSION_URL]}
+            attachmentUrl={metadata.meta[PlazaMetadataKeys.ATTACHMENT_URI]}
+            timeComment={i18n.t('preview.ending_in_one_hour')}
+          /> */}
 
           {metadata.questions.map((question: Question, index: number) => (
             <VoteQuestionCard

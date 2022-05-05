@@ -290,7 +290,6 @@ export const UseProcessCreationProvider = ({
 
       return poolPromise
         .then((p) => {
-          debugger
           pool = p
 
           // startBlock => now + 7 min
@@ -313,6 +312,7 @@ export const UseProcessCreationProvider = ({
           paramsMethods.setMaxCount(maxCount)
 
           // Creation
+          debugger
           const finalParams: INewProcessParams = {
             startBlock: startBlock,
             blockCount: parameters.blockCount,
@@ -530,6 +530,7 @@ const useProcessMetadata = () => {
     setRawMetadata({ ...metadata, meta: { ...metadata.meta, ...values } })
   }
   const setQuestions = (questions: ProcessMetadata['questions']) => {
+    debugger
     setRawMetadata({ ...metadata, questions })
   }
 

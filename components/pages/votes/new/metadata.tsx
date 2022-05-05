@@ -144,6 +144,8 @@ export const FormMetadata = () => {
     methods.setQuestions(newQuestions)
   }
 
+  "Yes#(ipfs://)#(date)"
+
   const handleDeleteQuestion = (index: number) => {
     const newQuestions = [...metadata.questions]
     newQuestions.splice(index, 1)

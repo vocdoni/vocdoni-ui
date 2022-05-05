@@ -21,6 +21,9 @@ import { Grid } from '@components/elements/grid'
 
 import { colors } from 'theme/colors'
 import { useProcessCreation } from '@hooks/process-creation'
+import { uploadFileToIpfs } from '@lib/file'
+import { usePool } from '@vocdoni/react-hooks'
+import { useWallet } from '@hooks/use-wallet'
 
 interface IQuestionGroupProps {
   question: Question
@@ -36,6 +39,7 @@ interface IQuestionGroupProps {
 export enum QuestionFields {
   Title = 'title',
   Description = 'description',
+  Image = 'image',
 }
 
 export const createEmptyOption = (value: number): Choice => ({
@@ -57,6 +61,8 @@ export const QuestionGroup = ({
 }: IQuestionGroupProps) => {
   const { i18n } = useTranslation()
   const { methods, optionFile, optionURL } = useProcessCreation()
+  const { pool, poolPromise } = usePool()
+  const { wallet } = useWallet()
 
   const handleUpdateQuestion = (field: QuestionFields, value) => {
     const clonedQuestion: Question = cloneDeep(question)
@@ -74,9 +80,34 @@ export const QuestionGroup = ({
   }
 
   const handleUpdateTitleChoice = (choiceIndex: number, value: string) => {
+    debugger
     const clonedQuestion: Question = cloneDeep(question)
     clonedQuestion.choices[choiceIndex][QuestionFields.Title]['default'] = value
 
+    onUpdateQuestion(index, clonedQuestion)
+  }
+
+  const handleUpdateOptionImage = (
+    choiceIndex: number,
+    value: string | File
+  ) => {
+    debugger
+    const clonedQuestion: Question = cloneDeep(question)
+    let ipfsUri
+    // Penjar a IPFS -> uri (ipfs://)
+    if (value instanceof File) {
+      return poolPromise
+        .then(() => {
+          return (ipfsUri = uploadFileToIpfs(value, pool, wallet))
+        })
+        .catch((e) => console.log(e))
+    }
+
+    if (ipfsUri) {
+      debugger
+      clonedQuestion.choices[choiceIndex][QuestionFields.Title]['ipfs'] =
+        ipfsUri
+    }
     onUpdateQuestion(index, clonedQuestion)
   }
 
@@ -186,8 +217,8 @@ export const QuestionGroup = ({
               <FileLoaderFormGroup
                 label={i18n.t('vote.optional_field')}
                 maxMbSize={2}
-                onSelect={(file) => methods.setOptionFile(file)}
-                onChange={methods.setOptionURL}
+                onSelect={(file) => handleUpdateOptionImage(choiceIndex, file)}
+                onChange={(file) => handleUpdateOptionImage(choiceIndex, file)}
                 file={optionFile}
                 url={optionURL}
                 accept=".jpg,.jpeg,.png,.gif"
