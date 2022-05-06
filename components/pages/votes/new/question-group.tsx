@@ -39,14 +39,15 @@ interface IQuestionGroupProps {
 export enum QuestionFields {
   Title = 'title',
   Description = 'description',
-  Image = 'image',
 }
 
 export const createEmptyOption = (value: number): Choice => ({
   title: {
     default: '',
     image: '',
+    description: '',
   },
+
   value: value,
 })
 
@@ -82,6 +83,14 @@ export const QuestionGroup = ({
   const handleUpdateTitleChoice = (choiceIndex: number, value: string) => {
     const clonedQuestion: Question = cloneDeep(question)
     clonedQuestion.choices[choiceIndex][QuestionFields.Title]['default'] = value
+
+    onUpdateQuestion(index, clonedQuestion)
+  }
+
+  const handleUpdateDescription = (choiceIndex: number, value: string) => {
+    const clonedQuestion: Question = cloneDeep(question)
+    clonedQuestion.choices[choiceIndex][QuestionFields.Title]['description'] =
+      value
 
     onUpdateQuestion(index, clonedQuestion)
   }
@@ -179,22 +188,6 @@ export const QuestionGroup = ({
             }
           />
 
-          <TextareaFormGroup
-            placeholder={i18n.t('vote.description')}
-            rows={5}
-            variant={FormGroupVariant.Small}
-            id={`process-question-${index}-description`}
-            value={question.description.default}
-            error={getErrorMessage(QuestionFields.Description)}
-            onBlur={() => handleBlur(QuestionFields.Description)}
-            onChange={(event: ChangeEvent<HTMLTextAreaElement>) =>
-              handleUpdateQuestion(
-                QuestionFields.Description,
-                event.target.value
-              )
-            }
-          />
-
           {question.choices.map((choice: Choice, choiceIndex: number) => (
             <ContentContainer key={choiceIndex}>
               <FillSpaceWrapper>
@@ -209,6 +202,19 @@ export const QuestionGroup = ({
                   onChange={(event: ChangeEvent<HTMLInputElement>) => {
                     handleUpdateTitleChoice(choiceIndex, event.target.value)
                   }}
+                />
+                <TextareaFormGroup
+                  placeholder={i18n.t('vote.description')}
+                  rows={5}
+                  label={i18n.t('vote.optional_field')}
+                  variant={FormGroupVariant.Regular}
+                  id={`process-vote-option-${index}-description`}
+                  value={choice.title.description}
+                  error={getErrorMessage(QuestionFields.Description)}
+                  onBlur={() => handleBlur(QuestionFields.Description)}
+                  onChange={(event: ChangeEvent<HTMLTextAreaElement>) =>
+                    handleUpdateDescription(choiceIndex, event.target.value)
+                  }
                 />
               </FillSpaceWrapper>
               <FileLoaderFormGroup
