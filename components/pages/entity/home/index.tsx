@@ -21,7 +21,7 @@ interface IEntityViewProps {
 }
 export const EntityView = ({ address, metadata, processes, blockHeight }: IEntityViewProps) => {
   const { i18n } = useTranslation()
-  const explorerUrl = `${process.env.EXPLORER_URL}/entity/${address}`
+  const explorerUrl = `${process.env.EXPLORER_URL}/organizations/show/#/${address}`
 
   return (
     <PageCard>
@@ -51,7 +51,7 @@ export const EntityView = ({ address, metadata, processes, blockHeight }: IEntit
           <Typography variant={TypographyVariant.Body1}>{i18n.t('entity.home.entity_processes')} </Typography>
           {processes.map((process, index) => {
             const processStatus = getVoteStatus(process.summary, blockHeight)
-            
+
             return (
               <DashboardProcessListItem
                 key={index}

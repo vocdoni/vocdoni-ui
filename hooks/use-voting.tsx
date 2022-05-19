@@ -114,7 +114,7 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
 
     // Future: adapt to the zk snark case
     let nullifier: string | bigint
-    const baseExplorerLink = process.env.EXPLORER_URL + '/envelope/'
+    const baseExplorerLink = process.env.EXPLORER_URL + '/envelopes/show/#/'
     if (processInfo?.state?.envelopeType.anonymous) {
       if (!anonymousKey) return
       nullifier = Voting.getAnonymousVoteNullifier(anonymousKey, processId)

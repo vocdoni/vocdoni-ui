@@ -39,7 +39,7 @@ export const VoteActionCard = ({
   const { startDate, endDate, votesWeight, status, censusSize, liveResults } = useProcessWrapper(processId)
   const { nullifier } = useVoting(processId)
   const disabled = (status !== VoteStatus.Active || userVoteStatus === UserVoteStatus.Emitted)
-  const explorerLink = process.env.EXPLORER_URL + '/envelope/' + nullifier
+  const explorerLink = process.env.EXPLORER_URL + '/envelopes/show/#/' + nullifier
 
   const getTitleFromState = (status: VoteStatus) => {
     const endingString = dateDiffStr(DateDiffType.Countdown, endDate)
