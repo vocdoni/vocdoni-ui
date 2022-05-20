@@ -211,8 +211,6 @@ export const VotingPageView = () => {
   const handleOnVoted = () => {
     setUserVoteStatus(UserVoteStatus.Emitted)
     setConfirmModalOpened(false)
-    setWallet(null)
-    votingMethods.cleanup()
   }
 
   const handleGotoAuth = () => {
