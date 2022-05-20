@@ -382,12 +382,6 @@ const IndexPage = () => {
                     <Button positive href={CREATE_ACCOUNT_PATH}>
                       {i18n.t('home.get_started')}
                     </Button>
-                    <Typography
-                      variant={TypographyVariant.Small}
-                      color={colors.accent1}
-                    >
-                      {i18n.t('home.free_until_end_2021')}
-                    </Typography>
                   </ActionsContainer>
                 </ReadyTextContainer>
               </Column>
