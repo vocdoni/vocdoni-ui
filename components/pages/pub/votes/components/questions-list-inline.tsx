@@ -92,7 +92,6 @@ export const QuestionsListInline = forwardRef<HTMLDivElement, IQuesListInlinePro
               positive
               disabled={(results.length < questions?.length || results.includes(undefined))}
               large
-              omnium
             >
               {i18n.t('votes.questions_list.finish_voting')}
             </Button>

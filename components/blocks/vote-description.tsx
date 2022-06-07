@@ -16,6 +16,8 @@ import { When } from 'react-if'
 import { MarkDownViewer } from './mark-down-viewer'
 import { FlexContainer, FlexJustifyContent } from '@components/elements/flex'
 
+import { VotingState } from '@components/pages/pub/votes/index'
+
 interface IVotePageProps {
   description: string
   hasVideo?: boolean
@@ -49,6 +51,13 @@ export const VoteDescription = forwardRef<HTMLDivElement, IVotePageProps>(
     useEffect(() => {
       onComponentMounted && onComponentMounted(ref)
     }, [ref])
+
+    const getTitleFromState = (status: VotingState) => {
+      switch (status) {
+        case VotingState.Ended:
+          return i18n.t('vote.your_vote_has_been_registered')
+      }
+    }
 
     const pdfIcon = (
       <img src="/images/vote/pdf.svg" alt={i18n.t('vote.pdf_image_alt')} />
