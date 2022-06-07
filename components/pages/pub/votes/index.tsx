@@ -32,6 +32,7 @@ import { VotingApi, EntityMetadata } from 'dvote-js'
 import { DateDiffType, localizedStrDateDiff } from '@lib/date'
 import { Body1, TextAlign, Typography, TypographyVariant } from '@components/elements/typography'
 import { QuestionsList } from './components/questions-list'
+import { QuestionsListInline } from './components/questions-list-inline'
 import { censusProofState } from '@recoil/atoms/census-proof'
 import { VoteRegisteredCard } from './components/vote-registered-card'
 import RouterService from '@lib/router'
@@ -205,13 +206,18 @@ export const VotingPageView = () => {
   }
 
   const handleBackToVoting = () => {
-    setVotingState(VotingState.Started)
+    if(!showInlineQuestions){
+      setVotingState(VotingState.Started)
+    }
     setConfirmModalOpened(false)
   }
 
   const handleOnVoted = () => {
     setVotingState(VotingState.Ended)
     setConfirmModalOpened(false)
+
+    setWallet(null)
+    votingMethods.cleanup()
   }
 
   const handleGotoAuth = () => {
@@ -245,6 +251,10 @@ export const VotingPageView = () => {
     votingState === VotingState.Ended ||
     votingState === VotingState.Guest
 
+  const showInlineQuestions = 
+    votingState !== VotingState.Guest &&
+    voteStatus === 0
+
   const showResults =
     votingState === VotingState.Guest || votingState === VotingState.Ended
 
@@ -272,7 +282,7 @@ export const VotingPageView = () => {
         <BodyContainer>
           {showDescription && (
             <Grid>
-              <Column sm={12} md={9}>
+              <Column sm={12}>
                 <VoteDescription
                   onComponentMounted={handleVideoPosition}
                   ref={descriptionVideoContainerRef}
@@ -290,17 +300,19 @@ export const VotingPageView = () => {
                 />
               </Column>
 
-              <Column sm={12} md={3} hiddenSm hiddenMd>
-                <VoteNowCardContainer>
-                  <VoteActionCard
-                    onClick={handleVoteNow}
-                    onLogOut={handleLogOut}
-                    votingState={votingState}
-                    explorerLink={explorerLink}
-                    disabled={voteStatus !== VoteStatus.Active}
-                  />
-                </VoteNowCardContainer>
-              </Column>
+              <If condition={false}>
+                <Column sm={12} md={3} hiddenSm hiddenMd>
+                  <VoteNowCardContainer>
+                    <VoteActionCard
+                      onClick={handleVoteNow}
+                      onLogOut={handleLogOut}
+                      votingState={votingState}
+                      explorerLink={explorerLink}
+                      disabled={voteStatus !== VoteStatus.Active}
+                    />
+                  </VoteNowCardContainer>
+                </Column>
+              </If>
             </Grid>
           )}
 
@@ -335,7 +347,7 @@ export const VotingPageView = () => {
           />
         )}
 
-        {showVotingButton && (
+        {showVotingButton && false && (
           <FixedButtonContainer>
             <div>
               <Button
@@ -357,18 +369,38 @@ export const VotingPageView = () => {
               <Typography variant={TypographyVariant.Body2}>
                 {i18n.t('vote.you_need_authenticate_to_vote')}
               </Typography>
-              <Button large positive wide onClick={handleVoteNow}>
-                {i18n.t('vote.vote_now')}
-              </Button>
             </div>
           </FixedButtonContainer>
         )}
+
+        <If condition={showInlineQuestions && !hasVoted}>
+          <Then>
+            <QuestionsListInline
+              onComponentMounted={handleVideoPosition}
+              ref={votingVideoContainerRef}
+              results={choices}
+              questions={processInfo?.metadata?.questions}
+              voteWeight={voteWeight}
+              onSelect={votingMethods.onSelect}
+              onFinishVote={handleFinishVote}
+            />
+          </Then>
+        </If>
 
         {hasVoted && (
           <VoteRegisteredLgContainer>
             <VoteRegisteredCard explorerLink={explorerLink} />
           </VoteRegisteredLgContainer>
         )}
+
+        <If condition={hasVoted && !showResults}>
+          <Then>
+            <VoteRegisteredLgContainer>
+              <Typography align={TextAlign.Center} variant={TypographyVariant.Body3}>{i18n.t('vote.you_vote_has_been_submit_successfully_the_results_will_be_available')}</Typography>
+            </VoteRegisteredLgContainer>
+          </Then>
+        </If>
+
         {showResults &&
           processInfo?.metadata?.questions.map(
             (question: Question, index: number) => (
@@ -389,7 +421,7 @@ export const VotingPageView = () => {
             )
           )}
 
-        <If condition={showDescription && totalVotes > 0}>
+        <If condition={showDescription && totalVotes > 0 && !showInlineQuestions}>
           <Then>
             <Grid>
               <Card sm={12}>

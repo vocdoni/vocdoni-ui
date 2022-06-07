@@ -26,6 +26,7 @@ interface IVotePageProps {
   timeComment: string
   onLogOut?: () => void
   onComponentMounted?: (ref: ForwardedRef<HTMLDivElement>) => void
+  votingState?: VotingState
 }
 
 export const VoteDescription = forwardRef<HTMLDivElement, IVotePageProps>(
@@ -40,6 +41,7 @@ export const VoteDescription = forwardRef<HTMLDivElement, IVotePageProps>(
       timeComment,
       onLogOut,
       onComponentMounted,
+      votingState
     }: IVotePageProps,
     ref
   ) => {
