@@ -83,6 +83,7 @@ export const VoteActionCard = ({
             {i18n.t('vote.vote_now')}
           </Button>
         )
+
       default:
         return <></>
     }
@@ -137,9 +138,9 @@ export const VoteActionCard = ({
             variant={TypographyVariant.Body2}
             align={TextAlign.Center}
           >
-            {getTitleFromState(votingState)}
+            {disabled ? i18n.t('vote.not_active') : getTitleFromState(votingState)}
           </Typography>
-          <div>{getButtonFromState(votingState)}</div>
+          <div>{disabled ? '' : getButtonFromState(votingState)}</div>
         </BannerText>
       </BannerMainDiv>
     </BannerDiv>

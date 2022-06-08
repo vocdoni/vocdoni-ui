@@ -641,7 +641,8 @@
         "your_entity_is_being_registered": "Your entity is being registered",
         "your_vote_has_been_registered": "Your vote has been registered",
         "your_vote_is_set_up": "Your vote is set up",
-        "your_vote_process_is_being_created": "Your voting process is being created"
+        "your_vote_process_is_being_created": "Your voting process is being created",
+        "not_active": "Voting not active"
     },
     "votes": {
         "new": {

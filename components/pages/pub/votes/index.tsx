@@ -264,7 +264,7 @@ export const VotingPageView = () => {
     voteStatus === 0
 
   const showResults =
-    votingState === VotingState.Guest || votingState === VotingState.Ended
+    votingState === VotingState.Guest || voteStatus === 2
 
   const showVotingButton = votingState == VotingState.NotStarted
 
@@ -426,7 +426,8 @@ export const VotingPageView = () => {
                 }}
               />
             )
-          )}
+          )
+        }
 
         <If condition={showDescription && totalVotes > 0 && !showInlineQuestions}>
           <Then>

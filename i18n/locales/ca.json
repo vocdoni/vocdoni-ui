@@ -641,7 +641,8 @@
         "your_entity_is_being_registered": "La teva entitat ha estat registrada",
         "your_vote_has_been_registered": "El teu vot ha estat registrat",
         "your_vote_is_set_up": "La votació s'ha creat",
-        "your_vote_process_is_being_created": "Has creat el procés de votació"
+        "your_vote_process_is_being_created": "Has creat el procés de votació",
+        "not_active": "Votació no activa"
     },
     "votes": {
         "new": {

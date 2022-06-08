@@ -641,7 +641,8 @@
         "your_entity_is_being_registered": "Tu selección",
         "your_vote_has_been_registered": "Tu voto ha sido registrado",
         "your_vote_is_set_up": "Votación creada",
-        "your_vote_process_is_being_created": "Proceso de votación creado"
+        "your_vote_process_is_being_created": "Proceso de votación creado",
+        "not_active": "Votación no activa"
     },
     "votes": {
         "new": {
