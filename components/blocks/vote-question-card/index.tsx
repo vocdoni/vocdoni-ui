@@ -73,7 +73,7 @@ export const VoteQuestionCard = ({
   )
 
   const noResultsAvailableView = new ViewStrategy(
-    () => true,
+    () => showResults && !result,
     (
       <>
         <QuestionNoResultsAvailable question={question} />

@@ -224,7 +224,7 @@ export const VotingPageView = () => {
     setVotingState(VotingState.Ended)
     setConfirmModalOpened(false)
 
-    setWallet(null)
+    //setWallet(null)
     //votingMethods.cleanup()
   }
 
