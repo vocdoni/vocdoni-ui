@@ -642,7 +642,8 @@
         "your_vote_has_been_registered": "Your vote has been registered",
         "your_vote_is_set_up": "Your vote is set up",
         "your_vote_process_is_being_created": "Your voting process is being created",
-        "not_active": "Voting not active"
+        "not_active": "Voting not active",
+        "you_vote_has_been_submit_successfully_the_results_will_be_available": "Your vote has been submited successfull. You can view the results when the voting process ends."
     },
     "votes": {
         "new": {

@@ -642,7 +642,8 @@
         "your_vote_has_been_registered": "El teu vot ha estat registrat",
         "your_vote_is_set_up": "La votació s'ha creat",
         "your_vote_process_is_being_created": "Has creat el procés de votació",
-        "not_active": "Votació no activa"
+        "not_active": "Votació no activa",
+        "you_vote_has_been_submit_successfully_the_results_will_be_available": "El teu vot ha estat registrat correctament. Podràs veure els resultats quan finalitzi la votació."
     },
     "votes": {
         "new": {

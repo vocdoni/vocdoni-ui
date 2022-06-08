@@ -264,7 +264,7 @@ export const VotingPageView = () => {
     voteStatus === 0
 
   const showResults =
-    votingState === VotingState.Guest || voteStatus === 2
+    votingState === VotingState.Guest || voteStatus === 2 || (voteStatus === 1 && hasVoted)
 
   const showVotingButton = votingState == VotingState.NotStarted
 
