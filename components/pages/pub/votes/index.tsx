@@ -191,7 +191,11 @@ export const VotingPageView = () => {
 
   const handleVoteNow = () => {
     if (votingState == VotingState.NotStarted) {
-      setVotingState(VotingState.Started)
+      if(showInlineQuestions){
+        document.location.hash = "#voteNow";
+      } else {
+        setVotingState(VotingState.Started)
+      }
     } else if (votingState == VotingState.Guest) {
       handleGotoAuth()
     }

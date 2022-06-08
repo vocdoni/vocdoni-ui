@@ -64,7 +64,7 @@ export const QuestionsListInline = forwardRef<HTMLDivElement, IQuesListInlinePro
           </WeightedBannerContainer>
         )}
 
-        <div>          
+        <div id='voteNow'>          
           <QuestionUl>
             {questions &&
               questions.map((question, index) => (
