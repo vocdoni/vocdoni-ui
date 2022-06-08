@@ -192,7 +192,11 @@ export const VotingPageView = () => {
   const handleVoteNow = () => {
     if (votingState == VotingState.NotStarted) {
       if(showInlineQuestions){
-        document.location.hash = "#voteNow";
+        var element = document.getElementById("voteNow");
+        element.scrollIntoView({
+          block: 'start',
+          behavior: 'smooth'
+        });
       } else {
         setVotingState(VotingState.Started)
       }
