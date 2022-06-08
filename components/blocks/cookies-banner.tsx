@@ -107,6 +107,7 @@ const SpacedContainer = styled.div`
 `
 
 const CookiesContainer = styled.div`
+  display: none;
   position: fixed;
   bottom: 0;
   right: 0;
