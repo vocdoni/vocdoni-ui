@@ -20,12 +20,12 @@
             "create_account_backup": "Copia de Seguretat",
             "custom_branding": "",
             "dashboard": "Dashboard",
-            "disconnect_account": "Tancar Sessió",
+            "disconnect_account": "Tanca Sessió",
             "help_and_feedback": "Centre d’ajuda",
             "language": "Idioma",
             "public_page": "Pàgina pública",
             "settings": "Eines",
-            "update_entity": "Actualitzar l’entitat",
+            "update_entity": "Actualitza l’entitat",
             "user_language": "Idioma: {{ lang }}"
         },
         "meta": {
@@ -670,7 +670,7 @@
         },
         "questions_list": {
             "back": "Enrere",
-            "finish_voting": "Finalitzar votació",
+            "finish_voting": "Finalitza votació",
             "next_question": "Pregunta següent",
             "question": "Pregunta {{questionIndex}}/{{totalQuestions}}"
         }

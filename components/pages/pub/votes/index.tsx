@@ -282,7 +282,7 @@ export const VotingPageView = () => {
         <BodyContainer>
           {showDescription && (
             <Grid>
-              <Column sm={12}>
+              <Column sm={12} md={9}>
                 <VoteDescription
                   onComponentMounted={handleVideoPosition}
                   ref={descriptionVideoContainerRef}
@@ -300,19 +300,18 @@ export const VotingPageView = () => {
                 />
               </Column>
 
-              <If condition={false}>
-                <Column sm={12} md={3} hiddenSm hiddenMd>
-                  <VoteNowCardContainer>
-                    <VoteActionCard
-                      onClick={handleVoteNow}
-                      onLogOut={handleLogOut}
-                      votingState={votingState}
-                      explorerLink={explorerLink}
-                      disabled={voteStatus !== VoteStatus.Active}
-                    />
-                  </VoteNowCardContainer>
-                </Column>
-              </If>
+              
+              <Column sm={12} md={3} hiddenSm hiddenMd>
+                <VoteNowCardContainer>
+                  <VoteActionCard
+                    onClick={handleVoteNow}
+                    onLogOut={handleLogOut}
+                    votingState={votingState}
+                    explorerLink={explorerLink}
+                    disabled={voteStatus !== VoteStatus.Active}
+                  />
+                </VoteNowCardContainer>
+              </Column>
             </Grid>
           )}
 
