@@ -221,7 +221,7 @@ export const VotingPageView = () => {
     setConfirmModalOpened(false)
 
     setWallet(null)
-    votingMethods.cleanup()
+    //votingMethods.cleanup()
   }
 
   const handleGotoAuth = () => {
