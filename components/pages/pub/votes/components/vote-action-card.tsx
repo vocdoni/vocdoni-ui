@@ -50,10 +50,6 @@ export const VoteActionCard = ({
       case VotingState.Ended:
         return (
           <>
-            <Button wide target={LinkTarget.Blank} positive href={explorerLink}>
-              {i18n.t('vote.view_in_explorer')}
-            </Button>
-
             <ButtonContainer>
               <Button wide onClick={onLogOut}>
                 {i18n.t('app.header.disconnect_account')}
