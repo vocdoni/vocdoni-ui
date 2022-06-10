@@ -97,8 +97,8 @@ export const QuestionsListInline = forwardRef<HTMLDivElement, IQuesListInlinePro
             </Button>
           </ButtonsActionContainer>
 
-          <If condition={(results.length < questions?.length || results.includes(undefined) && false)}>
-            <Typography margin='20px 0px' align={TextAlign.Center} color='#888' variant={TypographyVariant.ExtraSmall}>Has de contestar totes les votacions per poder finalitzar el procés. N'has respost {results.filter(x => x !== undefined).length} de {questions?.length}.</Typography>            
+          <If condition={(questions?.length > 1 && (results.length < questions?.length || results.includes(undefined) && false))}>
+            <Typography margin='20px 0px' align={TextAlign.Center} color='#888' variant={TypographyVariant.ExtraSmall}>Has de contestar totes les preguntes per poder finalitzar el procés. N'has respost {results.filter(x => x !== undefined).length} de {questions?.length}.</Typography>            
           </If>
         </div>
 

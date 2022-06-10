@@ -14,7 +14,7 @@
     },
     "app": {
         "footer": {
-            "powered_by": ""
+            "powered_by": "Powered by"
         },
         "header": {
             "create_account_backup": "Crear backup",
@@ -153,8 +153,8 @@
             "customize_your_logo": "Define tu logo",
             "customize_your_primary_color": "Define tu color primario",
             "save_changes": "Guardar cambios",
-            "you_can_customize_the_voting_process_colors": "",
-            "you_can_customize_your_branding": "Aquí puede personalizar cómo ven sus clientes la aplicación en el proceso de votación.",
+            "you_can_customize_the_voting_process_colors": "Personaliza los colores para el proceso de votación.",
+            "you_can_customize_your_branding": "Aquí puedes personalizar cómo tus clientes ven la aplicación en el proceso de votación.",
             "you_can_update_the_visible_logo_on_the_voting_process": "Puedes definir el logo que ven tus clientes"
         },
         "brief_description": "Breve descripción de la entidad, se mostrará en la página de la entidad pública.",
@@ -248,10 +248,10 @@
         "invalid_passphrase_format_error": "La contraseña debe contener un mínimo de {{ length }} caracteres",
         "invalid_question_error": "Pregunta inválida",
         "invalid_question_title": "El título debe contener un mínimo de {{ length }} caracteres",
-        "invalid_row_length": "",
+        "invalid_row_length": "Corrija las líneas {{invalidRows}} del documento. Corrija estos errores y vuelva a cargar el documento.",
         "invalid_title": "El título debe contener un mínimo de {{ length }} caracteres",
         "invalid_url": "URL inválida",
-        "invalid_weighted_row_length": "",
+        "invalid_weighted_row_length": "Peso no válido en las líneas {{invalidRows}} del documento. Corrija estos errores y vuelva a cargar el documento.",
         "num_entries_could_not_be_added_to_the_census": "{{num}} entradas no han podido ser añadidas al censo",
         "retrieve_gas_time_out": "No se ha podido determinar el coste de la transacción",
         "the_incognito_mode_is_not_supported": "La navegación privada no está soportada",
@@ -262,7 +262,7 @@
         "the_vote_is_not_available_yet": "El voto aún no está disponible",
         "these_user_is_not_member_of_the_census": "Este usuario no es miembro del censo.",
         "wallet_not_available": "Cuenta no disponible",
-        "we_cant_check_the_new_status_process": ""
+        "we_cant_check_the_new_status_process": "No podemos comprobar el nuevo estado del proceso."
     },
     "errors": {
         "cannot_connect_to_the_blockchain": "No se puede conectar a la cadena de bloques",
@@ -612,7 +612,7 @@
         "this_is_the_link_that_you_need_to_send_your_community_members_replacing_the_corresponding_private_key_helper": "Recuerda que cada enlace sera unico para cada uno de los votantes, diferentes votantes deben tener enlaces diferentes distinguidos por su llave privada",
         "this_is_the_link_that_your_community_members_can_use_to_access_via_mnemonic": "Este es el enlace de votación que deberás compartir con los votantes que quieren acceder utilizando su mnemonic:",
         "this_is_the_link_that_your_community_members_can_use_to_access_via_mnemonic_helper": "Este enlace se puede utilizar por votantes que ya disponen wallets associados con mnemonics",
-        "this_is_weighted_voted": "",
+        "this_is_weighted_voted": "Esta es una votación ponderada",
         "this_type_of_vote_is_not_supported_on_the_current_page": "Este tipo de votación no está disponible todavía",
         "title": "Título",
         "total_votes": "Número total de votos: {{totalVotes}}",
@@ -635,7 +635,7 @@
         "yes_submit_the_vote": "Sí, envía mi voto",
         "you_can_vote_on_this_proposal": "Ya puedes votar en este proceso",
         "you_cant_enter_contact_with_entity": "Si no puedes acceder, contacta con la entidad",
-        "you_got_attributed_a_voting_power_per_question": "",
+        "you_got_attributed_a_voting_power_per_question": "Se te atribuyó un poder de voto por pregunta de: {{ voteWeight }}",
         "you_need_authenticate_to_vote": "Es necesario autenticarte para votar",
         "your_choice": "Tu selección",
         "your_entity_is_being_registered": "Tu selección",
