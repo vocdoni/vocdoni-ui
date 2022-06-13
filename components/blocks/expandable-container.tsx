@@ -2,6 +2,7 @@ import { useRef, useLayoutEffect } from 'react'
 import { ReactNode, useState } from 'react'
 import styled from 'styled-components'
 import { Col, Row, Text, Button } from '@components/elements-v2'
+import { MarkDownViewer } from './mark-down-viewer'
 
 
 interface ExpandableContainerProps {
@@ -31,18 +32,17 @@ export const ExpandableContainer = (props: ExpandableContainerProps) => {
   })
   return (
     <Row gutter='xs'>
-      {/* <Col xs={12}> */}
+      <Col xs={12}>
       <TextContainer
         ref={ref}
         isExpanded={isExpanded}
         {...props}
       >
         <Text size='sm' weight='light' color='dark-blue'>
-          {props.children}
-          {/* <MarkDownViewer content={props.children} /> */}
+          <MarkDownViewer content={props.children} />
         </Text>
       </TextContainer>
-      {/* </Col> */}
+      </Col>
       {height > lineHeight &&
         <Col justify='start'>
           <Button onClick={() => setIsExpanded(!isExpanded)} variant='text' >
