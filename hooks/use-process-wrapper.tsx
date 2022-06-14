@@ -266,7 +266,7 @@ export const UseProcessWrapperProvider = ({ children }: { children: ReactNode })
   // we have the total weight of the votes but we dont have
   // total voting power of the census so it cannot be computed
   // properly
-  const participationRate = (results.totalVotes / (censusSize || 1) * 100).toFixed(2)
+  const participationRate = (results?.totalVotes || 0 / (censusSize || 1) * 100).toFixed(2)
 
   // RETURN VALUES
   const value: ProcessWrapperContext = {
