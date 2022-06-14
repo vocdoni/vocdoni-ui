@@ -36,10 +36,11 @@ type ButtonProps = {
     href?: string
     target?: LinkTarget
     spinner?: boolean
-    onClick?: (ev: React.MouseEvent<HTMLDivElement, MouseEvent>) => void
+    tabIndex?: number
+    onClick?: (ev: React.MouseEvent<HTMLDivElement, MouseEvent> | React.KeyboardEvent) => void
 }
 
-export const Button = ({ disabled, positive, negative, color, href, target, onClick, width, icon, wide, border, borderColor, justify, verticalAlign, large, small, spinner, children }: ButtonProps) => {
+export const Button = ({ disabled, positive, negative, color, href, target, onClick, width, icon, wide, border, borderColor, justify, verticalAlign, large, small, spinner, tabIndex, children }: ButtonProps) => {
     let component: JSX.Element
     const getButtonText = (spinnerVariant: SpinnerProps['variant'] = 'brand'): ReactNode => (
         spinner ?
@@ -48,6 +49,11 @@ export const Button = ({ disabled, positive, negative, color, href, target, onCl
             </SpinnerContainer>):
             children
     )
+    const handleOnKeyUp = (e: React.KeyboardEvent) => {
+        if ((e.key === 'Enter' || e.key === ' ') && onClick && !disabled) {
+            onClick(e)
+        }
+    }
 
     if (disabled) {
         return <DisabledButton wide={wide} large={large} small={small} width={width} onClick={ev => (onClick && !disabled) ? onClick(ev) : null}>
@@ -59,7 +65,7 @@ export const Button = ({ disabled, positive, negative, color, href, target, onCl
     }
 
     if (positive) {
-        component = <PositiveButton wide={wide} large={large} small={small} width={width} onClick={ev => (onClick && !disabled) ? onClick(ev) : null}>
+        component = <PositiveButton wide={wide} large={large} small={small} width={width} onClick={ev => (onClick && !disabled) ? onClick(ev) : null} tabIndex={tabIndex ? tabIndex : 0} onKeyUpCapture={handleOnKeyUp}>
             {icon ?
                 <ButtonContent color={theme.white} justify={justify}>{icon}&nbsp;{getButtonText('inverse')}</ButtonContent> :
                 <ButtonContent color={theme.white} verticalAlign={verticalAlign} justify={justify}>{getButtonText('inverse')}</ButtonContent>
@@ -67,7 +73,7 @@ export const Button = ({ disabled, positive, negative, color, href, target, onCl
         </PositiveButton>
     }
     else if (negative) {
-        component = <NegativeButton wide={wide} large={large} small={small} width={width} onClick={ev => (onClick && !disabled) ? onClick(ev) : null}>
+        component = <NegativeButton wide={wide} large={large} small={small} width={width} onClick={ev => (onClick && !disabled) ? onClick(ev) : null} tabIndex={tabIndex ? tabIndex : 0} onKeyUpCapture={handleOnKeyUp}>
             {icon ?
                 <ButtonContent color={theme.white} justify={justify}>{icon}&nbsp;{getButtonText('inverse')}</ButtonContent> :
                 <ButtonContent color={theme.white} verticalAlign={verticalAlign} justify={justify}>{getButtonText('inverse')}</ButtonContent>
@@ -75,7 +81,7 @@ export const Button = ({ disabled, positive, negative, color, href, target, onCl
         </NegativeButton>
     }
     else {
-        component = <DefaultButton wide={wide} border={border} borderColor={borderColor} large={large} small={small} width={width} onClick={ev => (onClick && !disabled) ? onClick(ev) : null}>
+        component = <DefaultButton wide={wide} border={border} borderColor={borderColor} large={large} small={small} width={width} onClick={ev => (onClick && !disabled) ? onClick(ev) : null} tabIndex={tabIndex ? tabIndex : 0} onKeyUpCapture={handleOnKeyUp}>
             {icon ?
                 <ButtonContent color={color} justify={justify}>{icon}&nbsp;{getButtonText('inverse')}</ButtonContent> :
                 <ButtonContent color={color} verticalAlign={verticalAlign} justify={justify}>{getButtonText('inverse')}</ButtonContent>
@@ -118,7 +124,7 @@ ${props => props.large ? "font-size: 125%;" :
 
     @media ${({theme})  => theme.screenMax.mobileL } {
         white-space: normal;
-        padding:  ${({ border, small }) => { 
+        padding:  ${({ border, small }) => {
             const padded = border ? 2 : 0;
             const topBottomPaddingBase = 16
             const leftRightPaddingBase = 18
