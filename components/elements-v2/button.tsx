@@ -24,6 +24,7 @@ export interface ButtonProps {
   size?: ButtonSize
   icon?: boolean
   loading?: boolean
+  tabIndex?: number
 }
 
 interface StyledButtonProps {
@@ -52,9 +53,18 @@ export const Button = (props: ButtonProps) => {
       props.onClick()
     }
   }
+  const handleOnKeyUp = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      if (!props.disabled && !props.loading) {
+        props.onClick()
+      }
+    }
+  }
   return (
     <BaseButton
       onClick={() => handleOnClick(props)}
+      tabIndex={props.tabIndex ? props.tabIndex : 0}
+      onKeyUpCapture={handleOnKeyUp}
       color={props.color}
       backgroundColor={props.backgroundColor}
       width={props.width}
