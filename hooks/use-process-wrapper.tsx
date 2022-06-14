@@ -38,6 +38,7 @@ export interface ProcessWrapperContext {
   questions: Question[]
   title: string
   isAnonymous: boolean
+  participationRate: string
   methods: {
     // refreshProcessInfo: (processId: string) => Promise<ProcessDetails>
     refreshResults: () => Promise<any>
@@ -260,6 +261,13 @@ export const UseProcessWrapperProvider = ({ children }: { children: ReactNode })
       : localizedStrDateDiff(DateDiffType.Start, startDate)
     : ''
 
+  // TODO
+  // this rate does not support weighted voting
+  // we have the total weight of the votes but we dont have
+  // total voting power of the census so it cannot be computed
+  // properly
+  const participationRate = (results.totalVotes / (censusSize || 1) * 100).toFixed(2)
+
   // RETURN VALUES
   const value: ProcessWrapperContext = {
     loadingInfo,
@@ -285,6 +293,7 @@ export const UseProcessWrapperProvider = ({ children }: { children: ReactNode })
     questions,
     title,
     isAnonymous,
+    participationRate,
     methods: {
       // refreshProcessInfo,
       refreshResults,

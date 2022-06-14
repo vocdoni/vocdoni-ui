@@ -36,7 +36,7 @@ export const VoteActionCard = ({
 }: IVoteActionCardProps) => {
   const { i18n } = useTranslation()
   const processId = useUrlHash().slice(1)
-  const { startDate, endDate, votesWeight, status, censusSize, liveResults } = useProcessWrapper(processId)
+  const { startDate, endDate, votesWeight, status, censusSize, liveResults, participationRate } = useProcessWrapper(processId)
   const { nullifier } = useVoting(processId)
   const disabled = (status !== VoteStatus.Active || userVoteStatus === UserVoteStatus.Emitted)
   const explorerLink = process.env.EXPLORER_URL + '/envelopes/show/#/' + nullifier
@@ -158,7 +158,7 @@ export const VoteActionCard = ({
         <Text large>
           <If condition={liveResults && votesWeight && censusSize}>
             <Then>
-              {votesWeight?.toString()} ({getPercent(votesWeight, BigNumber.from(censusSize || 1))}%)
+              {votesWeight?.toString()} ({participationRate}%)
             </Then>
             <Else>
               0 (0%)
