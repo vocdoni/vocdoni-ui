@@ -125,7 +125,7 @@ const HeaderContainer = styled.div`
   width: 100%;
   z-index: 100;
   min-height: 50px;
-  position: fixed;
+  // position: fixed;
   top: 0;
   padding: 10px 0 10px;
 
@@ -198,7 +198,7 @@ const MobileMenuActionsContainer = styled.div`
   right: 0;
   left: 0;
   padding: 20px;
-  
+
   & > a {
     width: 100%;
   }
@@ -221,7 +221,7 @@ const MobileMenuContainer = styled.div<{ showMenu: boolean, }>`
     visibility: ${({ showMenu }) => showMenu ? 'visible' : 'hidden'};
     height: ${({ showMenu }) => showMenu ? '100vh' : '0'};;
     top: ${({ showMenu }) => showMenu ? '0' : '-100%'};
-  
+
     -webkit-transition: all  0.5s ease-in-out;
     -moz-transition: all 0.5s ease-in-out;
     -o-transition: all 0.5s ease-in-out;
