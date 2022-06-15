@@ -36,6 +36,7 @@ export const GeneratePdfCard = (props: GeneratePdfCardProps) => {
     const linkElement = document.createElement('a')
     resultPdfGenerator.generatePdfUrl()
       .then(pdfLink => {
+        linkElement.setAttribute('target', "_blank")
         linkElement.setAttribute('href', pdfLink)
         linkElement.setAttribute('download', `${entityMetadata.name.default}_${title}_${(new Date()).toISOString().split('T')[0]}.pdf`)
         linkElement.click()
