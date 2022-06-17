@@ -71,6 +71,7 @@ export const UseProcessWrapperProvider = ({ children }: { children: ReactNode })
   const invalidProcessId = !processId || !processId.match(/^0x[0-9a-fA-F]{64}$/)
   const processContext = useContext(UseProcessContext)
   const [censusSize, setCensusSize] = useState<number>()
+  const [participationRate, setParticipationRate] = useState<string>()
   const { poolPromise } = usePool()
   const { blockHeight } = useBlockHeight()
 
@@ -100,7 +101,16 @@ export const UseProcessWrapperProvider = ({ children }: { children: ReactNode })
 
   useEffect(() => {
     updateCensusSize()
-  }, [processInfo?.state?.censusRoot])
+  }, [processInfo?.state?.censusRoot, results])
+
+  useEffect(() => {
+    // TODO
+    // this rate does not support weighted voting
+    // we have the total weight of the votes but we dont have
+    // total voting power of the census so it cannot be computed
+    // properly
+    setParticipationRate(((results?.totalVotes || 0) / (censusSize || 1) * 100).toFixed(2))
+  }, [censusSize, results])
 
   useEffect(() => {
     if (invalidProcessId) return
@@ -260,13 +270,6 @@ export const UseProcessWrapperProvider = ({ children }: { children: ReactNode })
       ? localizedStrDateDiff(DateDiffType.End, endDate)
       : localizedStrDateDiff(DateDiffType.Start, startDate)
     : ''
-
-  // TODO
-  // this rate does not support weighted voting
-  // we have the total weight of the votes but we dont have
-  // total voting power of the census so it cannot be computed
-  // properly
-  const participationRate = (results?.totalVotes || 0 / (censusSize || 1) * 100).toFixed(2)
 
   // RETURN VALUES
   const value: ProcessWrapperContext = {
