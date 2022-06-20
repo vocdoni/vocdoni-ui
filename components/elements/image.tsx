@@ -22,9 +22,9 @@ export const Image = (props: IImageProps) => {
   const [imageSrc, setImageSrc] = useState<string>(
     ipfsRegex.test(props.src) ? DEFAULT_IMAGE : props.src
   )
+  const [disposed, setDisposed] = useState(false)
 
   useEffect(() => {
-    let disposed = false
 
     if (!ipfsRegex.test(props.src)) {
       if (props.src != imageSrc) {
@@ -43,16 +43,16 @@ export const Image = (props: IImageProps) => {
 
         const dataUrl = `data:${mimeType};base64,${fileBytes.toString('base64')}`
         setImageSrc(dataUrl)
+        setDisposed(true)
       })
       .catch(err => {
         if (disposed) return
         setImageSrc(DEFAULT_IMAGE)
       })
 
-    return () => { disposed = true }
+    return () => { setDisposed(true) }
   }, [props.src])
-
-  return <img {...props} src={imageSrc} />
+  return disposed && <img {...props} src={imageSrc} />
 }
 
 // Helpers

@@ -38,14 +38,14 @@ export const CardImageHeader = ({
   return (
     <CardImageHeaderContainer>
       <PageCardHeader>
-        <Image
-          src={headerImageSrc}
-          alt={i18n.t('vote.vote_process_image_alt')}
-        />
+          <Image
+            src={headerImageSrc}
+            alt={i18n.t('vote.vote_process_image_alt')}
+          />
       </PageCardHeader>
 
       <EntityLogoWrapper>
-        <Image src={entityImageSrc} alt={i18n.t('vote.entity_logo_alt')} />
+          <Image src={entityImageSrc} alt={i18n.t('vote.entity_logo_alt')} />
       </EntityLogoWrapper>
 
       <Grid>

@@ -259,9 +259,9 @@ export const FormMetadata = () => {
         </Column>
       </Grid>
 
-      <Grid>
+      <Grid noGutter>
         <Column>
-          <Typography variant={TypographyVariant.H3}>
+          <Typography variant={TypographyVariant.H3}  margin="0 0 26px 0">
             {i18n.t('vote.description')}
           </Typography>
           <TextEditor

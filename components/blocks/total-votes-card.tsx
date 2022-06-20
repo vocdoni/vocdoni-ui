@@ -14,7 +14,7 @@ export const TotalVotesCard = () => {
   const isMobile = useIsMobile()
   const processId = useUrlHash().slice(1)
   const { i18n } = useTranslation()
-  const { results, censusSize } = useProcessWrapper(processId)
+  const { results, censusSize, participationRate } = useProcessWrapper(processId)
   const totalVotes = results.totalVotes
   return (
     <Row gutter={isMobile ? 'sm' : 'md'} align="center" justify={isMobile ? 'center' : 'start'}>
@@ -34,7 +34,7 @@ export const TotalVotesCard = () => {
               </Col>
               <Col>
                 <Text size="lg" color="dark-gray">
-                  ({(totalVotes / (censusSize || 1) * 100).toFixed(2)}%)
+                  ({participationRate}%)
                 </Text>
               </Col>
             </Row>

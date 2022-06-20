@@ -22,7 +22,7 @@ interface ICookiesContext {
 
 const CookiesContext = createContext<ICookiesContext>({
   accepted: false,
-  hide: false,
+  hide: true,
   acceptCookies: () => {},
   rejectCookies: () => {},
 })
@@ -50,14 +50,14 @@ export const UseCookiesProvider: React.FC<IUseCookiesProvider> = ({
   children,
 }: IUseCookiesProvider) => {
   const [accepted, setAccepted] = useState<boolean>(false)
-  const [hide, setHide] = useState<boolean>(false)
+  const [hide, setHide] = useState<boolean>(true)
 
   const router = useRouter()
   const { trackLoad, trackReset, trackPage } = useRudderStack()
   const { show } = useHelpCenter()
 
   useEffect(() => {
-    if (router.pathname.includes(COOKIES_PATH)) setHide(true)
+    if (!router.pathname.includes(COOKIES_PATH)) setHide(false)
 
     const cookieAcceptance = localStorage.getItem(COOKIES_STORE_KEY)
 
@@ -68,6 +68,8 @@ export const UseCookiesProvider: React.FC<IUseCookiesProvider> = ({
       setAccepted(cookieAcceptance === CookiesStatus.Accept)
       setHide(true)
       trackLoad()
+    } else {
+      setHide(false)
     }
   }, [])
 
