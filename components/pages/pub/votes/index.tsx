@@ -419,11 +419,13 @@ export const VotingPageView = () => {
                   {i18n.t('vote.vote_will_close')}&nbsp;<b>{endingString}</b>
                 </Text>
               </Col>
-              <Col xs={12}>
-                <Button variant='primary' size='lg' onClick={handleVoteNow}>
-                  {i18n.t("vote.vote_now")}
-                </Button>
-              </Col>
+              { !isInlineVotingProcess && 
+                <Col xs={12}>
+                  <Button variant='primary' size='lg' onClick={handleVoteNow}>
+                    {i18n.t("vote.vote_now")}
+                  </Button>
+                </Col>
+              }
               <Col xs={12} justify='center'>
                 <Spacer direction='vertical' size='2xs' />
                 <Button
