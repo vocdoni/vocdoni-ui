@@ -101,7 +101,9 @@ export const VotingPageView = () => {
   const [now, setNow] = useState(new Date)
   const [anonymousFormData, setAnonymousFormData] = useState('')
 
-  const isInlineVotingProcess = true
+  // @TODO move to the params received from the voting creation
+  // if TRUE, the voting will display all the questions in one page
+  const isInlineVotingProcess = false
 
   // Effects
 
