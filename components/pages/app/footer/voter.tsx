@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { useTranslation } from 'react-i18next'
 import Link from 'next/link'
 
-import { Typography, TypographyVariant, TextAlign } from '@components/elements/typography'
+import { Typography, TypographyVariant } from '@components/elements/typography'
 import { Image } from '@components/elements/image'
 import { Col, Row } from '@components/elements-v2/grid'
 
@@ -89,20 +89,6 @@ const CopyrightText = styled.div`
 
   @media ${({ theme }) => theme.screenMax.tablet} {
     font-size: 12px;
-    margin-bottom: 10px;
-  }
-`
-
-const Logos = styled.img`
-  padding-right: 5%;
-  padding-left: 5%;
-  width: 40%;
-  display: inline-block;
-  max-width: 120px;
-  min-width: 80px;
-
-  @media ${({ theme }) => theme.screenMax.tablet} {
-    margin-top: 20px;
     margin-bottom: 10px;
   }
 `
