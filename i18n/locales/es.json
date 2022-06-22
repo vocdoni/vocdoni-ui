@@ -861,5 +861,11 @@
             "Vocdoni aprovecha un grupo de tecnologías descentralizadas para asegurar la <strong>integridad</strong> de la votacion y los resultados, incluyendo Ethereum-L2 Gnosis chain, <strong>Vochain</strong> – nuestra propia blockchain basada en Tendermint y IPFS.",
             "Tu voto esta siendo registrado en <strong>Vochain</strong> – nuestra propia blockchain basada en Tendermint, para asegurar la <strong>no manipulación</strong> y <strong>auditabilidad punto a punto</strong>, esto puede llevar algún tiempo. Lee nuestra <a href='https://docs.vocdoni.io/' target='_blank'>documentación</a> o nuestro <a href='https://blog.aragon.org/vocdoni-technical-overview-v1/' target='_blank'>resumen téccnico</a> para saber más."
         ]
+    },
+    "fcb": {
+      "terms": "Terms",
+      "copyright": "© 2022 by Vocdoni & Aragon",
+      "service_conditions": "Conditions of service",
+      "support_number": "Support number"
     }
 }
