@@ -26,7 +26,7 @@ interface IQuesListInlineProps {
   onComponentMounted?: (ref: ForwardedRef<HTMLDivElement>) => void
 }
 
-export const QuestionsListInline = (props: IQuesListInlineProps) => {
+export const QuestionsListInline = forwardRef<HTMLDivElement, IQuesListInlineProps>((props: IQuesListInlineProps, ref) => {
   const [questionIndex, setQuestionIndex] = useState(0)
   const { i18n } = useTranslation()
   const lastQuestion = questionIndex === props.questions?.length - 1
@@ -47,7 +47,7 @@ export const QuestionsListInline = (props: IQuesListInlineProps) => {
         </WeightedBannerContainer>
       )}
 
-      <div id='voteNow'>
+      <div ref={ref}>
         <QuestionUl>
           {props.questions &&
             props.questions.map((question, index) => (
@@ -98,7 +98,7 @@ export const QuestionsListInline = (props: IQuesListInlineProps) => {
       <br /><br /><br />
     </QuestionsContainer>
   )
-}
+})
 
 const WeightedBannerContainer = styled.div`
   margin: 30px 0 40px 0;

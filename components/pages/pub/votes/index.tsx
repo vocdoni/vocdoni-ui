@@ -97,6 +97,7 @@ export const VotingPageView = () => {
   const voteStatus: VoteStatus = getVoteStatus(processInfo?.state, blockHeight)
   // const entityMetadata = metadata as EntityMetadata
   const resultsCardRef = useRef(null)
+  const questionsInlineRef = useRef(null)
   // used for getting the ending in and starting in string
   const [now, setNow] = useState(new Date)
   const [anonymousFormData, setAnonymousFormData] = useState('')
@@ -193,11 +194,10 @@ export const VotingPageView = () => {
       handleGotoAuth()
     }
     if(isInlineVotingProcess){
-      var element = document.getElementById("voteNow");
-      element.scrollIntoView({
-        block: 'start',
-        behavior: 'smooth'
-      });
+      setTimeout(() => {
+        questionsInlineRef.current.scrollIntoView({ block: 'start', behavior: 'smooth' })
+      }, 200)
+      return
     }
   }
   const handleSeeResultsClick = () => {
@@ -345,6 +345,7 @@ export const VotingPageView = () => {
               <If condition={isInlineVotingProcess}>
                 <Then>
                   <QuestionsListInline
+                    ref={questionsInlineRef}
                     results={choices}
                     questions={processInfo?.metadata?.questions}
                     voteWeight={votingType === VotingType.Weighted ? censusProof?.weight?.toString() : null}
