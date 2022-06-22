@@ -888,5 +888,11 @@
       "A built-in consent mechanism generates a signature to indicate how voter data should be used, allowing organizations to manage processes in a <strong>legally and GDPR-compliant way</strong>.",
       "Our cutting-edge voting protocol can process more than <strong>40k votes per minute</strong>, and we are always improving this and implementing new features."
     ]
+  },
+  "fcb": {
+      "terms": "Terminos",
+      "copyright": "© 2022 by Vocdoni & Aragon",
+      "service_conditions": "Condiciones de servicio",
+      "support_number": "Número de soporte"
   }
 }

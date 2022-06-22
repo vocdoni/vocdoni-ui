@@ -1,9 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
 import { useTranslation } from 'react-i18next'
+import Link from 'next/link'
 
-import { Typography, TypographyVariant } from '@components/elements/typography'
+import { Typography, TypographyVariant, TextAlign } from '@components/elements/typography'
 import { Image } from '@components/elements/image'
+import { Col, Row } from '@components/elements-v2/grid'
 
 import { useTheme } from '@hooks/use-theme'
 import { colors } from '@theme/colors'
@@ -14,34 +16,112 @@ export const VoterFooter = () => {
 
   return (
     <FooterContainer>
-      <Typography variant={TypographyVariant.ExtraSmall} color={colors.lightText}>
-        {i18n.t('app.footer.powered_by')}
-      </Typography>
-      <VoterIconContainer>
-        {theme.customLogo ? (
-          <Image src={theme.customLogo} />
-        ) : (
-          <img src="/images/app/logo-mid.svg" alt="Vocdoni" />
-        )}
-      </VoterIconContainer>
+      <Row gutter='none'>
+        <Col xs={12} md={4}>
+          <CopyrightText>{i18n.t('fcb.copyright')}</CopyrightText>
+        </Col>
+
+        <Col xs={12} md={8}>
+          <Row>
+            <Col xs={12} md={2}>
+              <ColoredLink href=''>{i18n.t('fcb.terms')}</ColoredLink>
+            </Col>
+
+            <Col xs={12} md={4}>
+              <ColoredLink href=''>{i18n.t('fcb.service_conditions')}</ColoredLink>
+            </Col>
+
+            <Col xs={12} md={6}>
+              <SupportDiv>{i18n.t('fcb.support_number')} <PhoneNumber>+34 999 999 999</PhoneNumber></SupportDiv>
+            </Col>
+          </Row>
+        </Col>
+      </Row>
     </FooterContainer>
   )
 }
+
+const ColoredLink = styled.a`
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 150%;
+
+  /* FCB-grad */
+  background: -webkit-linear-gradient(103.11deg, #A50044 0.33%, #174183 99.87%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+
+  display: inline;
+`
+
+const SupportDiv = styled.div`
+  display: inline;
+  text-align: center;
+`
+
+const PhoneNumber = styled.span`
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 150%;
+  margin-left: 8px;
+  display: inline;
+
+  background: -webkit-linear-gradient(103.11deg, #A50044 0.33%, #174183 99.87%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+`
+
+const CopyrightText = styled.div`
+  font-family: Manrope;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: 0em;
+  text-align: center;
+  display: inline-block;
+  width: 100%;
+
+  @media ${({ theme }) => theme.screenMax.tablet} {
+    font-size: 12px;
+    margin-bottom: 10px;
+  }
+`
+
+const Logos = styled.img`
+  padding-right: 5%;
+  padding-left: 5%;
+  width: 40%;
+  display: inline-block;
+  max-width: 120px;
+  min-width: 80px;
+
+  @media ${({ theme }) => theme.screenMax.tablet} {
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+`
 
 const FooterContainer = styled.div`
   position: absolute;
   bottom: 0;
   width: 100%;
-  background-color: ${({ theme }) => theme.white};
-  height: 80px;
+  background: #fff;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  padding-top:20px;
+  padding-bottom:20px;
 
   @media (max-width: 1124px) {
     position: relative;
-    margin-top: -80px;
+    text-align: center;
   }
 `
 
