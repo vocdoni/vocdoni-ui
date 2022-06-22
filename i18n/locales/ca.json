@@ -823,7 +823,9 @@
             "back": "Enrere",
             "finish_voting": "Finalitzar votació",
             "next_question": "Pregunta següent",
-            "question": "Pregunta {{questionIndex}}/{{totalQuestions}}"
+            "question": "Pregunta {{questionIndex}}/{{totalQuestions}}",
+            "num_questions_info": "Has de contestar totes les preguntes per poder votar. N'has respost ",
+            "num_questions_total": "de {{numTotal}}"
         }
     },
     "waiting_banner": {

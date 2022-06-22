@@ -823,7 +823,9 @@
             "back": "Atrás",
             "finish_voting": "Finalizar votación",
             "next_question": "Siguiente pregunta",
-            "question": "Pregunta {{questionIndex}}/{{totalQuestions}}"
+            "question": "Pregunta {{questionIndex}}/{{totalQuestions}}",
+            "num_questions_info": "Debes responder todas las preguntas para poder votar. Has respuesto ",
+            "num_questions_total": "de {{numTotal}}"
         }
     },
     "waiting_banner": {

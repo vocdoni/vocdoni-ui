@@ -20,6 +20,7 @@ import { VoteActionCard } from './components/vote-action-card'
 import { VoteStatus, getVoteStatus } from '@lib/util'
 import { useUrlHash } from 'use-url-hash'
 import { QuestionsList } from './components/questions-list'
+import { QuestionsListInline } from './components/questions-list-inline'
 import { censusProofState } from '@recoil/atoms/census-proof'
 import { VoteRegisteredCard } from './components/vote-registered-card'
 import RouterService from '@lib/router'
@@ -96,10 +97,14 @@ export const VotingPageView = () => {
   const voteStatus: VoteStatus = getVoteStatus(processInfo?.state, blockHeight)
   // const entityMetadata = metadata as EntityMetadata
   const resultsCardRef = useRef(null)
+  const questionsInlineRef = useRef(null)
   // used for getting the ending in and starting in string
   const [now, setNow] = useState(new Date)
   const [anonymousFormData, setAnonymousFormData] = useState('')
 
+  // @TODO move to the params received from the voting creation
+  // if TRUE, the voting will display all the questions in one page
+  const isInlineVotingProcess = false
 
   // Effects
 
@@ -137,6 +142,10 @@ export const VotingPageView = () => {
 
     if (!wallet) {
       return setUserVoteStatus(UserVoteStatus.Guest)
+    }
+
+    if(isInlineVotingProcess) {
+      return setUserVoteStatus(UserVoteStatus.InProgress)
     }
 
     setUserVoteStatus(UserVoteStatus.NotEmitted)
@@ -183,6 +192,12 @@ export const VotingPageView = () => {
     }
     if (userVoteStatus === UserVoteStatus.Guest) {
       handleGotoAuth()
+    }
+    if(isInlineVotingProcess){
+      setTimeout(() => {
+        questionsInlineRef.current.scrollIntoView({ block: 'start', behavior: 'smooth' })
+      }, 200)
+      return
     }
   }
   const handleSeeResultsClick = () => {
@@ -257,7 +272,7 @@ export const VotingPageView = () => {
           subtitle={metadata?.name.default}
           entityImage={metadata?.media.avatar}
         />
-        <If condition={userVoteStatus !== UserVoteStatus.InProgress}>
+        <If condition={(userVoteStatus !== UserVoteStatus.InProgress) || isInlineVotingProcess}>
           <Then>
             <BodyContainer >
               <Row gutter='2xl'>
@@ -321,8 +336,29 @@ export const VotingPageView = () => {
                   />
                 </StickyCol>
               </Row>
+
+              <Spacer direction='vertical' size='3xl' />
+
+              {/* TODO: ADD if guest? */}
+
+              {/* INLINE QUESTIONS */}
+              <If condition={isInlineVotingProcess}>
+                <Then>
+                  <QuestionsListInline
+                    ref={questionsInlineRef}
+                    results={choices}
+                    questions={processInfo?.metadata?.questions}
+                    voteWeight={votingType === VotingType.Weighted ? censusProof?.weight?.toString() : null}
+                    onSelect={votingMethods.onSelect}
+                    onFinishVote={handleFinishVote}
+                    onBackDescription={handleBackToDescription}
+                  />
+                </Then>
+              </If>
             </BodyContainer>
+
             <Spacer direction='vertical' size='3xl' />
+
             {/* RESULTS CARD */}
             <Row gutter='2xl'>
               <Col xs={12}>
@@ -384,11 +420,13 @@ export const VotingPageView = () => {
                   {i18n.t('vote.vote_will_close')}&nbsp;<b>{endingString}</b>
                 </Text>
               </Col>
-              <Col xs={12}>
-                <Button variant='primary' size='lg' onClick={handleVoteNow}>
-                  {i18n.t("vote.vote_now")}
-                </Button>
-              </Col>
+              { !isInlineVotingProcess && 
+                <Col xs={12}>
+                  <Button variant='primary' size='lg' onClick={handleVoteNow}>
+                    {i18n.t("vote.vote_now")}
+                  </Button>
+                </Col>
+              }
               <Col xs={12} justify='center'>
                 <Spacer direction='vertical' size='2xs' />
                 <Button

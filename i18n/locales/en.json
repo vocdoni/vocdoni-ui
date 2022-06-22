@@ -850,7 +850,9 @@
       "back": "Back",
       "finish_voting": "Finish voting",
       "next_question": "Next question",
-      "question": "Question {{questionIndex}}/{{totalQuestions}}"
+      "question": "Question {{questionIndex}}/{{totalQuestions}}",
+      "num_questions_info": "You must answer all questions in order to vote. You answered ",
+      "num_questions_total": "of {{numTotal}}"
     }
   },
   "waiting_banner": {
