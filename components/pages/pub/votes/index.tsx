@@ -28,6 +28,7 @@ import { VOTING_AUTH_FORM_PATH } from '@const/routes'
 import { ExpandableCard } from '@components/blocks/expandable-card'
 import { Banner } from '@components/blocks-v2/banner'
 import { Spacer, Col, Row, IColProps, Text } from '@components/elements-v2'
+import { colors } from 'theme/colors'
 
 import { DisconnectModal } from '@components/blocks-v2'
 import { ResultsCard } from './components/results-card'
@@ -104,7 +105,7 @@ export const VotingPageView = () => {
 
   // @TODO move to the params received from the voting creation
   // if TRUE, the voting will display all the questions in one page
-  const isInlineVotingProcess = false
+  const isInlineVotingProcess = true
 
   // Effects
 
@@ -128,6 +129,10 @@ export const VotingPageView = () => {
    * effect to set the user vote status
    */
   useEffect(() => {
+    if (!wallet) {
+      handleGotoAuth()
+    }
+
     if (hasVoted) {
       return setUserVoteStatus(UserVoteStatus.Emitted)
     }
@@ -138,10 +143,6 @@ export const VotingPageView = () => {
       voteStatus === VoteStatus.Upcoming
     ) {
       return setUserVoteStatus(UserVoteStatus.Expired)
-    }
-
-    if (!wallet) {
-      return setUserVoteStatus(UserVoteStatus.Guest)
     }
 
     if(isInlineVotingProcess) {
@@ -185,7 +186,6 @@ export const VotingPageView = () => {
     }
   }, [processInfo, metadata])
 
-
   const handleVoteNow = () => {
     if (userVoteStatus === UserVoteStatus.NotEmitted) {
       setUserVoteStatus(UserVoteStatus.InProgress)
@@ -200,12 +200,14 @@ export const VotingPageView = () => {
       return
     }
   }
+
   const handleSeeResultsClick = () => {
     setIsExpandableCardOpen(true)
     setTimeout(() => {
       resultsCardRef.current.scrollIntoView({ block: 'start', behavior: 'smooth' })
     }, 200)
   }
+
   const handleExpandableCardButtonClick = () => {
     setIsExpandableCardOpen(!isExpandableCardOpen)
   }
@@ -238,7 +240,6 @@ export const VotingPageView = () => {
       )
     }, 50)
   }
-
 
   const handleLogOut = () => {
     setWallet(null)
@@ -277,10 +278,10 @@ export const VotingPageView = () => {
 
         <If condition={(userVoteStatus !== UserVoteStatus.InProgress) || isInlineVotingProcess}>
           <Then>
-            <BodyContainer >
+            <BodyContainer>
               <Row gutter='2xl'>
                 {/* NOT AUTHENTICATED BANNER */}
-                {showNotAuthenticatedBanner &&
+                {false && showNotAuthenticatedBanner &&
                   <Col xs={12}>
                     <Banner
                       variant='primary'
@@ -301,13 +302,12 @@ export const VotingPageView = () => {
                         }
                       }
                     >
-
                       {isAnonymous ? i18n.t('vote.auth.not_preregistered') : i18n.t('vote.auth.not_authenticated')}
                     </Banner>
                   </Col>
                 }
                 {/* DISCONNECT BANNER */}
-                {showDisconnectBanner &&
+                {false && showDisconnectBanner &&
                   <Col xs={12} disableFlex>
                     <Banner
                       variant='primary'
@@ -326,18 +326,22 @@ export const VotingPageView = () => {
                     </Banner>
                   </Col>
                 }
+
                 {/* DESCIRPTION */}
-                <Col xs={12} md={9}>
+                <Col xs={12} md={12}>
                   <VoteDescription />
                 </Col>
+
                 {/* VOTE CARD */}
-                <StickyCol xs={12} md={3} hiddenSmAndDown disableFlex>
-                  <VoteActionCard
-                    userVoteStatus={userVoteStatus}
-                    onClick={handleVoteNow}
-                    onSeeResults={handleSeeResultsClick}
-                  />
-                </StickyCol>
+                {false &&
+                  <StickyCol xs={12} md={3} hiddenSmAndDown disableFlex>
+                    <VoteActionCard
+                      userVoteStatus={userVoteStatus}
+                      onClick={handleVoteNow}
+                      onSeeResults={handleSeeResultsClick}
+                    />
+                  </StickyCol>
+                }
               </Row>
 
               <Spacer direction='vertical' size='3xl' />
@@ -345,7 +349,7 @@ export const VotingPageView = () => {
               {/* TODO: ADD if guest? */}
 
               {/* INLINE QUESTIONS */}
-              <If condition={isInlineVotingProcess}>
+              <If condition={isInlineVotingProcess && !hasVoted && status !== VoteStatus.Ended}>
                 <Then>
                   <QuestionsListInline
                     ref={questionsInlineRef}
@@ -355,6 +359,7 @@ export const VotingPageView = () => {
                     onSelect={votingMethods.onSelect}
                     onFinishVote={handleFinishVote}
                     onBackDescription={handleBackToDescription}
+                    isDisabled={voteStatus !== VoteStatus.Active}
                   />
                 </Then>
               </If>
@@ -362,30 +367,16 @@ export const VotingPageView = () => {
 
             <Spacer direction='vertical' size='3xl' />
 
-            {/* RESULTS CARD */}
-            <Row gutter='2xl'>
-              <Col xs={12}>
-                <ExpandableCard
-                  ref={resultsCardRef}
-                  isOpen={isExpandableCardOpen}
-                  onButtonClick={handleExpandableCardButtonClick}
-                  title={i18n.t("vote.voting_results_title")}
-                  icon={<PieChartIcon size={40} />}
-                  buttonProps={{
-                    variant: 'white',
-                    iconRight: { name: 'chevron-up-down', size: 24 },
-                    children: i18n.t("vote.voting_results_show")
-                  }}
-                  buttonPropsOpen={{
-                    variant: 'white',
-                    iconRight: { name: 'chevron-up-down', size: 24 },
-                    children: i18n.t("vote.voting_results_hide")
-                  }}
-                >
-                  <ResultsCard />
-                </ExpandableCard>
-              </Col>
-            </Row>
+            <If condition={false && status == VoteStatus.Ended}>
+              {/* RESULTS CARD */}
+              <BodyContainer>
+                <Row gutter='2xl'>
+                  <Col xs={12}>                  
+                    <ResultsCard />
+                  </Col>
+                </Row>
+              </BodyContainer>
+            </If>
           </Then>
           <Else>
             <QuestionsList
@@ -414,7 +405,7 @@ export const VotingPageView = () => {
           </>
         }
 
-        {voteStatus === VoteStatus.Active &&
+        {false && voteStatus === VoteStatus.Active &&
           <>
             <MobileSpacer />
             <VoteNowFixedContainer justify='center' align='center' gutter='md'>
@@ -445,9 +436,8 @@ export const VotingPageView = () => {
           </>
         }
 
-
         {/* HAS VOTED CARD */}
-        {hasVoted && (
+        {false && hasVoted && (
           <VoteRegisteredLgContainer>
             <VoteRegisteredCard explorerLink={explorerLink} />
           </VoteRegisteredLgContainer>
@@ -504,7 +494,14 @@ function anonymizeStrings(strings: string[]): string[] {
   return anonymizedStrings
 }
 
+const TextVerticalCentered = styled(Text)`
+  padding-top: 13px;
+`
+
 const VotingCard = styled(PageCard)`
+  max-width: 946px;
+  margin: 0px auto;
+
   @media ${({ theme }) => theme.screenMax.mobileL} {
     margin: -20px -15px 0 -15px;
   }
@@ -518,16 +515,16 @@ const VoteRegisteredLgContainer = styled.div`
   }
 `
 
-
 const BodyContainer = styled.div`
   position: relative;
+  max-width: 704px;
+  margin:0px auto;
 `
 
 const StickyCol = styled(Col) <IColProps>`
   position: sticky;
   top: 20px;
 `
-
 
 const FixedContainerRow = styled(Row)`
   position: fixed;
@@ -542,15 +539,30 @@ const FixedContainerRow = styled(Row)`
     display: none;
   }
 `
+
 const VoteNowFixedContainer = styled(FixedContainerRow)`
   padding: 24px;
 `
+
 const MobileSpacer = styled.div`
 min-height: 72px;
 @media ${({ theme }) => theme.screenMin.tablet} {
   display: none;
 }
 `
-// const StyledTextButton = styled(TextButton)`
-//   margin: 4px;
-// `
+const UpcomingNotice = styled.div`
+  font-size: 16px;
+  padding: 20px 30px;
+  border: 2px solid #2E377A;
+  border-radius: 12px;
+  font-weight: 600;
+`
+
+const TitleH3 = styled.h3`
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 150%;
+  color: #0D4752;
+`
