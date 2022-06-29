@@ -42,5 +42,7 @@ export const colors: Colors = {
   lightBg2: "#EFF1F7",
   lightBorder: "#EFF1F7",
   error: "#B31B35",
-  errorV2: "#FF2929"
+  errorV2: "#FF2929",
+
+  FCBBlue: "#2E377A",
 }
