@@ -340,6 +340,13 @@ export const VotingPageView = () => {
               <Spacer direction='vertical' size='3xl' />
 
               {/* TODO: ADD if guest? */}
+              {voteStatus === VoteStatus.Upcoming &&
+                <>
+                  <UpcomingNotice>
+                    {i18n.t('fcb.upcoming_vote')}
+                  </UpcomingNotice>
+                </>
+              }
 
               {/* INLINE QUESTIONS */}
               <If condition={isInlineVotingProcess}>
