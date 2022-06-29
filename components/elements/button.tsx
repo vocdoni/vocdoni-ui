@@ -37,10 +37,12 @@ type ButtonProps = {
     target?: LinkTarget
     spinner?: boolean
     tabIndex?: number
-    onClick?: (ev: React.MouseEvent<HTMLDivElement, MouseEvent> | React.KeyboardEvent) => void
+    onClick?: (ev: React.MouseEvent<HTMLDivElement, MouseEvent> | React.KeyboardEvent) => void,
+    fcb?: boolean,
+    fcb_border?: boolean
 }
 
-export const Button = ({ disabled, positive, negative, color, href, target, onClick, width, icon, wide, border, borderColor, justify, verticalAlign, large, small, spinner, tabIndex, children }: ButtonProps) => {
+export const Button = ({ disabled, positive, negative, color, href, target, onClick, width, icon, wide, border, borderColor, justify, verticalAlign, large, small, spinner, tabIndex, children, fcb, fcb_border }: ButtonProps) => {
     let component: JSX.Element
     const getButtonText = (spinnerVariant: SpinnerProps['variant'] = 'brand'): ReactNode => (
         spinner ?
@@ -71,6 +73,22 @@ export const Button = ({ disabled, positive, negative, color, href, target, onCl
                 <ButtonContent color={theme.white} verticalAlign={verticalAlign} justify={justify}>{getButtonText('inverse')}</ButtonContent>
             }
         </PositiveButton>
+    }
+    else if (fcb) {
+        component = <FCBButton wide={wide} large={large} small={small} width={width} onClick={ev => (onClick && !disabled) ? onClick(ev) : null} tabIndex={tabIndex ? tabIndex : 0} onKeyUpCapture={handleOnKeyUp}>
+            {icon ?
+                <ButtonContent color={theme.white} justify={justify}>{icon}&nbsp;{getButtonText('inverse')}</ButtonContent> :
+                <ButtonContent color={theme.white} verticalAlign={verticalAlign} justify={justify}>{getButtonText('inverse')}</ButtonContent>
+            }
+        </FCBButton>
+    }
+    else if (fcb_border) {
+        component = <FCBButtonBorder wide={wide} large={large} small={small} width={width} onClick={ev => (onClick && !disabled) ? onClick(ev) : null} tabIndex={tabIndex ? tabIndex : 0} onKeyUpCapture={handleOnKeyUp}>
+            {icon ?
+                <ButtonContent color={color} justify={justify}>{icon}&nbsp;{getButtonText('inverse')}</ButtonContent> :
+                <ButtonContent color={color} verticalAlign={verticalAlign} justify={justify}>{getButtonText('inverse')}</ButtonContent>
+            }
+        </FCBButtonBorder>
     }
     else if (negative) {
         component = <NegativeButton wide={wide} large={large} small={small} width={width} onClick={ev => (onClick && !disabled) ? onClick(ev) : null} tabIndex={tabIndex ? tabIndex : 0} onKeyUpCapture={handleOnKeyUp}>
@@ -174,6 +192,37 @@ background: linear-gradient(106.26deg, ${props => hexToRgbA(props.theme.accent1B
 }
 &:active {
     background: linear-gradient(106.26deg, ${props => hexToRgbA(props.theme.accent1B, 0.8)} 5.73%, ${props => hexToRgbA(props.theme.accent1, 0.8)} 93.83%);
+}
+`
+
+export const FCBButton = styled(BaseButton)`
+cursor: pointer;
+min-width: 173px;
+box-shadow: 0px 3px 3px rgba(180, 193, 228, 0.25);
+border-radius: 8px;
+
+background: linear-gradient(103.11deg, #A50044 0.33%, #174183 99.87%);
+
+&:hover {
+    background: linear-gradient(103.11deg, #A50044 0.33%, #174183 93.83%);
+}
+&:active {
+    background: linear-gradient(103.11deg, #A50044 0.33%, #174183 93.83%);
+}
+`
+
+export const FCBButtonBorder = styled(BaseButton)`
+cursor: pointer;
+box-shadow: 0px 3px 3px rgba(180, 193, 228, 0.25);
+border-radius: 8px;
+border: 2px solid #2E377A;
+background: #fff;
+
+&:hover {
+    background: #fff;
+}
+&:active {
+    background: #fff;
 }
 `
 
