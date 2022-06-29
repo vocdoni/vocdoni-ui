@@ -76,6 +76,7 @@ export const SignInForm = ({
         processImage={processInfo?.metadata?.media.header}
         subtitle={entity?.name.default}
         entityImage={entity?.media.avatar}
+        logged={false}
       />
       <StyledFieldset disabled={checkingCredentials}>
         <Row gutter='xl'>
@@ -149,7 +150,7 @@ export const SignInForm = ({
               <Col xs={12} md={5} align='center' justify='center'>
                 <Button
                   wide
-                  positive
+                  fcb
                   onClick={() => {
                     onSubmit()
                     setSameInput(true)
