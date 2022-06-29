@@ -12,9 +12,9 @@ export const VoteSubmitting = () => {
       <Row gutter="2xl">
         <Col xs={12}>
           <Row justify="center" gutter="md" align="center">
-            <Col justify="center">
+            <Col justify="start">
               <img
-                src='/images/vote/vote-now.png'
+                src='/images/app/fcb_logo.png'
                 alt="vote"
                 height={100}
                 width={92}
@@ -27,12 +27,12 @@ export const VoteSubmitting = () => {
             </Col>
             <Col xs={12} justify="center">
               <Text size="2xl" weight='medium' color="dark-blue" align="center">
-                Your vote is being submitted...
+                {i18n.t('vote.submitting_vote')}
               </Text>
             </Col>
             <Col xs={12} justify="center">
               <Text size="sm" color="dark-gray" align="center" >
-                Please don’t close the window, this action may take a few minutes.
+                {i18n.t('vote.submitting_vote_msg')}
               </Text>
             </Col>
           </Row>
