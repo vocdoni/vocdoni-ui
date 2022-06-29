@@ -449,6 +449,63 @@ export const VotingPageView = () => {
             <VoteRegisteredCard explorerLink={explorerLink} />
           </VoteRegisteredLgContainer>
         )}
+
+        {(hasVoted && voteStatus === VoteStatus.Active) && 
+          <BodyContainer>
+            <TitleH3>{i18n.t('fcb.you_have_voted')}</TitleH3>
+            <div>
+              <Text size='sm'>
+                {i18n.t('fcb.vote_verification_text')}<a href=''>{i18n.t('fcb.block_explorer')}</a>.
+                {i18n.t('fcb.confirmation_code')}<strong>4d9dac8f566a0ab448efa4c1973579c3d48409aae5d4493ef441bbc7a227dd85</strong>.
+              </Text>
+
+              <Spacer direction='vertical' size='3xl' />
+
+              <Text size='sm'>
+                {i18n.t('fcb.vote_registered')}<strong>22 de juliol a les 00:00 CEST</strong>{i18n.t('fcb.vote_finalized')}
+              </Text>
+
+              <Spacer direction='vertical' size='3xl' />
+            </div>
+
+            <br /><br />
+
+            <Row>
+              <Col xs={12} sm={4}>
+                <Button
+                  variant='outlined'
+                  color={colors.FCBBlue}
+                  onClick={handleLogOut}
+                >
+                  {i18n.t('app.header.disconnect_account')}
+                </Button>
+              </Col>
+              <Col sm={1}></Col>
+              <Col xs={12} sm={7}>
+                <TextVerticalCentered size='sm'>
+                  Total vots emesos: 41.340 (37,58%)
+                </TextVerticalCentered>
+              </Col>
+            </Row>
+
+            <Spacer direction='vertical' size='3xl' />
+          </BodyContainer>
+        }
+
+        {(hasVoted && voteStatus === VoteStatus.Ended) && 
+          <BodyContainer>
+            <TitleH3>{i18n.t('fcb.you_have_voted')}</TitleH3>
+            <div>
+              <Text size='sm'>
+                {i18n.t('fcb.vote_verification_text')}<a href=''>{i18n.t('fcb.block_explorer')}</a>.
+                {i18n.t('fcb.confirmation_code')} <strong>4d9dac8f566a0ab448efa4c1973579c3d48409aae5d4493ef441bbc7a227dd85</strong>.
+              </Text>
+              <br /><br /><br />
+            </div>
+            <Spacer direction='vertical' size='3xl' />
+            <Spacer direction='vertical' size='xl' />
+          </BodyContainer>
+        }        
       </VotingCard>
 
       {/* MODALS */}
