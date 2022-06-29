@@ -23,7 +23,8 @@ interface IQuesListInlineProps {
   onSelect: (questionIndex: number, value: number) => void
   onFinishVote: (results: number[]) => void
   onBackDescription: () => void
-  onComponentMounted?: (ref: ForwardedRef<HTMLDivElement>) => void
+  onComponentMounted?: (ref: ForwardedRef<HTMLDivElement>) => void,
+  isDisabled: boolean
 }
 
 export const QuestionsListInline = forwardRef<HTMLDivElement, IQuesListInlineProps>((props: IQuesListInlineProps, ref) => {
@@ -36,7 +37,9 @@ export const QuestionsListInline = forwardRef<HTMLDivElement, IQuesListInlinePro
   }
 
   const handleChoice = (questionNumber: number, choice: number) => {
-    props.onSelect(questionNumber, choice)
+    if(!props.isDisabled){
+      props.onSelect(questionNumber, choice)
+    }
   }
 
   return (
@@ -61,22 +64,23 @@ export const QuestionsListInline = forwardRef<HTMLDivElement, IQuesListInlinePro
                   question={question}
                   questionIndex={index}
                   selectedIndex={props.results[index]}
+                  isDisabled={props.isDisabled}
                 />
               </QuestionLi>
             ))}
         </QuestionUl>
 
-        <ButtonsActionContainer justify={FlexJustifyContent.Center}>
+        <ButtonsActionContainer justify={FlexJustifyContent.Start}>
           <Button
-            onClick={handleSubmit}
-            positive
-            disabled={(props.results.length < props.questions?.length || props.results.includes(undefined))}
+            onClick={handleSubmit}            
+            fcb
+            disabled={props.isDisabled || (props.results.length < props.questions?.length || props.results.includes(undefined))}
           >
             {i18n.t('votes.questions_list.finish_voting')}
           </Button>
         </ButtonsActionContainer>
 
-        <If condition={(props.results.length < props.questions?.length || props.results.includes(undefined))}>
+        <If condition={false && (props.results.length < props.questions?.length || props.results.includes(undefined))}>
           <Typography margin='20px 0px' align={TextAlign.Center} color='#888' variant={TypographyVariant.ExtraSmall}>
             {i18n.t('votes.questions_list.num_questions_info')} {props.results.filter(x => x !== undefined).length} {i18n.t('votes.questions_list.num_questions_total', {numTotal: props.questions?.length})}.
           </Typography>            
@@ -87,8 +91,8 @@ export const QuestionsListInline = forwardRef<HTMLDivElement, IQuesListInlinePro
         <div>  
           <Button
             onClick={handleSubmit}
-            positive
-            disabled={(props.results.length < props.questions?.length || props.results.includes(undefined))}
+            fcb
+            disabled={props.isDisabled || (props.results.length < props.questions?.length || props.results.includes(undefined))}
           >
             {i18n.t('votes.questions_list.finish_voting')}
           </Button>
@@ -155,7 +159,6 @@ const QuestionUl = styled.ul`
   list-style: none;
   padding: 0;
   position: relative;
-  padding-bottom: 12px;
 `
 
 const QuestionLi = styled.li`

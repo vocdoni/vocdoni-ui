@@ -10,7 +10,8 @@ interface IQuestionProps {
   question: Question
   questionIndex: number
   onSelectChoice: (choiceIndex: number) => void
-  selectedIndex: number
+  selectedIndex: number,
+  isDisabled?: boolean
 }
 
 export const QuestionCard = ({
@@ -18,9 +19,10 @@ export const QuestionCard = ({
   questionIndex,
   onSelectChoice,
   selectedIndex,
+  isDisabled
 }: IQuestionProps) => {
   return (
-    <QuestionCardContainer border>
+    <QuestionCardContainer>
       <Typography variant={TypographyVariant.H4} margin="0">
         {question.title.default}
       </Typography>
@@ -38,6 +40,7 @@ export const QuestionCard = ({
             // value={option.value.toString()}
             checked={option.value === selectedIndex}
             onClick={() => onSelectChoice(option.value)}
+            disabled={isDisabled}
           >
             {option.title.default}
           </Radio>
@@ -48,11 +51,11 @@ export const QuestionCard = ({
 }
 
 const QuestionCardContainer = styled(CardDiv)`
-  padding: 64px;
-  
+  padding: 20px 0px;
+  box-shadow: none;
 
   @media ${({ theme }) => theme.screenMax.tabletL} {
-    padding: 32px;
+    padding: 12px 0px;
   }
 
   @media ${({ theme }) => theme.screenMax.mobileL} {
