@@ -271,7 +271,10 @@ export const VotingPageView = () => {
           processImage={processInfo?.metadata?.media.header}
           subtitle={metadata?.name.default}
           entityImage={metadata?.media.avatar}
+          logged={true}
+          onLogout={handleGotoAuth}
         />
+
         <If condition={(userVoteStatus !== UserVoteStatus.InProgress) || isInlineVotingProcess}>
           <Then>
             <BodyContainer >
