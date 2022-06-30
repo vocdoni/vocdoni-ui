@@ -17,24 +17,27 @@ export const VoterFooter = () => {
   return (
     <FooterContainer>
       <Row gutter='none'>
-        <Col xs={12} md={4}>
+        <Col xs={12} md={4} lg={2}>
           <CopyrightText>{i18n.t('fcb.copyright')}</CopyrightText>
         </Col>
 
-        <Col xs={12} md={8}>
+        <Col xs={12} md={8} lg={4}>
           <Row>
-            <Col xs={12} md={2}>
+            <Col sm={4} xs={3}>
               <ColoredLink href=''>{i18n.t('fcb.terms')}</ColoredLink>
             </Col>
-
-            <Col xs={12} md={4}>
+            <Col sm={6} xs={9}>
               <ColoredLink href=''>{i18n.t('fcb.service_conditions')}</ColoredLink>
             </Col>
-
-            <Col xs={12} md={6}>
-              <SupportDiv>{i18n.t('fcb.support_number')} <PhoneNumber>+34 999 999 999</PhoneNumber></SupportDiv>
-            </Col>
           </Row>
+        </Col>
+      
+        <Col xs={12} lg={3}>
+          <SupportDiv className='rightLg'>{i18n.t('fcb.voting_number')} <PhoneNumber>+34 999 999 999</PhoneNumber></SupportDiv>
+        </Col>
+
+        <Col xs={12} lg={3}>
+          <SupportDiv>{i18n.t('fcb.support_number')} <PhoneNumber>+34 888 888 888</PhoneNumber></SupportDiv>
         </Col>
       </Row>
     </FooterContainer>
@@ -47,20 +50,48 @@ const ColoredLink = styled.a`
   font-weight: 700;
   font-size: 16px;
   line-height: 150%;
+  color: #8D1A17;
 
-  /* FCB-grad */
-  background: -webkit-linear-gradient(103.11deg, #A50044 0.33%, #174183 99.87%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  text-fill-color: transparent;
+  @media ${({ theme }) => theme.screenMax.laptopL} {
+    margin-bottom: 20px;
+    text-align: center;
+    display: block;
+  }
 
-  display: inline;
+  @media ${({ theme }) => theme.screenMax.tablet} {
+    margin-bottom: 20px;
+    margin-top: 0px;
+    text-align: left;
+    padding-left:10px;
+  }
 `
 
 const SupportDiv = styled.div`
-  display: inline;
-  text-align: center;
+  display: block;
+  font-weight: 600;
+  color: #52606D;
+
+
+  @media ${({ theme }) => theme.screenMin.desktop} {
+    text-align: center;
+
+    .rightLg{
+      text-align: right !important;
+      padding-right: 10px;
+    }
+  }
+
+  @media ${({ theme }) => theme.screenMax.laptopL} {
+    margin-top:10px;
+    text-align: center;
+  }
+
+  @media ${({ theme }) => theme.screenMax.tablet} {
+    margin-bottom: 10px;
+    margin-top: 10px;
+    text-align: left;
+    padding: 0px 10px;
+  }
 `
 
 const PhoneNumber = styled.span`
@@ -70,11 +101,20 @@ const PhoneNumber = styled.span`
   font-size: 16px;
   line-height: 150%;
   margin-left: 8px;
-  display: inline;
+  display: inline-block;
+  color: #8D1A17;
 
-  background: -webkit-linear-gradient(103.11deg, #A50044 0.33%, #174183 99.87%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  @media ${({ theme }) => theme.screenMax.laptopL} {
+    margin-top:10px;
+    text-align: center;
+  }
+
+  @media ${({ theme }) => theme.screenMax.tablet} {
+    text-align:left;
+    margin-left: 0px;
+    margin-top:5px;
+    width:100%;
+  }
 `
 
 const CopyrightText = styled.div`
@@ -86,10 +126,14 @@ const CopyrightText = styled.div`
   text-align: center;
   display: inline-block;
   width: 100%;
+  font-weight: 600;
+  color: #52606D;
 
   @media ${({ theme }) => theme.screenMax.tablet} {
     font-size: 12px;
     margin-bottom: 10px;
+    text-align: left;
+    padding-left: 10px;
   }
 `
 
@@ -109,36 +153,4 @@ const FooterContainer = styled.div`
     position: relative;
     text-align: center;
   }
-`
-
-const VoterIconContainer = styled.div`
-  width: 160px;
-  max-height: 80px;
-  margin-left: 20px;
-
-  & > img {
-    max-width: 160px;
-    max-height: 80px;
-  }
-
-  @media ${({ theme }) => theme.screenMax.tablet} {
-    width: 120px;
-    max-height: 70px;
-
-    & > img {
-      max-width: 120px;
-      max-height: 70px;
-    }
-  }
-
-  @media ${({ theme }) => theme.screenMax.mobileM} {
-    width: 100px;
-    max-height: 60px;
-
-    & > img {
-      max-width: 100px;
-      max-height: 60px;
-    }
-  }
-
 `
