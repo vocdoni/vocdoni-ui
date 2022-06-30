@@ -864,8 +864,9 @@
     },
     "fcb": {
         "terms": "Termes",
-        "copyright": "© 2022 by Vocdoni & Aragon",
+        "copyright": "© 2022 FC Barcelona",
         "service_conditions": "Condicions de servei",
-        "support_number": "Número de suport"
+        "support_number": "Suport al procés electoral",
+        "voting_number": "Suport a l'ús de la plataforma d'e-votació"
     }
 }
