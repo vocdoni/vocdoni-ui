@@ -39,10 +39,12 @@ type ButtonProps = {
     tabIndex?: number
     onClick?: (ev: React.MouseEvent<HTMLDivElement, MouseEvent> | React.KeyboardEvent) => void,
     fcb?: boolean,
-    fcb_border?: boolean
+    fcb_border?: boolean,
+    noPaddingXS?: boolean
+
 }
 
-export const Button = ({ disabled, positive, negative, color, href, target, onClick, width, icon, wide, border, borderColor, justify, verticalAlign, large, small, spinner, tabIndex, children, fcb, fcb_border }: ButtonProps) => {
+export const Button = ({ disabled, positive, negative, color, href, target, onClick, width, icon, wide, border, borderColor, justify, verticalAlign, large, small, spinner, tabIndex, children, fcb, fcb_border, noPaddingXS }: ButtonProps) => {
     let component: JSX.Element
     const getButtonText = (spinnerVariant: SpinnerProps['variant'] = 'brand'): ReactNode => (
         spinner ?
@@ -90,6 +92,14 @@ export const Button = ({ disabled, positive, negative, color, href, target, onCl
             }
         </FCBButtonBorder>
     }
+    else if (noPaddingXS) {
+        component = <NoPaddingXS wide={wide} large={large} small={small} width={width} onClick={ev => (onClick && !disabled) ? onClick(ev) : null} tabIndex={tabIndex ? tabIndex : 0} onKeyUpCapture={handleOnKeyUp}>
+            {icon ?
+                <ButtonContent color={color} justify={justify}>{icon}&nbsp;{getButtonText('inverse')}</ButtonContent> :
+                <ButtonContent color={color} verticalAlign={verticalAlign} justify={justify}>{getButtonText('inverse')}</ButtonContent>
+            }
+        </NoPaddingXS>
+    }
     else if (negative) {
         component = <NegativeButton wide={wide} large={large} small={small} width={width} onClick={ev => (onClick && !disabled) ? onClick(ev) : null} tabIndex={tabIndex ? tabIndex : 0} onKeyUpCapture={handleOnKeyUp}>
             {icon ?
@@ -121,6 +131,7 @@ export const SquareButton = ({ icon, children, width, disabled, onClick }: Butto
         {children}
     </Button>
 )
+
 
 export const BaseButton = styled.div<{ wide?: boolean, large?: boolean, small?: boolean, width?: number, border?: boolean, borderColor?: ButtonColor | string }>`
 ${props => props.wide ? "" : "display: inline-block;"}
@@ -198,16 +209,18 @@ background: linear-gradient(106.26deg, ${props => hexToRgbA(props.theme.accent1B
 export const FCBButton = styled(BaseButton)`
 cursor: pointer;
 min-width: 173px;
-box-shadow: 0px 3px 3px rgba(180, 193, 228, 0.25);
-border-radius: 8px;
-
-background: linear-gradient(103.11deg, #A50044 0.33%, #174183 99.87%);
+border-radius: 4px;
+background: #CF122D;
+font-weight: 700;
+font-size: 16px;
+padding: 12px 24px;
+width: 100%;
 
 &:hover {
-    background: linear-gradient(103.11deg, #A50044 0.33%, #174183 93.83%);
+    background: #CF122D;
 }
 &:active {
-    background: linear-gradient(103.11deg, #A50044 0.33%, #174183 93.83%);
+    background: #CF122D;
 }
 `
 
@@ -224,6 +237,12 @@ background: #fff;
 &:active {
     background: #fff;
 }
+`
+
+export const NoPaddingXS = styled(BaseButton)`
+    @media ${({theme})  => theme.screenMax.mobileL } {
+        padding: 11px 20px !important;
+    }
 `
 
 const NegativeButton = styled(BaseButton)`

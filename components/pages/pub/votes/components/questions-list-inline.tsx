@@ -71,12 +71,13 @@ export const QuestionsListInline = forwardRef<HTMLDivElement, IQuesListInlinePro
         </QuestionUl>
 
         <ButtonsActionContainer justify={FlexJustifyContent.Start}>
-          <Button
-            onClick={handleSubmit}            
+          <Button            
             fcb
+            wide
+            onClick={handleSubmit}
             disabled={props.isDisabled || (props.results.length < props.questions?.length || props.results.includes(undefined))}
           >
-            {i18n.t('votes.questions_list.finish_voting')}
+            {i18n.t('fcb.continue')}
           </Button>
         </ButtonsActionContainer>
 
@@ -86,20 +87,6 @@ export const QuestionsListInline = forwardRef<HTMLDivElement, IQuesListInlinePro
           </Typography>            
         </If>
       </div>
-
-      <FixedButtonsActionContainer>
-        <div>  
-          <Button
-            onClick={handleSubmit}
-            fcb
-            disabled={props.isDisabled || (props.results.length < props.questions?.length || props.results.includes(undefined))}
-          >
-            {i18n.t('votes.questions_list.finish_voting')}
-          </Button>
-        </div>
-      </FixedButtonsActionContainer>
-
-      <br /><br /><br />
     </QuestionsContainer>
   )
 })
@@ -109,8 +96,10 @@ const WeightedBannerContainer = styled.div`
 `
 
 const ButtonsActionContainer = styled(FlexContainer)`
-  @media ${({ theme }) => theme.screenMax.mobileL} {
-    display: none;
+  width: 100%;
+
+  @media ${({ theme }) => theme.screenMin.mobileL} {
+    max-width: 160px;
   }
 `
 

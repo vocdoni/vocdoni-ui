@@ -5,7 +5,7 @@ import { colors } from 'react-select/src/theme'
 import styled from 'styled-components'
 import { Col, Row } from './grid'
 import { Text } from '.'
-
+import { useTranslation } from 'react-i18next'
 
 interface ITagProps {
   variant?: "neutral" | "success" | "error" | "info" | 'warning'
@@ -18,6 +18,7 @@ interface ITagProps {
   children?: ReactNode
 }
 export const Tag = (props: ITagProps) => {
+  const { i18n } = useTranslation()
   return (
     <Row align='center'>
       <Col align='center'>
@@ -25,13 +26,18 @@ export const Tag = (props: ITagProps) => {
           {props.children}
         </StyledTag>
       </Col>
-      {props.label &&
+      {false && props.label &&
         <StyledLabel>
           <Text size='xs' weight='medium' color='dark-blue'>
             {props.label}
           </Text>
         </StyledLabel>
       }
+      <StyledLabel>
+        <Text size='xs' weight='medium' color='dark-blue'>
+          {i18n.t('fcb.voting_period', {startDate: '21/07/2022 00:00 CEST', endDate: '22/07/2022 11:59 CEST'})}
+        </Text>
+      </StyledLabel>
     </Row>
   )
 }

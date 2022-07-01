@@ -5,6 +5,7 @@ import { Typography, TypographyVariant } from '@components/elements/typography'
 import { Choice, Question } from '@lib/types'
 import { Radio } from '@components/elements/radio'
 import { CardDiv } from '@components/elements/cards'
+import { useTranslation } from 'react-i18next'
 
 interface IQuestionProps {
   question: Question
@@ -21,16 +22,25 @@ export const QuestionCard = ({
   selectedIndex,
   isDisabled
 }: IQuestionProps) => {
+  const { i18n } = useTranslation()
+  
   return (
     <QuestionCardContainer>
       <Typography variant={TypographyVariant.H4} margin="0">
         {question.title.default}
       </Typography>
-      {question.description && (
+      
+      { isDisabled && 
         <Typography variant={TypographyVariant.Small}>
-          {question.description.default}
+          {i18n.t('fcb.candidates')}
         </Typography>
-      )}
+      }
+
+      { !isDisabled && 
+        <Typography variant={TypographyVariant.Small}>
+          {i18n.t('fcb.select_candidates')}
+        </Typography>
+      }
 
       <OptionsContainer>
         {question.choices.map((option: Choice, index) => (
@@ -42,13 +52,28 @@ export const QuestionCard = ({
             onClick={() => onSelectChoice(option.value)}
             disabled={isDisabled}
           >
-            {option.title.default}
+            {(option.value === selectedIndex) && 
+              <SelectedOption>{ option.title.default }</SelectedOption>
+            }
+
+            {(option.value !== selectedIndex) && 
+              <>{ option.title.default }</>
+            }
           </Radio>
-        ))}
+        ))}        
       </OptionsContainer>
     </QuestionCardContainer>
   )
 }
+
+const SelectedOption = styled.div`
+  background: -webkit-linear-gradient(103.11deg, #A50044 0.33%, #174183 99.87%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+  font-weight: 600;
+`
 
 const QuestionCardContainer = styled(CardDiv)`
   padding: 20px 0px;

@@ -76,11 +76,11 @@ export const FCBEntityHeader = () => {
 
   const menuButton = (
     <FCBDiv>
-      <Button>
+      <Button noPaddingXS>
         <MenuButtonWrapper>
-          <Typography color='#A50044' margin='0 0 0 10px' variant={TypographyVariant.ExtraSmall}>
+          <TypographyBold>
             CAT
-          </Typography>
+          </TypographyBold>
 
           <ArrowContainer>
             <DownArrow opened={menuOpened} />
@@ -116,6 +116,19 @@ export const FCBEntityHeader = () => {
     </>
   )
 }
+
+const TypographyBold = styled.div`
+  font-weight: 600;
+
+  background: linear-gradient(103.11deg, #CF122D 9.45%, #154284 90.55%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+  text-align: center;
+
+  margin: 0px 0px 0px 10px;
+`
 
 const FCBDiv = styled.div`
   background: 
@@ -169,6 +182,10 @@ const ArrowContainer = styled.div`
   position: absolute;
   right: 9px;
   top: 0px;
+
+  @media ${({theme})  => theme.screenMax.mobileL } {
+    top:4px;
+  }
 `
 
 const NextArrow = styled.span`
