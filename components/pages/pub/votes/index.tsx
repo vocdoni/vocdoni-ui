@@ -24,7 +24,7 @@ import { QuestionsListInline } from './components/questions-list-inline'
 import { censusProofState } from '@recoil/atoms/census-proof'
 import { VoteRegisteredCard } from './components/vote-registered-card'
 import RouterService from '@lib/router'
-import { VOTING_AUTH_FORM_PATH } from '@const/routes'
+import { INDEXER_PATH} from '@const/routes'
 import { ExpandableCard } from '@components/blocks/expandable-card'
 import { Banner } from '@components/blocks-v2/banner'
 import { Spacer, Col, Row, IColProps, Text } from '@components/elements-v2'
@@ -36,11 +36,13 @@ import { DisconnectModal } from '@components/blocks-v2'
 import { ResultsCard } from './components/results-card'
 import { useProcessWrapper } from '@hooks/use-process-wrapper'
 import { useIsMobile } from '@hooks/use-window-size'
-import { PieChartIcon, LogOutIconWhite } from '@components/elements-v2/icons'
+import { PieChartIcon, LogOutIcon } from '@components/elements-v2/icons'
 import { dateDiffStr, DateDiffType } from '@lib/date-moment'
 import { MetadataFields } from '@components/pages/votes/new/metadata'
 import { useAuthForm } from '@hooks/use-auth-form'
 import { Symmetric } from 'dvote-js'
+import { useIndexerForm } from '@hooks/use-indexer-form'
+import { CspSMSAuthenticator } from '@vocdoni/csp'
 export enum UserVoteStatus {
   /**
    * User is voting right now
@@ -80,6 +82,8 @@ export const VotingPageView = () => {
   const [disconnectModalOpened, setDisconnectModalOpened] = useState(false)
   const isMobile = useIsMobile()
   const censusProof = useRecoilValue(censusProofState)
+  const {remainingAttempts}= useIndexerForm()
+
   const { methods: votingMethods, choices, hasVoted, results, explorerLink } = useVoting(
     processId
   )
@@ -239,7 +243,7 @@ export const VotingPageView = () => {
 
     setTimeout(() => {
       router.push(
-        RouterService.instance.get(VOTING_AUTH_FORM_PATH, { processId })
+        RouterService.instance.get(INDEXER_PATH, { processId })
       )
     }, 50)
   }
@@ -251,7 +255,7 @@ export const VotingPageView = () => {
     setTimeout(() => {
       // Force window unload after the wallet is wiped
       setDisconnectModalOpened(false)
-      window.location.href = RouterService.instance.get(VOTING_AUTH_FORM_PATH, { processId })
+      window.location.href = RouterService.instance.get(INDEXER_PATH, { processId })
     }, 50)
   }
   // const processVotingType: VotingType = processInfo?.state?.censusOrigin as any
@@ -283,7 +287,7 @@ export const VotingPageView = () => {
           onLogout={handleGotoAuth}
         />
 
-        { isOneCandidate && 
+        { isOneCandidate &&
           <BodyContainer>
             {/* DESCIRPTION */}
             <Col xs={12} md={12}>
@@ -304,7 +308,7 @@ export const VotingPageView = () => {
               <div>
                 {i18n.t('fcb.only_one_candidate')}
               </div>
-              
+
               <QuestionsContainer>
                 <div key={0}>
                   <div>
@@ -341,7 +345,7 @@ export const VotingPageView = () => {
           </BodyContainer>
         }
 
-        { !isOneCandidate && 
+        { !isOneCandidate &&
           <>
             <If condition={(userVoteStatus !== UserVoteStatus.InProgress || isInlineVotingProcess) && !isOneCandidate}>
               <Then>
@@ -445,7 +449,7 @@ export const VotingPageView = () => {
                   {/* RESULTS CARD */}
                   <BodyContainer>
                     <Row gutter='2xl'>
-                      <Col xs={12}>                  
+                      <Col xs={12}>
                         <ResultsCard />
                       </Col>
                     </Row>
@@ -488,7 +492,7 @@ export const VotingPageView = () => {
                       {i18n.t('vote.vote_will_close')}&nbsp;<b>{endingString}</b>
                     </Text>
                   </Col>
-                  { !isInlineVotingProcess && 
+                  { !isInlineVotingProcess &&
                     <Col xs={12}>
                       <Button variant='primary' size='lg' onClick={handleVoteNow}>
                         {i18n.t("vote.vote_now")}
@@ -517,10 +521,10 @@ export const VotingPageView = () => {
               </VoteRegisteredLgContainer>
             )}
 
-            {(hasVoted && voteStatus === VoteStatus.Active) && 
+            {(hasVoted && voteStatus === VoteStatus.Active) &&
               <BodyContainer>
                 <br />
-                
+
                 <TitleH3>{i18n.t('fcb.you_have_voted')}</TitleH3>
                 <div>
                   <Text size='sm'>
@@ -554,9 +558,9 @@ export const VotingPageView = () => {
               </BodyContainer>
             }
 
-            {(voteStatus === VoteStatus.Ended) && 
+            {(voteStatus === VoteStatus.Ended) &&
               <BodyContainer>
-                { hasVoted && 
+                { hasVoted &&
                   <>
                     <TitleH3>{i18n.t('fcb.you_have_voted')}</TitleH3>
                     <div>
@@ -590,7 +594,7 @@ export const VotingPageView = () => {
                 </Col>
 
                 <Spacer direction='vertical' size='3xl' />
-                
+
                 <Row>
                   <LeaveButton onClick={handleLogOut}>
                     {i18n.t('fcb.disconnect_account')}
@@ -599,7 +603,7 @@ export const VotingPageView = () => {
                         size='16px'
                       />
                     </IconSpacer>
-                  </LeaveButton>              
+                  </LeaveButton>
                 </Row>
 
                 <Spacer direction='vertical' size='xl' />
@@ -614,6 +618,9 @@ export const VotingPageView = () => {
         isOpen={confirmModalOpened}
         onVoted={handleOnVoted}
         onClose={handleBackToVoting}
+        remainingAttempts={remainingAttempts}
+        sendSMS={votingMethods.sendSMS}
+        submitOTP={votingMethods.sumbitOTP}
       />
       <DisconnectModal
         hideCloseButton
@@ -694,7 +701,7 @@ const QuestionsContainer = styled.div`
   }
 `
 
-const OptionsContainer = styled.div`  
+const OptionsContainer = styled.div`
   padding: 0px 10px;
   margin-bottom: 20px;
   margin-top: 20px;

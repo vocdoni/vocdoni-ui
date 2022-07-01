@@ -19,6 +19,9 @@ interface IModalQuestionList {
   sendingVote: boolean
   onClose: () => void
   onSubmit: () => void
+  remainingAttempts: number
+  sendSMS: () => void
+  submitOTP: () => void
 }
 
 export const ModalQuestionList = ({
@@ -27,10 +30,13 @@ export const ModalQuestionList = ({
   sendingVote,
   onSubmit,
   onClose,
+  remainingAttempts,
+  sendSMS,
+  submitOTP
 }: IModalQuestionList) => {
   const { i18n } = useTranslation()
   const [validSMS, setValidSMS] = useState<boolean>(false)
-  const [leftSMS, setLeftSMS] = useState<number>(5)
+  const [leftSMS, setLeftSMS] = useState<number>(remainingAttempts)
   const [phoneNum, setPhoneNum] = useState<string>('54')
   const [SMSPin, setSMSPin] = useState<string>('555555')
   const [pin, setPin] = useState<string>()
@@ -106,7 +112,7 @@ export const ModalQuestionList = ({
 
       <div>
         <HeaderText>{i18n.t('fcb.enter_your_sms')}</HeaderText>
-        { leftSMS === 0 && 
+        { leftSMS === 0 &&
           <Column>
             <WarningIcon>
               <Icon
@@ -119,7 +125,7 @@ export const ModalQuestionList = ({
           </Column>
         }
 
-        { leftSMS !== 0 && 
+        { leftSMS !== 0 &&
           <InputFormGroup
             label={null}
             type='text'
@@ -130,10 +136,10 @@ export const ModalQuestionList = ({
               checkSMS(event.target.value)
               setSMS(event.target.value)
             }}
-          />          
+          />
         }
 
-        { !validSMS && (typeof pin != "undefined" && pin.length >= 6) && 
+        { !validSMS && (typeof pin != "undefined" && pin.length >= 6) &&
           <>
             <ErrorDiv>
               <ErrorIcon>
@@ -146,13 +152,13 @@ export const ModalQuestionList = ({
               <ErrorText>{i18n.t('fcb.incorrect_code', {leftSMS: leftSMS})}</ErrorText>
             </ErrorDiv>
           </>
-        }        
+        }
       </div>
 
       <Spacer direction='vertical' size='3xl' />
 
       <Grid>
-        { false && 
+        { false &&
           <Column sm={6}>
             <Button
               fcb_border
@@ -165,7 +171,7 @@ export const ModalQuestionList = ({
           </Column>
         }
 
-        { validSMS ? 
+        { validSMS ?
           <Column sm={6}>
             <Button
               wide
@@ -192,7 +198,7 @@ export const ModalQuestionList = ({
                 { (leftSMS >= 5) ? <>{i18n.t('fcb.send_me_SMS')}</> : <>{i18n.t('fcb.resend_me_SMS')}</> }
               </Button>
             </Column>
-            
+
             <Spacer direction='vertical' size='md' />
 
             <NeutralColor>
@@ -332,7 +338,7 @@ const QuestionGroup = styled.div`
 const HeaderText = styled(SectionText)`
   font-weight: 700;
   font-size: 16px;
-  color: #52606D;  
+  color: #52606D;
 `
 
 const CloseButton = styled.div`
@@ -351,7 +357,7 @@ const CloseButton = styled.div`
   text-align: center;
   justify-content: center;
 
-  background: 
+  background:
     linear-gradient(#fff 0 0) padding-box, /*this is the white background*/
     linear-gradient(to right, #A50044, #174183) border-box;
 

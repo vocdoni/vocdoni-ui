@@ -18,6 +18,7 @@ export const VOTING_AUTH_LINK_PATH = '/pub/votes/auth/link/#/{processId}/{key}' 
 export const VOTING_PATH = '/pub/votes' // + processId
 export const PROCESS_PATH = '/pub/votes/#/{processId}' // + processId
 export const PREREGISTER_PATH = '/pub/votes/preregister' // + processId
+export const INDEXER_PATH = '/pub/votes/auth/indexer' // + processId
 // export const PREREGISTER_PATH = '/pub/votes/preregister/#/{processId}' // + processId
 
 // GENERAL
