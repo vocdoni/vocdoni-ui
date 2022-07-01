@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ChangeEvent, useState, useRef, useEffect } from 'react'
 import styled from 'styled-components'
 import { useTranslation } from 'react-i18next'
 
@@ -8,6 +8,8 @@ import { Grid, Column } from '@components/elements/grid'
 import { Button } from '@components/elements/button'
 import { Choice, Question } from '@lib/types'
 import { Radio } from '@components/elements/radio'
+import { Icon } from '@components/elements-v2/icons'
+import { InputFormGroup } from '@components/blocks/form'
 
 import { Spacer, Input } from '@components/elements-v2'
 
@@ -27,8 +29,26 @@ export const ModalQuestionList = ({
   onClose,
 }: IModalQuestionList) => {
   const { i18n } = useTranslation()
-  let validSMS = true
-  let leftSMS = 5
+  const [validSMS, setValidSMS] = useState<boolean>(false)
+  const [leftSMS, setLeftSMS] = useState<number>(5)
+  const [phoneNum, setPhoneNum] = useState<string>('54')
+  const [SMSPin, setSMSPin] = useState<string>('555555')
+  const [pin, setPin] = useState<string>()
+
+  const checkSMS = (value: string) => {
+    if (value.length === 6) {
+      setValidSMS(value === SMSPin)
+
+      if(value !== SMSPin){
+        setLeftSMS(leftSMS-1)
+      }
+    }
+  }
+
+  const setSMS = (value: string) => {
+    setPin(value)
+  }
+
   const renderQuestion = (question: Question, choice: Choice, index) => (
     <div key={index}>
       <div>
@@ -45,6 +65,7 @@ export const ModalQuestionList = ({
       </div>
     </div>
   )
+
   return (
     <ModalContent>
       <CloseButton onClick={onClose}>
@@ -56,6 +77,19 @@ export const ModalQuestionList = ({
         {i18n.t('fcb.confirm_your_vote_text')}
       </SectionText>
 
+      <Spacer direction='vertical' size='3xl' />
+
+      <Column>
+        <WarningIcon>
+          <Icon
+            name='shutdown'
+            size={14}
+            color='#B75E19'
+          />
+        </WarningIcon>
+        <WarningText>{i18n.t('fcb.only_one_vote')}</WarningText>
+      </Column>
+
       <QuestionsContainer>
         {questions.map((question: Question, index: number) =>
           renderQuestion(question, question.choices[choices[index]], index)
@@ -66,7 +100,47 @@ export const ModalQuestionList = ({
 
       <div>
         <HeaderText>{i18n.t('fcb.enter_your_sms')}</HeaderText>
-        <input type='text' />
+        { leftSMS === 0 && 
+          <Column>
+            <WarningIcon>
+              <Icon
+                name='shutdown'
+                size={14}
+                color='#B75E19'
+              />
+            </WarningIcon>
+            <WarningText>{i18n.t('fcb.no_sms_left')}</WarningText>
+          </Column>
+        }
+
+        { leftSMS !== 0 && 
+          <InputFormGroup
+            label={null}
+            type='text'
+            error=''
+            id='sms'
+            value={pin}
+            onChange={(event: ChangeEvent<HTMLInputElement>) => {
+              checkSMS(event.target.value)
+              setSMS(event.target.value)
+            }}
+          />          
+        }
+
+        { !validSMS && (typeof pin != "undefined" && pin.length >= 6) && 
+          <>
+            <ErrorDiv>
+              <ErrorIcon>
+                <Icon
+                  name='shutdown'
+                  size={14}
+                  color='#B31B35'
+                />
+              </ErrorIcon>
+              <ErrorText>{i18n.t('fcb.incorrect_code', {leftSMS: leftSMS})}</ErrorText>
+            </ErrorDiv>
+          </>
+        }        
       </div>
 
       <Spacer direction='vertical' size='3xl' />
@@ -94,30 +168,84 @@ export const ModalQuestionList = ({
               disabled={sendingVote}
               spinner={sendingVote}
             >
-              {i18n.t('vote.yes_submit_the_vote')}
+              {i18n.t('fcb.continue')}
             </Button>
           </Column>
 
           :
 
-          <Column sm={6}>
-            <Button
-              wide
-              fcb
-              onClick={onSubmit}
-              disabled={sendingVote}
-              spinner={sendingVote}
-            >
-              {i18n.t('fcb.send_me_SMS')}
-            </Button>
+          <>
+            <Column sm={6}>
+              <Button
+                wide
+                fcb
+                onClick={onSubmit}
+                disabled={sendingVote}
+                spinner={sendingVote}
+              >
+                { (leftSMS >= 5) ? <>{i18n.t('fcb.send_me_SMS')}</> : <>{i18n.t('fcb.resend_me_SMS')}</> }
+              </Button>
+            </Column>
+            
             <Spacer direction='vertical' size='md' />
-            <div>{i18n.t('fcb.available_SMS',{ numSMS: leftSMS})}</div>
-          </Column>
+
+            <NeutralColor>
+              <strong>{i18n.t('fcb.available_SMS',{ numSMS: leftSMS, phoneNum: phoneNum})}</strong>
+            </NeutralColor>
+          </>
         }
       </Grid>
     </ModalContent>
   )
 }
+
+const ErrorDiv = styled.div`
+  background: #FEE4D6;
+  padding: 12px 26px 16px;
+  border-radius: 12px;
+  margin-top: -35px;
+`
+
+const ErrorText = styled.div`
+  color: #B31B35;
+  padding-left: 10px;
+  margin-left: 10px;
+  line-height: 16px;
+  padding-top: 3px;
+  font-weight: 700;
+`
+
+const ErrorIcon = styled.div`
+  display:inline;
+  float:left;
+  margin-left:-10px;
+`
+
+const NeutralColor = styled.div`
+  color: #52606D;
+  text-align: justify;
+  margin-bottom: 20px;
+  padding:10px 10px 0px;
+`
+
+const WarningIcon = styled.div`
+  display:inline;
+  float:left;
+  margin-left:-10px;
+
+  @media ${({theme}) => theme.screenMax.mobileL} {
+    padding-top:7px;
+  }
+`
+
+const WarningText = styled.div`
+  color: #B75E19;
+  font-size: 16px;
+  display: flex;
+  padding-left: 10px;
+  font-weight: 700;
+  margin-right: -10px;
+`
 
 const OptionsContainer = styled.div`
   border: 2px solid #2E377A;
@@ -129,7 +257,6 @@ const OptionsContainer = styled.div`
 
 const ModalContent = styled.div`
   position: relative;
-  padding: 20px 15px;
 `
 
 const QuestionsContainer = styled.div`
@@ -149,7 +276,7 @@ const ModalHeader = styled(SectionText)`
   font-size: 20px;
   line-height: 150%;
   color: ${({ theme }) => theme.accent1};
-  background: -webkit-linear-gradient(103.11deg, #A50044 0.33%, #174183 99.87%);
+  background: -webkit-linear-gradient(03.11deg, #CF122D 9.45%, #154284 90.55%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

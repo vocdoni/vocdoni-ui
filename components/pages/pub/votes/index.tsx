@@ -34,7 +34,7 @@ import { DisconnectModal } from '@components/blocks-v2'
 import { ResultsCard } from './components/results-card'
 import { useProcessWrapper } from '@hooks/use-process-wrapper'
 import { useIsMobile } from '@hooks/use-window-size'
-import { PieChartIcon } from '@components/elements-v2/icons'
+import { PieChartIcon, LogOutIconWhite } from '@components/elements-v2/icons'
 import { dateDiffStr, DateDiffType } from '@lib/date-moment'
 import { MetadataFields } from '@components/pages/votes/new/metadata'
 import { useAuthForm } from '@hooks/use-auth-form'
@@ -106,6 +106,7 @@ export const VotingPageView = () => {
   // @TODO move to the params received from the voting creation
   // if TRUE, the voting will display all the questions in one page
   const isInlineVotingProcess = true
+  const totalVotes = results?.totalVotes ? results.totalVotes : 0
 
   // Effects
 
@@ -452,40 +453,35 @@ export const VotingPageView = () => {
 
         {(hasVoted && voteStatus === VoteStatus.Active) && 
           <BodyContainer>
+            <br />
+            
             <TitleH3>{i18n.t('fcb.you_have_voted')}</TitleH3>
             <div>
               <Text size='sm'>
-                {i18n.t('fcb.vote_verification_text')}<a href=''>{i18n.t('fcb.block_explorer')}</a>.
                 {i18n.t('fcb.confirmation_code')}<strong>4d9dac8f566a0ab448efa4c1973579c3d48409aae5d4493ef441bbc7a227dd85</strong>.
               </Text>
 
               <Spacer direction='vertical' size='3xl' />
 
               <Text size='sm'>
-                {i18n.t('fcb.vote_registered')}<strong>22 de juliol a les 00:00 CEST</strong>{i18n.t('fcb.vote_finalized')}
+                {i18n.t('fcb.vote_registered')}
               </Text>
 
               <Spacer direction='vertical' size='3xl' />
             </div>
 
-            <br /><br />
+            <Spacer direction='vertical' size='3xl' />
+            <br />
 
             <Row>
-              <Col xs={12} sm={4}>
-                <Button
-                  variant='outlined'
-                  color={colors.FCBBlue}
-                  onClick={handleLogOut}
-                >
-                  {i18n.t('app.header.disconnect_account')}
-                </Button>
-              </Col>
-              <Col sm={1}></Col>
-              <Col xs={12} sm={7}>
-                <TextVerticalCentered size='sm'>
-                  Total vots emesos: 41.340 (37,58%)
-                </TextVerticalCentered>
-              </Col>
+              <LeaveButton onClick={handleLogOut}>
+                {i18n.t('fcb.disconnect_account')}
+                <IconSpacer>
+                  <LogOutIconWhite
+                    size='16px'
+                  />
+                </IconSpacer>
+              </LeaveButton>              
             </Row>
 
             <Spacer direction='vertical' size='3xl' />
@@ -497,12 +493,30 @@ export const VotingPageView = () => {
             <TitleH3>{i18n.t('fcb.you_have_voted')}</TitleH3>
             <div>
               <Text size='sm'>
-                {i18n.t('fcb.vote_verification_text')}<a href=''>{i18n.t('fcb.block_explorer')}</a>.
                 {i18n.t('fcb.confirmation_code')} <strong>4d9dac8f566a0ab448efa4c1973579c3d48409aae5d4493ef441bbc7a227dd85</strong>.
               </Text>
               <br /><br /><br />
-            </div>
+            </div>            
+
+            <Col xs={12} sm={7}>
+              <TextVerticalCentered size='sm'>
+                Total vots emesos: {totalVotes.toLocaleString(i18n.language)} 
+              </TextVerticalCentered>
+            </Col>
+
             <Spacer direction='vertical' size='3xl' />
+            
+            <Row>
+              <LeaveButton onClick={handleLogOut}>
+                {i18n.t('fcb.disconnect_account')}
+                <IconSpacer>
+                  <LogOutIconWhite
+                    size='16px'
+                  />
+                </IconSpacer>
+              </LeaveButton>              
+            </Row>
+
             <Spacer direction='vertical' size='xl' />
           </BodyContainer>
         }        
@@ -557,6 +571,41 @@ function anonymizeStrings(strings: string[]): string[] {
   })
   return anonymizedStrings
 }
+
+
+export const IconSpacer = styled.div`
+  padding-left: 8px;
+  padding-top: 2px;
+  display: inline-block;
+  line-height: 20px;
+`
+
+export const LeaveButton = styled.div`
+  box-shadow: 0px 6px 6px rgba(180, 193, 228, 0.35);
+  border-radius: 8px;
+  white-space: nowrap;
+  user-select: none;
+  box-sizing: border-box;
+  text-align: center;
+  color: #fff;
+
+  cursor: pointer;
+  min-width: 173px;
+  border-radius: 4px;
+  background: #CF122D;
+  font-weight: 700;
+  font-size: 16px;
+  padding: 12px 24px;
+  width: 100%;
+  max-width: 300px;
+
+  &:hover {
+      background: #CF122D;
+  }
+  &:active {
+      background: #CF122D;
+  }
+`
 
 const TextVerticalCentered = styled(Text)`
   padding-top: 13px;
