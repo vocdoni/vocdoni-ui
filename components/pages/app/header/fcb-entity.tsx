@@ -6,10 +6,7 @@ import { useRecoilStateLoadable, useRecoilValueLoadable } from 'recoil'
 import styled from 'styled-components'
 
 import { supportedLanguages } from '@i18n'
-
 import { useWallet } from '@hooks/use-wallet'
-import { useHelpCenter } from '@hooks/help-center'
-
 
 import { Typography, TypographyVariant } from '@components/elements/typography'
 import Dropdown, { DropdownItem, DropdownTitle, DropdownSeparator } from '@components/blocks/dropdown'
@@ -44,15 +41,10 @@ export const FCBEntityHeader = () => {
 
   const { metadata: entityMetadata } = useEntity(wallet?.address)
 
-  const { show } = useHelpCenter()
   const { accepted } = useCookies()
   const { trackEvent } = useRudderStack()
 
   const [menuOpened, setMenuOpened] = useState<boolean>()
-
-  useEffect(() => {
-    if (accepted) show()
-  }, [accepted])
 
   const supportedLanguagesLocale = {
     ca: i18n.t('supported_langs.catalan'),
@@ -74,12 +66,22 @@ export const FCBEntityHeader = () => {
     //setAccount(userAccount)
   }
 
+  const defaultLang = LanguageService.getDefaultLanguage()
+  let showDefaultLang = ''
+  if(defaultLang === 'en'){
+    showDefaultLang = 'ENG'
+  }else if (defaultLang === 'es'){
+    showDefaultLang = 'ESP'
+  }else{
+    showDefaultLang = 'CAT'
+  }
+
   const menuButton = (
     <FCBDiv>
       <Button noPaddingXS>
         <MenuButtonWrapper>
           <TypographyBold>
-            CAT
+            {showDefaultLang}
           </TypographyBold>
 
           <ArrowContainer>

@@ -34,7 +34,7 @@ export const VoteSubmitted = ({ onAccept, onClose }: IVoteSubmittedProps) => {
           {i18n.t('vote.your_vote_has_been_registered')}
         </ModalHeader>
         <Text size='sm'>
-          {i18n.t('fcb.confirmation_code')}<strong>4d9dac8f566a0ab448efa4c1973579c3d48409aae5d4493ef441bbc7a227dd85</strong>.
+          {i18n.t('fcb.confirmation_code')}<strong>4d9dac8f566a0ab448efa4c19</strong>.
         </Text>
 
         <Spacer direction='vertical' size='3xl' />

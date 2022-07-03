@@ -7,7 +7,7 @@ import { useBlockStatus, useEntity, useProcess } from '@vocdoni/react-hooks'
 import { useRouter } from 'next/router'
 import { If, Then, Else } from 'react-if'
 
-import { VotingType } from '@lib/types'
+import { VotingType, Choice, Question  } from '@lib/types'
 import { useTheme } from '@hooks/use-theme'
 import { useVoting } from '@hooks/use-voting'
 import { useWallet, WalletRoles } from '@hooks/use-wallet'
@@ -29,6 +29,8 @@ import { ExpandableCard } from '@components/blocks/expandable-card'
 import { Banner } from '@components/blocks-v2/banner'
 import { Spacer, Col, Row, IColProps, Text } from '@components/elements-v2'
 import { colors } from 'theme/colors'
+import { Typography, TypographyVariant } from '@components/elements/typography'
+import { Radio } from '@components/elements/radio'
 
 import { DisconnectModal } from '@components/blocks-v2'
 import { ResultsCard } from './components/results-card'
@@ -265,6 +267,10 @@ export const VotingPageView = () => {
   const authenticateBannerImage = (
     makeAuthenticateBannerImage(i18n.t('vote.question_image_alt'), isMobile ? 56 : 88)
   )
+
+  //If only one candidate, no voting allowed
+  const isOneCandidate = (processInfo?.metadata?.questions[0].choices.length === 1)
+
   return (
     <>
       <VotingCard>
@@ -277,249 +283,303 @@ export const VotingPageView = () => {
           onLogout={handleGotoAuth}
         />
 
-        <If condition={(userVoteStatus !== UserVoteStatus.InProgress) || isInlineVotingProcess}>
-          <Then>
-            <BodyContainer>
-              <Row gutter='2xl'>
-                {/* NOT AUTHENTICATED BANNER */}
-                {false && showNotAuthenticatedBanner &&
-                  <Col xs={12}>
-                    <Banner
-                      variant='primary'
-                      image={authenticateBannerImage}
-                      subtitleProps={
-                        {
-                          size: isMobile ? 'xs' : 'md',
-                          children: isAnonymous ? i18n.t('vote.auth.with_preregistration') : voteStatus === VoteStatus.Ended ? i18n.t('vote.auth.if_you_voted') : i18n.t('vote.auth.with_credentials')
-                        }
-                      }
-                      titleProps={{ size: 'sm' }}
-                      buttonProps={
-                        {
-                          variant: 'primary',
-                          children: isAnonymous ? i18n.t('vote.auth.preregister_button') : i18n.t('vote.auth.auth_button'),
-                          iconRight: isMobile ? undefined : { name: isAnonymous ? 'paper-check' : 'pencil', size: 24 },
-                          onClick: () => handleGotoAuth()
-                        }
-                      }
-                    >
-                      {isAnonymous ? i18n.t('vote.auth.not_preregistered') : i18n.t('vote.auth.not_authenticated')}
-                    </Banner>
-                  </Col>
-                }
-                {/* DISCONNECT BANNER */}
-                {false && showDisconnectBanner &&
-                  <Col xs={12} disableFlex>
-                    <Banner
-                      variant='primary'
-                      titleProps={{ weight: 'regular' }}
-                      buttonProps={
-                        {
-                          variant: 'white',
-                          children: i18n.t('vote.auth.disconnect_button'),
-                          iconRight: isMobile ? undefined : { name: 'lightning-slash' },
-                          onClick: () => setDisconnectModalOpened(true)
-                        }
-                      }
-                    >
-                      {i18n.t('vote.you_are_autenticated')}
-                      <b> {anonymousFormData}</b>
-                    </Banner>
-                  </Col>
-                }
-
-                {/* DESCIRPTION */}
-                <Col xs={12} md={12}>
-                  <VoteDescription />
-                </Col>
-
-                {/* VOTE CARD */}
-                {false &&
-                  <StickyCol xs={12} md={3} hiddenSmAndDown disableFlex>
-                    <VoteActionCard
-                      userVoteStatus={userVoteStatus}
-                      onClick={handleVoteNow}
-                      onSeeResults={handleSeeResultsClick}
-                    />
-                  </StickyCol>
-                }
-              </Row>
-
-              <Spacer direction='vertical' size='3xl' />
-
-              {/* TODO: ADD if guest? */}
-              {voteStatus === VoteStatus.Upcoming &&
-                <>
-                  <UpcomingNotice>
-                    {i18n.t('fcb.upcoming_vote')}
-                  </UpcomingNotice>
-                </>
-              }
-
-              {/* INLINE QUESTIONS */}
-              <If condition={isInlineVotingProcess && !hasVoted && status !== VoteStatus.Ended}>
-                <Then>
-                  <QuestionsListInline
-                    ref={questionsInlineRef}
-                    results={choices}
-                    questions={processInfo?.metadata?.questions}
-                    voteWeight={votingType === VotingType.Weighted ? censusProof?.weight?.toString() : null}
-                    onSelect={votingMethods.onSelect}
-                    onFinishVote={handleFinishVote}
-                    onBackDescription={handleBackToDescription}
-                    isDisabled={voteStatus !== VoteStatus.Active}
-                  />
-                </Then>
-              </If>
-            </BodyContainer>
-
-            <Spacer direction='vertical' size='3xl' />
-
-            <If condition={false && status == VoteStatus.Ended}>
-              {/* RESULTS CARD */}
-              <BodyContainer>
-                <Row gutter='2xl'>
-                  <Col xs={12}>                  
-                    <ResultsCard />
-                  </Col>
-                </Row>
-              </BodyContainer>
-            </If>
-          </Then>
-          <Else>
-            <QuestionsList
-              results={choices}
-              questions={processInfo?.metadata?.questions}
-              voteWeight={votingType === VotingType.Weighted ? censusProof?.weight?.toString() : null}
-              onSelect={votingMethods.onSelect}
-              onFinishVote={handleFinishVote}
-              onBackDescription={handleBackToDescription}
-            />
-          </Else>
-        </If>
-
-        {/* FIXED CARDS ON MOBILE VERSION */}
-
-        {voteStatus === VoteStatus.Upcoming &&
-          <>
-            <MobileSpacer />
-            <FixedContainerRow align='center' justify='center'>
-              <Col>
-                <Text size='lg' color='white'>
-                  {i18n.t('vote.vote_will_start')}&nbsp;<b>{startingString}</b>
-                </Text>
-              </Col>
-            </FixedContainerRow>
-          </>
-        }
-
-        {false && voteStatus === VoteStatus.Active &&
-          <>
-            <MobileSpacer />
-            <VoteNowFixedContainer justify='center' align='center' gutter='md'>
-              <Col xs={12} justify='center'>
-                <Text size='lg' color='white'>
-                  {i18n.t('vote.vote_will_close')}&nbsp;<b>{endingString}</b>
-                </Text>
-              </Col>
-              { !isInlineVotingProcess && 
-                <Col xs={12}>
-                  <Button variant='primary' size='lg' onClick={handleVoteNow}>
-                    {i18n.t("vote.vote_now")}
-                  </Button>
-                </Col>
-              }
-              <Col xs={12} justify='center'>
-                <Spacer direction='vertical' size='2xs' />
-                <Button
-                  variant='text'
-                  iconRight={{ name: 'chevron-right', size: 16 }}
-                  onClick={handleSeeResultsClick}
-                >
-                  {i18n.t("vote.see_results")}
-                </Button>
-                <Spacer direction='vertical' size='2xs' />
-              </Col>
-            </VoteNowFixedContainer>
-          </>
-        }
-
-        {/* HAS VOTED CARD */}
-        {false && hasVoted && (
-          <VoteRegisteredLgContainer>
-            <VoteRegisteredCard explorerLink={explorerLink} />
-          </VoteRegisteredLgContainer>
-        )}
-
-        {(hasVoted && voteStatus === VoteStatus.Active) && 
+        { isOneCandidate && 
           <BodyContainer>
-            <br />
-            
-            <TitleH3>{i18n.t('fcb.you_have_voted')}</TitleH3>
-            <div>
-              <Text size='sm'>
-                {i18n.t('fcb.confirmation_code')}<strong>4d9dac8f566a0ab448efa4c1973579c3d48409aae5d4493ef441bbc7a227dd85</strong>.
-              </Text>
-
-              <Spacer direction='vertical' size='3xl' />
-
-              <Text size='sm'>
-                {i18n.t('fcb.vote_registered')}
-              </Text>
-
-              <Spacer direction='vertical' size='3xl' />
-            </div>
-
-            <Spacer direction='vertical' size='3xl' />
-            <br />
-
-            <Row>
-              <LeaveButton onClick={handleLogOut}>
-                {i18n.t('fcb.disconnect_account')}
-                <IconSpacer>
-                  <LogOutIconWhite
-                    size='16px'
-                  />
-                </IconSpacer>
-              </LeaveButton>              
-            </Row>
-
-            <Spacer direction='vertical' size='3xl' />
-          </BodyContainer>
-        }
-
-        {(hasVoted && voteStatus === VoteStatus.Ended) && 
-          <BodyContainer>
-            <TitleH3>{i18n.t('fcb.you_have_voted')}</TitleH3>
-            <div>
-              <Text size='sm'>
-                {i18n.t('fcb.confirmation_code')} <strong>4d9dac8f566a0ab448efa4c1973579c3d48409aae5d4493ef441bbc7a227dd85</strong>.
-              </Text>
-              <br /><br /><br />
-            </div>            
-
-            <Col xs={12} sm={7}>
-              <TextVerticalCentered size='sm'>
-                Total vots emesos: {totalVotes.toLocaleString(i18n.language)} 
-              </TextVerticalCentered>
+            {/* DESCIRPTION */}
+            <Col xs={12} md={12}>
+              <VoteDescription />
             </Col>
 
             <Spacer direction='vertical' size='3xl' />
-            
-            <Row>
-              <LeaveButton onClick={handleLogOut}>
-                {i18n.t('fcb.disconnect_account')}
-                <IconSpacer>
-                  <LogOutIconWhite
-                    size='16px'
-                  />
-                </IconSpacer>
-              </LeaveButton>              
-            </Row>
+            <Spacer direction='vertical' size='3xl' />
+            <Spacer direction='vertical' size='3xl' />
 
-            <Spacer direction='vertical' size='xl' />
+            <NoVottingDiv>
+              <Typography variant={TypographyVariant.H4} margin="0">
+                {processInfo?.metadata?.questions[0].title.default}
+              </Typography>
+
+              <Spacer direction='vertical' size='3xl' />
+
+              <div>
+                {i18n.t('fcb.only_one_candidate')}
+              </div>
+
+              { userVoteStatus !== UserVoteStatus.InProgress && 
+                <>
+                  <QuestionsContainer>
+                    {processInfo?.metadata?.questions.map((question: Question, index: number) =>
+                      renderQuestion(question, question.choices[0], index)
+                    )}
+                  </QuestionsContainer>                
+                </>
+              }
+
+              <Spacer direction='vertical' size='3xl' />
+
+              <Row>
+                <LeaveButton onClick={handleLogOut}>
+                  {i18n.t('fcb.disconnect_account')}
+                  <IconSpacer>
+                    <LogOutIconWhite
+                      size='16px'
+                    />
+                  </IconSpacer>
+                </LeaveButton>
+              </Row>
+
+              <Spacer direction='vertical' size='3xl' />
+            </NoVottingDiv>
           </BodyContainer>
-        }        
+        }
+
+        { !isOneCandidate && 
+          <>
+            <If condition={(userVoteStatus !== UserVoteStatus.InProgress || isInlineVotingProcess) && !isOneCandidate}>
+              <Then>
+                <BodyContainer>
+                  <Row gutter='2xl'>
+                    {/* NOT AUTHENTICATED BANNER */}
+                    {false && showNotAuthenticatedBanner &&
+                      <Col xs={12}>
+                        <Banner
+                          variant='primary'
+                          image={authenticateBannerImage}
+                          subtitleProps={
+                            {
+                              size: isMobile ? 'xs' : 'md',
+                              children: isAnonymous ? i18n.t('vote.auth.with_preregistration') : voteStatus === VoteStatus.Ended ? i18n.t('vote.auth.if_you_voted') : i18n.t('vote.auth.with_credentials')
+                            }
+                          }
+                          titleProps={{ size: 'sm' }}
+                          buttonProps={
+                            {
+                              variant: 'primary',
+                              children: isAnonymous ? i18n.t('vote.auth.preregister_button') : i18n.t('vote.auth.auth_button'),
+                              iconRight: isMobile ? undefined : { name: isAnonymous ? 'paper-check' : 'pencil', size: 24 },
+                              onClick: () => handleGotoAuth()
+                            }
+                          }
+                        >
+                          {isAnonymous ? i18n.t('vote.auth.not_preregistered') : i18n.t('vote.auth.not_authenticated')}
+                        </Banner>
+                      </Col>
+                    }
+                    {/* DISCONNECT BANNER */}
+                    {false && showDisconnectBanner &&
+                      <Col xs={12} disableFlex>
+                        <Banner
+                          variant='primary'
+                          titleProps={{ weight: 'regular' }}
+                          buttonProps={
+                            {
+                              variant: 'white',
+                              children: i18n.t('vote.auth.disconnect_button'),
+                              iconRight: isMobile ? undefined : { name: 'lightning-slash' },
+                              onClick: () => setDisconnectModalOpened(true)
+                            }
+                          }
+                        >
+                          {i18n.t('vote.you_are_autenticated')}
+                          <b> {anonymousFormData}</b>
+                        </Banner>
+                      </Col>
+                    }
+
+                    {/* DESCIRPTION */}
+                    <Col xs={12} md={12}>
+                      <VoteDescription />
+                    </Col>
+
+                    {/* VOTE CARD */}
+                    {false &&
+                      <StickyCol xs={12} md={3} hiddenSmAndDown disableFlex>
+                        <VoteActionCard
+                          userVoteStatus={userVoteStatus}
+                          onClick={handleVoteNow}
+                          onSeeResults={handleSeeResultsClick}
+                        />
+                      </StickyCol>
+                    }
+                  </Row>
+
+                  <Spacer direction='vertical' size='3xl' />
+
+                  {/* TODO: ADD if guest? */}
+                  {voteStatus === VoteStatus.Upcoming &&
+                    <>
+                      <UpcomingNotice>
+                        {i18n.t('fcb.upcoming_vote')}
+                      </UpcomingNotice>
+                    </>
+                  }
+
+                  {/* INLINE QUESTIONS */}
+                  <If condition={isInlineVotingProcess && !hasVoted && status !== VoteStatus.Ended}>
+                    <Then>
+                      <QuestionsListInline
+                        ref={questionsInlineRef}
+                        results={choices}
+                        questions={processInfo?.metadata?.questions}
+                        voteWeight={votingType === VotingType.Weighted ? censusProof?.weight?.toString() : null}
+                        onSelect={votingMethods.onSelect}
+                        onFinishVote={handleFinishVote}
+                        onBackDescription={handleBackToDescription}
+                        isDisabled={voteStatus !== VoteStatus.Active}
+                      />
+                    </Then>
+                  </If>
+                </BodyContainer>
+
+                <Spacer direction='vertical' size='3xl' />
+
+                <If condition={false && status == VoteStatus.Ended}>
+                  {/* RESULTS CARD */}
+                  <BodyContainer>
+                    <Row gutter='2xl'>
+                      <Col xs={12}>                  
+                        <ResultsCard />
+                      </Col>
+                    </Row>
+                  </BodyContainer>
+                </If>
+              </Then>
+              <Else>
+                <QuestionsList
+                  results={choices}
+                  questions={processInfo?.metadata?.questions}
+                  voteWeight={votingType === VotingType.Weighted ? censusProof?.weight?.toString() : null}
+                  onSelect={votingMethods.onSelect}
+                  onFinishVote={handleFinishVote}
+                  onBackDescription={handleBackToDescription}
+                />
+              </Else>
+            </If>
+
+            {/* FIXED CARDS ON MOBILE VERSION */}
+
+            {voteStatus === VoteStatus.Upcoming &&
+              <>
+                <MobileSpacer />
+                <FixedContainerRow align='center' justify='center'>
+                  <Col>
+                    <Text size='lg' color='white'>
+                      {i18n.t('vote.vote_will_start')}&nbsp;<b>{startingString}</b>
+                    </Text>
+                  </Col>
+                </FixedContainerRow>
+              </>
+            }
+
+            {false && voteStatus === VoteStatus.Active &&
+              <>
+                <MobileSpacer />
+                <VoteNowFixedContainer justify='center' align='center' gutter='md'>
+                  <Col xs={12} justify='center'>
+                    <Text size='lg' color='white'>
+                      {i18n.t('vote.vote_will_close')}&nbsp;<b>{endingString}</b>
+                    </Text>
+                  </Col>
+                  { !isInlineVotingProcess && 
+                    <Col xs={12}>
+                      <Button variant='primary' size='lg' onClick={handleVoteNow}>
+                        {i18n.t("vote.vote_now")}
+                      </Button>
+                    </Col>
+                  }
+                  <Col xs={12} justify='center'>
+                    <Spacer direction='vertical' size='2xs' />
+                    <Button
+                      variant='text'
+                      iconRight={{ name: 'chevron-right', size: 16 }}
+                      onClick={handleSeeResultsClick}
+                    >
+                      {i18n.t("vote.see_results")}
+                    </Button>
+                    <Spacer direction='vertical' size='2xs' />
+                  </Col>
+                </VoteNowFixedContainer>
+              </>
+            }
+
+            {/* HAS VOTED CARD */}
+            {false && hasVoted && (
+              <VoteRegisteredLgContainer>
+                <VoteRegisteredCard explorerLink={explorerLink} />
+              </VoteRegisteredLgContainer>
+            )}
+
+            {(hasVoted && voteStatus === VoteStatus.Active) && 
+              <BodyContainer>
+                <br />
+                
+                <TitleH3>{i18n.t('fcb.you_have_voted')}</TitleH3>
+                <div>
+                  <Text size='sm'>
+                    {i18n.t('fcb.confirmation_code')}<strong>4d9dac8f566a0ab448efa4c19</strong>.
+                  </Text>
+
+                  <Spacer direction='vertical' size='3xl' />
+
+                  <Text size='sm'>
+                    {i18n.t('fcb.vote_registered')}
+                  </Text>
+
+                  <Spacer direction='vertical' size='3xl' />
+                </div>
+
+                <Spacer direction='vertical' size='3xl' />
+                <br />
+
+                <Row>
+                  <LeaveButton onClick={handleLogOut}>
+                    {i18n.t('fcb.disconnect_account')}
+                    <IconSpacer>
+                      <LogOutIconWhite
+                        size='16px'
+                      />
+                    </IconSpacer>
+                  </LeaveButton>
+                </Row>
+
+                <Spacer direction='vertical' size='3xl' />
+              </BodyContainer>
+            }
+
+            {(hasVoted && voteStatus === VoteStatus.Ended) && 
+              <BodyContainer>
+                <TitleH3>{i18n.t('fcb.you_have_voted')}</TitleH3>
+                <div>
+                  <Text size='sm'>
+                    {i18n.t('fcb.confirmation_code')} <strong>4d9dac8f566a0ab448efa4c19</strong>.
+                  </Text>
+                  <br /><br /><br />
+                </div>            
+
+                <Col xs={12} sm={7}>
+                  <TextVerticalCentered size='sm'>
+                    Total vots emesos: {totalVotes.toLocaleString(i18n.language)} 
+                  </TextVerticalCentered>
+                </Col>
+
+                <Spacer direction='vertical' size='3xl' />
+                
+                <Row>
+                  <LeaveButton onClick={handleLogOut}>
+                    {i18n.t('fcb.disconnect_account')}
+                    <IconSpacer>
+                      <LogOutIconWhite
+                        size='16px'
+                      />
+                    </IconSpacer>
+                  </LeaveButton>              
+                </Row>
+
+                <Spacer direction='vertical' size='xl' />
+              </BodyContainer>
+            }
+          </>
+        }
       </VotingCard>
 
       {/* MODALS */}
@@ -572,6 +632,46 @@ function anonymizeStrings(strings: string[]): string[] {
   return anonymizedStrings
 }
 
+const renderQuestion = (question: Question, choice: Choice, index) => (
+    <div key={index}>
+      <div>
+        <OptionsContainer>
+          <Radio
+            name={`question-1`}
+            key={index}
+            checked={false}
+            onClick={() => (index)}
+            disabled={true}
+          >
+            {choice?.title.default}
+          </Radio>
+        </OptionsContainer>
+      </div>
+    </div>
+  )
+
+
+const NoVottingDiv = styled.div`
+  padding: 0px 10px;
+  margin-top: 50px;
+  margin-bottom: 20px;
+`
+
+const QuestionsContainer = styled.div`
+  overflow-y: scroll;
+  overflow-x: hidden;
+  max-height: 300px;
+
+  @media ${({theme}) => theme.screenMax.mobileL} {
+    max-height: 260px;
+  }
+`
+
+const OptionsContainer = styled.div`  
+  padding: 0px 10px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+`
 
 export const IconSpacer = styled.div`
   padding-left: 8px;

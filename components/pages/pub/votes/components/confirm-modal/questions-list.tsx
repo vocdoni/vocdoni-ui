@@ -82,7 +82,7 @@ export const ModalQuestionList = ({
       <Column>
         <WarningIcon>
           <Icon
-            name='shutdown'
+            name='warning'
             size={14}
             color='#B75E19'
           />
@@ -104,7 +104,7 @@ export const ModalQuestionList = ({
           <Column>
             <WarningIcon>
               <Icon
-                name='shutdown'
+                name='warning'
                 size={14}
                 color='#B75E19'
               />

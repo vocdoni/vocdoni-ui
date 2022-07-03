@@ -26,7 +26,8 @@ export type AvailableIcons =
   'cog' |
   'calendar' |
   'paper-check' |
-  'logout'
+  'logout' |
+  'warning'
 
 // ============= //
 // GENERAL ICONS //
@@ -154,6 +155,14 @@ export const QuestionCircleIcon = (props: SpecificIconProps) => (
 export const DownloadIcon = (props: SpecificIconProps) => (
   <StyledIcon
     src="/icons/common/download.svg"
+    height={getIconSize(props.size)}
+    width={getIconSize(props.size)}
+    color={props.color}
+  />
+)
+export const WarningIcon = (props: SpecificIconProps) => (
+  <StyledIcon
+    src="/images/vote/warning.svg"
     height={getIconSize(props.size)}
     width={getIconSize(props.size)}
     color={props.color}

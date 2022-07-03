@@ -906,7 +906,7 @@
     "enter_your_sms": "Enter the code you received via SMS (4 digits)",
     "resend_me_SMS": "Resend the SMS",
     "available_SMS": "You have {{numSMS}} SMS left. The telephone number we have registered is: +** ******{{phoneNum}}. If it is not valid, call +34 888 888 888.",
-    "upcoming_vote": "The voting process begins on July 20 at 00:00 CEST and ends on July 21 at 23:59 CEST. Please try again within these dates.",
+    "upcoming_vote": "Voting time: 21/07/2022 10:00am CEST to 22/07/2022 11:59am CEST.",
     "you_have_voted": "You have already voted",
     "voting_finished": "Voting Ended",
     "voting_finished_msg": "The voting process is complete, you can find the results at this link: ",
@@ -921,6 +921,12 @@
     "no_sms_left": "You have used 5 codes. Please, phone the support line to solve this problem.",
     "disconnect_account": "Log out",
     "show_results": "Results will be published on the 26th of July",
-    "incorrect_code": "The code is wrong. You have used {{leftSMS}} of the 5 SMS."
+    "incorrect_code": "The code is wrong. You have used {{leftSMS}} of the 5 SMS.",
+    "login_text": "With this platform, the supporters' club presidents will be able to cast their vote. To do so, identify yourself using the following credentials.",
+    "login_subtext": "To cast your vote we will send you a code via SMS to the mobile phone number we have registered. If you do not remember your PIN or want to change your mobile phone, call the support number at the use of the platform in the footer.",
+    "blank_option": "Blank vote",
+    "enter": "Enter",
+    "not_started": "The voting act has not begun.",
+        "only_one_candidate": "Només s'ha presentat una candidatura. Per aquesta penya no hi haurà votació; la candidatura serà proclamada guanyadora quan s'hagi acabat el període de votació."
   }
 }

@@ -53,11 +53,27 @@ export const QuestionCard = ({
             disabled={isDisabled}
           >
             {(option.value === selectedIndex) && 
-              <SelectedOption>{ option.title.default }</SelectedOption>
+              <>
+                { option.title.default === 'Blanc' && 
+                  <SelectedOption>{i18n.t('fcb.blank_option')}</SelectedOption>
+                }
+
+                { option.title.default !== 'Blanc' &&
+                  <SelectedOption>{ option.title.default }</SelectedOption>
+                }
+              </>
             }
 
-            {(option.value !== selectedIndex) && 
-              <>{ option.title.default }</>
+            {(option.value !== selectedIndex) &&
+              <>
+                { option.title.default === 'Blanc' && 
+                  <>{i18n.t('fcb.blank_option')}</>
+                }
+
+                { option.title.default !== 'Blanc' &&
+                  <>{ option.title.default }</>
+                }
+              </>              
             }
           </Radio>
         ))}        
