@@ -6,10 +6,7 @@ import { useRecoilStateLoadable, useRecoilValueLoadable } from 'recoil'
 import styled from 'styled-components'
 
 import { supportedLanguages } from '@i18n'
-
 import { useWallet } from '@hooks/use-wallet'
-import { useHelpCenter } from '@hooks/help-center'
-
 
 import { Typography, TypographyVariant } from '@components/elements/typography'
 import Dropdown, { DropdownItem, DropdownTitle, DropdownSeparator } from '@components/blocks/dropdown'
@@ -44,15 +41,10 @@ export const FCBEntityHeader = () => {
 
   const { metadata: entityMetadata } = useEntity(wallet?.address)
 
-  const { show } = useHelpCenter()
   const { accepted } = useCookies()
   const { trackEvent } = useRudderStack()
 
   const [menuOpened, setMenuOpened] = useState<boolean>()
-
-  useEffect(() => {
-    if (accepted) show()
-  }, [accepted])
 
   const supportedLanguagesLocale = {
     ca: i18n.t('supported_langs.catalan'),
@@ -74,13 +66,23 @@ export const FCBEntityHeader = () => {
     //setAccount(userAccount)
   }
 
+  const defaultLang = LanguageService.getDefaultLanguage()
+  let showDefaultLang = ''
+  if(defaultLang === 'en'){
+    showDefaultLang = 'ENG'
+  }else if (defaultLang === 'es'){
+    showDefaultLang = 'ESP'
+  }else{
+    showDefaultLang = 'CAT'
+  }
+
   const menuButton = (
     <FCBDiv>
-      <Button>
+      <Button noPaddingXS>
         <MenuButtonWrapper>
-          <Typography color='#A50044' margin='0 0 0 10px' variant={TypographyVariant.ExtraSmall}>
-            CAT
-          </Typography>
+          <TypographyBold>
+            {showDefaultLang}
+          </TypographyBold>
 
           <ArrowContainer>
             <DownArrow opened={menuOpened} />
@@ -116,6 +118,19 @@ export const FCBEntityHeader = () => {
     </>
   )
 }
+
+const TypographyBold = styled.div`
+  font-weight: 600;
+
+  background: linear-gradient(103.11deg, #CF122D 9.45%, #154284 90.55%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+  text-align: center;
+
+  margin: 0px 0px 0px 10px;
+`
 
 const FCBDiv = styled.div`
   background: 
@@ -169,6 +184,10 @@ const ArrowContainer = styled.div`
   position: absolute;
   right: 9px;
   top: 0px;
+
+  @media ${({theme})  => theme.screenMax.mobileL } {
+    top:4px;
+  }
 `
 
 const NextArrow = styled.span`

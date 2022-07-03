@@ -75,4 +75,5 @@ const DropdownItemsContainer = styled.div<{width: string}>`
   overflow: hidden;
   padding: 0 !important;
   right: 0;
+  z-index: 9999;
 `

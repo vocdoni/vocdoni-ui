@@ -17,7 +17,6 @@ import { FixedGlobalStyle, theme } from '../theme'
 
 import { DefaultLayout } from '@components/pages/app/layout/default'
 import { DefaultProviders } from '@components/pages/app/providers/default-providers'
-import { Helpscout } from '@components/pages/app/external-dependencies/helpscout'
 import { Ruddlestack } from '@components/pages/app/external-dependencies/ruddlestack'
 import { CookiesBanner } from '@components/blocks/cookies-banner'
 import { useTranslation } from 'react-i18next'
@@ -66,7 +65,6 @@ const VocdoniApp: FC<NextAppProps> = ({ Component, pageProps }) => {
               href="/images/common/favicon.ico"
               sizes="16x16"
             />
-            <Helpscout />
             <title>{appFullTitle}</title>
           </Head>
 

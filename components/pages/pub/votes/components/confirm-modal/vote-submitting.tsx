@@ -1,5 +1,5 @@
 import { WaitingBanner } from "@components/blocks-v2"
-import { Col, Row, Text } from "@components/elements-v2"
+import { Spacer, Col, Row, Text } from "@components/elements-v2"
 import { LoadingIcon, LogOutIcon, Rotate } from "@components/elements-v2/icons"
 import { useTranslation } from "react-i18next"
 import styled, { keyframes } from "styled-components"
@@ -9,6 +9,8 @@ export const VoteSubmitting = () => {
   const { i18n } = useTranslation()
   return (
     <ModalContainer>
+      <Spacer direction='vertical' size='3xl' />
+      <Spacer direction='vertical' size='3xl' />
       <Row gutter="2xl">
         <Col xs={12}>
           <Row justify="center" gutter="md" align="center">
@@ -37,9 +39,11 @@ export const VoteSubmitting = () => {
             </Col>
           </Row>
         </Col>
-        <Col xs={12}>
-          <WaitingBanner forceMobile messages={i18n.t("waiting_banner.vote_submitting", { returnObjects: true })} />
-        </Col>
+        { false && 
+          <Col xs={12}>
+            <WaitingBanner forceMobile messages={i18n.t("waiting_banner.vote_submitting", { returnObjects: true })} />
+          </Col>
+        }
       </Row>
     </ModalContainer>
   )

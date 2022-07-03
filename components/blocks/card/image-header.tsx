@@ -40,7 +40,10 @@ export const CardImageHeader = ({
   const { i18n } = useTranslation()
 
   const headerImageSrc = processImage || FALLBACK_VOTE_HEADER_IMAGE
-  const entityImageSrc = entityImage || FALLBACK_ACCOUNT_ICON
+  //const entityImageSrc = entityImage || FALLBACK_ACCOUNT_ICON
+  const entityImageSrc = '/images/app/fcb-logo.png'
+  const ballotBoxIcon = '/images/app/fcb-header-icon.svg'
+  const flagImg = '/images/app/fcb-header-flag.svg'
 
   return (
     <CardImageHeaderContainer>
@@ -52,9 +55,8 @@ export const CardImageHeader = ({
         { logged && 
           <FCBLogout onClick={onLogout}>
             <Icon
-              name='shutdown'
+              name='logout'
               size={18}
-              color='#A50044'
             />
           </FCBLogout>
         }
@@ -66,9 +68,18 @@ export const CardImageHeader = ({
             alt={i18n.t('vote.vote_process_image_alt')}
           />
       </PageCardHeader>
+      
+      {/*
+      <PageCardHeader>
+          <FixedImg>
+            <img src={ballotBoxIcon} alt='FCB icon' width='48px' />
+            <FCBH1>ELECCIONS CONSELL CONSULTIU DE PENYES</FCBH1>
+          </FixedImg>          
+      </PageCardHeader>
+      */}
 
       <EntityLogoWrapper>
-          <Image src={entityImageSrc} alt={i18n.t('vote.entity_logo_alt')} />
+        <img src={entityImageSrc} alt="FCB Logo" />
       </EntityLogoWrapper>
 
       { false && 
@@ -94,6 +105,17 @@ export const CardImageHeader = ({
   )
 }
 
+const FixedImg = styled.div`
+  width: 60%;
+  margin-top: 20px;
+  margin-left: 30px;
+`
+
+const FCBH1 = styled.h1`
+  font-weight: 900;
+  color: #154298;
+`
+
 const FCBLogout = styled.div`
   background: 
     linear-gradient(#fff 0 0) padding-box, /*this is the white background*/
@@ -105,9 +127,14 @@ const FCBLogout = styled.div`
   position: relative;
   margin-left: 5px;
   top: 15px;
-  padding: 8px;
+  padding: 9px;
   cursor: pointer;
   margin-top: -40px;
+
+  @media ${({theme})  => theme.screenMax.mobileL } {
+    padding: 11px;
+  }
+
 `
 
 const HeaderMenu = styled.div`
@@ -147,7 +174,7 @@ const CardH2 = styled(H2)`
   color: #fff;
   font: Manrope;
 
-  @media ${({ theme }) => theme.screenMax.tabletL} {
+  @media ${({ theme }) => theme.screenMax.laptopL} {
     font-size: 32px;
     line-height: 36px;
     font-weight: 600;
@@ -180,18 +207,20 @@ const CardBody = styled(Body1)`
 const EntityLogoWrapper = styled.div`
   overflow: hidden;
   border-radius: 50%;
-  width: 84px;
-  height: 84px;
+  width: 78px;
+  height: 80px;
   display: flex;
-  margin: -62px auto 0px;
-  border: solid 1px ${({ theme }) => theme.white};
+  margin: -73px auto 0px;
+  padding: 10px;
 
   & > img {
     max-height: 100%;
     max-width: 100%;
   }
 
-  @media ${({ theme }) => theme.screenMax.mobileL} {
-    margin-left: 0;
+  @media ${({ theme }) => theme.screenMax.tabletL} {
+    margin-top: -58px;
+    width: 58px;
+    height: 60px;
   }
 `

@@ -77,7 +77,7 @@ export const VoteDescription = () => {
       </When>
 
       {/* TAG AND DESCRIPCTION */}
-      <Col xs={8}>
+      <Col xs={12}>
         {/* INSIDE ROW TO AJUST GUTTER */}
         <Row gutter='xl'>
           <Col xs={12}>

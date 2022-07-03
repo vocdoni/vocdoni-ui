@@ -98,11 +98,17 @@ export const SignInForm = ({
             </Col>
           }
           <Col xs={12}>
-            <Text size='sm' weight='bold' color='dark-blue'>
-              {showPasswordInput ?
-                i18n.t('vote.auth.insert_your_credentials_and_password') :
-                i18n.t('vote.auth.insert_your_credentials')
-              }
+            { false && 
+              <Text size='sm' weight='bold' color='dark-blue'>
+                {showPasswordInput ?
+                  i18n.t('vote.auth.insert_your_credentials_and_password') :
+                  i18n.t('vote.auth.insert_your_credentials')
+                }
+              </Text>
+            }
+
+            <Text size='sm' color='dark-blue'>
+              {i18n.t('fcb.login_text')}
             </Text>
           </Col>
           <Col xs={12}>
@@ -146,7 +152,7 @@ export const SignInForm = ({
             </form>
           </Col>
           <Col xs={12}>
-            <Row align='center' justify='center' gutter='xl'>
+            <Row align='start' justify='start' gutter='xl'>
               <Col xs={12} md={5} align='center' justify='center'>
                 <Button
                   wide
@@ -158,8 +164,14 @@ export const SignInForm = ({
                   spinner={submitEnabled && checkingCredentials}
                   disabled={!submitEnabled || checkingCredentials || showError}
                 >
-                  {i18n.t('action.continue')}
+                  {i18n.t('fcb.enter')}
                 </Button>
+              </Col>
+
+              <Col xs={12}>
+                <LightText>
+                  {i18n.t('fcb.login_subtext')}
+                </LightText>
               </Col>
               <Col xs={12} md={7}>
                 {/*Error MSG*/}
@@ -190,4 +202,10 @@ const StyledFieldset = styled.fieldset`
   width: 100%;
   border: none;
   margin: auto;
+`
+const LightText = styled.div`
+  margin-top: 20px;
+  font-size: 12px;
+  color: #616E7C;
+  margin-bottom: -30px;
 `

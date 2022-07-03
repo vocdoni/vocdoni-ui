@@ -26,7 +26,7 @@ export const ProcessStatusLabel = () => {
     case VoteStatus.Upcoming:
       return (
         <Tag variant='neutral'>
-          {i18n.t('vote.starting_in')} {startingInDiffString}
+          {i18n.t('fcb.not_started')}
         </Tag>
       )
 

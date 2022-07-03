@@ -52,7 +52,6 @@ export const SignInFormCard = styled(PageCard)`
 
 export const PageCardHeader = styled.div<{ variant?: PageCardHeaderVariant }>`
   margin: -32px -32px 20px;
-  max-height: 241px;
   border-radius: 16px 16px 0 0;
   overflow: hidden;
   max-height: 250px;
@@ -66,6 +65,7 @@ export const PageCardHeader = styled.div<{ variant?: PageCardHeaderVariant }>`
   @media ${({ theme }) => theme.screenMax.mobileL} {
     border-radius: 0;
     max-height: 120px;
+    height: 120px;
   }
     
 `

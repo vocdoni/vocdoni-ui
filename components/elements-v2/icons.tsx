@@ -25,7 +25,9 @@ export type AvailableIcons =
   'spinner' |
   'cog' |
   'calendar' |
-  'paper-check'
+  'paper-check' |
+  'logout' |
+  'warning'
 
 // ============= //
 // GENERAL ICONS //
@@ -70,6 +72,15 @@ export const PaperCheckIcon = (props: SpecificIconProps) => (
   <StyledIcon
     src="/icons/common/paper-check.svg"
     name="paper-check"
+    height={getIconSize(props.size)}
+    width={getIconSize(props.size)}
+    color={props.color}
+  />
+)
+export const Logout = (props: SpecificIconProps) => (
+  <StyledIcon
+    src="/icons/common/logout-icon.svg"
+    name="logout"
     height={getIconSize(props.size)}
     width={getIconSize(props.size)}
     color={props.color}
@@ -149,6 +160,14 @@ export const DownloadIcon = (props: SpecificIconProps) => (
     color={props.color}
   />
 )
+export const WarningIcon = (props: SpecificIconProps) => (
+  <StyledIcon
+    src="/images/vote/warning.svg"
+    height={getIconSize(props.size)}
+    width={getIconSize(props.size)}
+    color={props.color}
+  />
+)
 
 // old
 
@@ -196,6 +215,14 @@ export const PenOutlinedIcon = ({ size }: { size?: string }) => (
 export const LogOutIcon = ({ size }: { size?: string }) => (
   <img
     src="/images/vote/disconnect-modal-icon.svg"
+    alt="logout"
+    height={size}
+    width={size}
+  />
+)
+export const LogOutIconWhite = ({ size }: { size?: string }) => (
+  <img
+    src="/images/vote/disconnect-modal-icon-white.svg"
     alt="logout"
     height={size}
     width={size}

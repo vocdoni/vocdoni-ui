@@ -765,9 +765,11 @@
     "you_need_authenticate_to_vote": "You need authenticate to vote",
     "your_choice": "Your choice",
     "your_entity_is_being_registered": "Your entity is being registered",
-    "your_vote_has_been_registered": "Your vote has been registered",
+    "your_vote_has_been_registered": "Your vote has been registered correctly",
     "your_vote_is_set_up": "Your vote is set up",
-    "your_vote_process_is_being_created": "Your voting process is being created"
+    "your_vote_process_is_being_created": "Your voting process is being created",
+    "submitting_vote": "Your vote is being submitted...",
+    "submitting_vote_msg": "Please don’t close the window, this action may take a few minutes."
   },
   "votes": {
     "new": {
@@ -848,7 +850,7 @@
     },
     "questions_list": {
       "back": "Back",
-      "finish_voting": "Finish voting",
+      "finish_voting": "Send my vote",
       "next_question": "Next question",
       "question": "Question {{questionIndex}}/{{totalQuestions}}",
       "num_questions_info": "You must answer all questions in order to vote. You answered ",
@@ -890,10 +892,41 @@
     ]
   },
   "fcb": {
-      "terms": "Terms",
-      "copyright": "© 2022 FC Barcelona",
-      "service_conditions": "Terms of service",
-      "support_number": "Support for the electoral process",
-      "voting_number": "Support for the use of the e-voting platform"
+    "terms": "Terms",
+    "copyright": "© 2022 FC Barcelona",
+    "service_conditions": "Terms of service",
+    "support_number": "Support for the electoral process",
+    "voting_number": "Support for the use of the e-voting platform",
+    "vote_verification_text": "You can verify the inclusion of your vote in ",
+    "block_explorer": "block explorer",
+    "confirmation_code": " Your confirmation code is: ",
+    "vote_registered": "Your vote has been registered successfully. The results will be made public from ",
+    "vote_finalized": " once the voting process is complete.",
+    "confirm_your_vote_text": "If the chosen option is correct, press the` Send SMS` button and you will receive an SMS on your mobile phone. Once you have entered the code sent to your mobile phone correctly, you will be able to send your vote (so anonymous) by pressing the `Send my vote` button.",
+    "enter_your_sms": "Enter the code you received via SMS (4 digits)",
+    "resend_me_SMS": "Resend the SMS",
+    "available_SMS": "You have {{numSMS}} SMS left. The telephone number we have registered is: +** ******{{phoneNum}}. If it is not valid, call +34 888 888 888.",
+    "upcoming_vote": "Voting time: 21/07/2022 10:00am CEST to 22/07/2022 11:59am CEST.",
+    "you_have_voted": "You have already voted",
+    "voting_finished": "Voting Ended",
+    "voting_finished_msg": "The voting process is complete, you can find the results at this link: ",
+    "voting_period": "Voting period: from {{startDate}} to {{endDate}}",
+    "continue": "Continue",
+    "only_one_vote": "Please note that you can only cast one vote.",
+    "send_me_SMS": "Send me an SMS code",
+    "end_date": "22/07/2022 11:59 CEST",
+    "candidates": "The candidates are as follows:",
+    "select_candidates": "Choose your candidate. The “Continue” button will take you to the confirmation screen.",
+    "incorrect_code": "El código es incorrecto. Habéis empleado {{numSMS}} de los 5 SMS.",
+    "no_sms_left": "You have used 5 codes. Please, phone the support line to solve this problem.",
+    "disconnect_account": "Log out",
+    "show_results": "Results will be published on the 26th of July",
+    "incorrect_code": "The code is wrong. You have used {{leftSMS}} of the 5 SMS.",
+    "login_text": "With this platform, the supporters' club presidents will be able to cast their vote. To do so, identify yourself using the following credentials.",
+    "login_subtext": "To cast your vote we will send you a code via SMS to the mobile phone number we have registered. If you do not remember your PIN or want to change your mobile phone, call the support number at the use of the platform in the footer.",
+    "blank_option": "Blank vote",
+    "enter": "Enter",
+    "not_started": "The voting act has not begun.",
+        "only_one_candidate": "Només s'ha presentat una candidatura. Per aquesta penya no hi haurà votació; la candidatura serà proclamada guanyadora quan s'hagi acabat el període de votació."
   }
 }
