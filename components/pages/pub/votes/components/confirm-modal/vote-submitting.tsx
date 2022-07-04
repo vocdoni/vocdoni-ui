@@ -4,17 +4,17 @@ import { LoadingIcon, LogOutIcon, Rotate } from "@components/elements-v2/icons"
 import { useTranslation } from "react-i18next"
 import styled, { keyframes } from "styled-components"
 
-
 export const VoteSubmitting = () => {
   const { i18n } = useTranslation()
   return (
-    <ModalContainer>
-      <Spacer direction='vertical' size='3xl' />
-      <Spacer direction='vertical' size='3xl' />
+    <ModalContainer>      
       <Row gutter="2xl">
         <Col xs={12}>
           <Row justify="center" gutter="md" align="center">
             <Col justify="start">
+              <Spacer direction='vertical' size='3xl' />
+              <Spacer direction='vertical' size='3xl' />
+              <Spacer direction='vertical' size='xl' />
               <img
                 src='/images/app/fcb_logo.png'
                 alt="vote"
@@ -48,9 +48,10 @@ export const VoteSubmitting = () => {
     </ModalContainer>
   )
 }
+
 const AbsoluteDiv = styled.div`
-position: absolute;
-  transform: translateY(-35px) translateX(35px);
+  position: absolute;
+  transform: translateY(-42px) translateX(36px);
 `
 // This is a hot fix for
 // for some reason the
@@ -58,5 +59,5 @@ position: absolute;
 // bar independently of
 // the content inside
 const ModalContainer = styled.div`
-min-height: 438px;
+  min-height: 438px;
 `

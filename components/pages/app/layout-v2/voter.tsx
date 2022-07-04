@@ -19,6 +19,10 @@ const LayoutContainer = styled.div`
     ${({ theme }) => `padding: 20px ${theme.margins.desktop.horizontal} 120px;`}
   }
 
+  @media ${({ theme }) => theme.screenMin.tabletL} {
+    ${({ theme }) => `padding: 20px ${theme.margins.desktop.horizontal} 200px;`}
+  }
+
   @media ${({ theme }) => theme.screenMax.mobileL} {
     ${({ theme }) => `padding: 20px ${theme.margins.desktop.horizontal} 40px;`}
   }

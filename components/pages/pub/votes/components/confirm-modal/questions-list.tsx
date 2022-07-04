@@ -91,7 +91,7 @@ export const ModalQuestionList = ({
       </Column>
 
       <QuestionsContainer>
-        {questions.map((question: Question, index: number) =>
+        {questions?.map((question: Question, index: number) =>
           renderQuestion(question, question.choices[choices[index]], index)
         )}
       </QuestionsContainer>
@@ -132,7 +132,7 @@ export const ModalQuestionList = ({
             <ErrorDiv>
               <ErrorIcon>
                 <Icon
-                  name='shutdown'
+                  name='warning'
                   size={14}
                   color='#B31B35'
                 />
@@ -175,7 +175,7 @@ export const ModalQuestionList = ({
           :
 
           <>
-            <Column sm={6}>
+            <Column sm={7}>
               <Button
                 wide
                 fcb
@@ -201,7 +201,7 @@ export const ModalQuestionList = ({
 
 const ErrorDiv = styled.div`
   background: #FEE4D6;
-  padding: 12px 26px 16px;
+  padding: 15px 26px 16px;
   border-radius: 12px;
   margin-top: -35px;
 `
@@ -209,16 +209,23 @@ const ErrorDiv = styled.div`
 const ErrorText = styled.div`
   color: #B31B35;
   padding-left: 10px;
-  margin-left: 10px;
+  margin-left: 5px;
   line-height: 16px;
   padding-top: 3px;
   font-weight: 700;
+  margin-top: -3px;
 `
 
 const ErrorIcon = styled.div`
   display:inline;
   float:left;
   margin-left:-10px;
+
+  @media ${({theme}) => theme.screenMax.mobileL} {
+    svg {
+      margin-top: 8px;
+    }
+  }
 `
 
 const NeutralColor = styled.div`
@@ -236,15 +243,34 @@ const WarningIcon = styled.div`
   @media ${({theme}) => theme.screenMax.mobileL} {
     padding-top:7px;
   }
+
+  svg {
+    margin-top: 10px;
+  }
+
+  @media ${({theme}) => theme.screenMax.mobileL} {
+    svg {
+      margin-top: 5px;
+    }
+  }
 `
 
 const WarningText = styled.div`
   color: #B75E19;
   font-size: 16px;
   display: flex;
-  padding-left: 10px;
+  padding-left: 15px;
   font-weight: 700;
   margin-right: -10px;
+  margin-top: -20px;
+
+  @media ${({theme}) => theme.screenMax.mobileL} {
+    margin-top:25px;
+  }
+
+  @media ${({theme}) => theme.screenMin.tablet} and ${({theme}) => theme.screenMax.laptop} {
+    margin-top: 10px;
+  }
 `
 
 const OptionsContainer = styled.div`
