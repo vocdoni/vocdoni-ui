@@ -133,7 +133,7 @@ export const ModalQuestionList = ({
           />          
         }
 
-        { !validSMS && (typeof pin != "undefined" && pin.length >= 6) && 
+        { !validSMS && (typeof pin != "undefined" && pin.length >= 6) && (leftSMS !== 0) && 
           <>
             <ErrorDiv>
               <ErrorIcon>
