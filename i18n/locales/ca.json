@@ -901,6 +901,7 @@
         "login_subtext": "Per emetre el vostre vot us enviarem un codi a través d'un SMS al número de telèfon mòbil que tenim registrat. Si no us recordeu del vostre PIN o bé voleu canviar de telèfon mòbil, truqueu al número de suport a l'ús de la plataforma que hi ha al peu de pàgina.",
         "blank_option": "Vot en blanc",
         "not_started": "La votació no ha començat",
-        "enter": "Entra"
+        "enter": "Entra",
+        "only_one_candidate": "En aquesta zona no es fa acte de votació. En el cas de presentació d'una única candidatura, la Junta Electoral proclama el nou delegat del Consell Consultiu de Penyes."
     }
 }

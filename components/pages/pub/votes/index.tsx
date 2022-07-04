@@ -269,7 +269,7 @@ export const VotingPageView = () => {
   )
 
   //If only one candidate, no voting allowed
-  const isOneCandidate = true || (processInfo?.metadata?.questions[0].choices.length <= 2)
+  const isOneCandidate = (processInfo?.metadata?.questions[0].choices.length <= 2)
 
   return (
     <>
@@ -301,27 +301,39 @@ export const VotingPageView = () => {
 
               <Spacer direction='vertical' size='3xl' />
 
-              <div>
-                {i18n.t('fcb.only_one_candidate')}
-              </div>
-              
-              <QuestionsContainer>
-                <div key={0}>
+              { (voteStatus === VoteStatus.Active || voteStatus === VoteStatus.Upcoming) &&
+                <>
                   <div>
-                    <OptionsContainer>
-                      <Radio
-                        name={`question-1`}
-                        key={0}
-                        checked={false}
-                        onClick={() => (0)}
-                        disabled={true}
-                      >
-                        {processInfo?.metadata?.questions[0].choices[0].title.default}
-                      </Radio>
-                    </OptionsContainer>
+                    {i18n.t('fcb.only_one_candidate')}
                   </div>
+                  <QuestionsContainer>
+                    <div key={0}>
+                      <div>
+                        <OptionsContainer>
+                          <Radio
+                            name={`question-1`}
+                            key={0}
+                            checked={false}
+                            onClick={() => (0)}
+                            disabled={true}
+                          >
+                            {processInfo?.metadata?.questions[0].choices[0].title.default}
+                          </Radio>
+                        </OptionsContainer>
+                      </div>
+                    </div>
+                  </QuestionsContainer>
+                </>
+              }
+
+              {(voteStatus === VoteStatus.Ended) &&                 
+                <div>
+                  <Text size='sm'>
+                    {i18n.t('fcb.vote_registered')}.
+                  </Text>
+                  <br />
                 </div>
-              </QuestionsContainer>
+              }
 
               <Spacer direction='vertical' size='3xl' />
 
@@ -582,12 +594,6 @@ export const VotingPageView = () => {
                     </div>
                   </>
                 }
-
-                <Col xs={12} sm={7}>
-                  <TextVerticalCentered size='sm'>
-                    Total vots emesos: 0 ({totalVotes.toLocaleString(i18n.language)}%)
-                  </TextVerticalCentered>
-                </Col>
 
                 <Spacer direction='vertical' size='3xl' />
                 
