@@ -269,7 +269,7 @@ export const VotingPageView = () => {
   )
 
   //If only one candidate, no voting allowed
-  const isOneCandidate = (processInfo?.metadata?.questions[0].choices.length === 1)
+  const isOneCandidate = true || (processInfo?.metadata?.questions[0].choices.length <= 2)
 
   return (
     <>
@@ -304,16 +304,24 @@ export const VotingPageView = () => {
               <div>
                 {i18n.t('fcb.only_one_candidate')}
               </div>
-
-              { userVoteStatus !== UserVoteStatus.InProgress && 
-                <>
-                  <QuestionsContainer>
-                    {processInfo?.metadata?.questions.map((question: Question, index: number) =>
-                      renderQuestion(question, question.choices[0], index)
-                    )}
-                  </QuestionsContainer>                
-                </>
-              }
+              
+              <QuestionsContainer>
+                <div key={0}>
+                  <div>
+                    <OptionsContainer>
+                      <Radio
+                        name={`question-1`}
+                        key={0}
+                        checked={false}
+                        onClick={() => (0)}
+                        disabled={true}
+                      >
+                        {processInfo?.metadata?.questions[0].choices[0].title.default}
+                      </Radio>
+                    </OptionsContainer>
+                  </div>
+                </div>
+              </QuestionsContainer>
 
               <Spacer direction='vertical' size='3xl' />
 
@@ -546,19 +554,38 @@ export const VotingPageView = () => {
               </BodyContainer>
             }
 
-            {(hasVoted && voteStatus === VoteStatus.Ended) && 
+            {(voteStatus === VoteStatus.Ended) && 
               <BodyContainer>
-                <TitleH3>{i18n.t('fcb.you_have_voted')}</TitleH3>
-                <div>
-                  <Text size='sm'>
-                    {i18n.t('fcb.confirmation_code')} <strong>4d9dac8f566a0ab448efa4c19</strong>.
-                  </Text>
-                  <br /><br /><br />
-                </div>            
+                { hasVoted && 
+                  <>
+                    <TitleH3>{i18n.t('fcb.you_have_voted')}</TitleH3>
+                    <div>
+                      <Text size='sm'>
+                        {i18n.t('fcb.confirmation_code')} <strong>4d9dac8f566a0ab448efa4c19</strong>.
+                      </Text>
+                      <Text size='sm'>
+                        {i18n.t('fcb.vote_registered')}.
+                      </Text>
+                      <br /><br /><br />
+                    </div>
+                  </>
+                }
+
+                { !hasVoted &&
+                  <>
+                    <TitleH3>{i18n.t('vote.ended_vote')}</TitleH3>
+                    <div>
+                      <Text size='sm'>
+                        {i18n.t('fcb.vote_registered')}.
+                      </Text>
+                      <br /><br /><br />
+                    </div>
+                  </>
+                }
 
                 <Col xs={12} sm={7}>
                   <TextVerticalCentered size='sm'>
-                    Total vots emesos: {totalVotes.toLocaleString(i18n.language)} 
+                    Total vots emesos: 0 ({totalVotes.toLocaleString(i18n.language)}%)
                   </TextVerticalCentered>
                 </Col>
 

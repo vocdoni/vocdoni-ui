@@ -233,7 +233,7 @@ const InputTitle = styled(SectionTitle)`
 `
 
 const InputLabel = styled.label`
-  font-weight: 400;
+  font-weight: 600;
   font-size: 13px;
   line-height: 1.6em;
 `

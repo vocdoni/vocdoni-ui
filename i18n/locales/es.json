@@ -616,7 +616,7 @@
         "creating_census": "Creando censo",
         "creating_process": "Creando proceso",
         "creation": "Creación",
-        "credentials_not_accepted": "¡Credenciales inválidas! Por favor, ponte en contacto con la entidad.",
+        "credentials_not_accepted": "Les credenciales no son válidas. Vuélvalo a inentar. Si el problema persiste llame al teléfono de suporte al uso de la plataforma de e-votacion.",
         "define_the_timeframe_of_the_proposal": "Definición del plazo de votación",
         "delete_option": "Eliminar esta opción",
         "delete_question": "Eliminar esta pregunta",
@@ -901,7 +901,7 @@
         "login_subtext": "Para emitir su voto le enviaremos un código a través de un SMS al número de teléfono móvil que tenemos registrado. Si no se acuerda de su PIN o quiere cambiar de teléfono móvil, llame al número de soporte a el uso de la plataforma que hay en el pie de página.",
         "blank_option": "Voto en blanco",
         "enter": "Entra",
-        "not_started": "El proceso de votación no ha comenzado.",
+        "not_started": "El proceso de votación no ha comenzado",
         "only_one_candidate": "Només s'ha presentat una candidatura. Per aquesta penya no hi haurà votació; la candidatura serà proclamada guanyadora quan s'hagi acabat el període de votació."
     }
 }

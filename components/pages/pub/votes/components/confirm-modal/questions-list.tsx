@@ -59,7 +59,13 @@ export const ModalQuestionList = ({
             checked={true}
             onClick={() => (index)}
           >
-            {choice?.title.default}
+            { choice?.title.default === 'Blanc' && 
+              <>{i18n.t('fcb.blank_option')}</>
+            }
+
+            { choice?.title.default !== 'Blanc' &&
+              <>{ choice?.title.default }</>
+            }
           </Radio>
         </OptionsContainer>
       </div>
@@ -179,7 +185,7 @@ export const ModalQuestionList = ({
               <Button
                 wide
                 fcb
-                onClick={onSubmit}
+                onClick={null}
                 disabled={sendingVote}
                 spinner={sendingVote}
               >
