@@ -269,7 +269,7 @@ export const VotingPageView = () => {
   )
 
   //If only one candidate, no voting allowed
-  const isOneCandidate = (processInfo?.metadata?.questions[0].choices.length === 1)
+  const isOneCandidate = true || (processInfo?.metadata?.questions[0].choices.length <= 2)
 
   return (
     <>
@@ -304,16 +304,24 @@ export const VotingPageView = () => {
               <div>
                 {i18n.t('fcb.only_one_candidate')}
               </div>
-
-              { userVoteStatus !== UserVoteStatus.InProgress && 
-                <>
-                  <QuestionsContainer>
-                    {processInfo?.metadata?.questions.map((question: Question, index: number) =>
-                      renderQuestion(question, question.choices[0], index)
-                    )}
-                  </QuestionsContainer>                
-                </>
-              }
+              
+              <QuestionsContainer>
+                <div key={0}>
+                  <div>
+                    <OptionsContainer>
+                      <Radio
+                        name={`question-1`}
+                        key={0}
+                        checked={false}
+                        onClick={() => (0)}
+                        disabled={true}
+                      >
+                        {processInfo?.metadata?.questions[0].choices[0].title.default}
+                      </Radio>
+                    </OptionsContainer>
+                  </div>
+                </div>
+              </QuestionsContainer>
 
               <Spacer direction='vertical' size='3xl' />
 
