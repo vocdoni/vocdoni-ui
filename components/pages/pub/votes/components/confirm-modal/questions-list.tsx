@@ -65,7 +65,7 @@ export const ModalQuestionList = ({
             checked={true}
             onClick={() => (index)}
           >
-            { choice?.title.default === 'Blanc' && 
+            { choice?.title.default === 'Blanc' &&
               <>{i18n.t('fcb.blank_option')}</>
             }
 
@@ -139,7 +139,7 @@ export const ModalQuestionList = ({
           />
         }
 
-        { !validSMS && (typeof pin != "undefined" && pin.length >= 6) &&
+        { !validSMS && (typeof pin != "undefined" && pin.length >= 6) && (leftSMS !== 0) &&
           <>
             <ErrorDiv>
               <ErrorIcon>
