@@ -15,8 +15,6 @@ import { IProofCA } from "@vocdoni/data-models";
 import { CSP } from "@vocdoni/client"
 
 
-
-
 export interface VotingContext {
   pleaseWait: boolean,
   actionStep: number,
@@ -99,7 +97,6 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
   const [choices, setChoices] = useState([] as number[])
   const [authToken, setAuthToken] = useState<string>()
   const [phoneSuffix, setphoneSuffix] = useState<string>()
-
 
   const csp = new CSP(process.env.CSP_URL, process.env.CSP_PUB_KEY, process.env.CSP_API_VERSION)
 
