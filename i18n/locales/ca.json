@@ -616,7 +616,7 @@
         "creating_census": "Creant cens",
         "creating_process": "Creant procés",
         "creation": "Creació",
-        "credentials_not_accepted": "Credencials no vàlides. Posa't amb contacte amb l'entitat.",
+        "credentials_not_accepted": "Les credencials no són vàlides. Torneu-ho a provar. Si el problema persisteix truqueu al telèfon de suport a l'ús de la plataforma d'e-votació.",
         "define_the_timeframe_of_the_proposal": "Definició del termini del procés de votació",
         "delete_option": "Elimina aquesta opció",
         "delete_question": "Elimina aquesta pregunta",
@@ -900,6 +900,7 @@
         "login_text": "Mitjançant aquesta plataforma els presidents de les penyes podreu emetre el vostre vot. Per fer-ho, identifiqueu-vos mitjançant les credencials següents.",
         "login_subtext": "Per emetre el vostre vot us enviarem un codi a través d'un SMS al número de telèfon mòbil que tenim registrat. Si no us recordeu del vostre PIN o bé voleu canviar de telèfon mòbil, truqueu al número de suport a l'ús de la plataforma que hi ha al peu de pàgina.",
         "blank_option": "Vot en blanc",
+        "not_started": "La votació no ha començat",
         "enter": "Entra"
     }
 }

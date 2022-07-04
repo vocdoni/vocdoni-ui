@@ -926,7 +926,7 @@
     "login_subtext": "To cast your vote we will send you a code via SMS to the mobile phone number we have registered. If you do not remember your PIN or want to change your mobile phone, call the support number at the use of the platform in the footer.",
     "blank_option": "Blank vote",
     "enter": "Enter",
-    "not_started": "The voting act has not begun.",
-        "only_one_candidate": "Només s'ha presentat una candidatura. Per aquesta penya no hi haurà votació; la candidatura serà proclamada guanyadora quan s'hagi acabat el període de votació."
+    "not_started": "The voting act has not begun",
+    "only_one_candidate": "Només s'ha presentat una candidatura. Per aquesta penya no hi haurà votació; la candidatura serà proclamada guanyadora quan s'hagi acabat el període de votació."
   }
 }

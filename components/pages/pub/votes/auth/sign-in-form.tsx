@@ -21,6 +21,7 @@ import { useProcessWrapper } from '@hooks/use-process-wrapper'
 import { useUrlHash } from "use-url-hash"
 import { VoteStatus } from '@lib/util'
 import moment from 'moment'
+import { Icon } from '@components/elements-v2/icons'
 
 interface IFieldValues {
   [field: string]: string
@@ -150,6 +151,23 @@ export const SignInForm = ({
               </Row>
               <HiddenButton type="submit"></HiddenButton>
             </form>
+            <Col xs={12}>
+              {/*Error MSG*/}
+              {showError &&
+                <>
+                  <ErrorDiv>
+                    <ErrorIcon>
+                      <Icon
+                        name='warning'
+                        size={14}
+                        color='#B31B35'
+                      />
+                    </ErrorIcon>
+                    <ErrorText>{i18n.t('vote.credentials_not_accepted')}</ErrorText>
+                  </ErrorDiv>
+                </>
+              }
+            </Col>
           </Col>
           <Col xs={12}>
             <Row align='start' justify='start' gutter='xl'>
@@ -172,19 +190,7 @@ export const SignInForm = ({
                 <LightText>
                   {i18n.t('fcb.login_subtext')}
                 </LightText>
-              </Col>
-              <Col xs={12} md={7}>
-                {/*Error MSG*/}
-                {showError &&
-                  <Text
-                    color='error'
-                    size='sm'
-                    weight='bold'
-                  >
-                    {i18n.t('vote.credentials_not_accepted')}
-                  </Text>
-                }
-              </Col>
+              </Col>              
             </Row>
           </Col>
         </Row>
@@ -192,6 +198,36 @@ export const SignInForm = ({
     </SignInFormCard>
   )
 }
+
+const ErrorDiv = styled.div`
+  background: #FEE4D6;
+  padding: 15px 26px 16px;
+  border-radius: 12px;
+  margin-top: -15px;
+`
+
+const ErrorText = styled.div`
+  color: #B31B35;
+  padding-left: 10px;
+  margin-left: 5px;
+  line-height: 16px;
+  padding-top: 3px;
+  font-weight: 700;
+  margin-top: -3px;
+`
+
+const ErrorIcon = styled.div`
+  display:inline;
+  float:left;
+  margin-left:-10px;
+  padding-top: 15px;
+
+  @media ${({theme}) => theme.screenMax.mobileL} {
+    svg {
+      margin-top: 8px;
+    }
+  }
+`
 
 const HiddenButton = styled.button`
   visibility: hidden;
@@ -207,5 +243,5 @@ const LightText = styled.div`
   margin-top: 20px;
   font-size: 12px;
   color: #616E7C;
-  margin-bottom: -30px;
+  margin-bottom: 0px;
 `
