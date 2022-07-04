@@ -14,7 +14,6 @@ import { CspAuthentication, CspSignatures, CspSMSAuthenticator } from '@vocdoni/
 import { IProofCA } from "@vocdoni/data-models";
 import { CSP } from "@vocdoni/client"
 
-
 export interface VotingContext {
   pleaseWait: boolean,
   actionStep: number,
@@ -107,7 +106,6 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
     updateEnvelopeStatus()
   }, [processId, wallet, nullifier, blockHeight])
 
-
   // Census status
   // useEffect(() => {
   //   updateCensusStatus().catch(() => { })
@@ -168,7 +166,6 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
       })
   }
 
-
   const sumbitOTP = (authOTP: string) => {
     let userSecret
     CspAuthentication.authenticate("blind", [authOTP], authToken, 1, processId, csp)
@@ -185,7 +182,6 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
         const proof = CspSignatures.getProofFromBlindSignature(blindSignature, userSecret, wallet)
         setCensusProof(proof)
       })
-
   }
 
   const updateEnvelopeStatus = () => {

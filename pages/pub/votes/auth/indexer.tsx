@@ -21,24 +21,23 @@ import { useVoting } from '@hooks/use-voting'
 import { useRouter } from 'next/router'
 import { PREREGISTER_PATH, VOTING_PATH } from '@const/routes'
 import { VotingType } from '@lib/types'
-import { useIndexerForm } from '@hooks/use-indexer-form'
+import { useCSPForm } from '@hooks/use-csp-form'
 // NOTE: This page uses a custom Layout. See below.
 
 const VoteAuthLogin = () => {
   const { i18n } = useTranslation()
   const [checkingCredentials, setCheckingCredentials] = useState<boolean>(false)
   const {
-    invalidProcessId,
     emptyFields,
     fieldNames,
     formValues,
-    authFields,
     processId,
     loading,
     loadingError,
-    methods,
     invalidCredentials,
-  } = useIndexerForm()
+    onLogin,
+    setFormValue,
+  } = useCSPForm()
   const { methods: votingMethods } = useVoting(processId)
   const { loadingInfo,loadingInfoError, processInfo } = useProcessWrapper(processId)
   const { metadata, loading : loadingEntity, error: loadingEntityError } = useEntity(processInfo?.state?.entityId)
@@ -50,11 +49,10 @@ const VoteAuthLogin = () => {
     votingMethods.cleanup()
   }, [])
 
-
   const handleSubmit = async () => {
     setCheckingCredentials(true)
 
-    methods.onLogin()
+    onLogin()
       .finally(() => {
         setCheckingCredentials(false)
       })
@@ -102,7 +100,7 @@ const VoteAuthLogin = () => {
           fields={fieldNames}
           values={formValues}
           entity={metadata}
-          onChange={methods.setFormValue}
+          onChange={setFormValue}
           onSubmit={handleSubmit}
           submitEnabled={!emptyFields}
           invalidCredentials={invalidCredentials}
