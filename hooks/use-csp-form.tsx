@@ -4,8 +4,10 @@ import { CSP } from '@vocdoni/client'
 import { strip0x } from '@vocdoni/common'
 import { CspIndexer, CspSMSAuthenticator } from '@vocdoni/csp'
 import { Symmetric } from '@vocdoni/encryption'
+import { Wallet } from 'ethers'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
+import i18n from '../i18n'
 import { useMessageAlert } from './message-alert'
 import { useWallet, WalletRoles } from './use-wallet'
 
@@ -63,7 +65,9 @@ export const useCSPForm = () => {
       return await CspIndexer.getUserProcesses(strip0x(voterWallet.privateKey), csp)
         .then(processes => {
           if (processes.length != 1) throw new Error("No process found for user")
+          console.log('received processes:', processes)
           electionId = processes[0]["electionId"]
+          console.log('election id:', electionId)
           setRemainingAttempts(Number(processes[0]["remainingAttempts"]))
 
           console.log("consumed:" + String(processes[0]["consumed"]));
@@ -77,10 +81,10 @@ export const useCSPForm = () => {
           router.push(VOTING_PATH + "#/" + "0x" + electionId)
         })
         .catch(err => {
+          setLoading(false)
           setInvalidCredentials(true)
-          setLoadingError(err)
           setAlertMessage(i18n.t("errors.the_contents_you_entered_may_be_incorrect"))
-          throw new Error(err)
+          throw err
         })
     },
     setFormValue: (key: string, value: string) => {

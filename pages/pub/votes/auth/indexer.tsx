@@ -56,6 +56,7 @@ const VoteAuthLogin = () => {
       .finally(() => {
         setCheckingCredentials(false)
       })
+      .catch((err) => console.error('login failed', err))
   }
 
   // const renderLoadingPage = new ViewStrategy(
