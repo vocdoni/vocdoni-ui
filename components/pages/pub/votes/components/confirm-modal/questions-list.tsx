@@ -12,6 +12,8 @@ import { Icon } from '@components/elements-v2/icons'
 import { InputFormGroup } from '@components/blocks/form'
 
 import { Spacer, Input } from '@components/elements-v2'
+import { useCSPForm } from '@hooks/use-csp-form'
+import { If, Then } from 'react-if'
 
 interface IModalQuestionList {
   questions: Question[]
@@ -37,22 +39,41 @@ export const ModalQuestionList = ({
   const { i18n } = useTranslation()
   const [validSMS, setValidSMS] = useState<boolean>(false)
   const [leftSMS, setLeftSMS] = useState<number>(remainingAttempts)
-  const [phoneNum, setPhoneNum] = useState<string>('54')
-  const [SMSPin, setSMSPin] = useState<string>('555555')
   const [pin, setPin] = useState<string>()
+  const [firstSent, setFirstSent] = useState<boolean>(false)
+  const { phoneSuffix } = useCSPForm()
 
-  const checkSMS = (value: string) => {
-    if (value.length === 6) {
-      setValidSMS(value === SMSPin)
-
-      if(value !== SMSPin){
-        setLeftSMS(leftSMS-1)
-      }
-    }
+  const sendMessage = () => {
+    sendSMS()
+    setLeftSMS(leftSMS -1)
   }
 
-  const setSMS = (value: string) => {
+  useEffect(() => {
+    ;(async () => {
+      if (firstSent) return
+      setFirstSent(true)
+      await sendMessage()
+      console.log('phone suffix after sending first message:', phoneSuffix)
+    })()
+  }, [firstSent])
+
+  const checkSMS = async (value: string) => {
+    setValidSMS(true)
     setPin(value)
+
+    if (value.length !== 6) {
+      setValidSMS(false)
+      return false
+    }
+
+    try {
+      await submitOTP(value)
+      setLeftSMS(leftSMS - 1)
+      setValidSMS(true)
+    } catch (e) {
+      setValidSMS(false)
+      console.error('invalid OTP:', e)
+    }
   }
 
   const renderQuestion = (question: Question, choice: Choice, index) => (
@@ -112,7 +133,7 @@ export const ModalQuestionList = ({
 
       <div>
         <HeaderText>{i18n.t('fcb.enter_your_sms')}</HeaderText>
-        { leftSMS === 0 &&
+        { leftSMS < 0 &&
           <Column>
             <WarningIcon>
               <Icon
@@ -125,7 +146,7 @@ export const ModalQuestionList = ({
           </Column>
         }
 
-        { leftSMS !== 0 &&
+        { leftSMS >= 0 &&
           <InputFormGroup
             label={null}
             type='text'
@@ -134,12 +155,11 @@ export const ModalQuestionList = ({
             value={pin}
             onChange={(event: ChangeEvent<HTMLInputElement>) => {
               checkSMS(event.target.value)
-              setSMS(event.target.value)
             }}
           />
         }
 
-        { !validSMS && (typeof pin != "undefined" && pin.length >= 6) && (leftSMS !== 0) &&
+        { !validSMS && (typeof pin != "undefined" && pin.length >= 6) && (leftSMS >= 0) &&
           <>
             <ErrorDiv>
               <ErrorIcon>
@@ -187,22 +207,26 @@ export const ModalQuestionList = ({
           :
 
           <>
-            <Column sm={7}>
-              <Button
-                wide
-                fcb
-                onClick={null}
-                disabled={sendingVote}
-                spinner={sendingVote}
-              >
-                { (leftSMS >= 5) ? <>{i18n.t('fcb.send_me_SMS')}</> : <>{i18n.t('fcb.resend_me_SMS')}</> }
-              </Button>
-            </Column>
+            <If condition={leftSMS > 0}>
+              <Then>
+                <Column sm={7}>
+                  <Button
+                    wide
+                    fcb
+                    onClick={sendSMS}
+                    disabled={sendingVote}
+                    spinner={sendingVote}
+                  >
+                    { (leftSMS >= 5) ? <>{i18n.t('fcb.send_me_SMS')}</> : <>{i18n.t('fcb.resend_me_SMS')}</> }
+                  </Button>
+                </Column>
+              </Then>
+            </If>
 
             <Spacer direction='vertical' size='md' />
 
             <NeutralColor>
-              <strong>{i18n.t('fcb.available_SMS',{ numSMS: leftSMS, phoneNum: phoneNum})}</strong>
+              <strong>{i18n.t('fcb.available_SMS',{ numSMS: leftSMS, phoneNum: phoneSuffix})}</strong>
             </NeutralColor>
           </>
         }

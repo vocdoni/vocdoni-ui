@@ -13,6 +13,7 @@ import { useRecoilState } from 'recoil'
 import { CspAuthentication, CspSignatures, CspSMSAuthenticator } from '@vocdoni/csp'
 import { IProofCA } from "@vocdoni/data-models";
 import { CSP } from "@vocdoni/client"
+import { useCSPForm } from './use-csp-form'
 
 export interface VotingContext {
   pleaseWait: boolean,
@@ -95,7 +96,7 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
   const [refreshingVotedStatus, setRefreshingVotedStatus] = useState(false)
   const [choices, setChoices] = useState([] as number[])
   const [authToken, setAuthToken] = useState<string>()
-  const [phoneSuffix, setphoneSuffix] = useState<string>()
+  const { setPhoneSuffix } = useCSPForm()
 
   const csp = new CSP(process.env.CSP_URL, process.env.CSP_PUB_KEY, process.env.CSP_API_VERSION)
 
@@ -158,10 +159,11 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
           throw new Error(err)
         }
         setAuthToken(authResp1['authToken'])
-        setphoneSuffix(authResp1.response[0])
+        console.log('received authresponse:', authResp1.response[0])
+        setPhoneSuffix(authResp1.response[0])
+        console.log('set phone suffix to', authResp1.response[0])
       })
       .catch((err) => {
-        setRefreshingVotedStatus(false)
         console.error(err)
       })
   }
@@ -246,22 +248,21 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
     try {
       const pool = await poolPromise
 
-      let processKeys = null
-      // Detect encryption
-      if (processInfo.state?.envelopeType.encryptedVotes) {
-        processKeys = await VotingApi.getProcessKeys(processId, pool)
-      }
-
-
-      const envelope = await Voting.packageSignedEnvelope({
+      let envelope = {
         censusOrigin: ProcessCensusOrigin.OFF_CHAIN_CA,
         votes: choices,
         censusProof,
         processId,
-        processKeys
-      })
-      await VotingApi.submitEnvelope(envelope, wallet, pool)
+      }
+      // Detect encryption
+      if (processInfo.state?.envelopeType.encryptedVotes) {
+        envelope.processKeys = await VotingApi.getProcessKeys(processId, pool)
+      }
 
+      console.log('envelope before sending:', envelope)
+      envelope = await Voting.packageSignedEnvelope(envelope)
+      console.log('envelope after sending:', envelope)
+      await VotingApi.submitEnvelope(envelope, wallet, pool)
 
       return { waitNext: false }
     } catch (err) {
@@ -324,9 +325,6 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
   const isInCensus = !!censusProof
 
   const canVote = processInfo && nullifier && isInCensus && !hasVoted && hasStarted && !hasEnded
-
-
-
 
   // RETURN VALUES
   const value: VotingContext = {

@@ -6,23 +6,61 @@ import { CspIndexer, CspSMSAuthenticator } from '@vocdoni/csp'
 import { Symmetric } from '@vocdoni/encryption'
 import { Wallet } from 'ethers'
 import { useRouter } from 'next/router'
-import { useState } from 'react'
+import { createContext, ReactNode, useContext, useEffect, useState } from 'react'
 import i18n from '../i18n'
 import { useMessageAlert } from './message-alert'
 import { useWallet, WalletRoles } from './use-wallet'
 
+export interface CSPState {
+  remainingAttempts: number
+  setAttempts: (attempts: number) => void
+  consumed: boolean
+  setConsumed: (consumed: boolean) => void
+  phoneSuffix: string
+  setPhoneSuffix: (suffix: string) => void
+}
+
+export const CSPContext = createContext<CSPState>({
+  remainingAttempts: 0,
+  setAttempts: (attempts) => {},
+  consumed: true,
+  setConsumed: (consumed) => {},
+  phoneSuffix: '**',
+  setPhoneSuffix: (suffix) => {}
+})
+
+export const CSPProvider = ({children} : {children: ReactNode}) => {
+  const [attempts, setAttempts] = useState<number>(0)
+  const [consumed, setConsumed] = useState<boolean>(true)
+  const [phoneSuffix, setPhoneSuffix] = useState<string>('**')
+
+  const value = {
+    remainingAttempts: attempts,
+    setAttempts,
+    consumed,
+    setConsumed,
+    phoneSuffix,
+    setPhoneSuffix,
+  }
+
+  return (
+    <CSPContext.Provider value={value}>
+      {children}
+    </CSPContext.Provider>
+  )
+}
+
 export const useCSPForm = () => {
+  const cspCtxt = useContext(CSPContext)
+  const router = useRouter()
   const [ formValues, setFormValues ] = useState<{ [k: string]: string }>({})
   const [ loading, setLoading ] = useState<boolean>(false)
   const [ processId, setProcessId ] = useState<string>()
   const [ loadingError, setLoadingError ] = useState<string>()
   const [ invalidCredentials, setInvalidCredentials ] = useState<boolean>(false)
-  const [ remainingAttempts, setRemainingAttempts ] = useState<number>(0)
-  const [ consumed, setConsumed ] = useState<boolean>(false)
-
   const { setAlertMessage } = useMessageAlert()
   const { setWallet, wallet } = useWallet({ role: WalletRoles.VOTER })
-  const router = useRouter()
+  const { setAttempts, setConsumed } = cspCtxt
 
   const emptyFields = !formValues || Object.values(formValues).some(v => !v)
 
@@ -35,6 +73,7 @@ export const useCSPForm = () => {
   const salt = 'b297ed61bb6195919075c18677a56fd1cd7b54c4b5e64efb573e8e030fc05163'
 
   return {
+    ...cspCtxt,
     formValues,
     emptyFields,
     fieldNames,
@@ -67,10 +106,8 @@ export const useCSPForm = () => {
           if (processes.length != 1) throw new Error("No process found for user")
           console.log('received processes:', processes)
           electionId = processes[0]["electionId"]
-          console.log('election id:', electionId)
-          setRemainingAttempts(Number(processes[0]["remainingAttempts"]))
+          setAttempts(Number(processes[0]["remainingAttempts"]))
 
-          console.log("consumed:" + String(processes[0]["consumed"]));
           setConsumed(Boolean(processes[0]["consumed"]))
           setProcessId(electionId)
 

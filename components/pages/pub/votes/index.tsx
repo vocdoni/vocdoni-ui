@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from 'react'
 import { useRecoilValue } from 'recoil'
 import styled from 'styled-components'
@@ -41,8 +42,8 @@ import { dateDiffStr, DateDiffType } from '@lib/date-moment'
 import { MetadataFields } from '@components/pages/votes/new/metadata'
 import { useAuthForm } from '@hooks/use-auth-form'
 import { Symmetric } from 'dvote-js'
-import { useIndexerForm } from '@hooks/use-indexer-form'
 import { CspSMSAuthenticator } from '@vocdoni/csp'
+import { useCSPForm } from '@hooks/use-csp-form'
 export enum UserVoteStatus {
   /**
    * User is voting right now
@@ -82,7 +83,7 @@ export const VotingPageView = () => {
   const [disconnectModalOpened, setDisconnectModalOpened] = useState(false)
   const isMobile = useIsMobile()
   const censusProof = useRecoilValue(censusProofState)
-  const {remainingAttempts}= useIndexerForm()
+  const { remainingAttempts, consumed } = useCSPForm()
 
   const { methods: votingMethods, choices, hasVoted, results, explorerLink } = useVoting(
     processId
@@ -100,13 +101,14 @@ export const VotingPageView = () => {
    */
   const [userVoteStatus, setUserVoteStatus] = useState<UserVoteStatus>(UserVoteStatus.NotEmitted)
   const { blockStatus } = useBlockStatus()
+  const { phoneSuffix } = useCSPForm()
   const blockHeight = blockStatus?.blockNumber
   const voteStatus: VoteStatus = getVoteStatus(processInfo?.state, blockHeight)
   // const entityMetadata = metadata as EntityMetadata
   const resultsCardRef = useRef(null)
   const questionsInlineRef = useRef(null)
   // used for getting the ending in and starting in string
-  const [now, setNow] = useState(new Date)
+  // const [now, setNow] = useState(new Date)
   const [anonymousFormData, setAnonymousFormData] = useState('')
 
   // @TODO move to the params received from the voting creation
@@ -124,12 +126,12 @@ export const VotingPageView = () => {
     }
   }, [status])
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setNow(new Date)
-    }, 1000)
-    return () => clearInterval(interval);
-  }, [])
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     setNow(new Date)
+  //   }, 1000)
+  //   return () => clearInterval(interval);
+  // }, [])
   const endingString = dateDiffStr(DateDiffType.Countdown, endDate)
   const startingString = dateDiffStr(DateDiffType.Countdown, startDate)
   /**
@@ -140,7 +142,7 @@ export const VotingPageView = () => {
       handleGotoAuth()
     }
 
-    if (hasVoted) {
+    if (consumed) {
       return setUserVoteStatus(UserVoteStatus.Emitted)
     }
 
@@ -152,7 +154,7 @@ export const VotingPageView = () => {
       return setUserVoteStatus(UserVoteStatus.Expired)
     }
 
-    if(isInlineVotingProcess) {
+    if (isInlineVotingProcess) {
       return setUserVoteStatus(UserVoteStatus.InProgress)
     }
 
@@ -458,14 +460,16 @@ export const VotingPageView = () => {
                 <Spacer direction='vertical' size='3xl' />
 
                 <If condition={false && status == VoteStatus.Ended}>
-                  {/* RESULTS CARD */}
-                  <BodyContainer>
-                    <Row gutter='2xl'>
-                      <Col xs={12}>
-                        <ResultsCard />
-                      </Col>
-                    </Row>
-                  </BodyContainer>
+                  <Then>
+                    {/* RESULTS CARD */}
+                    <BodyContainer>
+                      <Row gutter='2xl'>
+                        <Col xs={12}>
+                          <ResultsCard />
+                        </Col>
+                      </Row>
+                    </BodyContainer>
+                  </Then>
                 </If>
               </Then>
               <Else>
@@ -618,7 +622,7 @@ export const VotingPageView = () => {
           </>
         }
       </VotingCard>
-
+        {console.log('remaining:', remainingAttempts)}
       {/* MODALS */}
       <ConfirmModal
         isOpen={confirmModalOpened}
