@@ -166,7 +166,7 @@ export const ModalQuestionList = ({
         }
 
         { validSMS ? 
-          <Column xs={12} sm={8}>
+          <Column sm={12} md={8}>
             <Button
               wide
               fcb
@@ -181,7 +181,7 @@ export const ModalQuestionList = ({
           :
 
           <>
-            <Column xs={12} sm={8}>
+            <Column sm={12} md={8}>
               <Button
                 wide
                 fcb
