@@ -23,7 +23,7 @@ interface IModalQuestionList {
   onSubmit: () => void
   remainingAttempts: number
   sendSMS: () => void
-  submitOTP: () => void
+  submitOTP: (value: string) => void
 }
 
 export const ModalQuestionList = ({

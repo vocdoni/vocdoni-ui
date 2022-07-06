@@ -47,8 +47,8 @@ export interface VotingContext {
     cleanup: () => void,
     submitVote: () => Promise<void>,
     continueSubmitVote: () => Promise<void>
-    sendSMS
-    sumbitOTP
+    sendSMS: () => void
+    submitOTP: (value: string) => void
   }
 }
 
@@ -168,7 +168,7 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
       })
   }
 
-  const sumbitOTP = (authOTP: string) => {
+  const submitOTP = (authOTP: string) => {
     let userSecret
     CspAuthentication.authenticate("blind", [authOTP], authToken, 1, processId, csp)
       .then(resp => {
@@ -247,21 +247,19 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
   const ensureVoteSubmission: StepperFunc = async () => {
     try {
       const pool = await poolPromise
+      let processKeys = null
+      // Detect encryption
+      if (processInfo.state?.envelopeType.encryptedVotes) {
+        processKeys = await VotingApi.getProcessKeys(processId, pool)
+      }
 
-      let envelope = {
+      const envelope = await Voting.packageSignedEnvelope({
         censusOrigin: ProcessCensusOrigin.OFF_CHAIN_CA,
         votes: choices,
         censusProof,
         processId,
-      }
-      // Detect encryption
-      if (processInfo.state?.envelopeType.encryptedVotes) {
-        envelope.processKeys = await VotingApi.getProcessKeys(processId, pool)
-      }
-
-      console.log('envelope before sending:', envelope)
-      envelope = await Voting.packageSignedEnvelope(envelope)
-      console.log('envelope after sending:', envelope)
+        processKeys,
+      })
       await VotingApi.submitEnvelope(envelope, wallet, pool)
 
       return { waitNext: false }
@@ -355,7 +353,7 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
       onSelect,
       cleanup,
       sendSMS,
-      sumbitOTP,
+      submitOTP,
 
       submitVote: doMainActionSteps,
       continueSubmitVote: doMainActionSteps

@@ -630,7 +630,7 @@ export const VotingPageView = () => {
         onClose={handleBackToVoting}
         remainingAttempts={remainingAttempts}
         sendSMS={votingMethods.sendSMS}
-        submitOTP={votingMethods.sumbitOTP}
+        submitOTP={votingMethods.submitOTP}
       />
       <DisconnectModal
         hideCloseButton

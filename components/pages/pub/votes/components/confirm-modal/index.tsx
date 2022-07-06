@@ -17,7 +17,7 @@ interface IConfigModal {
   onClose: () => void
   onVoted: () => void
   sendSMS: () => void
-  submitOTP: () => void
+  submitOTP: (value: string) => void
   remainingAttempts: number
 }
 
