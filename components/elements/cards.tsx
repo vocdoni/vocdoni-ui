@@ -56,6 +56,8 @@ export const PageCardHeader = styled.div<{ variant?: PageCardHeaderVariant }>`
   overflow: hidden;
   max-height: 250px;
   min-height: 80px;
+  display: flex;
+  background: #f4d900;
 
   ${({ theme, variant }) =>
     PageCardHeaderVariantStyle[variant || PageCardHeaderVariant.Image](
@@ -64,10 +66,15 @@ export const PageCardHeader = styled.div<{ variant?: PageCardHeaderVariant }>`
   
   @media ${({ theme }) => theme.screenMax.mobileL} {
     border-radius: 0;
-    max-height: 120px;
-    height: 120px;
-  }
-    
+    max-height: 220px;
+    height: 220px;
+  } 
+
+  @media ${({ theme }) => theme.screenMax.tabletL} {
+    border-radius: 0;
+    max-height: 190px;
+    height: 190px;
+  }    
 `
 
 export const Card = ({ span, sm, md, lg, xl, border, ...props }: CardProps) => (
