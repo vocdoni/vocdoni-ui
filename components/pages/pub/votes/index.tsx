@@ -291,11 +291,6 @@ export const VotingPageView = () => {
 
         { isOneCandidate &&
           <BodyContainer>
-            {/* DESCIRPTION */}
-            <Col xs={12} md={12}>
-              <VoteDescription />
-            </Col>
-
             <Spacer direction='vertical' size='3xl' />
             <Spacer direction='vertical' size='3xl' />
             <Spacer direction='vertical' size='3xl' />
@@ -309,22 +304,26 @@ export const VotingPageView = () => {
 
               { (voteStatus === VoteStatus.Active || voteStatus === VoteStatus.Upcoming) &&
                 <>
-                  <div>
+                  <OneCandidateDiv>
                     {i18n.t('fcb.only_one_candidate')}
-                  </div>
+                  </OneCandidateDiv>
+
                   <QuestionsContainer>
                     <div key={0}>
                       <div>
                         <OptionsContainer>
-                          <Radio
-                            name={`question-1`}
-                            key={0}
-                            checked={false}
-                            onClick={() => (0)}
-                            disabled={true}
-                          >
-                            {processInfo?.metadata?.questions[0].choices[0].title.default}
-                          </Radio>
+                          {/*
+                            <Radio
+                              name={`question-1`}
+                              key={0}
+                              checked={false}
+                              onClick={() => (0)}
+                              disabled={true}
+                            >
+                              {processInfo?.metadata?.questions[0].choices[0].title.default}
+                            </Radio>
+                          */}
+                          {processInfo?.metadata?.questions[0].choices[0].title.default}
                         </OptionsContainer>
                       </div>
                     </div>
@@ -361,7 +360,7 @@ export const VotingPageView = () => {
 
         { !isOneCandidate &&
           <>
-            <If condition={(userVoteStatus !== UserVoteStatus.InProgress || isInlineVotingProcess) && !isOneCandidate}>
+            <If condition={(userVoteStatus !== UserVoteStatus.InProgress || isInlineVotingProcess)}>
               <Then>
                 <BodyContainer>
                   <Row gutter='2xl'>
@@ -441,7 +440,7 @@ export const VotingPageView = () => {
                   }
 
                   {/* INLINE QUESTIONS */}
-                  <If condition={isInlineVotingProcess && !hasVoted && status !== VoteStatus.Ended}>
+                  <If condition={isInlineVotingProcess && !hasVoted && status === VoteStatus.Active}>
                     <Then>
                       <QuestionsListInline
                         ref={questionsInlineRef}
@@ -676,24 +675,11 @@ function anonymizeStrings(strings: string[]): string[] {
   return anonymizedStrings
 }
 
-const renderQuestion = (question: Question, choice: Choice, index) => (
-    <div key={index}>
-      <div>
-        <OptionsContainer>
-          <Radio
-            name={`question-1`}
-            key={index}
-            checked={false}
-            onClick={() => (index)}
-            disabled={true}
-          >
-            {choice?.title.default}
-          </Radio>
-        </OptionsContainer>
-      </div>
-    </div>
-  )
 
+const OneCandidateDiv = styled.div`
+  font-size: 18px;
+  font-weight: 600;
+`
 
 const NoVottingDiv = styled.div`
   padding: 0px 10px;
@@ -712,9 +698,9 @@ const QuestionsContainer = styled.div`
 `
 
 const OptionsContainer = styled.div`
-  padding: 0px 10px;
-  margin-bottom: 20px;
-  margin-top: 20px;
+  margin-bottom: 40px;
+  margin-top: 40px;
+  font-size: 18px;
 `
 
 export const IconSpacer = styled.div`
@@ -808,11 +794,11 @@ min-height: 72px;
 }
 `
 const UpcomingNotice = styled.div`
-  font-size: 16px;
+  font-size: 20px;
   padding: 20px 30px;
   border: 2px solid #2E377A;
   border-radius: 12px;
-  font-weight: 600;
+  font-weight: 700;
 `
 
 const TitleH3 = styled.h3`

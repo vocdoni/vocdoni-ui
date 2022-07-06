@@ -204,6 +204,7 @@ const ErrorDiv = styled.div`
   padding: 15px 26px 16px;
   border-radius: 12px;
   margin-top: -15px;
+  margin-right: -20px;
 `
 
 const ErrorText = styled.div`
@@ -238,6 +239,10 @@ const StyledFieldset = styled.fieldset`
   width: 100%;
   border: none;
   margin: auto;
+
+  @media ${({theme}) => theme.screenMax.mobileL} {
+    margin-left:-10px;
+  }
 `
 const LightText = styled.div`
   margin-top: 20px;
