@@ -902,18 +902,18 @@
     "confirmation_code": " Your confirmation code is: ",
     "vote_registered": "Your vote has been registered successfully. The results will be made public from ",
     "vote_finalized": " once the voting process is complete.",
-    "confirm_your_vote_text": "If the chosen option is correct, press the` Send SMS` button and you will receive an SMS on your mobile phone. Once you have entered the code sent to your mobile phone correctly, you will be able to send your vote (so anonymous) by pressing the `Send my vote` button.",
+    "confirm_your_vote_text": "If the chosen option is correct, press the `Send code via SMS` button and you will receive an SMS on your mobile phone. Once you have entered the code sent to your mobile phone correctly, you will be able to send your vote (so anonymous) by pressing the `Send my vote` button.",
     "enter_your_sms": "Enter the code you received via SMS (4 digits)",
-    "resend_me_SMS": "Resend the SMS",
+    "resend_me_SMS": "Resend code via SMS",
     "available_SMS": "You have {{numSMS}} SMS left. The telephone number we have registered is: +** ******{{phoneNum}}. If it is not valid, call +34 888 888 888.",
-    "upcoming_vote": "Voting time: 21/07/2022 10:00am CEST to 22/07/2022 11:59am CEST.",
+    "upcoming_vote": "The voting period is from 21/07/2022 10:00am CEST to 22/07/2022 11:59am CEST.",
     "you_have_voted": "You have already voted",
     "voting_finished": "Voting Ended",
     "voting_finished_msg": "The voting process is complete, you can find the results at this link: ",
     "voting_period": "Voting period: from {{startDate}} to {{endDate}}",
     "continue": "Continue",
     "only_one_vote": "Please note that you can only cast one vote.",
-    "send_me_SMS": "Send me an SMS code",
+    "send_me_SMS": "Send code via SMS",
     "end_date": "22/07/2022 11:59 CEST",
     "candidates": "The candidates are as follows:",
     "select_candidates": "Choose your candidate. The “Continue” button will take you to the confirmation screen.",
@@ -927,6 +927,8 @@
     "blank_option": "Blank vote",
     "enter": "Enter",
     "not_started": "The voting act has not begun",
-    "only_one_candidate": "Voting is not held in this area.In the case of the presentation of a single candidacy, the Electoral Board proclaims the new delegate of the Supporters Clubs Consultative Council."
+    "only_one_candidate": "Voting is not held in this area. In the case of the presentation of a single candidacy, the Electoral Board proclaims the new delegate of the Supporters Clubs Consultative Council.",
+    "upcoming_voting_tag": "The voting process has not begun yet",
+    "process_title": "ELECCIONS CONSELL CONSULTIU DE PENYES"
   }
 }

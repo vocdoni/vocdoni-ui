@@ -288,7 +288,7 @@
         "please_confirm_your_passphrase": "Si et plau, confirma la contrasenya",
         "please_ensure_no_incognito_mode": "Si et plau, assegura't que no fas servir navegació privada",
         "please_enter_a_passphrase": "Si et plau, introdueix una contrasenya",
-        "please_fill_in_all_the_fields": "Si et plau, omple tots els camps",
+        "please_fill_in_all_the_fields": "Heu d'omplir tots els camps",
         "please_repeat_the_passphrase": "Si et plau, repeteix la contrasenya",
         "please_select_and_fill_all_recovery_questions": "Si et plau, selecciona i completa totes les preguntes de recuperació",
         "process": {
@@ -878,18 +878,19 @@
         "confirmation_code": " El vostre codi de confirmació és: ",
         "vote_registered": "La Junta Electoral proclamarà les candidatures guanyadores el 26 de juliol.",
         "vote_finalized": " un cop finalitzat el procés de votació.",
-        "confirm_your_vote_text": "Premeu el botó \"Envieu-me un codi per SMS\" i entreu el codi que rebreu al mòbil per emetre el vostre vot o bé tanqueu aquesta finestreta per tornar a la pantalla anterior. Truqueu al telèfon de suport a l'ús de la plataforma d'e-votació per canviar de número de telèfon mòbil.",
+        "confirm_your_vote_text": "Premeu el botó \"Envieu-me un codi SMS\" i entreu el codi que rebreu al mòbil per emetre el vostre vot o bé tanqueu aquesta finestreta per tornar a la pantalla anterior. Truqueu al telèfon de suport a l'ús de la plataforma d'e-votació per canviar de número de telèfon mòbil.",
         "enter_your_sms": "Entreu el codi que heu rebut per SMS",
+        "resend_me_SMS": "Reenvieu-me un codi SMS",
         "send_me_SMS": "Envieu-me un altre codi per SMS",
-        "available_SMS": "Disposes de {{numSMS}} SMS. El número de telèfon que tenim registrat és: +** ******{{phoneNum}}. Si no és vàlid, truqueu al +34 888 888 888",
-        "upcoming_vote": "Període de votació: de 21/07/2022 10:00 CEST a 22/07/2022 11:59 CEST.",
+        "available_SMS": "Disposeu de {{numSMS}} SMS. El número de telèfon que tenim registrat és: +** ******{{phoneNum}}. Si no és correcte, truqueu al número de suport a l'ús de la plataforma que hi ha al peu de pàgina.",
+        "upcoming_vote": "El període de votació compren del 21/07/2022 10:00 CEST al 22/07/2022 11:59 CEST",
         "you_have_voted": "Ja has votat",
         "voting_finished": "Votació finalitzada",
         "voting_finished_msg": "El procés de votació s'ha completat, podeu trobar els resultats en aquest enllaç: ",
         "voting_period": "Període de votació: del {{startDate}} fins al {{endDate}}",
         "continue": "Continua",
         "only_one_vote": "Tingueu present que només podeu emetre un vot.",
-        "send_me_SMS": "Envieu-me un codi per SMS",
+        "send_me_SMS": "Envieu-me un codi SMS",
         "end_date": "22/07/2022 11:59 CEST",
         "candidates": "Les persones candidates son les següents:",
         "select_candidates": "Trieu el vostre candidat. El botó «Continua» us portarà a la pantalla de confirmació de la vostra tria.",
@@ -902,6 +903,8 @@
         "blank_option": "Vot en blanc",
         "not_started": "La votació no ha començat",
         "enter": "Entra",
-        "only_one_candidate": "En aquesta zona no es fa acte de votació. En el cas de presentació d'una única candidatura, la Junta Electoral proclama el nou delegat del Consell Consultiu de Penyes."
+        "only_one_candidate": "En aquesta zona no es fa acte de votació. En el cas de presentació d'una única candidatura, la Junta Electoral proclama el nou delegat del Consell Consultiu de Penyes.",
+        "upcoming_voting_tag": "El procés de votació encara no ha començat",
+        "process_title": "ELECCIONS CONSELL CONSULTIU DE PENYES"
     }
 }

@@ -166,7 +166,7 @@ export const ModalQuestionList = ({
         }
 
         { validSMS ? 
-          <Column sm={6}>
+          <Column xs={12} sm={8}>
             <Button
               wide
               fcb
@@ -181,7 +181,7 @@ export const ModalQuestionList = ({
           :
 
           <>
-            <Column sm={7}>
+            <Column xs={12} sm={8}>
               <Button
                 wide
                 fcb
@@ -292,7 +292,7 @@ const ModalContent = styled.div`
 `
 
 const QuestionsContainer = styled.div`
-  overflow-y: scroll;
+  overflow-y: hidden;
   overflow-x: hidden;
   max-height: 300px;
 
