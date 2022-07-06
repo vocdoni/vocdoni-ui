@@ -288,7 +288,7 @@
         "please_confirm_your_passphrase": "Por favor, confirma contraseña",
         "please_ensure_no_incognito_mode": "Por favor, asegurate que no utilizas navegación privada",
         "please_enter_a_passphrase": "Por favor, introduce una contraseña",
-        "please_fill_in_all_the_fields": "Por favor, rellena todos los campos",
+        "please_fill_in_all_the_fields": "Debe rellenar todos los campos",
         "please_repeat_the_passphrase": "Por favor, repite la contraseña",
         "please_select_and_fill_all_recovery_questions": "Por favor, selecciona y completa todas las preguntas de recuperación",
         "process": {
@@ -875,18 +875,19 @@
         "confirmation_code": " Su código de confirmación es: ",
         "vote_registered": "Su voto ha sido registrado correctamente. Los resultados se harán públicos a partir del ",
         "vote_finalized": " una vez finalizado el proceso de votación.",
-        "confirm_your_vote_text": "Pulse el botón \"Envíeme un código por SMS\" y entre el código que recibirá en el móvil para emitir su voto o bien cierre esta ventana para volver a la pantalla anterior. Llame al teléfono de soporte al uso de la plataforma de e-votación para cambiar de número de teléfono móvil.",
+        "confirm_your_vote_text": "Pulse el botón \"Envíeme un código SMS\" y entre el código que recibirá en el móvil para emitir su voto o bien cierre esta ventana para volver a la pantalla anterior. Llame al teléfono de soporte al uso de la plataforma de e-votación para cambiar de número de teléfono móvil.",
         "enter_your_sms": "Introduzca el código que ha recibido por SMS",
-        "send_me_SMS": "Reenvía el SMS",
+        "resend_me_SMS": "Reenvíeme un código SMS",
+        "send_me_SMS": "Envíeme un código SMS",
         "available_SMS": "Dispone de {{numSMS}} SMS. El nº de teléfono que tenemos registrado es: +** ******{{phoneNum}}. Si no es válido, llame al +34 888 888 888.",
-        "upcoming_vote": "Periodo de votación: 21/07/2022 10:00 CEST a 22/07/2022 11:59 CEST.",
+        "upcoming_vote": "El período de votación comprende del 21/07/2022 10:00 CEST al 22/07/2022 11:59 CEST.",
         "you_have_voted": "Ya has votado",
         "voting_finished": "Votación finalizada",
         "voting_finished_msg": "El proceso de votación ha finalizado, puede encontrar los resultados en este link: ",
         "voting_period": "Período de votación: de {{startDate}} hasta el {{endDate}}",
         "continue": "Continua",
         "only_one_vote": "Tenga presente que sólo puede emitir un voto.",
-        "send_me_SMS": "Envíeme un código por SMS",
+        "send_me_SMS": "Envíeme un código SMS",
         "end_date": "22/07/2022 11:59 CEST",
         "candidates": "Las personas candidatas son las siguientes:",
         "select_candidates": "Elija su candidato. El botón «Continuar» le llevará a la pantalla de confirmación de su elección.",
@@ -902,6 +903,8 @@
         "blank_option": "Voto en blanco",
         "enter": "Entra",
         "not_started": "El proceso de votación no ha comenzado",
-        "only_one_candidate": "En esta zona no se celebra acto de votación. En el caso de presentación de una única candidatura, la Junta Electoral proclama el nuevo delegado del Consejo Consultivo de Peñas."
+        "only_one_candidate": "En esta zona no se celebra acto de votación. En el caso de presentación de una única candidatura, la Junta Electoral proclama el nuevo delegado del Consejo Consultivo de Peñas.",
+        "upcoming_voting_tag": "El proceso de votación aún no ha empezado",
+        "process_title": "ELECCIONES CONSEJO CONSULTIVO DE PEÑAS"
     }
 }
