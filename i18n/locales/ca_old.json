@@ -35,7 +35,8 @@
         "voting_results_show": "Mostrar",
         "voting_results_title": "Resultats de la Votació",
         "yes_submit_the_vote": "Sí, envia el meu vot",
-        "your_choice": "La teva selecció"
+        "your_choice": "La teva selecció",
+        "vote_process_image_alt": "Imatge del procés"
     },
     "votes": {
         "number_votes": "",

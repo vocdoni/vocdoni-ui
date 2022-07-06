@@ -31,7 +31,8 @@
         "voting_results_show": "Mostrar",
         "voting_results_title": "Resultados de la votación",
         "yes_submit_the_vote": "Sí, envía mi voto",
-        "your_choice": "Tu selección"
+        "your_choice": "Tu selección",
+        "vote_process_image_alt": "Imagen del proceso"
     },
     "errors": {
         "the_entity_name_already_exits": "",
