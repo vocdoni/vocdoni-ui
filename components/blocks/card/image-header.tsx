@@ -62,21 +62,25 @@ export const CardImageHeader = ({
         }
       </HeaderMenu>
 
+      {/*
       <PageCardHeader>
           <Image
             src={headerImageSrc}
             alt={i18n.t('vote.vote_process_image_alt')}
           />
       </PageCardHeader>
+      */}
       
-      {/*
       <PageCardHeader>
           <FixedImg>
             <img src={ballotBoxIcon} alt='FCB icon' width='48px' />
-            <FCBH1>ELECCIONS CONSELL CONSULTIU DE PENYES</FCBH1>
-          </FixedImg>          
+            <FCBH1>{i18n.t('fcb.process_title')}</FCBH1>
+          </FixedImg>
+          <FlagDiv>
+            <img src={flagImg} alt='FCB flag' />
+          </FlagDiv>          
       </PageCardHeader>
-      */}
+      
 
       <EntityLogoWrapper>
         <img src={entityImageSrc} alt="FCB Logo" />
@@ -105,6 +109,13 @@ export const CardImageHeader = ({
   )
 }
 
+const FlagDiv = styled.div`
+  width: 40%;
+  overflow: hidden;
+  margin-top: -10px;
+  height: 100vh;
+`
+
 const FixedImg = styled.div`
   width: 60%;
   margin-top: 20px;
@@ -112,8 +123,21 @@ const FixedImg = styled.div`
 `
 
 const FCBH1 = styled.h1`
+  font-size: 30px;
   font-weight: 900;
   color: #154298;
+
+  @media ${({ theme }) => theme.screenMin.tabletL} {
+    font-size: 42px;
+  } 
+
+  @media ${({ theme }) => theme.screenMax.tablet} {
+    font-size: 25px;
+  }
+
+  @media ${({ theme }) => theme.screenMax.mobileL} {
+    font-size: 22px;
+  }
 `
 
 const FCBLogout = styled.div`
@@ -133,8 +157,9 @@ const FCBLogout = styled.div`
 
   @media ${({theme})  => theme.screenMax.mobileL } {
     padding: 11px;
+    top: 20px;
+    right: 15px;
   }
-
 `
 
 const HeaderMenu = styled.div`
@@ -151,6 +176,11 @@ const HeaderLangMenu = styled.div`
   top: 15px;
   width: 80px;
   margin-top: -40px;
+
+  @media ${({ theme }) => theme.screenMax.mobileL} {
+    right: 20px;
+    top: 20px;
+  }
 `
 
 const AbsoluteTitle = styled(Column)`
