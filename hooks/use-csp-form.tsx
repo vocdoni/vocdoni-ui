@@ -111,11 +111,11 @@ export const useCSPForm = () => {
           setConsumed(Boolean(processes[0]["consumed"]))
           setProcessId(electionId)
 
-          setLoading(false)
           const encryptedAuthfield = Symmetric.encryptString(authFieldsData.join("/"), voterWallet.publicKey)
           // store auth data in local storage for disconnect banner
           localStorage.setItem('voterData', encryptedAuthfield)
           router.push(VOTING_PATH + "#/" + "0x" + electionId)
+          setLoading(false)
         })
         .catch(err => {
           setLoading(false)
