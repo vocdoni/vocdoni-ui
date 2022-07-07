@@ -22,14 +22,5 @@ module.exports = {
     config.node = {...config.node, fs: 'empty'}
 
     return config
-  },
-  redirects: () => {
-    return [
-      {
-        source: '/',
-        destination: '/pub/votes/auth/indexer',
-        permanent: false,
-      }
-    ]
   }
 }
