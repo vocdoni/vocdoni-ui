@@ -334,6 +334,7 @@
         "select_candidates": "Choose your candidate. The “Continue” button will take you to the confirmation screen.",
         "send_me_SMS": "Send code via SMS",
         "service_conditions": "Terms of service",
+        "sms_cooldown": "Resend code via SMS ({{cooldown}}s)",
         "support_number": "Support for the electoral process",
         "terms": "Terms",
         "upcoming_vote": "The voting period is from 21/07/2022 10:00am CEST to 22/07/2022 11:59am CEST.",

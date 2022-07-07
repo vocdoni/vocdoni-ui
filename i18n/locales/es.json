@@ -334,6 +334,7 @@
         "select_candidates": "Elija su candidato. El botón «Continuar» le llevará a la pantalla de confirmación de su elección.",
         "send_me_SMS": "Envíeme un código SMS",
         "service_conditions": "Condiciones de servicio",
+        "sms_cooldown": "Reenvíeme un código SMS ({{cooldown}}s)",
         "support_number": "Soporte al proceso electoral",
         "terms": "Términos",
         "upcoming_vote": "El período de votación comprende del 21/07/2022 10:00 CEST al 22/07/2022 11:59 CEST.",

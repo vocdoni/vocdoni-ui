@@ -13,7 +13,7 @@ import { InputFormGroup } from '@components/blocks/form'
 
 import { Spacer, Input } from '@components/elements-v2'
 import { useCSPForm } from '@hooks/use-csp-form'
-import { If, Then } from 'react-if'
+import { Else, If, Then } from 'react-if'
 
 interface IModalQuestionList {
   questions: Question[]
@@ -41,8 +41,40 @@ export const ModalQuestionList = ({
   const [leftSMS, setLeftSMS] = useState<number>(remainingAttempts)
   const [pin, setPin] = useState<string>()
   const { phoneSuffix, firstSent, setFirstSent } = useCSPForm()
+  const coolref = useRef(null)
+  const [cooldown, setCooldown] = useState<number>(0)
+  const [interval, setInterval] = useState<number>(0)
+
+  const coolItDown = () => {
+    if (!interval && !coolref.current || coolref.current <= 0) {
+      coolref.current = 60
+      setCooldown(coolref.current)
+      const int = window.setInterval(() => {
+        coolref.current -= 1
+        setCooldown(coolref.current)
+        if (coolref.current <= 0) {
+          window.clearInterval(interval)
+          setInterval(0)
+        }
+      }, 1000)
+      setInterval(int)
+    }
+  }
+
+  // clear interval on component unmount
+  useEffect(() => {
+    return () => {
+      if (!interval) return
+      window.clearInterval(interval)
+    }
+  }, [interval])
 
   const sendMessage = () => {
+    if (cooldown) {
+      return
+    }
+
+    coolItDown()
     sendSMS()
     setLeftSMS(leftSMS -1)
   }
@@ -212,10 +244,24 @@ export const ModalQuestionList = ({
                     wide
                     fcb
                     onClick={sendMessage}
-                    disabled={sendingVote}
+                    disabled={sendingVote || cooldown}
                     spinner={sendingVote}
                   >
-                    { (leftSMS >= 5) ? <>{i18n.t('fcb.send_me_SMS')}</> : <>{i18n.t('fcb.resend_me_SMS')}</> }
+                    <If condition={leftSMS >= 5}>
+                      <Then>
+                        {i18n.t('fcb.send_me_SMS')}
+                      </Then>
+                      <Else>
+                        <If condition={!cooldown}>
+                          <Then>
+                            {i18n.t('fcb.resend_me_SMS')}
+                          </Then>
+                          <Else>
+                            {i18n.t('fcb.sms_cooldown', {cooldown})}
+                          </Else>
+                        </If>
+                      </Else>
+                    </If>
                   </Button>
                 </Column>
               </Then>
