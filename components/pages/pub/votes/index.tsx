@@ -621,7 +621,6 @@ export const VotingPageView = () => {
           </>
         }
       </VotingCard>
-        {console.log('remaining:', remainingAttempts)}
       {/* MODALS */}
       <ConfirmModal
         isOpen={confirmModalOpened}

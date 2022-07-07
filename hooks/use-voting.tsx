@@ -159,9 +159,7 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
           throw new Error(err)
         }
         setAuthToken(authResp1['authToken'])
-        console.log('received authresponse:', authResp1.response[0])
         setPhoneSuffix(authResp1.response[0])
-        console.log('set phone suffix to', authResp1.response[0])
       })
       .catch((err) => {
         console.error(err)

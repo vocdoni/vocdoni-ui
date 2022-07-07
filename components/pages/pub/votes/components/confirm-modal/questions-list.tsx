@@ -53,14 +53,13 @@ export const ModalQuestionList = ({
       if (firstSent) return
       setFirstSent(true)
       await sendMessage()
-      console.log('phone suffix after sending first message:', phoneSuffix)
     })()
   }, [firstSent])
 
   const checkSMS = async (value: string) => {
     //setValidSMS(true)
     setPin(value)
-    
+
     if (value.length !== 6) {
       //setValidSMS(false)
       return false
@@ -206,7 +205,7 @@ export const ModalQuestionList = ({
 
           :
 
-          <>            
+          <>
             <If condition={leftSMS > 0}>
               <Then>
                 <Column sm={12} md={8}>
