@@ -170,8 +170,8 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
 
   const submitOTP = (authOTP: string) => {
     let userSecret
-    CspAuthentication.authenticate("blind", [authOTP], authToken, 1, processId, csp)
-      .then(resp => {
+    return CspAuthentication.authenticate("blind", [authOTP], authToken, 1, processId, csp)
+      .then((resp) => {
         if (!resp.token) {
           throw new Error("Could not authenticate with OTP")
         }
