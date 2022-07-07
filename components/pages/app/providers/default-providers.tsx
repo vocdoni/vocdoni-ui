@@ -18,6 +18,7 @@ import { UseCookiesProvider } from '@hooks/cookies'
 
 import { PATH_WITHOUT_COOKIES } from '@const/routes'
 import { UseProcessWrapperProvider } from '@hooks/use-process-wrapper'
+import { CSPProvider } from '@hooks/use-csp-form'
 
 interface IDefaultProvidersProps {
   children: ReactNode
@@ -48,11 +49,13 @@ export const DefaultProviders = ({ children }: IDefaultProvidersProps) => {
                     <UseProcessProvider>
                       <UseProcessWrapperProvider>
                         <UseVotingProvider>
+                          <CSPProvider>
                             <UseEntityProvider>
                               <UseDbAccountsProvider>
                                 {children}
                               </UseDbAccountsProvider>
                             </UseEntityProvider>
+                          </CSPProvider>
                         </UseVotingProvider>
                       </UseProcessWrapperProvider>
                     </UseProcessProvider>

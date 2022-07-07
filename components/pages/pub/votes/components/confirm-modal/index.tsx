@@ -10,14 +10,18 @@ import { VoteSubmitted } from './vote-submitted'
 import { useUrlHash } from 'use-url-hash'
 import { useProcess } from '@vocdoni/react-hooks'
 import { VoteSubmitting } from './vote-submitting'
+import { voteApiMethods } from 'dvote-js'
 
 interface IConfigModal {
   isOpen: boolean
   onClose: () => void
   onVoted: () => void
+  sendSMS: () => void
+  submitOTP: (value: string) => void
+  remainingAttempts: number
 }
 
-export const ConfirmModal = ({ isOpen, onClose, onVoted }: IConfigModal) => {
+export const ConfirmModal = ({ isOpen, onClose, onVoted, remainingAttempts, sendSMS, submitOTP }: IConfigModal) => {
   const processId = useUrlHash().slice(1) // Skip "/"
   const { process: processInfo } = useProcess(processId)
   const { choices, hasVoted, methods, pleaseWait, actionError } = useVoting(processId)
@@ -43,6 +47,9 @@ export const ConfirmModal = ({ isOpen, onClose, onVoted }: IConfigModal) => {
         choices={choices}
         onSubmit={handleSendVote}
         sendingVote={pleaseWait}
+        remainingAttempts={remainingAttempts}
+        sendSMS={sendSMS}
+        submitOTP={submitOTP}
         onClose={onClose}
       />
     </>

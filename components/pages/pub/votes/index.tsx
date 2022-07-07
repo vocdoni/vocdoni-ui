@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from 'react'
 import { useRecoilValue } from 'recoil'
 import styled from 'styled-components'
@@ -24,7 +25,7 @@ import { QuestionsListInline } from './components/questions-list-inline'
 import { censusProofState } from '@recoil/atoms/census-proof'
 import { VoteRegisteredCard } from './components/vote-registered-card'
 import RouterService from '@lib/router'
-import { VOTING_AUTH_FORM_PATH } from '@const/routes'
+import { INDEXER_PATH} from '@const/routes'
 import { ExpandableCard } from '@components/blocks/expandable-card'
 import { Banner } from '@components/blocks-v2/banner'
 import { Spacer, Col, Row, IColProps, Text } from '@components/elements-v2'
@@ -36,11 +37,13 @@ import { DisconnectModal } from '@components/blocks-v2'
 import { ResultsCard } from './components/results-card'
 import { useProcessWrapper } from '@hooks/use-process-wrapper'
 import { useIsMobile } from '@hooks/use-window-size'
-import { PieChartIcon, LogOutIconWhite } from '@components/elements-v2/icons'
+import { PieChartIcon, LogOutIcon, LogOutIconWhite } from '@components/elements-v2/icons'
 import { dateDiffStr, DateDiffType } from '@lib/date-moment'
 import { MetadataFields } from '@components/pages/votes/new/metadata'
 import { useAuthForm } from '@hooks/use-auth-form'
 import { Symmetric } from 'dvote-js'
+import { CspSMSAuthenticator } from '@vocdoni/csp'
+import { useCSPForm } from '@hooks/use-csp-form'
 export enum UserVoteStatus {
   /**
    * User is voting right now
@@ -80,6 +83,8 @@ export const VotingPageView = () => {
   const [disconnectModalOpened, setDisconnectModalOpened] = useState(false)
   const isMobile = useIsMobile()
   const censusProof = useRecoilValue(censusProofState)
+  const { remainingAttempts, consumed } = useCSPForm()
+
   const { methods: votingMethods, choices, hasVoted, results, explorerLink } = useVoting(
     processId
   )
@@ -96,13 +101,14 @@ export const VotingPageView = () => {
    */
   const [userVoteStatus, setUserVoteStatus] = useState<UserVoteStatus>(UserVoteStatus.NotEmitted)
   const { blockStatus } = useBlockStatus()
+  const { phoneSuffix } = useCSPForm()
   const blockHeight = blockStatus?.blockNumber
   const voteStatus: VoteStatus = getVoteStatus(processInfo?.state, blockHeight)
   // const entityMetadata = metadata as EntityMetadata
   const resultsCardRef = useRef(null)
   const questionsInlineRef = useRef(null)
   // used for getting the ending in and starting in string
-  const [now, setNow] = useState(new Date)
+  // const [now, setNow] = useState(new Date)
   const [anonymousFormData, setAnonymousFormData] = useState('')
 
   // @TODO move to the params received from the voting creation
@@ -120,12 +126,12 @@ export const VotingPageView = () => {
     }
   }, [status])
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setNow(new Date)
-    }, 1000)
-    return () => clearInterval(interval);
-  }, [])
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     setNow(new Date)
+  //   }, 1000)
+  //   return () => clearInterval(interval);
+  // }, [])
   const endingString = dateDiffStr(DateDiffType.Countdown, endDate)
   const startingString = dateDiffStr(DateDiffType.Countdown, startDate)
   /**
@@ -136,7 +142,7 @@ export const VotingPageView = () => {
       handleGotoAuth()
     }
 
-    if (hasVoted) {
+    if (consumed) {
       return setUserVoteStatus(UserVoteStatus.Emitted)
     }
 
@@ -148,7 +154,7 @@ export const VotingPageView = () => {
       return setUserVoteStatus(UserVoteStatus.Expired)
     }
 
-    if(isInlineVotingProcess) {
+    if (isInlineVotingProcess) {
       return setUserVoteStatus(UserVoteStatus.InProgress)
     }
 
@@ -239,7 +245,7 @@ export const VotingPageView = () => {
 
     setTimeout(() => {
       router.push(
-        RouterService.instance.get(VOTING_AUTH_FORM_PATH, { processId })
+        RouterService.instance.get(INDEXER_PATH, { processId })
       )
     }, 50)
   }
@@ -251,7 +257,7 @@ export const VotingPageView = () => {
     setTimeout(() => {
       // Force window unload after the wallet is wiped
       setDisconnectModalOpened(false)
-      window.location.href = RouterService.instance.get(VOTING_AUTH_FORM_PATH, { processId })
+      window.location.href = RouterService.instance.get(INDEXER_PATH, { processId })
     }, 50)
   }
   // const processVotingType: VotingType = processInfo?.state?.censusOrigin as any
@@ -352,7 +358,7 @@ export const VotingPageView = () => {
           </BodyContainer>
         }
 
-        { !isOneCandidate && 
+        { !isOneCandidate &&
           <>
             <If condition={(userVoteStatus !== UserVoteStatus.InProgress || isInlineVotingProcess)}>
               <Then>
@@ -453,14 +459,16 @@ export const VotingPageView = () => {
                 <Spacer direction='vertical' size='3xl' />
 
                 <If condition={false && status == VoteStatus.Ended}>
-                  {/* RESULTS CARD */}
-                  <BodyContainer>
-                    <Row gutter='2xl'>
-                      <Col xs={12}>
-                        <ResultsCard />
-                      </Col>
-                    </Row>
-                  </BodyContainer>
+                  <Then>
+                    {/* RESULTS CARD */}
+                    <BodyContainer>
+                      <Row gutter='2xl'>
+                        <Col xs={12}>
+                          <ResultsCard />
+                        </Col>
+                      </Row>
+                    </BodyContainer>
+                  </Then>
                 </If>
               </Then>
               <Else>
@@ -528,10 +536,10 @@ export const VotingPageView = () => {
               </VoteRegisteredLgContainer>
             )}
 
-            {(hasVoted && voteStatus === VoteStatus.Active) && 
+            {(hasVoted && voteStatus === VoteStatus.Active) &&
               <BodyContainer>
                 <br />
-                
+
                 <TitleH3>{i18n.t('fcb.you_have_voted')}</TitleH3>
                 <div>
                   <Text size='sm'>
@@ -565,9 +573,9 @@ export const VotingPageView = () => {
               </BodyContainer>
             }
 
-            {(voteStatus === VoteStatus.Ended) && 
+            {(voteStatus === VoteStatus.Ended) &&
               <BodyContainer>
-                { hasVoted && 
+                { hasVoted &&
                   <>
                     <TitleH3>{i18n.t('fcb.you_have_voted')}</TitleH3>
                     <div>
@@ -595,7 +603,7 @@ export const VotingPageView = () => {
                 }
 
                 <Spacer direction='vertical' size='3xl' />
-                
+
                 <Row>
                   <LeaveButton onClick={handleLogOut}>
                     {i18n.t('fcb.disconnect_account')}
@@ -613,12 +621,15 @@ export const VotingPageView = () => {
           </>
         }
       </VotingCard>
-
+        {console.log('remaining:', remainingAttempts)}
       {/* MODALS */}
       <ConfirmModal
         isOpen={confirmModalOpened}
         onVoted={handleOnVoted}
         onClose={handleBackToVoting}
+        remainingAttempts={remainingAttempts}
+        sendSMS={votingMethods.sendSMS}
+        submitOTP={votingMethods.submitOTP}
       />
       <DisconnectModal
         hideCloseButton
@@ -666,7 +677,7 @@ function anonymizeStrings(strings: string[]): string[] {
 
 
 const OneCandidateDiv = styled.div`
-  font-size: 18px; 
+  font-size: 18px;
   font-weight: 600;
 `
 
@@ -686,7 +697,7 @@ const QuestionsContainer = styled.div`
   }
 `
 
-const OptionsContainer = styled.div`  
+const OptionsContainer = styled.div`
   margin-bottom: 40px;
   margin-top: 40px;
   font-size: 18px;

@@ -19,11 +19,20 @@
         "primary_process_color": "",
         "secondary_color_used_on_the_voting_process": "",
         "secondary_process_color": "",
-        "live_stream": "Streaming",
         "your_vote_has_been_successfully_registered": "Tu voto ha sido registrado correctamente",
         "ask_questions_to_the_organizers": "Pregunta a los organizadores",
         "check_the_documentation": "Consulta la documentación",
-        "login_with_your_credentials_to_access_the_process": "Iniciar sesión pera consultar los resultados de la votación"
+        "login_with_your_credentials_to_access_the_process": "Iniciar sesión pera consultar los resultados de la votación",
+        "entity_logo_alt": "Logo de la entidad",
+        "results_question": "Pregunta {{ index }}",
+        "starting_in": "Empieza en",
+        "thanks_for_participate_on_this_AGM": "Gracias por participar en este proceso, vuelve a la página principal para seguir y consultar los resultados cuando estén disponibles",
+        "voting_results_hide": "Ocultar",
+        "voting_results_show": "Mostrar",
+        "voting_results_title": "Resultados de la votación",
+        "yes_submit_the_vote": "Sí, envía mi voto",
+        "your_choice": "Tu selección",
+        "vote_process_image_alt": "Imagen del proceso"
     },
     "errors": {
         "the_entity_name_already_exits": "",
@@ -86,5 +95,20 @@
     },
     "form": {
         "edit": "Editar"
+    },
+    "app": {
+        "footer": {
+            "powered_by": "Powered by"
+        }
+    },
+    "fcb": {
+        "vote_verification_text": "Puedes verificar la inclusión de tu voto en el ",
+        "block_explorer": "explorador de bloques",
+        "vote_finalized": " una vez finalizado el proceso de votación.",
+        "voting_finished": "Votación finalizada",
+        "voting_finished_msg": "El proceso de votación ha finalizado, puede encontrar los resultados en este link: ",
+        "end_date": "22/07/2022 11:59 CEST",
+        "show_results": "Los resultados se harán públicos el dia 26 de julio",
+        "not_started": "El proceso de votación no ha comenzado"
     }
 }

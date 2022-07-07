@@ -23,11 +23,20 @@
         "primary_process_color": "",
         "secondary_color_used_on_the_voting_process": "",
         "secondary_process_color": "",
-        "live_stream": "Retransmissió en directe",
         "your_vote_has_been_successfully_registered": "El teu vot ha estat registrat correctament",
         "login_with_your_credentials_to_access_the_process": "Inicia sessió per consultar els resultats de la votació",
         "ask_questions_to_the_organizers": "Pregunta als organitzadors",
-        "check_the_documentation": "Consulta la documentació"
+        "check_the_documentation": "Consulta la documentació",
+        "entity_logo_alt": "Logo de l'entitat",
+        "results_question": "Pregunta {{ index }}",
+        "starting_in": "Comença en",
+        "thanks_for_participate_on_this_AGM": "Gràcies per participar en aquest procés, torna a la pàgina principal per a seguir i consultar els resultats quan estiguin disponibles",
+        "voting_results_hide": "Ocultar",
+        "voting_results_show": "Mostrar",
+        "voting_results_title": "Resultats de la Votació",
+        "yes_submit_the_vote": "Sí, envia el meu vot",
+        "your_choice": "La teva selecció",
+        "vote_process_image_alt": "Imatge del procés"
     },
     "votes": {
         "number_votes": "",
@@ -131,5 +140,20 @@
     },
     "form": {
         "edit": ""
+    },
+    "app": {
+        "footer": {
+            "powered_by": "Powered by"
+        }
+    },
+    "fcb": {
+        "vote_verification_text": "Pots verificar la inclusió del teu vot al ",
+        "block_explorer": "explorador de blocs",
+        "vote_finalized": " un cop finalitzat el procés de votació.",
+        "voting_finished": "Votació finalitzada",
+        "voting_finished_msg": "El procés de votació s'ha completat, podeu trobar els resultats en aquest enllaç: ",
+        "end_date": "22/07/2022 11:59 CEST",
+        "show_results": "Els resultats es faran públics el dia 26 de juliol",
+        "not_started": "La votació no ha començat"
     }
 }

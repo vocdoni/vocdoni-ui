@@ -13,9 +13,6 @@
         "upload_list_of_voters": "Carregueu la llista de votants"
     },
     "app": {
-        "footer": {
-            "powered_by": "Powered by"
-        },
         "header": {
             "create_account_backup": "Copia de Seguretat",
             "custom_branding": "Personalització de marca",
@@ -315,6 +312,37 @@
         "you_canceled_the_operation": "Has cancel·lat l'operació",
         "your_vote_could_not_be_delivered": "El teu vot no s'ha pogut lliurar"
     },
+    "fcb": {
+        "available_SMS": "Disposes de {{numSMS}} SMS. El número de telèfon que tenim registrat és: +** ******{{phoneNum}}. Si no és vàlid, truqueu al +34 888 888 888",
+        "blank_option": "Vot en blanc",
+        "candidates": "Les persones candidates son les següents:",
+        "confirm_your_vote_text": "Premeu el botó \"Envieu-me un codi SMS\" i entreu el codi que rebreu al mòbil per emetre el vostre vot o bé tanqueu aquesta finestreta per tornar a la pantalla anterior. Truqueu al telèfon de suport a l'ús de la plataforma d'e-votació per canviar de número de telèfon mòbil.",
+        "confirmation_code": " El vostre codi de confirmació és: ",
+        "continue": "Continua",
+        "copyright": "© 2022 FC Barcelona",
+        "disconnect_account": "Surt",
+        "enter": "Entra",
+        "enter_your_sms": "Entreu el codi que heu rebut per SMS",
+        "incorrect_code": "El codi és incorrecte. Heu emprat {{leftSMS}} dels 5 SMS.",
+        "login_subtext": "Per emetre el vostre vot us enviarem un codi a través d'un SMS al número de telèfon mòbil que tenim registrat. Si no us recordeu del vostre PIN o bé voleu canviar de telèfon mòbil, truqueu al número de suport a l'ús de la plataforma que hi ha al peu de pàgina.",
+        "login_text": "Mitjançant aquesta plataforma els presidents de les penyes podreu emetre el vostre vot. Per fer-ho, identifiqueu-vos mitjançant les credencials següents.",
+        "no_sms_left": "Heu emprat els 5 SMS. Truqueu al telèfon de suport a l'ús de la plataforma d'e-votació per solucionar-ho.",
+        "only_one_candidate": "En aquesta zona no es fa acte de votació. En el cas de presentació d'una única candidatura, la Junta Electoral proclama el nou delegat del Consell Consultiu de Penyes.",
+        "only_one_vote": "Tingueu present que només podeu emetre un vot.",
+        "process_title": "ELECCIONS CONSELL CONSULTIU DE PENYES",
+        "resend_me_SMS": "Reenvieu-me un codi SMS",
+        "select_candidates": "Trieu el vostre candidat. El botó «Continua» us portarà a la pantalla de confirmació de la vostra tria.",
+        "send_me_SMS": "Envieu-me un codi SMS",
+        "service_conditions": "Condicions de servei",
+        "support_number": "Suport al procés electoral",
+        "terms": "Termes",
+        "upcoming_vote": "El període de votació compren del 21/07/2022 10:00 CEST al 22/07/2022 11:59 CEST",
+        "upcoming_voting_tag": "El procés de votació encara no ha començat",
+        "vote_registered": "La Junta Electoral proclamarà les candidatures guanyadores el 26 de juliol.",
+        "voting_number": "Suport a l'ús de la plataforma d'e-votació",
+        "voting_period": "Període de votació: del {{startDate}} fins al {{endDate}}",
+        "you_have_voted": "Ja has votat"
+    },
     "form": {
         "input": {
             "edit": "Editar"
@@ -585,9 +613,13 @@
             "insert_your": "Inseriu el vostre {{ camp }}",
             "insert_your_credentials": "Introduïu les vostres credencials",
             "insert_your_credentials_and_password": "Introduïu les vostres credencials i contrasenya",
+            "insert_your_member_key": "Per exemple: 12345",
+            "insert_your_pin": "Per exemple: 1234",
             "insert_your_secret_key": "Introduïu la vostra clau secreta",
+            "member_key": "Clau de soci",
             "not_authenticated": "No estàs autenticat!",
             "not_preregistered": "Cal inscripció prèvia",
+            "pin": "Pin",
             "preregister_button": "Preinscripció",
             "preregistration": {
                 "subtitle": "Es necessari el preregistre per poder participar de manera anònima quan s'iniciï el procés de votació ({{data}})",
@@ -632,7 +664,6 @@
         "ended_vote": "Votació finalitzada",
         "ending_in": "Finalitza en",
         "enter_the_details_of_the_proposal": "Introdueix els detalls del procés de votació",
-        "entity_logo_alt": "Logo de l'entitat",
         "error_creating_the_entity_on_blockchain": "Error creant l'entitat a la cadena de blocs",
         "error_something_is_wrong": "Quelcom ha anat malament",
         "error_storing_metadata_on_ipfs": "Error emmagatzemant les metadades a IPFS",
@@ -673,7 +704,6 @@
         "results_after": "Revela els resultats al final del procés",
         "results_availability": "Disponibilitat dels resultats",
         "results_live": "Resultats en temps real",
-        "results_question": "Pregunta {{ index }}",
         "retry": "Torna-ho a provar",
         "reveal_results_at_the_end": "Revela els resultats al final del procés",
         "see_results": "Veure els resultats",
@@ -687,15 +717,15 @@
         "start_date_explanation": "Data d'inici per l'acceptació de vots",
         "start_on_a_specific_date": "Iniciar en una data concreta",
         "start_right_away_7_minutes_from_now": "Iniciar ara (d'aquí a 10 minuts)",
-        "starting_in": "Comença en",
         "stream_link": "Enllaç de la retransmissió en directe",
         "stream_link_explanation": "Si fas una retransmissió en directe per internet (per exemple de l'Assemblea general), pots incloure'n l'adreça aquí. Pot ser, per exemple, un stream de Youtube.",
         "stream_link_label": "Aquest camp és opcional",
+        "submitting_vote": "El teu vot s'està enviant...",
+        "submitting_vote_msg": "Si us plau, no tanquis la finestra, aquesta acció pot tardar uns minuts.",
         "surname": "Surname",
         "tag_is_anonymous": "Anònim",
         "tag_is_normal": "Standard",
         "tag_is_weighted": "Votació ponderada",
-        "thanks_for_participate_on_this_AGM": "Gràcies per participar en aquest procés, torna a la pàgina principal per a seguir i consultar els resultats quan estiguin disponibles",
         "the_blockchain_network_is_congested": "La xarxa de la cadena de blocs està congestionada",
         "the_blockchain_network_is_congested_for_these_reason_te_transactions_could_spend_several_minutes_dont_worry_we_keep_the_data_to_follow_the_process": "La xarxa de la cadena de blocs està congestionada. Per aquesta raó les transaccions poden trigar uns quants minuts. No et preocupis, nosaltres guardem les dades per assegurar-ne el seu lliurament.",
         "the_entity_name_already_exist": "El nom d'entitat ja existeix",
@@ -721,31 +751,23 @@
         "vote_count": "{{count}} vot",
         "vote_count_plural": "{{count}} vots",
         "vote_now": "Vota ara",
-        "vote_process_image_alt": "Imatge del procés",
         "vote_submitted_image_alt": "Imatge carregada",
         "vote_will_close": "La votació finalitzará en",
         "vote_will_start": "La votació començarà en",
         "voted_alt": "Vota",
         "voting_power": "Poder de vot",
-        "voting_results_hide": "Ocultar",
-        "voting_results_show": "Mostrar",
-        "voting_results_title": "Resultats de la Votació",
         "we_are_trying_to_connect_to_blockchain_to_check_your_account_balance_we_store_all_the_data_to_follow_the_process": "Estem provant de connectar a la cadena de blocs per comprovar el balanç del teu compte d'entitat. Guardem tota la informació per a continuar el procés.",
         "we_are_trying_to_sign_on_the_vocdoni_blockchain_to_register_your_entity": "Estem intentant accedir a la cadena de blocs Vocdoni per registrar la teva entitat",
         "we_are_using_a_decentralized_secure_system": "Estem enviant tota la informació a la cadena de blocs. Aquesta acció pot trigar uns minuts.",
         "we_cant_upload_the_logos_on_ipfs_network_please_choose_a_new_logo_and_header": "No podem pujar les imatges de logo i de capçalera a IPFS. Si et plau, tria'n unes altres.",
         "who_can_vote": "Qui pot votar",
-        "yes_submit_the_vote": "Sí, envia el meu vot",
         "you_are_autenticated": "Esteu autenticat amb les credencials: ",
         "you_cant_enter_contact_with_entity": "Problemes amb l'accés? contacta amb l'entitat",
         "you_got_attributed_a_voting_power_per_question": "Tens un poder de vot per pregunta de: {{ voteWeight }}",
-        "your_choice": "La teva selecció",
         "your_entity_is_being_registered": "La teva entitat ha estat registrada",
         "your_vote_has_been_registered": "El teu vot ha estat registrat correctament",
         "your_vote_is_set_up": "La votació s'ha creat",
-        "your_vote_process_is_being_created": "Has creat el procés de votació",
-        "submitting_vote": "El teu vot s'està enviant...",
-        "submitting_vote_msg": "Si us plau, no tanquis la finestra, aquesta acció pot tardar uns minuts."
+        "your_vote_process_is_being_created": "Has creat el procés de votació"
     },
     "votes": {
         "new": {
@@ -825,9 +847,9 @@
             "back": "Enrere",
             "finish_voting": "Enviar el meu vot",
             "next_question": "Pregunta següent",
-            "question": "Pregunta {{questionIndex}}/{{totalQuestions}}",
             "num_questions_info": "Has de contestar totes les preguntes per poder votar. N'has respost ",
-            "num_questions_total": "de {{numTotal}}"
+            "num_questions_total": "de {{numTotal}}",
+            "question": "Pregunta {{questionIndex}}/{{totalQuestions}}"
         }
     },
     "waiting_banner": {

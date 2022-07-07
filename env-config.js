@@ -54,7 +54,10 @@ module.exports = {
   COLOR_PICKER: process.env.COLOR_PICKER || 0,
   ADVANCED_CENSUS: process.env.ADVANCED_CENSUS || 0,
   ANALYTICS_KEY:  process.env.ANALYTICS_KEY,
-  ANALYTICS_URL:  process.env.ANALYTICS_URL
+  ANALYTICS_URL:  process.env.ANALYTICS_URL,
+  CSP_URL: process.env.CSP_URL || 'https://csp-dev.vocdoni.net/',
+  CSP_PUB_KEY: process.env.CSP_PUB_KEY || '03e349c2a4622bd56238616f8160bfeb6b053f260f1a541f72015e0e261ac68d5c',
+  CSP_API_VERSION: process.env.CSP_API_VERSION || 'v1',
 }
 
 console.log('Building the frontend with ENV:', module.exports)

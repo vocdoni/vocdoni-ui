@@ -12,7 +12,7 @@ import { QuestionCard } from './question-card'
 import { colors } from '@theme/colors'
 import { Indexed } from '@ethersproject/abi'
 import { VoteWeightCard } from './vote-weight-card'
-import { If } from 'react-if'
+import { If, Then } from 'react-if'
 
 import { TextAlign } from '@components/elements/typography'
 
@@ -32,7 +32,7 @@ export const QuestionsListInline = forwardRef<HTMLDivElement, IQuesListInlinePro
   const { i18n } = useTranslation()
   const lastQuestion = questionIndex === props.questions?.length - 1
 
-  const handleSubmit = () => {  
+  const handleSubmit = () => {
     props.onFinishVote(props.results)
   }
 
@@ -71,7 +71,7 @@ export const QuestionsListInline = forwardRef<HTMLDivElement, IQuesListInlinePro
         </QuestionUl>
 
         <ButtonsActionContainer justify={FlexJustifyContent.Start}>
-          <Button            
+          <Button
             fcb
             wide
             onClick={handleSubmit}
@@ -82,9 +82,11 @@ export const QuestionsListInline = forwardRef<HTMLDivElement, IQuesListInlinePro
         </ButtonsActionContainer>
 
         <If condition={false && (props.results.length < props.questions?.length || props.results.includes(undefined))}>
-          <Typography margin='20px 0px' align={TextAlign.Center} color='#888' variant={TypographyVariant.ExtraSmall}>
-            {i18n.t('votes.questions_list.num_questions_info')} {props.results.filter(x => x !== undefined).length} {i18n.t('votes.questions_list.num_questions_total', {numTotal: props.questions?.length})}.
-          </Typography>            
+          <Then>
+            <Typography margin='20px 0px' align={TextAlign.Center} color='#888' variant={TypographyVariant.ExtraSmall}>
+              {i18n.t('votes.questions_list.num_questions_info')} {props.results.filter(x => x !== undefined).length} {i18n.t('votes.questions_list.num_questions_total', {numTotal: props.questions?.length})}.
+            </Typography>
+          </Then>
         </If>
       </div>
     </QuestionsContainer>

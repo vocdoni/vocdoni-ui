@@ -13,9 +13,6 @@
         "upload_list_of_voters": "Subir lista de votantes"
     },
     "app": {
-        "footer": {
-            "powered_by": "Powered by"
-        },
         "header": {
             "create_account_backup": "Crear backup",
             "custom_branding": "Personalizar marca",
@@ -315,6 +312,37 @@
         "you_canceled_the_operation": "Has cancelado la operación",
         "your_vote_could_not_be_delivered": "Tu voto no ha podido ser entregado"
     },
+    "fcb": {
+        "available_SMS": "Dispone de {{numSMS}} SMS. El nº de teléfono que tenemos registrado es: +** ******{{phoneNum}}. Si no es válido, llame al +34 888 888 888.",
+        "blank_option": "Voto en blanco",
+        "candidates": "Las personas candidatas son las siguientes:",
+        "confirm_your_vote_text": "Pulse el botón \"Envíeme un código SMS\" y entre el código que recibirá en el móvil para emitir su voto o bien cierre esta ventana para volver a la pantalla anterior. Llame al teléfono de soporte al uso de la plataforma de e-votación para cambiar de número de teléfono móvil.",
+        "confirmation_code": " Su código de confirmación es: ",
+        "continue": "Continua",
+        "copyright": "© 2022 FC Barcelona",
+        "disconnect_account": "Salir",
+        "enter": "Entra",
+        "enter_your_sms": "Introduzca el código que ha recibido por SMS",
+        "incorrect_code": "El código es incorrecto. Has usado {{leftSMS}} de los 5 SMS.",
+        "login_subtext": "Para emitir su voto le enviaremos un código a través de un SMS al número de teléfono móvil que tenemos registrado. Si no se acuerda de su PIN o quiere cambiar de teléfono móvil, llame al número de soporte a el uso de la plataforma que hay en el pie de página.",
+        "login_text": "Mediante esta plataforma los presidentes de las peñas podrán emitir su voto. Para ello, identifíquese mediante las siguientes credenciales.",
+        "no_sms_left": "Habéis empleado los 5 SMS. Llamad al teléfono de soporte para el uso de la plataforma de e-votación para solucionarlo.",
+        "only_one_candidate": "En esta zona no se celebra acto de votación. En el caso de presentación de una única candidatura, la Junta Electoral proclama el nuevo delegado del Consejo Consultivo de Peñas.",
+        "only_one_vote": "Tenga presente que sólo puede emitir un voto.",
+        "process_title": "ELECCIONES CONSEJO CONSULTIVO DE PEÑAS",
+        "resend_me_SMS": "Reenvíeme un código SMS",
+        "select_candidates": "Elija su candidato. El botón «Continuar» le llevará a la pantalla de confirmación de su elección.",
+        "send_me_SMS": "Envíeme un código SMS",
+        "service_conditions": "Condiciones de servicio",
+        "support_number": "Soporte al proceso electoral",
+        "terms": "Términos",
+        "upcoming_vote": "El período de votación comprende del 21/07/2022 10:00 CEST al 22/07/2022 11:59 CEST.",
+        "upcoming_voting_tag": "El proceso de votación aún no ha empezado",
+        "vote_registered": "Su voto ha sido registrado correctamente. Los resultados se harán públicos a partir del ",
+        "voting_number": "Soporte al uso de la plataforma de e-votación",
+        "voting_period": "Período de votación: de {{startDate}} hasta el {{endDate}}",
+        "you_have_voted": "Ya has votado"
+    },
     "form": {
         "input": {
             "edit": "Editar"
@@ -585,9 +613,13 @@
             "insert_your": "Inserta tu {{ field }}",
             "insert_your_credentials": "Inserta tus credenciales",
             "insert_your_credentials_and_password": "Inserte sus credenciales y contraseña",
+            "insert_your_member_key": "Por ejemplo: 12345",
+            "insert_your_pin": "Por ejemplo: 1234",
             "insert_your_secret_key": "Inserta tu clave secreta",
+            "member_key": "Clave de socio",
             "not_authenticated": "No estas autenticado/a!",
             "not_preregistered": "Se requiere registro previo",
+            "pin": "Pin",
             "preregister_button": "Pre-registrarse",
             "preregistration": {
                 "subtitle": "Este es un registro previo que se requiere para participar de forma anónima cuando comience el proceso de votación ({{date}}).",
@@ -632,7 +664,6 @@
         "ended_vote": "Votación finalizada",
         "ending_in": "Finaliza en",
         "enter_the_details_of_the_proposal": "Introduce los detalles de un nuevo proceso de votación",
-        "entity_logo_alt": "Logo de la entidad",
         "error_creating_the_entity_on_blockchain": "Error creando la entidad en la cadena de bloques",
         "error_something_is_wrong": "Algo fue mal",
         "error_storing_metadata_on_ipfs": "Error almacenando los metadatos en IPFS",
@@ -673,7 +704,6 @@
         "results_after": "Revelar los resultados al final del proceso",
         "results_availability": "Disponibilidad de los resultados",
         "results_live": "Resultados públicos en tiempo real",
-        "results_question": "Pregunta {{ index }}",
         "retry": "Inténtalo de nuevo",
         "reveal_results_at_the_end": "Resultados públicos al finalizar el proceso",
         "see_results": "Ver los resultados",
@@ -687,15 +717,15 @@
         "start_date_explanation": "Fecha de inicio para la aceptación de votos",
         "start_on_a_specific_date": "Iniciar en una fecha concreta",
         "start_right_away_7_minutes_from_now": "Iniciar ahora (este proceso puede tardar 10 minutos aproximadamente)",
-        "starting_in": "Empieza en",
         "stream_link": "Enlace del video streaming",
         "stream_link_explanation": "Si quieres emitir tu proceso en vivo puedes incluir un video streaming. Puede ser, por ejemplo, un stream de youtube.",
         "stream_link_label": "Este campo es opcional",
+        "submitting_vote": "Tu voto está siendo enviado...",
+        "submitting_vote_msg": "Por favor, no cierres la ventana, esta acción puede durar unos minutos.",
         "surname": "Apellido",
         "tag_is_anonymous": "Anónima",
         "tag_is_normal": "Votación standard",
         "tag_is_weighted": "Votación ponderada",
-        "thanks_for_participate_on_this_AGM": "Gracias por participar en este proceso, vuelve a la página principal para seguir y consultar los resultados cuando estén disponibles",
         "the_blockchain_network_is_congested": "La red de la cadena de bloques está congestionada",
         "the_blockchain_network_is_congested_for_these_reason_te_transactions_could_spend_several_minutes_dont_worry_we_keep_the_data_to_follow_the_process": "La red de la cadena de bloques está congestionada. Por esta razón las transacciones pueden tardar unos minutos. No te preocupes, nosotros las guardamos para garantizar su entrega.",
         "the_entity_name_already_exist": "El nombre de entidad ya existe",
@@ -721,31 +751,23 @@
         "vote_count": "{{ count }} voto",
         "vote_count_plural": "{{ count }} votos",
         "vote_now": "Vota ahora",
-        "vote_process_image_alt": "Imagen del proceso",
         "vote_submitted_image_alt": "Imagen cargada",
         "vote_will_close": "La votación finalizará en",
         "vote_will_start": "La votación empezará en",
         "voted_alt": "Vota",
         "voting_power": "Peso del voto",
-        "voting_results_hide": "Ocultar",
-        "voting_results_show": "Mostrar",
-        "voting_results_title": "Resultados de la votación",
         "we_are_trying_to_connect_to_blockchain_to_check_your_account_balance_we_store_all_the_data_to_follow_the_process": "Estamos intentando conectar a la cadena de bloques para comprovar el balance del teu compte d'entitat. Guardamos tota la información per configurar el proceso.",
         "we_are_trying_to_sign_on_the_vocdoni_blockchain_to_register_your_entity": "Estamos intentando acceder a la cadena de bloques para registrar tu entidad",
         "we_are_using_a_decentralized_secure_system": "Estamos enviando toda la información a la cadena de bloques. Esta acción puede tardar unos minutos.",
         "we_cant_upload_the_logos_on_ipfs_network_please_choose_a_new_logo_and_header": "No podemos cargar las imágenes del logo y de la cabecera a IPFS. Por favor, escoge otras.",
         "who_can_vote": "¿Quién puede votar?",
-        "yes_submit_the_vote": "Sí, envía mi voto",
         "you_are_autenticated": "Estás autenticado con las credenciales:",
         "you_cant_enter_contact_with_entity": "Si no puedes acceder, contacta con la entidad",
         "you_got_attributed_a_voting_power_per_question": "Tienes un poder de voto por pregunta de: {{ voteWeight }}",
-        "your_choice": "Tu selección",
         "your_entity_is_being_registered": "Tu selección",
         "your_vote_has_been_registered": "Tu voto ha sido registrado correctamente",
         "your_vote_is_set_up": "Votación creada",
-        "your_vote_process_is_being_created": "Proceso de votación creado",
-        "submitting_vote": "Tu voto está siendo enviado...",
-        "submitting_vote_msg": "Por favor, no cierres la ventana, esta acción puede durar unos minutos."
+        "your_vote_process_is_being_created": "Proceso de votación creado"
     },
     "votes": {
         "new": {
@@ -825,9 +847,9 @@
             "back": "Atrás",
             "finish_voting": "Enviar mi voto",
             "next_question": "Siguiente pregunta",
-            "question": "Pregunta {{questionIndex}}/{{totalQuestions}}",
             "num_questions_info": "Debes responder todas las preguntas para poder votar. Has respuesto ",
-            "num_questions_total": "de {{numTotal}}"
+            "num_questions_total": "de {{numTotal}}",
+            "question": "Pregunta {{questionIndex}}/{{totalQuestions}}"
         }
     },
     "waiting_banner": {
