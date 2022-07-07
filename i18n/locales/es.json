@@ -872,7 +872,7 @@
         "send_me_SMS": "Envíeme un código SMS",
         "available_SMS": "Dispone de {{numSMS}} SMS. El número de teléfono que tenemos registrado es: +** ******{{phoneNum}}. Si no es correcto, llamad al número de soporte para el uso de la plataforma que encuentran al pie de página.",
         "upcoming_vote": "El período de votación comprende del 21/07/2022 10:00 CEST al 22/07/2022 11:59 CEST.",
-        "you_have_voted": "Ya has votado",
+        "you_have_voted": "Ya ha votado",
         "voting_finished": "Votación finalizada",
         "voting_finished_msg": "El proceso de votación ha finalizado, puede encontrar los resultados en este link: ",
         "voting_period": "Período de votación: de {{startDate}} hasta el {{endDate}}",
