@@ -33,7 +33,7 @@ export const VoterFooter = () => {
         </Col>
       
         <Col xs={12} lg={3}>
-          <SupportDiv className='rightLg'>{i18n.t('fcb.voting_number')} <PhoneNumber>+34 999 999 999</PhoneNumber></SupportDiv>
+          <SupportDiv className='rightLg'>{i18n.t('fcb.voting_number')} <PhoneNumber>+34 851 000 065</PhoneNumber></SupportDiv>
         </Col>
 
         <Col xs={12} lg={3}>
