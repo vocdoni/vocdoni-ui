@@ -329,6 +329,7 @@
         "no_sms_left": "Heu emprat els 5 SMS. Truqueu al telèfon de suport a l'ús de la plataforma d'e-votació per solucionar-ho.",
         "only_one_candidate": "En aquesta zona no es fa acte de votació. En el cas de presentació d'una única candidatura, la Junta Electoral proclama el nou delegat del Consell Consultiu de Penyes.",
         "only_one_vote": "Tingueu present que només podeu emetre un vot.",
+        "otp_correct": "Codi correcte",
         "process_title": "ELECCIONS CONSELL CONSULTIU DE PENYES",
         "resend_me_SMS": "Reenvieu-me un codi SMS",
         "select_candidates": "Trieu el vostre candidat. El botó «Continua» us portarà a la pantalla de confirmació de la vostra tria.",

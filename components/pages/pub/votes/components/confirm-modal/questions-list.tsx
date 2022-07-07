@@ -39,7 +39,8 @@ export const ModalQuestionList = ({
   const { i18n } = useTranslation()
   const [validSMS, setValidSMS] = useState<boolean>(false)
   const [leftSMS, setLeftSMS] = useState<number>(remainingAttempts)
-  const [pin, setPin] = useState<string>()
+  const [pin, setPin] = useState<string>('')
+  const [error, setError] = useState<boolean>(false)
   const { phoneSuffix, firstSent, setFirstSent } = useCSPForm()
   const coolref = useRef(null)
   const [cooldown, setCooldown] = useState<number>(0)
@@ -74,34 +75,26 @@ export const ModalQuestionList = ({
       return
     }
 
+    setFirstSent(true)
     coolItDown()
     sendSMS()
     setLeftSMS(leftSMS -1)
   }
 
-  useEffect(() => {
-    ;(async () => {
-      if (firstSent) return
-      setFirstSent(true)
-      await sendMessage()
-    })()
-  }, [firstSent])
-
   const checkSMS = async (value: string) => {
-    //setValidSMS(true)
     setPin(value)
+    setError(false)
 
     if (value.length !== 6) {
-      //setValidSMS(false)
       return false
     }
 
     try {
       await submitOTP(value)
-      //setLeftSMS(leftSMS - 1)
       setValidSMS(true)
     } catch (e) {
       setValidSMS(false)
+      setError(true)
       console.error('invalid OTP:', e)
     }
   }
@@ -162,35 +155,40 @@ export const ModalQuestionList = ({
       <Spacer direction='vertical' size='3xl' />
 
       <div>
-        <HeaderText>{i18n.t('fcb.enter_your_sms')}</HeaderText>
-        { leftSMS < 0 &&
-          <Column>
-            <WarningIcon>
-              <Icon
-                name='warning'
-                size={14}
-                color='#B75E19'
-              />
-            </WarningIcon>
-            <WarningText>{i18n.t('fcb.no_sms_left')}</WarningText>
-          </Column>
-        }
-
-        { leftSMS >= 0 && leftSMS < 5 && !validSMS &&
-          <InputFormGroup
-            label={null}
-            type='text'
-            error=''
-            id='sms'
-            value={pin}
-            onChange={(event: ChangeEvent<HTMLInputElement>) => {
-              checkSMS(event.target.value)
-            }}
-          />
-        }
-
-        { !validSMS && (typeof pin != "undefined" && pin.length >= 6) && (leftSMS >= 0) &&
-          <>
+        <If condition={leftSMS < 0}>
+          <Then>
+            <Column>
+              <WarningIcon>
+                <Icon
+                  name='warning'
+                  size={14}
+                  color='#B75E19'
+                />
+              </WarningIcon>
+              <WarningText>{i18n.t('fcb.no_sms_left')}</WarningText>
+            </Column>
+          </Then>
+          <Else>
+            <If condition={firstSent}>
+              <Then>
+                <HeaderText>{i18n.t('fcb.enter_your_sms')}</HeaderText>
+                <InputFormGroup
+                  label={null}
+                  type='text'
+                  error=''
+                  id='sms'
+                  value={pin}
+                  success={validSMS && !error && i18n.t('fcb.otp_correct')}
+                  onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                    checkSMS(event.target.value)
+                  }}
+                />
+              </Then>
+            </If>
+          </Else>
+        </If>
+        <If condition={!validSMS && error}>
+          <Then>
             <ErrorDiv>
               <ErrorIcon>
                 <Icon
@@ -201,8 +199,8 @@ export const ModalQuestionList = ({
               </ErrorIcon>
               <ErrorText>{i18n.t('fcb.incorrect_code', {leftSMS: leftSMS})}</ErrorText>
             </ErrorDiv>
-          </>
-        }
+          </Then>
+        </If>
       </div>
 
       <Spacer direction='vertical' size='3xl' />

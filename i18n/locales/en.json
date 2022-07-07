@@ -329,6 +329,7 @@
         "no_sms_left": "You have used 5 codes. Please, phone the support line to solve this problem.",
         "only_one_candidate": "Voting is not held in this area. In the case of the presentation of a single candidacy, the Electoral Board proclaims the new delegate of the Supporters Clubs Consultative Council.",
         "only_one_vote": "Please note that you can only cast one vote.",
+        "otp_correct": "Correct code",
         "process_title": "ELECCIONS CONSELL CONSULTIU DE PENYES",
         "resend_me_SMS": "Resend code via SMS",
         "select_candidates": "Choose your candidate. The “Continue” button will take you to the confirmation screen.",
