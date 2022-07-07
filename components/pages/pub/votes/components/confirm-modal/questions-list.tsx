@@ -40,8 +40,7 @@ export const ModalQuestionList = ({
   const [validSMS, setValidSMS] = useState<boolean>(false)
   const [leftSMS, setLeftSMS] = useState<number>(remainingAttempts)
   const [pin, setPin] = useState<string>()
-  const [firstSent, setFirstSent] = useState<boolean>(false)
-  const { phoneSuffix } = useCSPForm()
+  const { phoneSuffix, firstSent, setFirstSent } = useCSPForm()
 
   const sendMessage = () => {
     sendSMS()

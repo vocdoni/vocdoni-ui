@@ -18,6 +18,8 @@ export interface CSPState {
   setConsumed: (consumed: boolean) => void
   phoneSuffix: string
   setPhoneSuffix: (suffix: string) => void
+  firstSent: boolean
+  setFirstSent: (sent: boolean) => void
 }
 
 export const CSPContext = createContext<CSPState>({
@@ -26,13 +28,16 @@ export const CSPContext = createContext<CSPState>({
   consumed: true,
   setConsumed: (consumed) => {},
   phoneSuffix: '**',
-  setPhoneSuffix: (suffix) => {}
+  setPhoneSuffix: (suffix) => {},
+  firstSent: false,
+  setFirstSent: (sent) => {},
 })
 
 export const CSPProvider = ({children} : {children: ReactNode}) => {
   const [attempts, setAttempts] = useState<number>(0)
   const [consumed, setConsumed] = useState<boolean>(true)
   const [phoneSuffix, setPhoneSuffix] = useState<string>('**')
+  const [firstSent, setFirstSent] = useState<boolean>(false)
 
   const value = {
     remainingAttempts: attempts,
@@ -41,6 +46,8 @@ export const CSPProvider = ({children} : {children: ReactNode}) => {
     setConsumed,
     phoneSuffix,
     setPhoneSuffix,
+    firstSent,
+    setFirstSent,
   }
 
   return (
