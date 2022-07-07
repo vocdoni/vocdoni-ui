@@ -46,6 +46,7 @@ jobs:
         run: |
           echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/} | tr '/' '-' )"
           echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
+
       - name: Push to Docker Hub and ghcr.io (main)
         uses: docker/build-push-action@v2
         if: github.ref == 'refs/heads/main'
@@ -114,6 +115,28 @@ jobs:
             ETH_NETWORK_ID=xdai
             BLOCK_TIME=12
             BOOTNODES_URL=https://bootnodes.vocdoni.net/gateways.priv.json
+            BACKEND_URL=https://backend.vocdoni.net/api/manager
+            BACKEND_PUB_KEY=03cd13285ea116b9093a47364b29ddb09eccf50aa2f0112b6084a0b10943964d4e
+            DISCOVERY_POOL_SIZE=1
+          push: true
+          tags: |
+            vocdoni/${{ github.event.repository.name }}:${{ steps.var.outputs.branch }},
+            ghcr.io/vocdoni/${{ github.event.repository.name }}:${{ steps.var.outputs.branch }}
+
+      - name: Push to Docker Hub and ghcr.io (fcb)
+        uses: docker/build-push-action@v2
+        if: github.ref == 'refs/heads/fcb'
+        with:
+          context: .
+          file: ./Dockerfile.static
+          platforms: linux/amd64
+          build-args: |
+            COMMIT_SHA=${{ steps.var.outputs.sha_short }}
+            VOCDONI_ENVIRONMENT=dev
+            DEVELOPMENT=false
+            ETH_NETWORK_ID=rinkeby
+            BLOCK_TIME=12
+            BOOTNODES_URL=https://bootnodes.vocdoni.net/gateways.dev.json
             BACKEND_URL=https://backend.vocdoni.net/api/manager
             BACKEND_PUB_KEY=03cd13285ea116b9093a47364b29ddb09eccf50aa2f0112b6084a0b10943964d4e
             DISCOVERY_POOL_SIZE=1
