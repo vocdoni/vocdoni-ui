@@ -334,7 +334,7 @@ export const VotingPageView = () => {
               {(voteStatus === VoteStatus.Ended) &&
                 <div>
                   <Text size='sm'>
-                    {i18n.t('fcb.vote_registered')}.
+                    {i18n.t('fcb.vote_registered')}
                   </Text>
                   <br />
                 </div>
@@ -583,7 +583,7 @@ export const VotingPageView = () => {
                         {i18n.t('fcb.confirmation_code')} <strong>4d9dac8f566a0ab448efa4c19</strong>.
                       </Text>
                       <Text size='sm'>
-                        {i18n.t('fcb.vote_registered')}.
+                        {i18n.t('fcb.vote_registered')}
                       </Text>
                       <br /><br /><br />
                     </div>
@@ -595,7 +595,7 @@ export const VotingPageView = () => {
                     <TitleH3>{i18n.t('vote.ended_vote')}</TitleH3>
                     <div>
                       <Text size='sm'>
-                        {i18n.t('fcb.vote_registered')}.
+                        {i18n.t('fcb.vote_registered')}
                       </Text>
                       <br /><br /><br />
                     </div>
@@ -687,7 +687,7 @@ const NoVottingDiv = styled.div`
 `
 
 const QuestionsContainer = styled.div`
-  overflow-y: scroll;
+  overflow-y: hidden;
   overflow-x: hidden;
   max-height: 300px;
 
