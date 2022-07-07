@@ -244,7 +244,7 @@ export const ModalQuestionList = ({
                     wide
                     fcb
                     onClick={sendMessage}
-                    disabled={sendingVote || cooldown}
+                    disabled={sendingVote || cooldown > 0}
                     spinner={sendingVote}
                   >
                     <If condition={leftSMS >= 5}>
