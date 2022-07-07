@@ -22,7 +22,7 @@ jobs:
     runs-on: self-hosted
     needs:
       - node-tests
-    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/stage'
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/stage' || github.ref == 'refs/heads/fcb' || startsWith(github.ref, 'refs/heads/release')
     steps:
       - uses: AutoModality/action-clean@v1.1.0
       - name: Check out the repo
