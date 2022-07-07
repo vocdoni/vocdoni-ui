@@ -145,7 +145,7 @@ export const ModalQuestionList = ({
           </Column>
         }
 
-        { leftSMS >= 0 &&
+        { leftSMS >= 0 && leftSMS < 5 && !validSMS &&
           <InputFormGroup
             label={null}
             type='text'

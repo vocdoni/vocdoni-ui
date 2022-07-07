@@ -863,8 +863,8 @@
         "voting_number": "Technical Support:",
         "vote_verification_text": "You can verify the inclusion of your vote in ",
         "block_explorer": "block explorer",
-        "confirmation_code": " Your confirmation code is: ",
-        "vote_registered": "Your vote has been registered successfully. The results will be made public from ",
+        "confirmation_code": "Your confirmation code is: ",
+        "vote_registered": "The Electoral Board will proclaim the winning candidacies on the 26th of July.",
         "vote_finalized": " once the voting process is complete.",
         "confirm_your_vote_text": "If the chosen option is correct, press the `Send code via SMS` button and you will receive an SMS on your mobile phone. Once you have entered the code sent to your mobile phone correctly, you will be able to send your vote (so anonymous) by pressing the `Send my vote` button.",
         "enter_your_sms": "Enter the code you received via SMS (4 digits)",
@@ -893,6 +893,6 @@
         "not_started": "The voting act has not begun",
         "only_one_candidate": "Voting is not held in this area. In the case of the presentation of a single candidacy, the Electoral Board proclaims the new delegate of the Supporters Clubs Consultative Council.",
         "upcoming_voting_tag": "The voting process has not begun yet",
-        "process_title": "ELECCIONS CONSELL CONSULTIU DE PENYES"
+        "process_title": "ELECTIONS SUPPORTER’S CLUB ADVISORY COUNCIL"
     }
 }
