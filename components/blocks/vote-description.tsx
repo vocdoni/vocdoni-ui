@@ -83,7 +83,7 @@ export const VoteDescription = () => {
           <Col xs={12}>
             <ProcessStatusLabel />
           </Col>
-          {description &&
+          {false && description &&
             <Col xs={12}>
               <ExpandableContainer
                 lines={5}

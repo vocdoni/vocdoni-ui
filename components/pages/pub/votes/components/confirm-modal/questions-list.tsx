@@ -58,17 +58,17 @@ export const ModalQuestionList = ({
   }, [firstSent])
 
   const checkSMS = async (value: string) => {
-    setValidSMS(true)
+    //setValidSMS(true)
     setPin(value)
-
+    
     if (value.length !== 6) {
-      setValidSMS(false)
+      //setValidSMS(false)
       return false
     }
 
     try {
       await submitOTP(value)
-      setLeftSMS(leftSMS - 1)
+      //setLeftSMS(leftSMS - 1)
       setValidSMS(true)
     } catch (e) {
       setValidSMS(false)
@@ -206,26 +206,14 @@ export const ModalQuestionList = ({
 
           :
 
-          <>
-            <Column sm={12} md={8}>
-              <Button
-                wide
-                fcb
-                onClick={null}
-                disabled={sendingVote}
-                spinner={sendingVote}
-              >
-                { (leftSMS >= 5) ? <>{i18n.t('fcb.send_me_SMS')}</> : <>{i18n.t('fcb.resend_me_SMS')}</> }
-              </Button>
-            </Column>
-            
+          <>            
             <If condition={leftSMS > 0}>
               <Then>
                 <Column sm={12} md={8}>
                   <Button
                     wide
                     fcb
-                    onClick={sendSMS}
+                    onClick={sendMessage}
                     disabled={sendingVote}
                     spinner={sendingVote}
                   >
