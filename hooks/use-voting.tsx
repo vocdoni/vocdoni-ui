@@ -90,7 +90,7 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
   const { blockHeight } = useBlockHeight()
   const [nullifier, setNullifier] = useState<string | bigint>()
   const [explorerLink, setExplorerLink] = useState<string>()
-  const [censusProof, setCensusProof] = useState<IProofCA>()
+  let [censusProof, setCensusProof] = useState<IProofCA>()
   const [tokenR, setTokenR] = useState<string>()
   const [hasVoted, setHasVoted] = useState(false)
   const [refreshingVotedStatus, setRefreshingVotedStatus] = useState(false)
@@ -179,8 +179,8 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
         return CspSignatures.getSignature("blind", blindedPayload, resp.token, processId, csp)
       })
       .then((blindSignature) => {
-        const proof = CspSignatures.getProofFromBlindSignature(blindSignature, userSecret, wallet)
-        setCensusProof(proof)
+        censusProof = CspSignatures.getProofFromBlindSignature(blindSignature, userSecret, wallet)
+        setCensusProof(censusProof)
       })
   }
 
