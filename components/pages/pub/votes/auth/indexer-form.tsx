@@ -53,6 +53,7 @@ export const IndexerForm = ({
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault()
     onSubmit()
+    setSameInput(true)
   }
 
   return (

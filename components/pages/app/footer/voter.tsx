@@ -22,7 +22,7 @@ export const VoterFooter = () => {
         </Col>
 
         <Col xs={12} md={8} lg={4}>
-          <Row>
+          <Row gutter='none'>
             <Col sm={4} xs={3}>
               <ColoredLink href=''>{i18n.t('fcb.terms')}</ColoredLink>
             </Col>
@@ -150,7 +150,6 @@ const FooterContainer = styled.div`
   padding-bottom:20px;
 
   @media (max-width: 1124px) {
-    position: relative;
     text-align: center;
   }
 `

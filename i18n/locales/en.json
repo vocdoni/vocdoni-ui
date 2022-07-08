@@ -650,7 +650,7 @@
         "creating_census": "Creating census",
         "creating_process": "Creating process",
         "creation": "Creation",
-        "credentials_not_accepted": "Credentials not accepted! Please contact the entity.",
+        "credentials_not_accepted": "Credentials not valid. Please try again. If problem still exists, please contact the e-voting support line.",
         "define_the_timeframe_of_the_proposal": "Define the timeframe of the proposal",
         "delete_option": "Delete option",
         "delete_question": "Delete question",
