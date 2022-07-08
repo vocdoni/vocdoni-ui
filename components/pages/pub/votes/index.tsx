@@ -577,6 +577,10 @@ export const VotingPageView = () => {
               <BodyContainer>
                 { hasVoted &&
                   <>
+                    <Typography variant={TypographyVariant.H4} margin="0">
+                      {processInfo?.metadata?.questions[0].title.default}
+                    </Typography>
+                    <Spacer direction='vertical' size='3xl' />
                     <TitleH3>{i18n.t('fcb.you_have_voted')}</TitleH3>
                     <div>
                       <Text size='sm'>
@@ -592,6 +596,10 @@ export const VotingPageView = () => {
 
                 { !hasVoted &&
                   <>
+                    <Typography variant={TypographyVariant.H4} margin="0">
+                      {processInfo?.metadata?.questions[0].title.default}
+                    </Typography>
+                    <Spacer direction='vertical' size='3xl' />
                     <TitleH3>{i18n.t('vote.ended_vote')}</TitleH3>
                     <div>
                       <Text size='sm'>
