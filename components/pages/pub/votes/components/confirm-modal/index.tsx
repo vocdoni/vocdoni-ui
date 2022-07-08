@@ -18,10 +18,9 @@ interface IConfigModal {
   onVoted: () => void
   sendSMS: () => void
   submitOTP: (value: string) => void
-  remainingAttempts: number
 }
 
-export const ConfirmModal = ({ isOpen, onClose, onVoted, remainingAttempts, sendSMS, submitOTP }: IConfigModal) => {
+export const ConfirmModal = ({ isOpen, onClose, onVoted, sendSMS, submitOTP }: IConfigModal) => {
   const processId = useUrlHash().slice(1) // Skip "/"
   const { process: processInfo } = useProcess(processId)
   const { choices, hasVoted, methods, pleaseWait, actionError } = useVoting(processId)
@@ -47,7 +46,6 @@ export const ConfirmModal = ({ isOpen, onClose, onVoted, remainingAttempts, send
         choices={choices}
         onSubmit={handleSendVote}
         sendingVote={pleaseWait}
-        remainingAttempts={remainingAttempts}
         sendSMS={sendSMS}
         submitOTP={submitOTP}
         onClose={onClose}

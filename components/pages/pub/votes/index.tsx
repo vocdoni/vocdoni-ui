@@ -83,7 +83,7 @@ export const VotingPageView = () => {
   const [disconnectModalOpened, setDisconnectModalOpened] = useState(false)
   const isMobile = useIsMobile()
   const censusProof = useRecoilValue(censusProofState)
-  const { remainingAttempts, consumed } = useCSPForm()
+  const { consumed } = useCSPForm()
 
   const { methods: votingMethods, choices, hasVoted, results, explorerLink } = useVoting(
     processId
@@ -142,7 +142,7 @@ export const VotingPageView = () => {
       handleGotoAuth()
     }
 
-    if (consumed) {
+    if (consumed || hasVoted) {
       return setUserVoteStatus(UserVoteStatus.Emitted)
     }
 
@@ -634,7 +634,6 @@ export const VotingPageView = () => {
         isOpen={confirmModalOpened}
         onVoted={handleOnVoted}
         onClose={handleBackToVoting}
-        remainingAttempts={remainingAttempts}
         sendSMS={votingMethods.sendSMS}
         submitOTP={votingMethods.submitOTP}
       />
