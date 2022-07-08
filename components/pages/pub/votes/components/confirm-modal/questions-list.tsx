@@ -159,7 +159,7 @@ export const ModalQuestionList = ({
                   color='#B31B35'
                 />
               </ErrorIcon>
-              <ErrorText>{i18n.t('fcb.incorrect_code', {leftSMS: remainingAttempts})}</ErrorText>
+              <ErrorText>{i18n.t('fcb.incorrect_code', {leftSMS: 5-remainingAttempts})}</ErrorText>
             </ErrorDiv>
           </Then>
         </If>
