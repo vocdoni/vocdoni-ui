@@ -32,6 +32,7 @@ import { Spacer, Col, Row, IColProps, Text } from '@components/elements-v2'
 import { colors } from 'theme/colors'
 import { Typography, TypographyVariant } from '@components/elements/typography'
 import { Radio } from '@components/elements/radio'
+import { Loader } from '@components/blocks/loader'
 
 import { DisconnectModal } from '@components/blocks-v2'
 import { ResultsCard } from './components/results-card'
@@ -115,8 +116,15 @@ export const VotingPageView = () => {
   // if TRUE, the voting will display all the questions in one page
   const isInlineVotingProcess = true
   const totalVotes = results?.totalVotes ? results.totalVotes : 0
+  let isLoading = true
 
   // Effects
+
+  useEffect(() => {
+    setTimeout(function(){
+      isLoading = false
+    }, 1200);
+  })
 
   // If status is ended open the results card
   // automatically
@@ -289,7 +297,9 @@ export const VotingPageView = () => {
           onLogout={handleGotoAuth}
         />
 
-        { isOneCandidate &&
+        <Loader visible={isLoading} />
+
+        { isLoading && isOneCandidate &&
           <BodyContainer>
             <Spacer direction='vertical' size='3xl' />
             <Spacer direction='vertical' size='3xl' />
@@ -358,7 +368,7 @@ export const VotingPageView = () => {
           </BodyContainer>
         }
 
-        { !isOneCandidate &&
+        { isLoading && !isOneCandidate &&
           <>
             <If condition={(userVoteStatus !== UserVoteStatus.InProgress || isInlineVotingProcess)}>
               <Then>
@@ -485,7 +495,7 @@ export const VotingPageView = () => {
 
             {/* FIXED CARDS ON MOBILE VERSION */}
 
-            {voteStatus === VoteStatus.Upcoming &&
+            {false && voteStatus === VoteStatus.Upcoming &&
               <>
                 <MobileSpacer />
                 <FixedContainerRow align='center' justify='center'>

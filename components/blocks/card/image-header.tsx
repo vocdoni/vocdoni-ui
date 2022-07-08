@@ -110,14 +110,14 @@ export const CardImageHeader = ({
 }
 
 const FlagDiv = styled.div`
-  width: 40%;
+  width: 30%;
   overflow: hidden;
   margin-top: -10px;
   height: 100vh;
 `
 
 const FixedImg = styled.div`
-  width: 60%;
+  width: 70%;
   margin-top: 20px;
   margin-left: 30px;
 `

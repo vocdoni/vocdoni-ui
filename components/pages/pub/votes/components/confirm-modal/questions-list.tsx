@@ -129,7 +129,7 @@ export const ModalQuestionList = ({
       <Spacer direction='vertical' size='3xl' />
 
       <div>
-        <If condition={remainingAttempts < 0}>
+        <If condition={remainingAttempts <= 0}>
           <Then>
             <Column>
               <WarningIcon>
@@ -226,7 +226,7 @@ export const ModalQuestionList = ({
                       <Else>
                         <If condition={!cooldown}>
                           <Then>
-                            {i18n.t('fcb.resend_me_SMS')}
+                            {i18n.t('fcb.send_me_SMS')}
                           </Then>
                           <Else>
                             {i18n.t('fcb.sms_cooldown', {cooldown})}
