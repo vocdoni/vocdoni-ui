@@ -32,7 +32,6 @@ import { Spacer, Col, Row, IColProps, Text } from '@components/elements-v2'
 import { colors } from 'theme/colors'
 import { Typography, TypographyVariant } from '@components/elements/typography'
 import { Radio } from '@components/elements/radio'
-import { Loader } from '@components/blocks/loader'
 
 import { DisconnectModal } from '@components/blocks-v2'
 import { ResultsCard } from './components/results-card'
@@ -116,15 +115,8 @@ export const VotingPageView = () => {
   // if TRUE, the voting will display all the questions in one page
   const isInlineVotingProcess = true
   const totalVotes = results?.totalVotes ? results.totalVotes : 0
-  let isLoading = true
 
   // Effects
-
-  useEffect(() => {
-    setTimeout(function(){
-      isLoading = false
-    }, 1200);
-  })
 
   // If status is ended open the results card
   // automatically
@@ -299,7 +291,7 @@ export const VotingPageView = () => {
 
         <Loader visible={isLoading} />
 
-        { !isLoading && isOneCandidate &&
+        { isOneCandidate &&
           <BodyContainer>
             <Spacer direction='vertical' size='3xl' />
             <Spacer direction='vertical' size='3xl' />
@@ -368,7 +360,7 @@ export const VotingPageView = () => {
           </BodyContainer>
         }
 
-        { !isLoading && !isOneCandidate &&
+        { !isOneCandidate &&
           <>
             <If condition={(userVoteStatus !== UserVoteStatus.InProgress || isInlineVotingProcess)}>
               <Then>
