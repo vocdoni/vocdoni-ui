@@ -56,6 +56,7 @@ export const ModalQuestionList = ({
     if(validSMS){
       return false
     }
+
     setPin(value)
     setError(false)
 
