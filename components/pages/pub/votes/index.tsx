@@ -289,8 +289,6 @@ export const VotingPageView = () => {
           onLogout={handleGotoAuth}
         />
 
-        <Loader visible={isLoading} />
-
         { isOneCandidate &&
           <BodyContainer>
             <Spacer direction='vertical' size='3xl' />

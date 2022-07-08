@@ -138,18 +138,9 @@ const CopyrightText = styled.div`
 `
 
 const FooterContainer = styled.div`
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  background: #fff;
-  display: flex;
-  flex-direction: row;
+  flex-shrink: 0;
   align-items: center;
   justify-content: center;
   padding-top:20px;
   padding-bottom:20px;
-
-  @media (max-width: 1124px) {
-    text-align: center;
-  }
 `
