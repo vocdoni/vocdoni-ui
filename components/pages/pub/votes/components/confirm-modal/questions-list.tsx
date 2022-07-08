@@ -52,6 +52,10 @@ export const ModalQuestionList = ({
   }
 
   const checkSMS = async (value: string) => {
+    if(validSMS){
+      return false
+    }
+
     setPin(value)
     setError(false)
 

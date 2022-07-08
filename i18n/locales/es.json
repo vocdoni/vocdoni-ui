@@ -313,7 +313,7 @@
         "your_vote_could_not_be_delivered": "Tu voto no ha podido ser entregado"
     },
     "fcb": {
-        "available_SMS": "Dispone de {{numSMS}} SMS. El nº de teléfono que tenemos registrado es: +** ******{{phoneNum}}. Si no es válido, llame al +34 888 888 888.",
+        "available_SMS": "Dispone de {{numSMS}} SMS. El número de teléfono que tenemos registrado es: +** ******{{phoneNum}}. Si no es correcto, llamad al número de soporte para el uso de la plataforma que encuentran al pie de página.",
         "blank_option": "Voto en blanco",
         "candidates": "Las personas candidatas son las siguientes:",
         "confirm_your_vote_text": "Pulse el botón \"Envíeme un código SMS\" y entre el código que recibirá en el móvil para emitir su voto o bien cierre esta ventana para volver a la pantalla anterior. Llame al teléfono de soporte al uso de la plataforma de e-votación para cambiar de número de teléfono móvil.",
@@ -336,14 +336,14 @@
         "send_me_SMS": "Envíeme un código SMS",
         "service_conditions": "Condiciones de servicio",
         "sms_cooldown": "Reenvíeme un código SMS ({{cooldown}}s)",
-        "support_number": "Soporte al proceso electoral",
+        "support_number": "Departamento de Peñas:",
         "terms": "Términos",
         "upcoming_vote": "El período de votación comprende del 21/07/2022 10:00 CEST al 22/07/2022 11:59 CEST.",
         "upcoming_voting_tag": "El proceso de votación aún no ha empezado",
-        "vote_registered": "Su voto ha sido registrado correctamente. Los resultados se harán públicos a partir del ",
-        "voting_number": "Soporte al uso de la plataforma de e-votación",
+        "vote_registered": "La Junta Electoral proclamará las candidaturas ganadoras el 26 de julio.",
+        "voting_number": "Soporte Técnico:",
         "voting_period": "Período de votación: de {{startDate}} hasta el {{endDate}}",
-        "you_have_voted": "Ya has votado"
+        "you_have_voted": "Ya ha votado"
     },
     "form": {
         "input": {
