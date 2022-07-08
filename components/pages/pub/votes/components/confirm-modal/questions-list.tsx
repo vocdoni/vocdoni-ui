@@ -21,7 +21,6 @@ interface IModalQuestionList {
   sendingVote: boolean
   onClose: () => void
   onSubmit: () => void
-  remainingAttempts: number
   sendSMS: () => void
   submitOTP: (value: string) => void
 }
