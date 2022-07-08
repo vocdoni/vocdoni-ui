@@ -32,16 +32,14 @@ export const ModalQuestionList = ({
   sendingVote,
   onSubmit,
   onClose,
-  remainingAttempts,
   sendSMS,
   submitOTP
 }: IModalQuestionList) => {
   const { i18n } = useTranslation()
   const [validSMS, setValidSMS] = useState<boolean>(false)
-  const [leftSMS, setLeftSMS] = useState<number>(remainingAttempts)
+  const { phoneSuffix, firstSent, setFirstSent, remainingAttempts, setAttempts } = useCSPForm()
   const [pin, setPin] = useState<string>('')
   const [error, setError] = useState<boolean>(false)
-  const { phoneSuffix, firstSent, setFirstSent } = useCSPForm()
   const coolref = useRef(null)
   const [cooldown, setCooldown] = useState<number>(0)
   const [interval, setInterval] = useState<number>(0)
@@ -78,7 +76,7 @@ export const ModalQuestionList = ({
     setFirstSent(true)
     coolItDown()
     sendSMS()
-    setLeftSMS(leftSMS -1)
+    setAttempts(remainingAttempts -1)
   }
 
   const checkSMS = async (value: string) => {
@@ -155,7 +153,7 @@ export const ModalQuestionList = ({
       <Spacer direction='vertical' size='3xl' />
 
       <div>
-        <If condition={leftSMS < 0}>
+        <If condition={remainingAttempts < 0}>
           <Then>
             <Column>
               <WarningIcon>
@@ -197,7 +195,7 @@ export const ModalQuestionList = ({
                   color='#B31B35'
                 />
               </ErrorIcon>
-              <ErrorText>{i18n.t('fcb.incorrect_code', {leftSMS: leftSMS})}</ErrorText>
+              <ErrorText>{i18n.t('fcb.incorrect_code', {leftSMS: remainingAttempts})}</ErrorText>
             </ErrorDiv>
           </Then>
         </If>
@@ -235,7 +233,7 @@ export const ModalQuestionList = ({
           :
 
           <>
-            <If condition={leftSMS > 0}>
+            <If condition={remainingAttempts > 0}>
               <Then>
                 <Column sm={12} md={8}>
                   <Button
@@ -245,7 +243,7 @@ export const ModalQuestionList = ({
                     disabled={sendingVote || cooldown > 0}
                     spinner={sendingVote}
                   >
-                    <If condition={leftSMS >= 5}>
+                    <If condition={remainingAttempts >= 5}>
                       <Then>
                         {i18n.t('fcb.send_me_SMS')}
                       </Then>
@@ -268,7 +266,7 @@ export const ModalQuestionList = ({
             <Spacer direction='vertical' size='md' />
 
             <NeutralColor>
-              <strong>{i18n.t('fcb.available_SMS',{ numSMS: leftSMS, phoneNum: phoneSuffix})}</strong>
+              <strong>{i18n.t('fcb.available_SMS',{ numSMS: remainingAttempts, phoneNum: phoneSuffix})}</strong>
             </NeutralColor>
           </>
         }
