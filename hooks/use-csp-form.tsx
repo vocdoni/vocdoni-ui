@@ -6,7 +6,7 @@ import { CspIndexer, CspSMSAuthenticator } from '@vocdoni/csp'
 import { Symmetric } from '@vocdoni/encryption'
 import { Wallet } from 'ethers'
 import { useRouter } from 'next/router'
-import { createContext, ReactNode, useContext, useEffect, useState } from 'react'
+import { createContext, ReactNode, useContext, useEffect, useRef, useState } from 'react'
 import i18n from '../i18n'
 import { useMessageAlert } from './message-alert'
 import { useWallet, WalletRoles } from './use-wallet'
@@ -20,6 +20,8 @@ export interface CSPState {
   setPhoneSuffix: (suffix: string) => void
   firstSent: boolean
   setFirstSent: (sent: boolean) => void
+  cooldown: number
+  coolItDown: () => void
 }
 
 export const CSPContext = createContext<CSPState>({
@@ -31,6 +33,8 @@ export const CSPContext = createContext<CSPState>({
   setPhoneSuffix: (suffix) => {},
   firstSent: false,
   setFirstSent: (sent) => {},
+  cooldown: 0,
+  coolItDown: () => {},
 })
 
 export const CSPProvider = ({children} : {children: ReactNode}) => {
@@ -38,6 +42,33 @@ export const CSPProvider = ({children} : {children: ReactNode}) => {
   const [consumed, setConsumed] = useState<boolean>(true)
   const [phoneSuffix, setPhoneSuffix] = useState<string>('**')
   const [firstSent, setFirstSent] = useState<boolean>(false)
+  const coolref = useRef<number>(null)
+  const [cooldown, setCooldown] = useState<number>(0)
+  const [interval, setInterval] = useState<number>(0)
+
+  const coolItDown = () => {
+    if (!interval && !coolref.current || coolref.current <= 0) {
+      coolref.current = 60
+      setCooldown(coolref.current)
+      const int = window.setInterval(() => {
+        coolref.current -= 1
+        setCooldown(coolref.current)
+        if (coolref.current <= 0) {
+          window.clearInterval(interval)
+          setInterval(0)
+        }
+      }, 1000)
+      setInterval(int)
+    }
+  }
+
+  // clear interval on component unmount
+  useEffect(() => {
+    return () => {
+      if (!interval) return
+      window.clearInterval(interval)
+    }
+  }, [interval])
 
   const value = {
     remainingAttempts: attempts,
@@ -48,6 +79,8 @@ export const CSPProvider = ({children} : {children: ReactNode}) => {
     setPhoneSuffix,
     firstSent,
     setFirstSent,
+    cooldown,
+    coolItDown,
   }
 
   return (

@@ -37,36 +37,9 @@ export const ModalQuestionList = ({
 }: IModalQuestionList) => {
   const { i18n } = useTranslation()
   const [validSMS, setValidSMS] = useState<boolean>(false)
-  const { phoneSuffix, firstSent, setFirstSent, remainingAttempts, setAttempts } = useCSPForm()
+  const { phoneSuffix, firstSent, setFirstSent, remainingAttempts, setAttempts, cooldown, coolItDown } = useCSPForm()
   const [pin, setPin] = useState<string>('')
   const [error, setError] = useState<boolean>(false)
-  const coolref = useRef(null)
-  const [cooldown, setCooldown] = useState<number>(0)
-  const [interval, setInterval] = useState<number>(0)
-
-  const coolItDown = () => {
-    if (!interval && !coolref.current || coolref.current <= 0) {
-      coolref.current = 60
-      setCooldown(coolref.current)
-      const int = window.setInterval(() => {
-        coolref.current -= 1
-        setCooldown(coolref.current)
-        if (coolref.current <= 0) {
-          window.clearInterval(interval)
-          setInterval(0)
-        }
-      }, 1000)
-      setInterval(int)
-    }
-  }
-
-  // clear interval on component unmount
-  useEffect(() => {
-    return () => {
-      if (!interval) return
-      window.clearInterval(interval)
-    }
-  }, [interval])
 
   const sendMessage = () => {
     if (cooldown) {
