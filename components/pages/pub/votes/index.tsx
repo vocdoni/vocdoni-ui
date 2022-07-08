@@ -299,7 +299,7 @@ export const VotingPageView = () => {
 
         <Loader visible={isLoading} />
 
-        { isLoading && isOneCandidate &&
+        { !isLoading && isOneCandidate &&
           <BodyContainer>
             <Spacer direction='vertical' size='3xl' />
             <Spacer direction='vertical' size='3xl' />
@@ -368,7 +368,7 @@ export const VotingPageView = () => {
           </BodyContainer>
         }
 
-        { isLoading && !isOneCandidate &&
+        { !isLoading && !isOneCandidate &&
           <>
             <If condition={(userVoteStatus !== UserVoteStatus.InProgress || isInlineVotingProcess)}>
               <Then>
