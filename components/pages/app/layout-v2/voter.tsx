@@ -14,6 +14,7 @@ const LayoutContainer = styled.div`
   max-width: ${sizes.laptopL}px;
   margin-left: auto;
   margin-right: auto;
+  flex:1 0 auto;
 
   @media ${({ theme }) => theme.screenMax.tablet} {
     ${({ theme }) => `padding: 0px 0px 40px;`}
