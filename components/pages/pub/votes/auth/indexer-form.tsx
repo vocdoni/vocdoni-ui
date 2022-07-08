@@ -91,8 +91,7 @@ export const IndexerForm = ({
                       onChange={(e: ChangeEvent<HTMLInputElement>) => {
                         onChange("clauSoci", e.target.value)
                         setSameInput(false)
-                      }
-                      }
+                      }}
                       value={values["clauSoci"]}
                       variant={FormGroupVariant.Small}
                     />

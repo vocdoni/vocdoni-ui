@@ -238,11 +238,9 @@ export const ModalQuestionList = ({
                 </Column>
               </Then>
             </If>
-
             <Spacer direction='vertical' size='md' />
-
             <NeutralColor>
-              <strong>{i18n.t('fcb.available_SMS',{ numSMS: remainingAttempts, phoneNum: phoneSuffix})}</strong>
+              <strong>{i18n.t('fcb.available_SMS', {numSMS: remainingAttempts, phoneNum: phoneSuffix})}</strong>
             </NeutralColor>
           </>
         }

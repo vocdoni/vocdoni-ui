@@ -178,7 +178,7 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
         userSecret = userSecretData
         return CspSignatures.getSignature("blind", blindedPayload, resp.token, processId, csp)
       })
-      .then(blindSignature => {
+      .then((blindSignature) => {
         const proof = CspSignatures.getProofFromBlindSignature(blindSignature, userSecret, wallet)
         setCensusProof(proof)
       })
