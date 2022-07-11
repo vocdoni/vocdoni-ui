@@ -114,12 +114,16 @@ const FlagDiv = styled.div`
   overflow: hidden;
   margin-top: -10px;
   height: 100vh;
+
+  img {
+    margin-right: -150px;
+  }
 `
 
 const FixedImg = styled.div`
   width: 70%;
   margin-top: 20px;
-  margin-left: 30px;
+  padding-left: 30px;
 `
 
 const FCBH1 = styled.h1`
@@ -167,7 +171,7 @@ const HeaderMenu = styled.div`
   display: flex;
   align-items: flex-end;
   justify-content: flex-end;
-  margin: 0px 25px;
+  padding: 0px 25px;
   height: 0px;
 `
 

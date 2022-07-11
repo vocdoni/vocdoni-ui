@@ -334,16 +334,20 @@
         "resend_me_SMS": "Reenvíeme un código SMS",
         "select_candidates": "Elija su candidato. El botón «Continuar» le llevará a la pantalla de confirmación de su elección.",
         "send_me_SMS": "Envíeme un código SMS",
-        "service_conditions": "Condiciones de servicio",
+        "service_conditions": "Política de privacidad",
         "sms_cooldown": "Reenvíeme un código SMS ({{cooldown}}s)",
         "support_number": "Departamento de Peñas:",
-        "terms": "Términos",
+        "terms": "Términos legales",
         "upcoming_vote": "El período de votación comprende del 21/07/2022 10:00 CEST al 22/07/2022 11:59 CEST.",
         "upcoming_voting_tag": "El proceso de votación aún no ha empezado",
         "vote_registered": "La Junta Electoral proclamará las candidaturas ganadoras el 26 de julio.",
         "voting_number": "Soporte Técnico:",
         "voting_period": "Período de votación: de {{startDate}} hasta el {{endDate}}",
-        "you_have_voted": "Ya ha votado"
+        "you_have_voted": "Ya ha votado",
+        "url_terms": "https://www.fcbarcelona.es/es/aviso-legal",
+        "url_privacy": "https://www.fcbarcelona.es/es/politica-privacidad",
+        "url_cookies": "https://www.fcbarcelona.es/es/cookies",
+        "cookies": "Cookies"
     },
     "form": {
         "input": {
