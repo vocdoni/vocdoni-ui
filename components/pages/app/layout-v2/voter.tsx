@@ -21,7 +21,7 @@ const LayoutContainer = styled.div`
   }
 
   @media ${({ theme }) => theme.screenMin.tabletL} {
-    ${({ theme }) => `padding: 20px ${theme.margins.desktop.horizontal} 120px;`}
+    ${({ theme }) => `padding: 20px ${theme.margins.desktop.horizontal} 40px;`}
   }
 
   @media ${({ theme }) => theme.screenMax.mobileL} {
