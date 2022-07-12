@@ -334,16 +334,20 @@
         "resend_me_SMS": "Reenvieu-me un codi SMS",
         "select_candidates": "Trieu el vostre candidat. El botó «Continua» us portarà a la pantalla de confirmació de la vostra tria.",
         "send_me_SMS": "Envieu-me un codi SMS",
-        "service_conditions": "Condicions de servei",
+        "service_conditions": "Política de Privacitat",
         "sms_cooldown": "Reenvieu-me un codi SMS ({{cooldown}}s)",
         "support_number": "Departament de Penyes:",
-        "terms": "Termes",
+        "terms": "Termes Legals",
         "upcoming_vote": "El període de votació compren del 21/07/2022 10:00 CEST al 22/07/2022 11:59 CEST",
         "upcoming_voting_tag": "El procés de votació encara no ha començat",
         "vote_registered": "La Junta Electoral proclamarà les candidatures guanyadores el 26 de juliol.",
         "voting_number": "Suport Tècnic:",
         "voting_period": "Període de votació: del {{startDate}} fins al {{endDate}}",
-        "you_have_voted": "Ja heu votat"
+        "you_have_voted": "Ja heu votat",
+        "url_terms": "https://www.fcbarcelona.cat/ca/avis-legal",
+        "url_privacy": "https://www.fcbarcelona.cat/ca/politica-privacitat",
+        "url_cookies": "https://www.fcbarcelona.cat/ca/cookies",
+        "cookies": "Cookies"
     },
     "form": {
         "input": {

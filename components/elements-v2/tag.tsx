@@ -35,7 +35,7 @@ export const Tag = (props: ITagProps) => {
       }
       <StyledLabel>
         <Text size='xs' weight='medium' color='dark-blue'>
-          {i18n.t('fcb.voting_period', {startDate: '21/07/2022 00:00 CEST', endDate: '22/07/2022 11:59 CEST'})}
+          {i18n.t('fcb.voting_period', {startDate: '21/07/2022 10:00 CEST', endDate: '22/07/2022 11:59 CEST'})}
         </Text>
       </StyledLabel>
     </Row>

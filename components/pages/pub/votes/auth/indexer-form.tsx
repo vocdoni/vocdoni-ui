@@ -218,6 +218,10 @@ const StyledFieldset = styled.fieldset`
   width: 100%;
   border: none;
   margin: auto;
+
+  @media ${({theme}) => theme.screenMax.mobileL} {
+    margin-left: -10px;
+  }
 `
 
 const LightText = styled.div`
