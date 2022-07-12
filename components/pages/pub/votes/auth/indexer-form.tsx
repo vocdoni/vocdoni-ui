@@ -78,7 +78,7 @@ export const IndexerForm = ({
         <br /><br /><br /><br /><br /><br /><br /><br />
       </NotStarted>
 
-      { true &&
+    { true &&
       <StyledFieldset disabled={checkingCredentials}>
         <Row gutter='xl'>
           {/* <Col xs={12}>
