@@ -23,7 +23,7 @@ interface IConfigModal {
 export const ConfirmModal = ({ isOpen, onClose, onVoted, sendSMS, submitOTP }: IConfigModal) => {
   const processId = useUrlHash().slice(1) // Skip "/"
   const { process: processInfo } = useProcess(processId)
-  const { choices, hasVoted, methods, pleaseWait, actionError } = useVoting(processId)
+  const { choices, hasVoted, methods, pleaseWait, actionError, nullifier } = useVoting(processId)
   const handleOnClose = () => {
     if (hasVoted) {
       onVoted()
@@ -63,7 +63,7 @@ export const ConfirmModal = ({ isOpen, onClose, onVoted, sendSMS, submitOTP }: I
 
   const renderVoteSubmitted = new ViewStrategy(
     () => hasVoted,
-    <VoteSubmitted onAccept={onVoted} onClose={onClose} />
+    <VoteSubmitted nullifier={nullifier} onAccept={onVoted} onClose={onClose} />
   )
 
   const viewContext = new ViewContext([

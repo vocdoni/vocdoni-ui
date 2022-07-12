@@ -85,7 +85,7 @@ export const VotingPageView = () => {
   const censusProof = useRecoilValue(censusProofState)
   const { consumed } = useCSPForm()
 
-  const { methods: votingMethods, choices, hasVoted, results, explorerLink } = useVoting(
+  const { methods: votingMethods, choices, hasVoted, results, explorerLink, nullifier } = useVoting(
     processId
   )
   const { process: processInfo } = useProcess(processId)
@@ -543,7 +543,7 @@ export const VotingPageView = () => {
                 <TitleH3>{i18n.t('fcb.you_have_voted')}</TitleH3>
                 <div>
                   <Text size='sm'>
-                    {i18n.t('fcb.confirmation_code')}<strong>4d9dac8f566a0ab448efa4c19</strong>.
+                    {i18n.t('fcb.confirmation_code')}<strong>{nullifier}</strong>.
                   </Text>
 
                   <Spacer direction='vertical' size='3xl' />
@@ -584,7 +584,7 @@ export const VotingPageView = () => {
                     <TitleH3>{i18n.t('fcb.you_have_voted')}</TitleH3>
                     <div>
                       <Text size='sm'>
-                        {i18n.t('fcb.confirmation_code')} <strong>4d9dac8f566a0ab448efa4c19</strong>.
+                        {i18n.t('fcb.confirmation_code')} <strong>{nullifier}</strong>.
                       </Text>
                       <Text size='sm'>
                         {i18n.t('fcb.vote_registered')}
