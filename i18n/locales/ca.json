@@ -346,7 +346,8 @@
         "url_terms": "https://www.fcbarcelona.cat/ca/avis-legal",
         "url_privacy": "https://www.fcbarcelona.cat/ca/politica-privacitat",
         "url_cookies": "https://www.fcbarcelona.cat/ca/cookies",
-        "cookies": "Cookies"
+        "cookies": "Cookies",
+        "starting": "Les votacions comencen el dia 21 de juliol a les 10.00 CEST."
     },
     "form": {
         "input": {
