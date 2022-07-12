@@ -67,10 +67,10 @@ export const IndexerForm = ({
       />
 
       <NotStarted>
-        <br /><br /><br /><br /><br /><br /><br />
+        <br /><br /><br /><br /><br /><br />
         <Row gutter='4xl'>
-          <Col xs={12}>
-            <Text size='lg' color='dark-blue'>
+          <Col xs={12} justify="center">
+            <Text size='lg' color='dark-blue' align='center'>
               <strong>{i18n.t('fcb.starting')}</strong>
             </Text>
           </Col>
@@ -78,7 +78,7 @@ export const IndexerForm = ({
         <br /><br /><br /><br /><br /><br /><br /><br />
       </NotStarted>
 
-      { false &&
+      { true &&
       <StyledFieldset disabled={checkingCredentials}>
         <Row gutter='xl'>
           {/* <Col xs={12}>
@@ -246,10 +246,13 @@ const LightText = styled.div`
   margin-bottom: 0px;
 `
 
-
 const NotStarted = styled.fieldset`
   max-width: 600px;
+  max-width: 600px;
+  width: 100%;
   width: 100%;
   border: none;
+  border: none;
+  margin: auto;
   margin: auto;
 `
