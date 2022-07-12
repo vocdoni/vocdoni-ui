@@ -10,11 +10,12 @@ import { colors } from 'theme/colors'
 import { Spacer, Col, Row, Text } from '@components/elements-v2'
 
 interface IVoteSubmittedProps {
+  nullifier: string | BigInt
   onAccept: () => void
   onClose?: () => void
 }
 
-export const VoteSubmitted = ({ onAccept, onClose }: IVoteSubmittedProps) => {
+export const VoteSubmitted = ({ nullifier, onAccept, onClose }: IVoteSubmittedProps) => {
   const { i18n } = useTranslation()
   return (
     <>
@@ -34,7 +35,7 @@ export const VoteSubmitted = ({ onAccept, onClose }: IVoteSubmittedProps) => {
           {i18n.t('vote.your_vote_has_been_registered')}
         </ModalHeader>
         <Text size='sm'>
-          {i18n.t('fcb.confirmation_code')}<strong>4d9dac8f566a0ab448efa4c19</strong>.
+          {i18n.t('fcb.confirmation_code')}<strong>{nullifier}</strong>.
         </Text>
 
         <Spacer direction='vertical' size='3xl' />
@@ -93,7 +94,7 @@ const CloseButton = styled.div`
   text-align: center;
   justify-content: center;
 
-  background: 
+  background:
     linear-gradient(#fff 0 0) padding-box, /*this is the white background*/
     linear-gradient(to right, #A50044, #174183) border-box;
 
