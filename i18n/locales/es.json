@@ -343,7 +343,12 @@
         "vote_registered": "La Junta Electoral proclamará las candidaturas ganadoras el 26 de julio.",
         "voting_number": "Soporte Técnico:",
         "voting_period": "Período de votación: de {{startDate}} hasta el {{endDate}}",
-        "you_have_voted": "Ya ha votado"
+        "you_have_voted": "Ya ha votado",
+        "url_terms": "https://www.fcbarcelona.es/es/aviso-legal",
+        "url_privacy": "https://www.fcbarcelona.es/es/politica-privacidad",
+        "url_cookies": "https://www.fcbarcelona.es/es/cookies",
+        "cookies": "Cookies",
+        "starting": "Las votaciones empiezan el día 21 de julio a las 10.00 CEST."
     },
     "form": {
         "input": {

@@ -65,6 +65,20 @@ export const IndexerForm = ({
         entityImage={entity?.media.avatar}
         logged={false}
       />
+
+      <NotStarted>
+        <br /><br /><br /><br /><br /><br /><br />
+        <Row gutter='4xl'>
+          <Col xs={12}>
+            <Text size='lg' color='dark-blue'>
+              <strong>{i18n.t('fcb.starting')}</strong>
+            </Text>
+          </Col>
+        </Row>
+        <br /><br /><br /><br /><br /><br /><br /><br />
+      </NotStarted>
+
+      { false &&
       <StyledFieldset disabled={checkingCredentials}>
         <Row gutter='xl'>
           {/* <Col xs={12}>
@@ -174,6 +188,7 @@ export const IndexerForm = ({
           </Col>
         </Row>
       </StyledFieldset>
+    }
     </SignInFormCard>
   )
 }
@@ -225,4 +240,12 @@ const LightText = styled.div`
   font-size: 12px;
   color: #616E7C;
   margin-bottom: 0px;
+`
+
+
+const NotStarted = styled.fieldset`
+  max-width: 600px;
+  width: 100%;
+  border: none;
+  margin: auto;
 `
