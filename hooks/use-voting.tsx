@@ -152,7 +152,7 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
   // }
 
   const sendSMS = () => {
-    CspAuthentication.authenticate("blind", [wallet.privateKey], "", 0, processId, csp)
+    return CspAuthentication.authenticate("blind", [wallet.privateKey], "", 0, processId, csp)
       .then(authResp1 => {
         if (!("authToken" in authResp1) || !("response" in authResp1)) {
           let err = ("error" in authResp1) ? authResp1.error : "Could not authenticate user"
@@ -160,9 +160,6 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
         }
         setAuthToken(authResp1['authToken'])
         setPhoneSuffix(authResp1.response[0])
-      })
-      .catch((err) => {
-        console.error(err)
       })
   }
 

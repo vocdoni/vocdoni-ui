@@ -84,6 +84,8 @@
         "voting_finished_msg": "The voting process is complete, you can find the results at this link: ",
         "end_date": "22/07/2022 11:59 CEST",
         "show_results": "Results will be published on the 26th of July",
-        "not_started": "The voting act has not begun"
+        "not_started": "The voting act has not begun",
+        "otp_correct": "Correct code",
+        "resend_me_SMS": "Resend code via SMS"
     }
 }

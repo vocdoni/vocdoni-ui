@@ -39,8 +39,9 @@ export const ModalQuestionList = ({
   const { phoneSuffix, firstSent, setFirstSent, remainingAttempts, setAttempts, cooldown, coolItDown } = useCSPForm()
   const [pin, setPin] = useState<string>('')
   const [error, setError] = useState<boolean>(false)
+  const [authError, setAuthError] = useState<string|null>(null)
 
-  const sendMessage = () => {
+  const sendMessage = async () => {
     if (cooldown) {
       return
     }
@@ -48,8 +49,13 @@ export const ModalQuestionList = ({
     setError(false)
     setFirstSent(true)
     coolItDown()
-    sendSMS()
-    setAttempts(remainingAttempts -1)
+    try {
+      await sendSMS()
+      setAttempts(remainingAttempts -1)
+    } catch (e) {
+      setAuthError(i18n.t('fcb.contact_support'))
+      setError(true)
+    }
   }
 
   const submitVote = async () => {
@@ -118,39 +124,55 @@ export const ModalQuestionList = ({
       <Spacer direction='vertical' size='3xl' />
 
       <div>
-        <If condition={remainingAttempts <= 0}>
+        <If condition={authError === null}>
           <Then>
-            <Column>
-              <WarningIcon>
-                <Icon
-                  name='warning'
-                  size={14}
-                  color='#B75E19'
-                />
-              </WarningIcon>
-              <WarningText>{i18n.t('fcb.no_sms_left')}</WarningText>
-            </Column>
-          </Then>
-          <Else>
-            <If condition={firstSent}>
+            <If condition={remainingAttempts <= 0}>
               <Then>
-                <HeaderText>{i18n.t('fcb.enter_your_sms')}</HeaderText>
-                <InputFormGroup
-                  label={null}
-                  type='text'
-                  error=''
-                  id='sms'
-                  value={pin}
-                  onChange={(event: ChangeEvent<HTMLInputElement>) => {
-                    setPin(event.target.value)
-                  }}
-                />
+                <Column>
+                  <WarningIcon>
+                    <Icon
+                      name='warning'
+                      size={14}
+                      color='#B75E19'
+                    />
+                  </WarningIcon>
+                  <WarningText>{i18n.t('fcb.no_sms_left')}</WarningText>
+                </Column>
+              </Then>
+              <Else>
+                <If condition={firstSent}>
+                  <Then>
+                    <HeaderText>{i18n.t('fcb.enter_your_sms')}</HeaderText>
+                    <InputFormGroup
+                      label={null}
+                      type='text'
+                      error=''
+                      id='sms'
+                      value={pin}
+                      onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                        setPin(event.target.value)
+                      }}
+                    />
+                  </Then>
+                </If>
+              </Else>
+            </If>
+            <If condition={error}>
+              <Then>
+                <ErrorDiv>
+                  <ErrorIcon>
+                    <Icon
+                      name='warning'
+                      size={14}
+                      color='#B31B35'
+                    />
+                  </ErrorIcon>
+                  <ErrorText>{i18n.t('fcb.incorrect_code', {leftSMS: 5-remainingAttempts})}</ErrorText>
+                </ErrorDiv>
               </Then>
             </If>
-          </Else>
-        </If>
-        <If condition={error}>
-          <Then>
+          </Then>
+          <Else>
             <ErrorDiv>
               <ErrorIcon>
                 <Icon
@@ -159,9 +181,9 @@ export const ModalQuestionList = ({
                   color='#B31B35'
                 />
               </ErrorIcon>
-              <ErrorText>{i18n.t('fcb.incorrect_code', {leftSMS: 5-remainingAttempts})}</ErrorText>
+              <ErrorText>{authError}</ErrorText>
             </ErrorDiv>
-          </Then>
+          </Else>
         </If>
       </div>
 
@@ -196,7 +218,7 @@ export const ModalQuestionList = ({
             </Column>
           </Then>
           <Else>
-            <If condition={remainingAttempts > 0}>
+            <If condition={remainingAttempts > 0 && authError === null}>
               <Then>
                 <Column sm={12} md={8}>
                   <Button
@@ -225,10 +247,14 @@ export const ModalQuestionList = ({
                 </Column>
               </Then>
             </If>
-            <Spacer direction='vertical' size='md' />
-            <NeutralColor>
-              <strong>{i18n.t('fcb.available_SMS', {numSMS: remainingAttempts, phoneNum: phoneSuffix})}</strong>
-            </NeutralColor>
+            <If condition={authError === null}>
+              <Then>
+                <Spacer direction='vertical' size='md' />
+                <NeutralColor>
+                  <strong>{i18n.t('fcb.available_SMS', {numSMS: remainingAttempts, phoneNum: phoneSuffix})}</strong>
+                </NeutralColor>
+              </Then>
+            </If>
           </Else>
         </If>
       </Grid>

@@ -154,6 +154,8 @@
         "voting_finished_msg": "El procés de votació s'ha completat, podeu trobar els resultats en aquest enllaç: ",
         "end_date": "22/07/2022 11:59 CEST",
         "show_results": "Els resultats es faran públics el dia 26 de juliol",
-        "not_started": "La votació no ha començat"
+        "not_started": "La votació no ha començat",
+        "otp_correct": "Codi correcte",
+        "resend_me_SMS": "Reenvieu-me un codi SMS"
     }
 }
