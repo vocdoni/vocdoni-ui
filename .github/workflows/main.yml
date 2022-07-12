@@ -284,6 +284,54 @@ jobs:
         run: |
           gsutil -m cp -r build/* gs://azeno-vocdoni-app
 
+  gcs-release-vot-penyesfcbarcelona-cat:
+    runs-on: self-hosted
+    environment: production
+    needs:
+      - node-tests
+    if: startsWith(github.ref, 'refs/heads/fcb_prod')
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16.x
+      - name: Get short sha
+        id: var
+        shell: bash
+        run: |
+          echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
+      - name: Install dependencies and build
+        run: |
+          npm install
+          npm run export
+        env:
+          COMMIT_SHA: ${{ steps.var.outputs.sha_short }}
+          DEVELOPMENT: 'false'
+          VOCDONI_ENVIRONMENT: 'prod'
+          APP_TITLE: 'Vocdoni'
+          ETH_NETWORK_ID: 'xdai'
+          BLOCK_TIME: '12'
+          BOOTNODES_URL: 'https://bootnodes.vocdoni.net/gateways.azeno.priv.json'
+          BACKEND_URL: 'https://backend.azeno.vocdoni.net/api/manager'
+          BACKEND_PUB_KEY: '03cd13285ea116b9093a47364b29ddb09eccf50aa2f0112b6084a0b10943964d4e'
+          DISCOVERY_POOL_SIZE: '1'
+          EXPLORER_URL: 'https://azeno.explorer.vote'
+          LANG: 'ca'   
+          # ANALYTICS_KEY: '202ZI3WhmcYBnY1Bre6umCcmK9Y'
+          # ANALYTICS_URL: 'https://rudderstack.aragon.org'
+          COLOR_PICKER: '1'
+          ADVANCED_CENSUS: '1'
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v0
+        with:
+          service_account_key: ${{ secrets.GCP_PRODUCTION }}
+          export_default_credentials: true
+      - name: Upload static site to GCP
+        run: |
+          gsutil -m cp -r build/* gs://vot-penyesfcbarcelona-cat
+
   gcs-release-staging:
     runs-on: self-hosted
     environment: staging

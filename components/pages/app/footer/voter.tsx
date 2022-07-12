@@ -17,22 +17,25 @@ export const VoterFooter = () => {
   return (
     <FooterContainer>
       <Row gutter='none'>
-        <Col xs={12} md={4} lg={2}>
+        <Col xs={12} md={3} lg={2}>
           <CopyrightText>{i18n.t('fcb.copyright')}</CopyrightText>
         </Col>
 
-        <Col xs={12} md={8} lg={4}>
+        <Col xs={12} md={9} lg={5}>
           <Row gutter='none'>
-            <Col sm={4} xs={3}>
-              <ColoredLink href=''>{i18n.t('fcb.terms')}</ColoredLink>
+            <Col sm={4} xs={12}>
+              <ColoredLink href={i18n.t('fcb.url_terms')} target='_blank'>{i18n.t('fcb.terms')}</ColoredLink>
             </Col>
-            <Col sm={6} xs={9}>
-              <ColoredLink href=''>{i18n.t('fcb.service_conditions')}</ColoredLink>
+            <Col sm={4} xs={12}>
+              <ColoredLink href={i18n.t('fcb.url_terms')} target='_blank'>{i18n.t('fcb.service_conditions')}</ColoredLink>
+            </Col>
+            <Col sm={4} xs={12}>
+              <ColoredLink href={i18n.t('fcb.url_cookies')} target='_blank'>{i18n.t('fcb.cookies')}</ColoredLink>
             </Col>
           </Row>
         </Col>
       
-        <Col xs={12} lg={3}>
+        <Col xs={12} lg={2}>
           <SupportDiv className='rightLg'>{i18n.t('fcb.voting_number')} <PhoneNumber>+34 851 000 065</PhoneNumber></SupportDiv>
         </Col>
 
@@ -64,6 +67,11 @@ const ColoredLink = styled.a`
     text-align: left;
     padding-left:10px;
   }
+
+  @media ${({ theme }) => theme.screenMin.laptop} {
+    display:block;
+    text-align:center;
+  }
 `
 
 const SupportDiv = styled.div`
@@ -71,6 +79,10 @@ const SupportDiv = styled.div`
   font-weight: 600;
   color: #52606D;
 
+  @media ${({ theme }) => theme.screenMin.laptop} {
+    display:block;
+    text-align:center;
+  }
 
   @media ${({ theme }) => theme.screenMin.desktop} {
     text-align: center;
