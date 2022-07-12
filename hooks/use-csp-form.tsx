@@ -48,7 +48,7 @@ export const CSPProvider = ({children} : {children: ReactNode}) => {
 
   const coolItDown = () => {
     if (!interval && !coolref.current || coolref.current <= 0) {
-      coolref.current = 60
+      coolref.current = 120
       setCooldown(coolref.current)
       const int = window.setInterval(() => {
         coolref.current -= 1
