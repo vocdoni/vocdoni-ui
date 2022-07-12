@@ -34,5 +34,5 @@ export const COOKIES_PATH = "/cookies"
 // export const PRIVACY_PATH = 'https://aragon.org/privacy-policy'
 
 export const PATH_WITHOUT_COOKIES = [
-  new RegExp('/pub/votes','g')
+  // new RegExp('/pub/votes','g')
 ]

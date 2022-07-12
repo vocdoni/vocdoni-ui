@@ -19,6 +19,7 @@ import { UseCookiesProvider } from '@hooks/cookies'
 import { PATH_WITHOUT_COOKIES } from '@const/routes'
 import { UseProcessWrapperProvider } from '@hooks/use-process-wrapper'
 import { CSPProvider } from '@hooks/use-csp-form'
+import { UseAdobeAnalyticsProvider } from '@hooks/adobe-analytics'
 
 interface IDefaultProvidersProps {
   children: ReactNode
@@ -33,39 +34,41 @@ export const DefaultProviders = ({ children }: IDefaultProvidersProps) => {
 
   return (
     <UseWalletContextProvider>
-      <UseRudderStackProvider>
-        <UseCookiesProvider hideInPaths={PATH_WITHOUT_COOKIES}>
-          <UseMessageAlertProvider>
-            <UseLoadingAlertProvider>
-              <UsePoolProvider
-                bootnodeUri={bootnodeUri}
-                networkId={networkId}
-                environment={environment}
-                discoveryTimeout={discoveryTimeout}
-                minNumGateways={discoveryPoolSize}
-              >
-                <UseBlockStatusProvider>
-                  <UseBackendProvider>
-                    <UseProcessProvider>
-                      <UseProcessWrapperProvider>
-                        <UseVotingProvider>
-                          <CSPProvider>
-                            <UseEntityProvider>
-                              <UseDbAccountsProvider>
-                                {children}
-                              </UseDbAccountsProvider>
-                            </UseEntityProvider>
-                          </CSPProvider>
-                        </UseVotingProvider>
-                      </UseProcessWrapperProvider>
-                    </UseProcessProvider>
-                  </UseBackendProvider>
-                </UseBlockStatusProvider>
-              </UsePoolProvider>
-            </UseLoadingAlertProvider>
-          </UseMessageAlertProvider>
-        </UseCookiesProvider>
-      </UseRudderStackProvider>
+      <UseAdobeAnalyticsProvider>
+        <UseRudderStackProvider>
+          <UseCookiesProvider hideInPaths={PATH_WITHOUT_COOKIES}>
+            <UseMessageAlertProvider>
+              <UseLoadingAlertProvider>
+                <UsePoolProvider
+                  bootnodeUri={bootnodeUri}
+                  networkId={networkId}
+                  environment={environment}
+                  discoveryTimeout={discoveryTimeout}
+                  minNumGateways={discoveryPoolSize}
+                >
+                  <UseBlockStatusProvider>
+                    <UseBackendProvider>
+                      <UseProcessProvider>
+                        <UseProcessWrapperProvider>
+                          <UseVotingProvider>
+                            <CSPProvider>
+                              <UseEntityProvider>
+                                <UseDbAccountsProvider>
+                                  {children}
+                                </UseDbAccountsProvider>
+                              </UseEntityProvider>
+                            </CSPProvider>
+                          </UseVotingProvider>
+                        </UseProcessWrapperProvider>
+                      </UseProcessProvider>
+                    </UseBackendProvider>
+                  </UseBlockStatusProvider>
+                </UsePoolProvider>
+              </UseLoadingAlertProvider>
+            </UseMessageAlertProvider>
+          </UseCookiesProvider>
+        </UseRudderStackProvider>
+      </UseAdobeAnalyticsProvider>
     </UseWalletContextProvider>
   )
 }

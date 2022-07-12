@@ -58,6 +58,7 @@ module.exports = {
   CSP_URL: process.env.CSP_URL || 'https://csp-sms.vocdoni.net/',
   CSP_PUB_KEY: process.env.CSP_PUB_KEY || '03e349c2a4622bd56238616f8160bfeb6b053f260f1a541f72015e0e261ac68d5c',
   CSP_API_VERSION: process.env.CSP_API_VERSION || 'v1',
+  ADOBE_ANALYTICS_SCRIPT: process.env.ADOBE_ANALYTICS_SCRIPT || '//assets.adobedtm.com/launch-EN6a804201cccf45e3a18bde041eacde81-staging.min.js',
 }
 
 console.log('Building the frontend with ENV:', module.exports)
