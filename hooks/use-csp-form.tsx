@@ -8,6 +8,7 @@ import { Wallet } from 'ethers'
 import { useRouter } from 'next/router'
 import { createContext, ReactNode, useContext, useEffect, useRef, useState } from 'react'
 import i18n from '../i18n'
+import { useAdobeAnalytics } from './adobe-analytics'
 import { useMessageAlert } from './message-alert'
 import { useWallet, WalletRoles } from './use-wallet'
 
@@ -108,6 +109,7 @@ export const useCSPForm = () => {
   const { setAlertMessage } = useMessageAlert()
   const { setWallet, wallet } = useWallet({ role: WalletRoles.VOTER })
   const { setAttempts, setConsumed, setUserId, setSuffix } = cspCtxt
+  const {methods:adobe} = useAdobeAnalytics()
 
   const emptyFields = !formValues || Object.values(formValues).some(v => !v)
 
@@ -176,6 +178,8 @@ export const useCSPForm = () => {
           // store auth data in local storage for disconnect banner
           // setAuthFields(authFieldsData)
           const encryptedAuthfield = Symmetric.encryptString(authFieldsData.join("/"), voterWallet.publicKey)
+          // store clauSoci for adobe analytics
+          adobe.setMemeberId(authFieldsData[0])
           localStorage.setItem('voterData', encryptedAuthfield)
           router.push(VOTING_PATH + "#/" + "0x" + electionId)
           setLoading(false)
