@@ -10,7 +10,7 @@ import { useRouter } from 'next/router'
 import { useTranslation } from 'react-i18next'
 import { useIsMobile } from './use-window-size'
 
-const COOKIES_STORE_KEY = 'cookies-acceptance'
+
 
 interface IUseAdobeAnalyticsContext {
   memberId: string,
@@ -42,18 +42,17 @@ interface IUseUseAdobeAnalyticsProvider {
 }
 
 const pathMap = {
-  "/pub/votes/auth/indexer": "/home",
-  "/pub/votes": "/seleccio-candidat"
+  "/pub/votes/auth/indexer": "/inici-login",
 }
 
 export const UseAdobeAnalyticsProvider = ({
   children, paths
 }: IUseUseAdobeAnalyticsProvider) => {
-  const [memberId, setMemeberId] = useState("")
+  const [memberId, setMemeberId] = useState('')
   const { i18n } = useTranslation()
   const router = useRouter()
   const isMobile = useIsMobile()
-  const [path, setPath] = useState("")
+  const [path, setPath] = useState('')
 
   useEffect(() => {
     setPath(pathMap[router.pathname] ? pathMap[router.pathname] : router.pathname)
@@ -61,23 +60,28 @@ export const UseAdobeAnalyticsProvider = ({
 
   const load = () => {
     if (!paths.includes(router.pathname)) return
-    const dlScript = document
-      .createRange()
-      .createContextualFragment(generateDl())
-
-    const trackScript = document
-      .createRange()
-      .createContextualFragment(generateTrackScript())
-
-    document.head.appendChild(trackScript)
-    document.head.appendChild(dlScript)
-    const adoobeScript = document.createElement('script')
-    adoobeScript.src = process.env.ADOBE_ANALYTICS_SCRIPT
-    adoobeScript.async = true
-    document.head.appendChild(adoobeScript)
+    if (!document.getElementById('virtual-page')) {
+      const virtualPage = document
+        .createRange()
+        .createContextualFragment(generateVirtualPage())
+      document.head.appendChild(virtualPage)
+    }
+    if (!document.getElementById('fcb-dl')) {
+      const fcbDl = document
+        .createRange()
+        .createContextualFragment(generateFcbDl())
+      document.head.appendChild(fcbDl)
+    }
+    if (!document.getElementById("adobe-script")) {
+      const adoobeScript = document.createElement('script')
+      adoobeScript.src = process.env.ADOBE_ANALYTICS_SCRIPT
+      adoobeScript.async = true
+      adoobeScript.id = "adobe-script"
+      document.head.appendChild(adoobeScript)
+    }
   }
 
-  const trackPage = (path:string) => {
+  const trackPage = (path: string) => {
     const trigger = document
       .createRange()
       .createContextualFragment(triggerTrackingScript(path))
@@ -85,10 +89,10 @@ export const UseAdobeAnalyticsProvider = ({
   }
 
 
-  const generateTrackScript = () => {
+  const generateVirtualPage = () => {
     console
     return `
-    <script>
+    <script id="virtual-page">
 		  function virtualPage(path) {
 		    fcbDL.contingut.pageName = path;
 		    _satellite.track('scVPage');
@@ -96,18 +100,18 @@ export const UseAdobeAnalyticsProvider = ({
     </script>
     `
   }
-  const triggerTrackingScript = (path:string) => {
+  const triggerTrackingScript = (path: string) => {
     console
     return `
     <script>
-      virtualPage("${path}")
+      virtualPage("${path}");
     </script>
     `
   }
 
-  const generateDl = () => {
+  const generateFcbDl = () => {
     return `
-    <script>
+    <script id="fcb-dl">
     var fcbDL = fcbDL || {}
     fcbDL = {
       usuari:{
