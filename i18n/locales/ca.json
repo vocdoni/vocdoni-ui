@@ -84,7 +84,7 @@
         "save": "Guardar"
     },
     "copy": {
-        "the_link_has_been_copied_to_the_clipboard": "L'enllaç s'ha copiat al porta-retalls"
+        "the_link_has_been_copied_to_the_clipboard": "El comprovant de vot s'ha copiat al porta-retalls"
     },
     "dashboard": {
         "active_votes": "Processos actius",
@@ -313,10 +313,10 @@
         "your_vote_could_not_be_delivered": "El teu vot no s'ha pogut lliurar"
     },
     "fcb": {
-        "available_SMS": "Disposeu de {{numSMS}} SMS. El número de telèfon que tenim registrat és: +** ******{{phoneNum}}. Si no és correcte, truqueu al número de suport a l'ús de la plataforma que hi ha al peu de pàgina.",
+        "available_SMS": "Disposeu de {{numSMS}} SMS. El número de telèfon que tenim registrat és: +** ******{{phoneNum}}. Si no és correcte, truqueu al número de suport tècnic que hi ha al peu de pàgina.",
         "blank_option": "Vot en blanc",
         "candidates": "Les persones candidates son les següents:",
-        "confirm_your_vote_text": "Premeu el botó \"Envieu-me un codi SMS\" i entreu el codi que rebreu al mòbil per emetre el vostre vot o bé tanqueu aquesta finestreta per tornar a la pantalla anterior. Truqueu al telèfon de suport a l'ús de la plataforma d'e-votació per canviar de número de telèfon mòbil.",
+        "confirm_your_vote_text": "Premeu el botó \"Envieu-me un codi SMS\" i entreu el codi que rebreu al mòbil per emetre el vostre vot o bé tanqueu aquesta finestreta per tornar a la pantalla anterior.",
         "confirmation_code": "El vostre codi de confirmació és: ",
         "contact_support": "Truqueu al número de suport a l'ús de la plataforma que hi ha al peu de pàgina",
         "continue": "Continua",

@@ -104,7 +104,7 @@ export const ModalQuestionList = ({
         {i18n.t('fcb.confirm_your_vote_text')}
       </SectionText>
 
-      <Spacer direction='vertical' size='3xl' />
+      <Spacer direction='vertical' size='2xl' />
 
       <Column>
         <WarningIcon>
@@ -123,7 +123,7 @@ export const ModalQuestionList = ({
         )}
       </QuestionsContainer>
 
-      <Spacer direction='vertical' size='3xl' />
+      <Spacer direction='vertical' size='2xl' />
 
       <div>
         <If condition={authError === null}>
@@ -189,7 +189,7 @@ export const ModalQuestionList = ({
         </If>
       </div>
 
-      <Spacer direction='vertical' size='3xl' />
+      <Spacer direction='vertical' size='md' />
 
       <Grid>
         { false &&

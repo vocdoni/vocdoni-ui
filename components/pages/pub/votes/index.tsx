@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react'
 import { useRecoilValue } from 'recoil'
 import styled from 'styled-components'
@@ -44,6 +43,9 @@ import { useAuthForm } from '@hooks/use-auth-form'
 import { Symmetric } from 'dvote-js'
 import { CspSMSAuthenticator } from '@vocdoni/csp'
 import { useCSPForm } from '@hooks/use-csp-form'
+import copy from 'copy-to-clipboard';
+import { useMessageAlert } from '@hooks/message-alert'
+
 export enum UserVoteStatus {
   /**
    * User is voting right now
@@ -275,6 +277,11 @@ export const VotingPageView = () => {
 
   //If only one candidate, no voting allowed
   const isOneCandidate = (processInfo?.metadata?.questions[0].choices.length <= 2)
+  const { setAlertMessage } = useMessageAlert()
+  const handleCopy = () => {
+    copy(nullifier.toString())
+    setAlertMessage(i18n.t("copy.the_link_has_been_copied_to_the_clipboard"))
+  }
 
   return (
     <>
@@ -542,7 +549,7 @@ export const VotingPageView = () => {
                 <div>
                   { (hasVoted) &&
                   <Text size='sm'>
-                    {i18n.t('fcb.confirmation_code')}<strong>{nullifier}</strong>.
+                    {i18n.t('fcb.confirmation_code')} <Nullifier onClick={handleCopy}>{nullifier}</Nullifier>
                   </Text>
                 }
 
@@ -584,7 +591,7 @@ export const VotingPageView = () => {
                     <TitleH3>{i18n.t('fcb.you_have_voted')}</TitleH3>
                     <div>
                       <Text size='sm'>
-                        {i18n.t('fcb.confirmation_code')} <strong>{nullifier}</strong>.
+                        {i18n.t('fcb.confirmation_code')} <Nullifier onClick={handleCopy}>{nullifier}</Nullifier>
                       </Text>
                       <Text size='sm'>
                         {i18n.t('fcb.vote_registered')}
@@ -681,6 +688,20 @@ function anonymizeStrings(strings: string[]): string[] {
   return anonymizedStrings
 }
 
+const Nullifier = styled.div`
+  display: inline-block;
+  word-wrap: break-word;
+  font-weight: 600;
+  font-size: 12px;
+  color: #333;
+  cursor: pointer;
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #eee;
+  background: #fafafa;
+  word-wrap: anywhere;
+`
 
 const OneCandidateDiv = styled.div`
   font-size: 18px;
