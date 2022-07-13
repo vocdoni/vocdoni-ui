@@ -13,7 +13,6 @@ import { useRecoilState } from 'recoil'
 import { CspAuthentication, CspSignatures, CspSMSAuthenticator } from '@vocdoni/csp'
 import { IProofCA } from "@vocdoni/data-models";
 import { CSP } from "@vocdoni/client"
-import { useCSPForm } from './use-csp-form'
 
 export interface VotingContext {
   pleaseWait: boolean,
@@ -21,6 +20,7 @@ export interface VotingContext {
   actionError?: string,
   loadingInfo: boolean,
   loadingInfoError: string,
+  phoneSuffix: string,
 
   processInfo: ProcessDetails,
 
@@ -96,7 +96,7 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
   const [refreshingVotedStatus, setRefreshingVotedStatus] = useState(false)
   const [choices, setChoices] = useState([] as number[])
   const [authToken, setAuthToken] = useState<string>()
-  const { setPhoneSuffix } = useCSPForm()
+  const [phoneSuffix, setPhoneSuffix] = useState<string>('**')
 
   const csp = new CSP(process.env.CSP_URL, process.env.CSP_PUB_KEY, process.env.CSP_API_VERSION)
 
@@ -340,6 +340,7 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
     choices,
     allQuestionsChosen,
     statusText,
+    phoneSuffix,
 
     results,
 

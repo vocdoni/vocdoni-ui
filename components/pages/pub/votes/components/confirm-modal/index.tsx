@@ -23,7 +23,7 @@ interface IConfigModal {
 export const ConfirmModal = ({ isOpen, onClose, onVoted, sendSMS, submitOTP }: IConfigModal) => {
   const processId = useUrlHash().slice(1) // Skip "/"
   const { process: processInfo } = useProcess(processId)
-  const { choices, hasVoted, methods, pleaseWait, actionError, nullifier } = useVoting(processId)
+  const { choices, hasVoted, methods, pleaseWait, actionError, nullifier, phoneSuffix } = useVoting(processId)
   const handleOnClose = () => {
     if (hasVoted) {
       onVoted()
@@ -49,6 +49,7 @@ export const ConfirmModal = ({ isOpen, onClose, onVoted, sendSMS, submitOTP }: I
         sendSMS={sendSMS}
         submitOTP={submitOTP}
         onClose={onClose}
+        phoneSuffix={phoneSuffix}
       />
     </>
     )

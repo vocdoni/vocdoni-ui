@@ -101,7 +101,6 @@ export const VotingPageView = () => {
    */
   const [userVoteStatus, setUserVoteStatus] = useState<UserVoteStatus>(UserVoteStatus.NotEmitted)
   const { blockStatus } = useBlockStatus()
-  const { phoneSuffix } = useCSPForm()
   const blockHeight = blockStatus?.blockNumber
   const voteStatus: VoteStatus = getVoteStatus(processInfo?.state, blockHeight)
   // const entityMetadata = metadata as EntityMetadata
