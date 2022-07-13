@@ -63,7 +63,7 @@ export const UseCookiesProvider: React.FC<IUseCookiesProvider> = ({
   useEffect(() => {
     // Need to do this check because the adobe analytics use the
     // language
-    if (i18n.language) {
+    if (i18n.language && adobe) {
       if (!router.pathname.includes(COOKIES_PATH)) setHide(false)
 
       const cookieAcceptance = localStorage.getItem(COOKIES_STORE_KEY)
@@ -80,7 +80,7 @@ export const UseCookiesProvider: React.FC<IUseCookiesProvider> = ({
         setHide(false)
       }
     }
-  }, [i18n.language])
+  }, [i18n.language, adobe])
 
   useEffect(() => {
     if (

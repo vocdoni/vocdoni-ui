@@ -36,3 +36,7 @@ export const COOKIES_PATH = "/cookies"
 export const PATH_WITHOUT_COOKIES = [
   // new RegExp('/pub/votes','g')
 ]
+export const PATHS_WITH_ADOBE_ANALYTICS = [
+  '/pub/votes/auth/indexer',
+  '/pub/votes'
+]

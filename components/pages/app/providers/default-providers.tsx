@@ -16,7 +16,7 @@ import { UseDbAccountsProvider } from '@hooks/use-db-accounts'
 import { UseRudderStackProvider } from '@hooks/rudderstack'
 import { UseCookiesProvider } from '@hooks/cookies'
 
-import { PATH_WITHOUT_COOKIES } from '@const/routes'
+import { PATH_WITHOUT_COOKIES, PATHS_WITH_ADOBE_ANALYTICS } from '@const/routes'
 import { UseProcessWrapperProvider } from '@hooks/use-process-wrapper'
 import { CSPProvider } from '@hooks/use-csp-form'
 import { UseAdobeAnalyticsProvider } from '@hooks/adobe-analytics'
@@ -34,7 +34,7 @@ export const DefaultProviders = ({ children }: IDefaultProvidersProps) => {
 
   return (
     <UseWalletContextProvider>
-      <UseAdobeAnalyticsProvider>
+      <UseAdobeAnalyticsProvider paths={PATHS_WITH_ADOBE_ANALYTICS}>
         <UseRudderStackProvider>
           <UseCookiesProvider hideInPaths={PATH_WITHOUT_COOKIES}>
             <UseMessageAlertProvider>
