@@ -238,8 +238,12 @@ export const UseProcessWrapperProvider = ({ children }: { children: ReactNode })
         VotingApi.getResults(processId, pool),
         VotingApi.getProcessMetadata(processId, pool),
       ]))
-      .then(([results, metadata]) => Voting.digestSingleChoiceResults(results, metadata))
+      .then(([results, metadata]) => {
+          if (results && results.results.length == 0) return Promise.resolve(null)
+          return Voting.digestSingleChoiceResults(results, metadata)
+      })
       .then((results) => {
+        if (!results) return
         const parsedResults: IProcessResults = {
           ...results,
           totalWeightedVotes: countVotesWeight(results),
