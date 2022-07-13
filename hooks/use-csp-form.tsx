@@ -1,5 +1,5 @@
 import { VOTING_PATH } from '@const/routes'
-import { digestedWalletFromString, importedRowToString } from '@lib/util'
+import { digestedWalletFromString, importedRowToString, digestedPrivateKeyFromString } from '@lib/util'
 import { CSP } from '@vocdoni/client'
 import { strip0x } from '@vocdoni/common'
 import { CspIndexer, CspSMSAuthenticator } from '@vocdoni/csp'
@@ -20,26 +20,31 @@ export interface CSPState {
   setFirstSent: (sent: boolean) => void
   cooldown: number
   coolItDown: () => void
+  userId: string
+  setUserId: (uid: string) => void
 }
 
 export const CSPContext = createContext<CSPState>({
   remainingAttempts: 0,
-  setAttempts: (attempts) => {},
+  setAttempts: (attempts) => { },
   consumed: true,
-  setConsumed: (consumed) => {},
+  setConsumed: (consumed) => { },
   firstSent: false,
-  setFirstSent: (sent) => {},
+  setFirstSent: (sent) => { },
   cooldown: 0,
-  coolItDown: () => {},
+  coolItDown: () => { },
+  userId: null,
+  setUserId: (uid) => { },
 })
 
-export const CSPProvider = ({children} : {children: ReactNode}) => {
+export const CSPProvider = ({ children }: { children: ReactNode }) => {
   const [attempts, setAttempts] = useState<number>(0)
   const [consumed, setConsumed] = useState<boolean>(true)
   const [firstSent, setFirstSent] = useState<boolean>(false)
   const coolref = useRef<number>(null)
   const [cooldown, setCooldown] = useState<number>(0)
   const [interval, setInterval] = useState<number>(0)
+  const [userId, setUserId] = useState<string>()
 
   const coolItDown = () => {
     if (!interval && !coolref.current || coolref.current <= 0) {
@@ -74,6 +79,8 @@ export const CSPProvider = ({children} : {children: ReactNode}) => {
     setFirstSent,
     cooldown,
     coolItDown,
+    userId,
+    setUserId
   }
 
   return (
@@ -86,20 +93,26 @@ export const CSPProvider = ({children} : {children: ReactNode}) => {
 export const useCSPForm = () => {
   const cspCtxt = useContext(CSPContext)
   const router = useRouter()
-  const [ formValues, setFormValues ] = useState<{ [k: string]: string }>({})
-  const [ loading, setLoading ] = useState<boolean>(false)
-  const [ processId, setProcessId ] = useState<string>()
-  const [ loadingError, setLoadingError ] = useState<string>()
-  const [ invalidCredentials, setInvalidCredentials ] = useState<boolean>(false)
+  const [formValues, setFormValues] = useState<{ [k: string]: string }>({})
+  const [loading, setLoading] = useState<boolean>(false)
+  const [processId, setProcessId] = useState<string>()
+  const [loadingError, setLoadingError] = useState<string>()
+  const [invalidCredentials, setInvalidCredentials] = useState<boolean>(false)
   const { setAlertMessage } = useMessageAlert()
   const { setWallet, wallet } = useWallet({ role: WalletRoles.VOTER })
-  const { setAttempts, setConsumed } = cspCtxt
+  const { setAttempts, setConsumed, setUserId } = cspCtxt
+
 
   const emptyFields = !formValues || Object.values(formValues).some(v => !v)
 
   const walletFromAuthData = (authFieldsData: string[], salt: string): Wallet => {
     const strPayload = importedRowToString(authFieldsData, salt)
     return digestedWalletFromString(strPayload)
+  }
+
+  const userIdFromAuthData = (authFieldsData: string[], salt: string): string => {
+    const strPayload = importedRowToString(authFieldsData, salt)
+    return digestedPrivateKeyFromString(strPayload)
   }
 
   const fieldNames = ['clauSoci', 'pin']
@@ -126,15 +139,14 @@ export const useCSPForm = () => {
         authFieldsData.push(formValues[fieldName])
       }
 
-      // setAuthFields(authFieldsData)
-      const voterWallet = walletFromAuthData(authFieldsData, salt)
-      setWallet(voterWallet)
+      const uid = userIdFromAuthData(authFieldsData, salt)
+      setUserId(uid)
       setLoading(true)
 
       const csp = new CSP(process.env.CSP_URL, process.env.CSP_PUB_KEY, process.env.CSP_API_VERSION)
       let electionId: string
 
-      return await CspIndexer.getUserProcesses(strip0x(voterWallet.privateKey), csp)
+      return await CspIndexer.getUserProcesses(strip0x(uid), csp)
         .then(processes => {
           if (processes.length != 1) throw new Error("No process found for user")
           electionId = processes[0]["electionId"]
@@ -143,8 +155,19 @@ export const useCSPForm = () => {
           setConsumed(Boolean(processes[0]["consumed"]))
           setProcessId(electionId)
 
-          const encryptedAuthfield = Symmetric.encryptString(authFieldsData.join("/"), voterWallet.publicKey)
+          let privateKey = localStorage.getItem(uid)
+          let voterWallet: Wallet
+          if (privateKey) {
+            voterWallet = new Wallet(privateKey)
+          } else {
+            voterWallet = Wallet.createRandom()
+            localStorage.setItem(uid, voterWallet.privateKey)
+          }
+          setWallet(voterWallet)
+
           // store auth data in local storage for disconnect banner
+          // setAuthFields(authFieldsData)
+          const encryptedAuthfield = Symmetric.encryptString(authFieldsData.join("/"), voterWallet.publicKey)
           localStorage.setItem('voterData', encryptedAuthfield)
           router.push(VOTING_PATH + "#/" + "0x" + electionId)
           setLoading(false)

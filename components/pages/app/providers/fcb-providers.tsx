@@ -44,15 +44,15 @@ export const FCBProviders = ({ children }: IFCBProvidersProps) => {
                 <UseBlockStatusProvider>
                     <UseProcessProvider>
                       <UseProcessWrapperProvider>
+                      <CSPProvider>
                         <UseVotingProvider>
-                          <CSPProvider>
                             <UseEntityProvider>
                               <UseDbAccountsProvider>
                                 {children}
                               </UseDbAccountsProvider>
                             </UseEntityProvider>
-                          </CSPProvider>
                         </UseVotingProvider>
+                        </CSPProvider>
                       </UseProcessWrapperProvider>
                     </UseProcessProvider>
                 </UseBlockStatusProvider>

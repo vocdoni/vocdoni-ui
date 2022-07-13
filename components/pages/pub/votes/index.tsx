@@ -439,7 +439,7 @@ export const VotingPageView = () => {
                   }
 
                   {/* INLINE QUESTIONS */}
-                  <If condition={isInlineVotingProcess && !hasVoted && status === VoteStatus.Active}>
+                  <If condition={isInlineVotingProcess && !hasVoted && !consumed && status === VoteStatus.Active}>
                     <Then>
                       <QuestionsListInline
                         ref={questionsInlineRef}
@@ -534,16 +534,17 @@ export const VotingPageView = () => {
                 <VoteRegisteredCard explorerLink={explorerLink} />
               </VoteRegisteredLgContainer>
             )}
-
-            {(hasVoted && voteStatus === VoteStatus.Active) &&
+            {((hasVoted || consumed) && voteStatus === VoteStatus.Active) &&
               <BodyContainer>
                 <br />
 
                 <TitleH3>{i18n.t('fcb.you_have_voted')}</TitleH3>
                 <div>
+                  { (hasVoted) &&
                   <Text size='sm'>
                     {i18n.t('fcb.confirmation_code')}<strong>{nullifier}</strong>.
                   </Text>
+                }
 
                   <Spacer direction='vertical' size='3xl' />
 

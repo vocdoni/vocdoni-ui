@@ -11,6 +11,7 @@ import { areAllNumbers, waitBlockFraction } from '../lib/util'
 import { useProcessWrapper } from '@hooks/use-process-wrapper'
 import { useRecoilState } from 'recoil'
 import { CspAuthentication, CspSignatures, CspSMSAuthenticator } from '@vocdoni/csp'
+import {useCSPForm} from "./use-csp-form"
 import { IProofCA } from "@vocdoni/data-models";
 import { CSP } from "@vocdoni/client"
 
@@ -97,6 +98,7 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
   const [choices, setChoices] = useState([] as number[])
   const [authToken, setAuthToken] = useState<string>()
   const [phoneSuffix, setPhoneSuffix] = useState<string>('**')
+  const { userId } = useCSPForm()
 
   const csp = new CSP(process.env.CSP_URL, process.env.CSP_PUB_KEY, process.env.CSP_API_VERSION)
 
@@ -152,7 +154,7 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
   // }
 
   const sendSMS = () => {
-    return CspAuthentication.authenticate("blind", [wallet.privateKey], "", 0, processId, csp)
+    return CspAuthentication.authenticate("blind", [userId], "", 0, processId, csp)
       .then(authResp1 => {
         if (!("authToken" in authResp1) || !("response" in authResp1)) {
           let err = ("error" in authResp1) ? authResp1.error : "Could not authenticate user"
