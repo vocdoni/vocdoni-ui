@@ -66,6 +66,7 @@ export const IndexerForm = ({
         logged={false}
       />
 
+    { false &&
       <NotStarted>
         <br /><br /><br /><br /><br /><br />
         <Row gutter='4xl'>
@@ -77,6 +78,7 @@ export const IndexerForm = ({
         </Row>
         <br /><br /><br /><br /><br /><br /><br /><br />
       </NotStarted>
+    }
 
     { true &&
       <StyledFieldset disabled={checkingCredentials}>
