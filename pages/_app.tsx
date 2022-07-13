@@ -16,8 +16,7 @@ import { ANALYTICS_KEY } from '@const/env'
 import { FixedGlobalStyle, theme } from '../theme'
 
 import { DefaultLayout } from '@components/pages/app/layout/default'
-import { DefaultProviders } from '@components/pages/app/providers/default-providers'
-import { Ruddlestack } from '@components/pages/app/external-dependencies/ruddlestack'
+import { FCBProviders } from '@components/pages/app/providers/fcb-providers'
 import { CookiesBanner } from '@components/blocks/cookies-banner'
 import { useTranslation } from 'react-i18next'
 
@@ -36,14 +35,13 @@ const VocdoniApp: FC<NextAppProps> = ({ Component, pageProps }) => {
   const Layout: FC = Component['Layout'] ? Component['Layout'] : DefaultLayout
   const Providers: FC = Component['Providers']
     ? Component['Providers']
-    : DefaultProviders
+    : FCBProviders
 
   return (
     <RecoilRoot>
       <ThemeContextProvider>
         <Providers>
           <FixedGlobalStyle />
-          {ANALYTICS_KEY && <Ruddlestack />}
 
           <Head>
             <meta name="description" content={i18n.t('app.meta.description')} />
@@ -71,9 +69,6 @@ const VocdoniApp: FC<NextAppProps> = ({ Component, pageProps }) => {
           <Layout>
             <Component {...pageProps} />
           </Layout>
-          {ANALYTICS_KEY && (
-            <script src="https://cdn.rudderlabs.com/v1/rudder-analytics.min.js"></script>
-          )}
 
           <div id="commit-sha" style={{ display: 'none' }}>
             {commitSHA}
