@@ -84,7 +84,7 @@
         "save": "Save"
     },
     "copy": {
-        "the_link_has_been_copied_to_the_clipboard": "The link was copied to the clipboard"
+        "the_link_has_been_copied_to_the_clipboard": "The proof of vote was copied to the clipboard"
     },
     "dashboard": {
         "active_votes": "Active votes",
@@ -316,7 +316,7 @@
         "available_SMS": "You can request up to {{numSMS}} codes. The phone number registered is +** ******{{phoneNum}}. If incorrect, please contact the support line available on the footer of this page.",
         "blank_option": "Blank vote",
         "candidates": "The candidates are as follows:",
-        "confirm_your_vote_text": "If the chosen option is correct, press the `Send code via SMS` button and you will receive an SMS on your mobile phone. Once you have entered the code sent to your mobile phone correctly, you will be able to send your vote (so anonymous) by pressing the `Send my vote` button.",
+        "confirm_your_vote_text": "Click on the “Send code via SMS” button, and then enter the code you will receive in order to cast your vote, or close this window to go to the previous one.",
         "confirmation_code": " Your confirmation code is: ",
         "contact_support": "Please contact the support line available on the footer of this page.",
         "continue": "Continue",

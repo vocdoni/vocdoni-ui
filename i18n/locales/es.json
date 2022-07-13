@@ -84,7 +84,7 @@
         "save": "Guardar"
     },
     "copy": {
-        "the_link_has_been_copied_to_the_clipboard": "El enlace se ha copiado al portapaleles"
+        "the_link_has_been_copied_to_the_clipboard": "El comprobante de voto se ha copiado al portapaleles"
     },
     "dashboard": {
         "active_votes": "Procesos de votación activos",
@@ -313,10 +313,10 @@
         "your_vote_could_not_be_delivered": "Tu voto no ha podido ser entregado"
     },
     "fcb": {
-        "available_SMS": "Dispone de {{numSMS}} SMS. El número de teléfono que tenemos registrado es: +** ******{{phoneNum}}. Si no es correcto, llamad al número de soporte para el uso de la plataforma que encuentran al pie de página.",
+        "available_SMS": "Dispone de {{numSMS}} SMS. El número de teléfono que tenemos registrado es: +** ******{{phoneNum}}. Si no es correcto, llamad al número de soporte técnico que encuentran al pie de página.",
         "blank_option": "Voto en blanco",
         "candidates": "Las personas candidatas son las siguientes:",
-        "confirm_your_vote_text": "Pulse el botón \"Envíeme un código SMS\" y entre el código que recibirá en el móvil para emitir su voto o bien cierre esta ventana para volver a la pantalla anterior. Llame al teléfono de soporte al uso de la plataforma de e-votación para cambiar de número de teléfono móvil.",
+        "confirm_your_vote_text": "Pulse el botón \"Envíeme un código SMS\" y entre el código que recibirá en el móvil para emitir su voto o bien cierre esta ventana para volver a la pantalla anterior.",
         "confirmation_code": " Su código de confirmación es: ",
         "contact_support": "Llame al número de soporte para el uso de la plataforma que se encuentra al pie de página",
         "continue": "Continua",

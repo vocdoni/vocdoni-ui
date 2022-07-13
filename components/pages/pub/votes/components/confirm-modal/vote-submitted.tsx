@@ -8,6 +8,8 @@ import { FlexContainer, FlexJustifyContent } from '@components/elements/flex'
 import { Button } from '@components/elements/button'
 import { colors } from 'theme/colors'
 import { Spacer, Col, Row, Text } from '@components/elements-v2'
+import copy from 'copy-to-clipboard';
+import { useMessageAlert } from '@hooks/message-alert'
 
 interface IVoteSubmittedProps {
   nullifier: string | BigInt
@@ -17,6 +19,11 @@ interface IVoteSubmittedProps {
 
 export const VoteSubmitted = ({ nullifier, onAccept, onClose }: IVoteSubmittedProps) => {
   const { i18n } = useTranslation()
+  const { setAlertMessage } = useMessageAlert()
+  const handleCopy = () => {
+    copy(nullifier.toString())
+    setAlertMessage(i18n.t("copy.the_link_has_been_copied_to_the_clipboard"))
+  }
   return (
     <>
       <CloseButton onClick={onClose}>
@@ -35,7 +42,7 @@ export const VoteSubmitted = ({ nullifier, onAccept, onClose }: IVoteSubmittedPr
           {i18n.t('vote.your_vote_has_been_registered')}
         </ModalHeader>
         <Text size='sm'>
-          {i18n.t('fcb.confirmation_code')}<strong>{nullifier}</strong>.
+          {i18n.t('fcb.confirmation_code')}<Nullifier onClick={handleCopy}>{nullifier}</Nullifier>
         </Text>
 
         <Spacer direction='vertical' size='3xl' />
@@ -54,6 +61,21 @@ export const VoteSubmitted = ({ nullifier, onAccept, onClose }: IVoteSubmittedPr
   )
 }
 
+
+const Nullifier = styled.div`
+  display: inline-block;
+  word-wrap: break-word;
+  font-weight: 600;
+  font-size: 12px;
+  color: #333;
+  cursor: pointer;
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #eee;
+  background: #fafafa;
+  word-wrap: anywhere;
+`
 
 const ModalHeader = styled(SectionText)`
   font-family: 'Manrope';
