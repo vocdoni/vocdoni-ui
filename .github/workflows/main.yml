@@ -132,9 +132,9 @@ jobs:
           platforms: linux/amd64
           build-args: |
             COMMIT_SHA=${{ steps.var.outputs.sha_short }}
-            VOCDONI_ENVIRONMENT=dev
+            VOCDONI_ENVIRONMENT=prod
             DEVELOPMENT=false
-            ETH_NETWORK_ID=rinkeby
+            ETH_NETWORK_ID=xdai
             BLOCK_TIME=12
             BOOTNODES_URL=https://raw.githubusercontent.com/vocdoni/bootnodes/main/content/gateways.azeno.priv.json
             BACKEND_URL=https://backend.vocdoni.net/api/manager
