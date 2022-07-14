@@ -446,7 +446,7 @@ export const VotingPageView = () => {
                   }
 
                   {/* INLINE QUESTIONS */}
-                  <If condition={isInlineVotingProcess && !hasVoted && !consumed && status === VoteStatus.Active}>
+                  <If condition={wallet !== null && isInlineVotingProcess && !hasVoted && !consumed && status === VoteStatus.Active}>
                     <Then>
                       <QuestionsListInline
                         ref={questionsInlineRef}
