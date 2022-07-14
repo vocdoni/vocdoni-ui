@@ -97,6 +97,7 @@ const VoteAuthLogin = () => {
       <div>
         <Loader visible={true} timeout={500} />
         <IndexerForm
+          landing={false}
           checkingCredentials={checkingCredentials}
           fields={fieldNames}
           values={formValues}

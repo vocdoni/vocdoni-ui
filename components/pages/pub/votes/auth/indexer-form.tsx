@@ -27,6 +27,7 @@ interface IFieldValues {
 }
 
 interface IFormProps {
+  landing: boolean
   fields: string[]
   values: IFieldValues
   submitEnabled?: boolean
@@ -38,6 +39,7 @@ interface IFormProps {
 }
 
 export const IndexerForm = ({
+  landing,
   fields,
   submitEnabled,
   values,
@@ -66,7 +68,7 @@ export const IndexerForm = ({
         logged={false}
       />
 
-    { false &&
+    { landing &&
       <NotStarted>
         <br /><br /><br /><br /><br /><br />
         <Row gutter='4xl'>
@@ -80,7 +82,7 @@ export const IndexerForm = ({
       </NotStarted>
     }
 
-    { true &&
+    { !landing &&
       <StyledFieldset disabled={checkingCredentials}>
         <Row gutter='xl'>
           {/* <Col xs={12}>
