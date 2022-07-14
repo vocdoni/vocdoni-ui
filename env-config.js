@@ -45,7 +45,7 @@ module.exports = {
   BACKEND_PUB_KEY: process.env.BACKEND_PUB_KEY || '028b1d1380c37d114ac5a2b056d11cec76439664d00b076f9ace97adbe03da6fe1',
   EXPLORER_URL: process.env.EXPLORER_URL || explorer,
   DISCOVERY_TIMEOUT: process.env.DISCOVERY_TIMEOUT || 3000,// in milliseconds
-  DISCOVERY_POOL_SIZE: process.env.DISCOVERY_POOL_SIZE || 2,// in milliseconds
+  DISCOVERY_POOL_SIZE: process.env.DISCOVERY_POOL_SIZE || 1,// in milliseconds
 
   // HELPSCOUT
   HELPSCOUT_PROJECT_ID: '5f78b511-0d81-4f7d-b452-40f020f4445e',
@@ -55,7 +55,7 @@ module.exports = {
   ADVANCED_CENSUS: process.env.ADVANCED_CENSUS || 0,
   ANALYTICS_KEY:  process.env.ANALYTICS_KEY,
   ANALYTICS_URL:  process.env.ANALYTICS_URL,
-  CSP_URL: process.env.CSP_URL || 'https://csp-dev.vocdoni.net/',
+  CSP_URL: process.env.CSP_URL || 'https://csp-sms.vocdoni.net/',
   CSP_PUB_KEY: process.env.CSP_PUB_KEY || '03e349c2a4622bd56238616f8160bfeb6b053f260f1a541f72015e0e261ac68d5c',
   CSP_API_VERSION: process.env.CSP_API_VERSION || 'v1',
 }
