@@ -20,7 +20,6 @@ import { useProcessWrapper } from '@hooks/use-process-wrapper'
 import { useUrlHash } from "use-url-hash"
 import moment from 'moment'
 import { Icon } from '@components/elements-v2/icons'
-import { useAdobeAnalytics, UseAdobeAnalyticsProvider } from '@hooks/adobe-analytics'
 
 interface IFieldValues {
   [field: string]: string
@@ -51,7 +50,6 @@ export const IndexerForm = ({
 }: IFormProps) => {
   const { i18n } = useTranslation()
   const [sameInput, setSameInput] = useState(false)
-  const { methods: adobe} = useAdobeAnalytics()
   const showError = sameInput && invalidCredentials
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault()
