@@ -10,8 +10,6 @@ import { useRouter } from 'next/router'
 import { useTranslation } from 'react-i18next'
 import { useIsMobile } from './use-window-size'
 
-
-
 interface IUseAdobeAnalyticsContext {
   methods?: {
     load: () => void
@@ -92,6 +90,7 @@ export const UseAdobeAnalyticsProvider = ({
       .createContextualFragment(triggerTrackingScript(path, url))
     document.head.appendChild(trigger)
   }
+
   const setUserId = (path: string) => {
     const setUser = document
       .createRange()
@@ -99,9 +98,7 @@ export const UseAdobeAnalyticsProvider = ({
     document.head.appendChild(setUser)
   }
 
-
   const generateVirtualPage = () => {
-    console
     return `
     <script id="virtual-page" onerror="()=>console.warn('error')">
 		  function virtualPage(path, url) {
@@ -112,8 +109,8 @@ export const UseAdobeAnalyticsProvider = ({
     </script>
     `
   }
+
   const setUserScript = () => {
-    console
     return `
     <script id="set-user" onerror="()=>console.warn('error')">
 		  function setUser(userId) {
@@ -131,16 +128,16 @@ export const UseAdobeAnalyticsProvider = ({
     </script>
     `
   }
+
   const triggerTrackingScript = (path: string, url: string) => {
-    console
     return `
     <script onerror="()=>console.warn('error')">
       virtualPage("${path}", "${url}");
     </script>
     `
   }
+
   const triggerSetUser = (userId: string) => {
-    console
     return `
     <script onerror="()=>console.warn('error')">
       setUser("${userId}");

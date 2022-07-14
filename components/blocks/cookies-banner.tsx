@@ -26,20 +26,20 @@ export const CookiesBanner = () => {
               <SpacedContainer>
                 <Typography variant={TypographyVariant.ExtraSmall}>
                   {i18n.t('cookies.cookies_paragraph_1')}{' '}
-                  <Link href={COOKIES_PATH}>{i18n.t('cookies.configure')}</Link>
+                  <FCBLink href={COOKIES_PATH}>{i18n.t('cookies.configure')}</FCBLink>
                 </Typography>
               </SpacedContainer>
             </TextContainer>
 
             <ButtonsContainer>
               <ButtonContainer>
-                <Button positive onClick={acceptCookies} wide>
+                <FCBButton positive onClick={acceptCookies} wide>
                   {i18n.t('cookies.accept')}
-                </Button>
+                </FCBButton>
               </ButtonContainer>
 
               <ConfigureButtonContainer>
-                <Button border href={COOKIES_PATH} wide color={colors.accent1}>
+                <Button fcb_border href={COOKIES_PATH} wide color="#2E377A">
                   {i18n.t('cookies.configure')}
                 </Button>
               </ConfigureButtonContainer>
@@ -50,6 +50,14 @@ export const CookiesBanner = () => {
     </If>
   )
 }
+
+const FCBButton = styled(Button)`
+  background: #CF122D !important;
+`
+
+const FCBLink = styled(Link)`
+  color:#2E377A;
+`
 
 const CookiesBannerContent = styled.div`
   display: flex;
