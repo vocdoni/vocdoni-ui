@@ -181,7 +181,7 @@ jobs:
           ANALYTICS_KEY: '202ZI3WhmcYBnY1Bre6umCcmK9Y'
           ANALYTICS_URL: 'https://rudderstack.aragon.org'
       - name: Set up Cloud SDK
-        uses: google-github-actions/setup-gcloud@master
+        uses: google-github-actions/setup-gcloud@main
         with:
           service_account_key: ${{ secrets.GCP_PRODUCTION }}
           export_default_credentials: true
@@ -228,7 +228,7 @@ jobs:
           COLOR_PICKER: '1'
           ADVANCED_CENSUS: '1'
       - name: Set up Cloud SDK
-        uses: google-github-actions/setup-gcloud@master
+        uses: google-github-actions/setup-gcloud@main
         with:
           service_account_key: ${{ secrets.GCP_PRODUCTION }}
           export_default_credentials: true
@@ -322,7 +322,7 @@ jobs:
           ANALYTICS_KEY: '1wDDOq7O5xXspQmBm0PRKWLnIBr'
           ANALYTICS_URL: 'https://rudderstack.aragon.org'
       - name: Set up Cloud SDK (staging)
-        uses: google-github-actions/setup-gcloud@master
+        uses: google-github-actions/setup-gcloud@main
         with:
           service_account_key: ${{ secrets.GCP_STAGING }}
           export_default_credentials: true
