@@ -142,6 +142,7 @@ export const useCSPForm = () => {
       const uid = userIdFromAuthData(authFieldsData, salt)
       setUserId(uid)
       setLoading(true)
+      setInvalidCredentials(false)
 
       const csp = new CSP(process.env.CSP_URL, process.env.CSP_PUB_KEY, process.env.CSP_API_VERSION)
       let electionId: string
