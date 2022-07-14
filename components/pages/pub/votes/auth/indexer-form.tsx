@@ -183,12 +183,6 @@ export const IndexerForm = ({
                   {i18n.t('fcb.enter')}
                 </Button>
               </Col>
-                <Button
-                  onClick={() => adobe.trackPage('a')}
-                >
-                  ADOBE
-                </Button>
-
               <Col xs={12}>
                 <LightText>
                   {i18n.t('fcb.login_subtext')}

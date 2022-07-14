@@ -225,7 +225,7 @@ export const VotingPageView = () => {
   }
 
   const handleFinishVote = () => {
-    adobe.trackPage("/confirmar-vot")
+    adobe.trackPage("/confirmar-vot",window.location.href)
     setConfirmModalOpened(true)
   }
 
@@ -239,7 +239,7 @@ export const VotingPageView = () => {
   }
 
   const handleOnVoted = () => {
-    adobe.trackPage("/votacio-confirmada")
+    adobe.trackPage("/votacio-confirmada",window.location.href)
     setUserVoteStatus(UserVoteStatus.Emitted)
     setConfirmModalOpened(false)
   }

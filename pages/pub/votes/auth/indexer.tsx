@@ -56,7 +56,7 @@ const VoteAuthLogin = () => {
 
     onLogin()
       .finally(() => {
-        adobe.trackPage("/seleccio-candidat")
+        adobe.trackPage("/seleccio-candidat",window.location.href)
         setCheckingCredentials(false)
       })
       .catch((err) => console.error('login failed', err))

@@ -15,8 +15,8 @@ import { useIsMobile } from './use-window-size'
 interface IUseAdobeAnalyticsContext {
   methods?: {
     load: () => void
-    trackPage: (path: string) => void
-    setUserId: (userId: string)=> void
+    trackPage: (path: string, url: string) => void
+    setUserId: (userId: string) => void
   }
 }
 
@@ -86,10 +86,10 @@ export const UseAdobeAnalyticsProvider = ({
     }
   }
 
-  const trackPage = (path: string) => {
+  const trackPage = (path: string, url: string) => {
     const trigger = document
       .createRange()
-      .createContextualFragment(triggerTrackingScript(path))
+      .createContextualFragment(triggerTrackingScript(path, url))
     document.head.appendChild(trigger)
   }
   const setUserId = (path: string) => {
@@ -104,8 +104,9 @@ export const UseAdobeAnalyticsProvider = ({
     console
     return `
     <script id="virtual-page" onerror="()=>console.warn('error')">
-		  function virtualPage(path) {
+		  function virtualPage(path, url) {
 		    fcbDL.contingut.pageName = path;
+        fcbDL.contingut.URL = url;
 		    _satellite.track('scVPage');
 		  }
     </script>
@@ -130,11 +131,11 @@ export const UseAdobeAnalyticsProvider = ({
     </script>
     `
   }
-  const triggerTrackingScript = (path: string) => {
+  const triggerTrackingScript = (path: string, url: string) => {
     console
     return `
     <script onerror="()=>console.warn('error')">
-      virtualPage("${path}");
+      virtualPage("${path}", "${url}");
     </script>
     `
   }
