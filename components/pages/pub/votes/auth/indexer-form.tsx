@@ -18,7 +18,6 @@ import { FormFieldsetContainer } from '../components/form-fieldset-container'
 import { Col, Input, Row, Text } from '@components/elements-v2'
 import { useProcessWrapper } from '@hooks/use-process-wrapper'
 import { useUrlHash } from "use-url-hash"
-import { VoteStatus } from '@lib/util'
 import moment from 'moment'
 import { Icon } from '@components/elements-v2/icons'
 
