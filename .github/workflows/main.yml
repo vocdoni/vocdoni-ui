@@ -90,7 +90,7 @@ jobs:
             ETH_NETWORK_ID=xdai
             APP_TITLE="Vocdoni Staging"
             BLOCK_TIME=12
-            BOOTNODES_URL=https://bootnodes.vocdoni.net/gateways.stg.priv.json
+            BOOTNODES_URL=https://raw.githubusercontent.com/vocdoni/bootnodes/main/content/gateways.stg.priv.json
             BACKEND_URL=https://manager.stg.vocdoni.net/api/manager
             BACKEND_PUB_KEY=03a0666d3ecd138b85713e240f0d9559b733c723765f6818e14f2f7e4e8c8bdb70
             COLOR_PICKER=1
@@ -114,7 +114,7 @@ jobs:
             DEVELOPMENT=false
             ETH_NETWORK_ID=xdai
             BLOCK_TIME=12
-            BOOTNODES_URL=https://bootnodes.vocdoni.net/gateways.priv.json
+            BOOTNODES_URL=https://raw.githubusercontent.com/vocdoni/bootnodes/main/content/gateways.priv.json
             BACKEND_URL=https://backend.vocdoni.net/api/manager
             BACKEND_PUB_KEY=03cd13285ea116b9093a47364b29ddb09eccf50aa2f0112b6084a0b10943964d4e
             DISCOVERY_POOL_SIZE=1
@@ -136,7 +136,7 @@ jobs:
             DEVELOPMENT=false
             ETH_NETWORK_ID=rinkeby
             BLOCK_TIME=12
-            BOOTNODES_URL=https://bootnodes.vocdoni.net/gateways.dev.json
+            BOOTNODES_URL=https://raw.githubusercontent.com/vocdoni/bootnodes/main/content/gateways.azeno.priv.json
             BACKEND_URL=https://backend.vocdoni.net/api/manager
             BACKEND_PUB_KEY=03cd13285ea116b9093a47364b29ddb09eccf50aa2f0112b6084a0b10943964d4e
             DISCOVERY_POOL_SIZE=1
@@ -174,7 +174,7 @@ jobs:
           APP_TITLE: 'Vocdoni'
           ETH_NETWORK_ID: 'xdai'
           BLOCK_TIME: '12'
-          BOOTNODES_URL: 'https://bootnodes.vocdoni.net/gateways.priv.json'
+          BOOTNODES_URL: 'https://raw.githubusercontent.com/vocdoni/bootnodes/main/content/gateways.priv.json'
           BACKEND_URL: 'https://backend.vocdoni.net/api/manager'
           BACKEND_PUB_KEY: '03cd13285ea116b9093a47364b29ddb09eccf50aa2f0112b6084a0b10943964d4e'
           DISCOVERY_POOL_SIZE: '1'
@@ -219,7 +219,7 @@ jobs:
           APP_TITLE: 'Vocdoni'
           ETH_NETWORK_ID: 'xdai'
           BLOCK_TIME: '12'
-          BOOTNODES_URL: 'https://bootnodes.vocdoni.net/gateways.priv.json'
+          BOOTNODES_URL: 'https://raw.githubusercontent.com/vocdoni/bootnodes/main/content/gateways.priv.json'
           BACKEND_URL: 'https://backend.vocdoni.net/api/manager'
           BACKEND_PUB_KEY: '03cd13285ea116b9093a47364b29ddb09eccf50aa2f0112b6084a0b10943964d4e'
           DISCOVERY_POOL_SIZE: '1'
@@ -266,7 +266,7 @@ jobs:
           APP_TITLE: 'Vocdoni'
           ETH_NETWORK_ID: 'xdai'
           BLOCK_TIME: '12'
-          BOOTNODES_URL: 'https://bootnodes.vocdoni.net/gateways.azeno.priv.json'
+          BOOTNODES_URL: 'https://raw.githubusercontent.com/vocdoni/bootnodes/main/content/gateways.azeno.priv.json'
           BACKEND_URL: 'https://backend.azeno.vocdoni.net/api/manager'
           BACKEND_PUB_KEY: '03cd13285ea116b9093a47364b29ddb09eccf50aa2f0112b6084a0b10943964d4e'
           DISCOVERY_POOL_SIZE: '1'
@@ -313,7 +313,7 @@ jobs:
           APP_TITLE: 'Vocdoni Staging'
           ETH_NETWORK_ID: 'xdai'
           BLOCK_TIME: '12'
-          BOOTNODES_URL: 'https://bootnodes.vocdoni.net/gateways.stg.priv.json'
+          BOOTNODES_URL: 'https://raw.githubusercontent.com/vocdoni/bootnodes/main/content/gateways.stg.priv.json'
           BACKEND_URL: 'https://manager.stg.vocdoni.net/api/manager'
           BACKEND_PUB_KEY: '03a0666d3ecd138b85713e240f0d9559b733c723765f6818e14f2f7e4e8c8bdb70'
           COLOR_PICKER: '1'
