@@ -19,7 +19,6 @@ interface IModalQuestionList {
   questions: Question[]
   choices: number[]
   sendingVote: boolean
-  phoneSuffix: string
   onClose: () => void
   onSubmit: () => void
   sendSMS: () => void
@@ -30,7 +29,6 @@ export const ModalQuestionList = ({
   questions,
   choices,
   sendingVote,
-  phoneSuffix,
   onSubmit,
   onClose,
   sendSMS,
@@ -38,7 +36,7 @@ export const ModalQuestionList = ({
 }: IModalQuestionList) => {
   const { i18n } = useTranslation()
   const [validSMS, setValidSMS] = useState<boolean>(false)
-  const { firstSent, setFirstSent, remainingAttempts, setAttempts, cooldown, coolItDown } = useCSPForm()
+  const { firstSent, setFirstSent, remainingAttempts, setAttempts, cooldown, coolItDown, suffix } = useCSPForm()
   const [pin, setPin] = useState<string>('')
   const [error, setError] = useState<boolean>(false)
   const [authError, setAuthError] = useState<string|null>(null)
@@ -253,7 +251,7 @@ export const ModalQuestionList = ({
               <Then>
                 <Spacer direction='vertical' size='md' />
                 <NeutralColor>
-                  <strong>{i18n.t('fcb.available_SMS', {numSMS: remainingAttempts, phoneNum: phoneSuffix})}</strong>
+                  <strong>{i18n.t('fcb.available_SMS', {numSMS: remainingAttempts, phoneNum: suffix})}</strong>
                 </NeutralColor>
               </Then>
             </If>

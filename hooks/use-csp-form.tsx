@@ -22,19 +22,23 @@ export interface CSPState {
   coolItDown: () => void
   userId: string
   setUserId: (uid: string) => void
+  suffix: string,
+  setSuffix: (suffix: string) => void
 }
 
 export const CSPContext = createContext<CSPState>({
   remainingAttempts: 0,
-  setAttempts: (attempts) => { },
+  setAttempts: (attempts) => {},
   consumed: true,
-  setConsumed: (consumed) => { },
+  setConsumed: (consumed) => {},
   firstSent: false,
-  setFirstSent: (sent) => { },
+  setFirstSent: (sent) => {},
   cooldown: 0,
-  coolItDown: () => { },
+  coolItDown: () => {},
   userId: null,
-  setUserId: (uid) => { },
+  setUserId: (uid) => {},
+  suffix: '**',
+  setSuffix: (suffix) => {},
 })
 
 export const CSPProvider = ({ children }: { children: ReactNode }) => {
@@ -45,6 +49,7 @@ export const CSPProvider = ({ children }: { children: ReactNode }) => {
   const [cooldown, setCooldown] = useState<number>(0)
   const [interval, setInterval] = useState<number>(0)
   const [userId, setUserId] = useState<string>()
+  const [suffix, setSuffix] = useState('**')
 
   const coolItDown = () => {
     if (!interval && !coolref.current || coolref.current <= 0) {
@@ -80,7 +85,9 @@ export const CSPProvider = ({ children }: { children: ReactNode }) => {
     cooldown,
     coolItDown,
     userId,
-    setUserId
+    setUserId,
+    suffix,
+    setSuffix,
   }
 
   return (
@@ -100,8 +107,7 @@ export const useCSPForm = () => {
   const [invalidCredentials, setInvalidCredentials] = useState<boolean>(false)
   const { setAlertMessage } = useMessageAlert()
   const { setWallet, wallet } = useWallet({ role: WalletRoles.VOTER })
-  const { setAttempts, setConsumed, setUserId } = cspCtxt
-
+  const { setAttempts, setConsumed, setUserId, setSuffix } = cspCtxt
 
   const emptyFields = !formValues || Object.values(formValues).some(v => !v)
 
@@ -150,10 +156,11 @@ export const useCSPForm = () => {
       return await CspIndexer.getUserProcesses(strip0x(uid), csp)
         .then(processes => {
           if (processes.length != 1) throw new Error("No process found for user")
-          electionId = processes[0]["electionId"]
-          setAttempts(Number(processes[0]["remainingAttempts"]))
-
-          setConsumed(Boolean(processes[0]["consumed"]))
+          const [ election ] = processes
+          electionId = election["electionId"]
+          setAttempts(Number(election.remainingAttempts))
+          setConsumed(Boolean(election.consumed))
+          setSuffix(election.extra.join(''))
           setProcessId(electionId)
 
           let privateKey = localStorage.getItem(uid)
