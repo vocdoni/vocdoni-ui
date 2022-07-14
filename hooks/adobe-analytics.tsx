@@ -132,7 +132,9 @@ export const UseAdobeAnalyticsProvider = ({
   const triggerTrackingScript = (path: string, url: string) => {
     return `
     <script onerror="()=>console.warn('error')">
+    try {
       virtualPage("${path}", "${url}");
+    } catch (e) {}
     </script>
     `
   }
@@ -140,7 +142,9 @@ export const UseAdobeAnalyticsProvider = ({
   const triggerSetUser = (userId: string) => {
     return `
     <script onerror="()=>console.warn('error')">
+    try {
       setUser("${userId}");
+    } catch (e) {}
     </script>
     `
   }

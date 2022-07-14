@@ -42,7 +42,7 @@ const VoteAuthLogin = () => {
   const { methods: votingMethods } = useVoting(processId)
   const { loadingInfo,loadingInfoError, processInfo } = useProcessWrapper(processId)
   const { metadata, loading : loadingEntity, error: loadingEntityError } = useEntity(processInfo?.state?.entityId)
-  const {methods:adobe} = useAdobeAnalytics()
+  const { methods:adobe } = useAdobeAnalytics()
   // const { updateAppTheme } = useTheme();
 
   // const entityMetadata = metadata as EntityMetadata

@@ -16,7 +16,7 @@ import { ANALYTICS_KEY } from '@const/env'
 import { FixedGlobalStyle, theme } from '../theme'
 
 import { DefaultLayout } from '@components/pages/app/layout/default'
-import { FCBProviders } from '@components/pages/app/providers/fcb-providers'
+import { DefaultProviders } from '@components/pages/app/providers/default-providers'
 import { CookiesBanner } from '@components/blocks/cookies-banner'
 import { useTranslation } from 'react-i18next'
 
@@ -35,7 +35,7 @@ const VocdoniApp: FC<NextAppProps> = ({ Component, pageProps }) => {
   const Layout: FC = Component['Layout'] ? Component['Layout'] : DefaultLayout
   const Providers: FC = Component['Providers']
     ? Component['Providers']
-    : FCBProviders
+    : DefaultProviders
 
   return (
     <RecoilRoot>

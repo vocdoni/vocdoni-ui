@@ -175,6 +175,8 @@ export const useCSPForm = () => {
           }
           setWallet(voterWallet)
 
+          // store clauSoci for adobe analytics
+          // adobe.setUserId(authFieldsData[0])
           // store auth data in local storage for disconnect banner
           // setAuthFields(authFieldsData)
           const encryptedAuthfield = Symmetric.encryptString(authFieldsData.join("/"), voterWallet.publicKey)

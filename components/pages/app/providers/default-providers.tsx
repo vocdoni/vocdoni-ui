@@ -35,10 +35,10 @@ export const DefaultProviders = ({ children }: IDefaultProvidersProps) => {
   return (
     <UseWalletContextProvider>
       <UseAdobeAnalyticsProvider paths={PATHS_WITH_ADOBE_ANALYTICS}>
-        <UseRudderStackProvider>
-          <UseCookiesProvider hideInPaths={PATH_WITHOUT_COOKIES}>
-            <UseMessageAlertProvider>
-              <UseLoadingAlertProvider>
+        <UseCookiesProvider hideInPaths={PATH_WITHOUT_COOKIES}>
+          <UseMessageAlertProvider>
+            <UseLoadingAlertProvider>
+              <UseRudderStackProvider>
                 <UsePoolProvider
                   bootnodeUri={bootnodeUri}
                   networkId={networkId}
@@ -47,27 +47,25 @@ export const DefaultProviders = ({ children }: IDefaultProvidersProps) => {
                   minNumGateways={discoveryPoolSize}
                 >
                   <UseBlockStatusProvider>
-                    <UseBackendProvider>
-                      <UseProcessProvider>
-                        <UseProcessWrapperProvider>
+                    <UseProcessProvider>
+                      <UseProcessWrapperProvider>
+                        <CSPProvider>
                           <UseVotingProvider>
-                            <CSPProvider>
-                              <UseEntityProvider>
-                                <UseDbAccountsProvider>
-                                  {children}
-                                </UseDbAccountsProvider>
-                              </UseEntityProvider>
-                            </CSPProvider>
+                            <UseEntityProvider>
+                              <UseDbAccountsProvider>
+                                {children}
+                              </UseDbAccountsProvider>
+                            </UseEntityProvider>
                           </UseVotingProvider>
-                        </UseProcessWrapperProvider>
-                      </UseProcessProvider>
-                    </UseBackendProvider>
+                        </CSPProvider>
+                      </UseProcessWrapperProvider>
+                    </UseProcessProvider>
                   </UseBlockStatusProvider>
                 </UsePoolProvider>
-              </UseLoadingAlertProvider>
-            </UseMessageAlertProvider>
-          </UseCookiesProvider>
-        </UseRudderStackProvider>
+              </UseRudderStackProvider>
+            </UseLoadingAlertProvider>
+          </UseMessageAlertProvider>
+        </UseCookiesProvider>
       </UseAdobeAnalyticsProvider>
     </UseWalletContextProvider>
   )
