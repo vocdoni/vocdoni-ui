@@ -13,17 +13,14 @@ import { useIsMobile } from './use-window-size'
 
 
 interface IUseAdobeAnalyticsContext {
-  memberId: string,
   methods?: {
-    setMemeberId: (value: string) => void
     load: () => void
     trackPage: (path: string) => void
+    setUserId: (userId: string)=> void
   }
 }
 
-const UseAdobeAnalyticsContext = createContext<IUseAdobeAnalyticsContext>({
-  memberId: ""
-})
+const UseAdobeAnalyticsContext = createContext<IUseAdobeAnalyticsContext>({})
 
 export function useAdobeAnalytics() {
   const adobeAnalyticsContext = useContext(UseAdobeAnalyticsContext)
@@ -48,7 +45,6 @@ const pathMap = {
 export const UseAdobeAnalyticsProvider = ({
   children, paths
 }: IUseUseAdobeAnalyticsProvider) => {
-  const [memberId, setMemeberId] = useState('')
   const { i18n } = useTranslation()
   const router = useRouter()
   const isMobile = useIsMobile()
@@ -72,11 +68,20 @@ export const UseAdobeAnalyticsProvider = ({
         .createContextualFragment(generateFcbDl())
       document.head.appendChild(fcbDl)
     }
+    if (!document.getElementById('set-user')) {
+      const setUser = document
+        .createRange()
+        .createContextualFragment(setUserScript())
+      document.head.appendChild(setUser)
+    }
     if (!document.getElementById("adobe-script")) {
       const adoobeScript = document.createElement('script')
       adoobeScript.src = process.env.ADOBE_ANALYTICS_SCRIPT
       adoobeScript.async = true
       adoobeScript.id = "adobe-script"
+      adoobeScript.onerror = () => {
+        console.warn('error loading adobe script')
+      }
       document.head.appendChild(adoobeScript)
     }
   }
@@ -87,12 +92,18 @@ export const UseAdobeAnalyticsProvider = ({
       .createContextualFragment(triggerTrackingScript(path))
     document.head.appendChild(trigger)
   }
+  const setUserId = (path: string) => {
+    const setUser = document
+      .createRange()
+      .createContextualFragment(triggerSetUser(path))
+    document.head.appendChild(setUser)
+  }
 
 
   const generateVirtualPage = () => {
     console
     return `
-    <script id="virtual-page">
+    <script id="virtual-page" onerror="()=>console.warn('error')">
 		  function virtualPage(path) {
 		    fcbDL.contingut.pageName = path;
 		    _satellite.track('scVPage');
@@ -100,26 +111,49 @@ export const UseAdobeAnalyticsProvider = ({
     </script>
     `
   }
+  const setUserScript = () => {
+    console
+    return `
+    <script id="set-user" onerror="()=>console.warn('error')">
+		  function setUser(userId) {
+        if (userId === "general") {
+          fcbDL.usuari = {
+            tipusUsuari:"general"
+          };
+        } else {
+          fcbDL.usuari = {
+            tipusUsuari:"soci",
+            idUsuari: "soci-" + userId
+          }
+        }
+		  }
+    </script>
+    `
+  }
   const triggerTrackingScript = (path: string) => {
     console
     return `
-    <script>
+    <script onerror="()=>console.warn('error')">
       virtualPage("${path}");
+    </script>
+    `
+  }
+  const triggerSetUser = (userId: string) => {
+    console
+    return `
+    <script onerror="()=>console.warn('error')">
+      setUser("${userId}");
     </script>
     `
   }
 
   const generateFcbDl = () => {
     return `
-    <script id="fcb-dl">
+    <script id="fcb-dl" onerror="()=>console.warn('error')">
     var fcbDL = fcbDL || {}
     fcbDL = {
       usuari:{
-        ${memberId ?
-        `tipusUsuari:"soci",
-          idUsuari: "soci-${memberId}` :
-        `tipusUsuari:"general"`
-      }
+        tipusUsuari:"general"
       },
       contingut:{
         idioma: "${i18n.language}",
@@ -135,9 +169,8 @@ export const UseAdobeAnalyticsProvider = ({
   }
 
   const value = {
-    memberId,
     methods: {
-      setMemeberId,
+      setUserId,
       load,
       trackPage
     }
