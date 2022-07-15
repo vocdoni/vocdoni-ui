@@ -10,6 +10,8 @@ import { useRouter } from 'next/router'
 
 import { useHelpCenter } from './help-center'
 import { useRudderStack } from '@hooks/rudderstack'
+import { useAdobeAnalytics } from './adobe-analytics'
+import { useTranslation } from 'react-i18next'
 
 const COOKIES_STORE_KEY = 'cookies-acceptance'
 
@@ -23,8 +25,8 @@ interface ICookiesContext {
 const CookiesContext = createContext<ICookiesContext>({
   accepted: false,
   hide: true,
-  acceptCookies: () => {},
-  rejectCookies: () => {},
+  acceptCookies: () => { },
+  rejectCookies: () => { },
 })
 
 enum CookiesStatus {
@@ -55,23 +57,30 @@ export const UseCookiesProvider: React.FC<IUseCookiesProvider> = ({
   const router = useRouter()
   const { trackLoad, trackReset, trackPage } = useRudderStack()
   const { show } = useHelpCenter()
+  const { methods: adobe } = useAdobeAnalytics()
+  const { i18n } = useTranslation()
 
   useEffect(() => {
-    if (!router.pathname.includes(COOKIES_PATH)) setHide(false)
+    // Need to do this check because the adobe analytics use the
+    // language
+    if (i18n.language && adobe) {
+      if (!router.pathname.includes(COOKIES_PATH)) setHide(false)
 
-    const cookieAcceptance = localStorage.getItem(COOKIES_STORE_KEY)
+      const cookieAcceptance = localStorage.getItem(COOKIES_STORE_KEY)
 
-    if (
-      cookieAcceptance ||
-      (hideInPaths && hideInPaths?.some((path) => router.pathname.match(path)))
-    ) {
-      setAccepted(cookieAcceptance === CookiesStatus.Accept)
-      setHide(true)
-      trackLoad()
-    } else {
-      setHide(false)
+      if (
+        cookieAcceptance ||
+        (hideInPaths && hideInPaths?.some((path) => router.pathname.match(path)))
+      ) {
+        setAccepted(cookieAcceptance === CookiesStatus.Accept)
+        setHide(true)
+        trackLoad()
+        adobe.load()
+      } else {
+        setHide(false)
+      }
     }
-  }, [])
+  }, [i18n.language, adobe])
 
   useEffect(() => {
     if (
@@ -89,6 +98,7 @@ export const UseCookiesProvider: React.FC<IUseCookiesProvider> = ({
     trackLoad()
     trackPage()
     setHide(true)
+    adobe.load()
     localStorage.setItem(COOKIES_STORE_KEY, CookiesStatus.Accept)
   }
 

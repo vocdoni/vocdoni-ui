@@ -181,7 +181,6 @@ export const IndexerForm = ({
                   {i18n.t('fcb.enter')}
                 </Button>
               </Col>
-
               <Col xs={12}>
                 <LightText>
                   {i18n.t('fcb.login_subtext')}

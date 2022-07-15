@@ -16,9 +16,10 @@ import { UseDbAccountsProvider } from '@hooks/use-db-accounts'
 import { UseRudderStackProvider } from '@hooks/rudderstack'
 import { UseCookiesProvider } from '@hooks/cookies'
 
-import { PATH_WITHOUT_COOKIES } from '@const/routes'
+import { PATH_WITHOUT_COOKIES, PATHS_WITH_ADOBE_ANALYTICS } from '@const/routes'
 import { UseProcessWrapperProvider } from '@hooks/use-process-wrapper'
 import { CSPProvider } from '@hooks/use-csp-form'
+import { UseAdobeAnalyticsProvider } from '@hooks/adobe-analytics'
 
 interface IDefaultProvidersProps {
   children: ReactNode
@@ -33,39 +34,39 @@ export const DefaultProviders = ({ children }: IDefaultProvidersProps) => {
 
   return (
     <UseWalletContextProvider>
-      <UseRudderStackProvider>
+      <UseAdobeAnalyticsProvider paths={PATHS_WITH_ADOBE_ANALYTICS}>
         <UseCookiesProvider hideInPaths={PATH_WITHOUT_COOKIES}>
           <UseMessageAlertProvider>
             <UseLoadingAlertProvider>
-              <UsePoolProvider
-                bootnodeUri={bootnodeUri}
-                networkId={networkId}
-                environment={environment}
-                discoveryTimeout={discoveryTimeout}
-                minNumGateways={discoveryPoolSize}
-              >
-                <UseBlockStatusProvider>
-                  <UseBackendProvider>
+              <UseRudderStackProvider>
+                <UsePoolProvider
+                  bootnodeUri={bootnodeUri}
+                  networkId={networkId}
+                  environment={environment}
+                  discoveryTimeout={discoveryTimeout}
+                  minNumGateways={discoveryPoolSize}
+                >
+                  <UseBlockStatusProvider>
                     <UseProcessProvider>
                       <UseProcessWrapperProvider>
-                        <UseVotingProvider>
-                          <CSPProvider>
+                        <CSPProvider>
+                          <UseVotingProvider>
                             <UseEntityProvider>
                               <UseDbAccountsProvider>
                                 {children}
                               </UseDbAccountsProvider>
                             </UseEntityProvider>
-                          </CSPProvider>
-                        </UseVotingProvider>
+                          </UseVotingProvider>
+                        </CSPProvider>
                       </UseProcessWrapperProvider>
                     </UseProcessProvider>
-                  </UseBackendProvider>
-                </UseBlockStatusProvider>
-              </UsePoolProvider>
+                  </UseBlockStatusProvider>
+                </UsePoolProvider>
+              </UseRudderStackProvider>
             </UseLoadingAlertProvider>
           </UseMessageAlertProvider>
         </UseCookiesProvider>
-      </UseRudderStackProvider>
+      </UseAdobeAnalyticsProvider>
     </UseWalletContextProvider>
   )
 }
