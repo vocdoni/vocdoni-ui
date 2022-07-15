@@ -126,7 +126,7 @@ export const ModalQuestionList = ({
       <div>
         <If condition={authError === null}>
           <Then>
-            <If condition={remainingAttempts <= 0}>
+            <If condition={remainingAttempts < 0}>
               <Then>
                 <Column>
                   <WarningIcon>
