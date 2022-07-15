@@ -280,7 +280,7 @@ export const VotingPageView = () => {
   )
 
   //If only one candidate, no voting allowed
-  const isOneCandidate = (processInfo?.metadata?.questions[0].choices.length <= 2)
+  const isOneCandidate = (processInfo?.metadata?.questions[0].choices.length <= 1)
   const { setAlertMessage } = useMessageAlert()
   const handleCopy = () => {
     copy(nullifier.toString())
