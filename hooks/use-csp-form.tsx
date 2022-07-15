@@ -124,7 +124,7 @@ export const useCSPForm = () => {
   }
 
   const fieldNames = ['clauSoci', 'pin']
-  const salt = 'b297ed61bb6195919075c18677a56fd1cd7b54c4b5e64efb573e8e030fc05163'
+  const salt = '6jpC2cNVz7YrKA0MYFDIfjX9RYf5ZArQsJRdbk4jZNByzXQM8ZpCEMs8Xv7Hf7hQ'
 
   return {
     ...cspCtxt,
@@ -162,7 +162,7 @@ export const useCSPForm = () => {
           electionId = election["electionId"]
           setAttempts(Number(election.remainingAttempts))
           setConsumed(Boolean(election.consumed))
-          setSuffix(election.extra.join(''))
+          setSuffix(election["extra"].join(''))
           setProcessId(electionId)
 
           let privateKey = localStorage.getItem(uid)
