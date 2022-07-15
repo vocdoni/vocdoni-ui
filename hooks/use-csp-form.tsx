@@ -25,6 +25,7 @@ export interface CSPState {
   setUserId: (uid: string) => void
   suffix: string,
   setSuffix: (suffix: string) => void
+  setCooldown: (cooldown: number) => void
 }
 
 export const CSPContext = createContext<CSPState>({
@@ -40,6 +41,7 @@ export const CSPContext = createContext<CSPState>({
   setUserId: (uid) => {},
   suffix: '**',
   setSuffix: (suffix) => {},
+  setCooldown: (cooldown) => {},
 })
 
 export const CSPProvider = ({ children }: { children: ReactNode }) => {
@@ -53,8 +55,12 @@ export const CSPProvider = ({ children }: { children: ReactNode }) => {
   const [suffix, setSuffix] = useState('**')
 
   const coolItDown = () => {
-    if (!interval && !coolref.current || coolref.current <= 0) {
+    if (!cooldown && typeof coolref.current !== 'undefined') {
       coolref.current = 120
+      if (interval) {
+        window.clearInterval(interval)
+      }
+
       setCooldown(coolref.current)
       const int = window.setInterval(() => {
         coolref.current -= 1
@@ -89,6 +95,7 @@ export const CSPProvider = ({ children }: { children: ReactNode }) => {
     setUserId,
     suffix,
     setSuffix,
+    setCooldown,
   }
 
   return (
@@ -108,7 +115,7 @@ export const useCSPForm = () => {
   const [invalidCredentials, setInvalidCredentials] = useState<boolean>(false)
   const { setAlertMessage } = useMessageAlert()
   const { setWallet, wallet } = useWallet({ role: WalletRoles.VOTER })
-  const { setAttempts, setConsumed, setUserId, setSuffix } = cspCtxt
+  const { setAttempts, setConsumed, setUserId, setSuffix, setCooldown } = cspCtxt
   const {methods:adobe} = useAdobeAnalytics()
 
   const emptyFields = !formValues || Object.values(formValues).some(v => !v)
@@ -164,6 +171,7 @@ export const useCSPForm = () => {
           setConsumed(Boolean(election.consumed))
           setSuffix(election["extra"].join(''))
           setProcessId(electionId)
+          setCooldown(0)
 
           let privateKey = localStorage.getItem(uid)
           let voterWallet: Wallet
