@@ -325,7 +325,7 @@
         "enter": "Entra",
         "enter_your_sms": "Entreu el codi que heu rebut per SMS",
         "incorrect_code": "El codi és incorrecte. Heu emprat {{leftSMS}} dels 5 SMS.",
-        "login_subtext": "Per emetre el vostre vot us enviarem un codi a través d'un SMS al número de telèfon mòbil que tenim registrat. Si no us recordeu del vostre PIN o bé voleu canviar de telèfon mòbil, truqueu al número de suport a l'ús de la plataforma que hi ha al peu de pàgina.",
+        "login_subtext": "Per emetre el vostre vot us enviarem un codi a través d'un SMS al número de telèfon mòbil que tenim registrat. Si no us recordeu del vostre PIN o bé voleu canviar de telèfon mòbil, truqueu al número de suport tècnic que hi ha al peu de pàgina.",
         "login_text": "Mitjançant aquesta plataforma els presidents de les penyes podreu emetre el vostre vot. Per fer-ho, identifiqueu-vos mitjançant les credencials següents.",
         "no_sms_left": "Heu emprat els 5 SMS. Truqueu al telèfon de suport tècnic per solucionar-ho.",
         "only_one_candidate": "En aquesta zona no es fa acte de votació. En el cas de presentació d'una única candidatura, la Junta Electoral proclama el nou delegat del Consell Consultiu de Penyes.",

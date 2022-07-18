@@ -27,7 +27,7 @@ export const VoterFooter = () => {
               <ColoredLink href={i18n.t('fcb.url_terms')} target='_blank'>{i18n.t('fcb.terms')}</ColoredLink>
             </Col>
             <Col sm={4} xs={12}>
-              <ColoredLink href={i18n.t('fcb.url_terms')} target='_blank'>{i18n.t('fcb.service_conditions')}</ColoredLink>
+              <ColoredLink href={i18n.t('fcb.url_privacy')} target='_blank'>{i18n.t('fcb.service_conditions')}</ColoredLink>
             </Col>
             <Col sm={4} xs={12}>
               <ColoredLink href={i18n.t('fcb.url_cookies')} target='_blank'>{i18n.t('fcb.cookies')}</ColoredLink>
