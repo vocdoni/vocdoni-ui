@@ -69,7 +69,7 @@ export const UseCookiesProvider: React.FC<IUseCookiesProvider> = ({
       const cookieAcceptance = localStorage.getItem(COOKIES_STORE_KEY)
 
       if (
-        cookieAcceptance ||
+        true ||
         (hideInPaths && hideInPaths?.some((path) => router.pathname.match(path)))
       ) {
         setAccepted(cookieAcceptance === CookiesStatus.Accept)
