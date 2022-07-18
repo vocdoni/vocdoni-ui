@@ -69,13 +69,13 @@ export const UseCookiesProvider: React.FC<IUseCookiesProvider> = ({
       const cookieAcceptance = localStorage.getItem(COOKIES_STORE_KEY)
 
       if (
-        true ||
+        cookieAcceptance ||
         (hideInPaths && hideInPaths?.some((path) => router.pathname.match(path)))
       ) {
         setAccepted(cookieAcceptance === CookiesStatus.Accept)
         setHide(true)
         trackLoad()
-        adobe.load()
+        //adobe.load()
       } else {
         setHide(false)
       }
@@ -98,7 +98,7 @@ export const UseCookiesProvider: React.FC<IUseCookiesProvider> = ({
     trackLoad()
     trackPage()
     setHide(true)
-    adobe.load()
+    //adobe.load()
     localStorage.setItem(COOKIES_STORE_KEY, CookiesStatus.Accept)
   }
 
