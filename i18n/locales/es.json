@@ -325,7 +325,7 @@
         "enter": "Entra",
         "enter_your_sms": "Introduzca el código que ha recibido por SMS",
         "incorrect_code": "El código es incorrecto. Has usado {{leftSMS}} de los 5 SMS.",
-        "login_subtext": "Para emitir su voto le enviaremos un código a través de un SMS al número de teléfono móvil que tenemos registrado. Si no se acuerda de su PIN o quiere cambiar de teléfono móvil, llame al número de soporte a el uso de la plataforma que hay en el pie de página.",
+        "login_subtext": "Para emitir su voto le enviaremos un código a través de un SMS al número de teléfono móvil que tenemos registrado. Si no se acuerda de su PIN o quiere cambiar de teléfono móvil, llame al número de soporte técnico que hay en el pie de página.",
         "login_text": "Mediante esta plataforma los presidentes de las peñas podrán emitir su voto. Para ello, identifíquese mediante las siguientes credenciales.",
         "no_sms_left": "Habéis empleado los 5 SMS. Llamad al teléfono de soporte técnico para solucionarlo.",
         "only_one_candidate": "En esta zona no se celebra acto de votación. En el caso de presentación de una única candidatura, la Junta Electoral proclama el nuevo delegado del Consejo Consultivo de Peñas.",
