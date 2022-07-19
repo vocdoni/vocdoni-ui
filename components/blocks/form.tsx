@@ -1,9 +1,9 @@
-import React, { ChangeEvent, ReactNode, useState, forwardRef } from 'react'
-import styled, { DefaultTheme } from 'styled-components'
+import { ChangeEvent, forwardRef, KeyboardEvent, ReactNode, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import styled, { DefaultTheme } from 'styled-components'
 
-import { HelpText } from './help-text'
 import FileLoader from './FileLoader'
+import { HelpText } from './help-text'
 
 import { Input, InputPassword, ISelectOption, Select, Textarea } from '../elements/inputs'
 import { SectionTitle } from '../elements/text'
