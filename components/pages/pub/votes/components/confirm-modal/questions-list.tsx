@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState, useRef, useEffect } from 'react'
+import React, { ChangeEvent, useState, useRef, useEffect, KeyboardEvent } from 'react'
 import styled from 'styled-components'
 import { useTranslation } from 'react-i18next'
 
@@ -149,6 +149,11 @@ export const ModalQuestionList = ({
                       error=''
                       id='sms'
                       value={pin}
+                      onKeyUp={(e: KeyboardEvent<HTMLInputElement>) => {
+                        if (e.key === 'Enter' && pin.length === 6) {
+                          submitVote()
+                        }
+                      }}
                       onChange={(event: ChangeEvent<HTMLInputElement>) => {
                         setPin(event.target.value)
                       }}

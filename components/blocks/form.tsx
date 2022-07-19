@@ -82,6 +82,7 @@ export const formGroupHOC = (InputField) =>
         success,
         editButton,
         onChange,
+        onKeyUp,
         onBlur,
         variant = FormGroupVariant.Regular,
       },
@@ -111,6 +112,7 @@ export const formGroupHOC = (InputField) =>
                 error={!!error}
                 onChange={onChange}
                 onBlur={onBlur}
+                onKeyUp={onKeyUp || null}
               />
               {editEnabled && editButton && (
                 <EditButton onClick={() => setEditEnabled(false)}>
