@@ -55,7 +55,7 @@ export const CSPProvider = ({ children }: { children: ReactNode }) => {
   const [suffix, setSuffix] = useState('**')
 
   const coolItDown = () => {
-    if (!cooldown && typeof coolref.current !== 'undefined') {
+    if (cooldown <= 0 && typeof coolref.current !== 'undefined') {
       coolref.current = 120
       if (interval) {
         window.clearInterval(interval)
@@ -65,7 +65,7 @@ export const CSPProvider = ({ children }: { children: ReactNode }) => {
       const int = window.setInterval(() => {
         coolref.current -= 1
         setCooldown(coolref.current)
-        if (cooldown <= 0 || coolref.current <= 0) {
+        if (coolref.current <= 0) {
           window.clearInterval(interval)
           setInterval(0)
         }
@@ -95,7 +95,13 @@ export const CSPProvider = ({ children }: { children: ReactNode }) => {
     setUserId,
     suffix,
     setSuffix,
-    setCooldown,
+    setCooldown: (cooldown: number) => {
+      setCooldown(cooldown)
+      coolref.current = cooldown
+      if (interval) {
+        window.clearInterval(interval)
+      }
+    },
   }
 
   return (

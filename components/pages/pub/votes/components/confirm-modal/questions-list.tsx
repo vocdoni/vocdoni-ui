@@ -238,7 +238,7 @@ export const ModalQuestionList = ({
                         {i18n.t('fcb.send_me_SMS')}
                       </Then>
                       <Else>
-                        <If condition={!cooldown}>
+                        <If condition={cooldown <= 0}>
                           <Then>
                             {i18n.t('fcb.send_me_SMS')}
                           </Then>
