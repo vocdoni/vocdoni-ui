@@ -27,6 +27,7 @@ type IInputFormGroupProps = {
   rows?: number
   type?: string
   onChange: (value: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
+  onKeyUp?: (e: KeyboardEvent<HTMLInputElement>) => void
   onBlur?: (value: string) => void
 } & BaseForGroupProps
 
