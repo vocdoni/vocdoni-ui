@@ -26,7 +26,7 @@ interface IDefaultProvidersProps {
 }
 
 export const DefaultProviders = ({ children }: IDefaultProvidersProps) => {
-  const bootnodeUri = process.env.BOOTNODES_URL
+  const bootnodeUri = (process.env.BOOTNODES_URL.includes(",") ? process.env.BOOTNODES_URL.split(",") : process.env.BOOTNODES_URL)
   const networkId = process.env.ETH_NETWORK_ID as EthNetworkID
   const environment = process.env.VOCDONI_ENVIRONMENT as VocdoniEnvironment
   const discoveryTimeout = Number(process.env.DISCOVERY_TIMEOUT)

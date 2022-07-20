@@ -136,10 +136,11 @@ jobs:
             DEVELOPMENT=false
             ETH_NETWORK_ID=xdai
             BLOCK_TIME=12
-            BOOTNODES_URL=https://raw.githubusercontent.com/vocdoni/bootnodes/main/content/gateways.azeno.priv.json
+            BOOTNODES_URL=https://raw.githubusercontent.com/vocdoni/bootnodes/main/content/gateways.azeno.priv.json,https://bootnodes.vocdoni.net/gateways.azeno.priv.json
             BACKEND_URL=https://backend.vocdoni.net/api/manager
             BACKEND_PUB_KEY=03cd13285ea116b9093a47364b29ddb09eccf50aa2f0112b6084a0b10943964d4e
             DISCOVERY_POOL_SIZE=1
+            LANG=ca
           push: true
           tags: |
             vocdoni/${{ github.event.repository.name }}:${{ steps.var.outputs.branch }},
@@ -313,12 +314,12 @@ jobs:
           APP_TITLE: 'Vocdoni'
           ETH_NETWORK_ID: 'xdai'
           BLOCK_TIME: '12'
-          BOOTNODES_URL: 'https://bootnodes.vocdoni.net/gateways.azeno.priv.json'
+          BOOTNODES_URL: 'https://raw.githubusercontent.com/vocdoni/bootnodes/main/content/gateways.azeno.priv.json,https://bootnodes.vocdoni.net/gateways.azeno.priv.json'
           BACKEND_URL: 'https://backend.azeno.vocdoni.net/api/manager'
           BACKEND_PUB_KEY: '03cd13285ea116b9093a47364b29ddb09eccf50aa2f0112b6084a0b10943964d4e'
           DISCOVERY_POOL_SIZE: '1'
           EXPLORER_URL: 'https://azeno.explorer.vote'
-          LANG: 'ca'   
+          LANG: 'ca'
           # ANALYTICS_KEY: '202ZI3WhmcYBnY1Bre6umCcmK9Y'
           # ANALYTICS_URL: 'https://rudderstack.aragon.org'
           COLOR_PICKER: '1'
