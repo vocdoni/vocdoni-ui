@@ -45,8 +45,6 @@ import { CspSMSAuthenticator } from '@vocdoni/csp'
 import { useCSPForm } from '@hooks/use-csp-form'
 import copy from 'copy-to-clipboard'
 import { useMessageAlert } from '@hooks/message-alert'
-import { useAdobeAnalytics } from '@hooks/adobe-analytics'
-
 export enum UserVoteStatus {
   /**
    * User is voting right now
@@ -97,7 +95,6 @@ export const VotingPageView = () => {
   const { metadata } = useEntity(processInfo?.state?.entityId)
   const [confirmModalOpened, setConfirmModalOpened] = useState<boolean>(false)
   const [isExpandableCardOpen, setIsExpandableCardOpen] = useState<boolean>(false)
-  const {methods:adobe} = useAdobeAnalytics()
   /**
    * used to manage if the status of the user vote
    * see `UserVoteStatus` for a description of each
@@ -225,7 +222,6 @@ export const VotingPageView = () => {
   }
 
   const handleFinishVote = () => {
-    adobe.trackPage("/confirmar-vot",window.location.href)
     setConfirmModalOpened(true)
   }
 
@@ -239,7 +235,6 @@ export const VotingPageView = () => {
   }
 
   const handleOnVoted = () => {
-    adobe.trackPage("/votacio-confirmada",window.location.href)
     setUserVoteStatus(UserVoteStatus.Emitted)
     setConfirmModalOpened(false)
   }

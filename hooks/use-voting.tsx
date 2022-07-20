@@ -156,9 +156,13 @@ export const UseVotingProvider = ({ children }: { children: ReactNode }) => {
       .then(authResp1 => {
         if (!("authToken" in authResp1) || !("response" in authResp1)) {
           let err = ("error" in authResp1) ? authResp1.error : "Could not authenticate user"
+          // console.log(JSON.stringify(authResp1,null,2))
           throw new Error(err)
         }
         setAuthToken(authResp1['authToken'])
+      })
+      .catch(error => {
+        console.log(JSON.stringify(error,null,2))
       })
   }
 

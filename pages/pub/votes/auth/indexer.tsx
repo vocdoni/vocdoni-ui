@@ -1,7 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { overrideTheme } from 'theme'
-import { EntityMetadata } from '@vocdoni/data-models'
 import { useProcessWrapper } from "@hooks/use-process-wrapper"
 
 import { useEntity } from '@vocdoni/react-hooks'
@@ -15,14 +13,9 @@ import { Loader } from '@components/blocks/loader'
 import { IndexerForm } from '@components/pages/pub/votes/auth/indexer-form'
 import { VotingErrorPage } from '@components/pages/pub/votes/voting-error-page'
 import { LayoutVoter } from '@components/pages/app/layout-v2/voter'
-import { MetadataFields } from '@components/pages/votes/new/metadata'
 import { useVoting } from '@hooks/use-voting'
 
-import { useRouter } from 'next/router'
-import { PREREGISTER_PATH, VOTING_PATH } from '@const/routes'
-import { VotingType } from '@lib/types'
 import { useCSPForm } from '@hooks/use-csp-form'
-import { useAdobeAnalytics } from '@hooks/adobe-analytics'
 // NOTE: This page uses a custom Layout. See below.
 
 const VoteAuthLogin = () => {
@@ -42,7 +35,6 @@ const VoteAuthLogin = () => {
   const { methods: votingMethods } = useVoting(processId)
   const { loadingInfo,loadingInfoError, processInfo } = useProcessWrapper(processId)
   const { metadata, loading : loadingEntity, error: loadingEntityError } = useEntity(processInfo?.state?.entityId)
-  const { methods:adobe } = useAdobeAnalytics()
   // const { updateAppTheme } = useTheme();
 
   // const entityMetadata = metadata as EntityMetadata
@@ -56,7 +48,6 @@ const VoteAuthLogin = () => {
 
     onLogin()
       .finally(() => {
-        adobe.trackPage("/seleccio-candidat",window.location.href)
         setCheckingCredentials(false)
       })
       .catch((err) => console.error('login failed', err))

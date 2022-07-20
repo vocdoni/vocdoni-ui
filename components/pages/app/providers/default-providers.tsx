@@ -5,12 +5,11 @@ import {
   UseProcessProvider,
   UseBlockStatusProvider,
 } from '@vocdoni/react-hooks'
-import { EthNetworkID, VocdoniEnvironment } from 'dvote-js'
+import { EthNetworkID, VocdoniEnvironment } from '@vocdoni/common'
 
 import { UseMessageAlertProvider } from '@hooks/message-alert'
 import { UseLoadingAlertProvider } from '@hooks/loading-alert'
 import { UseWalletContextProvider } from '@hooks/use-wallet'
-import { UseBackendProvider } from '@hooks/backend'
 import { UseVotingProvider } from '@hooks/use-voting'
 import { UseDbAccountsProvider } from '@hooks/use-db-accounts'
 import { UseRudderStackProvider } from '@hooks/rudderstack'
@@ -19,7 +18,6 @@ import { UseCookiesProvider } from '@hooks/cookies'
 import { PATH_WITHOUT_COOKIES, PATHS_WITH_ADOBE_ANALYTICS } from '@const/routes'
 import { UseProcessWrapperProvider } from '@hooks/use-process-wrapper'
 import { CSPProvider } from '@hooks/use-csp-form'
-import { UseAdobeAnalyticsProvider } from '@hooks/adobe-analytics'
 
 interface IDefaultProvidersProps {
   children: ReactNode
@@ -34,7 +32,6 @@ export const DefaultProviders = ({ children }: IDefaultProvidersProps) => {
 
   return (
     <UseWalletContextProvider>
-      <UseAdobeAnalyticsProvider paths={PATHS_WITH_ADOBE_ANALYTICS}>
         <UseCookiesProvider hideInPaths={PATH_WITHOUT_COOKIES}>
           <UseMessageAlertProvider>
             <UseLoadingAlertProvider>
@@ -66,7 +63,6 @@ export const DefaultProviders = ({ children }: IDefaultProvidersProps) => {
             </UseLoadingAlertProvider>
           </UseMessageAlertProvider>
         </UseCookiesProvider>
-      </UseAdobeAnalyticsProvider>
     </UseWalletContextProvider>
   )
 }
