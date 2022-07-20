@@ -1,4 +1,4 @@
-import { FileApi, IGatewayClient } from "dvote-js"
+import { FileApi, IGatewayClient } from "@vocdoni/client"
 import { Wallet } from "ethers"
 
 /**

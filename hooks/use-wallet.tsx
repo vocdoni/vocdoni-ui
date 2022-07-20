@@ -1,7 +1,7 @@
 import { useState, createContext, useContext, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { Wallet } from '@ethersproject/wallet'
-import { Symmetric } from 'dvote-js'
+import { Symmetric } from '@vocdoni/encryption'
 import { useSetRecoilState } from 'recoil'
 import { CREATE_PROCESS_PATH, DASHBOARD_PATH, ACCOUNT_BACKUP_PATH, ENTITY_SIGN_IN_PATH } from '../const/routes'
 import { InvalidPassphraseError } from '@lib/validators/errors/invalid-passphrase-error'

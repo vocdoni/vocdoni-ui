@@ -10,7 +10,6 @@ import { VoteSubmitted } from './vote-submitted'
 import { useUrlHash } from 'use-url-hash'
 import { useProcess } from '@vocdoni/react-hooks'
 import { VoteSubmitting } from './vote-submitting'
-import { voteApiMethods } from 'dvote-js'
 
 interface IConfigModal {
   isOpen: boolean

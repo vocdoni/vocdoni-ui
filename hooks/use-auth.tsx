@@ -1,7 +1,7 @@
 import { Wallet } from "@ethersproject/wallet"
 import { NoCensusMemberError } from "@lib/validators/errors/no-census-member-error"
 import { usePool } from "@vocdoni/react-hooks"
-import { CensusOffChain, CensusOffChainApi } from "dvote-js"
+import { CensusOffChain, CensusOffChainApi } from "@vocdoni/census"
 
 interface IUseAuth {
   checkCensusProof: (censusRoot: string, key: string) => void

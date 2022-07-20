@@ -1,5 +1,7 @@
-import { EntityMetadata, ProcessSummary, MultiLanguage, ProcessMetadata, ProcessResultsSingleChoice } from 'dvote-js'
-import { ProcessCensusOrigin, IProcessCensusOrigin } from 'dvote-solidity'
+import { EntityMetadata,ProcessMetadata, ProcessResultsSingleChoice } from '@vocdoni/data-models'
+import { ProcessSummary } from '@vocdoni/voting'
+import {  MultiLanguage } from '@vocdoni/common'
+import { ProcessCensusOrigin } from 'dvote-solidity'
 import { BigNumber } from 'ethers'
 // IndexDB types
 export enum AccountStatus {

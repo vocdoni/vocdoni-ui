@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { SingleChoiceQuestionResults, VochainProcessStatus, VochainProcessStatus as ProcessStatus } from 'dvote-js'
+import { SingleChoiceQuestionResults, VochainProcessStatus, VochainProcessStatus as ProcessStatus } from '@vocdoni/data-models'
 import { useTranslation } from 'react-i18next'
 
 import { colors } from 'theme/colors'

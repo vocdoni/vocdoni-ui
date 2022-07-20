@@ -1,5 +1,6 @@
 import i18n from "@i18n";
-import { SingleChoiceQuestionResults, ProcessDetails } from 'dvote-js'
+import { ProcessDetails } from '@vocdoni/voting'
+import { SingleChoiceQuestionResults,  } from '@vocdoni/data-models'
 import { colors } from "@theme/colors";
 
 import { PdfGenerator } from "./pdf-generator";
@@ -76,7 +77,7 @@ export class ResultPdfGenerator extends PdfGenerator {
     for (const result of question.voteResults) {
       this.addText(`${i18n.t('results.pdf.choice')}: ${result.title.default}, ${i18n.t('results.pdf.votes', { votes: result.votes.toString() })}`, { fontSize: 14, margin: 0 })
     }
-    
+
     this.addSpace(2)
   }
 

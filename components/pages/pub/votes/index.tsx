@@ -38,13 +38,24 @@ import { useProcessWrapper } from '@hooks/use-process-wrapper'
 import { useIsMobile } from '@hooks/use-window-size'
 import { PieChartIcon, LogOutIcon, LogOutIconWhite } from '@components/elements-v2/icons'
 import { dateDiffStr, DateDiffType } from '@lib/date-moment'
-import { MetadataFields } from '@components/pages/votes/new/metadata'
+// import { MetadataFields } from '@components/pages/votes/new/metadata'
 import { useAuthForm } from '@hooks/use-auth-form'
-import { Symmetric } from 'dvote-js'
+import { Symmetric } from '@vocdoni/encryption'
 import { CspSMSAuthenticator } from '@vocdoni/csp'
 import { useCSPForm } from '@hooks/use-csp-form'
 import copy from 'copy-to-clipboard'
 import { useMessageAlert } from '@hooks/message-alert'
+
+export enum MetadataFields {
+  Title = 'process-title',
+  BrandColor = 'brandColor',
+  Description = 'process-description',
+  AttachmentLink = 'attachmentUri',
+  DiscussionLink = 'discussionUrl',
+  StreamLink = 'streamUri',
+  Question = 'process-question',
+}
+
 export enum UserVoteStatus {
   /**
    * User is voting right now

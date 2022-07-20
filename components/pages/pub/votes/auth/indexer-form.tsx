@@ -1,6 +1,7 @@
 import React, { ChangeEvent, useState } from 'react'
 import styled from 'styled-components'
-import { ProcessDetails, EntityMetadata } from 'dvote-js'
+import { EntityMetadata } from '@vocdoni/data-models'
+import { ProcessDetails } from '@vocdoni/voting'
 import { useTranslation } from 'react-i18next'
 
 import {

@@ -15,7 +15,7 @@ import { Loader } from '@components/blocks/loader'
 import { IndexerForm } from '@components/pages/pub/votes/auth/indexer-form'
 import { VotingErrorPage } from '@components/pages/pub/votes/voting-error-page'
 import { LayoutVoter } from '@components/pages/app/layout-v2/voter'
-import { MetadataFields } from '@components/pages/votes/new/metadata'
+import { MetadataFields } from '@components/pages/pub/votes/index'
 import { useVoting } from '@hooks/use-voting'
 
 import { useRouter } from 'next/router'

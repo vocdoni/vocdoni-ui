@@ -1,4 +1,5 @@
-import { ProcessDetails, IGatewayClient, VotingApi } from 'dvote-js'
+import { ProcessDetails,  VotingApi } from '@vocdoni/voting'
+import { IGatewayClient } from '@vocdoni/client'
 import { BigNumber, providers } from 'ethers'
 import { InvalidAddressError } from './validators/errors/invalid-address-error';
 import { InvalidEthereumProviderError } from './validators/errors/invalid-ethereum-provider-error';

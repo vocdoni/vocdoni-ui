@@ -1,5 +1,6 @@
 import { usePool, useBlockHeight } from '@vocdoni/react-hooks'
-import { ProcessDetails, CensusOffChain, CensusOffChainApi, VotingApi, Voting, Keccak256, ProcessCensusOrigin } from 'dvote-js'
+import { ProcessDetails, VotingApi, Voting,  } from '@vocdoni/voting'
+import {  ProcessCensusOrigin } from '@vocdoni/contract-wrappers'
 import { createContext, ReactNode, useContext, useEffect, useState } from 'react'
 
 import { useWallet, WalletRoles } from './use-wallet'

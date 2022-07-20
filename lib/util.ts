@@ -1,4 +1,4 @@
-import { VochainProcessStatus as ProcessStatus } from 'dvote-js'
+import { VochainProcessStatus as ProcessStatus } from '@vocdoni/data-models'
 import { ethers, Wallet } from 'ethers'
 import i18n from '../i18n'
 import { GlobalWindowNoDefinedError } from './validators/errors/global-window-no-defined-error';

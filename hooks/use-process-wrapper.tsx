@@ -1,5 +1,8 @@
 import { usePool, useProcess, useBlockHeight, useDateAtBlock, UseProcessContext, CacheRegisterPrefix } from '@vocdoni/react-hooks'
-import { ProcessDetails, ProcessResultsSingleChoice, VotingApi, ProcessStatus, VochainProcessStatus, IProcessStatus, ProcessState, Voting, CensusOffChainApi, CensusOffChain } from 'dvote-js'
+import { ProcessDetails, VotingApi, ProcessState, Voting , } from '@vocdoni/voting'
+import { ProcessResultsSingleChoice, VochainProcessStatus,   } from '@vocdoni/data-models'
+import {  CensusOffChainApi,  } from '@vocdoni/census'
+import {  ProcessStatus,  IProcessStatus } from '@vocdoni/contract-wrappers'
 import { ProcessCensusOrigin } from '@vocdoni/contract-wrappers'
 import { Wallet } from '@ethersproject/wallet'
 
@@ -12,7 +15,7 @@ import { DateDiffType, localizedStrDateDiff } from '../lib/date'
 import { IProcessResults, VotingType } from '@lib/types'
 import { Question } from '@lib/types'
 import { VoteStatus } from '@lib/util'
-import { MetadataFields } from '@components/pages/votes/new/metadata'
+import { MetadataFields } from '@components/pages/pub/votes/index'
 import { BigNumber } from 'ethers'
 
 export interface ProcessWrapperContext {

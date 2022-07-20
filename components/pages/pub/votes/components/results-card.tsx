@@ -9,7 +9,7 @@ import { useUrlHash } from "use-url-hash"
 import { NoResultsCard } from "@components/blocks/NoResultsCard"
 import { useTranslation } from "react-i18next"
 import { QuestionResults } from "@components/blocks/question-results"
-import { SingleChoiceQuestionResults } from "dvote-js"
+import { SingleChoiceQuestionResults } from "@vocdoni/data-models"
 
 export const ResultsCard = () => {
   const processId = useUrlHash().slice(1) // Skip "/"

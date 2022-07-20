@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { FileApi } from 'dvote-js'
+import { FileApi } from '@vocdoni/client'
 import { usePool } from '@vocdoni/react-hooks'
 
 export enum ImageCrossOrigin {

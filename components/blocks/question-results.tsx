@@ -4,7 +4,8 @@ import { Text } from "@components/elements-v2/text"
 import { Choice, Question } from "@lib/types"
 import { questionsValidator } from "@lib/validators/questions-validator"
 import { theme } from "@theme/global"
-import { JsonFeedTemplate, MultiLanguage, SingleChoiceQuestionResults } from "dvote-js"
+import { JsonFeedTemplate,  SingleChoiceQuestionResults } from "@vocdoni/data-models"
+import { MultiLanguage } from "@vocdoni/common"
 import { useTranslation } from "react-i18next"
 import { ProgressBar, } from "react-rainbow-components"
 import styled from "styled-components"
@@ -104,7 +105,7 @@ export const QuestionResults = (props: QuestionsResultsProps) => {
                         size="sm"
                         weight="regular"
                         color="dark-blue"
-                      >                        
+                      >
                         {i18n.t('vote.vote_count', { count: choice.votes.toString() as any })}
                       </Text>
                     </Col>

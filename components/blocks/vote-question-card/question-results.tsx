@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { useTranslation } from 'react-i18next'
 import { CircularProgressbar } from 'react-circular-progressbar'
-import { SingleChoiceQuestionResults } from 'dvote-js'
+import { SingleChoiceQuestionResults } from '@vocdoni/data-models'
 
 import { colors } from 'theme/colors'
 
