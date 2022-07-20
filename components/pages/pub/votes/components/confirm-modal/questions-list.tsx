@@ -53,6 +53,9 @@ export const ModalQuestionList = ({
       await sendSMS()
       setAttempts(remainingAttempts -1)
     } catch (e) {
+      if (e.message && (e.message as string).includes('attempt cooldown')) {
+        return
+      }
       setAuthError(i18n.t('fcb.contact_support'))
       setError(true)
     }
