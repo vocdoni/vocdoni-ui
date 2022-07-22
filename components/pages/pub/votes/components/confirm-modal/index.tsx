@@ -74,4 +74,8 @@ export const ConfirmModal = ({ isOpen, onClose, onVoted }: IConfigModal) => {
 
 const ModalContainer = styled.div`
   padding: 10px 20px 0px;
+
+  @media ${({ theme }) => theme.screenMax.mobileL} {
+    padding: 10px 10px 0px;
+  }
 `

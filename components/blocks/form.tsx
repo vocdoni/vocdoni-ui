@@ -1,4 +1,4 @@
-import React, { ChangeEvent, ReactNode, useState, forwardRef } from 'react'
+import React, { ChangeEvent, ReactNode, useState, forwardRef, KeyboardEvent } from 'react'
 import styled, { DefaultTheme } from 'styled-components'
 import { useTranslation } from 'react-i18next'
 
@@ -27,6 +27,7 @@ type IInputFormGroupProps = {
   rows?: number
   type?: string
   onChange: (value: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
+  onKeyUp?: (e: KeyboardEvent<HTMLInputElement>) => void
   onBlur?: (value: string) => void
 } & BaseForGroupProps
 
@@ -83,6 +84,7 @@ export const formGroupHOC = (InputField) =>
         editButton,
         onChange,
         onBlur,
+        onKeyUp,
         variant = FormGroupVariant.Regular,
       },
       ref
@@ -111,6 +113,7 @@ export const formGroupHOC = (InputField) =>
                 error={!!error}
                 onChange={onChange}
                 onBlur={onBlur}
+                onKeyUp={onKeyUp || null}
               />
               {editEnabled && editButton && (
                 <EditButton onClick={() => setEditEnabled(false)}>

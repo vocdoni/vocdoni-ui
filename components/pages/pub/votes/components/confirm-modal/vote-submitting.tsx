@@ -27,12 +27,12 @@ export const VoteSubmitting = () => {
             </Col>
             <Col xs={12} justify="center">
               <Text size="2xl" weight='medium' color="dark-blue" align="center">
-                Your vote is being submitted...
+                {i18n.t('vote.submitting_vote')}
               </Text>
             </Col>
             <Col xs={12} justify="center">
               <Text size="sm" color="dark-gray" align="center" >
-                Please don’t close the window, this action may take a few minutes.
+                {i18n.t('vote.submitting_vote_msg')}
               </Text>
             </Col>
           </Row>

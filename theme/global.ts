@@ -211,6 +211,8 @@ body {
 #__next {
   min-height: 100%;
   position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 body {
