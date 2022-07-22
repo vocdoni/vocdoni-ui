@@ -63,7 +63,7 @@ export const QuestionResults = (props: QuestionsResultsProps) => {
         <Col xs={12}>
           <Row gutter="xs">
             <Col xs={12}>
-              <Text size="md" color="primary" weight="bold">
+              <Text size={isMobile ? 'md' : 'lg'} color="primary" weight="bold">
                 {i18n.t('vote.results_question', { index: props.index + 1 })}
               </Text>
             </Col>

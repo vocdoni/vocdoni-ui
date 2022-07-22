@@ -31,6 +31,11 @@ const AlertContainer = styled.div<{ visible: boolean }>`
   box-shadow: 0px 6px 6px rgba(180, 193, 228, 0.35);
 
   transition: opacity 0.1s ease-out;
+
+  @media ${({ theme }) => theme.screenMax.mobileL} {
+    width: 78%;
+    right: 20px;
+  }
 `
 
 const TextContainer = styled.p`

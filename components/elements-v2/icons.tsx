@@ -25,7 +25,9 @@ export type AvailableIcons =
   'spinner' |
   'cog' |
   'calendar' |
-  'paper-check'
+  'paper-check' |
+  'logout' |
+  'warning'
 
 // ============= //
 // GENERAL ICONS //
@@ -70,6 +72,15 @@ export const PaperCheckIcon = (props: SpecificIconProps) => (
   <StyledIcon
     src="/icons/common/paper-check.svg"
     name="paper-check"
+    height={getIconSize(props.size)}
+    width={getIconSize(props.size)}
+    color={props.color}
+  />
+)
+export const Logout = (props: SpecificIconProps) => (
+  <StyledIcon
+    src="/icons/common/logout-icon.svg"
+    name="logout"
     height={getIconSize(props.size)}
     width={getIconSize(props.size)}
     color={props.color}
@@ -144,6 +155,14 @@ export const QuestionCircleIcon = (props: SpecificIconProps) => (
 export const DownloadIcon = (props: SpecificIconProps) => (
   <StyledIcon
     src="/icons/common/download.svg"
+    height={getIconSize(props.size)}
+    width={getIconSize(props.size)}
+    color={props.color}
+  />
+)
+export const WarningIcon = (props: SpecificIconProps) => (
+  <StyledIcon
+    src="/images/vote/warning.svg"
     height={getIconSize(props.size)}
     width={getIconSize(props.size)}
     color={props.color}
