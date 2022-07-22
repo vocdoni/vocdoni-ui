@@ -101,32 +101,7 @@ export const useAuthForm = () => {
 
     const voterWallet = walletFromAuthData(authFieldsData, entityId)
     // if voting is anonymous
-    if (requireSecretKey) {
-      // if is anonymous and the key field is empty return
-      if (secretKey.length == 0) {
-        setAlertMessage(i18n.t("errors.please_fill_in_all_the_fields"))
-        return Promise.resolve()
-      }
 
-      const anonymousKey = calculateAnonymousKey(voterWallet.privateKey, secretKey, processInfo?.state?.entityId)
-      return poolPromise.then(pool =>
-        CensusOnChainApi.generateProof(processInfo?.state?.rollingCensusRoot, anonymousKey, pool)
-      ).then(anonymousProof => {
-        if (!anonymousProof) throw new Error("Invalid census proof")
-        setZKCensusProof(anonymousProof)
-        // Set the voter wallet recovered
-        votingMethods.setAnonymousKey(anonymousKey)
-        setWallet(voterWallet)
-
-        if (userRequirePreregister) {
-          router.push(PREREGISTER_PATH + "#/" + processInfo?.id)
-        } else {
-          router.push(VOTING_PATH + "#/" + processInfo?.id)
-        }
-      }).catch(err => {
-        setAlertMessage(i18n.t("errors.the_contents_you_entered_may_be_incorrect"))
-      })
-    } else {
       // calculate plain census claim, perform generateProof and redirect
       // according to anonymous o plain census
       const digestedHexClaim = CensusOffChain.Public.encodePublicKey(voterWallet.publicKey)
@@ -151,7 +126,6 @@ export const useAuthForm = () => {
         setInvalidCredentials(true)
         setAlertMessage(i18n.t("errors.the_contents_you_entered_may_be_incorrect"))
       })
-    }
   }
   const walletFromAuthData = (authFieldsData: string[], entityId: string): Wallet => {
     authFieldsData = authFieldsData.map(x => normalizeText(x))

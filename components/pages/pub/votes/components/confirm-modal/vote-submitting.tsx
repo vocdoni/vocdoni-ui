@@ -1,20 +1,22 @@
 import { WaitingBanner } from "@components/blocks-v2"
-import { Col, Row, Text } from "@components/elements-v2"
+import { Spacer, Col, Row, Text } from "@components/elements-v2"
 import { LoadingIcon, LogOutIcon, Rotate } from "@components/elements-v2/icons"
 import { useTranslation } from "react-i18next"
 import styled, { keyframes } from "styled-components"
 
-
 export const VoteSubmitting = () => {
   const { i18n } = useTranslation()
   return (
-    <ModalContainer>
+    <ModalContainer>      
       <Row gutter="2xl">
         <Col xs={12}>
           <Row justify="center" gutter="md" align="center">
-            <Col justify="center">
+            <Col justify="start">
+              <Spacer direction='vertical' size='3xl' />
+              <Spacer direction='vertical' size='3xl' />
+              <Spacer direction='vertical' size='xl' />
               <img
-                src='/images/vote/vote-now.png'
+                src='/images/app/fcb_logo.png'
                 alt="vote"
                 height={100}
                 width={92}
@@ -27,26 +29,29 @@ export const VoteSubmitting = () => {
             </Col>
             <Col xs={12} justify="center">
               <Text size="2xl" weight='medium' color="dark-blue" align="center">
-                Your vote is being submitted...
+                {i18n.t('vote.submitting_vote')}
               </Text>
             </Col>
             <Col xs={12} justify="center">
               <Text size="sm" color="dark-gray" align="center" >
-                Please don’t close the window, this action may take a few minutes.
+                {i18n.t('vote.submitting_vote_msg')}
               </Text>
             </Col>
           </Row>
         </Col>
-        <Col xs={12}>
-          <WaitingBanner forceMobile messages={i18n.t("waiting_banner.vote_submitting", { returnObjects: true })} />
-        </Col>
+        { false && 
+          <Col xs={12}>
+            <WaitingBanner forceMobile messages={i18n.t("waiting_banner.vote_submitting", { returnObjects: true })} />
+          </Col>
+        }
       </Row>
     </ModalContainer>
   )
 }
+
 const AbsoluteDiv = styled.div`
-position: absolute;
-  transform: translateY(-35px) translateX(35px);
+  position: absolute;
+  transform: translateY(-42px) translateX(36px);
 `
 // This is a hot fix for
 // for some reason the
@@ -54,5 +59,5 @@ position: absolute;
 // bar independently of
 // the content inside
 const ModalContainer = styled.div`
-min-height: 438px;
+  min-height: 438px;
 `

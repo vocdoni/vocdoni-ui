@@ -62,6 +62,11 @@ export const importedRowToString = (row: string[], entityId: string): string => 
   return row.reduce((i, j) => { return i + j }) + entityId
 }
 
+export const digestedPrivateKeyFromString = (data: string): string => {
+  const bytes = ethers.utils.toUtf8Bytes(data)
+  return ethers.utils.keccak256(bytes)
+}
+
 export const digestedWalletFromString = (data: string): Wallet => {
   const bytes = ethers.utils.toUtf8Bytes(data)
   const hashed = ethers.utils.keccak256(bytes)

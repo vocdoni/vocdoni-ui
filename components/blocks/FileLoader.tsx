@@ -146,7 +146,9 @@ const FileLoader = ({ onSelect, onChange, accept, maxMbSize, ...props }: Props) 
       </ButtonContainer>
     </FlexContainer>
     <If condition={error}>
-      <ErrorMsg>{error}</ErrorMsg>
+      <Then>
+        <ErrorMsg>{error}</ErrorMsg>
+      </Then>
     </If>
   </>
 }

@@ -18,6 +18,10 @@ const LayoutContainer = styled.div`
   @media ${({ theme }) => theme.screenMin.tablet} {
     ${({ theme }) => `padding: 20px ${theme.margins.desktop.horizontal} 120px;`}
   }
+
+  @media ${({ theme }) => theme.screenMax.mobileL} {
+    ${({ theme }) => `padding: 20px ${theme.margins.desktop.horizontal} 80px;`}
+  }
 `
 
 export const LayoutVoter = ({ children }) => {

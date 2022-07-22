@@ -1,5 +1,6 @@
 import { usePool, useProcess, useBlockHeight, useDateAtBlock, UseProcessContext, CacheRegisterPrefix } from '@vocdoni/react-hooks'
-import { ProcessDetails, ProcessResultsSingleChoice, VotingApi, ProcessStatus, VochainProcessStatus, IProcessStatus, ProcessState, Voting, CensusOffChainApi } from 'dvote-js'
+import { ProcessDetails, ProcessResultsSingleChoice, VotingApi, ProcessStatus, VochainProcessStatus, IProcessStatus, ProcessState, Voting, CensusOffChainApi, CensusOffChain } from 'dvote-js'
+import { ProcessCensusOrigin } from '@vocdoni/contract-wrappers'
 import { Wallet } from '@ethersproject/wallet'
 
 import { createContext, ReactNode, useContext } from 'react'
@@ -180,7 +181,7 @@ export const UseProcessWrapperProvider = ({ children }: { children: ReactNode })
     try {
       const pool = await poolPromise
       let size = "1"
-      if (processInfo?.state?.censusRoot) {
+      if (processInfo?.state?.censusRoot && processInfo.state.censusOrigin !=ProcessCensusOrigin.OFF_CHAIN_CA) {
         size = await CensusOffChainApi.getSize(processInfo?.state?.censusRoot, pool)
       }
       setCensusSize(parseInt(size))
@@ -237,8 +238,12 @@ export const UseProcessWrapperProvider = ({ children }: { children: ReactNode })
         VotingApi.getResults(processId, pool),
         VotingApi.getProcessMetadata(processId, pool),
       ]))
-      .then(([results, metadata]) => Voting.digestSingleChoiceResults(results, metadata))
+      .then(([results, metadata]) => {
+          if (results && results.results.length == 0) return Promise.resolve(null)
+          return Voting.digestSingleChoiceResults(results, metadata)
+      })
       .then((results) => {
+        if (!results) return
         const parsedResults: IProcessResults = {
           ...results,
           totalWeightedVotes: countVotesWeight(results),

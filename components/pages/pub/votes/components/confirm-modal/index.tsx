@@ -10,17 +10,20 @@ import { VoteSubmitted } from './vote-submitted'
 import { useUrlHash } from 'use-url-hash'
 import { useProcess } from '@vocdoni/react-hooks'
 import { VoteSubmitting } from './vote-submitting'
+import { voteApiMethods } from 'dvote-js'
 
 interface IConfigModal {
   isOpen: boolean
   onClose: () => void
   onVoted: () => void
+  sendSMS: () => void
+  submitOTP: (value: string) => void
 }
 
-export const ConfirmModal = ({ isOpen, onClose, onVoted }: IConfigModal) => {
+export const ConfirmModal = ({ isOpen, onClose, onVoted, sendSMS, submitOTP }: IConfigModal) => {
   const processId = useUrlHash().slice(1) // Skip "/"
   const { process: processInfo } = useProcess(processId)
-  const { choices, hasVoted, methods, pleaseWait, actionError } = useVoting(processId)
+  const { choices, hasVoted, methods, pleaseWait, actionError, nullifier } = useVoting(processId)
   const handleOnClose = () => {
     if (hasVoted) {
       onVoted()
@@ -43,6 +46,8 @@ export const ConfirmModal = ({ isOpen, onClose, onVoted }: IConfigModal) => {
         choices={choices}
         onSubmit={handleSendVote}
         sendingVote={pleaseWait}
+        sendSMS={sendSMS}
+        submitOTP={submitOTP}
         onClose={onClose}
       />
     </>
@@ -58,7 +63,7 @@ export const ConfirmModal = ({ isOpen, onClose, onVoted }: IConfigModal) => {
 
   const renderVoteSubmitted = new ViewStrategy(
     () => hasVoted,
-    <VoteSubmitted onAccept={onVoted} />
+    <VoteSubmitted nullifier={nullifier} onAccept={onVoted} onClose={onClose} />
   )
 
   const viewContext = new ViewContext([
@@ -74,4 +79,8 @@ export const ConfirmModal = ({ isOpen, onClose, onVoted }: IConfigModal) => {
 
 const ModalContainer = styled.div`
   padding: 10px 20px 0px;
+
+  @media ${({ theme }) => theme.screenMax.mobileL} {
+    padding: 10px 10px 0px;
+  }
 `

@@ -7,38 +7,132 @@ import { SectionText, TextAlign, TextSize } from '@components/elements/text'
 import { FlexContainer, FlexJustifyContent } from '@components/elements/flex'
 import { Button } from '@components/elements/button'
 import { colors } from 'theme/colors'
+import { Spacer, Col, Row, Text } from '@components/elements-v2'
+import copy from 'copy-to-clipboard';
+import { useMessageAlert } from '@hooks/message-alert'
 
 interface IVoteSubmittedProps {
+  nullifier: string | BigInt
   onAccept: () => void
+  onClose?: () => void
 }
 
-export const VoteSubmitted = ({ onAccept }: IVoteSubmittedProps) => {
+export const VoteSubmitted = ({ nullifier, onAccept, onClose }: IVoteSubmittedProps) => {
   const { i18n } = useTranslation()
+  const { setAlertMessage } = useMessageAlert()
+  const handleCopy = () => {
+    copy(nullifier.toString())
+    setAlertMessage(i18n.t("copy.the_link_has_been_copied_to_the_clipboard"))
+  }
   return (
     <>
-      <ImageContainer width="320px" justify={FlexJustifyContent.Center}>
+      <CloseButton onClick={onClose}>
+        <ColorSpan>x</ColorSpan>
+      </CloseButton>
+
+      <ImageContainer width="80px" justify={FlexJustifyContent.Start}>
         <img
-          src="/images/vote/voted-submitted.png"
+          src="/images/app/fcb_logo.png"
           alt={i18n.t('vote.vote_submitted_image_alt')}
         />
       </ImageContainer>
 
       <TextContainer>
-        <SectionText size={TextSize.Big} align={TextAlign.Center}>
+        <ModalHeader>
           {i18n.t('vote.your_vote_has_been_registered')}
-        </SectionText>
-        <SectionText color={colors.lightText}>
-          {i18n.t('vote.thanks_for_participate_on_this_AGM')}
-        </SectionText>
+        </ModalHeader>
+        <Text size='sm'>
+          {i18n.t('fcb.confirmation_code')}<Nullifier onClick={handleCopy}>{nullifier}</Nullifier>
+        </Text>
+
+        <Spacer direction='vertical' size='3xl' />
+
+        <Text size='sm'>
+          {i18n.t('fcb.vote_registered')}
+        </Text>
       </TextContainer>
 
-      <FlexContainer justify={FlexJustifyContent.Center}>
-        <Button positive onClick={onAccept}>{i18n.t('vote.go_back_to_home_page')}</Button>
+      <FlexContainer justify={FlexJustifyContent.Start}>
+        <Button fcb onClick={onAccept}>{i18n.t('vote.go_back_to_home_page')}</Button>
       </FlexContainer>
+
+      <Spacer direction='vertical' size='3xl' />
     </>
   )
 }
 
+
+const Nullifier = styled.div`
+  display: inline-block;
+  word-wrap: break-word;
+  font-weight: 600;
+  font-size: 12px;
+  color: #333;
+  cursor: pointer;
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #eee;
+  background: #fafafa;
+  word-wrap: anywhere;
+`
+
+const ModalHeader = styled(SectionText)`
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 150%;
+  color: ${({ theme }) => theme.accent1};
+  background: -webkit-linear-gradient(03.11deg, #CF122D 9.45%, #154284 90.55%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+`
+
 const TextContainer = styled.div`
-  margin-bottom: 12px;
+  margin-bottom: 30px;
+  margin-top: 30px;
+`
+
+const HoritzontalSpacer = styled.div`
+  margin-left: 40px;
+`
+
+const CloseButton = styled.div`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 38px;
+  height: 38px;
+  align-items: center;
+  font-size: 18px;
+  line-height: 18px;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+
+  background:
+    linear-gradient(#fff 0 0) padding-box, /*this is the white background*/
+    linear-gradient(to right, #A50044, #174183) border-box;
+
+  border: 2px solid transparent;
+  border-radius: 8px;
+  display: inline-block;
+`
+
+const ColorSpan = styled.span`
+  background: -webkit-linear-gradient(103.11deg, #A50044 0.33%, #174183 99.87%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+  font-weight: 400;
+  margin-top:9px;
+  padding-left:1px;
+  display:block;
 `

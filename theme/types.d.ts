@@ -96,6 +96,8 @@ export interface Colors {
   lightBg: Color;
   lightBg2: Color;
   lightBorder: Color;
+
+  FCBBlue: Color;
 }
 
 export interface Screens {

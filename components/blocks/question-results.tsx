@@ -61,18 +61,16 @@ export const QuestionResults = (props: QuestionsResultsProps) => {
       {/* TITLE */}
       <Row gutter="none">
         <Col xs={12}>
+          <Spacer direction="vertical" size={isMobile ? 'lg' : 'xl'} />
+        </Col>
+        <Col xs={12}>
           <Row gutter="xs">
             <Col xs={12}>
-              <Text size="md" color="primary" weight="bold">
-                {i18n.t('vote.results_question', { index: props.index + 1 })}
-              </Text>
-            </Col>
-            <Col xs={12}>
-              <Text size="2xl" color="dark-blue" weight="bold">
+              <Text size={isMobile ? 'md' : 'lg'} color="dark-blue" weight="bold">
                 {props.results.title.default}
               </Text>
             </Col>
-            {props.question.description &&
+            {false && props.question.description &&
               <Col xs={12}>
                 <Text size="sm" color="dark-gray" weight="regular">
                   {props.question.description.default}
@@ -85,9 +83,6 @@ export const QuestionResults = (props: QuestionsResultsProps) => {
         <Col xs={12}>
           <Spacer direction="vertical" size={isMobile ? 'lg' : 'xl'} />
         </Col>
-        <Col xs={12}>
-          <Spacer direction="vertical" size={isMobile ? 'lg' : 'xl'} />
-        </Col>
         {/* QUESTIONS */}
         <Col xs={12}>
           <Row gutter='lg'>
@@ -95,9 +90,9 @@ export const QuestionResults = (props: QuestionsResultsProps) => {
               (choice: ChoiceResult, index: number) =>
                 <Col xs={12} key={index}>
                   <Row gutter={isMobile ? 'xs' : 'lg'} align="center">
-                    <Col xs={10} md={4}>
+                    <Col xs={12} md={8}>
                       <Text
-                        size="lg"
+                        size="sm"
                         weight={index === 0 && hasWinner ? 'bold' : 'regular'}
                         color="dark-blue"
                       >
@@ -106,21 +101,25 @@ export const QuestionResults = (props: QuestionsResultsProps) => {
                     </Col>
                     <Col hiddenSmAndDown md={2}>
                       <Text
-                        size="lg"
-                        weight="bold"
-                        color="dark-blue"
-                      >
-                        {getStringPercent(getPercent(choice.votes, votesWeight))}%
-                      </Text>
-                      <Text
                         size="sm"
-                        color="dark-gray"
                         weight="regular"
-                      >
+                        color="dark-blue"
+                      >                        
                         {i18n.t('vote.vote_count', { count: choice.votes.toString() as any })}
                       </Text>
                     </Col>
-                    <Col xs={12} md={6}>
+                    <Col hiddenSmAndDown md={2} align='end' justify='end'>
+                      <Text
+                        size="sm"
+                        color="dark-gray"
+                        weight="bold"
+                      >
+                        {getStringPercent(getPercent(choice.votes, votesWeight))}%
+                      </Text>
+                    </Col>
+                  </Row>
+                  <Row gutter={isMobile ? 'xs' : 'lg'} align="center">
+                    <Col xs={12}>
                       <StyledProgressBar
                         value={getBarPercent(choice.votes, votesWeight)}
                         size={isMobile ? 'medium' : 'large'} style={{ background: colorsV2.neutral[100] }}
@@ -131,7 +130,7 @@ export const QuestionResults = (props: QuestionsResultsProps) => {
                       <Row align="end" gutter="md">
                         <Col>
                           <Text
-                            size="lg"
+                            size="sm"
                             weight="bold"
                             color="dark-blue"
                           >
@@ -150,9 +149,13 @@ export const QuestionResults = (props: QuestionsResultsProps) => {
                       </Row>
                     </Col>
                   </Row>
+                  <Spacer direction='vertical' size='md' />
                 </Col>
             )}
           </Row>
+        </Col>
+        <Col xs={12}>
+          <Spacer direction="vertical" size={isMobile ? 'sm' : 'sm'} />
         </Col>
       </Row>
     </Card>
@@ -186,20 +189,20 @@ const getPadding = (props: StyledCardProps) => {
   if (props.isMobile) {
     return '24px 24px 32px'
   }
-  return '40px'
+  return '0px'
 }
 const cosmeticProps = ['isMobile']
 const styledConfig = {
   shouldForwardProp: (prop) => !cosmeticProps.includes(prop)
 }
 const Card = styled.div.withConfig(styledConfig)<StyledCardProps>`
-  border-radius: 16px;
-  background: ${theme.background};
   padding: ${getPadding};
+  margin-bottom: 30px;
 `
 const StyledProgressBar = styled(ProgressBar) <StyledProgressBarProps>`
-  background: #E4E7EB;
+  background: linear-gradient(103.11deg, #A50044 0.33%, #174183 99.87%);
   & > span{
-    background: ${getBarColor};
+    background: linear-gradient(103.11deg, #A50044 0.33%, #174183 99.87%);
   }
+  padding:4px;
 `

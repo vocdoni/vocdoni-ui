@@ -17,8 +17,6 @@ import { FixedGlobalStyle, theme } from '../theme'
 
 import { DefaultLayout } from '@components/pages/app/layout/default'
 import { DefaultProviders } from '@components/pages/app/providers/default-providers'
-import { Helpscout } from '@components/pages/app/external-dependencies/helpscout'
-import { Ruddlestack } from '@components/pages/app/external-dependencies/ruddlestack'
 import { CookiesBanner } from '@components/blocks/cookies-banner'
 import { useTranslation } from 'react-i18next'
 
@@ -29,8 +27,8 @@ type NextAppProps = AppInitialProps & {
 
 const VocdoniApp: FC<NextAppProps> = ({ Component, pageProps }) => {
   const { i18n } = useTranslation()
-  const appFullTitle = process.env.APP_TITLE + ' - ' + i18n.t('app.meta.title')
-  const appImage = 'https://vocdoni.app/images/home/section-1/computer-device.png'
+  const appFullTitle = 'FC Barcelona' + ' - ' + i18n.t('fcb.process_title')
+  const appImage = 'https://vot.penyesfcbarcelona.cat/images/app/fcb_logo.png'
   const commitSHA = process.env.COMMIT_SHA
 
   // If the current page component defined a custom layout, use it
@@ -44,7 +42,6 @@ const VocdoniApp: FC<NextAppProps> = ({ Component, pageProps }) => {
       <ThemeContextProvider>
         <Providers>
           <FixedGlobalStyle />
-          {ANALYTICS_KEY && <Ruddlestack />}
 
           <Head>
             <meta name="description" content={i18n.t('app.meta.description')} />
@@ -66,16 +63,21 @@ const VocdoniApp: FC<NextAppProps> = ({ Component, pageProps }) => {
               href="/images/common/favicon.ico"
               sizes="16x16"
             />
-            <Helpscout />
+
+            <link rel="apple-touch-icon" sizes="120x120" href="/images/common/apple-touch-icon.png" />
+            <link rel="icon" type="image/png" sizes="32x32" href="/images/common/favicon-32x32.png" />
+            <link rel="icon" type="image/png" sizes="16x16" href="/images/common/favicon-16x16.png" />
+            <link rel="manifest" href="/site.webmanifest" />
+            <link rel="mask-icon" href="/images/common/safari-pinned-tab.svg" color="#5bbad5" />
+            <meta name="msapplication-TileColor" content="#da532c" />
+            <meta name="theme-color" content="#ffffff" />
+
             <title>{appFullTitle}</title>
           </Head>
 
           <Layout>
             <Component {...pageProps} />
           </Layout>
-          {ANALYTICS_KEY && (
-            <script src="https://cdn.rudderlabs.com/v1/rudder-analytics.min.js"></script>
-          )}
 
           <div id="commit-sha" style={{ display: 'none' }}>
             {commitSHA}

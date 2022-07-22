@@ -48,56 +48,20 @@ export const VoteDescription = () => {
   return (
     // MAIN ROW
     <Row gutter='3xl'>
-      {/* TAG AND DESCRIPCTION */}
-      <Col xs={12}>
-        {/* INSIDE ROW TO AJUST GUTTER */}
-        <Row gutter='xl'>
-          <Col xs={12}>
-            <ProcessStatusLabel />
-          </Col>
-          {description &&
-            <Col xs={12}>
-              <ExpandableContainer
-                lines={5}
-                buttonText={i18n.t('vote.show_more')}
-                buttonExpandedText={i18n.t('vote.show_less')}
-              >
-                {description}
-              </ExpandableContainer>
-            </Col>
-          }
-        </Row>
-      </Col>
-      {/* DATE AND SETTINGS CARDS */}
-      <Col xs={12}>
-        {/* INSIDE ROW TO ADJUST GUTTER */}
-        <Row gutter='lg'>
-          <Col xs={12} md={6}>
-            <CalendarCard
-              startDate={startDate}
-              endDate={endDate}
-            />
-          </Col>
-          <Col xs={12} md={6}>
-            <SettingsCard
-              votingType={votingType}
-              isAnonymous={isAnonymous}
-            />
-          </Col>
-        </Row>
-      </Col>
 
       {/* VIDEO */}
-      <When condition={videoUrl}>
-        <Col xs={12}>
+      <When condition={videoUrl && false}>
+        <Col id='video' align='center' xs={12} justify='center'>
           {/* INSIDE ROW TO ADJUST GUTTER BETWEEN TITLE AND VIDEO*/}
           <Row gutter='md'>
-            <Col xs={12}>
-              <SectionText size={TextSize.Big} color={colors.blueText}>
-                {i18n.t('vote.live_stream')}
-              </SectionText>
-            </Col>
-            <Col xs={12}>
+            { false && 
+              <Col xs={12}>
+                <SectionText size={TextSize.Big} color={colors.blueText}>
+                  {i18n.t('vote.live_stream')}
+                </SectionText>
+              </Col>
+            }
+            <Col id='videoContainer' xs={12} sm={12} md={8} align='center'>
               <PlayerFixedContainer>
                 <PlayerContainer>
                   <ReactPlayer
@@ -112,44 +76,85 @@ export const VoteDescription = () => {
         </Col>
       </When>
 
-      {/* LINKS */}
+      {/* TAG AND DESCRIPCTION */}
       <Col xs={12}>
-        {/* INSIDE ROW TO ADJUST GUTTER BETWEEN TITLE AND LINKS*/}
-        <Row gutter='md'>
+        {/* INSIDE ROW TO AJUST GUTTER */}
+        <Row gutter='xl'>
           <Col xs={12}>
-            <SectionText size={TextSize.Big} color={colors.blueText}>
-              {i18n.t('vote.extra_information')}
-            </SectionText>
+            <ProcessStatusLabel />
           </Col>
-          <Col xs={12}>
-            {/* INSIDE ROW TO ADJUST GUTTER BETWEEN 2 LINKS */}
-            <Row gutter='lg'>
-              <Col xs={12} md={6}>
-                <LinkButton
-                  href={attachmentUrl}
-                  target="_blank"
-                  disabled={attachmentUrl === undefined || !attachmentUrl}
-                  icon={<DocumentOutlinedIcon />
-
-                  }
-                >
-                  {i18n.t('vote.access_to_the_documentation')}
-                </LinkButton>
-              </Col>
-              <Col xs={12} md={6}>
-                <LinkButton
-                  icon={<QuestionOutlinedIcon />}
-                  href={discussionUrl}
-                  disabled={discussionUrl === undefined || !discussionUrl}
-                  target="_blank"
-                >
-                  {i18n.t('vote.questions_and_answers')}
-                </LinkButton>
-              </Col>
-            </Row>
-          </Col>
+          {false && description &&
+            <Col xs={12}>
+              <ExpandableContainer
+                lines={5}
+                buttonText={i18n.t('vote.show_more')}
+                buttonExpandedText={i18n.t('vote.show_less')}
+              >
+                {description}
+              </ExpandableContainer>
+            </Col>
+          }
         </Row>
       </Col>
+
+      {/* DATE AND SETTINGS CARDS */}
+      { false && 
+        <Col xs={12}>
+          <Row gutter='lg'>
+            <Col xs={12} md={6}>
+              <CalendarCard
+                startDate={startDate}
+                endDate={endDate}
+              />
+            </Col>
+            <Col xs={12} md={6}>
+              <SettingsCard
+                votingType={votingType}
+                isAnonymous={isAnonymous}
+              />
+            </Col>
+          </Row>
+        </Col>
+      }
+
+      {/* LINKS */}
+      { false && 
+        <Col xs={12}>
+          <Row gutter='md'>
+            <Col xs={12}>
+              <SectionText size={TextSize.Big} color={colors.blueText}>
+                {i18n.t('vote.extra_information')}
+              </SectionText>
+            </Col>
+            <Col xs={12}>
+              <Row gutter='lg'>
+                <Col xs={12} md={6}>
+                  <LinkButton
+                    href={attachmentUrl}
+                    target="_blank"
+                    disabled={attachmentUrl === undefined || !attachmentUrl}
+                    icon={<DocumentOutlinedIcon />
+
+                    }
+                  >
+                    {i18n.t('vote.access_to_the_documentation')}
+                  </LinkButton>
+                </Col>
+                <Col xs={12} md={6}>
+                  <LinkButton
+                    icon={<QuestionOutlinedIcon />}
+                    href={discussionUrl}
+                    disabled={discussionUrl === undefined || !discussionUrl}
+                    target="_blank"
+                  >
+                    {i18n.t('vote.questions_and_answers')}
+                  </LinkButton>
+                </Col>
+              </Row>
+            </Col>
+          </Row>
+        </Col>
+      }
     </Row>
     // </Grid >
   )
@@ -167,6 +172,7 @@ const PlayerFixedContainer = styled.div`
     height: 160px;
   }
   width: 100%;
+  margin-top: 20px;
 `
 
 const PlayerContainer = styled.div`

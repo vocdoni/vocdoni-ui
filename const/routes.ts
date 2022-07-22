@@ -1,6 +1,6 @@
 // ADMIN
-export const ENTITY_SIGN_IN_PATH = '/login'
-export const ENTITY_FORGOT_PASSPHRASE_PATH = '/login'
+export const ENTITY_SIGN_IN_PATH = '/'
+export const ENTITY_FORGOT_PASSPHRASE_PATH = '/'
 export const DASHBOARD_PATH = '/dashboard'           // TODO: entity/dashboard
 export const PAGE_ENTITY = '/entity/#/{entityId}'
 export const EDIT_ENTITY = '/entity/edit'
@@ -18,6 +18,7 @@ export const VOTING_AUTH_LINK_PATH = '/pub/votes/auth/link/#/{processId}/{key}' 
 export const VOTING_PATH = '/pub/votes' // + processId
 export const PROCESS_PATH = '/pub/votes/#/{processId}' // + processId
 export const PREREGISTER_PATH = '/pub/votes/preregister' // + processId
+export const INDEXER_PATH = '/' // + processId
 // export const PREREGISTER_PATH = '/pub/votes/preregister/#/{processId}' // + processId
 
 // GENERAL
@@ -33,5 +34,9 @@ export const COOKIES_PATH = "/cookies"
 // export const PRIVACY_PATH = 'https://aragon.org/privacy-policy'
 
 export const PATH_WITHOUT_COOKIES = [
-  new RegExp('/pub/votes','g')
+  // new RegExp('/pub/votes','g')
+]
+export const PATHS_WITH_ADOBE_ANALYTICS = [
+  '/pub/votes/auth/indexer',
+  '/pub/votes'
 ]

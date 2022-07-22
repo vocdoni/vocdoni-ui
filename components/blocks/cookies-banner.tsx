@@ -10,7 +10,7 @@ import { Typography, TypographyVariant } from '@components/elements/typography'
 import styled from 'styled-components'
 import { sizes } from 'theme/sizes'
 import { useCookies } from '@hooks/cookies'
-import { If } from 'react-if'
+import { If, Then } from 'react-if'
 import { colors } from '@theme/colors'
 
 export const CookiesBanner = () => {
@@ -18,36 +18,46 @@ export const CookiesBanner = () => {
   const { acceptCookies, hide } = useCookies()
 
   return (
-    <If condition={!hide}>
-      <CookiesContainer>
-        <CookiesBannerContent>
-          <TextContainer>
-            <SpacedContainer>
-              <Typography variant={TypographyVariant.ExtraSmall}>
-                {i18n.t('cookies.cookies_paragraph_1')}{' '}
-                <Link href={COOKIES_PATH}>{i18n.t('cookies.configure')}</Link>
-              </Typography>
-            </SpacedContainer>
-          </TextContainer>
+    <If condition={false}>
+      <Then>
+        <CookiesContainer>
+          <CookiesBannerContent>
+            <TextContainer>
+              <SpacedContainer>
+                <Typography variant={TypographyVariant.ExtraSmall}>
+                  {i18n.t('cookies.cookies_paragraph_1')}{' '}
+                  <FCBLink href={COOKIES_PATH}>{i18n.t('cookies.configure')}</FCBLink>
+                </Typography>
+              </SpacedContainer>
+            </TextContainer>
 
-          <ButtonsContainer>
-            <ButtonContainer>
-              <Button positive onClick={acceptCookies} wide>
-                {i18n.t('cookies.accept')}
-              </Button>
-            </ButtonContainer>
+            <ButtonsContainer>
+              <ButtonContainer>
+                <FCBButton positive onClick={acceptCookies} wide>
+                  {i18n.t('cookies.accept')}
+                </FCBButton>
+              </ButtonContainer>
 
-            <ConfigureButtonContainer>
-              <Button border href={COOKIES_PATH} wide color={colors.accent1}>
-                {i18n.t('cookies.configure')}
-              </Button>
-            </ConfigureButtonContainer>
-          </ButtonsContainer>
-        </CookiesBannerContent>
-      </CookiesContainer>
+              <ConfigureButtonContainer>
+                <Button fcb_border href={COOKIES_PATH} wide color="#2E377A">
+                  {i18n.t('cookies.configure')}
+                </Button>
+              </ConfigureButtonContainer>
+            </ButtonsContainer>
+          </CookiesBannerContent>
+        </CookiesContainer>
+      </Then>
     </If>
   )
 }
+
+const FCBButton = styled(Button)`
+  background: #CF122D !important;
+`
+
+const FCBLink = styled(Link)`
+  color:#2E377A;
+`
 
 const CookiesBannerContent = styled.div`
   display: flex;

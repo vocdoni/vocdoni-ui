@@ -18,7 +18,7 @@ const LayoutContainer = styled.div<{isHomePage?: boolean}>`
   margin-right: auto;
 
   @media ${({ theme }) => theme.screenMin.tablet} {
-    ${({isHomePage, theme}) => isHomePage? 'padding: 110px 0;': `padding: 110px ${theme.margins.desktop.horizontal} 120px;`}
+    ${({isHomePage, theme}) => isHomePage? 'padding: 110px 0;': `padding: 110px ${theme.margins.desktop.horizontal} 80px;`}
   }
 `
 
@@ -35,7 +35,7 @@ export const DefaultLayout = ({ children }) => {
 
       <Loader visible={checkingNeedsSignin} />
       <LayoutContainer isHomePage={isHomePage}>{children}</LayoutContainer>
-
+      
       <Footer />
     </>
   )

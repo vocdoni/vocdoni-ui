@@ -1,9 +1,9 @@
-import React, { ChangeEvent, ReactNode, useState, forwardRef } from 'react'
-import styled, { DefaultTheme } from 'styled-components'
+import { ChangeEvent, forwardRef, KeyboardEvent, ReactNode, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import styled, { DefaultTheme } from 'styled-components'
 
-import { HelpText } from './help-text'
 import FileLoader from './FileLoader'
+import { HelpText } from './help-text'
 
 import { Input, InputPassword, ISelectOption, Select, Textarea } from '../elements/inputs'
 import { SectionTitle } from '../elements/text'
@@ -27,6 +27,7 @@ type IInputFormGroupProps = {
   rows?: number
   type?: string
   onChange: (value: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
+  onKeyUp?: (e: KeyboardEvent<HTMLInputElement>) => void
   onBlur?: (value: string) => void
 } & BaseForGroupProps
 
@@ -82,6 +83,7 @@ export const formGroupHOC = (InputField) =>
         success,
         editButton,
         onChange,
+        onKeyUp,
         onBlur,
         variant = FormGroupVariant.Regular,
       },
@@ -111,6 +113,7 @@ export const formGroupHOC = (InputField) =>
                 error={!!error}
                 onChange={onChange}
                 onBlur={onBlur}
+                onKeyUp={onKeyUp || null}
               />
               {editEnabled && editButton && (
                 <EditButton onClick={() => setEditEnabled(false)}>
@@ -233,7 +236,7 @@ const InputTitle = styled(SectionTitle)`
 `
 
 const InputLabel = styled.label`
-  font-weight: 400;
+  font-weight: 600;
   font-size: 13px;
   line-height: 1.6em;
 `

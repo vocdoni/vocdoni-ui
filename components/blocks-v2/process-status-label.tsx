@@ -24,11 +24,7 @@ export const ProcessStatusLabel = () => {
       )
 
     case VoteStatus.Upcoming:
-      return (
-        <Tag variant='neutral'>
-          {i18n.t('vote.starting_in')} {startingInDiffString}
-        </Tag>
-      )
+      return <Tag variant='warning'>{i18n.t('fcb.upcoming_voting_tag')}</Tag>
 
     case VoteStatus.Ended:
       return <Tag variant='warning'>{i18n.t('vote.ended_vote')}</Tag>
