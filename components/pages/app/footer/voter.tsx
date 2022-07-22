@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 
 import { Typography, TypographyVariant } from '@components/elements/typography'
 import { Image } from '@components/elements/image'
+import { Col, Row } from '@components/elements-v2/grid'
 
 import { useTheme } from '@hooks/use-theme'
 import { colors } from '@theme/colors'
@@ -14,35 +15,32 @@ export const VoterFooter = () => {
 
   return (
     <FooterContainer>
-      <Typography variant={TypographyVariant.ExtraSmall} color={colors.lightText}>
-        {i18n.t('app.footer.powered_by')}
-      </Typography>
-      <VoterIconContainer>
-        {theme.customLogo ? (
-          <Image src={theme.customLogo} />
-        ) : (
-          <img src="/images/app/logo-mid.svg" alt="Vocdoni" />
-        )}
-      </VoterIconContainer>
+      <Row gutter='none'>
+        <Col xs={12}>
+          <Typography variant={TypographyVariant.ExtraSmall} color={colors.lightText}>
+            {i18n.t('app.footer.powered_by')}
+          </Typography>
+
+          <VoterIconContainer>
+            {theme.customLogo ? (
+              <Image src={theme.customLogo} />
+            ) : (
+              <img src="/images/app/logo-mid.svg" alt="Vocdoni" />
+            )}
+          </VoterIconContainer>
+        </Col>
+      </Row>
     </FooterContainer>
   )
 }
 
 const FooterContainer = styled.div`
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  background-color: ${({ theme }) => theme.white};
-  height: 80px;
-  display: flex;
-  flex-direction: row;
+  flex-shrink: 0;
   align-items: center;
   justify-content: center;
-
-  @media (max-width: 1124px) {
-    position: relative;
-    margin-top: -80px;
-  }
+  padding-top:20px;
+  padding-bottom:20px;
+  background-color: ${({ theme }) => theme.white};
 `
 
 const VoterIconContainer = styled.div`

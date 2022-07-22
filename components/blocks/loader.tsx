@@ -1,17 +1,25 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
 
 interface ILoaderProps {
-  visible: boolean
+  visible: boolean,
+  timeout?: number
 }
 
-export const Loader = ({ visible }: ILoaderProps) => {
+export const Loader = ({ visible, timeout }: ILoaderProps) => {
   const { i18n } = useTranslation()
+  const [visibleByTimeout, setVisibleByTimeout] = useState(true)
+  if (timeout) {
+    new Promise(r => setTimeout(r, timeout))
+    .then(() => {
+      setVisibleByTimeout(false)
+    })
+  }
 
   return (
-    <AppLoader visible={visible}>
+    <AppLoader visible={visible && visibleByTimeout}>
       <LoaderContainer>
         <LogoContainer>
           <img src="/images/common/logo.svg" alt="Vocdoni Logo" />

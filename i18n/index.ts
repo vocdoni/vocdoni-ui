@@ -10,21 +10,21 @@ export const supportedLanguages = ['ca', 'es', 'en']
 const userLang = LanguageService.getDefaultLanguage()
 
 i18n
-	.use(initReactI18next)
-	.init({
-		debug: process.env.NODE_ENV === 'development',
-		preload: ['en'],
-		resources: {
-			translation
-		},
-		lng: userLang,
-		fallbackLng: 'en',
-		defaultNS: 'translation',
-		interpolation: {
-			escapeValue: false,
-		},
-		returnEmptyString: false,
-	})
+  .use(initReactI18next)
+  .init({
+    debug: process.env.NODE_ENV === 'development',
+    preload: ['en'],
+    react: {
+      useSuspense: false,
+    },
+    lng: userLang,
+    fallbackLng: 'en',
+    defaultNS: 'translation',
+    interpolation: {
+      escapeValue: false,
+    },
+    returnEmptyString: false,
+  })
 
 for (const lang of supportedLanguages) {
   if (typeof translation[lang] !== 'undefined') {
