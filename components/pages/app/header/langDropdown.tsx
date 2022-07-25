@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from 'react'
 import { Else, If, Then } from 'react-if'
 import { useEntity } from '@vocdoni/react-hooks'
 import { useTranslation } from 'react-i18next';
@@ -77,7 +78,7 @@ export const LangDropdown = () => {
 
   const menuButton = (
     <WrapperDiv>
-      <Button noPaddingXS>
+      <Button>
         <MenuButtonWrapper>
           <TypographyBold>
             {showDefaultLang}
