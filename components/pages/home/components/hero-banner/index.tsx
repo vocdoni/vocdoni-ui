@@ -92,7 +92,7 @@ const RightContainer = styled.div`
   top: 60px;
   left: 60%;
   width: 47%;
-  max-width: 700px;
+  max-width: 600px;
 
   @media ${({ theme }) => theme.screenMax.tabletL} {
     position: absolute;
@@ -165,6 +165,7 @@ const Title = styled.h1`
   margin-bottom: 30px;
   font-size: 50px;
   font-weight: 400;
+  margin-top:0px;
 
   @media ${({ theme }) => theme.screenMax.tablet} {
     font-size: 35px;
