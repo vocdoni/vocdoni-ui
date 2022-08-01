@@ -388,7 +388,7 @@ const IndexPage = () => {
 
               <Column sm={12} md={6}>
                 <ImageContainer width="500px">
-                  <img
+                  <ImgDiv
                     src="/images/home/pc.png"
                     alt={i18n.t('home.computer_with_vocdoni_alt')}
                   />
@@ -404,8 +404,22 @@ const IndexPage = () => {
 
 IndexPage['Providers'] = EmptyProviders
 
+const ImgDiv = styled.img`
+  padding-top: 40px;
+
+  @media ${({ theme }) => theme.screenMax.tablet} {
+    padding-top:0px;
+    margin:0px auto;
+    padding-bottom: 20px;
+  }
+`
+
 const ReadyTextContainer = styled.div`
   margin: 40px 0 40px 40px;
+
+  @media ${({ theme }) => theme.screenMax.tablet} {
+    margin: 10px 0px 10px 10px;
+  }
 `
 
 const ActionsContainer = styled.div`

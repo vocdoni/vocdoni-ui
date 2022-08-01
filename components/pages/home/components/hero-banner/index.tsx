@@ -58,17 +58,16 @@ const BannerContainer = styled.div`
   width: 100%;
   overflow: hidden;
   position: relative;
-
-
   background: linear-gradient(180deg, #f0ffde 20.98%,#e0ffff 73.1%,transparent 100%, transparent 100%);
 
   @media ${({ theme }) => theme.screenMax.tablet} {
     height: auto;
+    padding-top: 130px;
   }
 
-  // @media ${({ theme }) => theme.screenMax.tabletL} {
-  //   height: auto;
-  // }
+  @media ${({ theme }) => theme.screenMin.mobileL} and ${({ theme }) => theme.screenMax.tablet} {
+    padding-top: 200px;
+  }
 `
 
 const ContentContainer = styled.div`
@@ -90,20 +89,20 @@ const ButtonContainer = styled.div`
 const RightContainer = styled.div`
   position: absolute;
   top: 60px;
-  left: 60%;
+  left: 52%;
   width: 47%;
   max-width: 600px;
 
   @media ${({ theme }) => theme.screenMax.tabletL} {
     position: absolute;
-    left: 80%;
+    left: 60%;
     top: 100px;
   }
 
   @media ${({ theme }) => theme.screenMax.mobileL} {
-    top: -42px;
-    left: 18px;
-    width: 100%;
+    top: -22px;
+    left: 26px;
+    width: 80%;
     max-width: 360px;
     margin: auto;
     height: 290px;
@@ -115,19 +114,25 @@ const LeftContainer = styled.div`
   width: 50%;
   float: left;
 
+  @media ${({ theme }) => theme.screenMax.desktop} {
+    margin-top: -85px;
+    padding-left: 25px;
+  }
+
   @media ${({ theme }) => theme.screenMax.tabletL} {
     width: 60%;
     padding: 40px 0;
   }
 
   @media ${({ theme }) => theme.screenMax.tablet} {
-    width: 80%;
+    width: 60%;
     padding: 40px 0;
   }
 
   @media ${({ theme }) => theme.screenMax.mobileL} {
     width: 100%;
     text-align: center;
+    margin: 20px 0px 10px;
   }
 `
 
@@ -155,6 +160,10 @@ const ActionContainer = styled.div`
   display: flex;
   align-items: center;
 
+  @media ${({ theme }) => theme.screenMax.tabletL} {
+    padding-left: 25px;
+  }
+
   @media ${({ theme }) => theme.screenMax.mobileL} {
     flex-direction: column;
     align-items:  start;
@@ -167,11 +176,21 @@ const Title = styled.h1`
   font-weight: 400;
   margin-top:0px;
 
+  @media ${({ theme }) => theme.screenMax.tabletL} {
+    margin-top: -80px;
+    font-size: 45px;
+    padding-left: 25px;
+  }
+
   @media ${({ theme }) => theme.screenMax.tablet} {
     font-size: 35px;
   }
 
   @media ${({ theme }) => theme.screenMax.mobileM} {
     font-size: 24px;
+  }
+
+  @media ${({ theme }) => theme.screenMin.mobileL} {
+    font-size: 28px;
   }
 `
