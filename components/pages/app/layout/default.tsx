@@ -4,11 +4,11 @@ import { useRouter } from 'next/router'
 import { sizes } from '../../../../theme/sizes'
 import { useWallet } from '../../../../hooks/use-wallet'
 
-import { MessageAlert } from '../../../blocks/msg-alert'
-import { LoadingAlert } from '../../../blocks/loading-alert'
-import { Loader } from '../../../blocks/loader'
-import { Footer } from '../footer'
-import { EntityHeader } from '../header/entity'
+import { MessageAlert } from '@components/blocks/msg-alert'
+import { LoadingAlert } from '@components/blocks/loading-alert'
+import { Loader } from '@components/blocks/loader'
+import { Footer } from '@components/pages/app/footer'
+import { EntityHeader } from '@components/pages/app/header/entity'
 
 
 const LayoutContainer = styled.div<{isHomePage?: boolean}>`
