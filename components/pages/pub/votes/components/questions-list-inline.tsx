@@ -12,7 +12,7 @@ import { QuestionCard } from './question-card'
 import { colors } from '@theme/colors'
 import { Indexed } from '@ethersproject/abi'
 import { VoteWeightCard } from './vote-weight-card'
-import { If } from 'react-if'
+import { When } from 'react-if'
 
 import { TextAlign } from '@components/elements/typography'
 
@@ -76,11 +76,11 @@ export const QuestionsListInline = forwardRef<HTMLDivElement, IQuesListInlinePro
           </Button>
         </ButtonsActionContainer>
 
-        <If condition={(props.results.length < props.questions?.length || props.results.includes(undefined))}>
+        <When condition={(props.results.length < props.questions?.length || props.results.includes(undefined))}>
           <Typography margin='20px 0px' align={TextAlign.Center} color='#888' variant={TypographyVariant.ExtraSmall}>
             {i18n.t('votes.questions_list.num_questions_info')} {props.results.filter(x => x !== undefined).length} {i18n.t('votes.questions_list.num_questions_total', {numTotal: props.questions?.length})}.
           </Typography>            
-        </If>
+        </When>
       </div>
 
       <FixedButtonsActionContainer>
