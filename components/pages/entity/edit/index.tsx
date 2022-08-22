@@ -272,6 +272,7 @@ export const EntityEditView = ({
 
               <input
                 type='file'
+                accept=".jpg, .jpeg, .png"
                 ref={inputFileRef}
                 onChange={(event) => {
                   const [file] = event.target.files
