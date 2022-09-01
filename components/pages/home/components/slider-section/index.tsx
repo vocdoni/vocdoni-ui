@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
-import { IconRight, IconLeft } from '@aragon/ui'
+// import { IconRight, IconLeft } from '@aragon/ui'
+import { LeftCircleOutlined as IconLeft, RightCircleOutlined as IconRight} from '@ant-design/icons'
 
 import { SliderCard } from './slider-card'
 
@@ -18,7 +19,7 @@ interface IQuotes {
 export const SliderSection = () => {
   const { i18n } = useTranslation()
   const [activeItem, setActiveItem] = useState<number>(0)
-  
+
   const quotes: IQuotes[] = [
     {
       image: "/images/home/slider/slider-1.png",
@@ -56,7 +57,7 @@ export const SliderSection = () => {
   return (
     <SliderContainer>
       <RightIconContainer onClick={prevItem}>
-        <IconLeft size='medium'/>
+        <IconLeft style={{ fontSize: '26px'}}/>
       </RightIconContainer>
 
       <SliderWrapper>
@@ -76,7 +77,7 @@ export const SliderSection = () => {
       </SliderWrapper>
 
       <LeftIconContainer onClick={nextItem}>
-        <IconRight size='medium'/>
+        <IconRight style={{ fontSize: '26px'}}/>
       </LeftIconContainer>
     </SliderContainer>
   )
