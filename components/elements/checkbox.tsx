@@ -2,7 +2,8 @@ import React from 'react'
 import Link from 'next/link'
 
 import styled from 'styled-components'
-import { Checkbox as AragonCheckbox } from '@aragon/ui'
+// import { Checkbox as AragonCheckbox } from '@aragon/ui'
+import * as Ch from 'rc-checkbox'
 import { Label } from '@components/elements/label'
 
 interface ICheckboxProps {
@@ -15,10 +16,12 @@ interface ICheckboxProps {
   labelColor?: string
 }
 
+// Ch.default.prototype.on
+
 export const Checkbox = ({ id, checked, onChange, text, href = '', labelColor = '', hrefNewTab }: ICheckboxProps) => (
   <CheckboxContainer>
     <CheckboxWrapper>
-      <AragonCheckbox id={id} checked={checked} onChange={onChange} />
+      <Ch.default id={id} checked={checked} onChange={(e) => onChange(Boolean((e.target as HTMLInputElement).value))} />
     </CheckboxWrapper>
 
     {(href) ? (
