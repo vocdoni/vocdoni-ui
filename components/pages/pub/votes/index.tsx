@@ -285,7 +285,7 @@ export const VotingPageView = () => {
                       subtitleProps={
                         {
                           size: isMobile ? 'xs' : 'md',
-                          children: isAnonymous ? i18n.t('vote.auth.with_preregistration') : voteStatus === VoteStatus.Ended ? i18n.t('vote.auth.if_you_voted') : i18n.t('vote.auth.with_credentials')
+                          children: isAnonymous ? ( voteStatus === VoteStatus.Ended ? i18n.t('vote.auth.if_you_voted') : ( voteStatus === VoteStatus.Active ? i18n.t('vote.auth.with_preregistration_active') : i18n.t('vote.auth.with_preregistration') )) : voteStatus === VoteStatus.Ended ? i18n.t('vote.auth.if_you_voted') : i18n.t('vote.auth.with_credentials')
                         }
                       }
                       titleProps={{ size: 'sm' }}
