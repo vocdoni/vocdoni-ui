@@ -603,6 +603,7 @@
       "not_authenticated": "You are not authenticated!",
       "not_preregistered": "Pre-registration required",
       "with_preregistration": "You will need to pre-register before starting date in order to submit your vote.",
+      "with_preregistration_active": "If you've registered, you will be able to cast your vote after authenticating with your credentials and personal password.",
       "preregistration": {
         "title": "Pre-registration",
         "subtitle": "This is a pre-registration that is required in order to participate anonymously when the voting process starts ({{date}})."
