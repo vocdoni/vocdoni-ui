@@ -22,12 +22,12 @@ const NewVote = () => {
           <Col xs={6}>
             <Row gutter='xs'>
               <Col xs={12}>
-                <Text size='display-3' weight='medium' color='dark-blue'>
+                <Text size='display-1' weight='medium' color='dark-blue'>
                   {i18n.t("vote.new_vote")}
                 </Text>
               </Col>
               <Col xs={12}>
-                <Text size='lg' color='light-gray' >
+                <Text size='sm' color='light-gray' >
                   {i18n.t("vote.enter_the_details_of_the_proposal")}
                 </Text>
               </Col>
@@ -37,7 +37,7 @@ const NewVote = () => {
             <WizardSteps />
           </Col>
           <Col xs={12}>
-            <Spacer showDivider size='4xl' direction='vertical' />
+            <Spacer showDivider size='3xl' direction='vertical' />
           </Col>
           <Col xs={12}>
             <Spacer size='md' direction='vertical' />
@@ -46,21 +46,6 @@ const NewVote = () => {
             <ProcessCreationPageStep />
           </Col>
         </Row>
-        {/* <Grid>
-          <Column span={6}>
-            <Text>
-
-            </Text>
-            <Typography variant={TypographyVariant.H1}>{i18n.t("vote.new_vote")}</Typography>
-            <MainDescription>{i18n.t("vote.enter_the_details_of_the_proposal")}</MainDescription>
-          </Column>
-          <Column span={6}>
-            <WizardSteps />
-          </Column>
-          <Column span={12}>
-            <ProcessCreationPageStep />
-          </Column>
-        </Grid> */}
       </PageCard>
     </UseProcessCreationProvider>
   )
