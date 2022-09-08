@@ -57,7 +57,7 @@ export const SliderSection = () => {
   return (
     <SliderContainer>
       <RightIconContainer onClick={prevItem}>
-        <IconLeft style={{ fontSize: '26px'}}/>
+        <IconLeft style={{ fontSize: '56px'}}/>
       </RightIconContainer>
 
       <SliderWrapper>
@@ -77,7 +77,7 @@ export const SliderSection = () => {
       </SliderWrapper>
 
       <LeftIconContainer onClick={nextItem}>
-        <IconRight style={{ fontSize: '26px'}}/>
+        <IconRight style={{ fontSize: '56px'}}/>
       </LeftIconContainer>
     </SliderContainer>
   )
