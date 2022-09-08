@@ -283,7 +283,7 @@
         "invalid_link": "You are following and invalid link",
         "not_a_web_browser": "No es un navegador",
         "page_not_found": "No se ha encontrado la página",
-        "passphrase_dont_match": "El passphrase no coincide",
+        "passphrase_dont_match": "La contraseña no coincide",
         "please_accept_credentials_tos": "Por favor, acepta las Condiciones de Servicio",
         "please_confirm_your_passphrase": "Por favor, confirma contraseña",
         "please_ensure_no_incognito_mode": "Por favor, asegurate que no utilizas navegación privada",
@@ -436,8 +436,8 @@
     "pub": {
         "votes": {
             "close_preregister_modal": "Ok",
-            "preregister_completed": "Pre-registration complete!",
-            "your_password_was_set_successfully_to_allow_you_participate_on": "Your password was set successfully to allow you to participate when the vote starts on"
+            "preregister_completed": "Pre-registro completado!",
+            "your_password_was_set_successfully_to_allow_you_participate_on": "Tu contraseña se ha guardado correctamente y te permitirá participar cuando el proceso empieze el {{startDate}}"
         }
     },
     "recover": {
@@ -491,7 +491,7 @@
         "the_vote_will_start_soon": "El proceso de votación empezará pronto"
     },
     "success": {
-        "passphrase_match": "El phassphrase conicide!"
+        "passphrase_match": "Las contraseñas coniciden!"
     },
     "supported_langs": {
         "catalan": "Català",
@@ -595,7 +595,8 @@
             },
             "secret_key_label": "Clave secreta",
             "with_credentials": "Autenticarse con sus credenciales para votar.",
-            "with_preregistration": "Deberá registrarse previamente antes de la fecha de inicio para enviar su voto."
+            "with_preregistration": "Deberá registrarse previamente antes de la fecha de inicio para enviar su voto.",
+      "with_preregistration_active": "Si se ha registrado, podrá emitir su voto después de autentificarse con sus credenciales y contraseña personal."
         },
         "back_to_dashboard": "Vuelve al inicio",
         "brand_color_used_on_the_voting_process": "Brand color used on the voting process",
@@ -817,7 +818,7 @@
             "repeat": "Repetir",
             "set_password_of_authentication": "Contraseña de autentificación",
             "the_password_that_you_set_will_not_be_possible": "La contraseña que establezca no podrá recuperarse ni restablecerse.",
-            "when_the_process_start_at_date_in_order_to_vote_anonymously": "Cuando el proceso de votación comience el {{fecha}}, para votar de forma anónima se le pedirá que ingrese esta contraseña."
+            "when_the_process_start_at_date_in_order_to_vote_anonymously": "Cuando el proceso de votación comience el {{date}}, para votar de forma anónima se le pedirá que ingrese esta contraseña."
         },
         "questions_list": {
             "back": "Atrás",

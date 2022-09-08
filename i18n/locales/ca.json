@@ -436,8 +436,8 @@
     "pub": {
         "votes": {
             "close_preregister_modal": "Ok",
-            "preregister_completed": "Pre-registration complete!",
-            "your_password_was_set_successfully_to_allow_you_participate_on": "Your password was set successfully to allow you to participate when the vote starts on"
+            "preregister_completed": "Pre-registre completat!",
+            "your_password_was_set_successfully_to_allow_you_participate_on": "La teva contrasenya s'ha guardat correctament per permetre't participar quan el procés comenci el {{startDate}}"
         }
     },
     "recover": {
@@ -595,7 +595,8 @@
             },
             "secret_key_label": "Contrasenya",
             "with_credentials": "Autentica't amb les teves credencials per votar.",
-            "with_preregistration": "Hauràs de fer la preinscripció abans de la data d'inici per enviar el vostre vot."
+            "with_preregistration": "Hauràs de fer la preinscripció abans de la data d'inici per enviar el vostre vot.",
+            "with_preregistration_active": "Si t'has registrat, podrás emetre el teu vot després d'autentificar-te amb les teves credencials i la contrasenya personal."
         },
         "back_to_dashboard": "Torna a l'inici",
         "brand_color_used_on_the_voting_process": "El color de marca utilitzat en el procés de votació",
@@ -817,7 +818,7 @@
             "repeat": "Repetir",
             "set_password_of_authentication": "Establiu una contrasenya d'autenticació",
             "the_password_that_you_set_will_not_be_possible": "La contrasenya que hàgiu establert no es podrà recuperar ni restablir.",
-            "when_the_process_start_at_date_in_order_to_vote_anonymously": "Quan comenci el procés de votació el {{data}}, per poder votar de manera anònima se us demanarà que introduïu aquesta contrasenya."
+            "when_the_process_start_at_date_in_order_to_vote_anonymously": "Quan comenci el procés de votació el {{date}}, per poder votar de manera anònima se us demanarà que introduïu aquesta contrasenya."
         },
         "questions_list": {
             "back": "Enrere",
