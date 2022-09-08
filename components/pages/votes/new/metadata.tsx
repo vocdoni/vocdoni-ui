@@ -190,6 +190,7 @@ export const FormMetadata = () => {
             onChange={(e: ChangeEvent<HTMLInputElement>) =>
               methods.setTitle(e.target.value)
             }
+            variant={FormGroupVariant.Small}
           />
         </Column>
 
@@ -203,6 +204,7 @@ export const FormMetadata = () => {
             file={headerFile}
             url={headerURL}
             accept=".jpg,.jpeg,.png,.gif"
+            variant={FormGroupVariant.Small}
           />
         </Column>
       </Grid>
@@ -221,6 +223,7 @@ export const FormMetadata = () => {
             onChange={(event: ChangeEvent<HTMLInputElement>) => {
               handleMeta(PlazaMetadataKeys.ATTACHMENT_URI, event.target.value)
             }}
+            variant={FormGroupVariant.Small}
           />
         </Column>
 
@@ -237,6 +240,7 @@ export const FormMetadata = () => {
             onChange={(event: ChangeEvent<HTMLInputElement>) =>
               handleMeta(PlazaMetadataKeys.DISCUSSION_URL, event.target.value)
             }
+            variant={FormGroupVariant.Small}
           />
         </Column>
       </Grid>
@@ -255,13 +259,14 @@ export const FormMetadata = () => {
             onChange={(event: ChangeEvent<HTMLInputElement>) =>
               methods.setMediaStreamURI(event.target.value)
             }
+            variant={FormGroupVariant.Small}
           />
         </Column>
       </Grid>
 
-      <Grid noGutter>
+      <Grid>
         <Column>
-          <Typography variant={TypographyVariant.H3}  margin="0 0 26px 0">
+          <Typography variant={TypographyVariant.Body2}  margin="0 0 16px 0">
             {i18n.t('vote.description')}
           </Typography>
           <TextEditor
@@ -297,6 +302,8 @@ export const FormMetadata = () => {
           </Column>
         </Grid>
       </When>
+
+      <br /><br />
 
       {metadata.questions.map((question: Question, index: number) => (
         <QuestionGroup

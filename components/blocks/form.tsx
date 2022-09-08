@@ -230,7 +230,7 @@ const EditButton = styled.span`
 `
 
 const InputTitle = styled(SectionTitle)`
-  font-size: 26px;
+  font-size: 18px;
   font-weight: 400;
   color: ${({ theme }) => theme.blueText};
 `
