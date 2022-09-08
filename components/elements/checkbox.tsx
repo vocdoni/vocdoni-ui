@@ -21,7 +21,7 @@ interface ICheckboxProps {
 export const Checkbox = ({ id, checked, onChange, text, href = '', labelColor = '', hrefNewTab }: ICheckboxProps) => (
   <CheckboxContainer>
     <CheckboxWrapper>
-      <Ch.default id={id} checked={checked} onChange={(e) => onChange(Boolean((e.target as HTMLInputElement).value))} />
+      <Ch.default id={id} checked={checked} onChange={(e) => onChange(!checked)} />
     </CheckboxWrapper>
 
     {(href) ? (
