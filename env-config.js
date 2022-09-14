@@ -58,6 +58,8 @@ module.exports = {
   // CSP_URL: process.env.CSP_URL || 'https://csp-sms.vocdoni.net/',
   // CSP_PUB_KEY: process.env.CSP_PUB_KEY || '03e349c2a4622bd56238616f8160bfeb6b053f260f1a541f72015e0e261ac68d5c',
   // CSP_API_VERSION: process.env.CSP_API_VERSION || 'v1',
+
+  ARCHIVE_IPNS_ID: process.env.ARCHIVE_IPNS_ID,
 }
 
 console.log('Building the frontend with ENV:', module.exports)

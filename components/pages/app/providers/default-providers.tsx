@@ -29,6 +29,7 @@ export const DefaultProviders = ({ children }: IDefaultProvidersProps) => {
   const environment = process.env.VOCDONI_ENVIRONMENT as VocdoniEnvironment
   const discoveryTimeout = Number(process.env.DISCOVERY_TIMEOUT)
   const discoveryPoolSize = Number(process.env.DISCOVERY_POOL_SIZE)
+  const archiveIpnsId = process.env.ARCHIVE_IPNS_ID
 
   return (
     <UseWalletContextProvider>
@@ -42,6 +43,7 @@ export const DefaultProviders = ({ children }: IDefaultProvidersProps) => {
                 environment={environment}
                 discoveryTimeout={discoveryTimeout}
                 minNumGateways={discoveryPoolSize}
+                archiveIpnsId={archiveIpnsId}
               >
                 <UseBlockStatusProvider>
                   <UseBackendProvider>
