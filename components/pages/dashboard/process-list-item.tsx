@@ -41,7 +41,6 @@ export const DashboardProcessListItem = ({
 
     switch (status) {
       case VoteStatus.Active:
-        // no need to check if it is archived because status is always ended
         const endDate = VotingApi.estimateDateAtBlockSync(
           process?.summary?.endBlock,
           blockStatus
@@ -55,7 +54,6 @@ export const DashboardProcessListItem = ({
         break
 
       case VoteStatus.Paused:
-        // no need to check if it is archived because status is always ended
         startDate = VotingApi.estimateDateAtBlockSync(
           process?.summary?.startBlock,
           blockStatus
@@ -67,7 +65,6 @@ export const DashboardProcessListItem = ({
         }
 
       case VoteStatus.Upcoming:
-        // no need to check if it is archived because status is always ended
         startDate = VotingApi.estimateDateAtBlockSync(
           process?.summary?.startBlock,
           blockStatus

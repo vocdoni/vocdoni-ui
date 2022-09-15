@@ -326,7 +326,6 @@ export const UseProcessCreationProvider = ({ children }: { children: ReactNode }
   }
 
   const updateDateRange = () => {
-    // no need for archive in vote creation
     const startBlock = VotingApi.estimateBlockAtDateTimeSync(startDate, blockStatus)
     const endBlock = VotingApi.estimateBlockAtDateTimeSync(endDate, blockStatus)
     const blockCount = endBlock - startBlock
