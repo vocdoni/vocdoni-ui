@@ -1,4 +1,6 @@
-import { ProcessDetails, IGatewayClient, VotingApi } from 'dvote-js'
+import { ProcessDetails,VotingApi } from '@vocdoni/voting'
+import { GatewayPool } from '@vocdoni/client'
+import { ensure0x } from '@vocdoni/common'
 import { BigNumber, providers } from 'ethers'
 import { InvalidAddressError } from './validators/errors/invalid-address-error';
 import { InvalidEthereumProviderError } from './validators/errors/invalid-ethereum-provider-error';
@@ -9,7 +11,7 @@ import { RetrieveGasTimeOutError } from './validators/errors/retrieve-gas-time-o
 /** Fetches the process parameters and metadata for the given entity */
 export async function getProcesses(
   entityId: string,
-  pool: IGatewayClient
+  pool: GatewayPool
 ): Promise<ProcessDetails[]> {
   try {
     const list = await getProcessList(entityId, pool);
@@ -27,21 +29,61 @@ export async function getProcesses(
   }
 }
 
-export async function getProcessInfo(processId: string, pool: IGatewayClient): Promise<ProcessDetails> {
+export async function getProcessInfo(processId: string, pool: GatewayPool): Promise<ProcessDetails> {
   return VotingApi.getProcess(processId, pool)
 }
 
-/** Returns the list of process id's */
-export async function getProcessList(entityId: string, pool: IGatewayClient): Promise<string[]> {
-  let result: string[] = []
-  let from = 0
+/* Get the processes id's from the archive */
+const getArchiveProcessIdList = async (
+  entityId: string,
+  pool: GatewayPool
+): Promise<string[]> => {
+  return VotingApi.getProcessList({ fromArchive: true, entityId: entityId }, pool)
+};
+
+/* Get the processes id's from the gateway */
+const getGwProcessIdList = async (
+  entityId: string,
+  from: number,
+  pool: GatewayPool
+): Promise<string[]> => {
+  return VotingApi.getProcessList(
+    { fromArchive: false, entityId: entityId, from },
+    pool
+  )
+};
+
+export async function getProcessList(entityId: string, pool: GatewayPool): Promise<string[]> {
+  let from = 0;
+
+  let result: string[] = await Promise.all([
+    getArchiveProcessIdList(entityId, pool),
+    getGwProcessIdList(entityId, from, pool),
+  ]).then((result: string[][]) => {
+    from += result[1].length;
+    let mergeResult = result.flat(1).map(x => ensure0x(x))
+    mergeResult = [...new Set(mergeResult)]
+    return mergeResult;
+  });
+
+  if (from === 0) {
+    // remove duplicate between archive and gateway
+    result = [...new Set(result)]
+    return result;
+  }
 
   while (true) {
-    const processList = await VotingApi.getProcessList({ fromArchive: false, entityId, from }, pool)
-    if (processList.length == 0) return result
-
-    result = result.concat(processList.map(id => '0x' + id))
-    from += processList.length
+    const processList = await VotingApi.getProcessList(
+      { fromArchive: false, entityId: entityId, from },
+      pool
+    );
+    if (processList.length == 0)  {
+      // remove duplicate between archive and gateway
+      result = [...new Set(result)]
+      return result
+    }
+    result = result.concat(processList.map(x => ensure0x(x)));
+    from += processList.length;
   }
 }
 
