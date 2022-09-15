@@ -54,6 +54,7 @@ export const ViewDetail = () => {
     liveStreamUrl,
     discussionUrl,
     attachmentUrl,
+    hasEnded,
     methods,
     isAnonymous
   } = useProcessWrapper(processId)
@@ -348,7 +349,7 @@ export const ViewDetail = () => {
 
             <Row gutter='lg'>
               {/* VOTING LINK */}
-              <Col xs={12} md={4} lg={5}>
+              { (!processInfo?.state?.archived  && !hasEnded) && <Col xs={12} md={4} lg={5}>
                 <Row gutter='md'>
                   <Col xs={12}>
                     <Text size='md' color='dark-blue' weight='regular'>
@@ -360,6 +361,7 @@ export const ViewDetail = () => {
                   </Col>
                 </Row>
               </Col>
+              }
               <Col xs={12} md={8} lg={7}>
                 {/* EXTERNAL LINKS */}
                 <Row gutter='md'>
