@@ -62,7 +62,7 @@ export const useAuthForm = () => {
   // check if process started
   // if the process is archived => current time greater thant process start date
   // else use start block
-  const processStarted = processInfo?.state?.archived ? new Date().getTime() >= processInfo?.state?.startDate.getTime() : blockHeight >= processInfo?.state?.startBlock
+  const processStarted = blockHeight >= processInfo?.state?.startBlock
   const userRequirePreregister = processInfo?.state?.processMode?.preRegister && !processStarted
   const requireSecretKey = processInfo?.state?.processMode?.preRegister && processStarted
   const { setAlertMessage } = useMessageAlert()

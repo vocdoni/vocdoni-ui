@@ -50,7 +50,7 @@ export const PreregisterView = ({
   const { i18n } = useTranslation()
   const { blockStatus } = useBlockStatus()
   const router = useRouter()
-  const processStartDate = process?.state?.archived ? process?.state?.startDate : VotingApi.estimateDateAtBlockSync(
+  const processStartDate = VotingApi.estimateDateAtBlockSync(
     process?.state?.startBlock,
     blockStatus
   )
