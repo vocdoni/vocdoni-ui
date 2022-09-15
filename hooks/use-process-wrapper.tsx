@@ -88,8 +88,8 @@ export const UseProcessWrapperProvider = ({ children }: { children: ReactNode })
 
   const startBlock = processInfo?.state?.startBlock || 0
   const endBlock = processInfo?.state?.endBlock || 0
-  const { date: startDate, loading: dateLoading, error: dateError } = useDateAtBlock(startBlock)
-  const { date: endDate } = useDateAtBlock(endBlock)
+  const startDate = processInfo?.state?.archived ? processInfo?.state?.startDate : useDateAtBlock(startBlock).date
+  const endDate = processInfo?.state?.archived ? processInfo?.state?.endDate : useDateAtBlock(endBlock).date
 
   // Effects
 
