@@ -59,7 +59,7 @@ module.exports = {
   // CSP_PUB_KEY: process.env.CSP_PUB_KEY || '03e349c2a4622bd56238616f8160bfeb6b053f260f1a541f72015e0e261ac68d5c',
   // CSP_API_VERSION: process.env.CSP_API_VERSION || 'v1',
 
-  ARCHIVE_IPNS_ID: process.env.ARCHIVE_IPNS_ID,
+  ARCHIVE_IPNS_ID: process.env.ARCHIVE_IPNS_ID || 'k2k4r8n84llyqk6u0sifx9g3vkmtmuba3qf3yxv1qcr6if78lyhtuwye',
 }
 
 console.log('Building the frontend with ENV:', module.exports)
