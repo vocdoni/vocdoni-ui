@@ -656,6 +656,7 @@
         "no_results_subtitle_end": "Els resultats es mostraràn només al finalitzar la votació.",
         "no_results_subtitle_live": "Els resultats es mostraràn quan comenci la votació.",
         "no_results_title": "Resultats no disponibles",
+        "no_votes_emitted": "No hi ha vots emesos",
         "option_n": "Opció {{ number }}",
         "optional_field": "Aquest camp és opcional",
         "paused_vote": "Votació aturada",
@@ -692,6 +693,8 @@
         "stream_link": "Enllaç de la retransmissió en directe",
         "stream_link_explanation": "Si fas una retransmissió en directe per internet (per exemple de l'Assemblea general), pots incloure'n l'adreça aquí. Pot ser, per exemple, un stream de Youtube.",
         "stream_link_label": "Aquest camp és opcional",
+        "submitting_vote": "",
+        "submitting_vote_msg": "",
         "surname": "Surname",
         "tag_is_anonymous": "Anònim",
         "tag_is_normal": "Standard",
@@ -824,9 +827,9 @@
             "back": "Enrere",
             "finish_voting": "Finalitzar votació",
             "next_question": "Pregunta següent",
-            "question": "Pregunta {{questionIndex}}/{{totalQuestions}}",
             "num_questions_info": "Has de contestar totes les preguntes per poder votar. N'has respost ",
-            "num_questions_total": "de {{numTotal}}"
+            "num_questions_total": "de {{numTotal}}",
+            "question": "Pregunta {{questionIndex}}/{{totalQuestions}}"
         }
     },
     "waiting_banner": {
