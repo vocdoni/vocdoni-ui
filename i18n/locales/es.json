@@ -209,7 +209,7 @@
             "view_in_explorer": "Ver en el explorador"
         },
         "i_have_read_and_accept_personal_data": "(Optional) Doy mi consentimiento expreso para la gestión comercial y de servicios",
-        "i_have_read_and_accept_terms": "He leído y acepto el “Información de protección de datos personales” (ver arriba), y la “<1>Política de Privacidad</1>” de Aragon",
+        "i_have_read_and_accept_terms": "He leído y acepto el “Información de protección de datos personales” (ver arriba), y la “<1>Política de Privacidad</1>” de Aragon Association",
         "logo": "Logo de la entidad",
         "logo_label": "Debe ser un .jpg, .jpeg or .png fichero (2mb max)*",
         "name": "Nombre de la entidad*",
