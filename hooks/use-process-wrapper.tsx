@@ -252,7 +252,7 @@ export const UseProcessWrapperProvider = ({ children }: { children: ReactNode })
 
   // Callbacks
   const hasStarted = startDate && startDate.getTime() <= Date.now()
-  const hasEnded = endDate && endDate.getTime() < Date.now()
+  const hasEnded = endDate && endDate.getTime() < Date.now() || processInfo?.state.status >= VochainProcessStatus.ENDED
   const liveResults = !processInfo?.state?.envelopeType?.encryptedVotes
   const votingType: VotingType = processInfo?.state?.censusOrigin as any
   const isAnonymous = processInfo?.state?.envelopeType?.anonymous
