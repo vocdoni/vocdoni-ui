@@ -46,7 +46,7 @@ export const FormOptions = () => {
   const { trackEvent } = useRudderStack()
 
   const valid = () => {
-    return startDate && endDate && !invalidDate && startDate < endDate
+    return startDate && endDate && !invalidDate && (startDate < endDate)
   }
 
   const onSubmit = () => {
@@ -128,6 +128,21 @@ export const FormOptions = () => {
             </Col>
           </Row>
         </Col>
+        <Row gutter='none'>
+          <Col xs={12}>
+            {!valid() &&
+              <ErrorText size='md' color='error'>
+                {i18n.t('votes.new.errors.date')}:
+                <ul>
+                  { !startDate && <li>   - {i18n.t('votes.new.errors.startDate')}</li> }
+                  { !endDate && <li>   - {i18n.t('votes.new.errors.endDate')}</li> }
+                  { startDate > endDate && <li>   - {i18n.t('votes.new.errors.minStartDate')}</li> }
+                  { invalidDate && <li>   - {i18n.t('votes.new.errors.10min')}</li> }
+                </ul>
+              </ErrorText>
+            }
+          </Col>
+        </Row>
         <Col xs={12}>
           <Row justify='space-between'>
             <Col xs={2}>
@@ -149,6 +164,11 @@ export const FormOptions = () => {
     </>
   )
 }
+
+const ErrorText = styled(Text)`
+  font-size: 10px;
+  margin-top: 20px;
+`
 
 const BottomDiv = styled.div`
   display: flex;
