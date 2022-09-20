@@ -60,7 +60,7 @@ export const SignInForm = ({
   const processId = useUrlHash().slice(1)
   const { isAnonymous, status, startDate } = useProcessWrapper(processId)
   const showPreregisterTitle = isAnonymous && status === VoteStatus.Upcoming
-  const showPasswordInput = isAnonymous && status === VoteStatus.Active
+  const showPasswordInput = isAnonymous && (status === VoteStatus.Active || status === VoteStatus.Ended)
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault()
     onSubmit()
