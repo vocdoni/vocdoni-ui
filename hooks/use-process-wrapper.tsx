@@ -90,12 +90,13 @@ export const UseProcessWrapperProvider = ({ children }: { children: ReactNode })
   const endBlock = processInfo?.state?.endBlock || 0
   const startDate = processInfo?.state?.archived ? processInfo?.state?.startDate : useDateAtBlock(startBlock).date
   const endDate = processInfo?.state?.archived ? processInfo?.state?.endDate : useDateAtBlock(endBlock).date
-
+  const realTimeResults = processInfo?.state?.envelopeType?.encryptedVotes === false  && processInfo?.state?.envelopeType?.anonymous === false
+  const resultsAvailable = realTimeResults || processInfo?.state?.status === VochainProcessStatus.RESULTS
   // Effects
 
   useEffect(() => {
     if (invalidProcessId) return
-    refreshResults()
+    if (resultsAvailable) refreshResults()
     refresh(processId)
   }, [processId])
 
@@ -115,7 +116,7 @@ export const UseProcessWrapperProvider = ({ children }: { children: ReactNode })
   useEffect(() => {
     if (invalidProcessId) return
     else if (blockHeight % 3 !== 0) return
-    refreshResults()
+    if (resultsAvailable) refreshResults()
     refresh(processId)
   }, [blockHeight])
 

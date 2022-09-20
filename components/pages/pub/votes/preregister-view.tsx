@@ -64,7 +64,6 @@ export const PreregisterView = ({
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log('goes to submit')
     if (!submitDisabled) {
       onSubmit()
     }
