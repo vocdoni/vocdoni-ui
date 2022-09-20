@@ -126,7 +126,7 @@ export const SignInForm = ({
                 )}
 
                 {showPasswordInput &&
-                  <Col xs={12}>
+                  <Col xs={14} disableFlex key={fields.length}>
                     <InputPasswordFormGroup
                       label={i18n.t('vote.auth.secret_key_label')}
                       id="secretKey"
