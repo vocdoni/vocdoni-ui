@@ -257,6 +257,8 @@ export const VotingPageView = () => {
     status === VoteStatus.Active ||
     status === VoteStatus.Ended
   )
+
+  const needsPregistration = isAnonymous && status === VoteStatus.Upcoming
   const showDisconnectBanner = wallet && showAuthBanner
   const showNotAuthenticatedBanner = !wallet && showAuthBanner
 
@@ -292,14 +294,14 @@ export const VotingPageView = () => {
                       buttonProps={
                         {
                           variant: 'primary',
-                          children: isAnonymous ? i18n.t('vote.auth.preregister_button') : i18n.t('vote.auth.auth_button'),
+                          children: needsPregistration ? i18n.t('vote.auth.preregister_button') : i18n.t('vote.auth.auth_button'),
                           iconRight: isMobile ? undefined : { name: isAnonymous ? 'paper-check' : 'pencil', size: 24 },
                           onClick: () => handleGotoAuth()
                         }
                       }
                     >
 
-                      {isAnonymous ? i18n.t('vote.auth.not_preregistered') : i18n.t('vote.auth.not_authenticated')}
+                      { needsPregistration ? i18n.t('vote.auth.not_preregistered') : i18n.t('vote.auth.not_authenticated')}
                     </Banner>
                   </Col>
                 }
@@ -420,7 +422,7 @@ export const VotingPageView = () => {
                   {i18n.t('vote.vote_will_close')}&nbsp;<b>{endingString}</b>
                 </Text>
               </Col>
-              { !isInlineVotingProcess && 
+              { !isInlineVotingProcess &&
                 <Col xs={12}>
                   <Button variant='primary' size='lg' onClick={handleVoteNow}>
                     {i18n.t("vote.vote_now")}
