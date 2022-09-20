@@ -120,6 +120,9 @@ export const useAuthForm = () => {
         // Set the voter wallet recovered
         votingMethods.setAnonymousKey(anonymousKey)
         setWallet(voterWallet)
+        const encryptedAuthfield = Symmetric.encryptString(authFieldsData.join("/"), voterWallet.publicKey)
+        // store auth data in local storage for disconnect banner
+        localStorage.setItem('voterData', encryptedAuthfield)
 
         if (userRequirePreregister) {
           router.push(PREREGISTER_PATH + "#/" + processInfo?.id)
