@@ -1,5 +1,5 @@
 
-import { If, Then, Else } from "react-if"
+import { If, Then, Else, Switch, Case } from "react-if"
 import { VoteStatus } from "@lib/util"
 import { Row, Col } from "@components/elements-v2"
 import { TotalVotesCard } from "@components/blocks/total-votes-card"
@@ -19,9 +19,9 @@ export const ResultsCard = () => {
     return null
   }
   return (
-    <If condition={(status === VoteStatus.Ended || liveResults) && votesWeight && votesWeight.gt(0) && questions.length > 0}>
+    <Switch>
+    <Case condition={questions.length > 0 && (status >= VoteStatus.Ended || ((status >= VoteStatus.Active)  && liveResults))}>
       {/* IF RESULTS */}
-      <Then>
         <Row gutter='2xl'>
           <Col xs={12}>
             <TotalVotesCard />
@@ -42,14 +42,26 @@ export const ResultsCard = () => {
             </Row>
           </Col>
         </Row>
-      </Then>
+      </Case>
       {/* IF NO RESULTS */}
-      <Else>
+      <Case condition={status < VoteStatus.Active && liveResults}>
         <NoResultsCard
           title={i18n.t('vote.no_results_title')}
-          subtitle={liveResults ? i18n.t('vote.no_results_subtitle_live') : i18n.t('vote.no_results_subtitle_end')}
+          subtitle={i18n.t('vote.no_results_subtitle_live')}
         />
-      </Else>
-    </If>
+      </Case>
+      <Case condition={status < VoteStatus.Ended && !liveResults}>
+        <NoResultsCard
+          title={i18n.t('vote.no_results_title')}
+          subtitle={i18n.t('vote.no_results_subtitle_end')}
+        />
+      </Case>
+      <Case condition={((status >= VoteStatus.Active && liveResults) || (status >= VoteStatus.Ended)) && (results?.totalVotes === 0 && results.totalWeightedVotes.eq(BigInt(0)) )}>
+        <NoResultsCard
+          title={i18n.t('vote.no_results_title')}
+          subtitle={i18n.t('vote.no_votes_emitted')}
+        />
+      </Case>
+    </Switch>
   )
 }

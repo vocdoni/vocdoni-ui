@@ -12,6 +12,12 @@
         "preregister": {
             "insert_password": "",
             "password": ""
+        },
+        "new": {
+            "it_will_be_impossible_for_a_third_party_to_see_witch_vote_a_use_has_cast": "It will be impossible for a third-party to see which vote a user has cast.",
+            "select_": "Select",
+            "the_voters_will_be_required_to_then_authenticate": "Voters will be required to then authenticate with their credentials and password once they wish to vote.",
+            "the_voters_will_need_preregister_before_starting_date": "<0>Voters will need to pre-register before the starting date</0> in order to get an authentication password."
         }
     },
     "voter": {
@@ -19,5 +25,40 @@
             "important": "",
             "the_password_that_you_set_will_not_be_possible": ""
         }
+    },
+    "home": {
+        "free_until_end_2021": "->  Free until the end of 2021, then you can choose a free or paid plan."
+    },
+    "vote_detail": {
+        "census_card": {
+            "filename": "Name"
+        },
+        "stream": "Stream",
+        "details": "Details",
+        "document": "Document",
+        "link": "Link",
+        "options": "Options",
+        "q_and_a": "Q&A",
+        "questions_card": {
+            "show": "Show",
+            "hide": "Hide"
+        },
+        "results": "Results",
+        "type": "Type"
+    },
+    "vote": {
+        "end_vote": "End vote",
+        "import_the_list_of_voters": "Import the list of voters",
+        "log_out": "Log out",
+        "pdf_image_alt": "PDF image",
+        "submit_new_vote": "Submit new vote",
+        "total_votes": "Total number of votes: {{totalVotes}}",
+        "total_weighted_votes": "Number of participants: {{totalVotes}}. Total weight of votes cast: {{totalWeightedVotes}}",
+        "value_days": "{{ value }} days",
+        "value_hours": "{{ value }} hours",
+        "value_minutes": "{{ value }} minutes",
+        "value_seconds": "{{ value }} seconds",
+        "you_can_vote_on_this_proposal": "You can vote on this proposal",
+        "you_need_authenticate_to_vote": "You need authenticate to vote"
     }
 }

@@ -596,7 +596,7 @@
             "secret_key_label": "Clave secreta",
             "with_credentials": "Autenticarse con sus credenciales para votar.",
             "with_preregistration": "Deberá registrarse previamente antes de la fecha de inicio para enviar su voto.",
-      "with_preregistration_active": "Si se ha registrado, podrá emitir su voto después de autentificarse con sus credenciales y contraseña personal."
+            "with_preregistration_active": "Si se ha registrado, podrá emitir su voto después de autentificarse con sus credenciales y contraseña personal."
         },
         "back_to_dashboard": "Vuelve al inicio",
         "brand_color_used_on_the_voting_process": "Brand color used on the voting process",
@@ -656,6 +656,7 @@
         "no_results_subtitle_end": "Los resultados se mostrarán solo después de que se cierre la votación.",
         "no_results_subtitle_live": "Los resultados se mostrarán una vez que se inicie la votación.",
         "no_results_title": "Los resultados no están disponibles",
+        "no_votes_emitted": "No hay votos emitidos",
         "option_n": "Opción {{ number }}",
         "optional_field": "Este campo es opcional",
         "paused_vote": "Votación pausada",
@@ -692,6 +693,8 @@
         "stream_link": "Enlace del video streaming",
         "stream_link_explanation": "Si quieres emitir tu proceso en vivo puedes incluir un video streaming. Puede ser, por ejemplo, un stream de youtube.",
         "stream_link_label": "Este campo es opcional",
+        "submitting_vote": "",
+        "submitting_vote_msg": "",
         "surname": "Apellido",
         "tag_is_anonymous": "Anónima",
         "tag_is_normal": "Votación standard",
@@ -824,9 +827,9 @@
             "back": "Atrás",
             "finish_voting": "Finalizar votación",
             "next_question": "Siguiente pregunta",
-            "question": "Pregunta {{questionIndex}}/{{totalQuestions}}",
             "num_questions_info": "Debes responder todas las preguntas para poder votar. Has respuesto ",
-            "num_questions_total": "de {{numTotal}}"
+            "num_questions_total": "de {{numTotal}}",
+            "question": "Pregunta {{questionIndex}}/{{totalQuestions}}"
         }
     },
     "waiting_banner": {
