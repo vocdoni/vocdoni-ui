@@ -90,7 +90,7 @@ export const UseProcessWrapperProvider = ({ children }: { children: ReactNode })
   const endBlock = processInfo?.state?.endBlock || 0
   const startDate = processInfo?.state?.archived ? processInfo?.state?.startDate : useDateAtBlock(startBlock).date
   const endDate = processInfo?.state?.archived ? processInfo?.state?.endDate : useDateAtBlock(endBlock).date
-  const realTimeResults = processInfo?.state?.envelopeType?.encryptedVotes === false  && processInfo?.state?.envelopeType?.anonymous === false
+  const realTimeResults = processInfo?.state?.envelopeType?.encryptedVotes != true
   const resultsAvailable = realTimeResults || processInfo?.state?.status === VochainProcessStatus.RESULTS
   // Effects
 
