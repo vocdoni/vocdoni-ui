@@ -41,6 +41,7 @@ export const GeneratePdfCard = (props: GeneratePdfCardProps) => {
         linkElement.click()
       })
   }
+  const totalVotes = results?.totalVotes || 0
   return (
     <StyledCard variant="gray" padding="32px 78px">
       <Row gutter="lg">
@@ -53,7 +54,7 @@ export const GeneratePdfCard = (props: GeneratePdfCardProps) => {
             </Col>
             <Col xs={12} justify="center">
               <Text align="center" color="dark-blue" size="2xl">
-                {votesWeight ? votesWeight.toNumber() : '-'} &nbsp;
+                {votesWeight ? votesWeight.toNumber() : totalVotes} &nbsp;
                 <Text align="center" color="dark-gray">
                   ({participationRate}%)
                 </Text>
