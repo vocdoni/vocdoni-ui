@@ -15,7 +15,7 @@ export const TotalVotesCard = () => {
   const processId = useUrlHash().slice(1)
   const { i18n } = useTranslation()
   const { results, censusSize, participationRate } = useProcessWrapper(processId)
-  const totalVotes = results.totalVotes
+  const totalVotes = results?.totalVotes
   return (
     <Row gutter={isMobile ? 'sm' : 'md'} align="center" justify={isMobile ? 'center' : 'start'}>
       <Col>
