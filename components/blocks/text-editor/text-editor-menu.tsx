@@ -25,7 +25,7 @@ interface TextEditorMenuProps {
 export enum EditorActions {
   Italic = 'toggleItalic',
   Bold = 'toggleBold',
-  Underline = 'toggleUnderline',
+  // Underline = 'toggleUnderline',
   ListUnordered = 'toggleBulletList',
   ListOrdered = 'toggleOrderedList',
   Blockquote = 'toggleBlockquote',
@@ -86,7 +86,7 @@ export const TextEditorMenu = ({ editor }: TextEditorMenuProps) => {
         target: '_blank',
       })
       .run()
-      
+
       setShowLinkMenu(false)
   }
 
@@ -108,13 +108,13 @@ export const TextEditorMenu = ({ editor }: TextEditorMenuProps) => {
         ><Bold /></ActionButton>
       </ButtonContainer>
 
-      <ButtonContainer>
+      {/* <ButtonContainer>
         <ActionButton
           onClick={handleActionButton}
           action={EditorActions.Underline}
           active={editor.isActive('underline')}
         ><Underline /></ActionButton>
-      </ButtonContainer>
+      </ButtonContainer> */}
 
       <ButtonContainer>
         <ActionButton
