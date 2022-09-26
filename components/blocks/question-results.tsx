@@ -1,7 +1,7 @@
 import { Col, Row } from "@components/elements-v2/grid"
 import { Spacer } from "@components/elements-v2/spacer"
 import { Text } from "@components/elements-v2/text"
-import { Choice, Question } from "@lib/types"
+import { Choice, Question, VotingType } from "@lib/types"
 import { questionsValidator } from "@lib/validators/questions-validator"
 import { theme } from "@theme/global"
 import { JsonFeedTemplate, MultiLanguage, SingleChoiceQuestionResults } from "dvote-js"
@@ -34,10 +34,35 @@ type ChoiceResult = {
 export const QuestionResults = (props: QuestionsResultsProps) => {
   const { i18n } = useTranslation()
   const processId = useUrlHash().slice(1)
-  const { votesWeight } = useProcessWrapper(processId)
+  const { votesWeight , censusSize, votingType, results} = useProcessWrapper(processId)
   const [sortedChoices, setSortedChoices] = useState<ChoiceResult[]>([])
   const [hasWinner, setHasWinner] = useState<boolean>(false)
   const isMobile = useIsMobile()
+  const totalVotes =  results?.totalVotes || 0
+
+  const getBarPercent = (votes: BigNumber): number => {
+    if (votes.eq(0)) {
+      return 1.5
+    }
+    return getPercent(votes)
+  }
+  const getPercent = (votes: BigNumber): number => {
+    // used to avoid losing decimal precision
+    const ratio = votes.mul(10000)
+    if (!VotingType.Weighted && totalVotes >0 )
+      return ratio.div(totalVotes).toNumber() / 100
+    else if (VotingType.Weighted && votesWeight &&  votesWeight.gt(0) )
+      return ratio.div(votesWeight).toNumber() /100
+    return 0
+  }
+  const getStringPercent = (percent: number): string => {
+    const decimal = percent % 1
+    if (decimal == 0) {
+      return percent.toFixed(0)
+    }
+    return percent.toFixed(2)
+  }
+
   useEffect(() => {
     // sort all the responses by number of votes higher to lower
     const sortedChoices = props.results.voteResults.sort((a, b) => {
@@ -110,7 +135,7 @@ export const QuestionResults = (props: QuestionsResultsProps) => {
                         weight="bold"
                         color="dark-blue"
                       >
-                        {getStringPercent(getPercent(choice.votes, votesWeight))}%
+                        {getStringPercent(getPercent(choice.votes))}%
                       </Text>
                       <Text
                         size="sm"
@@ -122,7 +147,7 @@ export const QuestionResults = (props: QuestionsResultsProps) => {
                     </Col>
                     <Col xs={12} md={6}>
                       <StyledProgressBar
-                        value={getBarPercent(choice.votes, votesWeight)}
+                        value={getBarPercent(choice.votes)}
                         size={isMobile ? 'medium' : 'large'} style={{ background: colorsV2.neutral[100] }}
                         disabled={choice.votes.eq(0)}
                       />
@@ -135,7 +160,7 @@ export const QuestionResults = (props: QuestionsResultsProps) => {
                             weight="bold"
                             color="dark-blue"
                           >
-                            {getStringPercent(getPercent(choice.votes, votesWeight))}%
+                            {getStringPercent(getPercent(choice.votes))}%
                           </Text>
                         </Col>
                         <Col>
@@ -158,24 +183,7 @@ export const QuestionResults = (props: QuestionsResultsProps) => {
     </Card>
   )
 }
-const getBarPercent = (votes: BigNumber, totalVotes: BigNumber): number => {
-  if (votes.eq(0)) {
-    return 1.5
-  }
-  return getPercent(votes, totalVotes)
-}
-const getPercent = (votes: BigNumber, totalVotes: BigNumber): number => {
-  // used to avoid losing decimal precision
-  const ratio = votes.mul(10000)
-  return ratio.div(totalVotes).toNumber() /100
-}
-const getStringPercent = (percent: number): string => {
-  const decimal = percent % 1
-  if (decimal == 0) {
-    return percent.toFixed(0)
-  }
-  return percent.toFixed(2)
-}
+
 const getBarColor = (props: StyledProgressBarProps) => {
   if (props.disabled) {
     return '#52606D'
