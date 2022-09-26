@@ -48,4 +48,9 @@ const MarkdownWrapper = styled.div`
     font-size: 16px;
     font-weight: 500;
   }
+
+  & strong {
+    font-weight: bold;
+}
+
 `
