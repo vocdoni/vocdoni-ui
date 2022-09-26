@@ -6,14 +6,14 @@ export const TermsLayer2Ca = () => (
     <p>Se hace constar expresamente:</p>
     <p>
       1) Que en relación con la prestación del servicio de votación electrónica,
-      Aragon Labs únicamente trata ciertos datos de contacto de las entidades, en
+      Aragon únicamente trata ciertos datos de contacto de las entidades, en
       relación con los cuales adquiere la condición de responsable del
       tratamiento.{' '}
     </p>
     <p>
-    Aragon Labs no trata datos personales de los participantes en las votaciones
+    Aragon no trata datos personales de los participantes en las votaciones
       electrónicas. Dichos datos son tratados por la entidad que contrata el
-      servicio de votación electrónica con Aragon Labs, motivo por el cual la
+      servicio de votación electrónica con Aragon, motivo por el cual la
       ENTIDAD es el responsable del tratamiento de dichos datos, y queda
       obligado al cumplimiento de las obligaciones que pertoquen en tal
       condición.
@@ -36,7 +36,7 @@ export const TermsLayer2Ca = () => (
       o de investigación.
     </p>
     <p>
-      3) Aragon Labs recomienda que, atendiendo a la sensibilidad de la concreta
+      3) Aragon recomienda que, atendiendo a la sensibilidad de la concreta
       votación, el conjunto de atributos requeridos a los votantes no suponga
       una reidentificación de los mismos. En este sentido, no se permite
       solicitar como atributo el DNI en relación con una votación que afecte a

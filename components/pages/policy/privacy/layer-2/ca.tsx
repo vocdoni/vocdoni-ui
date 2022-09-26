@@ -12,7 +12,7 @@ export const PrivacyLayer2Ca = () => (
       componentes descentralizados como Ethereum, xDai, Tendermint e IIPFS.
     </p>
     <p>
-      Procedemos a continuación a informarle de cómo trata Aragon Labs sus datos
+      Procedemos a continuación a informarle de cómo trata Aragon sus datos
       personales.
     </p>
 
@@ -45,7 +45,7 @@ export const PrivacyLayer2Ca = () => (
     <p>
       Para poder prestar el servicio de votación a los solicitantes, así como
       para atender sus consultas, tramitar un alta en los boletines informativos
-      u otros formularios colgados en las páginas web de Aragon Labs, es necesario
+      u otros formularios colgados en las páginas web de Aragon, es necesario
       que facilite determinados datos.{' '}
     </p>
     <p>
@@ -62,29 +62,29 @@ export const PrivacyLayer2Ca = () => (
 
     <h3>Datos recabados de forma automatizada a través de cookies:</h3>
     <p>
-    Aragon Labs recaba, de forma automatizada a través de cookies, o dispositivos
+    Aragon recaba, de forma automatizada a través de cookies, o dispositivos
       de almacenamiento y recuperación de datos, datos sobre la navegación y uso
-      realizado por nuestros usuarios al acceder a la plataforma de Aragon Labs. En
+      realizado por nuestros usuarios al acceder a la plataforma de Aragon. En
       este caso, la información recabada se refiere a los datos de contexto.
     </p>
     <p>
       Para más información sobre este tratamiento, puede consultar la Política
-      de Cookies de <a href="">Aragon Labs</a>
+      de Cookies de <a href="">Aragon</a>
     </p>
 
     <h3>Datos de redes sociales:</h3>
     <p>
-    Aragon Labs no tiene acceso a los perfiles sociales de las personas o
+    Aragon no tiene acceso a los perfiles sociales de las personas o
       entidades.
     </p>
-    <p>Aragon Labs no interactúa publicando noticias sobre su actividad.</p>
+    <p>Aragon no interactúa publicando noticias sobre su actividad.</p>
 
     <h3>Datos de redes sociales:</h3>
-    <p>Aragon Labs no recopila datos de fuentes públicas.</p>
+    <p>Aragon no recopila datos de fuentes públicas.</p>
 
-    <h2>¿Por qué y para qué trata Aragon Labs los citados datos personales?</h2>
+    <h2>¿Por qué y para qué trata Aragon los citados datos personales?</h2>
 
-    <h2>¿Con quién comparte Aragon Labs esta información?</h2>
+    <h2>¿Con quién comparte Aragon esta información?</h2>
 
     <h2>Conservación de datos</h2>
 

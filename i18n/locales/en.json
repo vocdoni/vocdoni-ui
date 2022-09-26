@@ -209,7 +209,7 @@
             "view_in_explorer": "View in explorer"
         },
         "i_have_read_and_accept_personal_data": "(Optional) I give my express consent for the commercial, and service management",
-        "i_have_read_and_accept_terms": "I have read and accept “Personal Data Proteccion Information” (see above), and Aragon Labs “<1>Privacy Policy</1>”",
+        "i_have_read_and_accept_terms": "I have read and accept “Personal Data Proteccion Information” (see above), and Aragon Association “<1>Privacy Policy</1>”",
         "logo": "Entity logo",
         "logo_label": "It must be a .jpg, .jpeg or .png file (2mb max)*",
         "name": "Name of the entity*",

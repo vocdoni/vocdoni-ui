@@ -63,7 +63,7 @@ const CoookiesPage = () => {
         <p ></p>
         <p >ANALYTICAL COOKIES: Every time a User visits a Service, a tool from an external provider
           (Rudderstack) generates an analytical Cookie on the User's computer. This Cookie, which is only
-          generated during the visit, will serve in future visits to Aragonlabs.org to anonymously identify the visitor.
+          generated during the visit, will serve in future visits to Aragon.org to anonymously identify the visitor.
           The main objectives pursued are: Allow the anonymous identification of browsing Users through the
           &quot;Cookie&quot; (identifies browsers and devices, not people) and therefore the approximate count of the
           number of visitors and their trend over time. Anonymously identify the most visited content and therefore the
@@ -171,7 +171,7 @@ const CoookiesPage = () => {
           identified, keeping purchases in the &quot;shopping cart&quot; in an e-commerce Service, receiving information
           directed to their location or viewing some videos.</p>
         <p ></p>
-        <p >Aragon Labs may modify this Cookies Policy based on legislative and regulatory
+        <p >Aragon may modify this Cookies Policy based on legislative and regulatory
           requirements, or in order to adapt said policy to the instructions issued by the competent Data Protection
           Authority, therefore Users are advised to periodically visit this page to find out the changes suffered in them.
           When significant changes occur in this Cookies Policy, Users will be notified either through the web or via

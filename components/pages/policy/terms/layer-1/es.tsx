@@ -6,7 +6,7 @@ export const TermsLayer1Es = () => (
   <>
   <p>
     En cumplimiento de lo dispuesto por el Reglamento 2016/679, del Parlamento
-    Europeo y del Consejo, de 27 de abril de 2016 (RGPD), Aragon Labs, como
+    Europeo y del Consejo, de 27 de abril de 2016 (RGPD), Aragon, como
     responsable del tratamiento, le informa que sus datos personales son
     precisos para la prestación del servicio contratado, y que estos datos
     serán objeto de tratamiento, conforme a lo indicado en el registro de las
@@ -24,7 +24,7 @@ export const TermsLayer1Es = () => (
           <td>Los datos de carácter personal que se recaban directamente del
           solicitante del proceso de votación serán tratados de forma confidencial
           y quedarán incorporados a la correspondiente actividad de tratamiento
-      titularidad de Aragon Labs.</td>
+      titularidad de Aragon.</td>
         </tr>
         <tr>
           <td>Finalidad</td>
@@ -33,13 +33,13 @@ export const TermsLayer1Es = () => (
         <tr>
           <td>Legitimación</td>
           <td> <p>
-          La base legal para el tratamiento en relación con envío de información, asistencia y publicidad sobre productos y servicios de Aragon Labs, es el consentimiento a que se refiere el artículo 6.1.a) RGPD, y el artículo 7 RGPD.
+          La base legal para el tratamiento en relación con envío de información, asistencia y publicidad sobre productos y servicios de Aragon, es el consentimiento a que se refiere el artículo 6.1.a) RGPD, y el artículo 7 RGPD.
             </p>
           </td>
         </tr>
         <tr>
           <td>Destinatarios</td>
-          <td>- Aragon Labs comparte información personal con otras empresas de Aragon, dentro del grupo de la Aragon Association o con terceros proveedores de servicios que ayudan a Aragon Labs a prestar sus servicios. Esto puede incluir el intercambio de información con terceros contratistas, sujetos a obligaciones de confidencialidad, en relación con el tratamiento de la información personal del usuario para los fines descritos en esta Política, como, entre otros, los proveedores de servicios informáticos y de comunicaciones, los terceros relacionados con los servicios que presta Aragon Labs, incluidos los reguladores, las autoridades y las instituciones gubernamentales. Aragon Labs puede transferir información personal fuera de Europa. En esos casos, Aragon se asegurará de que la información esté protegida y se transfiera de forma coherente con los requisitos legales aplicables a la información. El interesado consiente que los datos sean compartidos entre Aragon Labs y la Aragon Association y otros socios de la Aragon Network que requieran los datos para el adecuado desempeño de sus funciones.</td>
+          <td>- Aragon comparte información personal con otras empresas de Aragon, dentro del grupo de la Aragon Association o con terceros proveedores de servicios que ayudan a Aragon a prestar sus servicios. Esto puede incluir el intercambio de información con terceros contratistas, sujetos a obligaciones de confidencialidad, en relación con el tratamiento de la información personal del usuario para los fines descritos en esta Política, como, entre otros, los proveedores de servicios informáticos y de comunicaciones, los terceros relacionados con los servicios que presta Aragon, incluidos los reguladores, las autoridades y las instituciones gubernamentales. Aragon puede transferir información personal fuera de Europa. En esos casos, Aragon se asegurará de que la información esté protegida y se transfiera de forma coherente con los requisitos legales aplicables a la información. El interesado consiente que los datos sean compartidos entre Aragon y la Aragon Association y otros socios de la Aragon Network que requieran los datos para el adecuado desempeño de sus funciones.</td>
         </tr>
         <tr>
           <td>Derechos</td>

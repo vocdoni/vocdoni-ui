@@ -23,12 +23,12 @@ const PageView = () => {
                     <br />
                     La base legal para el mantenimiento de relaciones
                     comerciales solicitantes del proceso de votación es el
-                    interés legítimo de Aragon Labs a que se refiere el artículo
+                    interés legítimo de Aragon a que se refiere el artículo
                     6.1.f) RGPD.
                     <br />
                     La base legal para el tratamiento en relación con envío de
                     información, publicidad, suscripción a boletín de noticias y
-                    la asistencia por Aragon Labs, es el consentimiento a que se
+                    la asistencia por Aragon, es el consentimiento a que se
                     refiere el artículo 6.1.a) RGPD, y el artículo 7 RGPD.
                   </td>
                 </tr>
@@ -43,7 +43,7 @@ const PageView = () => {
                 <tr>
                   <td>Categorías de interesados</td>
                   <td>
-                    Solicitantes del servicio de votación de Aragon Labs , y
+                    Solicitantes del servicio de votación de Aragon , y
                     entidades que deseen relacionarse.
                   </td>
                 </tr>
@@ -111,12 +111,12 @@ const PageView = () => {
                     {' '}
                     Las medidas de seguridad implantadas se encuentran descritas
                     en los documentos que conforman la documentación de Política
-                    de Seguridad de Aragon Labs en relación al concreto servicio.{' '}
+                    de Seguridad de Aragon en relación al concreto servicio.{' '}
                   </td>
                 </tr>
                 <tr>
                   <td> Entidad responsable </td>
-                  <td> Aragon Labs. </td>
+                  <td> Aragon. </td>
                 </tr>
               </tbody>
             </table>
@@ -134,9 +134,9 @@ const PageView = () => {
                   The legal basis for data processing is the execution of the contract referred to in article 6.1.b) GDPR.
 
                     <br />
-                    The legal basis for maintaining business relationships requesting the voting process is the legitimate interest of Aragon Labs referred to in article 6.1.f) GDPR.
+                    The legal basis for maintaining business relationships requesting the voting process is the legitimate interest of Aragon referred to in article 6.1.f) GDPR.
                     <br />
-                    The legal basis for the treatment in relation to sending information, advertising, subscription to newsletter and assistance by Aragon Labs, is the consent referred to in article 6.1.a) GDPR, and article 7 GDPR.
+                    The legal basis for the treatment in relation to sending information, advertising, subscription to newsletter and assistance by Aragon, is the consent referred to in article 6.1.a) GDPR, and article 7 GDPR.
                   </td>
                 </tr>
                 <tr>
@@ -145,7 +145,7 @@ const PageView = () => {
                 </tr>
                 <tr>
                   <td>Categories of interested parties </td>
-                  <td>Applicants for the Aragon Labs voting service, and entities that wish to be related.</td>
+                  <td>Applicants for the Aragon voting service, and entities that wish to be related.</td>
                 </tr>
                 <tr>
                   <td>Categories of personal data </td>
@@ -187,12 +187,12 @@ To attend inquiries, send advertising, and process a registration in the newslet
                   <td> Security Measures </td>
                   <td>
                     {' '}
-                    Themeasures implemented are described in the documents that make up the Aragon Labs Security Policy documentation in relation to the specific service.{' '}
+                    Themeasures implemented are described in the documents that make up the Aragon Security Policy documentation in relation to the specific service.{' '}
                   </td>
                 </tr>
                 <tr>
                   <td> Responsible entity </td>
-                  <td> Aragon Labs. </td>
+                  <td> Aragon. </td>
                 </tr>
               </tbody>
             </table>
