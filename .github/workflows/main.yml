@@ -295,8 +295,6 @@ jobs:
           EXPLORER_URL: 'https://azeno.explorer.vote'
           # ANALYTICS_KEY: '202ZI3WhmcYBnY1Bre6umCcmK9Y'
           # ANALYTICS_URL: 'https://rudderstack.aragon.org'
-          COLOR_PICKER: '0'
-          ADVANCED_CENSUS: '0'
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v0
         with:
