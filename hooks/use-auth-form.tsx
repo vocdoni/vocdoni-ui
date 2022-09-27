@@ -120,7 +120,7 @@ export const useAuthForm = () => {
         // Set the voter wallet recovered
         votingMethods.setAnonymousKey(anonymousKey)
         setWallet(voterWallet)
-        const encryptedAuthfield = Symmetric.encryptString(authFieldsData.join("/"), voterWallet.publicKey)
+        const encryptedAuthfield = Symmetric.encryptString(authFieldsData.join("/"), voterWallet.privateKey)
         // store auth data in local storage for disconnect banner
         localStorage.setItem('voterData', encryptedAuthfield)
 
@@ -144,7 +144,7 @@ export const useAuthForm = () => {
         setCensusProof(censusProof)
         // Set the voter wallet recovered
         setWallet(voterWallet)
-        const encryptedAuthfield = Symmetric.encryptString(authFieldsData.join("/"), voterWallet.publicKey)
+        const encryptedAuthfield = Symmetric.encryptString(authFieldsData.join("/"), voterWallet.privateKey)
         // store auth data in local storage for disconnect banner
         localStorage.setItem('voterData', encryptedAuthfield)
 

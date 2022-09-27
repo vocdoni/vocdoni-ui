@@ -155,7 +155,7 @@ export const VotingPageView = () => {
     if (wallet) {
       const voterData = localStorage.getItem('voterData')
       if (voterData) {
-        const decryptedVoterdata = Symmetric.decryptString(voterData, wallet.publicKey)
+        const decryptedVoterdata = Symmetric.decryptString(voterData, wallet.privateKey)
         const anonymizedVoterData = anonymizeStrings(decryptedVoterdata.split('/'))
         setAnonymousFormData(anonymizedVoterData.join(' / '))
       }
