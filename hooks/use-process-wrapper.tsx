@@ -259,8 +259,8 @@ export const UseProcessWrapperProvider = ({ children }: { children: ReactNode })
   const isAnonymous = processInfo?.state?.envelopeType?.anonymous
   const description = processInfo?.metadata?.description.default
   const liveStreamUrl = processInfo?.metadata?.media.streamUri
-  const discussionUrl = processInfo?.metadata?.meta[MetadataFields.DiscussionLink]
-  const attachmentUrl = processInfo?.metadata?.meta[MetadataFields.AttachmentLink]
+  const discussionUrl = processInfo?.metadata?.meta?.[MetadataFields.DiscussionLink]
+  const attachmentUrl = processInfo?.metadata?.meta?.[MetadataFields.AttachmentLink]
   const questions = processInfo?.metadata?.questions
   const votesWeight = VotingType.Weighted === votingType
     ? results?.totalWeightedVotes
