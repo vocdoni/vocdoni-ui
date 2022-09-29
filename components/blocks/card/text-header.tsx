@@ -11,7 +11,7 @@ interface CardTextHeader {
 }
 
 export const CardTextHeader = ({ title, subtitle }: CardTextHeader) => (
-  <PageCardHeader variant={PageCardHeaderVariant.Text}>
+  <PageCardHeader variant={PageCardHeaderVariant.Text} isHeaderExpanded={false}>
     <Typography variant={TypographyVariant.H1}>{title}</Typography>
     {subtitle && <Typography color={colors.accent1} margin='20px 0 0'>{subtitle}</Typography>}
   </PageCardHeader>

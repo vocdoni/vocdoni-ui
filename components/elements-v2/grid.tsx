@@ -135,10 +135,8 @@ function getRowMargin(props: IRowProps) {
       return 20
     case '3xl':
       return 24
-      case '4xl':
-        return 28
-        case '4xl':
-          return 28
+    case '4xl':
+      return 28
     default:
       return 4
   }

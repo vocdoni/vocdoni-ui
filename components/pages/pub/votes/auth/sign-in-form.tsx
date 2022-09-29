@@ -77,6 +77,7 @@ export const SignInForm = ({
         processImage={processInfo?.metadata?.media.header}
         subtitle={entity?.name.default}
         entityImage={entity?.media.avatar}
+        isHeaderExpanded={false}
       />
       <StyledFieldset disabled={checkingCredentials}>
         <Row gutter='xl'>
@@ -85,7 +86,7 @@ export const SignInForm = ({
             <Col xs={12}>
               <Row gutter='xs'>
                 <Col xs={12}>
-                  <Text size='lg' weight='bold' color='dark-blue'>
+                  <Text size='sm' weight='bold' color='dark-blue'>
                     {i18n.t('vote.auth.preregistration.title')}
                   </Text>
                 </Col>
@@ -105,7 +106,7 @@ export const SignInForm = ({
               }
             </Text>
           </Col>
-          <Col xs={12}>
+          <ColWithoutMarginTop xs={12}>
             <form onSubmit={handleSubmit}>
               <Row gutter='none'>
                 {fields.map((fieldName, i) =>
@@ -161,7 +162,7 @@ export const SignInForm = ({
                 </>
               }
             </Col>
-          </Col>
+          </ColWithoutMarginTop>
           <Col xs={12}>
             <Row align='center' justify='center' gutter='xl'>
               <Col xs={12} md={5} align='center' justify='center'>
@@ -185,6 +186,10 @@ export const SignInForm = ({
     </SignInFormCard>
   )
 }
+
+const ColWithoutMarginTop = styled(Col)`
+  margin-top: 0px !important;
+`
 
 const HiddenButton = styled.button`
   visibility: hidden;

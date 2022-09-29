@@ -18,7 +18,7 @@ export const AccountBackupPageCard = ({
   children,
 }: IBackupPageCardProps) => (
   <PageCard>
-    <PageCardHeader variant={PageCardHeaderVariant.Text}>
+    <PageCardHeader variant={PageCardHeaderVariant.Text} isHeaderExpanded={false}>
       <MainTitle>{title}</MainTitle>
 
       <MainDescription>{subtitle}</MainDescription>

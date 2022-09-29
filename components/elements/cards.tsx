@@ -47,12 +47,11 @@ export const SignInFormCard = styled(PageCard)`
   }
 `
 
-export const PageCardHeader = styled.div<{ variant?: PageCardHeaderVariant }>`
+export const PageCardHeader = styled.div<{ variant?: PageCardHeaderVariant, isHeaderExpanded?: boolean }>`
   margin: -32px -32px 20px;
-  max-height: 340px;
   border-radius: 16px 16px 0 0;
   overflow: hidden;
-  max-height: 250px;
+  max-height: ${({ isHeaderExpanded }) => isHeaderExpanded ? `250px` : '150px'};
 
   ${({ theme, variant }) =>
     PageCardHeaderVariantStyle[variant || PageCardHeaderVariant.Image](
