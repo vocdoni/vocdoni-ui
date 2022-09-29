@@ -30,6 +30,7 @@ export const ExpandableContainer = (props: ExpandableContainerProps) => {
       setHeight(element.scrollHeight)
     }
   })
+
   return (
     <Row gutter='xs'>
       <Col xs={12}>
