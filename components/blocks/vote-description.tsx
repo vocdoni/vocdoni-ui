@@ -68,6 +68,7 @@ export const VoteDescription = () => {
           }
         </Row>
       </Col>
+
       {/* DATE AND SETTINGS CARDS */}
       <Col xs={12}>
         {/* INSIDE ROW TO ADJUST GUTTER */}
