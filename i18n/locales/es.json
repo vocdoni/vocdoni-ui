@@ -761,6 +761,7 @@
             "by_activating_the_anonymous_voting_option": "Al activar la opción de voto anónimo, se aplicará lo siguiente:",
             "calendar": {
                 "subtitle": "Establezca cuándo y cómo desea que comience y finalice el proceso de votación:",
+                "subtitleAnonymous": "Votar de forma anónima requiere un paso adicional de preinscripción por parte de los votantes, que comenzará inmediatamente después de crear este proceso y durará hasta la fecha de inicio de la votación.",
                 "title": "Calendario"
             },
             "disclaimer": "Atención",

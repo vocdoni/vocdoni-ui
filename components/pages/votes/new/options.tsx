@@ -100,7 +100,7 @@ export const FormOptions = () => {
               <SectionTitle
                 title={i18n.t('votes.new.calendar.title')}
                 subtitle={i18n.t('votes.new.calendar.subtitle')}
-                index={2}
+                index={1}
               />
             </Col>
             <Col xs={12}>
