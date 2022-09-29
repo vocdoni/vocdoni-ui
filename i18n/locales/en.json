@@ -761,6 +761,7 @@
             "by_activating_the_anonymous_voting_option": "By activating the anonymous voting option, the following will be applied:",
             "calendar": {
                 "subtitle": "Set when and how you wish the voting process to start and end:",
+                "subtitleAnonymous": "Voting anonymously requires an extra step of pre-registration by the voters, which will begin immediately after you create this process and will last until the start date of the vote.",
                 "title": "Calendar"
             },
             "disclaimer": "Disclaimer",

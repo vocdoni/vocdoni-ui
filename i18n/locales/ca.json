@@ -761,6 +761,7 @@
             "by_activating_the_anonymous_voting_option": "En activar l'opció de vot anònim, s'aplicarà el següent:",
             "calendar": {
                 "subtitle": "Definiu quan i com voleu que comenci i finalitzi el procés de votació:",
+                "subtitleAnonymous": "La votació anònima requereix un pas addicional de preinscripció per part dels electors, que començarà immediatament després de crear aquest procés i durarà fins a la data d'inici de la votació.",
                 "title": "Calendari"
             },
             "disclaimer": "Atenció",

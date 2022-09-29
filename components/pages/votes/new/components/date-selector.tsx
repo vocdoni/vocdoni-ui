@@ -169,12 +169,19 @@ export const DateSelector = (props: IDateSelectorProps) => {
           </Row>
         </Col>
         {props.anonymousVoting &&
-          <Col xs={12}>
-            <PreregisterTimeline
-              startDate={startDate}
-              endDate={endDate}
-            />
-          </Col>
+          <>
+            <Col xs={12}>
+              <Text size='xs' color='light-gray'>
+                {i18n.t('votes.new.calendar.subtitleAnonymous')}
+              </Text>
+            </Col>
+            <Col xs={12}>
+              <PreregisterTimeline
+                startDate={startDate}
+                endDate={endDate}
+              />
+            </Col>
+          </>
         }
       </Row>
     </Card>
