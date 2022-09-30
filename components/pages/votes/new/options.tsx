@@ -107,6 +107,21 @@ export const FormOptions = () => {
               <DateSelector anonymousVoting={anonymousVoting} onChangeDate={handleChangeDate} />
             </Col>
           </Row>
+          {!valid() &&
+            <Row gutter='none'>
+              <Col xs={12}>
+                <ErrorText size='md' color='error'>
+                  {i18n.t('votes.new.errors.date')}:
+                  <ul>
+                    { !startDate && <li>   - {i18n.t('votes.new.errors.startDate')}</li> }
+                    { !endDate && <li>   - {i18n.t('votes.new.errors.endDate')}</li> }
+                    { startDate > endDate && <li>   - {i18n.t('votes.new.errors.minStartDate')}</li> }
+                    { invalidDate && <li>   - {i18n.t('votes.new.errors.10min')}</li> }
+                  </ul>
+                </ErrorText>
+              </Col>
+            </Row>
+          }
         </Col>
         {/* RESULTS AVAILABILITY */}
         <Col xs={12}>
@@ -128,21 +143,6 @@ export const FormOptions = () => {
             </Col>
           </Row>
         </Col>
-        <Row gutter='none'>
-          <Col xs={12}>
-            {!valid() &&
-              <ErrorText size='md' color='error'>
-                {i18n.t('votes.new.errors.date')}:
-                <ul>
-                  { !startDate && <li>   - {i18n.t('votes.new.errors.startDate')}</li> }
-                  { !endDate && <li>   - {i18n.t('votes.new.errors.endDate')}</li> }
-                  { startDate > endDate && <li>   - {i18n.t('votes.new.errors.minStartDate')}</li> }
-                  { invalidDate && <li>   - {i18n.t('votes.new.errors.10min')}</li> }
-                </ul>
-              </ErrorText>
-            }
-          </Col>
-        </Row>
         <Col xs={12}>
           <Row justify='space-between'>
             <Col xs={2}>
@@ -168,6 +168,7 @@ export const FormOptions = () => {
 const ErrorText = styled(Text)`
   font-size: 10px;
   margin-top: 20px;
+  margin-left: 42px;
 `
 
 const BottomDiv = styled.div`

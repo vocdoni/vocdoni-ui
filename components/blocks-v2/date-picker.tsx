@@ -17,7 +17,7 @@ export const DateTimePicker = (props: DateTimePickerProps) => {
   const [isFocused, setIsFocused] = useState(false)
   const { i18n } = useTranslation()
   return (
-    <StyledCard variant="outlined" isFocused={isFocused} diasbled={props.disabled} padding="6px 16px">
+    <StyledCard variant="outlined" isFocused={isFocused} diasbled={props.disabled} error={props.error} padding="6px 16px">
       <Row align="center" gutter="sm" wrap={false}>
         <StyledCol align="center" justify="center">
           <Icon name='calendar' size={16} color={props.disabled ? colorsV2.neutral[300] : theme.accent1} />
