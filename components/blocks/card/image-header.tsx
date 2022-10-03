@@ -41,7 +41,7 @@ export const CardImageHeader = ({
   return (
     <CardImageHeaderContainer>
       <PageCardHeader isHeaderExpanded={isHeaderExpanded}>
-          <Image src={headerImageSrc} alt={i18n.t('vote.vote_process_image_alt')} />
+          <img src={headerImageSrc} alt={i18n.t('vote.vote_process_image_alt')} />
       </PageCardHeader>
 
       <EntityLogoWrapper>
@@ -73,9 +73,10 @@ const CardImageHeaderContainer = styled.div``
 const CardH2 = styled(H2)`
   margin: 8px 0 8px 0;
   color: #0D4752;
-  font-size: 28px;
-  line-height: 32px;
-  font-weight: 600;
+  font-size: 32px;
+  line-height: 34px;
+  font-weight: 700;
+  text-align: center;
 
   @media ${({ theme }) => theme.screenMax.tabletL} {
     font-size: 26px;
@@ -96,6 +97,7 @@ const CardBody = styled(Body1)`
   font-size: 16px;
   font-weight: 400;
   color: #52606D;
+  text-align: center;
 
   @media ${({ theme }) => theme.screenMax.tablet} {
     font-size: 14px;

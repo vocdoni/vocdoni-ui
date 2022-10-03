@@ -58,7 +58,7 @@ export const VoteDescription = () => {
           {description &&
             <Col xs={12}>
               <ExpandableContainer
-                lines={5}
+                lines={10}
                 buttonText={i18n.t('vote.show_more')}
                 buttonExpandedText={i18n.t('vote.show_less')}
               >
