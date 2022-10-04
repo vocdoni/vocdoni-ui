@@ -100,6 +100,11 @@ export const FormCensus = () => {
   }
 
   const handleChangeVotingType = (votingType: VotingType) => {
+    if(votingType === VotingType.Weighted){
+      setTimeout(() => {
+        methods.setAnonymousVoting(false)
+      },10000)
+    }
     if (!spreadSheetReader) {
       methods.setVotingType(votingType)
     } else {
@@ -155,6 +160,11 @@ export const FormCensus = () => {
                       value={votingType}
                     />
                   </Col>
+                  {(votingType === VotingType.Weighted && anonymousVoting) &&
+                    <Col>
+                      <div>{i18n.t('votes.new.anonymous_weighted_warning_msg')}</div>
+                    </Col>
+                  }
                 </Row>
               </Col>
               {/* SELECT ANONYMOUS */}

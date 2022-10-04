@@ -693,8 +693,8 @@
         "stream_link": "Enlace del video streaming",
         "stream_link_explanation": "Si quieres emitir tu proceso en vivo puedes incluir un video streaming. Puede ser, por ejemplo, un stream de youtube.",
         "stream_link_label": "Este campo es opcional",
-        "submitting_vote": "",
-        "submitting_vote_msg": "",
+        "submitting_vote": "Tu voto está siendo enviado...",
+        "submitting_vote_msg": "Por favor, no cierres la ventana, esta acción puede durar unos minutos.",
         "surname": "Apellido",
         "tag_is_anonymous": "Anónima",
         "tag_is_normal": "Votación standard",
@@ -758,6 +758,7 @@
                 "• Los votantes deberán autenticarse con sus credenciales y contraseña una vez que deseen votar"
             ],
             "anonymous_voting": "Votación anónima",
+            "anonymous_weighted_warning_msg": "La votación anónima con voto ponderado aún no está disponible. Se ha desactivado automáticamente.",
             "by_activating_the_anonymous_voting_option": "Al activar la opción de voto anónimo, se aplicará lo siguiente:",
             "calendar": {
                 "subtitle": "Establezca cuándo y cómo desea que comience y finalice el proceso de votación:",
