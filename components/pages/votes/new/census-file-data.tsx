@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next'
 import { UploadFileButton } from './components/upload-new-document-button'
 import { Typography, TypographyVariant } from '@components/elements/typography'
 import { colors } from '@theme/colors'
+import { StoreCensusButton } from './components/store-census-button'
 
 interface ICensusFileDataProps {
   fileName: string
@@ -61,6 +62,7 @@ export const CensusFileData = ({
             />
           ))}
         </CensusFieldSummary>
+        <StoreCensusButton options={[]} value="value"/>
       </CensusFieldsContainer>
     </ConsensusFileDataContainer>
   )
