@@ -693,8 +693,8 @@
         "stream_link": "Enllaç de la retransmissió en directe",
         "stream_link_explanation": "Si fas una retransmissió en directe per internet (per exemple de l'Assemblea general), pots incloure'n l'adreça aquí. Pot ser, per exemple, un stream de Youtube.",
         "stream_link_label": "Aquest camp és opcional",
-        "submitting_vote": "",
-        "submitting_vote_msg": "",
+        "submitting_vote": "El teu vot s'està enviant...",
+        "submitting_vote_msg": "Si us plau, no tanquis la finestra, aquesta acció pot tardar uns minuts.",
         "surname": "Surname",
         "tag_is_anonymous": "Anònim",
         "tag_is_normal": "Standard",
@@ -758,6 +758,7 @@
                 "• Els votants hauran d'autenticar-se amb les seves credencials i contrasenya un cop vulguin votar"
             ],
             "anonymous_voting": "Votació anònima",
+            "anonymous_weighted_warning_msg": "La votació anònima amb votació ponderada encara no està disponible. S'ha desactivat automàticament.",
             "by_activating_the_anonymous_voting_option": "En activar l'opció de vot anònim, s'aplicarà el següent:",
             "calendar": {
                 "subtitle": "Definiu quan i com voleu que comenci i finalitzi el procés de votació:",

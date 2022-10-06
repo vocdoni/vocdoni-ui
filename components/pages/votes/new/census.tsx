@@ -36,6 +36,7 @@ export const FormCensus = () => {
   const [censusUriError, setCensusUriError] = useState<string>()
   const [showConfirmModal, setShowConfirmModal] = useState<boolean>(false)
   const [showAnonymous, setShowAnonymous] = useState<boolean>(false)
+  const [anonymousWeightedNotAllowed, setAnonymousWeightedNotAllowed] = useState<boolean>(false)
   const changeVotingTypeRef = useRef<VotingType>()
   const advancedCensusEnabled = !!process.env.ADVANCED_CENSUS || false
   const {
@@ -100,6 +101,15 @@ export const FormCensus = () => {
   }
 
   const handleChangeVotingType = (votingType: VotingType) => {
+    if(votingType === VotingType.Weighted && anonymousVoting){
+      setAnonymousWeightedNotAllowed(true)
+      methods.setAnonymousVoting(false)
+    }
+
+    if(votingType === VotingType.Normal){
+      setAnonymousWeightedNotAllowed(false)
+    }
+
     if (!spreadSheetReader) {
       methods.setVotingType(votingType)
     } else {
@@ -155,6 +165,11 @@ export const FormCensus = () => {
                       value={votingType}
                     />
                   </Col>
+                  {votingType === VotingType.Weighted && anonymousWeightedNotAllowed &&
+                    <Col>
+                      <div>{i18n.t('votes.new.anonymous_weighted_warning_msg')}</div>
+                    </Col>
+                  }
                 </Row>
               </Col>
               {/* SELECT ANONYMOUS */}

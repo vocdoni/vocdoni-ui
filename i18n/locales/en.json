@@ -266,7 +266,7 @@
         "the_vote_is_not_available_yet": "The vote is not available yet",
         "these_user_is_not_member_of_the_census": "These user is not member of the census",
         "wallet_not_available": "Wallet not available",
-        "we_cant_check_the_new_status_process": ""
+        "we_cant_check_the_new_status_process": "We cannot check the status of the new process"
     },
     "errors": {
         "cannot_connect_to_the_blockchain": "Cannot connect to the blockchain",
@@ -692,8 +692,8 @@
         "stream_link": "Video stream link",
         "stream_link_explanation": "If you are going to broadcast an event (an AGM, for instance) by streaming, you can include the link to the video here. It can be, for example, a Youtube stream.",
         "stream_link_label": "This field is optional",
-        "submitting_vote": "",
-        "submitting_vote_msg": "",
+        "submitting_vote": "Your vote is being submitted...",
+        "submitting_vote_msg": "Please don’t close the window, this action may take a few minutes.",
         "surname": "Surname",
         "tag_is_anonymous": "Anonymous",
         "tag_is_normal": "Normal voting",
@@ -722,7 +722,7 @@
         "verifying_creation": "Verifying creation",
         "view_in_explorer": "Verify Vote",
         "vote_count": "{{count}} votes",
-        "vote_count_plural": "",
+        "vote_count_plural": "{{count}} votes",
         "vote_now": "Vote now",
         "vote_process_image_alt": "Vote process image",
         "vote_submitted_image_alt": "Vote submitted image",
@@ -757,6 +757,7 @@
                 "• Voters will be required to then authenticate with their credentials and password once they wish to vote."
             ],
             "anonymous_voting": "Anonymous voting",
+            "anonymous_weighted_warning_msg": "Anonymous voting with weighted voting is not available yet. It has been automatically disabled.",
             "by_activating_the_anonymous_voting_option": "By activating the anonymous voting option, the following will be applied:",
             "calendar": {
                 "subtitle": "Set when and how you wish the voting process to start and end:",
@@ -797,7 +798,7 @@
                 "subtitle": "Select the voting type to be used on this process:",
                 "title": "Results Availability"
             },
-            "select_date_and_time": "",
+            "select_date_and_time": "Select the date and time",
             "select_voting_options": "Select voting options",
             "select_voting_type": "Select voting type",
             "set_different_power_to_each_voter": "Set different voting power to each voter",
