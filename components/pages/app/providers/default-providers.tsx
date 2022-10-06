@@ -13,6 +13,7 @@ import { UseWalletContextProvider } from '@hooks/use-wallet'
 import { UseBackendProvider } from '@hooks/backend'
 import { UseVotingProvider } from '@hooks/use-voting'
 import { UseDbAccountsProvider } from '@hooks/use-db-accounts'
+import { UseDbVotersProvider } from '@hooks/use-db-voters'
 import { UseRudderStackProvider } from '@hooks/rudderstack'
 import { UseCookiesProvider } from '@hooks/cookies'
 
@@ -49,13 +50,16 @@ export const DefaultProviders = ({ children }: IDefaultProvidersProps) => {
                   <UseBackendProvider>
                     <UseProcessProvider>
                       <UseProcessWrapperProvider>
-                        <UseVotingProvider>
+                        <UseDbVotersProvider>
+                          <UseVotingProvider>
                             <UseEntityProvider>
                               <UseDbAccountsProvider>
+
                                 {children}
                               </UseDbAccountsProvider>
                             </UseEntityProvider>
-                        </UseVotingProvider>
+                          </UseVotingProvider>
+                        </UseDbVotersProvider>
                       </UseProcessWrapperProvider>
                     </UseProcessProvider>
                   </UseBackendProvider>

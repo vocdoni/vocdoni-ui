@@ -23,7 +23,7 @@ export type ZKCensusPoof = {
 }
 
 
-export enum VotingType{
+export enum VotingType {
   Normal = ProcessCensusOrigin.OFF_CHAIN_TREE,
   Weighted = ProcessCensusOrigin.OFF_CHAIN_TREE_WEIGHTED,
   Anonymous = 3
@@ -47,6 +47,13 @@ export type Account = {
     metadata: EntityMetadata,
     email: string
   }
+}
+
+export type Voter = {
+  address: string,
+  processId: string,
+  loginData?: string,
+  encrAnonKey ?: string
 }
 
 // Shared types
