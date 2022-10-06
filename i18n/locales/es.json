@@ -761,6 +761,7 @@
             "by_activating_the_anonymous_voting_option": "Al activar la opción de voto anónimo, se aplicará lo siguiente:",
             "calendar": {
                 "subtitle": "Establezca cuándo y cómo desea que comience y finalice el proceso de votación:",
+                "subtitleAnonymous": "Votar de forma anónima requiere un paso adicional de preinscripción por parte de los votantes, que comenzará inmediatamente después de crear este proceso y durará hasta la fecha de inicio de la votación.",
                 "title": "Calendario"
             },
             "disclaimer": "Atención",
@@ -768,6 +769,13 @@
             "download_the_original_template_to_fill": "Descargue la plantilla original para completar con su lista de votantes",
             "end": "Final",
             "end_on_a_specific_date": "Terminar en una fecha específica",
+            "errors": {
+                "10min": "La fecha de inicio del proceso de votación debe empezar por lo menos 10 min. en el futuro.",
+                "date": "Las fechas de inicio y/o final no son válidas",
+                "endDate": "Selecciona una fecha de final.",
+                "minStartDate": "La fecha de inicio debe ser inferior a la final.",
+                "startDate": "Selecciona una fecha de inicio."
+            },
             "form_preview": "Vista previa del formulario",
             "i_understand_and_i_agree_to_the_terms_and_conditions": "Entiendo y acepto los <0>Términos y condiciones</0> para organizar los procesos de votación.",
             "if_change_the_type_of_vote_the_updated_census_will_be_lost": "Si cambia el tipo de voto, se perderá el censo actual cargado",

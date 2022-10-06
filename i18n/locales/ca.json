@@ -761,6 +761,7 @@
             "by_activating_the_anonymous_voting_option": "En activar l'opció de vot anònim, s'aplicarà el següent:",
             "calendar": {
                 "subtitle": "Definiu quan i com voleu que comenci i finalitzi el procés de votació:",
+                "subtitleAnonymous": "La votació anònima requereix un pas addicional de preinscripció per part dels electors, que començarà immediatament després de crear aquest procés i durarà fins a la data d'inici de la votació.",
                 "title": "Calendari"
             },
             "disclaimer": "Atenció",
@@ -768,6 +769,13 @@
             "download_the_original_template_to_fill": "Descarrega la plantilla original per omplir-la amb la teva llista de votants",
             "end": "Final",
             "end_on_a_specific_date": "Finalitzar en una data concreta",
+            "errors": {
+                "10min": "La data d'inici del procés de votació ha de començar com a mínim 10 min. en el futur.",
+                "date": "Les dates d'inici i/o final no son vàlides",
+                "endDate": "Selecciona una data de final.",
+                "minStartDate": "La data d'inici ha de ser inferior a la de final.",
+                "startDate": "Selecciona una data d'inici."
+            },
             "form_preview": "Vista prèvia del formulari",
             "i_understand_and_i_agree_to_the_terms_and_conditions": "Entenc i accepto els <0>Termes i condicions</0> per organitzar els processos de votació.",
             "if_change_the_type_of_vote_the_updated_census_will_be_lost": "Si canvieu el tipus de vot, es perdrà el cens actual penjat",

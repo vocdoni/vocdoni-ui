@@ -15,12 +15,14 @@ export const VoterFooter = () => {
 
   return (
     <FooterContainer>
-      <Row gutter='none'>
-        <Col xs={12}>
+      <CenterRow gutter='none' align='center'>
+        <Col xs='3'>
           <Typography variant={TypographyVariant.ExtraSmall} color={colors.lightText}>
             {i18n.t('app.footer.powered_by')}
           </Typography>
+        </Col>
 
+        <Col xs='5'>
           <VoterIconContainer>
             {theme.customLogo ? (
               <Image src={theme.customLogo} />
@@ -29,18 +31,22 @@ export const VoterFooter = () => {
             )}
           </VoterIconContainer>
         </Col>
-      </Row>
+      </CenterRow>
     </FooterContainer>
   )
 }
+
+const CenterRow = styled(Row)`
+  justify-content: center;
+`
 
 const FooterContainer = styled.div`
   flex-shrink: 0;
   align-items: center;
   justify-content: center;
-  padding-top:20px;
-  padding-bottom:20px;
   background-color: ${({ theme }) => theme.white};
+  display: flex;
+  padding: 30px 0px;
 `
 
 const VoterIconContainer = styled.div`

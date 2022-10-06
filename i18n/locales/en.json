@@ -209,7 +209,7 @@
             "view_in_explorer": "View in explorer"
         },
         "i_have_read_and_accept_personal_data": "(Optional) I give my express consent for the commercial, and service management",
-        "i_have_read_and_accept_terms": "I have read and accept “Personal Data Proteccion Information” (see above), and Aragon Association “<1>Privacy Policy</1>”",
+        "i_have_read_and_accept_terms": "I have read and accept “Personal Data Proteccion Information” (see above), and Aragon Labs “<1>Privacy Policy</1>”",
         "logo": "Entity logo",
         "logo_label": "It must be a .jpg, .jpeg or .png file (2mb max)*",
         "name": "Name of the entity*",
@@ -656,7 +656,6 @@
         "no_results_subtitle_end": "The results will be displayed only after the vote is closed.",
         "no_results_subtitle_live": "The results will be displayed once the vote is initiated.",
         "no_results_title": "Results are not available",
-        "no_votes_emitted": "No votes emmited",
         "option_n": "Option {{ number }}",
         "optional_field": "This field is optional",
         "paused_vote": "Paused vote",
@@ -768,6 +767,13 @@
             "download_the_original_template_to_fill": "Download the original template to fill with your list of voters",
             "end": "End",
             "end_on_a_specific_date": "End on a specific date",
+            "errors": {
+                "10min": "The start date of the voting process must start at least 10 min in the future.",
+                "date": "Invalid start and/or end dates",
+                "endDate": "Select an end date.",
+                "minStartDate": "The start date must be less than the end date.",
+                "startDate": "Select a start date."
+            },
             "form_preview": "Form preview",
             "i_understand_and_i_agree_to_the_terms_and_conditions": "I understand and agree to the <0>Terms and Conditions</0> for organizing voting processes.",
             "if_change_the_type_of_vote_the_updated_census_will_be_lost": "If you change the type of vote, the current uploaded census will be lost",
