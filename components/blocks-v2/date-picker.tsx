@@ -10,14 +10,19 @@ import styled from "styled-components"
 
 interface StyledRowProps {
   isFocused?: boolean
-  diasbled?: boolean
+  disabled?: boolean
   error?: boolean
 }
-export const DateTimePicker = (props: DateTimePickerProps) => {
+
+interface CardDateTimePickerProps extends DateTimePickerProps {
+  cardError?: boolean
+}
+
+export const DateTimePicker = (props: CardDateTimePickerProps) => {
   const [isFocused, setIsFocused] = useState(false)
   const { i18n } = useTranslation()
   return (
-    <StyledCard variant="outlined" isFocused={isFocused} diasbled={props.disabled} error={props.error} padding="6px 16px">
+    <StyledCard variant="outlined" isFocused={isFocused} disabled={props.disabled} error={props.cardError} padding="6px 16px">
       <Row align="center" gutter="sm" wrap={false}>
         <StyledCol align="center" justify="center">
           <Icon name='calendar' size={16} color={props.disabled ? colorsV2.neutral[300] : theme.accent1} />
@@ -40,7 +45,7 @@ const getBorder = (props: StyledRowProps) => {
   if (props.isFocused) {
     return `2px solid ${theme.accent1}`
   }
-  if (props.diasbled) {
+  if (props.disabled) {
     return `2px solid ${colorsV2.neutral[200]}`
   }
   if (props.error) {
@@ -49,7 +54,7 @@ const getBorder = (props: StyledRowProps) => {
   return `2px solid ${colorsV2.neutral[200]}`
 }
 const getBackground = (props: StyledRowProps) => {
-  if (props.diasbled) {
+  if (props.disabled) {
     return colorsV2.neutral[50]
   }
   return colorsV2.neutral[0]

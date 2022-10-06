@@ -125,7 +125,7 @@ export const DateSelector = (props: IDateSelectorProps) => {
                     <DateTimePicker
                       value={startDate}
                       placeholder={i18n.t("votes.new.select_date_and_time")}
-                      error={invalidStartDate}
+                      cardError={invalidStartDate}
                       minDate={addOffsetToDate(new Date(), 0, 0, MIN_DELAY_TIME)}
                       onChange={(value) => setStartDate(value)}
                       disabled={startOption === StartOptions.Inmediatly}
