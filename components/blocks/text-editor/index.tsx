@@ -35,7 +35,8 @@ export const TextEditor = ({ onChange, content, markdown, deps }: TextEditorProp
     content,
     onUpdate: function ({ editor })  {
       if (markdown) {
-        onChange(turndownService.current.turndown(editor.getHTML()))
+        //onChange(turndownService.current.turndown(editor.getHTML()))
+        onChange(editor.getHTML())
       } else {
         onChange(sanitizeHtml(editor.getHTML()));
       }

@@ -4,8 +4,8 @@ import MarkDownIt from 'markdown-it'
 
 export const MarkDownViewer = ({ content }) => {
   const wrapperRef = React.useRef(null)
-  const md = new MarkDownIt()
-  const html = md.render(content || '')
+  // const md = new MarkDownIt()
+  // const html = md.render(content || '')
 
   const handleClickEvent = (event) => {
     if (event.target.tagName === 'A') {
@@ -21,7 +21,7 @@ export const MarkDownViewer = ({ content }) => {
     }
   }, [])
 
-  return (<MarkdownWrapper dangerouslySetInnerHTML={{ __html: html }} ref={wrapperRef}></MarkdownWrapper>)
+  return (<MarkdownWrapper dangerouslySetInnerHTML={{ __html: content }} ref={wrapperRef}></MarkdownWrapper>)
 }
 
 // & p {
