@@ -10,21 +10,24 @@ import {
   CensusOnChainApi,
   Poseidon,
   Symmetric,
+  VochainProcessStatus
 } from 'dvote-js'
 import { PREREGISTER_PATH, VOTING_PATH } from '../const/routes'
 import i18n from '../i18n'
-import { digestedWalletFromString, importedRowToString } from '../lib/util'
+import { digestedWalletFromString, importedRowToString, calculateAnonymousKey } from '../lib/util'
 import { useMessageAlert } from './message-alert'
 import { useUrlHash } from 'use-url-hash'
 import { useWallet, WalletRoles } from './use-wallet'
 import { utils } from 'ethers'
-import { CensusPoof, ZKCensusPoof } from '@lib/types'
+import { CensusPoof, Voter, ZKCensusPoof } from '@lib/types'
 import { useSetRecoilState } from 'recoil'
 import { censusProofState } from '@recoil/atoms/census-proof'
 import { ZKcensusProofState } from '@recoil/atoms/zk-census-proof'
 import { Wallet } from '@ethersproject/wallet'
 import { useVoting } from '@hooks/use-voting'
 import { walletState } from '@recoil/atoms/wallet'
+import { useDbVoters } from './use-db-voters'
+import { InvalidIncognitoModeError } from '@lib/validators/errors/invalid-incognito-mode-error'
 
 // CONTEXT
 
@@ -38,7 +41,8 @@ type IAuthForm = {
   authFields: string[],
   formValues: { [k: string]: string },
   secretKey: string,
-  invalidCredentials: boolean
+  invalidCredentials: boolean,
+  shouldRedirect: boolean
 
   methods: {
     setFormValue: (key: string, value: string) => void,
@@ -62,15 +66,17 @@ export const useAuthForm = () => {
   // check if process started
   // if the process is archived => current time greater thant process start date
   // else use start block
-  const processStarted = blockHeight >= processInfo?.state?.startBlock
+  const processStarted = processInfo?.state.status >= VochainProcessStatus.READY && blockHeight >= processInfo?.state?.startBlock
   const userRequirePreregister = processInfo?.state?.processMode?.preRegister && !processStarted
-  const requireSecretKey = processInfo?.state?.processMode?.preRegister && processStarted
+  const anonymousProcess = processInfo?.state?.envelopeType?.anonymous || false
   const { setAlertMessage } = useMessageAlert()
   const [formValues, setFormValues] = useState<{ [k: string]: string }>({})
   const [invalidCredentials, setInvalidCredentials] = useState(false)
   const [authFields, setAuthFields] = useState<string[]>([])
   const [secretKey, setSecretKey] = useState<string>()
   const { methods: votingMethods } = useVoting(processId)
+  const { addVoter, updateVoter, getVoter } = useDbVoters()
+  const [shouldRedirect, setShouldRedirect] = useState<boolean>(false)
 
   const fieldNames: string[] = processInfo?.metadata?.meta?.formFieldTitles || []
 
@@ -85,7 +91,6 @@ export const useAuthForm = () => {
     newValue[key] = value
     setFormValues(newValue)
   }
-
 
   const onLogin = (): Promise<void | number> => {
     let authFieldsData: string[] = []
@@ -103,18 +108,33 @@ export const useAuthForm = () => {
     setAuthFields(authFieldsData)
 
     const voterWallet = walletFromAuthData(authFieldsData, entityId)
+    let voter = getVoter(voterWallet.address, processInfo.id)
+
     // if voting is anonymous
-    if (requireSecretKey) {
+    if (anonymousProcess) {
+      if (!processStarted) {
+        // Anonymous and process has not started and there is no info of preregistration
+        // Follow the standardflow to reach the preregister page
+        return standardAuthFormHandler(voterWallet, authFieldsData, voter)
+      }
+      // Anonymous and Process has started and there is no info of preregistration
+      // The user should provide the process key from the form
       // if is anonymous and the key field is empty return
-      if (secretKey.length == 0) {
-        setAlertMessage(i18n.t("errors.please_fill_in_all_the_fields"))
+      if ((!secretKey || secretKey.length == 0) && (!voter || (voter && !voter.encrAnonKey))) {
+        setAlertMessage(i18n.t("errors.the_contents_you_entered_may_be_incorrect"))
         return Promise.resolve()
       }
 
+      // recvoer secretKey
+      if (!secretKey || secretKey.length == 0) {
+        // voter has preregistered and a user entry of this exists in the IndexedDB
+        console.log("secretKey empty: ", secretKey)
+        setSecretKey(Symmetric.decryptString(voter.encrAnonKey, voterWallet.privateKey))
+      }
       const anonymousKey = calculateAnonymousKey(voterWallet.privateKey, secretKey, processInfo?.state?.entityId)
       return poolPromise.then(pool =>
         CensusOnChainApi.generateProof(processInfo?.state?.rollingCensusRoot, anonymousKey, pool)
-      ).then(anonymousProof => {
+      ).then(async anonymousProof => {
         if (!anonymousProof) throw new Error("Invalid census proof")
         setZKCensusProof(anonymousProof)
         // Set the voter wallet recovered
@@ -123,6 +143,29 @@ export const useAuthForm = () => {
         const encryptedAuthfield = Symmetric.encryptString(authFieldsData.join("/"), voterWallet.privateKey)
         // store auth data in local storage for disconnect banner
         localStorage.setItem('voterData', encryptedAuthfield)
+        try {
+          if (!voter) {
+            await addVoter({
+              address: voterWallet.address,
+              processId: processId,
+              loginData: encryptedAuthfield,
+              encrAnonKey: secretKey,
+            })
+          } else if (voter && !voter.encrAnonKey) {
+            await updateVoter({
+              address: voterWallet.address,
+              processId: processId,
+              loginData: encryptedAuthfield,
+              encrAnonKey: secretKey,
+            })
+          }
+        } catch (error) {
+          if (error?.message?.indexOf?.("mutation") >= 0) { // if is incognito mode throw these error
+            throw new InvalidIncognitoModeError()
+          }
+          throw new Error(error)
+        }
+
 
         if (userRequirePreregister) {
           router.push(PREREGISTER_PATH + "#/" + processInfo?.id)
@@ -133,42 +176,60 @@ export const useAuthForm = () => {
         setAlertMessage(i18n.t("errors.the_contents_you_entered_may_be_incorrect"))
       })
     } else {
-      // calculate plain census claim, perform generateProof and redirect
-      // according to anonymous o plain census
-      const digestedHexClaim = CensusOffChain.Public.encodePublicKey(voterWallet.publicKey)
-
-      return poolPromise.then(pool =>
-        CensusOffChainApi.generateProof(processInfo.state?.censusRoot, { key: digestedHexClaim }, pool)
-      ).then(censusProof => {
-        if (!censusProof) throw new Error("Invalid census proof")
-        setCensusProof(censusProof)
-        // Set the voter wallet recovered
-        setWallet(voterWallet)
-        const encryptedAuthfield = Symmetric.encryptString(authFieldsData.join("/"), voterWallet.privateKey)
-        // store auth data in local storage for disconnect banner
-        localStorage.setItem('voterData', encryptedAuthfield)
-
-        if (userRequirePreregister) {
-          router.push(PREREGISTER_PATH + "#/" + processInfo?.id)
-        } else {
-          router.push(VOTING_PATH + "#/" + processInfo?.id)
-        }
-      }).catch(err => {
-        setInvalidCredentials(true)
-        setAlertMessage(i18n.t("errors.the_contents_you_entered_may_be_incorrect"))
-      })
+      return standardAuthFormHandler(voterWallet, authFieldsData, voter)
     }
   }
+
+  const standardAuthFormHandler = (voterWallet: Wallet, authFieldsData: string[], voter: Voter) => {
+    // calculate plain census claim, perform generateProof and redirect
+    // according to anonymous o plain census
+    const digestedHexClaim = CensusOffChain.Public.encodePublicKey(voterWallet.publicKey)
+
+    return poolPromise.then(pool =>
+      CensusOffChainApi.generateProof(processInfo.state?.censusRoot, { key: digestedHexClaim }, pool)
+    ).then(async censusProof => {
+      if (!censusProof) throw new Error("Invalid census proof")
+      if (userRequirePreregister && !processStarted && voter && voter.encrAnonKey) {
+        setShouldRedirect(true)
+        return
+      }
+      setCensusProof(censusProof)
+      // Set the voter wallet recovered
+      setWallet(voterWallet)
+      const encryptedAuthfield = Symmetric.encryptString(authFieldsData.join("/"), voterWallet.privateKey)
+      // store auth data in local storage for disconnect banner
+      localStorage.setItem('voterData', encryptedAuthfield)
+      if (!voter) {
+        try {
+          await addVoter({
+            address: voterWallet.address,
+            processId: processInfo.id,
+            loginData: encryptedAuthfield,
+          })
+        } catch (error) {
+          if (error?.message?.indexOf?.("mutation") >= 0) { // if is incognito mode throw these error
+            throw new InvalidIncognitoModeError()
+          }
+          throw new Error(error)
+        }
+      }
+
+
+      if (userRequirePreregister) {
+        router.push(PREREGISTER_PATH + "#/" + processInfo?.id)
+      } else {
+        router.push(VOTING_PATH + "#/" + processInfo?.id)
+      }
+    }).catch(err => {
+      setInvalidCredentials(true)
+      setAlertMessage(i18n.t("errors.the_contents_you_entered_may_be_incorrect"))
+    })
+  }
+
   const walletFromAuthData = (authFieldsData: string[], entityId: string): Wallet => {
     authFieldsData = authFieldsData.map(x => normalizeText(x))
     const strPayload = importedRowToString(authFieldsData, entityId)
     return digestedWalletFromString(strPayload)
-  }
-
-
-
-  const calculateAnonymousKey = (privKey: string, password: string, entityId): bigint => {
-    return bufferToBigInt(Buffer.from(importedRowToString([password, privKey], entityId), "utf-8")) % Poseidon.Q
   }
 
   const emptyFields = !formValues || Object.values(formValues).some(v => !v)
@@ -184,6 +245,7 @@ export const useAuthForm = () => {
     formValues,
     authFields,
     secretKey,
+    shouldRedirect,
 
     methods: {
 

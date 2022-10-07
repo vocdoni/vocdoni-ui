@@ -1,4 +1,4 @@
-import { VochainProcessStatus as ProcessStatus } from 'dvote-js'
+import { VochainProcessStatus as ProcessStatus, bufferToBigInt, Poseidon } from 'dvote-js'
 import { ethers, Wallet } from 'ethers'
 import i18n from '../i18n'
 import { GlobalWindowNoDefinedError } from './validators/errors/global-window-no-defined-error';
@@ -71,6 +71,10 @@ export const digestedWalletFromString = (data: string): Wallet => {
   const bytes = ethers.utils.toUtf8Bytes(data)
   const hashed = ethers.utils.keccak256(bytes)
   return new ethers.Wallet(hashed)
+}
+
+export const calculateAnonymousKey = (privKey: string, password: string, entityId): bigint => {
+  return bufferToBigInt(Buffer.from(importedRowToString([password, privKey], entityId), "utf-8")) % Poseidon.Q
 }
 
 /** Waits for a Vochain block, multiplied by the given factor (by default, 1) */
