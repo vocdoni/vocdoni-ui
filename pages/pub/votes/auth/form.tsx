@@ -17,9 +17,6 @@ import { LayoutVoter } from '@components/pages/app/layout-v2/voter'
 import { MetadataFields } from '@components/pages/votes/new/metadata'
 import { useVoting } from '@hooks/use-voting'
 
-import { useRouter } from 'next/router'
-import { PREREGISTER_PATH, VOTING_PATH } from '@const/routes'
-import { VotingType } from '@lib/types'
 // NOTE: This page uses a custom Layout. See below.
 
 const VoteAuthLogin = () => {
@@ -34,6 +31,7 @@ const VoteAuthLogin = () => {
     formValues,
     processInfo,
     secretKey,
+    shouldRedirect,
     methods,
     invalidCredentials,
   } = useAuthForm()
@@ -121,6 +119,7 @@ const VoteAuthLogin = () => {
           onSubmit={handleSubmit}
           submitEnabled={!emptyFields}
           invalidCredentials={invalidCredentials}
+          shouldRedirect={shouldRedirect}
         />
       </div>
     )

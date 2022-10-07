@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react'
+import React, { ChangeEvent, useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { ProcessDetails, EntityMetadata } from 'dvote-js'
 import { useTranslation } from 'react-i18next'
@@ -22,6 +22,13 @@ import { useUrlHash } from "use-url-hash"
 import { VoteStatus } from '@lib/util'
 import moment from 'moment'
 import { Icon } from '@components/elements-v2/icons'
+import { PreregisteredRedirectModal } from '@components/pages/pub/votes/components/preregistered-redirect-modal'
+import { useWallet, WalletRoles } from '@hooks/use-wallet'
+import { useVoting } from '@hooks/use-voting'
+import { useRouter } from 'next/router'
+import { PROCESS_PATH } from '@const/routes'
+import RouterService from '@lib/router'
+
 
 interface IFieldValues {
   [field: string]: string
@@ -34,6 +41,7 @@ interface IFormProps {
   submitEnabled?: boolean
   checkingCredentials?: boolean
   invalidCredentials?: boolean
+  shouldRedirect?: boolean
   processInfo: ProcessDetails
   entity: EntityMetadata
   onChange: (field: string, value) => void
@@ -53,22 +61,41 @@ export const SignInForm = ({
   invalidCredentials,
   onSubmit,
   onChange,
+  shouldRedirect,
 }: IFormProps) => {
   const { i18n } = useTranslation()
-  const [sameInput, setSameInput] = useState(false)
-  const showError = sameInput && invalidCredentials
   const processId = useUrlHash().slice(1)
   const { isAnonymous, status, startDate } = useProcessWrapper(processId)
+  const { methods: votingMethods } = useVoting(processId)
+  const router = useRouter()
+
+  const [sameInput, setSameInput] = useState(false)
+  const showError = sameInput && invalidCredentials
   const showPreregisterTitle = isAnonymous && status === VoteStatus.Upcoming
   const showPasswordInput = isAnonymous && (status === VoteStatus.Active || status === VoteStatus.Ended)
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault()
     onSubmit()
   }
+  const [isRedirectModalOpen, setIsRedirectModalOpen] = useState<boolean>(false)
+  const { setWallet } = useWallet({ role: WalletRoles.VOTER })
 
   const { blockHeight } = useBlockHeight()
   const processStarted = blockHeight >= processInfo?.state?.startBlock
 
+
+  useEffect(() => {
+    if (shouldRedirect) {
+      setIsRedirectModalOpen(true)
+    }
+  }, [shouldRedirect])
+
+  const handleCloseRedirectModal = () => {
+    setIsRedirectModalOpen(false)
+    setWallet(null)
+    votingMethods.cleanup()
+    router.push(RouterService.instance.get(PROCESS_PATH, { processId:processInfo?.id }))
+  }
 
   return (
     <SignInFormCard>
@@ -182,6 +209,12 @@ export const SignInForm = ({
             </Row>
           </Col>
         </Row>
+        {/* REDIRECT MODAL */}
+        <PreregisteredRedirectModal
+            isOpen={isRedirectModalOpen}
+            processStartDate={moment(startDate).locale(i18n.language).format('l')}
+            onClose={handleCloseRedirectModal}
+        />
       </StyledFieldset>
     </SignInFormCard>
   )
@@ -201,7 +234,7 @@ const StyledFieldset = styled.fieldset`
   border: none;
   margin: auto;
 
-  @media ${({theme}) => theme.screenMax.mobileL} {
+  @media ${({ theme }) => theme.screenMax.mobileL} {
     margin-left:-10px;
   }
 `
@@ -229,7 +262,7 @@ const ErrorIcon = styled.div`
   float:left;
   margin-left:-10px;
   padding-top: 10px;
-  @media ${({theme}) => theme.screenMax.mobileL} {
+  @media ${({ theme }) => theme.screenMax.mobileL} {
     svg {
       margin-top: 8px;
     }

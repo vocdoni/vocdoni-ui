@@ -10,7 +10,7 @@ import { Loader } from '@components/blocks/loader'
 import { preregisterProofState } from '@recoil/atoms/preregister-proof'
 import { CensusPoof } from '@lib/types'
 import { censusProofState } from '@recoil/atoms/census-proof'
-import { CensusOnChainApi, Voting, VotingApi } from 'dvote-js'
+import { CensusOnChainApi, Voting, VotingApi, Symmetric } from 'dvote-js'
 import { ProcessCensusOrigin } from 'dvote-solidity/build/data-wrappers'
 import { IProofArbo } from '@vocdoni/data-models'
 import { useWallet, WalletRoles } from '@hooks/use-wallet'
@@ -22,6 +22,8 @@ import { VOTING_PATH } from '@const/routes'
 import { useRouter } from 'next/router'
 import { parseDate } from '@lib/date'
 import moment from 'moment'
+import { useDbVoters } from '@hooks/use-db-voters'
+import { InvalidIncognitoModeError } from '@lib/validators/errors/invalid-incognito-mode-error'
 
 const PreregisterPage = () => {
   const [data, setData] = useState<IPreregisterData>({
@@ -40,18 +42,21 @@ const PreregisterPage = () => {
     process?.state?.entityId
   )
   const { blockStatus } = useBlockStatus()
-  const processStartDate = VotingApi.estimateDateAtBlockSync(
+  const processStartDate = (process?.state?.startBlock) ? VotingApi.estimateDateAtBlockSync(
     process?.state?.startBlock,
     blockStatus
-  )
+  ) : null
   let parsedStartDate
   if (processStartDate) {
-      let momentDate = moment(processStartDate).locale('es').format("MMM DD - YYYY (HH:mm)")
-      parsedStartDate =  momentDate.charAt(0).toUpperCase() + momentDate.slice(1)
+    let momentDate = moment(processStartDate).locale('es').format("MMM DD - YYYY (HH:mm)")
+    parsedStartDate = momentDate.charAt(0).toUpperCase() + momentDate.slice(1)
   }
 
   const useCensusProof = useRecoilState<CensusPoof>(censusProofState)
   const { setAlertMessage } = useMessageAlert()
+
+  const { addOrUpdateVoter, getVoter } = useDbVoters()
+
 
   useEffect(() => {
     if (!wallet) {
@@ -70,9 +75,24 @@ const PreregisterPage = () => {
 
     const plainKey = data[PreregisterFormFields.PasswordConfirm]
     const secretKey = methods.calculateAnonymousKey(wallet.privateKey, plainKey, process?.state?.entityId)
+    const encrAnonKey = Symmetric.encryptString(plainKey, wallet.privateKey)
 
     await CensusOnChainApi.registerVoterKey(processId, proof, secretKey, BigInt(1), wallet, pool)
-      .then(response => setPreregisterSent(true))
+      .then(async response => {
+        try {
+          await addOrUpdateVoter({
+            address: wallet.address,
+            processId: processId,
+            encrAnonKey: encrAnonKey,
+          })
+          setPreregisterSent(true)
+        } catch (error) {
+          if (error?.message?.indexOf?.("mutation") >= 0) { // if is incognito mode throw these error
+            throw new InvalidIncognitoModeError()
+          }
+          throw new Error(error)
+        }
+      })
       .catch((err) => {
         console.log(err)
         // Asume the error happens because it is already registered
