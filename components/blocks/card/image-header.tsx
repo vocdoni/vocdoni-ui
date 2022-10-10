@@ -41,7 +41,11 @@ export const CardImageHeader = ({
   return (
     <CardImageHeaderContainer>
       <PageCardHeader isHeaderExpanded={isHeaderExpanded}>
-          <img src={headerImageSrc} alt={i18n.t('vote.vote_process_image_alt')} />
+          { headerImageSrc === FALLBACK_VOTE_HEADER_IMAGE  ?
+            <img src={headerImageSrc} alt={i18n.t('vote.vote_process_image_alt')} />
+          :
+            <Image src={headerImageSrc} alt={i18n.t('vote.vote_process_image_alt')} />
+          }
       </PageCardHeader>
 
       <EntityLogoWrapper>

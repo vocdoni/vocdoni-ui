@@ -309,6 +309,7 @@
         "the_vote_has_not_been_registered": "El vot no ha estat registrat",
         "there_is_already_one_account_with_the_same_credentials": "Ja hi ha un altre compte amb aquestes credencials",
         "there_is_already_one_account_with_the_same_name": "Ja hi ha un altre compte amb aquest mateix nom",
+        "there_is_already_one_voter_with_the_same_name": "Un votant amb aquestes credencials ja ha estat registrat.",
         "update_entity_data_error": "Error d'actualització de les dades de l'entitat",
         "voter_key_already_registered": "La contrasenya ja ha estat registrada",
         "you_are_not_part_of_the_census": "No formes part del cens",
@@ -580,6 +581,7 @@
         "add_option": "Afegeix una altra opció",
         "auth": {
             "auth_button": "Autenticar-se",
+            "close_preregister_redirect_modal": "Anar a la pàgina de votació",
             "disconnect_button": "Desconnectar-se",
             "if_you_voted": "Si heu votat, heu d'autenticar-vos per revisar el vostre vot",
             "insert_your": "Inseriu el vostre {{ camp }}",
@@ -589,6 +591,9 @@
             "not_authenticated": "No estàs autenticat!",
             "not_preregistered": "Cal inscripció prèvia",
             "preregister_button": "Preinscripció",
+            "preregister_redirect_dialog": {
+                "title": "Votant ja pre-registrat"
+            },
             "preregistration": {
                 "subtitle": "Es necessari el preregistre per poder participar de manera anònima quan s'iniciï el procés de votació ({{data}})",
                 "title": "Preinscripció"
