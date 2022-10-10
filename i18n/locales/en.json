@@ -309,6 +309,7 @@
         "the_vote_has_not_been_registered": "The vote has not been registered",
         "there_is_already_one_account_with_the_same_credentials": "There is already one account with the same credentials",
         "there_is_already_one_account_with_the_same_name": "There is already one account with the same name",
+        "there_is_already_one_voter_with_the_same_name": "A voter with these credentials has already been registered.",
         "update_entity_data_error": "Update entity data error",
         "voter_key_already_registered": "The password has already been set",
         "you_are_not_part_of_the_census": "You are not part of the census",
@@ -580,6 +581,7 @@
         "add_option": "Add an option",
         "auth": {
             "auth_button": "Authenticate",
+            "close_preregister_redirect_modal": "Go to voting process",
             "disconnect_button": "Disconnect",
             "if_you_voted": "If you voted, you need to authenticate to review your vote",
             "insert_your": "Insert you {{ field }}",
@@ -589,6 +591,9 @@
             "not_authenticated": "You are not authenticated!",
             "not_preregistered": "Pre-registration required",
             "preregister_button": "Pre-register",
+            "preregister_redirect_dialog": {
+                "title": "Voter already pre-registered"
+            },
             "preregistration": {
                 "subtitle": "This is a pre-registration that is required in order to participate anonymously when the voting process starts ({{date}}).",
                 "title": "Pre-registration"
@@ -656,6 +661,7 @@
         "no_results_subtitle_end": "The results will be displayed only after the vote is closed.",
         "no_results_subtitle_live": "The results will be displayed once the vote is initiated.",
         "no_results_title": "Results are not available",
+        "no_votes_emitted": "",
         "option_n": "Option {{ number }}",
         "optional_field": "This field is optional",
         "paused_vote": "Paused vote",
@@ -761,6 +767,7 @@
             "by_activating_the_anonymous_voting_option": "By activating the anonymous voting option, the following will be applied:",
             "calendar": {
                 "subtitle": "Set when and how you wish the voting process to start and end:",
+                "subtitleAnonymous": "",
                 "title": "Calendar"
             },
             "disclaimer": "Disclaimer",

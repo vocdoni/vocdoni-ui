@@ -309,6 +309,7 @@
         "the_vote_has_not_been_registered": "El voto no ha sido registrado",
         "there_is_already_one_account_with_the_same_credentials": "Ya hay otra cuenta con estas credenciales",
         "there_is_already_one_account_with_the_same_name": "Ya hay otra cuenta con este nombre",
+        "there_is_already_one_voter_with_the_same_name": "Un votante con estas credenciales ya ha sido registrado.",
         "update_entity_data_error": "Error actualizando los datos",
         "voter_key_already_registered": "La contraseña ya ha sido registrada.",
         "you_are_not_part_of_the_census": "No formas parte del censo",
@@ -580,6 +581,7 @@
         "add_option": "Añade más opciones",
         "auth": {
             "auth_button": "Autenticarse",
+            "close_preregister_redirect_modal": "Ir a la página de votación",
             "disconnect_button": "Desconectar",
             "if_you_voted": "Si has votado, debes autentificarte para revisar tu voto",
             "insert_your": "Inserta tu {{ field }}",
@@ -589,6 +591,9 @@
             "not_authenticated": "No estas autenticado/a!",
             "not_preregistered": "Se requiere registro previo",
             "preregister_button": "Pre-registrarse",
+            "preregister_redirect_dialog": {
+                "title": "Votante ya pre-registrado"
+            },
             "preregistration": {
                 "subtitle": "Este es un registro previo que se requiere para participar de forma anónima cuando comience el proceso de votación ({{date}}).",
                 "title": "Pre-registro"
