@@ -116,7 +116,7 @@ export const DashboardHeader = ({ entity, hasBackup }: IDashboardHeaderProps) =>
         onRequestClose={() => setShowConfirmModal(false)}
       >
         <Grid>
-          <Column xs={12}>
+          <Column sm={12}>
             <CenteredImg src='/media/zen.png' alt='zen image' width="250" />
           </Column>
           <Column>
