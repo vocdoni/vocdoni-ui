@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { EntityMetadata } from 'dvote-js'
 import { useTranslation } from 'react-i18next'
 import { If, Then } from 'react-if'
@@ -9,11 +9,16 @@ import { ACCOUNT_BACKUP_PATH, CREATE_PROCESS_PATH } from '@const/routes'
 
 import { Banner } from '@components/blocks/banners'
 import { Button } from '@components/elements/button'
-import { Grid } from '@components/elements/grid'
+import { Grid, Column } from '@components/elements/grid'
 import { ImageContainer } from '@components/elements/images'
 import { Image } from '@components/elements/image'
 import { useWallet } from '@hooks/use-wallet'
 import { TrackEvents, useRudderStack } from '@hooks/rudderstack'
+
+import Modal from 'react-rainbow-components/components/Modal'
+import { ConfirmModal } from '@components/blocks/confirm-modal'
+import { Typography, TypographyVariant } from '@components/elements/typography'
+import styled from 'styled-components'
 
 interface IDashboardHeaderProps {
   entity?: EntityMetadata,
@@ -24,13 +29,14 @@ export const DashboardHeader = ({ entity, hasBackup }: IDashboardHeaderProps) =>
   const { wallet } = useWallet()
   const { i18n } = useTranslation()
   const { trackEvent } = useRudderStack()
+  const [showConfirmModal, setShowConfirmModal] = useState(false)
 
   const handleRuddlestackEvent = () => {
     trackEvent(TrackEvents.PROCESS_CREATION_BUTTON_CLICKED, { entity: wallet?.address })
   }
 
   const createProposalButton = (
-    <Button href={CREATE_PROCESS_PATH} positive onClick={handleRuddlestackEvent}>
+    <Button positive onClick={() => setShowConfirmModal(true)}>
       {i18n.t('dashboard.create_new_proposal')}
     </Button>
   )
@@ -60,8 +66,28 @@ export const DashboardHeader = ({ entity, hasBackup }: IDashboardHeaderProps) =>
     </ImageContainer>
   )
 
+  const zenImage = (
+    <ImageContainer width="80px" height="70px">
+      <img
+        src="/media/zen.png"
+        alt={i18n.t('dashboard.new_release_message')}
+      />
+    </ImageContainer>
+  )
+
+  const bannerText = (
+    <Typography variant={TypographyVariant.Body2}>{i18n.t('dashboard.new_release_message')}</Typography>
+  )
+
   return (
     <Grid>
+      <Banner
+        title={null}
+        subtitle={bannerText}
+        icon={zenImage}
+        warning
+      />
+
       <Banner
         title={entity?.name?.default || i18n.t("dashboard.entity")}
         subtitle={i18n.t(
@@ -71,7 +97,7 @@ export const DashboardHeader = ({ entity, hasBackup }: IDashboardHeaderProps) =>
         icon={accountImage}
       />
 
-      <If condition={!hasBackup}>
+      <If condition={!hasBackup && false}>
         <Then>
           <Banner
             title={i18n.t('dashboard.your_account_is_unsafe')}
@@ -84,6 +110,35 @@ export const DashboardHeader = ({ entity, hasBackup }: IDashboardHeaderProps) =>
           />
         </Then>
       </If>
+
+      <Modal
+        isOpen={showConfirmModal}
+        onRequestClose={() => setShowConfirmModal(false)}
+      >
+        <Grid>
+          <Column xs={12}>
+            <CenteredImg src='/media/zen.png' alt='zen image' width="250" />
+          </Column>
+          <Column>
+            <Typography variant={TypographyVariant.Body2}>{i18n.t('dashboard.new_release_message')}</Typography>
+            <Typography variant={TypographyVariant.MediumSmall}>{i18n.t('dashboard.new_release_message2')}</Typography>
+          </Column>
+        </Grid>
+
+        <Grid>
+          <Column sm={12}>
+            <Button
+              positive
+              onClick={() => setShowConfirmModal(false)}
+              wide
+            >{i18n.t('dashboard.understood')}</Button>
+          </Column>
+        </Grid>
+      </Modal>
     </Grid>
   )
 }
+
+const CenteredImg = styled.img`
+  margin:0px auto;
+`

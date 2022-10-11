@@ -7,5 +7,74 @@
     },
     "action": {
         "check_privacy_policy": "Review privacy policy"
+    },
+    "votes": {
+        "preregister": {
+            "insert_password": "",
+            "password": ""
+        },
+        "new": {
+            "it_will_be_impossible_for_a_third_party_to_see_witch_vote_a_use_has_cast": "It will be impossible for a third-party to see which vote a user has cast.",
+            "select_": "Select",
+            "the_voters_will_be_required_to_then_authenticate": "Voters will be required to then authenticate with their credentials and password once they wish to vote.",
+            "the_voters_will_need_preregister_before_starting_date": "<0>Voters will need to pre-register before the starting date</0> in order to get an authentication password."
+        }
+    },
+    "voter": {
+        "preregister_view": {
+            "important": "",
+            "the_password_that_you_set_will_not_be_possible": ""
+        }
+    },
+    "home": {
+        "free_until_end_2021": "->  Free until the end of 2021, then you can choose a free or paid plan."
+    },
+    "vote_detail": {
+        "census_card": {
+            "filename": "Name"
+        },
+        "stream": "Stream",
+        "details": "Details",
+        "document": "Document",
+        "link": "Link",
+        "options": "Options",
+        "q_and_a": "Q&A",
+        "questions_card": {
+            "show": "Show",
+            "hide": "Hide"
+        },
+        "results": "Results",
+        "type": "Type"
+    },
+    "vote": {
+        "end_vote": "End vote",
+        "import_the_list_of_voters": "Import the list of voters",
+        "log_out": "Log out",
+        "pdf_image_alt": "PDF image",
+        "submit_new_vote": "Submit new vote",
+        "total_votes": "Total number of votes: {{totalVotes}}",
+        "total_weighted_votes": "Number of participants: {{totalVotes}}. Total weight of votes cast: {{totalWeightedVotes}}",
+        "value_days": "{{ value }} days",
+        "value_hours": "{{ value }} hours",
+        "value_minutes": "{{ value }} minutes",
+        "value_seconds": "{{ value }} seconds",
+        "you_can_vote_on_this_proposal": "You can vote on this proposal",
+        "you_need_authenticate_to_vote": "You need authenticate to vote"
+    },
+    "home": {
+        "a_fully_anonymous_voting_system_ensuring_data_availability": "Use Vocdoni without limits and free of charge until 15th of October 2021 to organize votes and meet all your governance needs. After that you can continue with a free plan or opt for a paid plan.",
+        "as_easy_as_drag_and_drop": "As easy as drag&drop",
+        "computer_device_alt": "Computer device",
+        "connect_with_your_social_base": "Connect with your social base",
+        "easy_share_documents": "Easy share documents",
+        "easy_share_image_alt": "Easy to share",
+        "free_until_end_2021": "->  Free until the end of 2021, then you can choose a free or paid plan.",
+        "get_started": "Get started",
+        "make_sure_your_members_have_access_to_the_financial_report": "Make sure your members have access to the financial report, the budget or other documents to be approved using Vocdoni.",
+        "tired_of_using_a_thousand": "Tired of using a thousand tools to manage your organization? Vocdoni Platform is the all-in-one solution to boost the participation in your entity with ease, safety and the peace of mind of being GDPR-compliant by default. ",
+        "you_only_need_one_platform": "You only need one platform"
+    },
+    "vote": {
+        "submit_new_vote": "Submit new vote"
     }
 }

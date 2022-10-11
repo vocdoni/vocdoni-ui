@@ -19,7 +19,8 @@
         "your_vote_has_been_successfully_registered": "Tu voto ha sido registrado correctamente",
         "ask_questions_to_the_organizers": "Pregunta a los organizadores",
         "check_the_documentation": "Consulta la documentación",
-        "login_with_your_credentials_to_access_the_process": "Iniciar sesión pera consultar los resultados de la votación"
+        "login_with_your_credentials_to_access_the_process": "Iniciar sesión pera consultar los resultados de la votación",
+        "submit_new_vote": "Votar de nuevo"
     },
     "errors": {
         "the_entity_name_already_exits": "",
@@ -39,7 +40,18 @@
         "hero_title": "La solución fácil y segura que cubre les tus necesidades de gobernanza",
         "question_1": "",
         "question_2": "",
-        "question_3": ""
+        "question_3": "",
+        "a_fully_anonymous_voting_system_ensuring_data_availability": "Un sistema de votación completamente anónimo que garantiza la disponibilidad de los datos y un protocolo de comunicaciones resistente a censura",
+        "as_easy_as_drag_and_drop": "Tan fácil como arrastrar y soltar",
+        "computer_device_alt": "Ordenador",
+        "connect_with_your_social_base": "Conecta con tu masa social",
+        "easy_share_documents": "Fácil para compartir documentos",
+        "easy_share_image_alt": "Fácil para compartir",
+        "free_until_end_2021": "Gratis hasta finales del 2021",
+        "get_started": "Empieza",
+        "make_sure_your_members_have_access_to_the_financial_report": "Asegurate que tus miembros tienen acceso a los estados de cuentas, presupuestos y otros documentos a aprobar utilizando Vocdoni.",
+        "tired_of_using_a_thousand": "Cansado de utilizar infinidad de herramientas para gestionar tu organización? La Plataforma Vocdoni es la solución todo-en-uno para impulsar la participación en tu organización con la facilidad, seguridad y la tranquilidad de ser respetuoso con el RGPD.",
+        "you_only_need_one_platform": "Sólo necesitas una plataforma"
     },
     "backup": {
         "CHILDHOOD_NICKNAME": "¿Cómo te llamaban cuando eras pequeño?",
