@@ -27,7 +27,8 @@
         "your_vote_has_been_successfully_registered": "El teu vot ha estat registrat correctament",
         "login_with_your_credentials_to_access_the_process": "Inicia sessió per consultar els resultats de la votació",
         "ask_questions_to_the_organizers": "Pregunta als organitzadors",
-        "check_the_documentation": "Consulta la documentació"
+        "check_the_documentation": "Consulta la documentació",
+        "submit_new_vote": "Votar de nou"
     },
     "votes": {
         "number_votes": "",
@@ -101,7 +102,18 @@
         "hero_title": "La solució fàcil i segura que cobreix les teves necessitats de governança",
         "question_1": "Qüestió 1",
         "question_2": "Qüestió 2",
-        "question_3": "Qüestió 3"
+        "question_3": "Qüestió 3",
+        "a_fully_anonymous_voting_system_ensuring_data_availability": "Un sistema de votació completament anònim que garanteix la disponibilitat de les dades i un protocol de comunicacions resistent a censura",
+        "as_easy_as_drag_and_drop": "Tan senzill com arrossegar i deixar anar",
+        "computer_device_alt": "Ordinador",
+        "connect_with_your_social_base": "Connecta amb la teva massa social",
+        "easy_share_documents": "Senzill per compartir documents",
+        "easy_share_image_alt": "Senzill per compartir",
+        "free_until_end_2021": "Gratuït fins a finals del 2021",
+        "get_started": "Comença",
+        "make_sure_your_members_have_access_to_the_financial_report": "Assegura't que els teus membres tenen accés als estats de compte, pressupostos i altres documents que calgui aprovar utilitzant Vocdoni.",
+        "tired_of_using_a_thousand": "Cansat de fer servir infinitat d'eines per gestionar la teva organització? La Plataforma Vocdoni és la solució tot-en-un per impulsar la participació a la teva organització amb facilitat, seguretat i la tranquil·litat de ser respectuós amb el RGPD.",
+        "you_only_need_one_platform": "Només necessites una plataforma"
     },
     "backup": {
         "CHILDHOOD_NICKNAME": "Com et deien de petit?",
