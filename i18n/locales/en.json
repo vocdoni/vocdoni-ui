@@ -100,7 +100,7 @@
         "if_you_lose_access_to_your_passphrase_you_will_not_be_able_to_manage_your_entity_anymore": "If you lose access to your password, you will not be able to manage your entity anymore",
         "loading": "Loading",
         "manage_your_community_and_schedule_new_votes": "Manage your entity and schedule votes",
-        "new_release_message": "Due to the release of a new version of Vocdoni.app, until next 10/18 it will not be possible to create voting processes.",
+        "new_release_message": "Scheduled maintenance: Due to a system upgrade, Vocdoni APP will not allow new voting processes until October 18th, 12pm (GMT+1).\n This upgrade adds new features such as anonymous voting and a new UI design.\nAfter the upgrade, all the finished processes and their results will remain available, but all the active votes during the upgrade will be canceled.",
         "new_release_message2": "We apologize for any inconvenience this may cause, we are actively working to improve the experience for all our users.",
         "no_proposals_yet": "No voting processes yet!",
         "no_proposals_yet_description": "The voting processes you create will appear here",

@@ -22,6 +22,8 @@ import { SplitSection } from '@components/pages/home/components/section'
 import { CardDiv } from '@components/elements/cards'
 import { EmptyProviders } from '@components/pages/app/providers/empty-providers'
 import { TrackEvents, useRudderStack } from '@hooks/rudderstack'
+import { Banner } from '@components/blocks/banners'
+
 
 import { sizes } from 'theme/sizes'
 
@@ -31,6 +33,21 @@ const IndexPage = () => {
   const isMobile = useIsMobile()
   const { trackEvent } = useRudderStack()
 
+  const zenImage = (
+    <ImageContainer width="80px" height="70px">
+      <img
+        src="/icons/common/warning.svg"
+        alt={i18n.t('dashboard.new_release_message')}
+      />
+    </ImageContainer>
+  )
+
+  const bannerText = (
+    <Typography variant={TypographyVariant.Body2}>
+      <SpacedText>{i18n.t('dashboard.new_release_message')}</SpacedText>
+    </Typography>
+  )
+
   return (
     <div>
       <HeroBanner />
@@ -39,7 +56,20 @@ const IndexPage = () => {
         <CompanyLogos />
       </BlockContainer>
 
+
+
+
       <Section>
+        <BlockContainer>
+          <Grid>
+            <Banner
+              title={null}
+              subtitle={bannerText}
+              icon={zenImage}
+              warning
+            />
+          </Grid>
+        </BlockContainer>
         <BlockContainer>
           <Typography
             variant={TypographyVariant.Small}
@@ -355,7 +385,7 @@ const IndexPage = () => {
                       </Button>
                     </ButtonContainer>
                   </ActionContainer>
-                </ReadyTextContainer>                
+                </ReadyTextContainer>
               </Column>
 
               <Column sm={12} md={6}>
@@ -365,7 +395,7 @@ const IndexPage = () => {
                     alt={i18n.t('home.computer_with_vocdoni_alt')}
                   />
                 </ImageContainer>
-              </Column>              
+              </Column>
             </Grid>
           </ReadyToStartCard>
         </BlockContainer>
@@ -451,6 +481,14 @@ const ButtonContainer = styled.div`
   @media ${({ theme }) => theme.screenMax.mobileL} {
     width: 100%;
   }
+`
+
+const CenteredImg = styled.img`
+  margin:0px auto;
+  text-align: center;
+`
+const SpacedText = styled.div`
+  white-space: pre-line;
 `
 
 export default IndexPage

@@ -100,7 +100,7 @@
         "if_you_lose_access_to_your_passphrase_you_will_not_be_able_to_manage_your_entity_anymore": "Si perds la contrasenya, no podràs tornar a accedir a la teva entitat",
         "loading": "Carregant",
         "manage_your_community_and_schedule_new_votes": "Gestiona la teva entitat i programa processos de votació fàcilment",
-        "new_release_message": "A causa del llançament d'una nova versió de Vocdoni.app, fins al proper 18/10 no serà possible crear processos de votació.",
+        "new_release_message": "Manteniment programat: Per actualització del sistema, Vocdoni APP no permetrà la creació de nous processos de vot fins al 18 d'octubre, 12pm (GMT+1).\n Aquesta actualització incorpora noves funcions, com ara la votació anònima i un disseny millorat de la interfície d'usuari.\n Després de l'actualització, tots els processos finalitzats i els seus resultats romandran disponibles, però es cancel·laran tots els vots actius durant l'actualització.",
         "new_release_message2": "Disculpeu les molèsties que això pugui ocasionar, estem activament treballant per millorar l'experiència de tots els nostres usuaris.",
         "no_proposals_yet": "Encara no hi ha processos de votació!",
         "no_proposals_yet_description": "Els processos de votació que creïs apareixeran aquí",
@@ -203,7 +203,7 @@
         "home": {
             "entity_address": "Adreça de l'entitat",
             "entity_description": "Descripció de l'entitat",
-            "view_in_explorer": "Veure en el navegador",            
+            "view_in_explorer": "Veure en el navegador",
             "entity_processes": "Processos de l'entitat",
             "no_processes_yet": "Sense processos de votació."
         },

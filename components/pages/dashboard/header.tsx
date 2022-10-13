@@ -69,14 +69,16 @@ export const DashboardHeader = ({ entity, hasBackup }: IDashboardHeaderProps) =>
   const zenImage = (
     <ImageContainer width="80px" height="70px">
       <img
-        src="/media/zen.png"
+        src="/icons/common/warning.svg"
         alt={i18n.t('dashboard.new_release_message')}
       />
     </ImageContainer>
   )
 
   const bannerText = (
-    <Typography variant={TypographyVariant.Body2}>{i18n.t('dashboard.new_release_message')}</Typography>
+    <Typography variant={TypographyVariant.Body2}>
+      <SpacedText>{i18n.t('dashboard.new_release_message')}</SpacedText>
+    </Typography>
   )
 
   return (
@@ -117,10 +119,10 @@ export const DashboardHeader = ({ entity, hasBackup }: IDashboardHeaderProps) =>
       >
         <Grid>
           <Column sm={12}>
-            <CenteredImg src='/media/zen.png' alt='zen image' width="250" />
+            <CenteredImg src='/icons/common/warning.svg' alt='warning' width="100" />
           </Column>
           <Column>
-            <Typography variant={TypographyVariant.Body2}>{i18n.t('dashboard.new_release_message')}</Typography>
+          <SpacedText><Typography variant={TypographyVariant.Body2}>{i18n.t('dashboard.new_release_message')}</Typography></SpacedText>
             <Typography variant={TypographyVariant.MediumSmall}>{i18n.t('dashboard.new_release_message2')}</Typography>
           </Column>
         </Grid>
@@ -141,4 +143,10 @@ export const DashboardHeader = ({ entity, hasBackup }: IDashboardHeaderProps) =>
 
 const CenteredImg = styled.img`
   margin:0px auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
+const SpacedText = styled.div`
+  white-space: pre-line;
 `
