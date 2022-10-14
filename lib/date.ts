@@ -37,7 +37,7 @@ export const addOffsetToDate = (
   return date
 }
 
-function strDiffFuture(type: DateDiffType, secondDiff: number): string {
+export function strDiffFuture(type: DateDiffType, secondDiff: number): string {
   let num: number
 
   if (secondDiff > 60 * 60 * 24) {

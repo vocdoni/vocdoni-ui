@@ -22,6 +22,7 @@ import { UserVoteStatus } from '..'
 import { dateDiffStr, DateDiffType } from '@lib/date-moment'
 import { BigNumber } from 'ethers'
 import { Spacer } from '@components/elements-v2'
+import { VochainProcessStatus } from '@vocdoni/data-models'
 
 interface IVoteActionCardProps {
   userVoteStatus: UserVoteStatus
@@ -36,11 +37,12 @@ export const VoteActionCard = ({
 }: IVoteActionCardProps) => {
   const { i18n } = useTranslation()
   const processId = useUrlHash().slice(1)
-  const { startDate, endDate, votesWeight, status, censusSize, liveResults, participationRate } = useProcessWrapper(processId)
+  const { startDate, endDate, votesWeight, status, censusSize, liveResults, participationRate, votingType, results, totalVotes } = useProcessWrapper(processId)
   const { nullifier } = useVoting(processId)
   const disabled = (status !== VoteStatus.Active || userVoteStatus === UserVoteStatus.Emitted)
   const explorerLink = process.env.EXPLORER_URL + '/envelopes/show/#/' + nullifier
 
+  // const totalVotes = results?.totalVotes || 0
   const getTitleFromState = (status: VoteStatus) => {
     const endingString = dateDiffStr(DateDiffType.Countdown, endDate)
     const startingString = dateDiffStr(DateDiffType.Countdown, startDate)
@@ -156,9 +158,9 @@ export const VoteActionCard = ({
           {i18n.t('vote.total_votes_submited')}
         </Text>
         <Text large>
-          <If condition={liveResults && votesWeight && censusSize}>
+          <If condition={liveResults || (status >= VochainProcessStatus.ENDED) }>
             <Then>
-              {votesWeight?.toString()} ({participationRate}%)
+              {totalVotes } {(censusSize != -1) ? "("+participationRate+"%)" : ""}
             </Then>
             <Else>
               0 (0%)

@@ -25,6 +25,7 @@ import { useIsMobile } from '@hooks/use-window-size'
 import { colorsV2 } from '@theme/colors-v2'
 import { Modal } from '@components/blocks-v2/modal'
 import moment from 'moment'
+import { Tag } from '@components/elements-v2/tag'
 
 
 export const ViewDetail = () => {
@@ -56,7 +57,8 @@ export const ViewDetail = () => {
     attachmentUrl,
     hasEnded,
     methods,
-    isAnonymous
+    isAnonymous,
+    archived,
   } = useProcessWrapper(processId)
   const toCalendarFormat = (date: Date) => {
     let momentDate = moment(date).locale('es').format("MMM DD - YYYY (HH:mm)")
@@ -143,7 +145,7 @@ export const ViewDetail = () => {
       options: [
         {
           title: i18n.t('vote_detail.census_card.size'),
-          value: i18n.t('vote_detail.census_card.voters', { censusSize: censusSize.toLocaleString(i18n.language) })
+          value: i18n.t('vote_detail.census_card.voters', { censusSize: (censusSize != -1) ? censusSize.toLocaleString(i18n.language) : "N/A" })
         },
         // {
         //   title: i18n.t('vote_detail.census_card.filename'),
@@ -303,6 +305,11 @@ export const ViewDetail = () => {
                   <Col xs={12}>
                     <ProcessStatusLabel />
                   </Col>
+                  { archived &&
+                    <Col xs={12}>
+                      <Tag variant='warning'>Archived</Tag>
+                    </Col>
+                  }
                   <Col xs={12}>
                     <Row gutter='md'>
                       <Col xs={12}>

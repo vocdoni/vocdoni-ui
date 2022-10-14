@@ -34,11 +34,10 @@ type ChoiceResult = {
 export const QuestionResults = (props: QuestionsResultsProps) => {
   const { i18n } = useTranslation()
   const processId = useUrlHash().slice(1)
-  const { votesWeight , censusSize, votingType, results} = useProcessWrapper(processId)
+  const { votesWeight , censusSize, votingType, totalVotes} = useProcessWrapper(processId)
   const [sortedChoices, setSortedChoices] = useState<ChoiceResult[]>([])
   const [hasWinner, setHasWinner] = useState<boolean>(false)
   const isMobile = useIsMobile()
-  const totalVotes =  results?.totalVotes || 0
 
   const getBarPercent = (votes: BigNumber): number => {
     if (votes.eq(0)) {
@@ -49,9 +48,9 @@ export const QuestionResults = (props: QuestionsResultsProps) => {
   const getPercent = (votes: BigNumber): number => {
     // used to avoid losing decimal precision
     const ratio = votes.mul(10000)
-    if (!VotingType.Weighted && totalVotes >0 )
+    if (votingType != VotingType.Weighted && totalVotes >0 )
       return ratio.div(totalVotes).toNumber() / 100
-    else if (VotingType.Weighted && votesWeight &&  votesWeight.gt(0) )
+    else if (votingType == VotingType.Weighted && votesWeight &&  votesWeight.gt(0) )
       return ratio.div(votesWeight).toNumber() /100
     return 0
   }

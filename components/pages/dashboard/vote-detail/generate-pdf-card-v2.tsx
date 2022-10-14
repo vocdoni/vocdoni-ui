@@ -20,7 +20,7 @@ export const GeneratePdfCard = (props: GeneratePdfCardProps) => {
   const { i18n } = useTranslation()
   // get process data
   const processId = useUrlHash().slice(1)
-  const { status, votesWeight, censusSize, liveResults, results, processInfo, title, participationRate } = useProcessWrapper(processId)
+  const { status, censusSize, liveResults, results, processInfo, title, participationRate, totalVotes } = useProcessWrapper(processId)
   // geet entity data
   const { wallet } = useWallet({ role: WalletRoles.ADMIN })
   const { metadata: entityMetadata } = useEntity(wallet?.address)
@@ -41,7 +41,6 @@ export const GeneratePdfCard = (props: GeneratePdfCardProps) => {
         linkElement.click()
       })
   }
-  const totalVotes = results?.totalVotes || 0
   return (
     <StyledCard variant="gray" padding="32px 78px">
       <Row gutter="lg">
@@ -54,9 +53,9 @@ export const GeneratePdfCard = (props: GeneratePdfCardProps) => {
             </Col>
             <Col xs={12} justify="center">
               <Text align="center" color="dark-blue" size="2xl">
-                {votesWeight ? votesWeight.toNumber() : totalVotes} &nbsp;
+                {totalVotes} &nbsp;
                 <Text align="center" color="dark-gray">
-                  ({participationRate}%)
+                  {(participationRate != "0") ? "("+participationRate+"%)" : ""}
                 </Text>
               </Text>
             </Col>

@@ -1,5 +1,6 @@
 import { usePool, useProcess, useBlockHeight, useDateAtBlock, UseProcessContext, CacheRegisterPrefix } from '@vocdoni/react-hooks'
-import { ProcessDetails, ProcessResultsSingleChoice, VotingApi, ProcessStatus, VochainProcessStatus, IProcessStatus, ProcessState, Voting, CensusOffChainApi } from 'dvote-js'
+import { ProcessDetails, ProcessResultsSingleChoice, VotingApi, ProcessStatus, VochainProcessStatus, IProcessStatus, ProcessState, Voting, CensusOffChainApi, ensure0x, ProcessMetadata, RawResults } from 'dvote-js'
+import { GatewayArchive, GatewayArchiveApi } from "@vocdoni/client"
 import { Wallet } from '@ethersproject/wallet'
 
 import { createContext, ReactNode, useContext } from 'react'
@@ -7,7 +8,7 @@ import { useEffect, useState } from 'react'
 
 import i18n from '../i18n'
 
-import { DateDiffType, localizedStrDateDiff } from '../lib/date'
+import { addOffsetToDate, DateDiffType, localizedStrDateDiff, strDiffFuture } from '../lib/date'
 import { IProcessResults, VotingType } from '@lib/types'
 import { Question } from '@lib/types'
 import { VoteStatus } from '@lib/util'
@@ -38,7 +39,9 @@ export interface ProcessWrapperContext {
   questions: Question[]
   title: string
   isAnonymous: boolean
-  participationRate: string
+  participationRate: string,
+  archived: boolean,
+  totalVotes: number,
   methods: {
     // refreshProcessInfo: (processId: string) => Promise<ProcessDetails>
     refreshResults: () => Promise<any>
@@ -76,11 +79,18 @@ export const UseProcessWrapperProvider = ({ children }: { children: ReactNode })
   const { blockHeight } = useBlockHeight()
 
   const {
-    loading: loadingInfo,
+    loading,
     error: loadingInfoError,
-    process: processInfo,
+    process,
     refresh,
   } = useProcess(processId)
+  const [processInfo, setProcessInfo] = useState<ProcessDetails>(process)
+  const [shouldConsultArchive, setShouldConsultArchive] = useState(false)
+  const [archiveProcessState, setArchiveProcessState] = useState<ProcessStatus>(null)
+  const [archiveResults, setArchiveResults] = useState<RawResults>(null)
+  const [consultedArchive, setConsultedArchive] = useState(false)
+  const [loadingInfo, setLoadingInfo] = useState(loading)
+  const [loadingArchive, setLoadingArchive] = useState(false)
 
   const [results, setResults] = useState<IProcessResults>(null)
   const [statusText, setStatusText] = useState('')
@@ -88,11 +98,20 @@ export const UseProcessWrapperProvider = ({ children }: { children: ReactNode })
 
   const startBlock = processInfo?.state?.startBlock || 0
   const endBlock = processInfo?.state?.endBlock || 0
-  const startDate = processInfo?.state?.archived ? processInfo?.state?.startDate : useDateAtBlock(startBlock).date
-  const endDate = processInfo?.state?.archived ? processInfo?.state?.endDate : useDateAtBlock(endBlock).date
+  const startDate = (processInfo?.state?.archived || consultedArchive) ? processInfo?.state?.startDate : useDateAtBlock(startBlock).date
+  const endDate = (processInfo?.state?.archived || consultedArchive) ? processInfo?.state?.endDate : useDateAtBlock(endBlock).date
   const realTimeResults = processInfo?.state?.envelopeType?.encryptedVotes != true
   const resultsAvailable = realTimeResults || processInfo?.state?.status === VochainProcessStatus.RESULTS
   // Effects
+
+  useEffect(() => {
+    setLoadingInfo(loading && loadingArchive)
+  }, [loading, loadingArchive])
+
+  useEffect(() => {
+    if (loadingArchive || consultedArchive) return
+    fetchMetadata(process)
+  }, [process])
 
   useEffect(() => {
     if (invalidProcessId) return
@@ -110,7 +129,7 @@ export const UseProcessWrapperProvider = ({ children }: { children: ReactNode })
     // we have the total weight of the votes but we dont have
     // total voting power of the census so it cannot be computed
     // properly
-    setParticipationRate(((results?.totalVotes || 0) / (censusSize || 1) * 100).toFixed(2))
+    setParticipationRate((censusSize != -1) ? (((results?.totalVotes || 0) / (censusSize || 1) * 100).toFixed(2)) : "0")
   }, [censusSize, results])
 
   useEffect(() => {
@@ -122,37 +141,115 @@ export const UseProcessWrapperProvider = ({ children }: { children: ReactNode })
 
   // STATUS UseEffect
   useEffect(() => {
-    switch (processInfo?.state?.status) {
-      case VochainProcessStatus.READY:
-        if (hasEnded) {
+    //TODO check if the process was created in the old prod chain (substancially higher blocknumbers)
+    if (!shouldConsultArchive && !chainMismatch(processInfo?.state)) {
+      switch (processInfo?.state?.status) {
+        case VochainProcessStatus.READY:
+          if (hasEnded) {
+            setStatusText(i18n.t("status.the_vote_has_ended"))
+            setStatus(VoteStatus.Ended)
+          }
+          else if (hasStarted) {
+            setStatusText(i18n.t("status.the_vote_is_open_for_voting"))
+            setStatus(VoteStatus.Active)
+          }
+          else if (!hasStarted) {
+            setStatusText(i18n.t("status.the_vote_will_start_soon"))
+            setStatus(VoteStatus.Upcoming)
+          }
+          break
+        case VochainProcessStatus.PAUSED:
+          setStatusText(i18n.t("status.the_vote_is_paused"))
+          setStatus(VoteStatus.Paused)
+          break
+        case VochainProcessStatus.CANCELED:
+          setStatusText(i18n.t("status.the_vote_is_canceled"))
+          setStatus(VoteStatus.Canceled)
+          break
+        case VochainProcessStatus.ENDED:
+          setStatus(VoteStatus.Ended)
+        case VochainProcessStatus.RESULTS:
           setStatusText(i18n.t("status.the_vote_has_ended"))
           setStatus(VoteStatus.Ended)
-        }
-        else if (hasStarted) {
-          setStatusText(i18n.t("status.the_vote_is_open_for_voting"))
-          setStatus(VoteStatus.Active)
-        }
-        else if (!hasStarted) {
-          setStatusText(i18n.t("status.the_vote_will_start_soon"))
-          setStatus(VoteStatus.Upcoming)
-        }
-        break
-      case VochainProcessStatus.PAUSED:
-        setStatusText(i18n.t("status.the_vote_is_paused"))
-        setStatus(VoteStatus.Paused)
-        break
-      case VochainProcessStatus.CANCELED:
-        setStatusText(i18n.t("status.the_vote_is_canceled"))
-        setStatus(VoteStatus.Canceled)
-        break
-      case VochainProcessStatus.ENDED:
-        setStatus(VoteStatus.Ended)
-      case VochainProcessStatus.RESULTS:
-        setStatusText(i18n.t("status.the_vote_has_ended"))
-        setStatus(VoteStatus.Ended)
-        break
+          break
+      }
+      refreshResults()
+    } else {
+      retrieveArchiveInfo()
     }
   }, [processInfo?.state])
+
+  const fetchMetadata = (process: ProcessDetails) => {
+    if (!process) return null
+    return poolPromise
+      .then((pool) => VotingApi.getProcessMetadata(process.id, pool))
+      .then((metadata) => {
+        if (metadata) {
+          let tempProcessInfo = process
+          tempProcessInfo.metadata = metadata
+          setProcessInfo(tempProcessInfo)
+          return
+        }
+        setProcessInfo(process)
+      })
+  }
+
+
+  const chainMismatch = (state: ProcessState) => {
+    if (!state || !startDate) return false
+    if (state.archived) return false
+    let creationDate = new Date(state.creationTime)
+    // let startDate =  useDateAtBlock(state.startBlock).date
+    let diff = (startDate.getTime() - creationDate.getTime()) / 1000
+    let sixMonthDiff = (addOffsetToDate(new Date(), 120).getTime() - startDate.getTime()) / 1000
+    console.log('Start - Creation : ', diff)
+    console.log(strDiffFuture(DateDiffType.Start, diff))
+    console.log('6 months from now - start : ', sixMonthDiff)
+    //TODO This checks if the blocknumber and creation date repsresent
+    // the old prod chain (substancially higher blocknumbers)
+    if (sixMonthDiff < 0 && creationDate.getTime() < (new Date("2022-10-18").getTime())) {
+      setShouldConsultArchive(true)
+      return true
+    }
+    return false
+  }
+
+  const retrieveArchiveInfo = () => {
+    return getProcessfromArchive()
+      .then((response) => {
+        let tempProcessInfo = process
+        tempProcessInfo.state = response.procState
+        if (!consultedArchive) {
+          setProcessInfo(tempProcessInfo)
+          setConsultedArchive(true)
+        }
+        setStatusText(i18n.t("status.the_vote_has_ended"))
+        setStatus(VoteStatus.Ended)
+        refreshResults(true)
+      })
+  }
+
+  // const getProcessfromArchive = (): Promise<{procState:ProcessState,results:IProcessResults}> => {
+  const getProcessfromArchive = (): Promise<{ procState: ProcessState }> => {
+    setLoadingArchive(true)
+    return poolPromise
+      .then((pool) =>
+        GatewayArchiveApi.getProcess(processId, pool.activeGateway, '')
+          .then(processArchiveData => {
+            let archiveProcess = GatewayArchive.mapToGetProcess(processArchiveData)
+            let procState: ProcessState = archiveProcess.process
+            console.log("Hook state:\n", JSON.stringify(processInfo.state, null, 3))
+            console.log("Archive sate:\n", JSON.stringify(procState, null, 3))
+            const { results, state, height } = GatewayArchive.mapToGetResults(processArchiveData)
+            procState.censusRoot = ensure0x(procState.censusRoot)
+            procState.entityId = ensure0x(procState.entityId)
+            procState.processId = ensure0x(procState.processId)
+            setArchiveResults({ results, envelopHeight: height, status: 5 })
+            setLoadingArchive(false)
+            // return {procState, results:parsedResults}
+            return { procState }
+          }))
+  }
 
   const waitUntilStatusUpdated = (processId: string, status: IProcessStatus): Promise<ProcessState> => {
     return new Promise(async (resolve, reject) => {
@@ -178,16 +275,16 @@ export const UseProcessWrapperProvider = ({ children }: { children: ReactNode })
     })
   }
   const updateCensusSize = async () => {
+    let size = "-1"
     try {
       const pool = await poolPromise
-      let size = "1"
       if (processInfo?.state?.censusRoot) {
         size = await CensusOffChainApi.getSize(processInfo?.state?.censusRoot, pool)
       }
-      setCensusSize(parseInt(size))
     } catch (e) {
       console.error(e)
     }
+    setCensusSize(parseInt(size))
   }
 
   const updateProcessStatus = async (processToUpdate: string, status: IProcessStatus, wallet: Wallet) => {
@@ -229,14 +326,19 @@ export const UseProcessWrapperProvider = ({ children }: { children: ReactNode })
     return weightSum.div(results.questions.length)
   }
 
-  const refreshResults = () => {
+  const refreshResults = (triggeredfromArchive?: boolean) => {
 
+    // if (!processId || invalidProcessId || consultedArchive) return Promise.resolve()
     if (!processId || invalidProcessId) return Promise.resolve()
 
     poolPromise
       .then((pool) => Promise.all([
-        VotingApi.getResults(processId, pool),
-        VotingApi.getProcessMetadata(processId, pool),
+        (consultedArchive || triggeredfromArchive)
+          ? new Promise<RawResults>((resolve, reject) => { resolve(archiveResults) })
+          : VotingApi.getResults(processId, pool),
+        (processInfo.metadata)
+          ? new Promise<ProcessMetadata>((resolve, reject) => { resolve(processInfo.metadata) })
+          : VotingApi.getProcessMetadata(processId, pool)
       ]))
       .then(([results, metadata]) => Voting.digestSingleChoiceResults(results, metadata))
       .then((results) => {
@@ -271,7 +373,9 @@ export const UseProcessWrapperProvider = ({ children }: { children: ReactNode })
       ? localizedStrDateDiff(DateDiffType.End, endDate)
       : localizedStrDateDiff(DateDiffType.Start, startDate)
     : ''
-
+  const archived = processInfo?.state?.archived || false
+  let totalVotes = results?.totalVotes || 0
+  totalVotes = votesWeight ? votesWeight.toNumber() : totalVotes
   // RETURN VALUES
   const value: ProcessWrapperContext = {
     loadingInfo,
@@ -298,6 +402,8 @@ export const UseProcessWrapperProvider = ({ children }: { children: ReactNode })
     title,
     isAnonymous,
     participationRate,
+    archived,
+    totalVotes,
     methods: {
       // refreshProcessInfo,
       refreshResults,
