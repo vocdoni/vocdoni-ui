@@ -14,8 +14,7 @@ export const TotalVotesCard = () => {
   const isMobile = useIsMobile()
   const processId = useUrlHash().slice(1)
   const { i18n } = useTranslation()
-  const { results, censusSize, participationRate } = useProcessWrapper(processId)
-  const totalVotes = results?.totalVotes
+  const { censusSize, participationRate, totalVotes } = useProcessWrapper(processId)
   return (
     <Row gutter={isMobile ? 'sm' : 'md'} align="center" justify={isMobile ? 'center' : 'start'}>
       <Col>
@@ -24,19 +23,21 @@ export const TotalVotesCard = () => {
         </Tag>
       </Col>
       <Col xs={12} md={8}>
-        <When condition={totalVotes && censusSize}>
-          {totalVotes && censusSize &&
+        <When condition={totalVotes}>
+          {totalVotes &&
             <Row gutter="xs" justify={isMobile ? 'center' : 'start'} >
               <Col>
                 <Text size="lg" color="dark-blue" weight="bold">
-                  {totalVotes.toLocaleString(i18n.language)}
+                  {totalVotes }
                 </Text>
               </Col>
+              { (censusSize!=-1) &&
               <Col>
                 <Text size="lg" color="dark-gray">
                   ({participationRate}%)
                 </Text>
               </Col>
+              }
             </Row>
           }
         </When>

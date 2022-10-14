@@ -96,9 +96,11 @@ export enum VoteStatus {
 }
 
 export const getVoteStatus = (state, currentBlock?): VoteStatus => {
-  if (state === undefined || currentBlock === undefined) return VoteStatus.Unknown
+  if (state === undefined || currentBlock === undefined ||
+    !state?.status || !state?.startBlock) return VoteStatus.Unknown
 
-  const processStatus =  state.status
+  if (state?.archived) return VoteStatus.Ended
+  const processStatus = state.status
   const startBlock = state.startBlock
   const endBlock = state.endBlock
 

@@ -20,6 +20,7 @@ const VoteDetailPage = () => {
   const processId = useUrlHash().slice(1) // Skip "/"
   const {
     processInfo,
+    loadingInfo
   } = useProcessWrapper(processId)
   const { wallet } = useWallet({ role: WalletRoles.ADMIN })
   const { metadata: entityMetadata } = useEntity(wallet?.address)
@@ -36,7 +37,7 @@ const VoteDetailPage = () => {
   )
 
   const loadingView = new ViewStrategy(
-    () => true,
+    () => loadingInfo,
     <Loader visible></Loader>
   )
 
