@@ -101,7 +101,6 @@
   "overrides": {
     "@vocdoni/census": {
       "snarkjs": "0.4.22"
-    },
-    "dvote-solidity": "file:../dvote-solidity/dvote-solidity-1.4.1.tgz"
+    }
   }
 }
