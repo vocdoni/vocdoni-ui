@@ -9,13 +9,13 @@ import { usePool } from '@vocdoni/react-hooks'
 import { useRecoilStateLoadable } from 'recoil'
 import {
   ensHashAddress,
-  EntityApi,
   EntityMetadata,
   EntityMetadataTemplate,
   IGatewayClient,
   Symmetric,
   TextRecordKeys,
 } from 'dvote-js'
+import { EntityApi } from "@vocdoni/voting"
 import { useBackend } from './backend'
 import { waitForGas } from '../lib/api'
 import { useDbAccounts } from './use-db-accounts'

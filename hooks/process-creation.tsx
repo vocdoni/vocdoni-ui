@@ -8,13 +8,13 @@ import {
   ProcessMetadata,
   ProcessMetadataTemplate,
   ProcessMode,
-  VotingApi,
   INewProcessParams,
   IProcessCensusOrigin,
   ProcessCensusOrigin,
   IGatewayClient,
   normalizeText
 } from 'dvote-js'
+import { VotingApi } from "@vocdoni/voting"
 import { createContext, ReactNode, useContext, useEffect, useState } from 'react'
 import { ProcessCreationPageSteps } from '@components/pages/votes/new'
 import { useForceUpdate } from "./use-force-update"
