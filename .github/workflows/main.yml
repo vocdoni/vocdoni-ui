@@ -302,7 +302,7 @@ jobs:
           export_default_credentials: true
       - name: Upload static site to GCP
         run: |
-          gsutil -m cp -r build/* gs://azeno-vocdoni-app
+          gsutil -m cp -r build/* gs://vocdoni.app
 
   gcs-release-staging:
     runs-on: self-hosted
