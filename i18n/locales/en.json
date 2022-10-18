@@ -555,7 +555,7 @@
         },
         "settings_card": {
             "anonymous_voting": "Anonymous",
-            "normal_voting": "Normal voting",
+            "normal_voting": "Single choice",
             "options": "Options",
             "title": "Settings",
             "type": "Type",
@@ -661,7 +661,7 @@
         "no_results_subtitle_end": "The results will be displayed only after the vote is closed.",
         "no_results_subtitle_live": "The results will be displayed once the vote is initiated.",
         "no_results_title": "Results are not available",
-        "no_votes_emitted": "",
+        "no_votes_emitted": "No votes emitted",
         "option_n": "Option {{ number }}",
         "optional_field": "This field is optional",
         "paused_vote": "Paused vote",
@@ -767,7 +767,7 @@
             "by_activating_the_anonymous_voting_option": "By activating the anonymous voting option, the following will be applied:",
             "calendar": {
                 "subtitle": "Set when and how you wish the voting process to start and end:",
-                "subtitleAnonymous": "",
+                "subtitleAnonymous": "Anonymous voting requires an additional voter pre-registration step, which will begin immediately after this process is created and will last until the voting start date.",
                 "title": "Calendar"
             },
             "disclaimer": "Disclaimer",

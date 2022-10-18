@@ -555,7 +555,7 @@
         },
         "settings_card": {
             "anonymous_voting": "Votació anònima",
-            "normal_voting": "Votació standard",
+            "normal_voting": "Opció única",
             "options": "Opcions",
             "title": "Paràmetres",
             "type": "Tipus",
