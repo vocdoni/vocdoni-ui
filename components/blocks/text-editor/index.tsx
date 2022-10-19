@@ -3,14 +3,12 @@ import { useEditor } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import Underline from '@tiptap/extension-underline'
 import Link from '@tiptap/extension-link'
-import TurndownService from 'turndown'
 import sanitizeHtml from 'sanitize-html';
 
 
 import { TextEditorContent } from './text-editor-content';
 import { TextEditorMenu } from './text-editor-menu';
 import styled from 'styled-components';
-import { useRef } from 'react';
 
 interface TextEditorProps {
   onChange?: (content: string) => void;
@@ -21,7 +19,6 @@ interface TextEditorProps {
 
 
 export const TextEditor = ({ onChange, content, markdown, deps }: TextEditorProps) => {
-  const turndownService = useRef(new TurndownService())
 
   const editor = useEditor({
     extensions: [
@@ -33,9 +30,12 @@ export const TextEditor = ({ onChange, content, markdown, deps }: TextEditorProp
       })
     ],
     content,
+    parseOptions: {
+      preserveWhitespace: false,
+    },
     onUpdate: function ({ editor })  {
       if (markdown) {
-        onChange(turndownService.current.turndown(editor.getHTML()))
+        onChange(sanitizeHtml(editor.getHTML()))
       } else {
         onChange(sanitizeHtml(editor.getHTML()));
       }

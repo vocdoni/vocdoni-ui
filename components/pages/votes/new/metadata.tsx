@@ -40,6 +40,7 @@ import { When } from 'react-if'
 import { Typography, TypographyVariant } from '@components/elements/typography'
 import { TextEditor } from '@components/blocks/text-editor'
 import { TrackEvents, useRudderStack } from '@hooks/rudderstack'
+import TurndownService from 'turndown'
 
 export enum MetadataFields {
   Title = 'process-title',
@@ -73,6 +74,16 @@ export const FormMetadata = () => {
   const [showPreviewModal, setShowPreviewModal] = useState<boolean>(false)
   const [dirtyFields, setDirtyField] = useState<DirtyFields>(new Map())
   const [metadataErrors, setMetadataErrors] = useState<ErrorFields>(new Map())
+  const turndownService = new TurndownService()
+  turndownService.addRule("p", {
+    filter: 'p',
+    replacement: function (content, node) {
+      if (node.parentElement?.lastChild === node && node.parentElement.textContent) {
+        return (node.parentElement.nodeName !== 'LI') ? content+'\n' : content+' ';
+      }
+      return content
+    }
+  })
 
   const colorPickerEnabled = !!process.env.COLOR_PICKER || false
 
@@ -119,6 +130,7 @@ export const FormMetadata = () => {
     if (!metadataErrors.size) {
       try {
         const validatedMeta = checkValidProcessMetadata(metadata)
+        validatedMeta.description.default = turndownService.turndown(metadata.description.default)
         methods.setRawMetadata(validatedMeta)
         trackEvent(TrackEvents.PROCESS_CREATION_WIZARD_BUTTON_CLICKED, {
           step: ProcessCreationPageSteps.CENSUS,
@@ -266,14 +278,14 @@ export const FormMetadata = () => {
 
       <Grid>
         <Column>
-          <Typography variant={TypographyVariant.Body2}  margin="0 0 16px 0">
+          <Typography variant={TypographyVariant.Body2} margin="0 0 16px 0">
             {i18n.t('vote.description')}
           </Typography>
           <TextEditor
             content={metadata.description.default}
             deps={[metadata.title, metadata.media, metadata.meta, metadata.questions]}
             onChange={(content) => {
-              methods.setDescription( content)
+              methods.setDescription(content)
             }}
             markdown
           />
