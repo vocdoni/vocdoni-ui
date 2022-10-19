@@ -202,9 +202,6 @@ export const UseProcessWrapperProvider = ({ children }: { children: ReactNode })
     // let startDate =  useDateAtBlock(state.startBlock).date
     let diff = (startDate.getTime() - creationDate.getTime()) / 1000
     let sixMonthDiff = (addOffsetToDate(new Date(), 120).getTime() - startDate.getTime()) / 1000
-    console.log('Start - Creation : ', diff)
-    console.log(strDiffFuture(DateDiffType.Start, diff))
-    console.log('6 months from now - start : ', sixMonthDiff)
     //TODO This checks if the blocknumber and creation date repsresent
     // the old prod chain (substancially higher blocknumbers)
     if (sixMonthDiff < 0 && creationDate.getTime() < (new Date("2022-10-18").getTime())) {
@@ -238,8 +235,6 @@ export const UseProcessWrapperProvider = ({ children }: { children: ReactNode })
           .then(processArchiveData => {
             let archiveProcess = GatewayArchive.mapToGetProcess(processArchiveData)
             let procState: ProcessState = archiveProcess.process
-            console.log("Hook state:\n", JSON.stringify(processInfo.state, null, 3))
-            console.log("Archive sate:\n", JSON.stringify(procState, null, 3))
             const { results, state, height } = GatewayArchive.mapToGetResults(processArchiveData)
             procState.censusRoot = ensure0x(procState.censusRoot)
             procState.entityId = ensure0x(procState.entityId)

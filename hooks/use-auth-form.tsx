@@ -128,7 +128,6 @@ export const useAuthForm = () => {
       // recvoer secretKey
       if (!secretKey || secretKey.length == 0) {
         // voter has preregistered and a user entry of this exists in the IndexedDB
-        console.log("secretKey empty: ", secretKey)
         setSecretKey(Symmetric.decryptString(voter.encrAnonKey, voterWallet.privateKey))
       }
       const anonymousKey = calculateAnonymousKey(voterWallet.privateKey, secretKey, processInfo?.state?.entityId)
