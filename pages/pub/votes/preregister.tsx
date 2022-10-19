@@ -24,6 +24,7 @@ import { parseDate } from '@lib/date'
 import moment from 'moment'
 import { useDbVoters } from '@hooks/use-db-voters'
 import { InvalidIncognitoModeError } from '@lib/validators/errors/invalid-incognito-mode-error'
+import { useVoting } from '@hooks/use-voting'
 
 const PreregisterPage = () => {
   const [data, setData] = useState<IPreregisterData>({
@@ -55,7 +56,8 @@ const PreregisterPage = () => {
   const useCensusProof = useRecoilState<CensusPoof>(censusProofState)
   const { setAlertMessage } = useMessageAlert()
 
-  const { addOrUpdateVoter, getVoter } = useDbVoters()
+  const { addOrUpdateVoter } = useDbVoters()
+  const { methods: votingMethods } = useVoting(processId)
 
 
   useEffect(() => {
@@ -85,6 +87,7 @@ const PreregisterPage = () => {
             processId: processId,
             encrAnonKey: encrAnonKey,
           })
+          votingMethods.setAnonymousKey(secretKey)
           setPreregisterSent(true)
         } catch (error) {
           if (error?.message?.indexOf?.("mutation") >= 0) { // if is incognito mode throw these error
