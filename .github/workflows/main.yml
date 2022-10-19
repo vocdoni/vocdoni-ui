@@ -19,7 +19,7 @@ jobs:
         run: npm install
 
   docker-release:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     needs:
       - node-tests
     if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/stage' || github.ref == 'refs/heads/fcb' || startsWith(github.ref, 'refs/heads/release')
