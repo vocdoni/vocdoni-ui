@@ -166,7 +166,7 @@ export const FormOptions = () => {
 }
 
 const ErrorText = styled(Text)`
-  font-size: 10px;
+  font-size: 14px;
   margin-top: 20px;
   margin-left: 42px;
 `
