@@ -1,8 +1,8 @@
 {
     "action": {
-        "back": "Volver",
+        "back": "Back",
         "browse": "Navegar",
-        "check_terms_and_conditions": "Debes acceptar los términos y condiciones",
+        "check_terms_and_conditions": "You must accept the terms & conditions",
         "clean": "Limpiar",
         "continue": "Continuar",
         "go_back": "Atrás",
@@ -10,28 +10,28 @@
         "retry": "Reintentar",
         "review_process_terms_and_conditions": "Revisar términos y condiciones",
         "sign_in": "Iniciar sesión",
-        "upload_list_of_voters": "Subir lista de votantes"
+        "upload_list_of_voters": "Upload list of voters"
     },
     "app": {
         "footer": {
             "powered_by": "Powered by"
         },
         "header": {
-            "create_account_backup": "Crear backup",
-            "custom_branding": "Personalizar marca",
+            "create_account_backup": "Create account backup",
+            "custom_branding": "Custom branding",
             "dashboard": "Dashboard",
-            "disconnect_account": "Cerrar session",
-            "help_and_feedback": "Ayuda y feedback",
-            "language": "Idioma",
-            "public_page": "Página publica",
-            "settings": "Herramientas",
+            "disconnect_account": "Logout",
+            "help_and_feedback": "Help & feedback",
+            "language": "Language",
+            "public_page": "Public page",
+            "settings": "Settings",
             "update_entity": "Actualizar entidad",
-            "user_language": "Idioma: {{ lang }}"
+            "user_language": "Language: {{ lang }}"
         },
         "meta": {
-            "description": "Vocdoni es un sistema de votación seguro, privado y universalmente verificable para cualquier organización.",
-            "keywords": "Voto por cadena de bloques, voto móvil, verificación universal, voto como servicio, gobernanza descentralizada, voto anónimo, centrado en la privacidad, voto electrónico seguro, voto digital a prueba de manipulaciones, soberanía de datos, gobernanza resistente, herramientas de gobernanza/coordinación",
-            "title": "La solución fácil y segura para todas sus necesidades de gobierno"
+            "description": "Vocdoni is a secure, private & universally verifiable voting system for any organization.",
+            "keywords": "Blockchain Voting, Mobile Voting, Universally Verifiable, Voting-As-A-Service, Decentralized Governance, Anonymous Voting, Privacy Centric, Secure Electronic Voting, Tamper-Proof Digital Voting, Data-Sovereignty, Resilient Governance, Governance/Coordination Tools",
+            "title": "Easy and secure solution for all your governance needs"
         }
     },
     "backup": {
@@ -69,7 +69,7 @@
             "cancel": "Cancelar"
         },
         "image_loader": {
-            "upload_file": "Subir fichero"
+            "upload_file": "Upload file"
         }
     },
     "confirm": {
@@ -81,10 +81,10 @@
     },
     "cookies": {
         "accept": "Aceptar",
-        "analytics": "Analítica",
-        "configure": "Configurar",
-        "cookies_paragraph_1": "Este sitio web utiliza cookies para mejorar su experiencia mientras navega por el sitio web. También utilizamos cookies de terceros que nos ayudan a analizar y comprender cómo utiliza este sitio web. Estas cookies se almacenarán en su navegador solo con su consentimiento. También tiene la opción de optar por no recibir estas cookies. Pero la exclusión voluntaria de algunas de estas cookies puede afectar su experiencia de navegación.",
-        "save": "Guardar"
+        "analytics": "Analytics",
+        "configure": "Configure",
+        "cookies_paragraph_1": "This website uses cookies to improve your experience while browsing the website. We also use third-party cookies that help us analyze and understand how you use this website. These cookies will be stored in your browser only with your consent. You also have the option to opt out of receiving these cookies. But opting out of some of these cookies may affect your browsing experience.",
+        "save": "Save"
     },
     "copy": {
         "the_link_has_been_copied_to_the_clipboard": "El enlace se ha copiado al portapaleles"
@@ -109,7 +109,7 @@
         "your_account_is_unsafe": "Tu cuenta de organización no está protegida!"
     },
     "dates": {
-        "days": "Dias",
+        "days": "{{num}} days",
         "ended_a_minute_ago": "Finalizado hace un minuto",
         "ended_an_hour_ago": "Finalizado hace una hora",
         "ended_n_days_ago": "Finalizado hace {{num}} días",
@@ -126,9 +126,9 @@
         "ending_in_one_minute": "Finaliza en un minuto",
         "ending_right_now": "Finaliza ahora mismo",
         "ending_tomorrow": "Finaliza mañana",
-        "hours": "Horas",
-        "minutes": "Minutos",
-        "seconds": "Segundos",
+        "hours": "{{num}} hours",
+        "minutes": "{{num}} minutes",
+        "seconds": "{{num}} minutes",
         "started_a_minute_ago": "Iniciado hace un minuto",
         "started_an_hour_ago": "Iniciado hace una hora",
         "started_n_days_ago": "Iniciado hace {{num}} días",
@@ -152,16 +152,16 @@
         "accept_terms": "Close",
         "acknowledge_passphrase_implications": "Soy consciente de que la pérdida de la contraseña implica perder también el acceso a la cuenta de mi entidad",
         "branding": {
-            "branding_updated_successfully": "Personalización actualizada correctamente",
-            "customize_your_branding": "Personaliza tu marca",
-            "customize_your_logo": "Define tu logo",
-            "customize_your_primary_color": "Define tu color primario",
-            "save_changes": "Guardar cambios",
-            "you_can_customize_the_voting_process_colors": "Personaliza los colores para el proceso de votación.",
-            "you_can_customize_your_branding": "Aquí puede personalizar cómo ven sus clientes la aplicación en el proceso de votación.",
-            "you_can_update_the_visible_logo_on_the_voting_process": "Puedes definir el logo que ven tus clientes"
+            "branding_updated_successfully": "Branding updated successfully",
+            "customize_your_branding": "Customize your branding",
+            "customize_your_logo": "Define your logo",
+            "customize_your_primary_color": "Define your primary color",
+            "save_changes": "Save changes",
+            "you_can_customize_the_voting_process_colors": "Customize the colors for the voting process",
+            "you_can_customize_your_branding": "Here you can customize how your clients see the application on the voting process",
+            "you_can_update_the_visible_logo_on_the_voting_process": "You can define the the visible logo"
         },
-        "brief_description": "Breve descripción de la entidad, se mostrará en la página de la entidad pública.",
+        "brief_description": "Brief description of the entity, it will be displayed in the public entity page.",
         "choose_a_passphrase": "Escoger contraseña",
         "confirming_details": "Confirmando detalles",
         "consolidating_path": "Cargando los metadatos",
@@ -170,53 +170,53 @@
         "creation": "Creación",
         "credentials": "Credenciales",
         "decentralized_accounts_cannot_be_recovered_by_and_external_agent": "Las cuentas descentralizadas no pueden ser recuperadas por un agente externo. En caso de perder la contraseña podrías perder también el acceso a la cuenta de tu entidad.",
-        "define_your_credentials_to_protect_the_account": "Defina los detalles de su entidad / organización",
+        "define_your_credentials_to_protect_the_account": "Define your entity/organization details",
         "description": "Descripción",
         "details": "Detalles",
         "edit": {
-            "are_you_sure_you_want_exit_without_save_changes": "¿Estás seguro de que quieres salir sin guardar datos?",
-            "are_you_sure_you_want_update_your_entity_data": "Estas seguro que quieres actualizar los datos de la entidad",
-            "cancel": "Cancelar",
-            "change_header": "Cambiar cabezera",
-            "change_logo": "Cambiar logo",
-            "contact_email": "Correo de contacto",
-            "description": "Descripción",
-            "entity_header": "Cabezera de la entidad",
-            "entity_logo": "Logo de la entidad",
-            "error_updating_data_on_blockchain": "Error actualizando los datos en blockchain",
-            "error_updating_data_on_register_server": "Error actualizando los datos en el servidor",
+            "are_you_sure_you_want_exit_without_save_changes": "Are you sure you want exit without store data?",
+            "are_you_sure_you_want_update_your_entity_data": "Are you sure you want update your entity data?",
+            "cancel": "Cancel",
+            "change_header": "Change header",
+            "change_logo": "Change logo",
+            "contact_email": "Contact email",
+            "description": "Description",
+            "entity_header": "Entity header",
+            "entity_logo": "Entity logo",
+            "error_updating_data_on_blockchain": "Error updating data on blockchain entity",
+            "error_updating_data_on_register_server": "Error updating data on the registry service",
             "jpg_png_gif": "(.JPG, .PNG, .GIF Max 2mb file)",
-            "name_of_the_entity": "Nombre de la entidad",
-            "optional_introduction": "Introduccion opcional",
-            "save_changes": "Guardar cambios",
-            "size_of_entity": "Tamaño de la entidad",
-            "type_of_entity": "Tipo de entidad",
-            "update": "Actualizar",
-            "your_entity": "Editar entidad"
+            "name_of_the_entity": "Name of the entity",
+            "optional_introduction": "Optional introduction",
+            "save_changes": "Save changes",
+            "size_of_entity": "Size of the entity",
+            "type_of_entity": "Type of entity",
+            "update": "Update",
+            "your_entity": "Edit entity"
         },
-        "email": "Dirección de correo electrónico de contacto*",
+        "email": "Contact e-mail*",
         "enter_the_name_of_the_entity": "Introducir el nombre de la entidad",
         "entity_details": "Detalles de la entidad",
         "entity_size": "Tamaño de la entidad",
         "go_to_the_dashboard": "Volver al inicio",
         "header": "Cabecera",
-        "header_label": "Debe ser un .jpg, .jpeg or .png fichero (2mb max)*",
+        "header_label": "It must be a .jpg, .jpeg or .png file (2mb max)*",
         "home": {
-            "entity_address": "Direccion de entidad",
-            "entity_description": "Descripcion de la entidad",
-            "entity_processes": "Procesos de la entidad",
-            "no_processes_yet": "Sin procesos de votación",
-            "view_in_explorer": "Ver en el explorador"
+            "entity_address": "Entity address",
+            "entity_description": "Entity description",
+            "entity_processes": "Entity processes",
+            "no_processes_yet": "No voting processes",
+            "view_in_explorer": "View in explorer"
         },
-        "i_have_read_and_accept_personal_data": "(Optional) Doy mi consentimiento expreso para la gestión comercial y de servicios",
-        "i_have_read_and_accept_terms": "He leído y acepto el “Información de protección de datos personales” (ver arriba), y la “<1>Política de Privacidad</1>” de Aragon Association",
+        "i_have_read_and_accept_personal_data": "(Optional) I give my express consent for the commercial, and service management",
+        "i_have_read_and_accept_terms": "I have read and accept “Personal Data Proteccion Information” (see above), and Aragon Labs “<1>Privacy Policy</1>”",
         "logo": "Logo de la entidad",
-        "logo_label": "Debe ser un .jpg, .jpeg or .png fichero (2mb max)*",
-        "name": "Nombre de la entidad*",
+        "logo_label": "It must be a .jpg, .jpeg or .png file (2mb max)*",
+        "name": "Name of the entity*",
         "new_entity": "Nueva Entidad",
         "passphrase": "Contraseña",
         "passphrase_image_alt": "Contraseña",
-        "personal_data_protection_information": "Información de Protección de Datos",
+        "personal_data_protection_information": "Personal Data Protection Information",
         "repeat_passphrase": "Repite la contraseña",
         "select_city_council": "Ayuntamiento",
         "select_company": "Empresa",
@@ -252,10 +252,10 @@
         "invalid_passphrase_format_error": "La contraseña debe contener un mínimo de {{ length }} caracteres",
         "invalid_question_error": "Pregunta inválida",
         "invalid_question_title": "El título debe contener un mínimo de {{ length }} caracteres",
-        "invalid_row_length": "Corrija las líneas {{invalidRows}} del documento. Corrija estos errores y vuelva a cargar el documento.",
+        "invalid_row_length": "Please correct lines {{invalidRows}} of the document. Correct these errors & upload the document again.",
         "invalid_title": "El título debe contener un mínimo de {{ length }} caracteres",
         "invalid_url": "URL inválida",
-        "invalid_weighted_row_length": "Peso no válido en las líneas {{invalidRows}} del documento. Corrija estos errores y vuelva a cargar el documento.",
+        "invalid_weighted_row_length": "Invalid weight on lines {{invalidRows}} of the document. Correct these errors & upload the document again.",
         "num_entries_could_not_be_added_to_the_census": "{{num}} entradas no han podido ser añadidas al censo",
         "retrieve_gas_time_out": "No se ha podido determinar el coste de la transacción",
         "the_incognito_mode_is_not_supported": "La navegación privada no está soportada",
@@ -266,7 +266,7 @@
         "the_vote_is_not_available_yet": "El voto aún no está disponible",
         "these_user_is_not_member_of_the_census": "Este usuario no es miembro del censo.",
         "wallet_not_available": "Cuenta no disponible",
-        "we_cant_check_the_new_status_process": "No podemos comprobar el estado del nuevo proceso"
+        "we_cant_check_the_new_status_process": "We cannot check the status of the new process"
     },
     "errors": {
         "cannot_connect_to_the_blockchain": "No se puede conectar a la cadena de bloques",
@@ -283,7 +283,7 @@
         "invalid_link": "You are following and invalid link",
         "not_a_web_browser": "No es un navegador",
         "page_not_found": "No se ha encontrado la página",
-        "passphrase_dont_match": "La contraseña no coincide",
+        "passphrase_dont_match": "The passphrase don't match",
         "please_accept_credentials_tos": "Por favor, acepta las Condiciones de Servicio",
         "please_confirm_your_passphrase": "Por favor, confirma contraseña",
         "please_ensure_no_incognito_mode": "Por favor, asegurate que no utilizas navegación privada",
@@ -304,21 +304,21 @@
         "the_list_of_votes_cannot_be_loaded": "No se puede cargar la lista de los procesos de votación",
         "the_passphrase_does_not_match": "La contraseña no coincide",
         "the_passphrase_is_empty": "La contraseña está vacía",
-        "the_passphrase_should_contain_some_uppercase_characters_and_length_8": "Debe tener 8 caracteres o más, con al menos 1 mayúscula y 1 minúscula",
+        "the_passphrase_should_contain_some_uppercase_characters_and_length_8": "Must have 8 characters or more, with at least 1 uppercase and 1 lowercase",
         "the_recovery_could_not_be_completed": "La recuperación no se ha podido completar",
         "the_vote_has_not_been_registered": "El voto no ha sido registrado",
         "there_is_already_one_account_with_the_same_credentials": "Ya hay otra cuenta con estas credenciales",
         "there_is_already_one_account_with_the_same_name": "Ya hay otra cuenta con este nombre",
-        "there_is_already_one_voter_with_the_same_name": "Un votante con estas credenciales ya ha sido registrado.",
-        "update_entity_data_error": "Error actualizando los datos",
-        "voter_key_already_registered": "La contraseña ya ha sido registrada.",
+        "there_is_already_one_voter_with_the_same_name": "A voter with these credentials has already been registered.",
+        "update_entity_data_error": "Update entity data error",
+        "voter_key_already_registered": "The password has already been set",
         "you_are_not_part_of_the_census": "No formas parte del censo",
         "you_canceled_the_operation": "Has cancelado la operación",
         "your_vote_could_not_be_delivered": "Tu voto no ha podido ser entregado"
     },
     "form": {
         "input": {
-            "edit": "Editar"
+            "edit": "Edit"
         }
     },
     "home": {
@@ -415,9 +415,9 @@
     },
     "input": {
         "enter_the_url_or_upload_a_file": "Cargar una imagen o introducir un enlace externo",
-        "hide": "Ocultar",
+        "hide": "Hide",
         "remove_file": "Borrar archivo",
-        "show": "Mostrar"
+        "show": "Show"
     },
     "links": {
         "about": "Sobre Vocdoni",
@@ -427,7 +427,7 @@
         "help": "Ayuda",
         "pricing": "Precio",
         "privacy_policy": "Política de Privacidad",
-        "requests_and_bugs": "Solicitudes y Errores",
+        "requests_and_bugs": "Feature Request & Bugs",
         "support": "Soporte"
     },
     "preview": {
@@ -437,8 +437,8 @@
     "pub": {
         "votes": {
             "close_preregister_modal": "Ok",
-            "preregister_completed": "Pre-registro completado!",
-            "your_password_was_set_successfully_to_allow_you_participate_on": "Tu contraseña se ha guardado correctamente y te permitirá participar cuando el proceso empieze el {{startDate}}"
+            "preregister_completed": "Pre-registration complete!",
+            "your_password_was_set_successfully_to_allow_you_participate_on": "Your password was set successfully to allow you to participate when the vote starts on {{startDate}}"
         }
     },
     "recover": {
@@ -492,7 +492,7 @@
         "the_vote_will_start_soon": "El proceso de votación empezará pronto"
     },
     "success": {
-        "passphrase_match": "Las contraseñas coniciden!"
+        "passphrase_match": "Passphrase match!"
     },
     "supported_langs": {
         "catalan": "Català",
@@ -501,70 +501,70 @@
         "spanish": "Castellano"
     },
     "text_editor": {
-        "apply": "Aplicar",
-        "link": "Enlace"
+        "apply": "Apply",
+        "link": "Link"
     },
     "vote_detail": {
         "calendar_card": {
-            "end_date": "Fin",
-            "start_date": "Inicio",
-            "title": "Calendario"
+            "end_date": "End",
+            "start_date": "Start",
+            "title": "Calendar"
         },
         "cancel_dialog": {
-            "acceptText": "Si, cancelar",
-            "backText": "No, volver",
-            "subtitle": "Esta acción es irreversible.<br /> Estás seguro que quieres cancelar esta votación?",
-            "title": "Cancelar votación"
+            "acceptText": "Yes, Cancel vote",
+            "backText": "No, go back",
+            "subtitle": "This action is irreversible.<br /> Are you sure you want to cancel this vote?",
+            "title": "Cancel vote"
         },
-        "cancel_vote": "Cancelar votación",
+        "cancel_vote": "Cancelar la votación",
         "census_card": {
-            "size": "Tamaño",
-            "title": "Censo",
-            "voters": "{{ censusSize }} votantes"
+            "size": "Size",
+            "title": "Census details",
+            "voters": "{{ censusSize }} voters"
         },
         "end_dialog": {
-            "acceptText": "Si, finalizar",
-            "backText": "No, volver",
-            "subtitle": "Esta acción es irreversible.<br /> Estás seguro que quieres finalizar esta votación?",
-            "title": "Finalizar votación"
+            "acceptText": "Yes, End vote",
+            "backText": "No, go back",
+            "subtitle": "This action is irreversible.<br /> Are you sure you want to end this vote?",
+            "title": "End vote"
         },
-        "end_vote": "Finalizar votación",
+        "end_vote": "Finalitzar la votación",
         "external_links": {
-            "document": "Documento",
+            "document": "Document",
             "q_and_a": "Q&A",
             "stream": "Stream",
-            "title": "Enlaces externos"
+            "title": "External links"
         },
-        "generate_pdf": "Generar PDF",
+        "generate_pdf": "Generate PDF",
         "generate_pdf_card": {
-            "generate_pdf": "Generar PDF",
-            "see_results": "Ver resultados",
-            "title": "Total votos emitidos"
+            "generate_pdf": "Generate PDF",
+            "see_results": "See results",
+            "title": "Total votes submited"
         },
-        "generate_pdf_with_results": "Generar PDF con resultados",
-        "preview": "Previsualizar",
+        "generate_pdf_with_results": "Crear un PDF con los resultados",
+        "preview": "Preview",
         "questions_card": {
-            "options": "Opciones",
-            "question": "Pregunta {{ number }}",
-            "title": "Preguntas de la Votación"
+            "options": "Options",
+            "question": "Question {{ number }}",
+            "title": "Voting Questions"
         },
         "results_card": {
-            "hide": "Ocultar",
-            "show": "Mostrar",
-            "title": "Resultados de la Votación"
+            "hide": "Hide",
+            "show": "Show",
+            "title": "Voting Results"
         },
         "settings_card": {
-            "anonymous_voting": "Votación anónima",
-            "normal_voting": "Opción única",
-            "options": "Opciones",
-            "title": "Parámetros",
-            "type": "Tipo",
-            "weighted_voting": "Votación ponderada"
+            "anonymous_voting": "Anonymous",
+            "normal_voting": "Single choice",
+            "options": "Options",
+            "title": "Settings",
+            "type": "Type",
+            "weighted_voting": "Weighted voting"
         },
-        "view_and_manage_the_status_of_the_process": "Ver y gestionar el proceso de votación",
+        "view_and_manage_the_status_of_the_process": "Visualizar y gestionar el estado del proceso",
         "vote_details": "Detalles de la votación",
         "voting_link": {
-            "title": "Enlace votación"
+            "title": "Voting link"
         }
     },
     "vote_question_card": {
@@ -575,41 +575,41 @@
     "vote": {
         "0x000": "0x00000000000000000000000000000000000000",
         "accept_terms": "Estoy de acuerdo",
-        "access_to_the_documentation": "Accede a la documentación",
+        "access_to_the_documentation": "Information document",
         "active_vote": "Proceso activo",
         "add_new_question": "Añade una nueva pregunta",
         "add_option": "Añade más opciones",
         "auth": {
-            "auth_button": "Autenticarse",
-            "close_preregister_redirect_modal": "Ir a la página de votación",
-            "disconnect_button": "Desconectar",
-            "if_you_voted": "Si has votado, debes autentificarte para revisar tu voto",
-            "insert_your": "Inserta tu {{ field }}",
-            "insert_your_credentials": "Inserta tus credenciales",
-            "insert_your_credentials_and_password": "Inserte sus credenciales y contraseña",
-            "insert_your_secret_key": "Inserta tu clave secreta",
-            "not_authenticated": "No estas autenticado/a!",
-            "not_preregistered": "Se requiere registro previo",
-            "preregister_button": "Pre-registrarse",
+            "auth_button": "Authenticate",
+            "close_preregister_redirect_modal": "Go to voting process",
+            "disconnect_button": "Disconnect",
+            "if_you_voted": "If you voted, you need to authenticate to review your vote",
+            "insert_your": "Insert you {{ field }}",
+            "insert_your_credentials": "Insert your credentials",
+            "insert_your_credentials_and_password": "Insert your credentials and password",
+            "insert_your_secret_key": "Insert your secret key",
+            "not_authenticated": "You are not authenticated!",
+            "not_preregistered": "Pre-registration required",
+            "preregister_button": "Pre-register",
             "preregister_redirect_dialog": {
-                "title": "Votante ya pre-registrado"
+                "title": "Voter already pre-registered"
             },
             "preregistration": {
-                "subtitle": "Este es un registro previo que se requiere para participar de forma anónima cuando comience el proceso de votación ({{date}}).",
-                "title": "Pre-registro"
+                "subtitle": "This is a pre-registration that is required in order to participate anonymously when the voting process starts ({{date}}).",
+                "title": "Pre-registration"
             },
-            "secret_key_label": "Clave secreta",
-            "with_credentials": "Autenticarse con sus credenciales para votar.",
-            "with_preregistration": "Deberá registrarse previamente antes de la fecha de inicio para enviar su voto.",
-            "with_preregistration_active": "Si se ha registrado, podrá emitir su voto después de autentificarse con sus credenciales y contraseña personal."
+            "secret_key_label": "Secret key",
+            "with_credentials": "Authenticate with your credentials to vote.",
+            "with_preregistration": "You will need to pre-register before starting date in order to submit your vote.",
+            "with_preregistration_active": "If you've registered, you will be able to cast your vote after authenticating with your credentials and personal password."
         },
         "back_to_dashboard": "Vuelve al inicio",
         "brand_color_used_on_the_voting_process": "Brand color used on the voting process",
         "brand_process_color": "Brand color",
-        "calendar_end_label": "Final",
-        "calendar_start_label": "Inicio",
-        "calendar_title": "Calendario",
-        "canceled_vote": "Cancelada",
+        "calendar_end_label": "End",
+        "calendar_start_label": "Start",
+        "calendar_title": "Calendar",
+        "canceled_vote": "Canceled",
         "cannot_connect_to_the_blockchain_to_check_the_account_balance": "No se ha podido conectar a la cadena de bloques",
         "cannot_connect_to_the_vocdoni_chain": "No se ha podido conectar a la cadena Vocdoni",
         "census_root_value": "Census root value",
@@ -617,26 +617,26 @@
         "change_entity_name": "Cambia el nombre de la entidad",
         "checking_details": "Comprobando los detalles",
         "confirm_your_vote": "Confirmar tu voto",
-        "copied": "Copiado!",
+        "copied": "Copied!",
         "copy": "Copia",
         "creating_census": "Creando censo",
         "creating_process": "Creando proceso",
         "creation": "Creación",
-        "credentials_not_accepted": "¡Credenciales inválidas! Por favor, ponte en contacto con la entidad.",
+        "credentials_not_accepted": "Credentials not accepted! Please contact the entity.",
         "define_the_timeframe_of_the_proposal": "Definición del plazo de votación",
         "delete_option": "Eliminar esta opción",
         "delete_question": "Eliminar esta pregunta",
         "description": "Descripción",
         "details": "Detalles",
-        "disconnect_modal_back_button": "No, ir atrás",
-        "disconnect_modal_confirm_button": "Sí, desconectar",
-        "disconnect_modal_subtitle": "¿Está seguro de que desea desconectarse de las credenciales autenticadas?",
-        "disconnect_modal_title": "Desconnectarse",
+        "disconnect_modal_back_button": "No, go back",
+        "disconnect_modal_confirm_button": "Yes, Disconnect",
+        "disconnect_modal_subtitle": "Are you sure you want to disconnect from the authenticated credentials?",
+        "disconnect_modal_title": "Disconnect",
         "email": "Correo",
         "end_date": "Fecha de finalización",
         "end_date_explanation": "Fecha límite para la aceptación de votos",
-        "ended_vote": "Votación finalizada",
-        "ending_in": "Finaliza en",
+        "ended_vote": "Ended",
+        "ending_in": "Ending in",
         "enter_the_details_of_the_proposal": "Introduce los detalles de un nuevo proceso de votación",
         "entity_logo_alt": "Logo de la entidad",
         "error_creating_the_entity_on_blockchain": "Error creando la entidad en la cadena de bloques",
@@ -653,15 +653,15 @@
         "invalid_file_type": "Archivo inválido. Formatos compatibles: XLS, XLSX, CSV, ODT",
         "invalid_mnemonic_value": "mneumonic introducido invalido",
         "invalid_process_id_link": "El proceso id en el enlace es invalido",
-        "live_stream": "Streaming",
+        "live_stream": "Live Stream",
         "login_title": "Iniciar sessión",
         "name": "Nombre",
         "new_vote": "Nuevo proceso de votación",
         "no_back_to_login": "No, volver a la votación",
-        "no_results_subtitle_end": "Los resultados se mostrarán solo después de que se cierre la votación.",
-        "no_results_subtitle_live": "Los resultados se mostrarán una vez que se inicie la votación.",
-        "no_results_title": "Los resultados no están disponibles",
-        "no_votes_emitted": "No hay votos emitidos",
+        "no_results_subtitle_end": "The results will be displayed only after the vote is closed.",
+        "no_results_subtitle_live": "The results will be displayed once the vote is initiated.",
+        "no_results_title": "Results are not available",
+        "no_votes_emitted": "No votes emitted",
         "option_n": "Opción {{ number }}",
         "optional_field": "Este campo es opcional",
         "paused_vote": "Votación pausada",
@@ -674,43 +674,43 @@
         "proposal_title": "Título",
         "question": "Pregunta {{ number }}",
         "question_image_alt": "Imagen de la pregunta",
-        "questions_and_answers": "Ruegos y preguntas",
+        "questions_and_answers": "Questions & Answers",
         "ready": "Listo!",
         "real_time_results": "Visualización de los resultados en tiempo real",
         "results_after": "Revelar los resultados al final del proceso",
         "results_availability": "Disponibilidad de los resultados",
         "results_live": "Resultados públicos en tiempo real",
-        "results_question": "Pregunta {{ index }}",
+        "results_question": "Question {{ index }}",
         "retry": "Inténtalo de nuevo",
         "reveal_results_at_the_end": "Resultados públicos al finalizar el proceso",
-        "see_results": "Ver los resultados",
+        "see_results": "See results",
         "select_whether_results_should_be_visible_in_real_time": "Seleciconar recuento público ( en tiempo real ) o secreto (disponibles al finalizar la votación)",
         "set_option": "Establecer opción",
         "settings": "Configuración",
-        "show_less": "Ocultar",
-        "show_more": "Expandir",
+        "show_less": "Show less",
+        "show_more": "Show more",
         "something_was_wrong_please_click_retry_to_try_again_the_entity_creation_if_fails_again_contact_with_our_support_team": "Por favor, espera un rato y vuelve a intentarlo. Si el problema persiste, ponte en contacto con el equipo de soporte.",
         "start_date": "Fecha de inicio",
         "start_date_explanation": "Fecha de inicio para la aceptación de votos",
         "start_on_a_specific_date": "Iniciar en una fecha concreta",
         "start_right_away_7_minutes_from_now": "Iniciar ahora (este proceso puede tardar 10 minutos aproximadamente)",
-        "starting_in": "Empieza en",
+        "starting_in": "Starting in",
         "stream_link": "Enlace del video streaming",
         "stream_link_explanation": "Si quieres emitir tu proceso en vivo puedes incluir un video streaming. Puede ser, por ejemplo, un stream de youtube.",
         "stream_link_label": "Este campo es opcional",
-        "submitting_vote": "Tu voto está siendo enviado...",
-        "submitting_vote_msg": "Por favor, no cierres la ventana, esta acción puede durar unos minutos.",
+        "submitting_vote": "Your vote is being submitted...",
+        "submitting_vote_msg": "Please don’t close the window, this action may take a few minutes.",
         "surname": "Apellido",
-        "tag_is_anonymous": "Anónima",
-        "tag_is_normal": "Votación standard",
-        "tag_is_weighted": "Votación ponderada",
+        "tag_is_anonymous": "Anonymous",
+        "tag_is_normal": "Normal voting",
+        "tag_is_weighted": "Weighted voting",
         "thanks_for_participate_on_this_AGM": "Gracias por participar en este proceso, vuelve a la página principal para seguir y consultar los resultados cuando estén disponibles",
         "the_blockchain_network_is_congested": "La red de la cadena de bloques está congestionada",
         "the_blockchain_network_is_congested_for_these_reason_te_transactions_could_spend_several_minutes_dont_worry_we_keep_the_data_to_follow_the_process": "La red de la cadena de bloques está congestionada. Por esta razón las transacciones pueden tardar unos minutos. No te preocupes, nosotros las guardamos para garantizar su entrega.",
         "the_entity_name_already_exist": "El nombre de entidad ya existe",
         "the_process_must_start_at_least_20_minutes_latter": "El proceso ha de empezar al menos 10 minutos mas tarde de la hora actual",
-        "the_vote_will_end_at_the_given_time": "La votación terminará a la hora predeterminada. También puedes  cerrarla manualmente, si lo necesitas.",
-        "the_voting_process_has_endded": "El período de votación ha finalizado",
+        "the_vote_will_end_at_the_given_time": "La votación terminará a la hora predeterminada. También puedes  cerrarla manualmente, si lo necesitas.",
+        "the_voting_process_has_endded": "The voting period has ended",
         "these_color_will_be_used_to_improve_the_look_and_feel": "These color will be used to improve the look and feel of the voting process",
         "this_is_the_form_that_your_community_will_need_to_fill_in_order_to_vote": "Los miembros deberán cumplimentar este formulario para acceder a la votación",
         "this_is_the_link_that_you_need_to_send_your_community_members": "Este es el enlace de votación que deberás compartir con los votantes:",
@@ -718,36 +718,36 @@
         "this_is_the_link_that_you_need_to_send_your_community_members_replacing_the_corresponding_private_key_helper": "Recuerda que cada enlace sera unico para cada uno de los votantes, diferentes votantes deben tener enlaces diferentes distinguidos por su llave privada",
         "this_is_the_link_that_your_community_members_can_use_to_access_via_mnemonic": "Este es el enlace de votación que deberás compartir con los votantes que quieren acceder utilizando su mnemonic:",
         "this_is_the_link_that_your_community_members_can_use_to_access_via_mnemonic_helper": "Este enlace se puede utilizar por votantes que ya disponen wallets associados con mnemonics",
-        "this_is_weighted_voted": "Esta es una votación ponderada",
+        "this_is_weighted_voted": "This is a Weighted Voting",
         "this_type_of_vote_is_not_supported_on_the_current_page": "Este tipo de votación no está disponible todavía",
         "title": "Título",
-        "total_votes_submited": "Total votos emitidos",
+        "total_votes_submited": "Total votes submited",
         "upcoming_vote": "Próxima votación",
         "upload_new_logo": "Cargar un logo nuevo",
         "uploading_metadata": "Cargando los metadatos",
         "verifying_creation": "Verificando la creación",
-        "view_in_explorer": "Verificar Voto",
-        "vote_count": "{{ count }} voto",
-        "vote_count_plural": "{{ count }} votos",
+        "view_in_explorer": "Verify Vote",
+        "vote_count": "{{count}} votes",
+        "vote_count_plural": "{{count}} votes",
         "vote_now": "Vota ahora",
         "vote_process_image_alt": "Imagen del proceso",
         "vote_submitted_image_alt": "Imagen cargada",
-        "vote_will_close": "La votación finalizará en",
-        "vote_will_start": "La votación empezará en",
+        "vote_will_close": "Vote will close in",
+        "vote_will_start": "Vote will start in",
         "voted_alt": "Vota",
-        "voting_power": "Peso del voto",
-        "voting_results_hide": "Ocultar",
-        "voting_results_show": "Mostrar",
-        "voting_results_title": "Resultados de la votación",
+        "voting_power": "Voting power",
+        "voting_results_hide": "Hide",
+        "voting_results_show": "Show",
+        "voting_results_title": "Voting Results",
         "we_are_trying_to_connect_to_blockchain_to_check_your_account_balance_we_store_all_the_data_to_follow_the_process": "Estamos intentando conectar a la cadena de bloques para comprovar el balance del teu compte d'entitat. Guardamos tota la información per configurar el proceso.",
         "we_are_trying_to_sign_on_the_vocdoni_blockchain_to_register_your_entity": "Estamos intentando acceder a la cadena de bloques para registrar tu entidad",
         "we_are_using_a_decentralized_secure_system": "Estamos enviando toda la información a la cadena de bloques. Esta acción puede tardar unos minutos.",
         "we_cant_upload_the_logos_on_ipfs_network_please_choose_a_new_logo_and_header": "No podemos cargar las imágenes del logo y de la cabecera a IPFS. Por favor, escoge otras.",
         "who_can_vote": "¿Quién puede votar?",
         "yes_submit_the_vote": "Sí, envía mi voto",
-        "you_are_autenticated": "Estás autenticado con las credenciales:",
+        "you_are_autenticated": "You are authenticated with credentials: ",
         "you_cant_enter_contact_with_entity": "Si no puedes acceder, contacta con la entidad",
-        "you_got_attributed_a_voting_power_per_question": "Tienes un poder de voto por pregunta de: {{ voteWeight }}",
+        "you_got_attributed_a_voting_power_per_question": "You got attributed a voting power per question of: {{ voteWeight }}",
         "your_choice": "Tu selección",
         "your_entity_is_being_registered": "Tu selección",
         "your_vote_has_been_registered": "Tu voto ha sido registrado",
@@ -756,128 +756,128 @@
     },
     "votes": {
         "new": {
-            "all_the_voters_has_the_same_power": "Todos los votantes tendrán el mismo poder de voto",
+            "all_the_voters_has_the_same_power": "All voters will have the same voting power",
             "anonymous_messages": [
-                "• Es imposible que un tercero vea qué voto ha emitido un usuario.",
-                "• <strong>Los votantes deberán registrarse previamente antes de la fecha de inicio</strong> para obtener una contraseña de autenticación",
-                "• Los votantes deberán autenticarse con sus credenciales y contraseña una vez que deseen votar"
+                "• It will be impossible for a third-party to see which vote a user has cast.",
+                "• <strong>Voters will need to pre-register before the starting date</strong> in order to get an authentication password.",
+                "• Voters will be required to then authenticate with their credentials and password once they wish to vote."
             ],
-            "anonymous_voting": "Votación anónima",
-            "anonymous_weighted_warning_msg": "La votación anónima con voto ponderado aún no está disponible. Se ha desactivado automáticamente.",
-            "by_activating_the_anonymous_voting_option": "Al activar la opción de voto anónimo, se aplicará lo siguiente:",
+            "anonymous_voting": "Anonymous voting",
+            "anonymous_weighted_warning_msg": "Anonymous voting with weighted voting is not available yet. It has been automatically disabled.",
+            "by_activating_the_anonymous_voting_option": "By activating the anonymous voting option, the following will be applied:",
             "calendar": {
-                "subtitle": "Establezca cuándo y cómo desea que comience y finalice el proceso de votación:",
-                "subtitleAnonymous": "Votar de forma anónima requiere un paso adicional de preinscripción por parte de los votantes, que comenzará inmediatamente después de crear este proceso y durará hasta la fecha de inicio de la votación.",
-                "title": "Calendario"
+                "subtitle": "Set when and how you wish the voting process to start and end:",
+                "subtitleAnonymous": "Anonymous voting requires an additional voter pre-registration step, which will begin immediately after this process is created and will last until the voting start date.",
+                "title": "Calendar"
             },
-            "disclaimer": "Atención",
-            "download_template": "Descargar plantilla",
-            "download_the_original_template_to_fill": "Descargue la plantilla original para completar con su lista de votantes",
-            "end": "Final",
-            "end_on_a_specific_date": "Terminar en una fecha específica",
+            "disclaimer": "Disclaimer",
+            "download_template": "Download template",
+            "download_the_original_template_to_fill": "Download the original template to fill with your list of voters",
+            "end": "End",
+            "end_on_a_specific_date": "End on a specific date",
             "errors": {
-                "10min": "La fecha de inicio del proceso de votación debe empezar por lo menos 10 min. en el futuro.",
-                "date": "Las fechas de inicio y/o final no son válidas",
-                "endDate": "Selecciona una fecha de final.",
-                "minStartDate": "La fecha de inicio debe ser inferior a la final.",
-                "startDate": "Selecciona una fecha de inicio."
+                "10min": "The start date of the voting process must start at least 10 min in the future.",
+                "date": "Invalid start and/or end dates",
+                "endDate": "Select an end date.",
+                "minStartDate": "The start date must be less than the end date.",
+                "startDate": "Select a start date."
             },
-            "form_preview": "Vista previa del formulario",
-            "i_understand_and_i_agree_to_the_terms_and_conditions": "Entiendo y acepto los <0>Términos y condiciones</0> para organizar los procesos de votación.",
-            "if_change_the_type_of_vote_the_updated_census_will_be_lost": "Si cambia el tipo de voto, se perderá el censo actual cargado",
-            "import_the_list_of_voters": "Importar la lista de votantes",
+            "form_preview": "Form preview",
+            "i_understand_and_i_agree_to_the_terms_and_conditions": "I understand and agree to the <0>Terms and Conditions</0> for organizing voting processes.",
+            "if_change_the_type_of_vote_the_updated_census_will_be_lost": "If you change the type of vote, the current uploaded census will be lost",
+            "import_the_list_of_voters": "Import the list of voters",
             "no": "No",
-            "normal_voting": "Votación normal",
+            "normal_voting": "Normal voting",
             "preregister_step_1": {
-                "subtitle": "Los votantes deben registrarse previamente durante este período para poder votar.",
-                "title": "Comienza la preinscripción"
+                "subtitle": "Voters must pre-register during this period, in order to vote.",
+                "title": "Pre-registration starts"
             },
             "preregister_step_2": {
-                "subtitle": "Todos los usuarios registrados previamente podrán enviar su voto.",
-                "title": "Se inicia el proceso de votación"
+                "subtitle": "All pre-registered users will be able to submit their vote.",
+                "title": "Voting process starts"
             },
             "preregister_step_3": {
-                "subtitle": "No se permitirán más votaciones y los resultados finales estarán disponibles.",
-                "title": "El proceso de votación finaliza"
+                "subtitle": "No more votes will be allowed and final results will be available.",
+                "title": "Voting process ends"
             },
-            "requirements": "Requisitos",
+            "requirements": "Requirements",
             "results_availability": {
-                "subtitle": "Seleccione el tipo de votación que se usará en este proceso:",
-                "title": "Disponibilidad de resultados"
+                "subtitle": "Select the voting type to be used on this process:",
+                "title": "Results Availability"
             },
-            "select_date_and_time": "Seleccionar fecha y hora",
-            "select_voting_options": "Seleccionar opciones de votación",
-            "select_voting_type": "Seleccionar tipo de votación",
-            "set_different_power_to_each_voter": "Establecer un poder de voto diferente para cada votante",
-            "start": "Empezar",
-            "start_inmediatly": "Empezar immediatamente",
-            "start_on_a_specific_date": "Comenzar en la fecha seleccionada",
-            "supported_formats_csv_xls": "(Formatos admitidos: CSV, XLSX y ODS)",
-            "the_document_name_that_you_updated_do_not_fill": "El documento \"{{ documentName }}\" que cargó no cumple con algunos de los requisitos.",
-            "the_fields_are_case_insensitive_blank_spaces_will_be_ignored": "Los campos no distinguen entre mayúsculas y minúsculas, los espacios en blanco se ignorarán y los signos diacríticos se transformarán en letras simples.",
-            "the_first_row_will_be_used_as_the_name_of_the_fields": "La primera fila de la hoja de cálculo se utilizará como el nombre de los campos que se solicitarán a los votantes.",
-            "the_voting_power_should_be_above": "El poder de voto debe establecerse con números enteros por encima de 0 (cero). Cualquier poder de voto que no cumpla con los requisitos contará como 1 (uno).",
-            "the_weighted_voted_should_always_come_the_first_column": "El peso de cada votante siempre debe aparecer como primer campo.",
-            "upload_new_document": "Subir una nueva lista de votantes",
-            "upload_or_drag_and_drop_here_the_list": "Sube o arrastra y suelta aquí la lista de votantes",
-            "vocdoni_currently_only_support_public_voting_process": "Actualmente, Vocdoni solo admite procesos de votación pública. La información sobre el proceso se pondrá a disposición del público y no se podrá actualizar después de enviarla. Asegúrese de que toda la información sea correcta, que haya leído los Términos y condiciones antes de crear el proceso de votación y que no esté compartiendo información confidencial.",
-            "weighted_voting": "Votación ponderada",
-            "would_you_like_this_voting_process_to_ensure_cryptographic_anonymity": "¿Le gustaría que este proceso de votación garantizara el anonimato criptográfico?",
-            "yes": "Sí"
+            "select_date_and_time": "Select the date and time",
+            "select_voting_options": "Select voting options",
+            "select_voting_type": "Select voting type",
+            "set_different_power_to_each_voter": "Set different voting power to each voter",
+            "start": "Start",
+            "start_inmediatly": "Start inmediatly",
+            "start_on_a_specific_date": "Start on selected date",
+            "supported_formats_csv_xls": "(Supported formats: CSV, XLSX and ODS)",
+            "the_document_name_that_you_updated_do_not_fill": "The document \"{{ documentName }}\" that you uploaded do not fill some of the requirements.",
+            "the_fields_are_case_insensitive_blank_spaces_will_be_ignored": "The fields are case insensitive, blank spaces will be ignored and diacritics will be transformed into plain letters.",
+            "the_first_row_will_be_used_as_the_name_of_the_fields": "The first row of the spreadsheet will be used as the name of the fields that voters will be prompted for. ",
+            "the_voting_power_should_be_above": "The voting power should be set with whole numbers above 0 (zero). Any voting power that doesn’t follow the requirements will count as 1 (one).",
+            "the_weighted_voted_should_always_come_the_first_column": "The weight of each voter should always come as the first field.",
+            "upload_new_document": "Upload a new document",
+            "upload_or_drag_and_drop_here_the_list": "Upload or drag and drop here the list of voters",
+            "vocdoni_currently_only_support_public_voting_process": "Vocdoni currently only supports public voting processes. The information on the process will be made publicly available and can’t be updated after submitting it. Please make sure all information is correct, you have read the Terms & Conditions before creating the voting process and that you are not sharing sensitive information.",
+            "weighted_voting": "Weighted voting",
+            "would_you_like_this_voting_process_to_ensure_cryptographic_anonymity": "Would you like this voting process to ensure cryptographic anonymity?",
+            "yes": "Yes"
         },
         "preregister_view": {
-            "back": "Atrás",
-            "important": "Importante",
-            "insert_password": "Insertar contraseña",
-            "insert_password_again": "Insertar contraseña de nuevo",
-            "next": "Siguiente",
-            "password": "Contraseña",
-            "repeat": "Repetir",
-            "set_password_of_authentication": "Contraseña de autentificación",
-            "the_password_that_you_set_will_not_be_possible": "La contraseña que establezca no podrá recuperarse ni restablecerse.",
-            "when_the_process_start_at_date_in_order_to_vote_anonymously": "Cuando el proceso de votación comience el {{date}}, para votar de forma anónima se le pedirá que ingrese esta contraseña."
+            "back": "Back",
+            "important": "Important",
+            "insert_password": "Insert password",
+            "insert_password_again": "Insert password again",
+            "next": "Next",
+            "password": "Password",
+            "repeat": "Repeat",
+            "set_password_of_authentication": "Set a password of authentication",
+            "the_password_that_you_set_will_not_be_possible": "The password that you set will not be possible to be recovered or reset.",
+            "when_the_process_start_at_date_in_order_to_vote_anonymously": "When the voting process starts {{date}}, in order to vote anonymously you will be asked to enter this password."
         },
         "questions_list": {
-            "back": "Atrás",
-            "finish_voting": "Finalizar votación",
-            "next_question": "Siguiente pregunta",
-            "num_questions_info": "Debes responder todas las preguntas para poder votar. Has respuesto ",
-            "num_questions_total": "de {{numTotal}}",
-            "question": "Pregunta {{questionIndex}}/{{totalQuestions}}"
+            "back": "Back",
+            "finish_voting": "Finish voting",
+            "next_question": "Next question",
+            "num_questions_info": "You must answer all questions in order to vote. You answered ",
+            "num_questions_total": "of {{numTotal}}",
+            "question": "Question {{questionIndex}}/{{totalQuestions}}"
         }
     },
     "waiting_banner": {
         "entity_creation": [
-            "Vocdoni aprovecha un grupo de tecnologías descentralizadas para asegurar la <strong>integridad</strong> de la votacion y los resultados, incluyendo Ethereum-L2 Gnosis chain, <strong>Vochain</strong> – nuestra propia blockchain basada en Tendermint y IPFS.",
-            "Somos uno de los pocos proveedores de votación con blockchain y el únicon con una solucionada <strong>verificable</strong> y <strong>100% anónima</strong>.",
-            "Puedes subir una hoja de cálculo o un archivo .csv con con tu censo de votantes o lista de miembros con drag-and-drop y <strong>gestionar tu lista de miembros</strong> de manera fácil desde el dashboard de Vocdoni.",
-            "Un mecanismo de consentimiento incorporado en Vocdoni genera una firma para indicar como se deben utilizar los datos del votante, esto permite a las organizaciones crear procesos de votación <strong>legales y nque cumplan la legislación en materia de protección de datos</strong>.",
-            "Nuestro inovador protocolo de votación puede procesar más de <strong>40k votos por minuto</strong> y continuamos trabajando para mejorar estas cifras y añadir nuevas funcionalidades."
+            "Vocdoni leverages a multi-layer decentralized technology stack to register your entity and record votes, including the Ethereum-L2 Gnosis chain, <strong>Vochain</strong> – our custom Tendermint blockchain, and IPFS. This ensures <strong>security</strong> and <strong>end-to-end auditability</strong>, and may take some time.",
+            "We are one of the few providers of blockchain voting, and the only end-to-end <strong>verifiable</strong> and <strong>anonymous-capable</strong> solution.",
+            "You can upload a spreadsheet or .csv of your voter census or member list via drag-and-drop, and easily <strong>manage your membership base</strong> from the Vocdoni dashboard.",
+            "A built-in consent mechanism generates a signature to indicate how voter data should be used, allowing organizations to manage processes in a <strong>legally and GDPR-compliant way</strong>.",
+            "Our cutting-edge voting protocol can process more than <strong>40k votes per minute</strong>, and we are always improving this and implementing new features."
         ],
-        "title": "Sabes que...",
+        "title": "You know...",
         "vote_creation": [
-            "Tu proceso de votación esta siendo registrado en <strong>Vochain</strong> – nuestra propia blockchain basada en Tendermint, para asegurar la <strong>no manipulación</strong> y <strong>auditabilidad punto a punto</strong>, esto puede llevar algún tiempo. Lee nuestra <a href='https://docs.vocdoni.io/' target='_blank'>documentación</a> o nuestro <a href='https://blog.aragon.org/vocdoni-technical-overview-v1/' target='_blank'>resumen téccnico</a> para saber más.",
-            "Los administradores de la votación y los votantes pueden monitorizar los <strong>resultados en tiempo real</strong> de manera predeterminada, también puedes activar los resultados al final de la votación en la configuración del proceso.",
-            "Puedes crear activar preguntas de seleccón simple o múltiple, <strong>ponderadas, cuadráticas y o anónimas</strong>, establecer el intervalo de tiempo de tu votación o terminarla manualmente en la sección de configuración.",
-            "Las organizaciones pueden <strong>customizar</strong> procesos de votación coin sus colores corporativos, logo y otras <strong>opciones</strong>.",
-            "Los administradores pueden <strong>añadir videos</strong> y <strong>transmisiones en vivo</strong> de manera fácil en la página de proceso, permitiendo a los miembros estar presentes en eventos online/híbrida, AGMs, reuniones de accionistas o juntas de empleados en vivo y impulsando así la participación.",
-            "Puedes crear una gran variedad de de diferentes procesos de participación con Vocdoni, incluyendo <strong>referendums, encuestas, votaciones</strong> y <strong>presupuestos</strong>.",
-            "Lo sistema de <strong>votación descentralizada</strong> basados en tecnología blockchain, son mejores que las bases de datos centralizadas porque no tienen un único punto de fallo vulnerable a ataques y por lo tanto son más <strong>resistentes a la censura</strong>",
-            "Todos los procesos cumplen la legislación vigente en materia de <strong>protección de datos</strong>, respetando la privacidad del usuario. Los resultados son <strong>auditables</strong> y por lo tanto <strong>legales</strong>.",
-            "Nuestro inovador protocolo de votación puede procesar más de <strong>40k votos por minuto</strong> y continuamos trabajando para mejorar estas cifras y añadir nuevas funcionalidades.",
-            "Puedes avisar a tu comunidad sobre una votación gracias a nuestro sistema <strong>one-click email</strong> que envía links individualizados a los miembros permitiendoles acceder fácilmente al proceso de votación."
+            "Your voting process information is being registered on the <strong>Vochain</strong> – our custom Tendermint blockchain, to ensure <strong>tamper-resistance</strong> and <strong>end-to-end auditability</strong>, which could take some time. Read our <a href='https://docs.vocdoni.io/' target='_blank'>documentation</a> or <a href='https://blog.aragon.org/vocdoni-technical-overview-v1/' target='_blank'>technical overview</a> to learn more.",
+            "Vote administrators and voters can monitor the <strong>results in real-time</strong> by default, or enable instant results after the vote, in the process settings.",
+            "You can enable single & multiple-choice, <strong>weighted, quadratic and/or anonymous</strong> voting, set the time frame of your vote, or end it manually in the process settings.",
+            "Organizations can <strong>customize</strong> voting processes with their corporate color, logo and other <strong>branding</strong>.",
+            "Admins can easily <strong>embed videos</strong> and <strong>livestreams</strong> in the vote process page, allowing members to be present in hybrid / online events, AGMs, and shareholder, board, and employee meetings live, boosting participation.",
+            "You can create a variety of different participatory processes with Vocdoni, including <strong>referendums, surveys, polls, binding votes</strong>, and <strong>budgets</strong>.",
+            "Decentralized voting systems, based on blockchain tech, are better than centralized databases as they do not have one single point of failure vulnerable to attack, and are thus <strong>censorship-resistant</strong>.",
+            "All voting processes are <strong>GDPR-compliant</strong>, as we respect user privacy and personal data, and <strong>legally compliant</strong>, as results are <strong>end-to-end auditable</strong>.",
+            "Our cutting-edge voting protocol can process more than <strong>40k votes per minute</strong>, and we are always improving this and implementing new features.",
+            "You can notify your community about a vote with our <strong>one-click email system</strong> that sends individualized links to members, enabling them to easily access the process."
         ],
         "vote_submitting": [
-            "Cada voto se almacena individualmente en la <strong>blockchain</strong> para asegurar su <strong>seguridad</strong>, <strong>virificabilidad punto a punto</strong> y <strong>resistencia a la censura</strong>. Este proceso puede llevar hasta 20 segundos.",
-            "Somos el único proveedor de <strong>un sistema de votación anónimo y auditable</strong> a través de pruebas zero-knowledge. Lee más sobre zk-SNARKS y zkRollups <a href='https://docs.vocdoni.io/architecture/protocol/anonymous-voting/zk-census-proof.html' target='_blank'>aquí</a>.",
-            "Todo el software desarrollado por Aragon y Vocdoni es totalmente <strong>open-source</strong>,y todo el código se puede ver en <a href='https://github.com/vocdoni' target='_blank'>Github</a>. Por lo tanto, somos capaces de ofrecer <strong>transparencia total</strong>.",
-            "Puedes monitorizar los resultados de la votación <strong>en tiempo real</strong> si esta opción esta activada por el administrador de la votación.",
-            "Todos los procesos cumplen la legislación vigente en materia de <strong>protección de datos</strong>, respetando la privacidad del usuario. Los resultados son <strong>auditables</strong> y por lo tanto <strong>legales</strong>.",
-            "Lo sistema de <strong>votación descentralizada</strong> basados en tecnología blockchain, son mejores que las bases de datos centralizadas porque no tienen un único punto de fallo vulnerable a ataques y por lo tanto son más <strong>resistentes a la censura</strong>",
-            "Estamos <strong>compromentidos con la privacidad del votante</strong>. No se almacena información personal cuando se participa en una votación o censo, puesto que las claves privadas que identifican a cada usuario se generan y alamacenan localmente en el terminal del usuario junto al resto de su información personal / las claves privadas se generan en el dispositivo del gestor de la entidad basandose en información especifica sobre los participantes en la votación.",
-            "Nuestro inovador protocolo de votación puede procesar más de <strong>40k votos por minuto</strong> y continuamos trabajando para mejorar estas cifras y añadir nuevas funcionalidades.",
-            "Vocdoni aprovecha un grupo de tecnologías descentralizadas para asegurar la <strong>integridad</strong> de la votacion y los resultados, incluyendo Ethereum-L2 Gnosis chain, <strong>Vochain</strong> – nuestra propia blockchain basada en Tendermint y IPFS.",
-            "Tu voto esta siendo registrado en <strong>Vochain</strong> – nuestra propia blockchain basada en Tendermint, para asegurar la <strong>no manipulación</strong> y <strong>auditabilidad punto a punto</strong>, esto puede llevar algún tiempo. Lee nuestra <a href='https://docs.vocdoni.io/' target='_blank'>documentación</a> o nuestro <a href='https://blog.aragon.org/vocdoni-technical-overview-v1/' target='_blank'>resumen téccnico</a> para saber más."
+            "Every vote is individually recorded on the <strong>blockchain</strong> to ensure <strong>security</strong>, <strong>end-to-end verifiability</strong> and <strong>censorship-resistance</strong>. This process may take up to 20 seconds.",
+            "We are the only provider of <strong>end-to-end auditable & anonymous voting</strong>, through advanced cryptographic zero-knowledge proofs. Read more about zk-SNARKS & zkRollups <a href='https://docs.vocdoni.io/architecture/protocol/anonymous-voting/zk-census-proof.html' target='_blank'>here</a>.",
+            "All software in the Aragon and Vocdoni stack is entirely <strong>open-source</strong>, and all code can be viewed on <a href='https://github.com/vocdoni' target='_blank'>Github</a>. We are thus able to offer complete <strong>transparency</strong>.",
+            "You can monitor the vote <strong>results in real-time</strong>, if this setting is enabled by the vote administrator.",
+            "All voting processes are <strong>GDPR-compliant</strong>, respecting user privacy, and results are  <strong>end-to-end auditable</strong>, and thus <strong>legally compliant</strong>.",
+            "<strong>Decentralized voting</strong> systems, based on blockchain tech, are better than centralized databases as they do not have one single point of failure vulnerable to attack, and are thus <strong>censorship-resistant</strong>",
+            "We are <strong>committed to voter privacy</strong>. No personal information is recorded when participating in a vote or census, as the private keys that identify each user are generated and stored locally in each user’s terminal, along with the rest of their personal data. / private keys are generated on the entity manager’s device based on specific information about the voting participants.",
+            "Our cutting-edge voting protocol can process more than <strong>40k votes per minute</strong>, and we are always improving this and implementing new features.",
+            "Vocdoni leverages a multi-layer decentralized technology stack to ensure the <strong>integrity</strong> of the process and record votes, including the Ethereum-L2 Gnosis chain, <strong>Vochain</strong> – our custom Tendermint blockchain, and IPFS.",
+            "Your vote is being registered on the <strong>Vochain</strong> – our custom Tendermint blockchain, to ensure <strong>tamper-resistance</strong> and <strong>end-to-end auditability</strong>, which could take some time. Read our <a href='https://docs.vocdoni.io/' target='_blank'>documentation</a> or <a href='https://blog.aragon.org/vocdoni-technical-overview-v1/' target='_blank'>technical overview</a> to learn more."
         ]
     }
 }
