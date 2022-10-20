@@ -854,7 +854,7 @@
             "A built-in consent mechanism generates a signature to indicate how voter data should be used, allowing organizations to manage processes in a <strong>legally and GDPR-compliant way</strong>.",
             "Our cutting-edge voting protocol can process more than <strong>40k votes per minute</strong>, and we are always improving this and implementing new features."
         ],
-        "title": "Did you know...",
+        "title": "You know...",
         "vote_creation": [
             "Your voting process information is being registered on the <strong>Vochain</strong> – our custom Tendermint blockchain, to ensure <strong>tamper-resistance</strong> and <strong>end-to-end auditability</strong>, which could take some time. Read our <a href='https://docs.vocdoni.io/' target='_blank'>documentation</a> or <a href='https://blog.aragon.org/vocdoni-technical-overview-v1/' target='_blank'>technical overview</a> to learn more.",
             "Vote administrators and voters can monitor the <strong>results in real-time</strong> by default, or enable instant results after the vote, in the process settings.",
