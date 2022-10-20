@@ -37,20 +37,41 @@ const MarkdownWrapper = styled.div`
     border-left: 1px solid #e0e0e0;
     padding-left: 20px;
     margin-left: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
   }
 
   & h1 {
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 500;
   }
 
   & h2 {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 500;
   }
 
   & strong {
     font-weight: bold;
-}
+  }
+
+  & ul {
+    margin-top:0px;
+  }
+
+  & ol {
+    margin-top: 0px;
+  }
+
+  & p {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    font-size: 16px;
+    line-height: 25px;
+  }
+
+  & p + ul {
+    margin-top: -14px;
+  }
 
 `

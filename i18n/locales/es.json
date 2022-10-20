@@ -854,7 +854,7 @@
             "Un mecanismo de consentimiento incorporado en Vocdoni genera una firma para indicar como se deben utilizar los datos del votante, esto permite a las organizaciones crear procesos de votación <strong>legales y nque cumplan la legislación en materia de protección de datos</strong>.",
             "Nuestro inovador protocolo de votación puede procesar más de <strong>40k votos por minuto</strong> y continuamos trabajando para mejorar estas cifras y añadir nuevas funcionalidades."
         ],
-        "title": "Sabias qué...",
+        "title": "Sabes que...",
         "vote_creation": [
             "Tu proceso de votación esta siendo registrado en <strong>Vochain</strong> – nuestra propia blockchain basada en Tendermint, para asegurar la <strong>no manipulación</strong> y <strong>auditabilidad punto a punto</strong>, esto puede llevar algún tiempo. Lee nuestra <a href='https://docs.vocdoni.io/' target='_blank'>documentación</a> o nuestro <a href='https://blog.aragon.org/vocdoni-technical-overview-v1/' target='_blank'>resumen téccnico</a> para saber más.",
             "Los administradores de la votación y los votantes pueden monitorizar los <strong>resultados en tiempo real</strong> de manera predeterminada, también puedes activar los resultados al final de la votación en la configuración del proceso.",
