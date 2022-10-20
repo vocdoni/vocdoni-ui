@@ -5,7 +5,7 @@ on: [push, pull_request]
 
 jobs:
   node-tests:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -260,7 +260,7 @@ jobs:
           gsutil -m cp -r build/* gs://oc-vocdoni-app
 
   gcs-release-production-azeno:
-    runs-on: self-hosted
+    runs-on: [self-hosted,ci1]
     environment: production
     needs:
       - node-tests
