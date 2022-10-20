@@ -1,8 +1,8 @@
 {
     "action": {
-        "back": "Back",
+        "back": "Tornar",
         "browse": "Navega",
-        "check_terms_and_conditions": "You must accept the terms & conditions",
+        "check_terms_and_conditions": "Has d'acceptar els termes i condicions",
         "clean": "Neteja",
         "continue": "Continua",
         "go_back": "Retrocedeix",
@@ -10,28 +10,28 @@
         "retry": "Torna-ho a intentar",
         "review_process_terms_and_conditions": "Revisar termes i condicions",
         "sign_in": "Accedeix-hi",
-        "upload_list_of_voters": "Upload list of voters"
+        "upload_list_of_voters": "Carregueu la llista de votants"
     },
     "app": {
         "footer": {
             "powered_by": "Powered by"
         },
         "header": {
-            "create_account_backup": "Create account backup",
-            "custom_branding": "Custom branding",
+            "create_account_backup": "Copia de Seguretat",
+            "custom_branding": "Personalització de marca",
             "dashboard": "Dashboard",
-            "disconnect_account": "Logout",
-            "help_and_feedback": "Help & feedback",
+            "disconnect_account": "Tancar Sessió",
+            "help_and_feedback": "Centre d’ajuda",
             "language": "Idioma",
             "public_page": "Pàgina pública",
-            "settings": "Settings",
-            "update_entity": "Update entity",
-            "user_language": "Language: {{ lang }}"
+            "settings": "Eines",
+            "update_entity": "Actualitzar l’entitat",
+            "user_language": "Idioma: {{ lang }}"
         },
         "meta": {
-            "description": "Vocdoni is a secure, private & universally verifiable voting system for any organization.",
-            "keywords": "Blockchain Voting, Mobile Voting, Universally Verifiable, Voting-As-A-Service, Decentralized Governance, Anonymous Voting, Privacy Centric, Secure Electronic Voting, Tamper-Proof Digital Voting, Data-Sovereignty, Resilient Governance, Governance/Coordination Tools",
-            "title": "Easy and secure solution for all your governance needs"
+            "description": "Vocdoni és un sistema de votació segur, privat i universalment verificable per a qualsevol organització.",
+            "keywords": "Vot per cadena de blocs, vot mòbil, verificació universal, vot com a servei, governança descentralitzada, vot anònim, centrat en la privacitat, vot electrònic segur, vot digital a prova de manipulacions, sobirania de dades, governança resistent, eines de governança / coordinació",
+            "title": "La solució fàcil i segura per a totes les seves necessitats de govern"
         }
     },
     "backup": {
@@ -65,11 +65,11 @@
     },
     "block": {
         "confirm_modal": {
-            "accept": "Accept",
-            "cancel": "Cancel"
+            "accept": "Acceptar",
+            "cancel": "cancel·lar"
         },
         "image_loader": {
-            "upload_file": "Upload file"
+            "upload_file": "Penja el document"
         }
     },
     "confirm": {
@@ -80,11 +80,11 @@
         "you_are_about_to_submit_your_vote": "Estàs a punt d'enviar el teu vot"
     },
     "cookies": {
-        "accept": "Accept",
-        "analytics": "Analytics",
-        "configure": "Configure",
-        "cookies_paragraph_1": "This website uses cookies to improve your experience while browsing the website. We also use third-party cookies that help us analyze and understand how you use this website. These cookies will be stored in your browser only with your consent. You also have the option to opt out of receiving these cookies. But opting out of some of these cookies may affect your browsing experience.",
-        "save": "Save"
+        "accept": "Acceptar",
+        "analytics": "Analítiques",
+        "configure": "Configurar",
+        "cookies_paragraph_1": "Aquest lloc web utilitza cookies per millorar la vostra experiència mentre navegueu. Les cookies que es classifiquen com a necessàries s'emmagatzemen al seu navegador, ja que són imprescindibles per al funcionament de les funcionalitats bàsiques del lloc web.",
+        "save": "Guardar"
     },
     "copy": {
         "the_link_has_been_copied_to_the_clipboard": "L'enllaç s'ha copiat al porta-retalls"
@@ -109,7 +109,7 @@
         "your_account_is_unsafe": "El teu compte d'entitat no està protegit!"
     },
     "dates": {
-        "days": "{{num}} days",
+        "days": "Dies",
         "ended_a_minute_ago": "Finalitzat fa un minut",
         "ended_an_hour_ago": "Finalitzat fa una hora",
         "ended_n_days_ago": "Finalitzat fa {{num}} dies",
@@ -126,9 +126,9 @@
         "ending_in_one_minute": "Finalitza d'aquí un minut",
         "ending_right_now": "Finalitza ara mateix",
         "ending_tomorrow": "Finalitza demà",
-        "hours": "{{num}} hours",
-        "minutes": "{{num}} minutes",
-        "seconds": "{{num}} minutes",
+        "hours": "Hores",
+        "minutes": "Minuts",
+        "seconds": "Segons",
         "started_a_minute_ago": "Iniciat fa un minut",
         "started_an_hour_ago": "Iniciat fa una hora",
         "started_n_days_ago": "Iniciat fa {{num}} dies",
@@ -147,21 +147,21 @@
         "starting_tomorrow": "Comença demà"
     },
     "entity": {
-        "accept_entity_terms": "Close",
-        "accept_Privacy": "Close",
-        "accept_terms": "Close",
+        "accept_entity_terms": "Tancar",
+        "accept_Privacy": "Tancar",
+        "accept_terms": "Tancar",
         "acknowledge_passphrase_implications": "Accepto el fet que la pèrdua de la contrasenya comporta la impossibilitat d'accedir a la meva entitat posteriorment",
         "branding": {
-            "branding_updated_successfully": "Branding updated successfully",
-            "customize_your_branding": "Customize your branding",
-            "customize_your_logo": "Define your logo",
-            "customize_your_primary_color": "Define your primary color",
-            "save_changes": "Save changes",
-            "you_can_customize_the_voting_process_colors": "Customize the colors for the voting process",
-            "you_can_customize_your_branding": "Here you can customize how your clients see the application on the voting process",
-            "you_can_update_the_visible_logo_on_the_voting_process": "You can define the the visible logo"
+            "branding_updated_successfully": "Personalització actualitzada correctament",
+            "customize_your_branding": "Personalitza la teva marca",
+            "customize_your_logo": "Defineix el teu logotip",
+            "customize_your_primary_color": "Defineix el teu color primari",
+            "save_changes": "Guardar canvis",
+            "you_can_customize_the_voting_process_colors": "Personalitza els colors per al procés de votació",
+            "you_can_customize_your_branding": "Aquí podeu personalitzar com veuen els vostres clients l'aplicació en el procés de votació",
+            "you_can_update_the_visible_logo_on_the_voting_process": "Podeu definir el logotip visible en el procés de votació"
         },
-        "brief_description": "Brief description of the entity, it will be displayed in the public entity page.",
+        "brief_description": "Breu descripció de l'entitat, es mostrarà a la pàgina de l'entitat pública.",
         "choose_a_passphrase": "Tria una contrasenya",
         "confirming_details": "Confirmant els detalls",
         "consolidating_path": "Carregant les metadades",
@@ -170,53 +170,53 @@
         "creation": "Creació",
         "credentials": "Credencials",
         "decentralized_accounts_cannot_be_recovered_by_and_external_agent": "Els comptes descentralitzats no poden ser recuperats per un agent extern. Si perds la contrasenya no podràs accedir a la teva entitat posteriorment.",
-        "define_your_credentials_to_protect_the_account": "Define your entity/organization details",
+        "define_your_credentials_to_protect_the_account": "Defineix les credencials per a protegir el compte d'entitat",
         "description": "Descripció",
         "details": "Detalls",
         "edit": {
-            "are_you_sure_you_want_exit_without_save_changes": "Are you sure you want exit without store data?",
-            "are_you_sure_you_want_update_your_entity_data": "Are you sure you want update your entity data?",
-            "cancel": "Cancel",
-            "change_header": "Change header",
-            "change_logo": "Change logo",
-            "contact_email": "Contact email",
-            "description": "Description",
-            "entity_header": "Entity header",
-            "entity_logo": "Entity logo",
-            "error_updating_data_on_blockchain": "Error updating data on blockchain entity",
-            "error_updating_data_on_register_server": "Error updating data on the registry service",
-            "jpg_png_gif": "(.JPG, .PNG, .GIF Max 2mb file)",
-            "name_of_the_entity": "Name of the entity",
-            "optional_introduction": "Optional introduction",
-            "save_changes": "Save changes",
-            "size_of_entity": "Size of the entity",
-            "type_of_entity": "Type of entity",
-            "update": "Update",
-            "your_entity": "Edit entity"
+            "are_you_sure_you_want_exit_without_save_changes": "Estàs segur que vols sortir sense guardar dades?",
+            "are_you_sure_you_want_update_your_entity_data": "Estàs segur que vols actualitzar les dades de l'entitat",
+            "cancel": "Cancel·lar",
+            "change_header": "Cambiar capçalera",
+            "change_logo": "Logo de l'entitat",
+            "contact_email": "Adreça de contacte",
+            "description": "Descripció",
+            "entity_header": "Capçalera de l'entitat",
+            "entity_logo": "Logo de l'entitat",
+            "error_updating_data_on_blockchain": "Error guardan les dades a blockchain",
+            "error_updating_data_on_register_server": "Error actualitzant les deades",
+            "jpg_png_gif": "(fitxer .JPG, .PNG, .GIF de 2mb max)",
+            "name_of_the_entity": "Nom de l'entitat",
+            "optional_introduction": "Descripció",
+            "save_changes": "Guardar canvis",
+            "size_of_entity": "Tamany de l'entitat",
+            "type_of_entity": "Tipus d'organització",
+            "update": "Actualitzar",
+            "your_entity": "Editar Entitat"
         },
-        "email": "Contact e-mail*",
+        "email": "Adreça de correu electrònic de contacte*",
         "enter_the_name_of_the_entity": "Entra el nom de l'entitat",
         "entity_details": "Detalls de l'entitat",
         "entity_size": "Mida de l'entitat",
         "go_to_the_dashboard": "Ves a l'inici",
         "header": "Capçalera de l'entitat",
-        "header_label": "It must be a .jpg, .jpeg or .png file (2mb max)*",
+        "header_label": "Ha de ser .jpg, .jpeg or .png fitxer (2mb max)*",
         "home": {
-            "entity_address": "Entity address",
-            "entity_description": "Entity description",
-            "entity_processes": "Entity processes",
-            "no_processes_yet": "No voting processes",
-            "view_in_explorer": "View in explorer"
+            "entity_address": "Adreça de l'entitat",
+            "entity_description": "Descripció de l'entitat",
+            "entity_processes": "Processos de l'entitat",
+            "no_processes_yet": "Sense processos de votació.",
+            "view_in_explorer": "Veure en el navegador"
         },
-        "i_have_read_and_accept_personal_data": "(Optional) I give my express consent for the commercial, and service management",
-        "i_have_read_and_accept_terms": "I have read and accept “Personal Data Proteccion Information” (see above), and Aragon Labs “<1>Privacy Policy</1>”",
+        "i_have_read_and_accept_personal_data": "(Opcional) Dono el meu consentiment exprés per a la gestió comercial i de serveis",
+        "i_have_read_and_accept_terms": "He llegit i accepto la “Informació de protecció de dades personals” (veure a sobre), i la “<1>Política de Privacitat</1>” de Aragon Association",
         "logo": "Logo de l'entitat",
-        "logo_label": "It must be a .jpg, .jpeg or .png file (2mb max)*",
-        "name": "Name of the entity*",
+        "logo_label": "Ha de ser .jpg, .jpeg or .png fitxer (2mb max)*",
+        "name": "Nom de l'entitat*",
         "new_entity": "Nom de l'entitat",
         "passphrase": "Contrasenya",
         "passphrase_image_alt": "Contrasenya",
-        "personal_data_protection_information": "Personal Data Protection Information",
+        "personal_data_protection_information": "Informació de Protecció de Dades Personals",
         "repeat_passphrase": "Repeteix la contrasenya",
         "select_city_council": "Ajuntament",
         "select_company": "Empresa",
@@ -252,10 +252,10 @@
         "invalid_passphrase_format_error": "La contrasenya ha de contenir un mínim de {{ length }} caràcters",
         "invalid_question_error": "Pregunta invàlida",
         "invalid_question_title": "El títol ha de contenir un mínim de {{ length }} caràcters",
-        "invalid_row_length": "Please correct lines {{invalidRows}} of the document. Correct these errors & upload the document again.",
+        "invalid_row_length": "Corregiu les línies {{invalidRows}} del document. Corregiu aquests errors i torneu a carregar el document.",
         "invalid_title": "El títol ha de contenir un mínim de {{ length }} caràcters",
         "invalid_url": "URL invàlida",
-        "invalid_weighted_row_length": "Invalid weight on lines {{invalidRows}} of the document. Correct these errors & upload the document again.",
+        "invalid_weighted_row_length": "Pes no vàlid a les línies {{invalidRows}} del document. Corregiu aquests errors i torneu a carregar el document.",
         "num_entries_could_not_be_added_to_the_census": "{{num}} entrades no han pogut ser afegides al cens",
         "retrieve_gas_time_out": "No s'ha pogut determinar el cost de la transacció",
         "the_incognito_mode_is_not_supported": "La navegació privada no està suportada",
@@ -266,7 +266,7 @@
         "the_vote_is_not_available_yet": "El vot encara no està disponible",
         "these_user_is_not_member_of_the_census": "Aquest usuari no és membre del cens",
         "wallet_not_available": "Compte no disponible",
-        "we_cant_check_the_new_status_process": "We cannot check the status of the new process"
+        "we_cant_check_the_new_status_process": "No podem comprovar l'estat del nou procés"
     },
     "errors": {
         "cannot_connect_to_the_blockchain": "No es pot connectar a la cadena de blocs",
@@ -280,10 +280,10 @@
         "general_error": "Error general",
         "invalid_account_balance": "Balanç de compte invàlid",
         "invalid_image_url": "L'adreça de la imatge és invàlida",
-        "invalid_link": "You are following and invalid link",
+        "invalid_link": "Esteu seguint l'enllaç i no és vàlid",
         "not_a_web_browser": "No és un navegador",
         "page_not_found": "No s'ha trobat la pàgina",
-        "passphrase_dont_match": "The passphrase don't match",
+        "passphrase_dont_match": "La contrasenya no coincideix",
         "please_accept_credentials_tos": "Si et plau, accepta les Condicions de Servei",
         "please_confirm_your_passphrase": "Si et plau, confirma la contrasenya",
         "please_ensure_no_incognito_mode": "Si et plau, assegura't que no fas servir navegació privada",
@@ -304,21 +304,21 @@
         "the_list_of_votes_cannot_be_loaded": "No es pot carregar la llista de processos de votació",
         "the_passphrase_does_not_match": "La contrasenya no coincideix",
         "the_passphrase_is_empty": "La contrasenya està buida",
-        "the_passphrase_should_contain_some_uppercase_characters_and_length_8": "Must have 8 characters or more, with at least 1 uppercase and 1 lowercase",
+        "the_passphrase_should_contain_some_uppercase_characters_and_length_8": "Ha de tenir 8 caràcters o més, amb almenys 1 majúscula i 1 minúscula",
         "the_recovery_could_not_be_completed": "La recuperació no s'ha pogut completar",
         "the_vote_has_not_been_registered": "El vot no ha estat registrat",
         "there_is_already_one_account_with_the_same_credentials": "Ja hi ha un altre compte amb aquestes credencials",
         "there_is_already_one_account_with_the_same_name": "Ja hi ha un altre compte amb aquest mateix nom",
-        "there_is_already_one_voter_with_the_same_name": "A voter with these credentials has already been registered.",
-        "update_entity_data_error": "Update entity data error",
-        "voter_key_already_registered": "The password has already been set",
+        "there_is_already_one_voter_with_the_same_name": "Un votant amb aquestes credencials ja ha estat registrat.",
+        "update_entity_data_error": "Error d'actualització de les dades de l'entitat",
+        "voter_key_already_registered": "La contrasenya ja ha estat registrada",
         "you_are_not_part_of_the_census": "No formes part del cens",
         "you_canceled_the_operation": "Has cancel·lat l'operació",
         "your_vote_could_not_be_delivered": "El teu vot no s'ha pogut lliurar"
     },
     "form": {
         "input": {
-            "edit": "Edit"
+            "edit": "Editar"
         }
     },
     "home": {
@@ -337,7 +337,7 @@
         "bring_a_human_side": "Porta una cara humana",
         "cec_logo_alt": "Logo CEC",
         "censorship_image_alt": "Censura",
-        "ceo_center_excursionistes": "CEO of Centre Excursionista de Catalunya",
+        "ceo_center_excursionistes": "CEO del Centre Excursionista de Catalunya",
         "choose_the_time_frame": "Tria el període de temps",
         "computer_device_alt": "Ordinador",
         "computer_with_vocdoni_alt": "Ordinador amb Vocdoni",
@@ -363,7 +363,7 @@
         "get_started": "Comença",
         "have_questions_we_have_answers": "Tens preguntes? Nosaltres tenim respostes.",
         "inexpensive_image_alt": "Assequible",
-        "instant_image_alt": "Instant",
+        "instant_image_alt": "Instantani",
         "is_my_data_safe_with_vocdoni": "Les meves dades són segures amb Vocodoni?",
         "leveraging_on_decentalized_technologies": "Basat en tecnologies descentralitzades com Ethereum, xDaichain Tendermint, IPFS i proves de coneixement zero.",
         "make_sure_your_members_have_access_to_the_financial_report": "Assegura't que els teus membres tenen accés als estats de compte, pressupostos i altres documents que calgui aprovar utilitzant Vocdoni.",
@@ -372,7 +372,7 @@
         "notify_image_alt": "Notifica",
         "notify_your_community": "Notifica a la teva comunitat",
         "omnium_logo_alt": "Logo Òmnium",
-        "one_of_the_decisive_facts_that_let_use": "One of the decisive facts that led us to choose Vocdoni was that its platform guaranteed the participation and vote of all our members, with security, reliability and transparency in the whole process, including access and participation in the Annual General Meeting.",
+        "one_of_the_decisive_facts_that_let_use": "Un dels fets decisius que ens va portar a escollir Vocdoni va ser que la seva plataforma garanteix la participació i el vot de tots els nostres socis, amb seguretat, fiabilitat i transparència en tot el procés, inclòs l'accés i participació a la Junta General Ordinària.",
         "open_source_image_alt": "Programari lliure",
         "organize_your_amg_or_board_meetings_and_results": "Organitza les teves assemblees o juntes amb la confiança que els resultats són totalment legals i la privacitat dels usuaris és respectada. Som respectuosos amb la normativa RGPD!",
         "personalize_your_voting_process_with_your_corporate": "Personalitza el teu procés de votació amb el color corporatiu, el logo i d'altres imatges",
@@ -415,19 +415,19 @@
     },
     "input": {
         "enter_the_url_or_upload_a_file": "Carrega una imatge o introdueix un enllaç extern",
-        "hide": "Hide",
+        "hide": "Amagar",
         "remove_file": "Esborra fitxer",
-        "show": "Show"
+        "show": "Mostrar"
     },
     "links": {
         "about": "Quant a Vocdoni",
-        "blog": "Blog",
+        "blog": "Bloc",
         "dashboard": "Inici",
         "docs": "Documents",
         "help": "Ajuda",
         "pricing": "Preus",
         "privacy_policy": "Política de privacitat",
-        "requests_and_bugs": "Feature Request & Bugs",
+        "requests_and_bugs": "Solicituds i Errors",
         "support": "Suport"
     },
     "preview": {
@@ -437,8 +437,8 @@
     "pub": {
         "votes": {
             "close_preregister_modal": "Ok",
-            "preregister_completed": "Pre-registration complete!",
-            "your_password_was_set_successfully_to_allow_you_participate_on": "Your password was set successfully to allow you to participate when the vote starts on {{startDate}}"
+            "preregister_completed": "Pre-registre completat!",
+            "your_password_was_set_successfully_to_allow_you_participate_on": "La teva contrasenya s'ha guardat correctament per permetre't participar quan el procés comenci el {{startDate}}"
         }
     },
     "recover": {
@@ -458,15 +458,15 @@
     },
     "results": {
         "pdf": {
-            "choice": "Choice",
-            "process_description": "Process description",
-            "process_title": "Process title",
-            "questions": "Summary questions:",
-            "results": "Results",
-            "these_document_is_generate_by_vocdoni_these_are_a_summary_of_the_voting_process": "These document is generated by Vocdoni, here you can find the summary of the voting process results. If the process is still active the results are subject to change.",
-            "title": "Title",
-            "total_votes": "Total votes: {{ votes }}",
-            "votes": "votes: {{ votes }}"
+            "choice": "Opció",
+            "process_description": "Descripció del procés",
+            "process_title": "Títol del procés",
+            "questions": "Resum de respostes:",
+            "results": "Resultats",
+            "these_document_is_generate_by_vocdoni_these_are_a_summary_of_the_voting_process": "Aquest document és generat per Vocdoni, aquí podeu trobar el resum dels resultats del procés de votació. Si el procés encara està actiu, els resultats poden canviar.",
+            "title": "Títol",
+            "total_votes": "Vots totals: {{ votes }}",
+            "votes": "vots: {{ votes }}"
         }
     },
     "sign_in": {
@@ -492,7 +492,7 @@
         "the_vote_will_start_soon": "El procés de votació començarà aviat"
     },
     "success": {
-        "passphrase_match": "Passphrase match!"
+        "passphrase_match": "Les contrasenyes coincideixen"
     },
     "supported_langs": {
         "catalan": "Català",
@@ -501,70 +501,70 @@
         "spanish": "Castellano"
     },
     "text_editor": {
-        "apply": "Apply",
-        "link": "Link"
+        "apply": "Aplicar",
+        "link": "Enllaç"
     },
     "vote_detail": {
         "calendar_card": {
-            "end_date": "End",
-            "start_date": "Start",
-            "title": "Calendar"
+            "end_date": "Fi",
+            "start_date": "Inici",
+            "title": "Calendari"
         },
         "cancel_dialog": {
-            "acceptText": "Yes, Cancel vote",
-            "backText": "No, go back",
-            "subtitle": "This action is irreversible.<br /> Are you sure you want to cancel this vote?",
-            "title": "Cancel vote"
+            "acceptText": "Si, cancelar",
+            "backText": "No, tornar",
+            "subtitle": "Aquesta acció es irreversible.<br /> Estàs segur que vols cancelar la votació?",
+            "title": "Cancelar votació"
         },
-        "cancel_vote": "Cancel·la la votació",
+        "cancel_vote": "Cancelar votació",
         "census_card": {
-            "size": "Size",
-            "title": "Census details",
-            "voters": "{{ censusSize }} voters"
+            "size": "Tamany",
+            "title": "Cens",
+            "voters": "{{ censusSize }} votants"
         },
         "end_dialog": {
-            "acceptText": "Yes, End vote",
-            "backText": "No, go back",
-            "subtitle": "This action is irreversible.<br /> Are you sure you want to end this vote?",
-            "title": "End vote"
+            "acceptText": "Si, finalitzar",
+            "backText": "No, tornar",
+            "subtitle": "Aquesta acció es irreversible.<br /> Estàs segur que vols finalitzar la votació?",
+            "title": "Finalitzar votació"
         },
-        "end_vote": "Finalitza la votació",
+        "end_vote": "Finalitzar votació",
         "external_links": {
             "document": "Document",
             "q_and_a": "Q&A",
             "stream": "Stream",
-            "title": "External links"
+            "title": "Enllaços externs"
         },
-        "generate_pdf": "Generate PDF",
+        "generate_pdf": "Generar PDF",
         "generate_pdf_card": {
-            "generate_pdf": "Generate PDF",
-            "see_results": "See results",
-            "title": "Total votes submited"
+            "generate_pdf": "Generar PDF",
+            "see_results": "Veure resultats",
+            "title": "Total vots emesos"
         },
-        "generate_pdf_with_results": "Crea un PDF amb els resultats",
-        "preview": "Preview",
+        "generate_pdf_with_results": "Generar PDF amb resultats",
+        "preview": "Previsualitzar",
         "questions_card": {
-            "options": "Options",
-            "question": "Question {{ number }}",
-            "title": "Voting Questions"
+            "options": "Opcions",
+            "question": "Pregunta {{ number }}",
+            "title": "Preguntes de la Votació"
         },
         "results_card": {
-            "hide": "Hide",
-            "show": "Show",
-            "title": "Voting Results"
+            "hide": "Amagar",
+            "show": "Mostrar",
+            "title": "Resultats de la Votació"
         },
         "settings_card": {
-            "anonymous_voting": "Anonymous",
-            "normal_voting": "Single choice",
-            "options": "Options",
-            "title": "Settings",
-            "type": "Type",
-            "weighted_voting": "Weighted voting"
+            "anonymous_voting": "Votació anònima",
+            "normal_voting": "Opció única",
+            "options": "Opcions",
+            "title": "Paràmetres",
+            "type": "Tipus",
+            "weighted_voting": "Votació ponderada"
         },
-        "view_and_manage_the_status_of_the_process": "Visualitza i gestiona l'estat del procés",
-        "vote_details": "Detalls del procés de votació",
+        "view_and_manage_the_status_of_the_process": "Veure i gestionar el procés de votació",
+        "vote_details": "Detalls de la votació",
         "voting_link": {
-            "title": "Voting link"
+            "title": "Enllaç de votació"
         }
     },
     "vote_question_card": {
@@ -575,68 +575,68 @@
     "vote": {
         "0x000": "0x00000000000000000000000000000000000000",
         "accept_terms": "Estic d'accord",
-        "access_to_the_documentation": "Information document",
+        "access_to_the_documentation": "Accedeix a la documentació",
         "active_vote": "Procés actiu",
         "add_new_question": "Afegeix una nova pregunta",
         "add_option": "Afegeix una altra opció",
         "auth": {
-            "auth_button": "Authenticate",
-            "close_preregister_redirect_modal": "Go to voting process",
-            "disconnect_button": "Disconnect",
-            "if_you_voted": "If you voted, you need to authenticate to review your vote",
-            "insert_your": "Insert you {{ field }}",
-            "insert_your_credentials": "Insert your credentials",
-            "insert_your_credentials_and_password": "Insert your credentials and password",
-            "insert_your_secret_key": "Insert your secret key",
-            "not_authenticated": "You are not authenticated!",
-            "not_preregistered": "Pre-registration required",
-            "preregister_button": "Pre-register",
+            "auth_button": "Autenticar-se",
+            "close_preregister_redirect_modal": "Anar a la pàgina de votació",
+            "disconnect_button": "Desconnectar-se",
+            "if_you_voted": "Si heu votat, heu d'autenticar-vos per revisar el vostre vot",
+            "insert_your": "Inseriu el vostre {{ camp }}",
+            "insert_your_credentials": "Introduïu les vostres credencials",
+            "insert_your_credentials_and_password": "Introduïu les vostres credencials i contrasenya",
+            "insert_your_secret_key": "Introduïu la vostra clau secreta",
+            "not_authenticated": "No estàs autenticat!",
+            "not_preregistered": "Cal inscripció prèvia",
+            "preregister_button": "Preinscripció",
             "preregister_redirect_dialog": {
-                "title": "Voter already pre-registered"
+                "title": "Votant ja pre-registrat"
             },
             "preregistration": {
-                "subtitle": "This is a pre-registration that is required in order to participate anonymously when the voting process starts ({{date}}).",
-                "title": "Pre-registration"
+                "subtitle": "Es necessari el preregistre per poder participar de manera anònima quan s'iniciï el procés de votació ({{data}})",
+                "title": "Preinscripció"
             },
-            "secret_key_label": "Secret key",
-            "with_credentials": "Authenticate with your credentials to vote.",
-            "with_preregistration": "You will need to pre-register before starting date in order to submit your vote.",
-            "with_preregistration_active": "If you've registered, you will be able to cast your vote after authenticating with your credentials and personal password."
+            "secret_key_label": "Contrasenya",
+            "with_credentials": "Autentica't amb les teves credencials per votar.",
+            "with_preregistration": "Hauràs de fer la preinscripció abans de la data d'inici per enviar el vostre vot.",
+            "with_preregistration_active": "Si t'has registrat, podrás emetre el teu vot després d'autentificar-te amb les teves credencials i la contrasenya personal."
         },
         "back_to_dashboard": "Torna a l'inici",
-        "brand_color_used_on_the_voting_process": "Brand color used on the voting process",
-        "brand_process_color": "Brand color",
-        "calendar_end_label": "End",
-        "calendar_start_label": "Start",
-        "calendar_title": "Calendar",
-        "canceled_vote": "Canceled",
+        "brand_color_used_on_the_voting_process": "El color de marca utilitzat en el procés de votació",
+        "brand_process_color": "Color de marca",
+        "calendar_end_label": "Final",
+        "calendar_start_label": "Inici",
+        "calendar_title": "Calendari",
+        "canceled_vote": "Votació cancel·lada",
         "cannot_connect_to_the_blockchain_to_check_the_account_balance": "No s'ha pogut connectar a la cadena de blocs",
         "cannot_connect_to_the_vocdoni_chain": "No s'ha pogut connectar a la cadena Vocdoni",
-        "census_root_value": "Census root value",
+        "census_root_value": "Valor del 'root' del cens",
         "census_size": "Grandària del cens: {{ size }} votants",
         "change_entity_name": "Canvia el nom de l'entitat",
         "checking_details": "Comprovant els detalls",
         "confirm_your_vote": "Confirma el teu vot",
-        "copied": "Copied!",
+        "copied": "Copiat!",
         "copy": "Copia",
         "creating_census": "Creant cens",
         "creating_process": "Creant procés",
         "creation": "Creació",
-        "credentials_not_accepted": "Credentials not accepted! Please contact the entity.",
+        "credentials_not_accepted": "Credencials no vàlides. Posa't amb contacte amb l'entitat.",
         "define_the_timeframe_of_the_proposal": "Definició del termini del procés de votació",
         "delete_option": "Elimina aquesta opció",
         "delete_question": "Elimina aquesta pregunta",
         "description": "Descripció",
         "details": "Detalls",
-        "disconnect_modal_back_button": "No, go back",
-        "disconnect_modal_confirm_button": "Yes, Disconnect",
-        "disconnect_modal_subtitle": "Are you sure you want to disconnect from the authenticated credentials?",
-        "disconnect_modal_title": "Disconnect",
+        "disconnect_modal_back_button": "No, tornar",
+        "disconnect_modal_confirm_button": "Si, desconnectar",
+        "disconnect_modal_subtitle": "Estàs segur que vols desconnectar les credencials autenticades?",
+        "disconnect_modal_title": "Desconnecta",
         "email": "Email",
         "end_date": "Data de finalització",
         "end_date_explanation": "Data límit per l'acceptació de vots",
-        "ended_vote": "Ended",
-        "ending_in": "Ending in",
+        "ended_vote": "Votació finalitzada",
+        "ending_in": "Finalitza en",
         "enter_the_details_of_the_proposal": "Introdueix els detalls del procés de votació",
         "entity_logo_alt": "Logo de l'entitat",
         "error_creating_the_entity_on_blockchain": "Error creant l'entitat a la cadena de blocs",
@@ -648,20 +648,20 @@
         "forum_link_label": "Aquest camp és opcional",
         "go_back_to_home_page": "Torna a la pàgina d'inici",
         "header_image": "Imatge de capçalera",
-        "invalid_census_root": "Invalid census root",
-        "invalid_census_uri": "Invalid census URI",
+        "invalid_census_root": "'Root' del cens invàlid",
+        "invalid_census_uri": "URI del cens invàlida",
         "invalid_file_type": "Fitxer invàlid. Formats acceptats: XLS, XLSX, CSV, ODT",
         "invalid_mnemonic_value": "Valor mnemonic invàlid ",
         "invalid_process_id_link": "Enllaç invàlid",
-        "live_stream": "Live Stream",
+        "live_stream": "Retransmissió en directe",
         "login_title": "Inicia sessió",
-        "name": "Name",
+        "name": "Nom",
         "new_vote": "Nou procés de votació",
         "no_back_to_login": "No, torna a la votació",
-        "no_results_subtitle_end": "The results will be displayed only after the vote is closed.",
-        "no_results_subtitle_live": "The results will be displayed once the vote is initiated.",
-        "no_results_title": "Results are not available",
-        "no_votes_emitted": "No votes emitted",
+        "no_results_subtitle_end": "Els resultats es mostraràn només al finalitzar la votació.",
+        "no_results_subtitle_live": "Els resultats es mostraràn quan comenci la votació.",
+        "no_results_title": "Resultats no disponibles",
+        "no_votes_emitted": "No hi ha vots emesos",
         "option_n": "Opció {{ number }}",
         "optional_field": "Aquest camp és opcional",
         "paused_vote": "Votació aturada",
@@ -674,80 +674,80 @@
         "proposal_title": "Títol",
         "question": "Pregunta {{ number }}",
         "question_image_alt": "Imatge de la pregunta",
-        "questions_and_answers": "Questions & Answers",
+        "questions_and_answers": "Precs i preguntes",
         "ready": "Llest",
         "real_time_results": "Resultats en temps real",
         "results_after": "Revela els resultats al final del procés",
         "results_availability": "Disponibilitat dels resultats",
         "results_live": "Resultats en temps real",
-        "results_question": "Question {{ index }}",
+        "results_question": "Pregunta {{ index }}",
         "retry": "Torna-ho a provar",
         "reveal_results_at_the_end": "Revela els resultats al final del procés",
-        "see_results": "See results",
+        "see_results": "Veure els resultats",
         "select_whether_results_should_be_visible_in_real_time": "Selecciona si vols que el recompte sigui en temps real o només quan hagi acabat el procés de votació",
         "set_option": "Estableix una opció",
         "settings": "Configuració",
-        "show_less": "Show less",
-        "show_more": "Show more",
+        "show_less": "Mostrar menys",
+        "show_more": "Mostrar més",
         "something_was_wrong_please_click_retry_to_try_again_the_entity_creation_if_fails_again_contact_with_our_support_team": "Si et plau, espera una estona i torna-ho a provar. Si el problema persisteix, posa't en contacte amb l'equip de suport.",
         "start_date": "Data d'inici",
         "start_date_explanation": "Data d'inici per l'acceptació de vots",
         "start_on_a_specific_date": "Iniciar en una data concreta",
         "start_right_away_7_minutes_from_now": "Iniciar ara (d'aquí a 10 minuts)",
-        "starting_in": "Starting in",
+        "starting_in": "Comença en",
         "stream_link": "Enllaç de la retransmissió en directe",
         "stream_link_explanation": "Si fas una retransmissió en directe per internet (per exemple de l'Assemblea general), pots incloure'n l'adreça aquí. Pot ser, per exemple, un stream de Youtube.",
         "stream_link_label": "Aquest camp és opcional",
-        "submitting_vote": "Your vote is being submitted...",
-        "submitting_vote_msg": "Please don’t close the window, this action may take a few minutes.",
-        "surname": "Surname",
-        "tag_is_anonymous": "Anonymous",
-        "tag_is_normal": "Normal voting",
-        "tag_is_weighted": "Weighted voting",
+        "submitting_vote": "El teu vot s'està enviant...",
+        "submitting_vote_msg": "Si us plau, no tanquis la finestra, aquesta acció pot tardar uns minuts.",
+        "surname": "Cognoms",
+        "tag_is_anonymous": "Anònim",
+        "tag_is_normal": "Standard",
+        "tag_is_weighted": "Votació ponderada",
         "thanks_for_participate_on_this_AGM": "Gràcies per participar en aquest procés, torna a la pàgina principal per a seguir i consultar els resultats quan estiguin disponibles",
         "the_blockchain_network_is_congested": "La xarxa de la cadena de blocs està congestionada",
         "the_blockchain_network_is_congested_for_these_reason_te_transactions_could_spend_several_minutes_dont_worry_we_keep_the_data_to_follow_the_process": "La xarxa de la cadena de blocs està congestionada. Per aquesta raó les transaccions poden trigar uns quants minuts. No et preocupis, nosaltres guardem les dades per assegurar-ne el seu lliurament.",
         "the_entity_name_already_exist": "El nom d'entitat ja existeix",
         "the_process_must_start_at_least_20_minutes_latter": "El procés ha de començar almenys 10 minuts més tard de l'hora actual",
         "the_vote_will_end_at_the_given_time": "La votació acabarà a l'hora predeterminada. Pots tancar-la manualment, si ho necessites",
-        "the_voting_process_has_endded": "The voting period has ended",
-        "these_color_will_be_used_to_improve_the_look_and_feel": "These color will be used to improve the look and feel of the voting process",
+        "the_voting_process_has_endded": "El període de votació ha finalitzat",
+        "these_color_will_be_used_to_improve_the_look_and_feel": "Aquests colors s'utilitzaran per millorar l'aspecte del procés de votació",
         "this_is_the_form_that_your_community_will_need_to_fill_in_order_to_vote": "Els membres hauran de complimentar aquest formulari per accedir a la votació",
         "this_is_the_link_that_you_need_to_send_your_community_members": "Aquest és l'enllaç de votació que has de compartir amb els votants:",
         "this_is_the_link_that_you_need_to_send_your_community_members_replacing_the_corresponding_private_key": "Aquest és l'enllaç de votació que hauràs de compartir amb els votants, per a cada votant has d'afegir la seva clau privada corresponent:",
         "this_is_the_link_that_you_need_to_send_your_community_members_replacing_the_corresponding_private_key_helper": "Recorda que cada enllaç serà únic per a cadascun dels votants, diferents votants han de tenir diferents enllaços diferenciats per la seva clau privada",
         "this_is_the_link_that_your_community_members_can_use_to_access_via_mnemonic": "Aquest és l'enllaç de votació que hauràs de compartir amb els votants que volen accedir mitjançant su mnemonic:",
         "this_is_the_link_that_your_community_members_can_use_to_access_via_mnemonic_helper": "Aquest enllaç es pot utilitzar per votants que ja disposen wallets associats amb mnemonics",
-        "this_is_weighted_voted": "This is a Weighted Voting",
+        "this_is_weighted_voted": "Aquesta és una votació ponderada",
         "this_type_of_vote_is_not_supported_on_the_current_page": "Aquest tipus de votació encara no està disponible",
         "title": "Títol",
-        "total_votes_submited": "Total votes submited",
+        "total_votes_submited": "Total de vots enviats",
         "upcoming_vote": "Propera votació",
         "upload_new_logo": "Carrega un logo nou",
         "uploading_metadata": "Carregant les metadades",
         "verifying_creation": "Verificant la creació",
-        "view_in_explorer": "Verify Vote",
-        "vote_count": "{{count}} votes",
-        "vote_count_plural": "{{count}} votes",
+        "view_in_explorer": "Verificar Vot",
+        "vote_count": "{{count}} vot",
+        "vote_count_plural": "{{count}} vots",
         "vote_now": "Vota ara",
         "vote_process_image_alt": "Imatge del procés",
         "vote_submitted_image_alt": "Imatge carregada",
-        "vote_will_close": "Vote will close in",
-        "vote_will_start": "Vote will start in",
+        "vote_will_close": "La votació finalitzará en",
+        "vote_will_start": "La votació començarà en",
         "voted_alt": "Vota",
-        "voting_power": "Voting power",
-        "voting_results_hide": "Hide",
-        "voting_results_show": "Show",
-        "voting_results_title": "Voting Results",
+        "voting_power": "Poder de vot",
+        "voting_results_hide": "Ocultar",
+        "voting_results_show": "Mostrar",
+        "voting_results_title": "Resultats de la Votació",
         "we_are_trying_to_connect_to_blockchain_to_check_your_account_balance_we_store_all_the_data_to_follow_the_process": "Estem provant de connectar a la cadena de blocs per comprovar el balanç del teu compte d'entitat. Guardem tota la informació per a continuar el procés.",
         "we_are_trying_to_sign_on_the_vocdoni_blockchain_to_register_your_entity": "Estem intentant accedir a la cadena de blocs Vocdoni per registrar la teva entitat",
         "we_are_using_a_decentralized_secure_system": "Estem enviant tota la informació a la cadena de blocs. Aquesta acció pot trigar uns minuts.",
         "we_cant_upload_the_logos_on_ipfs_network_please_choose_a_new_logo_and_header": "No podem pujar les imatges de logo i de capçalera a IPFS. Si et plau, tria'n unes altres.",
         "who_can_vote": "Qui pot votar",
         "yes_submit_the_vote": "Sí, envia el meu vot",
-        "you_are_autenticated": "You are authenticated with credentials: ",
+        "you_are_autenticated": "Esteu autenticat amb les credencials: ",
         "you_cant_enter_contact_with_entity": "Problemes amb l'accés? contacta amb l'entitat",
-        "you_got_attributed_a_voting_power_per_question": "You got attributed a voting power per question of: {{ voteWeight }}",
+        "you_got_attributed_a_voting_power_per_question": "Tens un poder de vot per pregunta de: {{ voteWeight }}",
         "your_choice": "La teva selecció",
         "your_entity_is_being_registered": "La teva entitat ha estat registrada",
         "your_vote_has_been_registered": "El teu vot ha estat registrat",
@@ -756,128 +756,128 @@
     },
     "votes": {
         "new": {
-            "all_the_voters_has_the_same_power": "All voters will have the same voting power",
+            "all_the_voters_has_the_same_power": "Tots els votants tindran el mateix poder de vot",
             "anonymous_messages": [
-                "• It will be impossible for a third-party to see which vote a user has cast.",
-                "• <strong>Voters will need to pre-register before the starting date</strong> in order to get an authentication password.",
-                "• Voters will be required to then authenticate with their credentials and password once they wish to vote."
+                "• Serà impossible que un tercer vegi quin vot ha emès un usuari.",
+                "• <strong>Els votants hauran de registrar-se prèviament abans de la data d'inici</strong> per obtenir una contrasenya d'autenticació.",
+                "• Els votants hauran d'autenticar-se amb les seves credencials i contrasenya un cop vulguin votar"
             ],
-            "anonymous_voting": "Anonymous voting",
-            "anonymous_weighted_warning_msg": "Anonymous voting with weighted voting is not available yet. It has been automatically disabled.",
-            "by_activating_the_anonymous_voting_option": "By activating the anonymous voting option, the following will be applied:",
+            "anonymous_voting": "Votació anònima",
+            "anonymous_weighted_warning_msg": "La votació anònima amb votació ponderada encara no està disponible. S'ha desactivat automàticament.",
+            "by_activating_the_anonymous_voting_option": "En activar l'opció de vot anònim, s'aplicarà el següent:",
             "calendar": {
-                "subtitle": "Set when and how you wish the voting process to start and end:",
-                "subtitleAnonymous": "Anonymous voting requires an additional voter pre-registration step, which will begin immediately after this process is created and will last until the voting start date.",
-                "title": "Calendar"
+                "subtitle": "Definiu quan i com voleu que comenci i finalitzi el procés de votació:",
+                "subtitleAnonymous": "La votació anònima requereix un pas addicional de preinscripció per part dels electors, que començarà immediatament després de crear aquest procés i durarà fins a la data d'inici de la votació.",
+                "title": "Calendari"
             },
-            "disclaimer": "Disclaimer",
-            "download_template": "Download template",
-            "download_the_original_template_to_fill": "Download the original template to fill with your list of voters",
-            "end": "End",
-            "end_on_a_specific_date": "End on a specific date",
+            "disclaimer": "Atenció",
+            "download_template": "Descarrega la plantilla",
+            "download_the_original_template_to_fill": "Descarrega la plantilla original per omplir-la amb la teva llista de votants",
+            "end": "Final",
+            "end_on_a_specific_date": "Finalitzar en una data concreta",
             "errors": {
-                "10min": "The start date of the voting process must start at least 10 min in the future.",
-                "date": "Invalid start and/or end dates",
-                "endDate": "Select an end date.",
-                "minStartDate": "The start date must be less than the end date.",
-                "startDate": "Select a start date."
+                "10min": "La data d'inici del procés de votació ha de començar com a mínim 10 min. en el futur.",
+                "date": "Les dates d'inici i/o final no son vàlides",
+                "endDate": "Selecciona una data de final.",
+                "minStartDate": "La data d'inici ha de ser inferior a la de final.",
+                "startDate": "Selecciona una data d'inici."
             },
-            "form_preview": "Form preview",
-            "i_understand_and_i_agree_to_the_terms_and_conditions": "I understand and agree to the <0>Terms and Conditions</0> for organizing voting processes.",
-            "if_change_the_type_of_vote_the_updated_census_will_be_lost": "If you change the type of vote, the current uploaded census will be lost",
-            "import_the_list_of_voters": "Import the list of voters",
+            "form_preview": "Vista prèvia del formulari",
+            "i_understand_and_i_agree_to_the_terms_and_conditions": "Entenc i accepto els <0>Termes i condicions</0> per organitzar els processos de votació.",
+            "if_change_the_type_of_vote_the_updated_census_will_be_lost": "Si canvieu el tipus de vot, es perdrà el cens actual penjat",
+            "import_the_list_of_voters": "Importa la llista de votants",
             "no": "No",
-            "normal_voting": "Normal voting",
+            "normal_voting": "Votació normal",
             "preregister_step_1": {
-                "subtitle": "Voters must pre-register during this period, in order to vote.",
-                "title": "Pre-registration starts"
+                "subtitle": "Els votants s'han de preinscriure durant aquest període, per poder votar.",
+                "title": "Comença el preregistre"
             },
             "preregister_step_2": {
-                "subtitle": "All pre-registered users will be able to submit their vote.",
-                "title": "Voting process starts"
+                "subtitle": "Tots els usuaris preregistrats podran enviar el seu vot.",
+                "title": "Comença el procés de votació"
             },
             "preregister_step_3": {
-                "subtitle": "No more votes will be allowed and final results will be available.",
-                "title": "Voting process ends"
+                "subtitle": "No es permetran més vots i els resultats finals estaran disponibles.",
+                "title": "El procés de votació acaba"
             },
-            "requirements": "Requirements",
+            "requirements": "Requeriments",
             "results_availability": {
-                "subtitle": "Select the voting type to be used on this process:",
-                "title": "Results Availability"
+                "subtitle": "Seleccioneu el tipus de vot que s'utilitzarà en aquest procés:",
+                "title": "Disponibilitat dels resultats"
             },
-            "select_date_and_time": "Select the date and time",
-            "select_voting_options": "Select voting options",
-            "select_voting_type": "Select voting type",
-            "set_different_power_to_each_voter": "Set different voting power to each voter",
-            "start": "Start",
-            "start_inmediatly": "Start inmediatly",
-            "start_on_a_specific_date": "Start on selected date",
-            "supported_formats_csv_xls": "(Supported formats: CSV, XLSX and ODS)",
-            "the_document_name_that_you_updated_do_not_fill": "The document \"{{ documentName }}\" that you uploaded do not fill some of the requirements.",
-            "the_fields_are_case_insensitive_blank_spaces_will_be_ignored": "The fields are case insensitive, blank spaces will be ignored and diacritics will be transformed into plain letters.",
-            "the_first_row_will_be_used_as_the_name_of_the_fields": "The first row of the spreadsheet will be used as the name of the fields that voters will be prompted for. ",
-            "the_voting_power_should_be_above": "The voting power should be set with whole numbers above 0 (zero). Any voting power that doesn’t follow the requirements will count as 1 (one).",
-            "the_weighted_voted_should_always_come_the_first_column": "The weight of each voter should always come as the first field.",
-            "upload_new_document": "Upload a new document",
-            "upload_or_drag_and_drop_here_the_list": "Upload or drag and drop here the list of voters",
-            "vocdoni_currently_only_support_public_voting_process": "Vocdoni currently only supports public voting processes. The information on the process will be made publicly available and can’t be updated after submitting it. Please make sure all information is correct, you have read the Terms & Conditions before creating the voting process and that you are not sharing sensitive information.",
-            "weighted_voting": "Weighted voting",
-            "would_you_like_this_voting_process_to_ensure_cryptographic_anonymity": "Would you like this voting process to ensure cryptographic anonymity?",
-            "yes": "Yes"
+            "select_date_and_time": "Seleccioneu la data i l'hora",
+            "select_voting_options": "Seleccioneu les opcions de votació",
+            "select_voting_type": "Seleccioneu el tipus de votació",
+            "set_different_power_to_each_voter": "Estableix un poder de vot diferent per a cada votant",
+            "start": "Inici",
+            "start_inmediatly": "Iniciar immediatament",
+            "start_on_a_specific_date": "Comença a la data seleccionada",
+            "supported_formats_csv_xls": "(Formats compatibles: CSV, XLSX i ODS)",
+            "the_document_name_that_you_updated_do_not_fill": "El document \"{{ documentName }}\" que heu penjat no compleixen alguns dels requisits.",
+            "the_fields_are_case_insensitive_blank_spaces_will_be_ignored": "Els camps no distingeixen entre majúscules i minúscules, els espais en blanc s'ignoraran i els signes diacrítics es transformaran en lletres senzilles.",
+            "the_first_row_will_be_used_as_the_name_of_the_fields": "La primera fila del full de càlcul s'utilitzarà com a nom dels camps que se'ls demanarà als votants.",
+            "the_voting_power_should_be_above": "El poder de vot s'ha d'establir amb nombres enters superiors a 0 (zero). Qualsevol poder de vot que no compleixi els requisits comptarà com a 1 (un).",
+            "the_weighted_voted_should_always_come_the_first_column": "La votació ponderada ha de ser sempre el primer camp.",
+            "upload_new_document": "Carregueu una nova llista de votants",
+            "upload_or_drag_and_drop_here_the_list": "Carregueu o arrossegueu i deixeu anar aquí la llista de votants",
+            "vocdoni_currently_only_support_public_voting_process": "Vocdoni actualment només admet processos de votació pública. La informació sobre el procés es posarà a disposició del públic i no es podrà actualitzar després d'enviar-la. Assegureu-vos que tota la informació sigui correcta, que hàgiu llegit els Termes i condicions abans de crear el procés de votació i que no esteu compartint informació sensible.",
+            "weighted_voting": "Votació ponderada",
+            "would_you_like_this_voting_process_to_ensure_cryptographic_anonymity": "Voleu que aquest procés de votació garanteixi l'anonimat criptogràfic?",
+            "yes": "Si"
         },
         "preregister_view": {
-            "back": "Back",
+            "back": "Tornar",
             "important": "Important",
-            "insert_password": "Insert password",
-            "insert_password_again": "Insert password again",
-            "next": "Next",
-            "password": "Password",
-            "repeat": "Repeat",
-            "set_password_of_authentication": "Set a password of authentication",
-            "the_password_that_you_set_will_not_be_possible": "The password that you set will not be possible to be recovered or reset.",
-            "when_the_process_start_at_date_in_order_to_vote_anonymously": "When the voting process starts {{date}}, in order to vote anonymously you will be asked to enter this password."
+            "insert_password": "Introdueix la contrasenya",
+            "insert_password_again": "Torneu a introduir la contrasenya",
+            "next": "Següent",
+            "password": "Contrasenya",
+            "repeat": "Repetir",
+            "set_password_of_authentication": "Establiu una contrasenya d'autenticació",
+            "the_password_that_you_set_will_not_be_possible": "La contrasenya que hàgiu establert no es podrà recuperar ni restablir.",
+            "when_the_process_start_at_date_in_order_to_vote_anonymously": "Quan comenci el procés de votació el {{date}}, per poder votar de manera anònima se us demanarà que introduïu aquesta contrasenya."
         },
         "questions_list": {
-            "back": "Back",
-            "finish_voting": "Finish voting",
-            "next_question": "Next question",
-            "num_questions_info": "You must answer all questions in order to vote. You answered ",
-            "num_questions_total": "of {{numTotal}}",
-            "question": "Question {{questionIndex}}/{{totalQuestions}}"
+            "back": "Enrere",
+            "finish_voting": "Finalitzar votació",
+            "next_question": "Pregunta següent",
+            "num_questions_info": "Has de contestar totes les preguntes per poder votar. N'has respost ",
+            "num_questions_total": "de {{numTotal}}",
+            "question": "Pregunta {{questionIndex}}/{{totalQuestions}}"
         }
     },
     "waiting_banner": {
         "entity_creation": [
-            "Vocdoni leverages a multi-layer decentralized technology stack to register your entity and record votes, including the Ethereum-L2 Gnosis chain, <strong>Vochain</strong> – our custom Tendermint blockchain, and IPFS. This ensures <strong>security</strong> and <strong>end-to-end auditability</strong>, and may take some time.",
-            "We are one of the few providers of blockchain voting, and the only end-to-end <strong>verifiable</strong> and <strong>anonymous-capable</strong> solution.",
-            "You can upload a spreadsheet or .csv of your voter census or member list via drag-and-drop, and easily <strong>manage your membership base</strong> from the Vocdoni dashboard.",
-            "A built-in consent mechanism generates a signature to indicate how voter data should be used, allowing organizations to manage processes in a <strong>legally and GDPR-compliant way</strong>.",
-            "Our cutting-edge voting protocol can process more than <strong>40k votes per minute</strong>, and we are always improving this and implementing new features."
+            "Vocdoni aprofita un grup de tecnologies descentralitzades per assegurar la <strong>integritat</strong> de la votació i els resultats, incloent Ethereum-L2 Gnosis chain, <strong>Vochain</strong> – la nostra pròpia blockchain basada en Tendermint i IPFS .",
+            "Som un dels pocs proveïdors de votació amb blockchain i l'únic amb una solucionada <strong>verificable</strong> i <strong>100% anònima</strong>.",
+            "Pots pujar un full de càlcul o un fitxer .csv amb el teu cens de votants o llista de membres amb drag-and-drop i <strong>gestionar la teva llista de membres</strong> de manera fàcil des del dashboard de Vocdoni. ",
+            "Un mecanisme de consentiment incorporat a Vocdoni genera una signatura per indicar com s'han d'utilitzar les dades del votant, això permet a les organitzacions crear processos de votació <strong>legals i que compleixin la legislació en matèria de protecció de dades</strong> .",
+            "El nostre protocol de votació innovador pot processar més de <strong>40k vots per minut</strong> i continuem treballant per millorar aquestes xifres i afegir noves funcionalitats."
         ],
-        "title": "You know...",
+        "title": "Sabias què...",
         "vote_creation": [
-            "Your voting process information is being registered on the <strong>Vochain</strong> – our custom Tendermint blockchain, to ensure <strong>tamper-resistance</strong> and <strong>end-to-end auditability</strong>, which could take some time. Read our <a href='https://docs.vocdoni.io/' target='_blank'>documentation</a> or <a href='https://blog.aragon.org/vocdoni-technical-overview-v1/' target='_blank'>technical overview</a> to learn more.",
-            "Vote administrators and voters can monitor the <strong>results in real-time</strong> by default, or enable instant results after the vote, in the process settings.",
-            "You can enable single & multiple-choice, <strong>weighted, quadratic and/or anonymous</strong> voting, set the time frame of your vote, or end it manually in the process settings.",
-            "Organizations can <strong>customize</strong> voting processes with their corporate color, logo and other <strong>branding</strong>.",
-            "Admins can easily <strong>embed videos</strong> and <strong>livestreams</strong> in the vote process page, allowing members to be present in hybrid / online events, AGMs, and shareholder, board, and employee meetings live, boosting participation.",
-            "You can create a variety of different participatory processes with Vocdoni, including <strong>referendums, surveys, polls, binding votes</strong>, and <strong>budgets</strong>.",
-            "Decentralized voting systems, based on blockchain tech, are better than centralized databases as they do not have one single point of failure vulnerable to attack, and are thus <strong>censorship-resistant</strong>.",
-            "All voting processes are <strong>GDPR-compliant</strong>, as we respect user privacy and personal data, and <strong>legally compliant</strong>, as results are <strong>end-to-end auditable</strong>.",
-            "Our cutting-edge voting protocol can process more than <strong>40k votes per minute</strong>, and we are always improving this and implementing new features.",
-            "You can notify your community about a vote with our <strong>one-click email system</strong> that sends individualized links to members, enabling them to easily access the process."
+            "El teu procés de votació està sent registrat a <strong>Vochain</strong> – la nostra pròpia blockchain basada en Tendermint, per assegurar la <strong>no manipulació</strong> i <strong>auditabilitat punt a punt</strong>, això pot portar un temps. Llegeix la nostra <a href='https://docs.vocdoni.io/' target='_blank'>documentació</a> o la nostra <a href='https://blog.aragon. org/vocdoni-technical-overview-v1/' target='_blank'>resum tècnic</a> per saber-ne més.",
+            "Els administradors de la votació i els votants poden monitoritzar els <strong>resultats en temps real</strong> per defecte, també pots activar els resultats al final de la votació en la configuració del procés.",
+            "Pots crear activar preguntes de selecció simple o múltiple, <strong>ponderades, quadràtiques i o anònimes</strong>, establir l'interval de temps de la vostra votació o acabar-la manualment a la secció de configuració.",
+            "Les organitzacions poden <strong>customitzar</strong> processos de votació coin els seus colors corporatius, logotip i altres <strong>opcions</strong>.",
+            "Els administradors poden <strong>afegir vídeos</strong> i <strong>transmissions en viu</strong> de manera fàcil a la pàgina de procés, permetent als membres estar presents en esdeveniments online/híbrides, AGMs, reunions d'accionistes o juntes d'empleats en viu i impulsant així la participació.",
+            "Pots crear una gran varietat de diferents processos de participació amb Vocdoni, incloent <strong>referèndums, enquestes, votacions</strong> i <strong>pressupostos</strong>.",
+            "El sistema de <strong>votació descentralitzada</strong> basats en tecnologia blockchain, són millors que les bases de dades centralitzades perquè no tenen un únic punt de fallada vulnerable a atacs i per tant són més <strong>resistents a la censura </strong>",
+            "Tots els processos compleixen la legislació vigent en matèria de <strong>protecció de dades</strong>, respectant la privadesa de l'usuari. Els resultats són <strong>auditables</strong> i per tant <strong>legals</strong >.",
+            "El nostre protocol de votació innovador pot processar més de <strong>40k vots per minut</strong> i continuem treballant per millorar aquestes xifres i afegir noves funcionalitats.",
+            "Pots avisar la teva comunitat sobre una votació gràcies al nostre sistema <strong>one-click email</strong> que envia links individualitzats als membres permetent accedir fàcilment al procés de votació."
         ],
         "vote_submitting": [
-            "Every vote is individually recorded on the <strong>blockchain</strong> to ensure <strong>security</strong>, <strong>end-to-end verifiability</strong> and <strong>censorship-resistance</strong>. This process may take up to 20 seconds.",
-            "We are the only provider of <strong>end-to-end auditable & anonymous voting</strong>, through advanced cryptographic zero-knowledge proofs. Read more about zk-SNARKS & zkRollups <a href='https://docs.vocdoni.io/architecture/protocol/anonymous-voting/zk-census-proof.html' target='_blank'>here</a>.",
-            "All software in the Aragon and Vocdoni stack is entirely <strong>open-source</strong>, and all code can be viewed on <a href='https://github.com/vocdoni' target='_blank'>Github</a>. We are thus able to offer complete <strong>transparency</strong>.",
-            "You can monitor the vote <strong>results in real-time</strong>, if this setting is enabled by the vote administrator.",
-            "All voting processes are <strong>GDPR-compliant</strong>, respecting user privacy, and results are  <strong>end-to-end auditable</strong>, and thus <strong>legally compliant</strong>.",
-            "<strong>Decentralized voting</strong> systems, based on blockchain tech, are better than centralized databases as they do not have one single point of failure vulnerable to attack, and are thus <strong>censorship-resistant</strong>",
-            "We are <strong>committed to voter privacy</strong>. No personal information is recorded when participating in a vote or census, as the private keys that identify each user are generated and stored locally in each user’s terminal, along with the rest of their personal data. / private keys are generated on the entity manager’s device based on specific information about the voting participants.",
-            "Our cutting-edge voting protocol can process more than <strong>40k votes per minute</strong>, and we are always improving this and implementing new features.",
-            "Vocdoni leverages a multi-layer decentralized technology stack to ensure the <strong>integrity</strong> of the process and record votes, including the Ethereum-L2 Gnosis chain, <strong>Vochain</strong> – our custom Tendermint blockchain, and IPFS.",
-            "Your vote is being registered on the <strong>Vochain</strong> – our custom Tendermint blockchain, to ensure <strong>tamper-resistance</strong> and <strong>end-to-end auditability</strong>, which could take some time. Read our <a href='https://docs.vocdoni.io/' target='_blank'>documentation</a> or <a href='https://blog.aragon.org/vocdoni-technical-overview-v1/' target='_blank'>technical overview</a> to learn more."
+            "Cada vot s'emmagatzema individualment a la <strong>blockchain</strong> per assegurar la seva <strong>seguretat</strong>, <strong>virificabilitat punt a punt</strong> i <strong>resistència a la censura</strong >. Aquest procés pot portar fins a 20 segons.",
+            "Som l'únic proveïdor de <strong>un sistema de votació anònim i auditable</strong> mitjançant proves zero-knowledge. Llegeix més sobre zk-SNARKS i zkRollups <a href='https://docs.vocdoni.io/architecture/protocol/anonymous-voting/zk-census-proof.html' target ='_blank'>aquí</a>.",
+            "Tot el programari desenvolupat per Aragon i Vocdoni és totalment de <strong>codi lliure</strong> (open-source), i tot el codi es pot veure a <a href='https://github.com/vocdoni' target='_blank'>Github</a>. Per tant, som capaços d'oferir <strong>transparència total</strong>.",
+            "Podeu monitoritzar els resultats de la votació <strong>en temps real</strong> si aquesta opció està activada per l'administrador de la votació.",
+            "Tots els processos compleixen la legislació vigent en matèria de <strong>protecció de dades</strong>, respectant la privadesa de l'usuari. Els resultats són <strong>auditables</strong> i per tant <strong>legals</strong >.",
+            "El sistema de <strong>votació descentralitzada</strong> basats en tecnologia blockchain, són millors que les bases de dades centralitzades perquè no tenen un únic punt de fallada vulnerable a atacs i per tant són més <strong>resistents a la censura </strong>",
+            "Estem <strong>comproments amb la privadesa del votant</strong>. No s'emmagatzema informació personal quan es participa en una votació o cens, ja que les claus privades que identifiquen cada usuari es generen i emmagatzemaran localment al terminal de l'usuari juntament amb la resta de la vostra informació personal / les claus privades es generen al dispositiu del gestor de l'entitat basant-se en informació especifica sobre els participants en la votació.",
+            "El nostre protocol de votació innovador pot processar més de <strong>40k vots per minut</strong> i continuem treballant per millorar aquestes xifres i afegir noves funcionalitats.",
+            "Vocdoni aprofita un grup de tecnologies descentralitzades per assegurar la <strong>integritat</strong> de la votació i els resultats, incloent Ethereum-L2 Gnosis chain, <strong>Vochain</strong> – la nostra pròpia blockchain basada en Tendermint i IPFS .",
+            "El teu vot està sent registrat a <strong>Vochain</strong> – la nostra pròpia blockchain basada en Tendermint, per assegurar la <strong>no manipulació</strong> i <strong>auditabilitat punt a punt</strong>, això pot portar algun temps. Llegeix la nostra <a href='https://docs.vocdoni.io/' target='_blank'>documentació</a> o el nostre <a href='https://blog.aragon.org/ vocdoni-technical-overview-v1/' target='_blank'>resum tècnic</a> per saber-ne més."
         ]
     }
 }
