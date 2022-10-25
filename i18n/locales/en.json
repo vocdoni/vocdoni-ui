@@ -579,6 +579,7 @@
         "active_vote": "Active vote",
         "add_new_question": "Add a question",
         "add_option": "Add an option",
+        "archived": "Archived",
         "auth": {
             "auth_button": "Authenticate",
             "close_preregister_redirect_modal": "Go to voting process",

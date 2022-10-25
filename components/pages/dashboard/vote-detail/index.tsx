@@ -1,31 +1,28 @@
-import React, { useEffect, useRef, useState } from 'react'
-import styled from 'styled-components'
-import { useTranslation } from 'react-i18next'
+import { ProcessStatusLabel } from '@components/blocks-v2'
+import { Modal } from '@components/blocks-v2/modal'
+import { QuestionsCard } from '@components/blocks-v2/questions-card'
+import { ExpandableCard } from '@components/blocks/expandable-card'
+import { ExpandableContainer } from '@components/blocks/expandable-container'
+import { Button, Card, Col, IColProps, LinkButton, Row, Spacer, Text } from '@components/elements-v2'
+import { DocumentOutlinedIcon, PieChartIcon, QuestionCircleIcon, QuestionOutlinedIcon } from '@components/elements-v2/icons'
+import { ResultsCard } from '@components/pages/pub/votes/components/results-card'
 import { PROCESS_PATH, VOTING_AUTH_FORM_PATH, VOTING_AUTH_LINK_PATH } from '@const/routes'
+import { useMessageAlert } from '@hooks/message-alert'
+import { useProcessWrapper } from '@hooks/use-process-wrapper'
+import { useWallet, WalletRoles } from '@hooks/use-wallet'
+import { useIsMobile } from '@hooks/use-window-size'
 import RouterService from '@lib/router'
 import { VotingType } from '@lib/types'
 import { VoteStatus } from '@lib/util'
-import { useWallet, WalletRoles } from '@hooks/use-wallet'
-import { useMessageAlert } from '@hooks/message-alert'
-import { Button, Card, Spacer } from '@components/elements-v2'
-import { GeneratePdfCard } from './generate-pdf-card-v2'
-import { IColProps, Col, Row, Text, LinkButton } from '@components/elements-v2'
-import { ProcessStatusLabel } from '@components/blocks-v2'
 import { theme } from '@theme/global'
-import { DocumentOutlinedIcon, PieChartIcon, QuestionCircleIcon, QuestionOutlinedIcon } from '@components/elements-v2/icons'
-import { ExpandableContainer } from '@components/blocks/expandable-container'
-import { DetailsCard } from './details-card'
-import { CopyLinkCard } from './copy-link-card'
-import { useProcessWrapper } from '@hooks/use-process-wrapper'
-import { useUrlHash } from 'use-url-hash'
-import { ExpandableCard } from '@components/blocks/expandable-card'
-import { ResultsCard } from '@components/pages/pub/votes/components/results-card'
-import { QuestionsCard } from '@components/blocks-v2/questions-card'
-import { useIsMobile } from '@hooks/use-window-size'
-import { colorsV2 } from '@theme/colors-v2'
-import { Modal } from '@components/blocks-v2/modal'
 import moment from 'moment'
-import { Tag } from '@components/elements-v2/tag'
+import { useEffect, useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import styled from 'styled-components'
+import { useUrlHash } from 'use-url-hash'
+import { CopyLinkCard } from './copy-link-card'
+import { DetailsCard } from './details-card'
+import { GeneratePdfCard } from './generate-pdf-card-v2'
 
 
 export const ViewDetail = () => {
@@ -58,7 +55,6 @@ export const ViewDetail = () => {
     hasEnded,
     methods,
     isAnonymous,
-    archived,
   } = useProcessWrapper(processId)
   const toCalendarFormat = (date: Date) => {
     let momentDate = moment(date).locale('es').format("MMM DD - YYYY (HH:mm)")
@@ -305,11 +301,6 @@ export const ViewDetail = () => {
                   <Col xs={12}>
                     <ProcessStatusLabel />
                   </Col>
-                  { archived &&
-                    <Col xs={12}>
-                      <Tag variant='warning'>Archived</Tag>
-                    </Col>
-                  }
                   <Col xs={12}>
                     <Row gutter='md'>
                       <Col xs={12}>

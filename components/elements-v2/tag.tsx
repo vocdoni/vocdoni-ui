@@ -1,9 +1,7 @@
 import { colorsV2 } from '@theme/colors-v2'
-import { theme } from '@theme/global'
 import { ReactNode } from 'react'
-import { colors } from 'react-select/src/theme'
+import { When } from 'react-if'
 import styled from 'styled-components'
-import { Col, Row } from './grid'
 import { Text } from '.'
 
 
@@ -19,20 +17,18 @@ interface ITagProps {
 }
 export const Tag = (props: ITagProps) => {
   return (
-    <Row align='center'>
-      <Col align='center'>
-        <StyledTag {...props}>
-          {props.children}
-        </StyledTag>
-      </Col>
-      {props.label &&
+    <>
+      <StyledTag {...props}>
+        {props.children}
+      </StyledTag>
+      <When condition={!!props.label}>
         <StyledLabel>
           <Text size='xs' weight='medium' color='dark-blue'>
             {props.label}
           </Text>
         </StyledLabel>
-      }
-    </Row>
+      </When>
+    </>
   )
 }
 const cosmeticProps = ['variant', 'size', 'fontWeight', 'label']
@@ -40,22 +36,19 @@ const styledConfig = {
   shouldForwardProp: (prop) => !cosmeticProps.includes(prop)
 }
 
-const StyledTag = styled.div.withConfig(styledConfig)<ITagProps>`
+const StyledTag = styled.span.withConfig(styledConfig)<ITagProps>`
   border-radius: 4px;
   padding: 0px 12px;
   font-family: Manrope;
-  height:${getTagHeigth};
+  line-height:${getTagHeigth};
   font-size:${getTagFontSize};
   font-weight:${getTagFontWeight};
   background:${getTagBackgroundColor};
   color:${getTagColor};
 `
 const StyledLabel = styled.span`
-  // font-family: Manrope;
-  // font-weight: 500;
-  // font-size: 14px;
-  // color: #52606D;
   margin-left: 16px;
+  line-height:${getTagHeigth};
 `
 
 function getTagHeigth(props: ITagProps) {
