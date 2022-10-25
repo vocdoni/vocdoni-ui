@@ -18,6 +18,7 @@ import { theme } from '@theme/global'
 import moment from 'moment'
 import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Else, If, Then } from 'react-if'
 import styled from 'styled-components'
 import { useUrlHash } from 'use-url-hash'
 import { CopyLinkCard } from './copy-link-card'
@@ -409,50 +410,53 @@ export const ViewDetail = () => {
           <Col xs={12}>
             <Row gutter='md'>
               {/* RESULTS CARD */}
-              {showResultsCard &&
-                <Col xs={12}>
-                  <ExpandableCard
-                    ref={resultsCardRef}
-                    isOpen={isResultsCardOpen}
-                    onButtonClick={handleResultsCardButtonClick}
-                    title={i18n.t("vote_detail.results_card.title")}
-                    icon={<PieChartIcon size={40} />}
-                    buttonProps={{
-                      variant: 'white',
-                      iconRight: { name: 'chevron-up-down', size: 24 },
-                      children: i18n.t("vote_detail.results_card.show")
-                    }}
-                    buttonPropsOpen={{
-                      variant: 'white',
-                      iconRight: { name: 'chevron-up-down', size: 24 },
-                      children: i18n.t("vote_detail.results_card.hide")
-                    }}
-                  >
-                    <ResultsCard />
-                  </ExpandableCard>
-                </Col>
-              }
-              {/* QUESTIONS CARD */}
-              <Col xs={12}>
-                <ExpandableCard
-                  isOpen={isQuestionsCardOpen}
-                  onButtonClick={handleQuestionsCardButtonClick}
-                  title={i18n.t("vote_detail.questions_card.title")}
-                  icon={<QuestionCircleIcon size={40} />}
-                  buttonProps={{
-                    variant: 'white',
-                    iconRight: { name: 'chevron-up-down', size: 24 },
-                    children: i18n.t("vote_detail.results_card.show")
-                  }}
-                  buttonPropsOpen={{
-                    variant: 'white',
-                    iconRight: { name: 'chevron-up-down', size: 24 },
-                    children: i18n.t("vote_detail.results_card.hide")
-                  }}
-                >
-                  <QuestionsCard />
-                </ExpandableCard>
-              </Col>
+              <If condition={showResultsCard}>
+                <Then>
+                  <Col xs={12}>
+                    <ExpandableCard
+                      ref={resultsCardRef}
+                      isOpen={isResultsCardOpen}
+                      onButtonClick={handleResultsCardButtonClick}
+                      title={i18n.t("vote_detail.results_card.title")}
+                      icon={<PieChartIcon size={40} />}
+                      buttonProps={{
+                        variant: 'white',
+                        iconRight: { name: 'chevron-up-down', size: 24 },
+                        children: i18n.t("vote_detail.results_card.show")
+                      }}
+                      buttonPropsOpen={{
+                        variant: 'white',
+                        iconRight: { name: 'chevron-up-down', size: 24 },
+                        children: i18n.t("vote_detail.results_card.hide")
+                      }}
+                    >
+                      <ResultsCard />
+                    </ExpandableCard>
+                  </Col>
+                </Then>
+                <Else>
+                  <Col xs={12}>
+                    <ExpandableCard
+                      isOpen={isQuestionsCardOpen}
+                      onButtonClick={handleQuestionsCardButtonClick}
+                      title={i18n.t("vote_detail.questions_card.title")}
+                      icon={<QuestionCircleIcon size={40} />}
+                      buttonProps={{
+                        variant: 'white',
+                        iconRight: { name: 'chevron-up-down', size: 24 },
+                        children: i18n.t("vote_detail.results_card.show")
+                      }}
+                      buttonPropsOpen={{
+                        variant: 'white',
+                        iconRight: { name: 'chevron-up-down', size: 24 },
+                        children: i18n.t("vote_detail.results_card.hide")
+                      }}
+                    >
+                      <QuestionsCard />
+                    </ExpandableCard>
+                  </Col>
+                </Else>
+              </If>
             </Row>
           </Col>
         </Row>
