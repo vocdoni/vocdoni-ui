@@ -1,33 +1,28 @@
-import React, { ChangeEvent, useState, useEffect } from 'react'
-import styled from 'styled-components'
-import { ProcessDetails, EntityMetadata } from 'dvote-js'
-import { useTranslation } from 'react-i18next'
-import { useBlockHeight } from '@vocdoni/react-hooks'
-
+import { CardImageHeader } from '@components/blocks/card/image-header'
 import {
-  Fieldset,
   FormGroupVariant,
   InputFormGroup,
-  InputPasswordFormGroup,
+  InputPasswordFormGroup
 } from '@components/blocks/form'
-import { Column } from '@components/elements/grid'
+import { Col, Row, Text } from '@components/elements-v2'
+import { Icon } from '@components/elements-v2/icons'
 import { Button } from '@components/elements/button'
 import { SignInFormCard } from '@components/elements/cards'
-import { FlexContainer, FlexJustifyContent } from '@components/elements/flex'
-import { CardImageHeader } from '@components/blocks/card/image-header'
-import { FormFieldsetContainer } from '../components/form-fieldset-container'
-import { Col, Input, Row, Text } from '@components/elements-v2'
-import { useProcessWrapper } from '@hooks/use-process-wrapper'
-import { useUrlHash } from "use-url-hash"
-import { VoteStatus } from '@lib/util'
-import moment from 'moment'
-import { Icon } from '@components/elements-v2/icons'
 import { PreregisteredRedirectModal } from '@components/pages/pub/votes/components/preregistered-redirect-modal'
-import { useWallet, WalletRoles } from '@hooks/use-wallet'
-import { useVoting } from '@hooks/use-voting'
-import { useRouter } from 'next/router'
 import { PROCESS_PATH } from '@const/routes'
+import { useProcessWrapper } from '@hooks/use-process-wrapper'
+import { useVoting } from '@hooks/use-voting'
+import { useWallet, WalletRoles } from '@hooks/use-wallet'
 import RouterService from '@lib/router'
+import { VoteStatus } from '@lib/util'
+import { useBlockHeight } from '@vocdoni/react-hooks'
+import { EntityMetadata, ProcessDetails } from 'dvote-js'
+import moment from 'moment'
+import { useRouter } from 'next/router'
+import React, { ChangeEvent, useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import styled from 'styled-components'
+import { useUrlHash } from "use-url-hash"
 
 
 interface IFieldValues {
@@ -76,6 +71,7 @@ export const SignInForm = ({
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault()
     onSubmit()
+    setSameInput(true)
   }
   const [isRedirectModalOpen, setIsRedirectModalOpen] = useState<boolean>(false)
   const { setWallet } = useWallet({ role: WalletRoles.VOTER })
