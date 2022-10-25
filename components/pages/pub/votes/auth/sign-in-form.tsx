@@ -165,26 +165,25 @@ export const SignInForm = ({
                     />
                   </Col>
                 }
+                <Col xs={12}>
+                  {showError &&
+                    <>
+                      <ErrorDiv>
+                        <ErrorIcon>
+                          <Icon
+                            name='warning'
+                            size={14}
+                            color='#B31B35'
+                          />
+                        </ErrorIcon>
+                        <ErrorText>{i18n.t('vote.credentials_not_accepted')}</ErrorText>
+                      </ErrorDiv>
+                    </>
+                  }
+                </Col>
               </Row>
               <HiddenButton type="submit"></HiddenButton>
             </form>
-            <Col xs={12} md={7}>
-              {/*Error MSG*/}
-              {showError &&
-                <>
-                  <ErrorDiv>
-                    <ErrorIcon>
-                      <Icon
-                        name='warning'
-                        size={14}
-                        color='#B31B35'
-                      />
-                    </ErrorIcon>
-                    <ErrorText>{i18n.t('vote.credentials_not_accepted')}</ErrorText>
-                  </ErrorDiv>
-                </>
-              }
-            </Col>
           </ColWithoutMarginTop>
           <Col xs={12}>
             <Row align='center' justify='center' gutter='xl'>
@@ -240,7 +239,9 @@ const ErrorDiv = styled.div`
   padding: 15px 26px 16px;
   border-radius: 12px;
   margin-top: -15px;
-  margin-right: -20px;
+  flex: 1;
+  display: flex;
+  align-items: center;
 `
 
 const ErrorText = styled.div`
@@ -254,13 +255,7 @@ const ErrorText = styled.div`
 `
 
 const ErrorIcon = styled.div`
-  display:inline;
-  float:left;
-  margin-left:-10px;
-  padding-top: 10px;
-  @media ${({ theme }) => theme.screenMax.mobileL} {
-    svg {
-      margin-top: 8px;
-    }
-  }
+  display: inline;
+  float: left;
+  margin-left: -10px;
 `
