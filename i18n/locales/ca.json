@@ -771,6 +771,8 @@
                 "title": "Calendari"
             },
             "disclaimer": "Atenció",
+            "disclaimer_anonymous1": "La votació anònima es troba actualment en fase alfa, si us plau, no l'utilitzeu encara per a votacions d'alt risc.",
+            "disclaimer_anonymous2": "Encara falta una cerimònia de configuració de confiança de zkSnarks i es publicarà en la propera versió.",
             "download_template": "Descarrega la plantilla",
             "download_the_original_template_to_fill": "Descarrega la plantilla original per omplir-la amb la teva llista de votants",
             "end": "Final",

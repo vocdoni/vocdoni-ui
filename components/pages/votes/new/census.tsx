@@ -26,6 +26,9 @@ import { SelectorButton } from './components/selector-button'
 import { BinaryCard } from './components/binary-card'
 import { AnonymousMessage } from './components/anonymous-message'
 import { useScrollTop } from '@hooks/use-scroll-top'
+import { Banner, BannerVariant, BannerSize } from '@components/blocks/banner_v2'
+import { Typography, TypographyVariant } from '@components/elements/typography'
+import { colors } from '@theme/colors'
 
 export const FormCensus = () => {
   useScrollTop()
@@ -189,6 +192,31 @@ export const FormCensus = () => {
                         subtitle={i18n.t('votes.new.would_you_like_this_voting_process_to_ensure_cryptographic_anonymity')}
                       >
                         <AnonymousMessage />
+
+                        <p></p>
+
+                        <Banner
+                          icon={<img src="/images/vote/disclaimer.svg" />}
+                          variant={BannerVariant.Secondary}
+                          size={BannerSize.Small}
+                        >
+                          <Typography
+                            variant={TypographyVariant.H5}
+                            color={colors.warningText}
+                            margin="0 0 10px 0"
+                          >
+                            {i18n.t('votes.new.disclaimer')}
+                          </Typography>
+
+                          <Typography
+                            variant={TypographyVariant.H6}
+                            color={colors.lightText}
+                            margin='0 0 0 0'
+                          >
+                            {i18n.t('votes.new.disclaimer_anonymous1')}<br />
+                            {i18n.t('votes.new.disclaimer_anonymous2')}
+                          </Typography>
+                        </Banner>
                       </BinaryCard>
                     </Col>
                   </Row>

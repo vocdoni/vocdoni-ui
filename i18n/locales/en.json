@@ -771,6 +771,8 @@
                 "title": "Calendar"
             },
             "disclaimer": "Disclaimer",
+            "disclaimer_anonymous1": "The anonymous voting is in currently in alpha stage, please do not use it yet for high stake voting.",
+            "disclaimer_anonymous2": "A zkSnarks trusted setup ceremony is still missing and will be released in the next version.",
             "download_template": "Download template",
             "download_the_original_template_to_fill": "Download the original template to fill with your list of voters",
             "end": "End",
