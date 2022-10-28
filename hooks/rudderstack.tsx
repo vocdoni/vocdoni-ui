@@ -1,5 +1,4 @@
-import { createContext, useContext, useEffect } from 'react'
-import { useCookies } from '@hooks/cookies'
+import { createContext, useContext, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { ANALYTICS_KEY, ANALYTICS_URL } from '@const/env'
 
@@ -18,6 +17,7 @@ const UseRudderStackContext = createContext({
   trackReset: () => {},
   trackEvent: (event: string, data?: object) => {},
   trackPage: () => {},
+  setAccepted: (accepted:boolean) => {},
 })
 
 export function useRudderStack() {
@@ -25,14 +25,20 @@ export function useRudderStack() {
 }
 
 export function UseRudderStackProvider({ children }) {
-  const { accepted } = useCookies()
   const router = useRouter()
+  const [accepted, setAccepted] = useState(false)
 
   useEffect(() => {
-    router.events.on('routeChangeStart', trackPage)
-
-    return () => router.events.off('routeChangeStart', trackPage)
+    if (accepted) {
+      trackLoad()
+      router.events.on('routeChangeStart', trackPage)
+    }
+    else {
+      trackReset()
+      router.events.off('routeChangeStart', trackPage)
+    }
   }, [accepted])
+
 
   const trackLoad = () => {
     if(typeof rudderanalytics !== 'undefined') {
@@ -58,7 +64,7 @@ export function UseRudderStackProvider({ children }) {
     }
   }
 
-  return <UseRudderStackContext.Provider value={{ trackLoad, trackReset, trackEvent, trackPage }}>
+  return <UseRudderStackContext.Provider value={{ trackLoad, trackReset, trackEvent, trackPage, setAccepted }}>
     {children}
   </UseRudderStackContext.Provider>
 }

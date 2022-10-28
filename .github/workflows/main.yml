@@ -162,6 +162,8 @@ jobs:
             BACKEND_URL=https://backend.vocdoni.net/api/manager
             BACKEND_PUB_KEY=03cd13285ea116b9093a47364b29ddb09eccf50aa2f0112b6084a0b10943964d4e
             DISCOVERY_POOL_SIZE=1
+            ANALYTICS_KEY=${{ secrets.ANALYTICS_KEY }}
+            ANALYTICS_URL=${{ secrets.ANALYTICS_URL }}
           push: true
           tags: |
             vocdoni/${{ github.event.repository.name }}:${{ steps.var.outputs.branch }},
@@ -200,8 +202,8 @@ jobs:
           BACKEND_URL: 'https://backend.vocdoni.net/api/manager'
           BACKEND_PUB_KEY: '03cd13285ea116b9093a47364b29ddb09eccf50aa2f0112b6084a0b10943964d4e'
           DISCOVERY_POOL_SIZE: '1'
-          ANALYTICS_KEY: '202ZI3WhmcYBnY1Bre6umCcmK9Y'
-          ANALYTICS_URL: 'https://rudderstack.aragon.org'
+          ANALYTICS_KEY: ${{ secrets.ANALYTICS_KEY }}
+          ANALYTICS_URL: ${{ secrets.ANALYTICS_URL }}
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@main
         with:
@@ -245,8 +247,6 @@ jobs:
           BACKEND_URL: 'https://backend.vocdoni.net/api/manager'
           BACKEND_PUB_KEY: '03cd13285ea116b9093a47364b29ddb09eccf50aa2f0112b6084a0b10943964d4e'
           DISCOVERY_POOL_SIZE: '1'
-          #ANALYTICS_KEY: '202ZI3WhmcYBnY1Bre6umCcmK9Y'
-          #ANALYTICS_URL: 'https://rudderstack.aragon.org'
           COLOR_PICKER: '1'
           ADVANCED_CENSUS: '1'
       - name: Set up Cloud SDK
@@ -293,8 +293,8 @@ jobs:
           BACKEND_PUB_KEY: '03cd13285ea116b9093a47364b29ddb09eccf50aa2f0112b6084a0b10943964d4e'
           DISCOVERY_POOL_SIZE: '1'
           EXPLORER_URL: 'https://explorer.vote'
-          # ANALYTICS_KEY: '202ZI3WhmcYBnY1Bre6umCcmK9Y'
-          # ANALYTICS_URL: 'https://rudderstack.aragon.org'
+          ANALYTICS_KEY: ${{ secrets.ANALYTICS_KEY }}
+          ANALYTICS_URL: ${{ secrets.ANALYTICS_URL }}
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v0
         with:
@@ -339,8 +339,8 @@ jobs:
           COLOR_PICKER: '1'
           ADVANCED_CENSUS: '1'
           DISCOVERY_POOL_SIZE: '1'
-          ANALYTICS_KEY: '1wDDOq7O5xXspQmBm0PRKWLnIBr'
-          ANALYTICS_URL: 'https://rudderstack.aragon.org'
+          ANALYTICS_KEY: ${{ secrets.ANALYTICS_KEY }}
+          ANALYTICS_URL: ${{ secrets.ANALYTICS_URL }}
       - name: Set up Cloud SDK (staging)
         uses: google-github-actions/setup-gcloud@main
         with:
