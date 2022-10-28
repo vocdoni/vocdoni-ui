@@ -771,6 +771,8 @@
                 "title": "Calendario"
             },
             "disclaimer": "Atención",
+            "disclaimer_anonymous1": "La votación anónima se encuentra actualmente en la etapa alfa, no la use todavía para la votación de alto riesgo.",
+            "disclaimer_anonymous2": "Todavía falta una ceremonia de configuración de confianza de zkSnarks y se lanzará en la próxima versión.",
             "download_template": "Descargar plantilla",
             "download_the_original_template_to_fill": "Descargue la plantilla original para completar con su lista de votantes",
             "end": "Final",

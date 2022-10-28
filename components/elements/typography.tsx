@@ -105,6 +105,24 @@ export const H4 = styled.h4<ITypographyCommon>`
   ${({ margin }) => (margin ? `margin: ${margin};` : '')}
 `
 
+export const H5 = styled.h5<ITypographyCommon>`
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1em;
+  text-align: ${({ align }) => (align ? align : TextAlign.Left)};
+  color: ${({ color, theme }) => (color ? color : theme.blueText)};
+  ${({ margin }) => (margin ? `margin: ${margin};` : '')}
+`
+
+export const H6 = styled.h6<ITypographyCommon>`
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1em;
+  text-align: ${({ align }) => (align ? align : TextAlign.Left)};
+  color: ${({ color, theme }) => (color ? color : theme.blueText)};
+  ${({ margin }) => (margin ? `margin: ${margin};` : '')}
+`
+
 const BaseParagraphTypography = styled.p<ITypographyCommon>`
   font-weight: 400;
   line-height: 1.2em;
@@ -151,6 +169,8 @@ const typographyMap = new Map<
   [TypographyVariant.Subtitle1, Subtitle1],
   [TypographyVariant.H3, H3],
   [TypographyVariant.H4, H4],
+  [TypographyVariant.H5, H5],
+  [TypographyVariant.H6, H6],
   [TypographyVariant.Body1, Body1],
   [TypographyVariant.Body2, Body2],
   [TypographyVariant.Small, Small],
