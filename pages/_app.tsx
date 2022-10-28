@@ -44,7 +44,6 @@ const VocdoniApp: FC<NextAppProps> = ({ Component, pageProps }) => {
       <ThemeContextProvider>
         <Providers>
           <FixedGlobalStyle />
-          {ANALYTICS_KEY && <Ruddlestack />}
 
           <Head>
             <meta name="description" content={i18n.t('app.meta.description')} />

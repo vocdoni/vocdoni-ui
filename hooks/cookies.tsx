@@ -53,7 +53,7 @@ export const UseCookiesProvider: React.FC<IUseCookiesProvider> = ({
   const [hide, setHide] = useState<boolean>(true)
 
   const router = useRouter()
-  const { trackLoad, trackReset, trackPage } = useRudderStack()
+  const { trackLoad, trackReset, trackPage, setAccepted:setAcceptedRudder } = useRudderStack()
   const { show } = useHelpCenter()
 
   useEffect(() => {
@@ -66,8 +66,8 @@ export const UseCookiesProvider: React.FC<IUseCookiesProvider> = ({
       (hideInPaths && hideInPaths?.some((path) => router.pathname.match(path)))
     ) {
       setAccepted(cookieAcceptance === CookiesStatus.Accept)
+      setAcceptedRudder(cookieAcceptance === CookiesStatus.Accept)
       setHide(true)
-      trackLoad()
     } else {
       setHide(false)
     }
@@ -83,9 +83,14 @@ export const UseCookiesProvider: React.FC<IUseCookiesProvider> = ({
     }
   }, [router.pathname])
 
+  useEffect(() => {
+    setAcceptedRudder(accepted)
+  }, [accepted])
+
   const acceptCookies = () => {
     if (!router.pathname.includes(VOTING_PATH)) show()
     setAccepted(true)
+    setAcceptedRudder(true)
     trackLoad()
     trackPage()
     setHide(true)
@@ -95,6 +100,7 @@ export const UseCookiesProvider: React.FC<IUseCookiesProvider> = ({
   const rejectCookies = () => {
     trackReset()
     setAccepted(false)
+    setAcceptedRudder(false)
     setHide(true)
     localStorage.setItem(COOKIES_STORE_KEY, CookiesStatus.Reject)
   }
