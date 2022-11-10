@@ -8,13 +8,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+        uses: actions/checkout@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
         with:
           node-version: 16.x
-
+          cache: 'npm'
       - name: Install dependencies
         run: npm install
 
@@ -24,28 +23,29 @@ jobs:
       - node-tests
     if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/stage' || github.ref == 'refs/heads/fcb' || startsWith(github.ref, 'refs/heads/release')
     steps:
-      - uses: AutoModality/action-clean@v1.1.0
+      - name: Clean residue in workspace from previous self-hosted builds (remove it if runs on gh)
+        uses: AutoModality/action-clean@v1.1.0
       - name: Check out the repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - uses: docker/setup-buildx-action@v2
       - name: Login to DockerHub
-        uses: docker/login-action@v1
+        uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
       - name: Login to GitHub Container Registry
-        uses: docker/login-action@v1
+        uses: docker/login-action@v2
         with:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.CR_PAT }}
-      - name: Get short branch name and sha
+      - name: Get short branch name and commit sha
         id: var
         shell: bash
         # Grab the short branch name, convert slashes to dashes
         run: |
-          echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/} | tr '/' '-' )"
-          echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
+          echo "branch_name=$(echo ${GITHUB_REF#refs/heads/} | tr '/' '-' )" >> $GITHUB_OUTPUT
+          echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
 
       - name: Push to Docker Hub and ghcr.io (main)
         uses: docker/build-push-action@v3
@@ -59,8 +59,10 @@ jobs:
             COMMIT_SHA=${{ steps.var.outputs.sha_short }}
             DISCOVERY_POOL_SIZE=1
           tags: |
-            vocdoni/${{ github.event.repository.name }}:latest, vocdoni/${{ github.event.repository.name }}:${{ steps.var.outputs.branch }},
-            ghcr.io/vocdoni/${{ github.event.repository.name }}:latest,ghcr.io/vocdoni/${{ github.event.repository.name }}:${{ steps.var.outputs.branch }}
+            vocdoni/${{ github.event.repository.name }}:latest, vocdoni/${{ github.event.repository.name }}:${{ steps.var.outputs.branch_name }},
+            ghcr.io/vocdoni/${{ github.event.repository.name }}:latest, ghcr.io/vocdoni/${{ github.event.repository.name }}:${{ steps.var.outputs.branch_name }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
       - name: Push to Docker Hub and ghcr.io (main static, development)
         uses: docker/build-push-action@v3
@@ -74,8 +76,10 @@ jobs:
             COMMIT_SHA=${{ steps.var.outputs.sha_short }}
             DISCOVERY_POOL_SIZE=1
           tags: |
-            vocdoni/${{ github.event.repository.name }}:latest-static, vocdoni/${{ github.event.repository.name }}:${{ steps.var.outputs.branch }}-static,
-            ghcr.io/vocdoni/${{ github.event.repository.name }}:latest-static,ghcr.io/vocdoni/${{ github.event.repository.name }}:${{ steps.var.outputs.branch }}-static
+            vocdoni/${{ github.event.repository.name }}:latest-static, vocdoni/${{ github.event.repository.name }}:${{ steps.var.outputs.branch_name }}-static,
+            ghcr.io/vocdoni/${{ github.event.repository.name }}:latest-static, ghcr.io/vocdoni/${{ github.event.repository.name }}:${{ steps.var.outputs.branch_name }}-static
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
       - name: Push to Docker Hub and ghcr.io (stage)
         uses: docker/build-push-action@v3
@@ -98,8 +102,10 @@ jobs:
             DISCOVERY_POOL_SIZE=1
           push: true
           tags: |
-            vocdoni/${{ github.event.repository.name }}:${{ steps.var.outputs.branch }},
-            ghcr.io/vocdoni/${{ github.event.repository.name }}:${{ steps.var.outputs.branch }}
+            vocdoni/${{ github.event.repository.name }}:${{ steps.var.outputs.branch_name }},
+            ghcr.io/vocdoni/${{ github.event.repository.name }}:${{ steps.var.outputs.branch_name }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
       - name: Push to Docker Hub and ghcr.io (release)
         uses: docker/build-push-action@v3
@@ -120,8 +126,10 @@ jobs:
             DISCOVERY_POOL_SIZE=1
           push: true
           tags: |
-            vocdoni/${{ github.event.repository.name }}:${{ steps.var.outputs.branch }},
-            ghcr.io/vocdoni/${{ github.event.repository.name }}:${{ steps.var.outputs.branch }}
+            vocdoni/${{ github.event.repository.name }}:${{ steps.var.outputs.branch_name }},
+            ghcr.io/vocdoni/${{ github.event.repository.name }}:${{ steps.var.outputs.branch_name }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
       - name: Push to Docker Hub and ghcr.io (fcb)
         uses: docker/build-push-action@v3
@@ -142,8 +150,10 @@ jobs:
             DISCOVERY_POOL_SIZE=1
           push: true
           tags: |
-            vocdoni/${{ github.event.repository.name }}:${{ steps.var.outputs.branch }},
-            ghcr.io/vocdoni/${{ github.event.repository.name }}:${{ steps.var.outputs.branch }}
+            vocdoni/${{ github.event.repository.name }}:${{ steps.var.outputs.branch_name }},
+            ghcr.io/vocdoni/${{ github.event.repository.name }}:${{ steps.var.outputs.branch_name }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
       - name: Push to Docker Hub and ghcr.io (fcb)
         uses: docker/build-push-action@v3
@@ -166,8 +176,10 @@ jobs:
             ANALYTICS_URL=${{ secrets.ANALYTICS_URL }}
           push: true
           tags: |
-            vocdoni/${{ github.event.repository.name }}:${{ steps.var.outputs.branch }},
-            ghcr.io/vocdoni/${{ github.event.repository.name }}:${{ steps.var.outputs.branch }}
+            vocdoni/${{ github.event.repository.name }}:${{ steps.var.outputs.branch_name }},
+            ghcr.io/vocdoni/${{ github.event.repository.name }}:${{ steps.var.outputs.branch_name }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
   gcs-release-production:
     runs-on: self-hosted
@@ -177,16 +189,17 @@ jobs:
     if: github.ref == 'refs/heads/release'
     steps:
       - name: Check out the repo
-        uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+        uses: actions/checkout@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
         with:
           node-version: 16.x
-      - name: Get short sha
+          cache: 'npm'
+      - name: Get short commit sha
         id: var
         shell: bash
         run: |
-          echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
+          echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
       - name: Install dependencies and build
         run: |
           npm install
@@ -204,8 +217,8 @@ jobs:
           DISCOVERY_POOL_SIZE: '1'
           ANALYTICS_KEY: ${{ secrets.ANALYTICS_KEY }}
           ANALYTICS_URL: ${{ secrets.ANALYTICS_URL }}
-      - name: Set up Cloud SDK
-        uses: google-github-actions/setup-gcloud@main
+      - name: Set up GCloud SDK
+        uses: google-github-actions/setup-gcloud@v1
         with:
           service_account_key: ${{ secrets.GCP_PRODUCTION }}
           export_default_credentials: true
@@ -222,16 +235,17 @@ jobs:
     if: startsWith(github.ref, 'refs/heads/release-oc')
     steps:
       - name: Check out the repo
-        uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+        uses: actions/checkout@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
         with:
           node-version: 16.x
-      - name: Get short sha
+          cache: 'npm'
+      - name: Get short commit sha
         id: var
         shell: bash
         run: |
-          echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
+          echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
       - name: Install dependencies and build
         run: |
           npm install
@@ -249,8 +263,8 @@ jobs:
           DISCOVERY_POOL_SIZE: '1'
           COLOR_PICKER: '1'
           ADVANCED_CENSUS: '1'
-      - name: Set up Cloud SDK
-        uses: google-github-actions/setup-gcloud@main
+      - name: Set up GCloud SDK
+        uses: google-github-actions/setup-gcloud@v1
         with:
           service_account_key: ${{ secrets.GCP_PRODUCTION }}
           export_default_credentials: true
@@ -267,16 +281,17 @@ jobs:
     if: startsWith(github.ref, 'refs/heads/release-azeno')
     steps:
       - name: Check out the repo
-        uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+        uses: actions/checkout@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
         with:
           node-version: 16.x
-      - name: Get short sha
+          cache: 'npm'
+      - name: Get short commit sha
         id: var
         shell: bash
         run: |
-          echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
+          echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
       - name: Install dependencies and build
         run: |
           npm install
@@ -295,8 +310,8 @@ jobs:
           EXPLORER_URL: 'https://explorer.vote'
           ANALYTICS_KEY: ${{ secrets.ANALYTICS_KEY }}
           ANALYTICS_URL: ${{ secrets.ANALYTICS_URL }}
-      - name: Set up Cloud SDK
-        uses: google-github-actions/setup-gcloud@v0
+      - name: Set up GCloud SDK
+        uses: google-github-actions/setup-gcloud@v1
         with:
           service_account_key: ${{ secrets.GCP_PRODUCTION }}
           export_default_credentials: true
@@ -312,16 +327,17 @@ jobs:
     if: github.ref == 'refs/heads/stage'
     steps:
       - name: Check out the repo
-        uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+        uses: actions/checkout@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
         with:
           node-version: 16.x
-      - name: Get short sha
+          cache: 'npm'
+      - name: Get short commit sha
         id: var
         shell: bash
         run: |
-          echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
+          echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
       - name: Install dependencies and build (staging)
         run: |
           npm install
@@ -341,8 +357,8 @@ jobs:
           DISCOVERY_POOL_SIZE: '1'
           ANALYTICS_KEY: ${{ secrets.ANALYTICS_KEY }}
           ANALYTICS_URL: ${{ secrets.ANALYTICS_URL }}
-      - name: Set up Cloud SDK (staging)
-        uses: google-github-actions/setup-gcloud@main
+      - name: Set up GCloud SDK (staging)
+        uses: google-github-actions/setup-gcloud@v1
         with:
           service_account_key: ${{ secrets.GCP_STAGING }}
           export_default_credentials: true
