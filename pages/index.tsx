@@ -34,6 +34,20 @@ const IndexPage = () => {
       <HeroBanner />
 
       <BlockContainer>
+
+        <AnnouncementBanner>
+          <h2>{i18n.t('home.announcementTitle')}</h2>
+          <AnnouncementText>
+            {i18n.t('home.announcementText')}
+          </AnnouncementText>
+
+          <ActionsContainer>
+            <Button positive href="https://api.vocdoni.io">
+              {i18n.t('home.request_access')}
+            </Button>
+          </ActionsContainer>
+        </AnnouncementBanner>
+
         <CompanyLogos />
       </BlockContainer>
 
@@ -477,4 +491,24 @@ const CuttingEdgeFeaturesContainer = styled.div`
     margin-right: 20px;
   }
 `
+
+const AnnouncementBanner = styled.div`
+  width: 80%;
+  border: 3px solid #fff;
+  border-radius: 12px;
+  background-color: #fff;
+  margin: 0px auto;
+  background: linear-gradient(101.89deg, rgb(241, 255, 223) 17.32%, rgb(225, 255, 255) 68.46%);
+  padding: 20px 40px;
+  box-shadow: rgba(180, 193, 228, 0.35) 0px 3px 3px;
+  margin-bottom: 30px;
+  margin-top: 10px;
+`
+
+const AnnouncementText = styled.p`
+  font-size: 18px;
+  color: rgb(13, 71, 82);
+  margin-bottom: 20px;
+`
+
 export default IndexPage
