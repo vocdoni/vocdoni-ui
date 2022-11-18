@@ -331,7 +331,7 @@ export const UseProcessWrapperProvider = ({ children }: { children: ReactNode })
         (consultedArchive || triggeredfromArchive)
           ? new Promise<RawResults>((resolve, reject) => { resolve(archiveResults) })
           : VotingApi.getResults(processId, pool),
-        (processInfo.metadata)
+        (processInfo?.metadata)
           ? new Promise<ProcessMetadata>((resolve, reject) => { resolve(processInfo.metadata) })
           : VotingApi.getProcessMetadata(processId, pool)
       ]))

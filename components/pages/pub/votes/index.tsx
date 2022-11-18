@@ -321,8 +321,12 @@ export const VotingPageView = () => {
                         }
                       }
                     >
+                    {(anonymousFormData.length > 0) &&
+                      <>
                       {i18n.t('vote.you_are_autenticated')}
                       <b> {anonymousFormData}</b>
+                      </>
+                    }
                     </Banner>
                   </Col>
                 }
