@@ -418,7 +418,7 @@ export const VotingPageView = () => {
           </>
         }
 
-        {voteStatus === VoteStatus.Active &&
+        {(voteStatus === VoteStatus.Active && (userVoteStatus !== UserVoteStatus.InProgress && userVoteStatus !== UserVoteStatus.Emitted)) &&
           <>
             <MobileSpacer />
             <VoteNowFixedContainer justify='center' align='center' gutter='md'>
