@@ -1,22 +1,22 @@
-import React, { useEffect, useState } from 'react'
-import styled from 'styled-components'
-import { SignInFormCard } from '@components/elements/cards'
-import { EntityMetadata, ProcessDetails, VotingApi } from 'dvote-js'
-import { useTranslation } from 'react-i18next'
-import { CardImageHeader } from '@components/blocks/card'
-import { FormFieldsetContainer } from './components/form-fieldset-container'
-import { InputPasswordFormGroup } from '@components/blocks/form'
-import { checkStrength } from '@lib/util'
-import { Typography, TypographyVariant } from '@components/elements/typography'
-import { useBlockStatus } from '@vocdoni/react-hooks'
 import { Banner, BannerSize, BannerVariant } from '@components/blocks/banner_v2'
-import { FlexContainer, FlexJustifyContent } from '@components/elements/flex'
-import { ImageContainer } from '@components/elements/images'
-import { colors } from '@theme/colors'
+import { CardImageHeader } from '@components/blocks/card'
+import { InputPasswordFormGroup } from '@components/blocks/form'
 import { PasswordFeedbackSuccess } from '@components/blocks/password-feedback-success'
 import { Button } from '@components/elements/button'
+import { SignInFormCard } from '@components/elements/cards'
+import { FlexContainer, FlexJustifyContent } from '@components/elements/flex'
+import { ImageContainer } from '@components/elements/images'
+import { Typography, TypographyVariant } from '@components/elements/typography'
+import { checkStrength } from '@lib/util'
+import { colors } from '@theme/colors'
+import { useBlockStatus } from '@vocdoni/react-hooks'
+import { EntityMetadata, ProcessDetails, VotingApi } from 'dvote-js'
 import moment from 'moment'
 import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import styled from 'styled-components'
+import { FormFieldsetContainer } from './components/form-fieldset-container'
 
 export enum PreregisterFormFields {
   Password = 'password',
@@ -141,7 +141,7 @@ export const PreregisterView = ({
           <InputPasswordFormGroup
             label={i18n.t('votes.preregister_view.password')}
             placeholder={i18n.t('votes.preregister_view.insert_password')}
-            info={errorPassword}
+            error={errorPassword}
             value={values.password}
             name={PreregisterFormFields.Password}
             onChange={handleChangePassword}
@@ -150,7 +150,7 @@ export const PreregisterView = ({
           <InputPasswordFormGroup
             label={i18n.t('votes.preregister_view.repeat')}
             placeholder={i18n.t('votes.preregister_view.insert_password_again')}
-            success={passwordMatch && <PasswordFeedbackSuccess />}
+            success={!errorPassword && passwordMatch && <PasswordFeedbackSuccess />}
             value={values.passwordConfirm}
             name={PreregisterFormFields.PasswordConfirm}
             onChange={handleChangePassword}

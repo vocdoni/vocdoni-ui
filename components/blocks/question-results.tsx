@@ -96,7 +96,7 @@ export const QuestionResults = (props: QuestionsResultsProps) => {
                 {props.results.title.default}
               </Text>
             </Col>
-            {props.question.description &&
+            {props.question?.description &&
               <Col xs={12}>
                 <Text size="sm" color="dark-gray" weight="regular">
                   {props.question.description.default}

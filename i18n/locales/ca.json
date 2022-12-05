@@ -582,6 +582,7 @@
         "active_vote": "Procés actiu",
         "add_new_question": "Afegeix una nova pregunta",
         "add_option": "Afegeix una altra opció",
+        "archived": "Arxivat",
         "auth": {
             "auth_button": "Autenticar-se",
             "close_preregister_redirect_modal": "Anar a la pàgina de votació",
@@ -625,7 +626,7 @@
         "creating_census": "Creant cens",
         "creating_process": "Creant procés",
         "creation": "Creació",
-        "credentials_not_accepted": "Credencials no vàlides. Posa't amb contacte amb l'entitat.",
+        "credentials_not_accepted": "Credencials no vàlides. Posa't en contacte amb l'entitat.",
         "define_the_timeframe_of_the_proposal": "Definició del termini del procés de votació",
         "delete_option": "Elimina aquesta opció",
         "delete_question": "Elimina aquesta pregunta",

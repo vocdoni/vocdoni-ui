@@ -582,6 +582,7 @@
         "active_vote": "Proceso activo",
         "add_new_question": "Añade una nueva pregunta",
         "add_option": "Añade más opciones",
+        "archived": "Archivado",
         "auth": {
             "auth_button": "Autenticarse",
             "close_preregister_redirect_modal": "Ir a la página de votación",
