@@ -109,7 +109,7 @@
         "your_account_is_unsafe": "Tu cuenta de organización no está protegida!"
     },
     "dates": {
-        "days": "Dias",
+        "days": "{{num}} días",
         "ended_a_minute_ago": "Finalizado hace un minuto",
         "ended_an_hour_ago": "Finalizado hace una hora",
         "ended_n_days_ago": "Finalizado hace {{num}} días",

@@ -1,10 +1,8 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Column, Grid } from '@components/elements/grid'
+import { CardDiv } from '@components/elements/cards'
+import { Radio } from '@components/elements/radio'
 import { Typography, TypographyVariant } from '@components/elements/typography'
 import { Choice, Question } from '@lib/types'
-import { Radio } from '@components/elements/radio'
-import { CardDiv } from '@components/elements/cards'
+import styled from 'styled-components'
 
 interface IQuestionProps {
   question: Question
@@ -49,7 +47,11 @@ export const QuestionCard = ({
 
 const QuestionCardContainer = styled(CardDiv)`
   padding: 64px;
-  
+
+  label {
+    font-size: 18px;
+    line-height: 22px;
+  }
 
   @media ${({ theme }) => theme.screenMax.tabletL} {
     padding: 32px;

@@ -109,7 +109,7 @@
         "your_account_is_unsafe": "El teu compte d'entitat no està protegit!"
     },
     "dates": {
-        "days": "Dies",
+        "days":  "{{num}} dies",
         "ended_a_minute_ago": "Finalitzat fa un minut",
         "ended_an_hour_ago": "Finalitzat fa una hora",
         "ended_n_days_ago": "Finalitzat fa {{num}} dies",
@@ -588,7 +588,7 @@
             "close_preregister_redirect_modal": "Anar a la pàgina de votació",
             "disconnect_button": "Desconnectar-se",
             "if_you_voted": "Si heu votat, heu d'autenticar-vos per revisar el vostre vot",
-            "insert_your": "Inseriu el vostre {{ camp }}",
+            "insert_your": "Inseriu el vostre {{ field }}",
             "insert_your_credentials": "Introduïu les vostres credencials",
             "insert_your_credentials_and_password": "Introduïu les vostres credencials i contrasenya",
             "insert_your_secret_key": "Introduïu la vostra clau secreta",
@@ -605,7 +605,7 @@
             "secret_key_label": "Contrasenya",
             "with_credentials": "Autentica't amb les teves credencials per votar.",
             "with_preregistration": "Hauràs de fer la preinscripció abans de la data d'inici per enviar el vostre vot.",
-            "with_preregistration_active": "Si t'has registrat, podrás emetre el teu vot després d'autentificar-te amb les teves credencials i la contrasenya personal."
+            "with_preregistration_active": "Si t'has registrat, podràs emetre el teu vot després d'autentificar-te amb les teves credencials i la contrasenya personal."
         },
         "back_to_dashboard": "Torna a l'inici",
         "brand_color_used_on_the_voting_process": "El color de marca utilitzat en el procés de votació",
@@ -736,7 +736,7 @@
         "vote_now": "Vota ara",
         "vote_process_image_alt": "Imatge del procés",
         "vote_submitted_image_alt": "Imatge carregada",
-        "vote_will_close": "La votació finalitzará en",
+        "vote_will_close": "La votació finalitzarà en",
         "vote_will_start": "La votació començarà en",
         "voted_alt": "Vota",
         "voting_power": "Poder de vot",
