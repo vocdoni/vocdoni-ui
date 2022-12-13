@@ -55,10 +55,20 @@ const QuestionCardContainer = styled(CardDiv)`
 
   @media ${({ theme }) => theme.screenMax.tabletL} {
     padding: 32px;
+
+    label {
+      font-size: 16px;
+      line-height: 18px;
+    }
   }
 
   @media ${({ theme }) => theme.screenMax.mobileL} {
     padding: 16x;
+
+    label {
+      font-size: 14px;
+      line-height: 16px;
+    }
   }
 `
 

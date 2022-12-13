@@ -1,21 +1,13 @@
-import React from 'react'
-import styled from 'styled-components'
 import { useTranslation } from 'react-i18next'
+import styled from 'styled-components'
 
 import { PageCardHeader } from '@components/elements/cards'
-import { FALLBACK_VOTE_HEADER_IMAGE } from '@const/vote'
+import { Column, Grid } from '@components/elements/grid'
 import { FALLBACK_ACCOUNT_ICON } from '@const/account'
-import { Grid, Column } from '@components/elements/grid'
+import { FALLBACK_VOTE_HEADER_IMAGE } from '@const/vote'
 
+import { Body1, H2 } from '@components/elements/typography'
 import { Image } from '../../elements/image'
-import {
-  Typography,
-  TypographyVariant,
-  TextAlign,
-  H2,
-  Body1,
-} from '@components/elements/typography'
-import { colors } from '@theme/colors'
 
 interface ICardImageHeader {
   title: string
@@ -83,13 +75,13 @@ const CardH2 = styled(H2)`
   text-align: center;
 
   @media ${({ theme }) => theme.screenMax.tabletL} {
-    font-size: 26px;
-    line-height: 28px;
+    font-size: 28px;
+    line-height: 32px;
   }
 
   @media ${({ theme }) => theme.screenMax.tablet} {
-    font-size: 24px;
-    line-height: 26px;
+    font-size: 26px;
+    line-height: 30px;
   }
 
   @media ${({ theme }) => theme.screenMax.mobileL} {

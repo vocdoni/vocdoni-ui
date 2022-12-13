@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react'
+import { ReactNode } from 'react'
 import styled, { DefaultTheme, StyledComponent } from 'styled-components'
 import { colors } from 'theme/colors'
 
@@ -94,6 +94,16 @@ export const H3 = styled.h3<ITypographyCommon>`
   text-align: ${({ align }) => (align ? align : TextAlign.Left)};
   color: ${({ color, theme }) => (color ? color : theme.blueText)};
   ${({ margin }) => (margin ? `margin: ${margin};` : '')}
+
+  @media ${({ theme }) => theme.screenMax.tablet} {
+    font-size: 22px;
+    line-height: 24px;
+  }
+
+  @media ${({ theme }) => theme.screenMax.mobileL} {
+    font-size: 20px;
+    line-height: 22px;
+  }
 `
 
 export const H4 = styled.h4<ITypographyCommon>`
@@ -103,6 +113,17 @@ export const H4 = styled.h4<ITypographyCommon>`
   text-align: ${({ align }) => (align ? align : TextAlign.Left)};
   color: ${({ color, theme }) => (color ? color : theme.blueText)};
   ${({ margin }) => (margin ? `margin: ${margin};` : '')}
+
+
+  @media ${({ theme }) => theme.screenMax.tablet} {
+    font-size: 20px;
+    line-height: 26px;
+  }
+
+  @media ${({ theme }) => theme.screenMax.mobileL} {
+    font-size: 18px;
+    line-height: 24px;
+  }
 `
 
 export const H5 = styled.h5<ITypographyCommon>`
