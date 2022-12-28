@@ -47,6 +47,7 @@ const FooterContainer = styled.div`
   background-color: ${({ theme }) => theme.white};
   display: flex;
   padding: 30px 0px;
+  box-shadow: 0 -5px 5px -5px rgba(180,193,228,0.25);
 `
 
 const VoterIconContainer = styled.div`

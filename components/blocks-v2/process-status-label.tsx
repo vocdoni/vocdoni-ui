@@ -12,6 +12,7 @@ export const ProcessStatusLabel = () => {
   const { status, endDate, startDate } = useProcessWrapper(processId)
   const endingInDiffString = dateDiffStr(DateDiffType.CountdownV2, endDate)
   const startingInDiffString = dateDiffStr(DateDiffType.CountdownV2, startDate)
+
   switch (status) {
     case VoteStatus.Active:
       return (
@@ -25,9 +26,12 @@ export const ProcessStatusLabel = () => {
 
     case VoteStatus.Upcoming:
       return (
-        <Tag variant='neutral'>
-          {i18n.t('vote.starting_in')} {startingInDiffString}
-        </Tag>
+          <Tag
+            variant='neutral'
+            label={i18n.t('vote.starting_in') + ' ' + startingInDiffString}
+          >
+            {i18n.t('vote.upcoming')}
+          </Tag>
       )
 
     case VoteStatus.Ended:

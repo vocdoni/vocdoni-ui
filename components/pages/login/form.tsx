@@ -127,12 +127,12 @@ const HeaderSection = styled.div`
 `
 
 const FormGroup = styled.div`
-  padding-bottom: 18px;
-  padding-top: 18px;
+  padding-bottom: 0px;
+  padding-top: 0px;
 `
 
 const ButtonContainer = styled.div`
-  margin-top: 56px;
+  margin-top: 36px;
 
   @media ${({ theme }) => theme.screenMax.laptop} {
     display: flex;

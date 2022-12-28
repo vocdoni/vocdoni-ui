@@ -24,6 +24,7 @@ interface IQuesListInlineProps {
   onFinishVote: (results: number[]) => void
   onBackDescription: () => void
   onComponentMounted?: (ref: ForwardedRef<HTMLDivElement>) => void
+  authenticated: boolean
 }
 
 export const QuestionsListInline = forwardRef<HTMLDivElement, IQuesListInlineProps>((props: IQuesListInlineProps, ref) => {
@@ -68,9 +69,12 @@ export const QuestionsListInline = forwardRef<HTMLDivElement, IQuesListInlinePro
 
         <ButtonsActionContainer justify={FlexJustifyContent.Center}>
           <Button
+            large
+            wide
+            width={300}
             onClick={handleSubmit}
             positive
-            disabled={(props.results.length < props.questions?.length || props.results.includes(undefined))}
+            disabled={((props.results.length < props.questions?.length || props.results.includes(undefined)) || (props.authenticated === false))}
           >
             {i18n.t('votes.questions_list.finish_voting')}
           </Button>
@@ -81,14 +85,22 @@ export const QuestionsListInline = forwardRef<HTMLDivElement, IQuesListInlinePro
             {i18n.t('votes.questions_list.num_questions_info')} {props.results.filter(x => x !== undefined).length} {i18n.t('votes.questions_list.num_questions_total', {numTotal: props.questions?.length})}.
           </Typography>            
         </When>
+
+        <When condition={!props.authenticated}>
+          <Typography margin='20px 0px' align={TextAlign.Center} color='#888' variant={TypographyVariant.ExtraSmall}>
+            {i18n.t('vote.auth.with_credentials')}
+          </Typography>
+        </When>
       </div>
 
       <FixedButtonsActionContainer>
         <div>  
           <Button
+            large={true}
+            width={300}
             onClick={handleSubmit}
             positive
-            disabled={(props.results.length < props.questions?.length || props.results.includes(undefined))}
+            disabled={((props.results.length < props.questions?.length || props.results.includes(undefined)) || (props.authenticated === false))}
           >
             {i18n.t('votes.questions_list.finish_voting')}
           </Button>
@@ -137,6 +149,10 @@ const FixedButtonsActionContainer = styled.div`
 
 const QuestionsContainer = styled.div`
   position: relative;
+
+  & > * {
+    width: 100%;
+  }
 `
 
 const LiveStreamVideoContainer = styled.div`

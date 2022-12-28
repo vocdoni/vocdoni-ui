@@ -48,6 +48,7 @@ export interface BannerProps {
    */
   gutter?: RowGutter
   innerGutter?: RowGutter
+  twoRows?: boolean
 }
 type BannerPadding = 'md' | 'lg'
 function getBannerPadding(isMobile: boolean, padding?: BannerPadding) {
@@ -76,26 +77,27 @@ function getInnerRowGutter(isMobile: boolean, gutter?: RowGutter) {
 }
 export const Banner = (props: BannerProps) => {
   const isMobile = useIsMobile()
+  const colWidth = (props.twoRows === true && !isMobile) ? 6 : 12
   return (
     <Card
-      // padding={getBannerPadding(isMobile, props.padding)}
       variant={props.variant ? props.variant : "primary"}
     >
       <Row align='center' justify="space-between" gutter={props.gutter ? props.gutter : 'md'}>
-        <Col xs={12} md={props.buttonProps ? 9 : 12}>
+        <Col xs={colWidth}>
           <Row gutter={getInnerRowGutter(isMobile, props.innerGutter)} align="center" wrap={false} >
             {props.image &&
               <Col>
                 {props.image}
               </Col>
             }
-            <Col>
+            <Col xs={12}>
               <Row gutter="xs">
                 <Col xs={12}>
                   <Text
                     weight={props?.titleProps?.weight ? props?.titleProps?.weight : 'bold'}
                     size={props?.titleProps?.size ? props?.titleProps?.size : 'md'}
                     color={props?.titleProps?.color ? props?.titleProps?.color : 'dark-blue'}
+                    align={props?.titleProps?.align ? props?.titleProps?.align : 'left'}
                   >
                     {props.children}
                   </Text>
@@ -114,7 +116,7 @@ export const Banner = (props: BannerProps) => {
           </Row>
         </Col>
         {props.buttonProps &&
-          <Col xs={12} md={3}>
+          <Col xs={colWidth}>
             <Button
               {...props.buttonProps}
             >

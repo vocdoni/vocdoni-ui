@@ -4,7 +4,9 @@ import { Case, Default, Switch } from 'react-if'
 import { useTranslation } from 'react-i18next'
 
 import { useProcessCreation } from '@hooks/process-creation'
-
+import { Banner, BannerVariant, BannerSize } from '@components/blocks/banner_v2'
+import { Typography, TypographyVariant } from '@components/elements/typography'
+import { colors } from '@theme/colors'
 
 import { ProcessCreationPageSteps } from '.'
 import { CensusFileSelector } from './census-file-selector'
@@ -26,9 +28,6 @@ import { SelectorButton } from './components/selector-button'
 import { BinaryCard } from './components/binary-card'
 import { AnonymousMessage } from './components/anonymous-message'
 import { useScrollTop } from '@hooks/use-scroll-top'
-import { Banner, BannerVariant, BannerSize } from '@components/blocks/banner_v2'
-import { Typography, TypographyVariant } from '@components/elements/typography'
-import { colors } from '@theme/colors'
 
 export const FormCensus = () => {
   useScrollTop()

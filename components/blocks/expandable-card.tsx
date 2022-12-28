@@ -46,7 +46,7 @@ export const ExpandableCard = forwardRef<HTMLDivElement, ExpandableCardProps>((p
     )
   }
   return (
-    <Card ref={ref} padding='md' shadow borderWidth='sm' borderColor='light-gray'>
+    <Card ref={ref} padding='md' borderWidth='sm' borderColor='light-gray'>
       <Row gutter="3xl">
         <Col xs={12} >
           <Row align='center' justify='space-between'>

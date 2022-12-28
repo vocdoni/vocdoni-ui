@@ -23,17 +23,20 @@ import { dateDiffStr, DateDiffType } from '@lib/date-moment'
 import { BigNumber } from 'ethers'
 import { Spacer } from '@components/elements-v2'
 import { VochainProcessStatus } from '@vocdoni/data-models'
+import moment from 'moment'
 
 interface IVoteActionCardProps {
   userVoteStatus: UserVoteStatus
   onClick: () => void
   onSeeResults?: () => void
+  isOnlineVoting: boolean
 }
 
 export const VoteActionCard = ({
   userVoteStatus,
   onClick,
   onSeeResults,
+  isOnlineVoting
 }: IVoteActionCardProps) => {
   const { i18n } = useTranslation()
   const processId = useUrlHash().slice(1)
@@ -41,6 +44,16 @@ export const VoteActionCard = ({
   const { nullifier } = useVoting(processId)
   const disabled = (status !== VoteStatus.Active || userVoteStatus === UserVoteStatus.Emitted)
   const explorerLink = process.env.EXPLORER_URL + '/envelopes/show/#/' + nullifier
+
+  const toCalendarFormat = (date: Date) => {
+    const currentTime = new Date()
+    const isSameYear = moment(date).locale('es').format("YYYY") === String(currentTime.getFullYear())
+
+    let momentDate = isSameYear ? moment(date).locale('es').format("DD MMM (HH:mm)") : moment(date).locale('es').format("DD MMM - YYYY (HH:mm)")
+    return momentDate
+  }
+  const calendarStringStart = toCalendarFormat(startDate)
+  const calendarStringEnd = toCalendarFormat(endDate)
 
   // const totalVotes = results?.totalVotes || 0
   const getTitleFromState = (status: VoteStatus) => {
@@ -54,9 +67,19 @@ export const VoteActionCard = ({
       )
     } else if (userVoteStatus === UserVoteStatus.Expired || status === VoteStatus.Ended) {
       return (
-        <Text bold large>
-          {i18n.t('vote.the_voting_process_has_endded')}
-        </Text>
+        <>
+          <Text bold large>
+            {i18n.t('vote.the_voting_process_has_endded')}
+          </Text>
+          <br />
+          <CalendarTitle>
+            <u>{i18n.t('vote.voting_calendar')}</u>
+          </CalendarTitle>
+          <CalendarText>
+            <strong>{i18n.t('votes.new.start')}: </strong>{calendarStringStart}<br />
+            <strong>{i18n.t('votes.new.end')}: </strong>{calendarStringEnd}
+          </CalendarText>
+        </>
       )
     } else if (status === VoteStatus.Active) {
       return (
@@ -67,6 +90,14 @@ export const VoteActionCard = ({
           <Text bold large>
             {endingString}
           </Text>
+          <br />
+          <CalendarTitle>
+            <u>{i18n.t('vote.voting_calendar')}</u>
+          </CalendarTitle>
+          <CalendarText>
+            <strong>{i18n.t('votes.new.start')}: </strong>{calendarStringStart}<br />
+            <strong>{i18n.t('votes.new.end')}: </strong>{calendarStringEnd}
+          </CalendarText>
         </>
       )
     } else if (status === VoteStatus.Upcoming) {
@@ -78,11 +109,19 @@ export const VoteActionCard = ({
           <Text bold large>
             {startingString}
           </Text>
+          <br />
+          <CalendarTitle>
+            <u>{i18n.t('vote.voting_calendar')}</u>
+          </CalendarTitle>
+          <CalendarText>
+            <strong>{i18n.t('votes.new.start')}: </strong>{calendarStringStart}<br />
+            <strong>{i18n.t('votes.new.end')}: </strong>{calendarStringEnd}
+          </CalendarText>
         </>
       )
     }
   }
-  const getButtonFromState = (status: VoteStatus) => {
+  const getButtonFromState = (status: VoteStatus, isOnlineVoting: boolean) => {
     if (userVoteStatus === UserVoteStatus.Emitted) {
       return (
         <>
@@ -94,11 +133,16 @@ export const VoteActionCard = ({
     } else if (status === VoteStatus.Ended) {
       return null
     } else {
-      return (
-        <Button wide disabled={disabled} positive onClick={onClick}>
-          {i18n.t('vote.vote_now')}
-        </Button>
-      )
+      if(!isOnlineVoting){
+        return (
+          <>
+            <br />
+            <Button large wide disabled={disabled} positive onClick={onClick}>
+              {i18n.t('vote.vote_now')}
+            </Button>
+          </>
+        )
+      }
     }
   }
 
@@ -149,7 +193,7 @@ export const VoteActionCard = ({
         <BannerText>
             {getTitleFromState(status)}
           <Spacer direction='vertical' size='3xl'></Spacer>
-          <div>{getButtonFromState(status)}</div>
+          <div>{getButtonFromState(status,isOnlineVoting)}</div>
         </BannerText>
       </BannerMainDiv>
 
@@ -157,7 +201,7 @@ export const VoteActionCard = ({
         <Text bold>
           {i18n.t('vote.total_votes_submited')}
         </Text>
-        <Text large>
+        <VotesText>
           <If condition={liveResults || (status >= VochainProcessStatus.ENDED) }>
             <Then>
               {totalVotes } {(censusSize != -1) ? "("+participationRate+"%)" : ""}
@@ -166,7 +210,7 @@ export const VoteActionCard = ({
               0 (0%)
             </Else>
           </If>
-        </Text>
+        </VotesText>
 
         <VerticalSpacer />
         <TextButton iconRight={<ChevronRightIcon />} onClick={() => onSeeResults()}>
@@ -181,7 +225,14 @@ const getPercent = (votes: BigNumber, totalVotes: BigNumber): number => {
   return ratio?.mul(100).toNumber()
 }
 
+const VotesText = styled.p`
+  font-size: 30px;
+  font-weight: 900;
+  margin-top: 10px;
+`
+
 const BannerDiv = styled.div<{ positive?: boolean }>`
+  min-width: 250px;
   background: linear-gradient(
     106.26deg,
     ${({ theme, positive }) => (positive ? theme.accentLight1B : theme.white)}
@@ -258,4 +309,20 @@ const Text = styled.p<{ large?: boolean, bold?: boolean }>`
   line-height: 28px;
   text-align: center;
   color: ${colors.blueText};
+`
+
+const CalendarTitle = styled.p`
+  margin-top: 10px;
+  margin-bottom:  10px;
+  font-weight: 500;
+  text-align: center;
+  font-size: 18px;
+  text-align: center;
+`
+
+const CalendarText = styled.p`
+  font-size: 16px;
+  text-align: center;
+  margin-bottom: 0px;
+  padding-bottom: 0px;
 `

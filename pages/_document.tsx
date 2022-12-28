@@ -22,7 +22,7 @@ class MyDocument extends Document {
             <link
               rel='icon'
               type='image/png'
-              href='/media/favicon.png'
+              href='/images/common/favicon.ico'
             />
 
             {initialProps.styles}

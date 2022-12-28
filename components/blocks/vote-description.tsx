@@ -58,7 +58,7 @@ export const VoteDescription = () => {
           {description &&
             <Col xs={12}>
               <ExpandableContainer
-                lines={10}
+                lines={20}
                 buttonText={i18n.t('vote.show_more')}
                 buttonExpandedText={i18n.t('vote.show_less')}
               >
@@ -69,23 +69,25 @@ export const VoteDescription = () => {
         </Row>
       </Col>
       {/* DATE AND SETTINGS CARDS */}
-      <Col xs={12}>
-        {/* INSIDE ROW TO ADJUST GUTTER */}
-        <Row gutter='lg'>
-          <Col xs={12} md={6}>
-            <CalendarCard
-              startDate={startDate}
-              endDate={endDate}
-            />
-          </Col>
-          <Col xs={12} md={6}>
-            <SettingsCard
-              votingType={votingType}
-              isAnonymous={isAnonymous}
-            />
-          </Col>
-        </Row>
-      </Col>
+      { false &&
+        <Col xs={12}>
+          {/* INSIDE ROW TO ADJUST GUTTER */}
+          <Row gutter='lg'>
+            <Col xs={12} md={6}>
+              <CalendarCard
+                startDate={startDate}
+                endDate={endDate}
+              />
+            </Col>
+            <Col xs={12} md={6}>
+              <SettingsCard
+                votingType={votingType}
+                isAnonymous={isAnonymous}
+              />
+            </Col>
+          </Row>
+        </Col>
+      }
 
       {/* VIDEO */}
       <When condition={videoUrl}>
@@ -113,43 +115,45 @@ export const VoteDescription = () => {
       </When>
 
       {/* LINKS */}
-      <Col xs={12}>
-        {/* INSIDE ROW TO ADJUST GUTTER BETWEEN TITLE AND LINKS*/}
-        <Row gutter='md'>
-          <Col xs={12}>
-            <SectionText size={TextSize.Big} color={colors.blueText}>
-              {i18n.t('vote.extra_information')}
-            </SectionText>
-          </Col>
-          <Col xs={12}>
-            {/* INSIDE ROW TO ADJUST GUTTER BETWEEN 2 LINKS */}
-            <Row gutter='lg'>
-              <Col xs={12} md={6}>
-                <LinkButton
-                  href={attachmentUrl}
-                  target="_blank"
-                  disabled={attachmentUrl === undefined || !attachmentUrl}
-                  icon={<DocumentOutlinedIcon />
+      { (attachmentUrl !== undefined || discussionUrl !== undefined) &&
+        <Col xs={12}>
+          {/* INSIDE ROW TO ADJUST GUTTER BETWEEN TITLE AND LINKS*/}
+          <Row gutter='md'>
+            <Col xs={12}>
+              <SectionText size={TextSize.Big} color={colors.blueText}>
+                {i18n.t('vote.extra_information')}
+              </SectionText>
+            </Col>
+            <Col xs={12}>
+              {/* INSIDE ROW TO ADJUST GUTTER BETWEEN 2 LINKS */}
+              <Row gutter='lg'>
+                <Col xs={12} md={6}>
+                  <LinkButton
+                    href={attachmentUrl}
+                    target="_blank"
+                    disabled={attachmentUrl === undefined || !attachmentUrl}
+                    icon={<DocumentOutlinedIcon />
 
-                  }
-                >
-                  {i18n.t('vote.access_to_the_documentation')}
-                </LinkButton>
-              </Col>
-              <Col xs={12} md={6}>
-                <LinkButton
-                  icon={<QuestionOutlinedIcon />}
-                  href={discussionUrl}
-                  disabled={discussionUrl === undefined || !discussionUrl}
-                  target="_blank"
-                >
-                  {i18n.t('vote.questions_and_answers')}
-                </LinkButton>
-              </Col>
-            </Row>
-          </Col>
-        </Row>
-      </Col>
+                    }
+                  >
+                    {i18n.t('vote.access_to_the_documentation')}
+                  </LinkButton>
+                </Col>
+                <Col xs={12} md={6}>
+                  <LinkButton
+                    icon={<QuestionOutlinedIcon />}
+                    href={discussionUrl}
+                    disabled={discussionUrl === undefined || !discussionUrl}
+                    target="_blank"
+                  >
+                    {i18n.t('vote.questions_and_answers')}
+                  </LinkButton>
+                </Col>
+              </Row>
+            </Col>
+          </Row>
+        </Col>
+      }
     </Row>
     // </Grid >
   )

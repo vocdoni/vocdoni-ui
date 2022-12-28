@@ -100,7 +100,6 @@ export const VotingPageView = () => {
   const questionsInlineRef = useRef(null)
   // used for getting the ending in and starting in string
   const [now, setNow] = useState(new Date)
-  const [anonymousFormData, setAnonymousFormData] = useState('')
 
   // @TODO move to the params received from the voting creation
   // if TRUE, the voting will display all the questions in one page
@@ -151,19 +150,6 @@ export const VotingPageView = () => {
     setUserVoteStatus(UserVoteStatus.NotEmitted)
   }, [wallet, hasVoted])
 
-  useEffect(() => {
-    if (wallet) {
-      const voterData = localStorage.getItem('voterData')
-      if (voterData) {
-        const decryptedVoterdata = Symmetric.decryptString(voterData, wallet.privateKey)
-        const anonymizedVoterData = anonymizeStrings(decryptedVoterdata.split('/'))
-        setAnonymousFormData(anonymizedVoterData.join(' / '))
-      }
-    }
-  }, [wallet])
-  /**
-   * watcher to update entity theming
-   */
   useEffect(() => {
     if (
       processInfo?.metadata?.meta?.[MetadataFields.BrandColor] ||
@@ -263,10 +249,73 @@ export const VotingPageView = () => {
   const showNotAuthenticatedBanner = !wallet && showAuthBanner
 
   const authenticateBannerImage = (
-    makeAuthenticateBannerImage(i18n.t('vote.question_image_alt'), isMobile ? 56 : 88)
+    makeAuthenticateBannerImage(i18n.t('vote.question_image_alt'), isMobile ? 56 : 72)
   )
+
   return (
     <>
+      {/* NOT AUTHENTICATED BANNER */}
+      {showNotAuthenticatedBanner &&
+        <>
+          <Row gutter='2xl'>
+            <Col xs={12}>
+              <ShadowBanner>
+                <Banner
+                  variant='gray'
+                  image={authenticateBannerImage}
+                  subtitleProps={
+                    {
+                      size: 'xs',
+                      children: isAnonymous ? ( voteStatus === VoteStatus.Ended ? i18n.t('vote.auth.if_you_voted') : ( voteStatus === VoteStatus.Active ? i18n.t('vote.auth.with_preregistration_active') : i18n.t('vote.auth.with_preregistration') )) : voteStatus === VoteStatus.Ended ? i18n.t('vote.auth.if_you_voted') : i18n.t('vote.auth.with_credentials')
+                    }
+                  }
+                  titleProps={{ size: 'sm' }}
+                  buttonProps={
+                    {
+                      variant: 'primary',
+                      children: needsPregistration ? i18n.t('vote.auth.preregister_button') : i18n.t('vote.auth.auth_button'),
+                      iconRight: isMobile ? undefined : { name: isAnonymous ? 'paper-check' : 'pencil', size: 24 },
+                      onClick: () => handleGotoAuth()
+                    }
+                  }
+                  twoRows={true}
+                >
+                  { needsPregistration ? i18n.t('vote.auth.not_preregistered') : i18n.t('vote.auth.not_authenticated')}
+                </Banner>
+              </ShadowBanner>
+            </Col>
+          </Row>
+          <br />
+        </>
+      }
+
+      {/* DISCONNECT BANNER */}
+      {showDisconnectBanner &&
+        <Col xs={12} hiddenMdAndUp disableFlex>
+          <Row>
+            <Col xs={12} disableFlex>
+              <ShadowBanner>
+                <Banner
+                  variant='outlined'
+                  titleProps={{ weight: 'regular', align: 'center'}}
+                  buttonProps={
+                    {
+                      variant: 'white',
+                      children: i18n.t('vote.auth.disconnect_button'),
+                      iconRight: isMobile ? undefined : { name: 'lightning-slash' },
+                      onClick: () => setDisconnectModalOpened(true)
+                    }
+                  }
+                >
+                  <CenteredText>{i18n.t('vote.you_are_autenticated')}</CenteredText>
+                </Banner>
+              </ShadowBanner>
+            </Col>
+          </Row>
+          <br />
+        </Col>
+      }
+
       <VotingCard>
         <CardImageHeader
           title={processInfo?.metadata?.title.default}
@@ -279,78 +328,111 @@ export const VotingPageView = () => {
           <Then>
             <BodyContainer >
               <Row gutter='2xl'>
-                {/* NOT AUTHENTICATED BANNER */}
-                {showNotAuthenticatedBanner &&
-                  <Col xs={12}>
-                    <Banner
-                      variant='primary'
-                      image={authenticateBannerImage}
-                      subtitleProps={
-                        {
-                          size: isMobile ? 'xs' : 'md',
-                          children: isAnonymous ? ( voteStatus === VoteStatus.Ended ? i18n.t('vote.auth.if_you_voted') : ( voteStatus === VoteStatus.Active ? i18n.t('vote.auth.with_preregistration_active') : i18n.t('vote.auth.with_preregistration') )) : voteStatus === VoteStatus.Ended ? i18n.t('vote.auth.if_you_voted') : i18n.t('vote.auth.with_credentials')
-                        }
-                      }
-                      titleProps={{ size: 'sm' }}
-                      buttonProps={
-                        {
-                          variant: 'primary',
-                          children: needsPregistration ? i18n.t('vote.auth.preregister_button') : i18n.t('vote.auth.auth_button'),
-                          iconRight: isMobile ? undefined : { name: isAnonymous ? 'paper-check' : 'pencil', size: 24 },
-                          onClick: () => handleGotoAuth()
-                        }
-                      }
-                    >
-
-                      { needsPregistration ? i18n.t('vote.auth.not_preregistered') : i18n.t('vote.auth.not_authenticated')}
-                    </Banner>
-                  </Col>
-                }
-                {/* DISCONNECT BANNER */}
-                {showDisconnectBanner &&
-                  <Col xs={12} disableFlex>
-                    <Banner
-                      variant='primary'
-                      titleProps={{ weight: 'regular' }}
-                      buttonProps={
-                        {
-                          variant: 'white',
-                          children: i18n.t('vote.auth.disconnect_button'),
-                          iconRight: isMobile ? undefined : { name: 'lightning-slash' },
-                          onClick: () => setDisconnectModalOpened(true)
-                        }
-                      }
-                    >
-                    {(anonymousFormData.length > 0) &&
-                      <>
-                      {i18n.t('vote.you_are_autenticated')}
-                      <b> {anonymousFormData}</b>
-                      </>
-                    }
-                    </Banner>
-                  </Col>
-                }
                 {/* DESCIRPTION */}
                 <Col xs={12} md={9}>
                   <VoteDescription />
+
+                  {/* INLINE QUESTIONS */}
+                  <If condition={isInlineVotingProcess && (status === VoteStatus.Upcoming || status === VoteStatus.Active) && userVoteStatus !== UserVoteStatus.Emitted}>
+                    <Then>
+                      <Row>
+                        <Col xs={12}>
+                          <Text variant="title" weight='regular'>{i18n.t("vote_detail.questions_card.title")}</Text>
+                          <QuestionsListInline
+                            ref={questionsInlineRef}
+                            results={choices}
+                            questions={processInfo?.metadata?.questions}
+                            voteWeight={votingType === VotingType.Weighted ? censusProof?.weight?.toString() : null}
+                            onSelect={votingMethods.onSelect}
+                            onFinishVote={handleFinishVote}
+                            onBackDescription={handleBackToDescription}
+                            authenticated={wallet ? true : false}
+                          />
+                        </Col>
+                      </Row>
+                    </Then>
+                  </If>
                 </Col>
+
                 {/* VOTE CARD */}
                 <StickyCol xs={12} md={3} hiddenSmAndDown disableFlex>
+
+                  {/* NOT AUTHENTICATED BANNER */}
+                  {false && showNotAuthenticatedBanner &&
+                    <>
+                      <Row gutter='2xl'>
+                        <Col xs={12}>
+                          <ShadowBanner>
+                            <Banner
+                              variant='gray'
+                              image={authenticateBannerImage}
+                              subtitleProps={
+                                {
+                                  size: 'xs',
+                                  children: isAnonymous ? ( voteStatus === VoteStatus.Ended ? i18n.t('vote.auth.if_you_voted') : ( voteStatus === VoteStatus.Active ? i18n.t('vote.auth.with_preregistration_active') : i18n.t('vote.auth.with_preregistration') )) : voteStatus === VoteStatus.Ended ? i18n.t('vote.auth.if_you_voted') : i18n.t('vote.auth.with_credentials')
+                                }
+                              }
+                              titleProps={{ size: 'sm' }}
+                              buttonProps={
+                                {
+                                  variant: 'primary',
+                                  children: needsPregistration ? i18n.t('vote.auth.preregister_button') : i18n.t('vote.auth.auth_button'),
+                                  iconRight: isMobile ? undefined : { name: isAnonymous ? 'paper-check' : 'pencil', size: 24 },
+                                  onClick: () => handleGotoAuth()
+                                }
+                              }
+                            >
+                              { needsPregistration ? i18n.t('vote.auth.not_preregistered') : i18n.t('vote.auth.not_authenticated')}
+                            </Banner>
+                          </ShadowBanner>
+                        </Col>
+                      </Row>
+                      <br />
+                    </>
+                  }
+
+                  {/* DISCONNECT BANNER */}
+                  {showDisconnectBanner &&
+                    <>
+                      <Row gutter='2xl'>
+                        <Col xs={12} disableFlex>
+                          <ShadowBanner>
+                            <Banner
+                              variant='primary'
+                              titleProps={{ weight: 'regular', size: 'sm', align: 'center'}}
+                              buttonProps={
+                                {
+                                  variant: 'white',
+                                  children: i18n.t('vote.auth.disconnect_button'),
+                                  iconRight: isMobile ? undefined : { name: 'lightning-slash' },
+                                  onClick: () => setDisconnectModalOpened(true)
+                                }
+                              }
+                            >
+                              <CenteredText>{i18n.t('vote.you_are_autenticated')}</CenteredText>
+                            </Banner>
+                          </ShadowBanner>
+                        </Col>
+                      </Row>
+                      <br />
+                    </>
+                  }
+
                   <VoteActionCard
                     userVoteStatus={userVoteStatus}
                     onClick={handleVoteNow}
                     onSeeResults={handleSeeResultsClick}
+                    isOnlineVoting={isInlineVotingProcess}
                   />
                 </StickyCol>
               </Row>
 
               <Spacer direction='vertical' size='3xl' />
 
-              {/* TODO: ADD if guest? */}
-
               {/* INLINE QUESTIONS */}
-              <If condition={isInlineVotingProcess}>
+              <If condition={isInlineVotingProcess && userVoteStatus !== UserVoteStatus.Emitted}>
                 <Then>
+                  <Text variant="title" weight='regular'>{i18n.t("vote_detail.questions_card.title")}</Text>
                   <QuestionsListInline
                     ref={questionsInlineRef}
                     results={choices}
@@ -359,6 +441,7 @@ export const VotingPageView = () => {
                     onSelect={votingMethods.onSelect}
                     onFinishVote={handleFinishVote}
                     onBackDescription={handleBackToDescription}
+                    authenticated={wallet ? true : false}
                   />
                 </Then>
               </If>
@@ -390,6 +473,8 @@ export const VotingPageView = () => {
                 </ExpandableCard>
               </Col>
             </Row>
+
+            <Spacer direction='vertical' size='2xl' />
           </Then>
           <Else>
             <QuestionsList
@@ -449,7 +534,6 @@ export const VotingPageView = () => {
           </>
         }
 
-
         {/* HAS VOTED CARD */}
         {hasVoted && (
           <VoteRegisteredLgContainer>
@@ -464,15 +548,20 @@ export const VotingPageView = () => {
         onVoted={handleOnVoted}
         onClose={handleBackToVoting}
       />
+
       <DisconnectModal
         hideCloseButton
         isOpen={disconnectModalOpened}
         onRequestClose={() => setDisconnectModalOpened(false)}
         onDisconnect={handleLogOut}
       />
+
+      <Spacer direction='vertical' size='5xl' />
+      <br />
     </>
   )
 }
+
 const makeAuthenticateBannerImage = (alt: string, size: number) => (
   <img
     src="/images/vote/authenticate-banner-image.svg"
@@ -481,6 +570,7 @@ const makeAuthenticateBannerImage = (alt: string, size: number) => (
     alt={alt}
   />
 )
+
 function anonymizeStrings(strings: string[]): string[] {
   let anonymizedStrings = []
   let iter = 0
@@ -508,10 +598,13 @@ function anonymizeStrings(strings: string[]): string[] {
   return anonymizedStrings
 }
 
+
 const VotingCard = styled(PageCard)`
   @media ${({ theme }) => theme.screenMax.mobileL} {
     margin: -20px -15px 0 -15px;
   }
+
+  box-shadow: 0px 3px 3px rgba(180,193,228,0.55);
 `
 
 const VoteRegisteredLgContainer = styled.div`
@@ -522,7 +615,6 @@ const VoteRegisteredLgContainer = styled.div`
   }
 `
 
-
 const BodyContainer = styled.div`
   position: relative;
 `
@@ -531,7 +623,6 @@ const StickyCol = styled(Col) <IColProps>`
   position: sticky;
   top: 20px;
 `
-
 
 const FixedContainerRow = styled(Row)`
   position: fixed;
@@ -546,15 +637,36 @@ const FixedContainerRow = styled(Row)`
     display: none;
   }
 `
+
 const VoteNowFixedContainer = styled(FixedContainerRow)`
   padding: 24px;
 `
+
 const MobileSpacer = styled.div`
-min-height: 72px;
-@media ${({ theme }) => theme.screenMin.tablet} {
-  display: none;
-}
+  min-height: 72px;
+  @media ${({ theme }) => theme.screenMin.tablet} {
+    display: none;
+  }
 `
-// const StyledTextButton = styled(TextButton)`
-//   margin: 4px;
-// `
+
+const MobileSpacer1 = styled.div`
+  min-height: 42px;
+  @media ${({ theme }) => theme.screenMin.tablet} {
+    display: none;
+  }
+`
+
+const ShadowBanner = styled.div`
+  box-shadow: 0px 4px 8px rgba(31,41,51,0.04),0px 0px 2px rgba(31,41,51,0.06),0px 0px 1px rgba(31,41,51,0.04) !important;
+  border-radius: 16px;
+  min-width:250px;
+`
+
+const CenteredText = styled.p`
+  min-width: 100%;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+  color: #666 !important;
+  min-width: 260px;
+`

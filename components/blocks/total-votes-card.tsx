@@ -19,7 +19,7 @@ export const TotalVotesCard = () => {
     <Row gutter={isMobile ? 'sm' : 'md'} align="center" justify={isMobile ? 'center' : 'start'}>
       <Col>
         <Tag fontWeight="regular" size="large">
-          {i18n.t('vote.total_votes_submited')}
+          {i18n.t('vote.total_votes_submited')}: <strong>{totalVotes}</strong>
         </Tag>
       </Col>
       <Col xs={12} md={8}>
