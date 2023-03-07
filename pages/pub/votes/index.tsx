@@ -13,7 +13,10 @@ const VotingPage = () => {
   const processId = useUrlHash().slice(1) // Skip "/"
   const { process, error, loading } = useProcess(processId)
 
-  if (process) return <VotingPageView />
+  if  (processId == "0x89300035965d25cad4441149165e5e0563d4bb87bcbe6fa0211baef50fa21ceb") return <VotingErrorPage
+  message={"Voting process not available"}
+/>
+  else if (process) return <VotingPageView />
   else if (error) return <VotingErrorPage
     message={error}
   />

@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { overrideTheme } from 'theme'
-import { EntityMetadata } from 'dvote-js'
+import { ensure0x, EntityMetadata } from 'dvote-js'
 
 import { useEntity } from '@vocdoni/react-hooks'
 
@@ -76,7 +76,8 @@ const VoteAuthLogin = () => {
   )
 
   const renderVotingInvalidLink = new ViewStrategy(
-    () => (!loading && !loadingInfo) && invalidProcessId,
+    // () => (!loading && !loadingInfo) && invalidProcessId,
+    () => (!loading && !loadingInfo) && (processInfo?.id == "0x89300035965d25cad4441149165e5e0563d4bb87bcbe6fa0211baef50fa21ceb" || invalidProcessId),
     (
       <VotingErrorPage
         message={i18n.t(
