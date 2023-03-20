@@ -144,7 +144,7 @@ export const VotingPageView = () => {
       return setUserVoteStatus(UserVoteStatus.Guest)
     }
 
-    if(isInlineVotingProcess) {
+    if (isInlineVotingProcess) {
       return setUserVoteStatus(UserVoteStatus.InProgress)
     }
 
@@ -193,7 +193,7 @@ export const VotingPageView = () => {
     if (userVoteStatus === UserVoteStatus.Guest) {
       handleGotoAuth()
     }
-    if(isInlineVotingProcess){
+    if (isInlineVotingProcess) {
       setTimeout(() => {
         questionsInlineRef.current.scrollIntoView({ block: 'start', behavior: 'smooth' })
       }, 200)
@@ -288,7 +288,7 @@ export const VotingPageView = () => {
                       subtitleProps={
                         {
                           size: isMobile ? 'xs' : 'md',
-                          children: isAnonymous ? ( voteStatus === VoteStatus.Ended ? i18n.t('vote.auth.if_you_voted') : ( voteStatus === VoteStatus.Active ? i18n.t('vote.auth.with_preregistration_active') : i18n.t('vote.auth.with_preregistration') )) : voteStatus === VoteStatus.Ended ? i18n.t('vote.auth.if_you_voted') : i18n.t('vote.auth.with_credentials')
+                          children: isAnonymous ? (voteStatus === VoteStatus.Ended ? i18n.t('vote.auth.if_you_voted') : (voteStatus === VoteStatus.Active ? i18n.t('vote.auth.with_preregistration_active') : i18n.t('vote.auth.with_preregistration'))) : voteStatus === VoteStatus.Ended ? i18n.t('vote.auth.if_you_voted') : i18n.t('vote.auth.with_credentials')
                         }
                       }
                       titleProps={{ size: 'sm' }}
@@ -302,7 +302,7 @@ export const VotingPageView = () => {
                       }
                     >
 
-                      { needsPregistration ? i18n.t('vote.auth.not_preregistered') : i18n.t('vote.auth.not_authenticated')}
+                      {needsPregistration ? i18n.t('vote.auth.not_preregistered') : i18n.t('vote.auth.not_authenticated')}
                     </Banner>
                   </Col>
                 }
@@ -321,12 +321,12 @@ export const VotingPageView = () => {
                         }
                       }
                     >
-                    {(anonymousFormData.length > 0) &&
-                      <>
-                      {i18n.t('vote.you_are_autenticated')}
-                      <b> {anonymousFormData}</b>
-                      </>
-                    }
+                      {(anonymousFormData.length > 0) &&
+                        <>
+                          {i18n.t('vote.you_are_autenticated')}
+                          <b> {anonymousFormData}</b>
+                        </>
+                      }
                     </Banner>
                   </Col>
                 }
@@ -393,6 +393,8 @@ export const VotingPageView = () => {
           </Then>
           <Else>
             <QuestionsList
+              hasVideo={!!processInfo?.metadata?.media.streamUri}
+              videoUrl={!!processInfo?.metadata?.media.streamUri ? processInfo?.metadata?.media.streamUri : null}
               results={choices}
               questions={processInfo?.metadata?.questions}
               voteWeight={votingType === VotingType.Weighted ? censusProof?.weight?.toString() : null}
@@ -427,7 +429,7 @@ export const VotingPageView = () => {
                   {i18n.t('vote.vote_will_close')}&nbsp;<b>{endingString}</b>
                 </Text>
               </Col>
-              { !isInlineVotingProcess &&
+              {!isInlineVotingProcess &&
                 <Col xs={12}>
                   <Button variant='primary' size='lg' onClick={handleVoteNow}>
                     {i18n.t("vote.vote_now")}

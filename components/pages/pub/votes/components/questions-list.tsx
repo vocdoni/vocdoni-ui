@@ -12,8 +12,12 @@ import { QuestionCard } from './question-card'
 import { colors } from '@theme/colors'
 import { Indexed } from '@ethersproject/abi'
 import { VoteWeightCard } from './vote-weight-card'
+import { Col, Row } from '@components/elements-v2'
+import { SectionText, TextSize } from '@components/elements/text'
 
 interface IQuesListProps {
+  hasVideo: boolean
+  videoUrl?: string
   questions: Question[]
   results: number[]
   voteWeight?: string
@@ -52,6 +56,29 @@ export const QuestionsList = (props: IQuesListProps) => {
 
   return (
     <QuestionsContainer>
+      {props.hasVideo && (
+          <Col xs={12}>
+          {/* INSIDE ROW TO ADJUST GUTTER BETWEEN TITLE AND VIDEO*/}
+          <Row gutter='md'>
+            <Col xs={12}>
+              <SectionText size={TextSize.Big} color={colors.blueText}>
+                {i18n.t('vote.live_stream')}
+              </SectionText>
+            </Col>
+            <Col xs={12}>
+              <PlayerFixedContainer>
+                <PlayerContainer>
+                  <ReactPlayer
+                    url={props.videoUrl}
+                    width="100%"
+                    height="100%"
+                  />
+                </PlayerContainer>
+              </PlayerFixedContainer>
+            </Col>
+          </Row>
+        </Col>
+        )}
       {props.voteWeight && (
         <WeightedBannerContainer>
           <VoteWeightCard voteWeight={props.voteWeight} />
@@ -197,4 +224,26 @@ const QuestionLi = styled.li<{ active: boolean }>`
   left: 0;
   right: 0;
   transition: all 0.3s ease-in-out;
+`
+
+const PlayerFixedContainer = styled.div`
+  z-index: 30;
+  transition: all 0.4s ease-in-out;
+  top: 0px;
+  height: 360px;
+  @media ${({ theme }) => theme.screenMax.tabletL} {
+    height: 300px;
+  }
+  @media ${({ theme }) => theme.screenMax.mobileL} {
+    height: 160px;
+  }
+  width: 100%;
+`
+
+const PlayerContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 0 auto;
 `
