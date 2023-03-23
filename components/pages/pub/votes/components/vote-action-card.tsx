@@ -44,8 +44,8 @@ export const VoteActionCard = ({
 
   // const totalVotes = results?.totalVotes || 0
   const getTitleFromState = (status: VoteStatus) => {
-    const endingString = dateDiffStr(DateDiffType.Countdown, endDate)
-    const startingString = dateDiffStr(DateDiffType.Countdown, startDate)
+    const endingString = dateDiffStr(DateDiffType.CountdownV2, endDate)
+    const startingString = dateDiffStr(DateDiffType.CountdownV2, startDate)
     if (userVoteStatus === UserVoteStatus.Emitted) {
       return (
         <Text bold large>
