@@ -17,6 +17,7 @@ const LayoutContainer = styled.div<{isHomePage?: boolean}>`
   margin-left: auto;
   margin-right: auto;
   width:100%;
+  margin-top: -72px;
 
   @media ${({ theme }) => theme.screenMin.tablet} {
     ${({isHomePage, theme}) => isHomePage? 'padding: 110px 0;': `padding: 110px ${theme.margins.desktop.horizontal} 120px;`}

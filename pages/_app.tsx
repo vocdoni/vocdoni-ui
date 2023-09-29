@@ -20,6 +20,7 @@ import { DefaultProviders } from '@components/pages/app/providers/default-provid
 import { Helpscout } from '@components/pages/app/external-dependencies/helpscout'
 import { Ruddlestack } from '@components/pages/app/external-dependencies/ruddlestack'
 import { CookiesBanner } from '@components/blocks/cookies-banner'
+import { DeprecatedBanner } from '@components/blocks/deprecated-banner'
 import { useTranslation } from 'react-i18next'
 
 type NextAppProps = AppInitialProps & {
@@ -43,6 +44,7 @@ const VocdoniApp: FC<NextAppProps> = ({ Component, pageProps }) => {
     <RecoilRoot>
       <ThemeContextProvider>
         <Providers>
+          <DeprecatedBanner />
           <FixedGlobalStyle />
 
           <Head>
