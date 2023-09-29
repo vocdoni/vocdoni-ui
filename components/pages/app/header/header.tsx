@@ -125,8 +125,7 @@ const HeaderContainer = styled.div`
   width: 100%;
   z-index: 100;
   min-height: 50px;
-  position: fixed;
-  top: 0;
+  top: 50px;
   padding: 10px 0 10px;
 
   backdrop-filter: blur(10px);
